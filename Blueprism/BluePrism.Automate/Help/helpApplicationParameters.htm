@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>Application Parameters</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">Application Modeller</h1>
+		<h2>Application Parameters</h2>
+	</div>
+
+	<h3 id="intro">Introduction</h3>
+	<p>When creating a business object, you are required to supply
+		information about your target application using the <a
+		href="frmApplicationDefinitionCreate.htm">application definition
+		wizard</a>. This information can be changed at a later date
+		using the <a href="frmIntegrationAssistant.htm">Application
+		Modeller</a>.
+	</p>
+	<p>The following paragraphs describe the information requested,
+		explaining its purpose and nature.</p>
+	
+	<h3 id="applications">Windows, Java and Browser Applications</h3>
+	
+	<dl class="listplease bulleted">
+		<dt id="ExecutablePath">Executable Path</dt>
+		<dd>The location of the target application on disk is required
+			so that Blue Prism can launch the target application
+			executable file. In the case of a windows or a browser
+			application, this should be a file ending with the
+			<code>exe</code> file extension; in the case of a java
+			application, it should be a file ending with the 
+			<code>jar</code> extension.</dd>
+			<dd>If the target application is a Windows 10 store app then
+			the application's name should be entered within angled brackets, for
+			example <code>&lt;Microsoft.WindowsCalculator&gt;</code>. A list of
+			installed store app names can be obtained using the Powershell command
+			<code>Get-AppxPackage -AllUsers | Select Name</code>.</dd>
+	
+		<dt id="CommandLineParams">Command Line Parameters</dt>
+		<dd>Some applications allow parameters to be supplied via the
+			command line in order to influence their behaviour. You may
+			specify any such parameters here by typing them exactly as
+			you would at the windows command prompt. Remember to enclose
+			file paths and web addresses in quotation marks if they
+			contain spaces, as you would at the windows command prompt.
+		</dd>
+
+		<dt id="WorkingDirectory">Working Directory</dt>
+		<dd>Some applications depend on a working directory value to be set.
+			You may specify a working directory here by typing one exactly as
+			you would at the windows command prompt. Remember to enclose
+			the working directory in quotation marks if it contains spaces,
+			as you would at the windows command prompt.
+		</dd>
+		
+		<dt id="NonInvasive">Restrict to non-invasive automation
+			techniques</dt>
+		<dd>This enables or disables <a href="helpHooking.htm">hooking
+			technology</a> - an invasive technique for interacting with
+			target applications. You should only select this option if
+			you have good reason to; only use this option if ordinary
+			windows techniques do not prove to be useful. See the <a
+			href="helpHooking.htm#WhenToUseHooking">hooking help page
+			</a> for more information.</dd>
+		
+		<dt id="WindowTitle">Window Title</dt>
+		<dd>
+			This parameter is used in conjunction with the <a
+			href="#ProcessName">ProcessName</a> parameter when attaching
+			to an application (rather than launching it directly from
+			its executable). This value may be left blank, but at least
+			one of <a href="#ProcessName">ProcessName</a> and Window
+			Title must be supplied.</dd>
+		<dd>When attaching to an application, Blue Prism needs a
+			reliable means if identifying the application of interest.
+			One tactic is to supply a window title. Blue Prism will look
+			for an application with a window having the specified name
+			and use that application (if a unique such application is
+			found).</dd>
+		<dd>The supplied value may contain the <a
+			href="helpWildcardsAndRegex.htm">wildcards</a>:-
+			<code>*</code>, <code>?</code>, <code>#</code>.
+			For example <code>&quot;Microsoft Word*&quot;</code>,
+			or <code>&quot;Accounts Manager plus - Customer ID 
+			#####&quot;</code>.
+		</dd>
+		
+		<dt id="ProcessName">Process Name</dt>
+		<dd>This parameter is used in conjunction with the <a
+			href="#WindowTitle">WindowTitle</a> parameter when attaching
+			to an application (rather than launching it directly from
+			its executable). This value may be left blank, but at least
+			one of <a href="#WindowTitle">WindowTitle</a> and Process
+			Name must be supplied.</dd>
+		<dd>
+			When attaching to an application, Blue Prism needs a
+			reliable means if identifying the application of interest.
+			One tactic is to supply the name of the windows process in
+			which the application is running. Blue Prism will find
+			processes with a name matching the supplied pattern (see
+			wildcards below) and use the application running in
+			that process(if a unique such process is found).
+		</dd>
+		<dd>The supplied value may contain the <a
+			href="helpWildcardsAndRegex.htm">wildcards</a>:-
+			<code>*</code>, <code>?</code>, <code>#</code>.
+			For example <code>&quot;Microsoft Word*&quot;</code>,
+			or <code>&quot;Accounts Manager plus - Customer ID 
+			#####&quot;</code>.
+		</dd>
+	</dl>
+	
+	<h3 id="ProcessMode">Application Manager Mode</h3>
+	<p>Application Manager can run in several different modes to allow
+		separation of the target interface process from Blue Prism
+		itself. This can be useful, for example, if Blue Prism is
+		running as a 32 bit process and the target application is a
+		64 bit process, or vice versa.
+	</p>
+	<p>The available modes are:</p>
+	<dl class="listplease bulleted">
+		<dt>Embedded (default)</dt>
+		<dd>This is the default mode, and was the only available mode
+			of operation prior to Blue Prism version 4.2. In this
+			mode, Application Manager runs in the same process as
+			Blue Prism itself. There is no separation.
+		</dd>
+		<dt>External, 32 bit mode</dt>
+		<dd>Application Manager runs in a separate process when
+			interfacing with the target application. The Application
+			Manager process is always 32 bit.
+		</dd>
+		<dt>External, 64 bit mode</dt>
+		<dd>Application Manager runs in a separate process when
+			interfacing with the target application. The Application
+			Manager process is always 64 bit.
+		</dd>
+		<dt>External, OS address size</dt>
+		<dd>Application Manager runs in a separate process when
+			interfacing with the target application. The Application
+			Manager process matches the operation system address size.
+			e.g. on 64 bit Windows, it will be a 64 bit process.
+		</dd>
+		<dt>External, Blue Prism address size</dt>
+		<dd>Application Manager runs in a separate process when
+			interfacing with the target application. The Application
+			Manager process matches Blue Prism's address size. e.g. if
+			Blue Prism is running as a 64 bit process, the Application
+			Manager process will also be 64 bit.
+		</dd>
+	</dl>
+	<h3 id="ExternalProcessTimeout">Application Timeout</h3>
+	<p> This parameter determines how long Blue Prism waits for the target 
+		application to respond before throwing an exception. 
+		The timeout is applied to all application manager actions in 
+		Read, Write and Navigate stages, and can be used to prevent the 
+		Blue Prism process from becoming blocked indefinitely if the target 
+		application becomes unresponsive.
+	</p>
+	<p>
+		A timeout value of 0 is interpreted as no timeout. This is the default
+		value.
+	<p>
+	<p>
+		This parameter only applies if the 
+		<a href="#ProcessMode">Application Manager Mode</a> is set
+		to one of the external modes. 
+	</p>
+	<h3 id="options">Options</h3>
+	<p>This parameter allows additional options to be set which modify
+		the behaviour of the interface with the target application or
+		enable special features. Normally it should be left empty,
+		unless these specific features are required. To enable features,
+		add them in a comma-separated list as required.
+	</p>
+	<p>Options currently defined are:</p>
+	<dl class="listplease bulleted">
+		<dt>descendtree</dt>
+		<dd>For Java applications, causes element searching to be done
+			by descending the tree of elements within the target
+			application. The default (i.e. when this option is not set)
+			is to directly retrieve a list of visible Java elements for
+			each Java-associated window in the target application.
+			Descending the tree is usually slower, but some target
+			applications and JREs can crash using the default method.
+		</dd>
+		<dt>ignorenotshowing</dt>
+		<dd>For Java applications, when descending the tree, ignore
+			branches of the tree below elements which are reported to be
+			not showing. This may result in a significant performance
+            improvement.</dd>
+
+    <dt>nodisconnect</dt>
+    <dd>
+        For terminal emulators, when enabled this option will result in the underlying
+        terminal emulator API not being closed down when disconnecting, terminating or detaching
+        from the emulator. Dependant to the API specifications, its usage may lead to memory
+        leaks (both in Blue Prism and the Terminal Emulator software) and other associated
+        problems such as crashes (known to happen with Attachmate). However, the resulting
+        behaviour has been found to be desirable and free from obvious problems with some
+        emulators. This option should be used with caution, and tested before use within
+        a production environment.
+    </dd>
+	</dl>
+		
+	<h3 id="browser">Browser Applications</h3>
+	<dl class="listplease bulleted">
+		<dt id="UseJavaInBrowser">Enable Java Integration Techniques
+		</dt>
+		<dd>Enabling this option allows you to use java integration
+			techniques for interacting with java applications within the
+			web browser. These techniques are the same ones used for
+			interacting with stand-alone java applications.</dd>
+		<dd>Please note that this feature is subject to <a
+			href="licence.html">licensing restrictions</a>, meaning
+			that you will have to purchase a licence which permits you
+			to use it.</dd>
+	</dl>
+
+	<h3 id="mainframe">Mainframe Applications</h3>
+	<dl class="listplease bulleted">
+	
+		<dt id="SessionFile">Session File</dt>
+		<dd>For mainframe applications that use a session file, you must
+			supply it here. The session file typically contains
+			information about the connection (eg the target hostname
+			and port number), and user preferences. Examples include
+			<code>hep</code> files for a Hummingbird HostExplorer&trade;
+			session and <code>zms</code> files for Zephyr
+			Passport&trade; session.</dd>
+			
+		<dt id="SessionID">Session Identifier</dt>
+		<dd>Mainframe applications which do not use a session file
+			usually use a session identifier. This consists of a single
+			letter in the range A..Z. The details of the connection are
+			configured within the mainframe application itself, meaning
+			that the mainframe application will look up the connection
+			information based on the identifier. Blue Prism will pass
+			this identifier onto the mainframe application when it is
+			launched.</dd>
+		<dd>The mechanism for specifying the connection information (ie
+			setting up the session identifiers) varies from vendor to
+			vendor. Please consult your mainframe application
+			documentation for details on how to complete this task.</dd>
+			
+		<dt id="WaitTimeout">Wait Timeout</dt>
+		<dd>Specifies the timeout value (in seconds) that should be used
+			in mainframe wait operations. Once this interval has elapsed
+			the wait operation will be cancelled.</dd>
+		<dd>This is not related to Blue Prism <a
+			href="frmStagePropertiesWait.htm">wait stages</a>, but
+			rather the internal wait operations carried out in the
+			mainframe emulator against the emulator's own API. Such
+			waits are induced by Blue Prism after each read or write -
+			Blue Prism waits for the host to become idle once again
+			before continuing. This eliminates the need for the user to
+			use a wait stage after each and every input/output operation
+		</dd>
+		<dd>If a value of zero is specified then a default value will be
+			selected by Blue Prism. Thus the minimum value is 1 second.
+		</dd>
+		
+		<dt id="WaitSleepTime">Wait Sleep Time</dt>
+		<dd>Specifies the time (in milliseconds) for which Blue Prism
+			should sleep whilst waiting for the mainframe emulator to
+			become idle. Blue Prism repeatedly checks the status of the
+			emulator whilst waiting for it to become idle. Between
+			checks Blue Prism will sleep for the specified period.</dd>
+		<dd>A high value will add to the load of the mainframe emulator
+			thus reducing performance somewhat, whereas a low value will
+			allow Blue Prism to proceed at an earlier opportunity
+			(because Blue Prism detects the readiness of the emulator at
+			an earlier time), thus increasing performance.
+			You should choose a high value to begin with, and gradually
+			reduce it until there is no further performance gain from an
+			additional reduction.</dd>
+		<dd>This is not related to Blue Prism <a
+			href="frmStagePropertiesWait.htm">wait stages</a>, but
+			rather the internal wait operations carried out in the
+			mainframe emulator against the emulator's own API. Such
+			waits are induced by Blue Prism after each read or write -
+			Blue Prism waits for the host to become idle once again
+			before continuing. This eliminates the need for the user to
+			use a wait stage after each and every input/output operation
+		</dd>
+		<dd>If a value of zero is specified then a default value will be
+			selected by Blue Prism. Thus the minimum value is 1
+			millisecond.</dd>
+			
+		<dt id="AttachmateVariant">Attachmate Emulator Variant</dt>
+		<dd>Various types of Attachmate terminal emulator are available.
+			Please choose the variant that matches your specific type
+			most closely.</dd>
+
+		<dt id="DLLName">DLL Name</dt>
+		<dd>When using Generic HLLAPI support this is the name of the
+		HLLAPI dll to use. To find the correct name for your terminal
+		emulator look in the Program Files directory for the
+		folder name relating to your terminal emulator. The folder will
+		contain a dll, but the required DLL has no standard name. It
+		may include the text "HLL", "API" and may end with "32".
+		Some examples are "EHLAPI32.DLL", "PCSHLL32.DLL",
+		"HLLAPI.DLL", "HA7EHLL.DLL", "HLLAPI32.DLL"</dd>
+
+		<dt id="DLLEntryPoint">DLL Entry Point</dt>
+		<dd>When using Generic HLLAPI support this is the name of the
+		entry point in the HLLAPI dll. This will nearly always need to
+		be set as "hllapi", but in the rare case that dosen't work try
+		"WinHLLAPI" instead. Other entry point names may work if this
+		information is known or provided by Blueprism support.</dd>
+	</dl>
+	
+</body>
+</html>

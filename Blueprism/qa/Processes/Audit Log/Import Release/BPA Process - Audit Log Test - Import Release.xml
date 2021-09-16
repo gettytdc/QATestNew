@@ -1,0 +1,634 @@
+﻿<process name="Audit Log Test - Import Release" version="1.0" bpversion="6.8.0.21720" narrative="Testing audit log for importing a release file." byrefcollection="true" preferredid="3184e8b7-ee32-4f94-93e7-5825c5c66a98">
+  <view>
+    <camerax>-1</camerax>
+    <cameray>1022</cameray>
+    <zoom version="2">0.625</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="f86a702d-200e-4566-bedb-0a29199a499f" type="Normal" published="False">
+    <name>Compare Collections</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="ce4db061-078c-48c5-96e9-75de35dcd846" type="Normal" published="False">
+    <name>Wait N Seconds</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="3b7ae1ef-4853-4cca-b1a0-20062deec8f6" type="Normal" published="False">
+    <name>Get Audit Log</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="3bca760b-65ed-4591-80f5-8fd558ca5f6b" type="Normal" published="False">
+    <name>Global Variables</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="8b137f55-37f5-4149-bfe9-8b36f2e8b3c2" name="Start" type="Start">
+    <display x="-15" y="-195" w="90" h="30" />
+    <onsuccess>30b30fac-ecfd-44c9-8b39-c2bc625e9cd3</onsuccess>
+  </stage>
+  <stage stageid="e99583ff-d1a6-4e1b-804d-b4628aa1565f" name="Stage1" type="ProcessInfo">
+    <display x="-210" y="-195" w="150" h="90" />
+  </stage>
+  <stage stageid="30cbff10-f95c-456e-bc86-eb82fe8fc98d" name="Local Variables" type="Block">
+    <display x="-285" y="-135" w="150" h="180" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="30b30fac-ecfd-44c9-8b39-c2bc625e9cd3" name="Get Username" type="Calculation">
+    <display x="-15" y="-135" w="90" h="30" />
+    <onsuccess>a2913758-84c7-4a72-a759-62e0efab2178</onsuccess>
+    <calculation expression="GetUserName()" stage="Current UserName" />
+  </stage>
+  <stage stageid="a2913758-84c7-4a72-a759-62e0efab2178" name="Get UTC Time" type="Calculation">
+    <display x="-15" y="-75" w="90" h="30" />
+    <onsuccess>188da37c-ff99-4b78-8610-2519eff5bc0c</onsuccess>
+    <calculation expression="UTCTime()" stage="Current UTC Time" />
+  </stage>
+  <stage stageid="90e7f12b-f9f0-4ae3-a18e-4903c891c6f8" name="Expected Audit Log" type="Collection">
+    <display x="-210" y="-105" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Narrative" type="text" />
+      <field name="Comments" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="473d3e53-4f46-4855-b49b-79b65cfcbc9b" name="Counter" type="Data">
+    <display x="-210" y="-75" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b62e9411-7cb1-44af-a4a1-43b66a4640b4" name="Compare Collections" type="SubSheetInfo">
+    <subsheetid>f86a702d-200e-4566-bedb-0a29199a499f</subsheetid>
+    <narrative>Compares values recorded in Audit Log against values that are EXPECTED in Audit Log.</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="09ae8535-775a-4e52-83d3-e31bb4d5659d" name="Start" type="Start">
+    <subsheetid>f86a702d-200e-4566-bedb-0a29199a499f</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <display x="15" y="-105" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="Expected Audit" narrative="Expected Audit Log" stage="Expected Audit Log" />
+    </inputs>
+    <onsuccess>d18aede0-b989-46e0-9c6b-d8ab2d3afad5</onsuccess>
+  </stage>
+  <stage stageid="d8268213-41e8-4a62-a14c-44d2c76474f6" name="End" type="End">
+    <subsheetid>f86a702d-200e-4566-bedb-0a29199a499f</subsheetid>
+    <display x="15" y="315" w="90" h="30" />
+  </stage>
+  <stage stageid="7ba24cad-8723-40a9-9cb8-f80a5aae030c" name="Expected Audit Log" type="Collection">
+    <subsheetid>f86a702d-200e-4566-bedb-0a29199a499f</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Narrative" type="text" />
+      <field name="Comments" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="25d2fccc-8fad-4abc-b8bd-ac94fe6765a8" name="Audit Log Table" type="LoopStart">
+    <subsheetid>f86a702d-200e-4566-bedb-0a29199a499f</subsheetid>
+    <display x="15" y="15" w="90" h="30" />
+    <onsuccess>585aeb57-8a7d-43c9-81dd-95732cd2bae3</onsuccess>
+    <groupid>8def1a44-9d46-4941-9918-03ccf6b4f348</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Audit Log Table</loopdata>
+  </stage>
+  <stage stageid="6cec4481-b7af-40c5-a36c-00871b5ec834" name="Audit Log Table" type="LoopEnd">
+    <subsheetid>f86a702d-200e-4566-bedb-0a29199a499f</subsheetid>
+    <display x="15" y="195" w="90" h="30" />
+    <onsuccess>674112fc-388f-438f-a44a-7c1274d757a4</onsuccess>
+    <groupid>8def1a44-9d46-4941-9918-03ccf6b4f348</groupid>
+  </stage>
+  <stage stageid="585aeb57-8a7d-43c9-81dd-95732cd2bae3" name="Correct Time?" type="Decision">
+    <subsheetid>f86a702d-200e-4566-bedb-0a29199a499f</subsheetid>
+    <display x="15" y="75" w="90" h="30" />
+    <decision expression="ToTime([Audit Log Table.Time (Local)]) &gt; [Current UTC Time]" />
+    <ontrue>10a73698-743d-4602-8526-8a49e1d512fd</ontrue>
+    <onfalse>f44d99de-afd2-48f1-8396-c1182295c900</onfalse>
+  </stage>
+  <stage stageid="d18aede0-b989-46e0-9c6b-d8ab2d3afad5" name="Expected Audit Log" type="LoopStart">
+    <subsheetid>f86a702d-200e-4566-bedb-0a29199a499f</subsheetid>
+    <display x="15" y="-45" w="90" h="30" />
+    <onsuccess>25d2fccc-8fad-4abc-b8bd-ac94fe6765a8</onsuccess>
+    <groupid>f6512af7-ebcc-4355-8e99-391ef2e83c5d</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Audit Log</loopdata>
+  </stage>
+  <stage stageid="674112fc-388f-438f-a44a-7c1274d757a4" name="Expected Audit Log" type="LoopEnd">
+    <subsheetid>f86a702d-200e-4566-bedb-0a29199a499f</subsheetid>
+    <display x="15" y="255" w="90" h="30" />
+    <onsuccess>d8268213-41e8-4a62-a14c-44d2c76474f6</onsuccess>
+    <groupid>f6512af7-ebcc-4355-8e99-391ef2e83c5d</groupid>
+  </stage>
+  <stage stageid="10a73698-743d-4602-8526-8a49e1d512fd" name="Found Match?" type="Decision">
+    <subsheetid>f86a702d-200e-4566-bedb-0a29199a499f</subsheetid>
+    <display x="15" y="135" w="90" h="30" />
+    <decision expression="(InStr([Audit Log Table.Comments], [Expected Audit Log.Comments]) &gt; 0&#xA;AND&#xA;InStr([Audit Log Table.Narrative], [Expected Audit Log.Narrative]) &gt; 0)&#xA;OR&#xA;([Audit Log Table.Comments] = [Expected Audit Log.Comments]&#xA;AND&#xA;InStr([Audit Log Table.Narrative], [Expected Audit Log.Narrative]) &gt; 0)" />
+    <ontrue>ded6bc91-c6e9-452b-9822-99819e81771c</ontrue>
+    <onfalse>6cec4481-b7af-40c5-a36c-00871b5ec834</onfalse>
+  </stage>
+  <stage stageid="f44d99de-afd2-48f1-8396-c1182295c900" name="Result Not Found" type="Exception">
+    <subsheetid>f86a702d-200e-4566-bedb-0a29199a499f</subsheetid>
+    <display x="135" y="75" w="90" h="30" />
+    <exception type="System Exception" detail="&quot;Following Record was not found in Audit log: Narrative containing &lt;&quot; &amp; [Expected Audit Log.Narrative] &amp; &quot;&gt; and Comment containing &lt;&quot; &amp; [Expected Audit Log.Comments] &amp; &quot;&gt;&quot;" />
+  </stage>
+  <stage stageid="ded6bc91-c6e9-452b-9822-99819e81771c" name="Anchor1" type="Anchor">
+    <subsheetid>f86a702d-200e-4566-bedb-0a29199a499f</subsheetid>
+    <display x="90" y="135" w="10" h="10" />
+    <onsuccess>dc7a2f34-308a-4342-a0fc-a32276e3e359</onsuccess>
+  </stage>
+  <stage stageid="dc7a2f34-308a-4342-a0fc-a32276e3e359" name="Anchor2" type="Anchor">
+    <subsheetid>f86a702d-200e-4566-bedb-0a29199a499f</subsheetid>
+    <display x="90" y="255" w="10" h="10" />
+    <onsuccess>674112fc-388f-438f-a44a-7c1274d757a4</onsuccess>
+  </stage>
+  <stage stageid="596eea18-ce22-4106-ac5a-7f7bc13c892f" name="Wait N Seconds" type="SubSheetInfo">
+    <subsheetid>ce4db061-078c-48c5-96e9-75de35dcd846</subsheetid>
+    <narrative>Waits N number of seconds.</narrative>
+    <display x="-150" y="-60" w="150" h="90" />
+  </stage>
+  <stage stageid="2dbb10fe-d81c-419c-96c3-83f7b9a8dd1b" name="Start" type="Start">
+    <subsheetid>ce4db061-078c-48c5-96e9-75de35dcd846</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <display x="15" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Seconds to Wait" narrative="Number of Seconds toWait." stage="Seconds to Wait" />
+    </inputs>
+    <onsuccess>444576a7-73a2-42de-af00-c27dda868bcc</onsuccess>
+  </stage>
+  <stage stageid="b140c87d-c9a3-4745-941f-fa9f6d5b6c57" name="End" type="End">
+    <subsheetid>ce4db061-078c-48c5-96e9-75de35dcd846</subsheetid>
+    <display x="15" y="120" w="90" h="30" />
+  </stage>
+  <stage stageid="444576a7-73a2-42de-af00-c27dda868bcc" name="Get Now" type="Calculation">
+    <subsheetid>ce4db061-078c-48c5-96e9-75de35dcd846</subsheetid>
+    <display x="15" y="-30" w="90" h="30" />
+    <onsuccess>ec21935f-a956-4be6-bf2c-43a0d471a098</onsuccess>
+    <calculation expression="Now()" stage="Current Time" />
+  </stage>
+  <stage stageid="d67e15bd-6db8-459a-8983-db1be0cd625a" name="Current Time" type="Data">
+    <subsheetid>ce4db061-078c-48c5-96e9-75de35dcd846</subsheetid>
+    <display x="-150" y="105" w="120" h="30" />
+    <datatype>datetime</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7c46b5ef-7f40-4cb4-a42f-6a754f241a1a" name="Time Passed?" type="Decision">
+    <subsheetid>ce4db061-078c-48c5-96e9-75de35dcd846</subsheetid>
+    <display x="15" y="60" w="90" h="30" />
+    <decision expression="Now () &gt; [Current Time] + MakeTimeSpan(0, 0, 0, [Seconds to Wait])" />
+    <ontrue>b140c87d-c9a3-4745-941f-fa9f6d5b6c57</ontrue>
+    <onfalse>329c8862-1baa-4942-b358-ca7b79cce164</onfalse>
+  </stage>
+  <stage stageid="ec21935f-a956-4be6-bf2c-43a0d471a098" name="Anchor6" type="Anchor">
+    <subsheetid>ce4db061-078c-48c5-96e9-75de35dcd846</subsheetid>
+    <display x="15" y="15" w="10" h="10" />
+    <onsuccess>7c46b5ef-7f40-4cb4-a42f-6a754f241a1a</onsuccess>
+  </stage>
+  <stage stageid="329c8862-1baa-4942-b358-ca7b79cce164" name="Anchor7" type="Anchor">
+    <subsheetid>ce4db061-078c-48c5-96e9-75de35dcd846</subsheetid>
+    <display x="90" y="60" w="10" h="10" />
+    <onsuccess>c4e39bf8-3d34-4d2c-b389-cb57ab8e6960</onsuccess>
+  </stage>
+  <stage stageid="c4e39bf8-3d34-4d2c-b389-cb57ab8e6960" name="Anchor8" type="Anchor">
+    <subsheetid>ce4db061-078c-48c5-96e9-75de35dcd846</subsheetid>
+    <display x="90" y="15" w="10" h="10" />
+    <onsuccess>ec21935f-a956-4be6-bf2c-43a0d471a098</onsuccess>
+  </stage>
+  <stage stageid="057fb3b5-f975-4759-954c-992380322294" name="Local Variables" type="Block">
+    <subsheetid>ce4db061-078c-48c5-96e9-75de35dcd846</subsheetid>
+    <display x="-225" y="75" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0d81887f-d17a-4350-9e84-e147452b65c2" name="Seconds to Wait" type="Data">
+    <subsheetid>ce4db061-078c-48c5-96e9-75de35dcd846</subsheetid>
+    <display x="-150" y="30" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>20</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8d9ea740-7714-41d2-8cd6-f405723f08a1" name="Input Variables" type="Block">
+    <subsheetid>ce4db061-078c-48c5-96e9-75de35dcd846</subsheetid>
+    <display x="-225" y="0" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="98fd2608-7cda-4de7-a55f-bed4e67e1923" name="Get Audit Log" type="SubSheetInfo">
+    <subsheetid>3b7ae1ef-4853-4cca-b1a0-20062deec8f6</subsheetid>
+    <narrative>Gets Content of Audit Log table.</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="09c382b3-c46b-4bb7-9344-91605ed4bf77" name="Start" type="Start">
+    <subsheetid>3b7ae1ef-4853-4cca-b1a0-20062deec8f6</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <display x="15" y="-105" w="90" h="30" />
+    <onsuccess>d8ba1f32-d72e-4f75-9066-f5f2faf864c3</onsuccess>
+  </stage>
+  <stage stageid="e674a242-8af8-479a-8da7-7ae9e3ca2f3f" name="End" type="End">
+    <subsheetid>3b7ae1ef-4853-4cca-b1a0-20062deec8f6</subsheetid>
+    <display x="15" y="195" w="90" h="30" />
+  </stage>
+  <stage stageid="d8ba1f32-d72e-4f75-9066-f5f2faf864c3" name="Go to System" type="Action">
+    <subsheetid>3b7ae1ef-4853-4cca-b1a0-20062deec8f6</subsheetid>
+    <display x="15" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>15e2ccc1-2bc3-401e-ad40-378e4b430519</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="15e2ccc1-2bc3-401e-ad40-378e4b430519" name="Select Audit Logs" type="Action">
+    <subsheetid>3b7ae1ef-4853-4cca-b1a0-20062deec8f6</subsheetid>
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Audit&quot;" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Audit Logs&quot;" />
+    </inputs>
+    <onsuccess>1e69ac46-5382-448c-83c5-f69d24ab9730</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="1e69ac46-5382-448c-83c5-f69d24ab9730" name="Get Audit Log Table" type="Action">
+    <subsheetid>3b7ae1ef-4853-4cca-b1a0-20062deec8f6</subsheetid>
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="date" name="Audit Date" narrative="Date for the Audit to View" expr="Today()" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Audit Log Table" narrative="Contents of the Audit Log Viewer" stage="Audit Log Table" />
+    </outputs>
+    <onsuccess>724d80b6-d43d-4097-8166-76daa9fa543f</onsuccess>
+    <resource object="Blue Prism - System - Audit" action="Get View Log Content for Audit Log" />
+  </stage>
+  <stage stageid="724d80b6-d43d-4097-8166-76daa9fa543f" name="Reverse Collection" type="Action">
+    <subsheetid>3b7ae1ef-4853-4cca-b1a0-20062deec8f6</subsheetid>
+    <display x="15" y="135" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="Collection" narrative="The collection to be reversed." expr="[Audit Log Table]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Reversed Collection" narrative="The reversed collection." stage="Audit Log Table" />
+    </outputs>
+    <onsuccess>e674a242-8af8-479a-8da7-7ae9e3ca2f3f</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Reverse Collection" />
+  </stage>
+  <stage stageid="77ab7467-28c3-4624-bf2a-128113b6c67b" name="Global Variables" type="SubSheetInfo">
+    <subsheetid>3bca760b-65ed-4591-80f5-8fd558ca5f6b</subsheetid>
+    <narrative>Variables that are available accross the process.</narrative>
+    <display x="-150" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="4e9b8f55-e8b3-4a26-9b2e-1c9e1adc1b4b" name="Start" type="Start">
+    <subsheetid>3bca760b-65ed-4591-80f5-8fd558ca5f6b</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <display x="75" y="-90" />
+    <onsuccess>d8f06378-70ee-47ed-86d5-71d0137805f0</onsuccess>
+  </stage>
+  <stage stageid="d8f06378-70ee-47ed-86d5-71d0137805f0" name="End" type="End">
+    <subsheetid>3bca760b-65ed-4591-80f5-8fd558ca5f6b</subsheetid>
+    <display x="75" y="75" />
+  </stage>
+  <stage stageid="8fccf627-a724-4437-89c9-f831ee1f5dbc" name="Username" type="Data">
+    <subsheetid>3bca760b-65ed-4591-80f5-8fd558ca5f6b</subsheetid>
+    <display x="-150" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">admin</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="e6dc8727-18a5-4a89-8b6b-20cb7cda53f4" name="Password" type="Data">
+    <subsheetid>3bca760b-65ed-4591-80f5-8fd558ca5f6b</subsheetid>
+    <display x="-150" y="15" w="120" h="30" />
+    <datatype>password</datatype>
+    <initialvalueenc>32,17,25,89,3</initialvalueenc>
+    <alwaysinit />
+  </stage>
+  <stage stageid="0b3a19a3-d76c-42be-8934-ee98cdec02ab" name="Global Variables" type="Block">
+    <subsheetid>3bca760b-65ed-4591-80f5-8fd558ca5f6b</subsheetid>
+    <display x="-225" y="-45" w="150" h="210" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="55434f3a-17a5-4b29-b734-f8e832949ff6" name="BluePrism PID" type="Data">
+    <subsheetid>3bca760b-65ed-4591-80f5-8fd558ca5f6b</subsheetid>
+    <display x="-150" y="45" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="bbf4c2e4-9d11-4c3e-b521-9c21696b12dd" name="Audit Log Table" type="Collection">
+    <subsheetid>3bca760b-65ed-4591-80f5-8fd558ca5f6b</subsheetid>
+    <display x="-150" y="75" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Time (Local)" type="text" />
+      <field name="Narrative" type="text" />
+      <field name="Comments" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="6ff0e4f9-77ab-4fb9-8fea-e9b92555644f" name="Current UserName" type="Data">
+    <subsheetid>3bca760b-65ed-4591-80f5-8fd558ca5f6b</subsheetid>
+    <display x="-150" y="105" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="26269659-b0ef-4b16-b752-1c9e009830ad" name="Current UTC Time" type="Data">
+    <subsheetid>3bca760b-65ed-4591-80f5-8fd558ca5f6b</subsheetid>
+    <display x="-150" y="135" w="120" h="30" />
+    <datatype>time</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3e479356-b3f1-4657-8815-7eb11df76ea3" name="Release Exists?" type="Action">
+    <display x="-15" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="File Name" narrative="The name of the file to check" expr="[Release Path]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Exists" narrative="True if the file exists" stage="Exists" />
+    </outputs>
+    <onsuccess>0a1f8871-99a5-4596-a3c3-7eb3f6f72010</onsuccess>
+    <resource object="Utility - File Management" action="File Exists" />
+  </stage>
+  <stage stageid="0a1f8871-99a5-4596-a3c3-7eb3f6f72010" name="Exists?" type="Decision">
+    <display x="-15" y="105" w="90" h="30" />
+    <decision expression="[Exists]" />
+    <ontrue>fcf95485-54cb-4bee-a2a2-29be5bd1e46b</ontrue>
+    <onfalse>31e08d75-4446-4cb4-acf1-887c53feb1e4</onfalse>
+  </stage>
+  <stage stageid="31e08d75-4446-4cb4-acf1-887c53feb1e4" name="Release Missing" type="Exception">
+    <display x="105" y="105" w="90" h="30" />
+    <exception type="System Exception" detail="&quot;Release file containing 'Export Queue Test' workqueue was not found.&quot;" />
+  </stage>
+  <stage stageid="fcf95485-54cb-4bee-a2a2-29be5bd1e46b" name="Path With Space?" type="Decision">
+    <display x="-15" y="165" w="90" h="30" />
+    <decision expression="InStr([Release Path], &quot; &quot;) &gt; 0" />
+    <ontrue>3df63d94-5f74-431e-87fe-b4da6858b58a</ontrue>
+    <onfalse>9de6f6f6-2584-4d88-8aa6-ceba42689091</onfalse>
+  </stage>
+  <stage stageid="9de6f6f6-2584-4d88-8aa6-ceba42689091" name="Remove Quotes" type="MultipleCalculation">
+    <display x="-135" y="165" w="90" h="30" />
+    <onsuccess>a2416a3c-7387-410d-9a9a-fe80490ad5ca</onsuccess>
+    <steps>
+      <calculation expression="Replace([Release Path], &quot;&quot;&quot;&quot;, &quot;&quot;)" stage="Release Path" />
+    </steps>
+  </stage>
+  <stage stageid="3df63d94-5f74-431e-87fe-b4da6858b58a" name="Add Quotes" type="MultipleCalculation">
+    <display x="105" y="165" w="90" h="30" />
+    <onsuccess>826f6b59-11d6-4431-8960-af8d3dc9d552</onsuccess>
+    <steps>
+      <calculation expression="Replace([Release Path], &quot;&quot;&quot;&quot;, &quot;&quot;)" stage="Release Path" />
+      <calculation expression="&quot;&quot;&quot;&quot; &amp; [Release Path] &amp; &quot;&quot;&quot;&quot;" stage="Release Path" />
+    </steps>
+  </stage>
+  <stage stageid="a2416a3c-7387-410d-9a9a-fe80490ad5ca" name="Anchor1" type="Anchor">
+    <display x="-135" y="210" w="10" h="10" />
+    <onsuccess>f68e4c75-df60-47b7-ac31-705df9f6a14f</onsuccess>
+  </stage>
+  <stage stageid="826f6b59-11d6-4431-8960-af8d3dc9d552" name="Anchor2" type="Anchor">
+    <display x="105" y="210" w="10" h="10" />
+    <onsuccess>f68e4c75-df60-47b7-ac31-705df9f6a14f</onsuccess>
+  </stage>
+  <stage stageid="f68e4c75-df60-47b7-ac31-705df9f6a14f" name="Anchor3" type="Anchor">
+    <display x="-15" y="210" w="10" h="10" />
+    <onsuccess>1180abd8-f900-4713-b870-76d0d50f0ab4</onsuccess>
+  </stage>
+  <stage stageid="188da37c-ff99-4b78-8610-2519eff5bc0c" name="Set Release Path" type="Calculation">
+    <display x="-15" y="-15" w="90" h="30" />
+    <onsuccess>3e479356-b3f1-4657-8815-7eb11df76ea3</onsuccess>
+    <calculation expression="[QA Root] &amp; &quot;\Processes\BP Commands\Export Queue Test\Export Queue Test Work Queue.bprelease&quot;" stage="Release Path" />
+  </stage>
+  <stage stageid="de702bbf-fa56-466a-9355-105ea4f4e012" name="QA Root" type="Data">
+    <display x="-210" y="90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6c2b3b5e-c486-458e-8a38-e61bde42a397" name="Environment Variables" type="Block">
+    <display x="-285" y="60" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="fa0b4a12-18bc-4149-b981-89216ebf69ab" name="Release Path" type="Data">
+    <display x="-210" y="-45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="86a954b7-d830-4d32-996d-b7633ce4ec77" name="Exists" type="Data">
+    <display x="-210" y="-15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1180abd8-f900-4713-b870-76d0d50f0ab4" name="Import Release" type="Action">
+    <display x="-15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" narrative="username" expr="[Username]" />
+      <input type="text" name="Password" narrative="password" expr="[Password]" />
+      <input type="text" name="Command" narrative="command" expr="&quot;/importrelease &quot; &amp; [Release Path]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="PID" narrative="PID of the process" stage="PID 1" />
+    </outputs>
+    <onsuccess>393c64dc-3ba5-4558-abd5-89ee1537e632</onsuccess>
+    <resource object="Blue Prism - Commands" action="Send Command" />
+  </stage>
+  <stage stageid="393c64dc-3ba5-4558-abd5-89ee1537e632" name="Wait 30 Seconds" type="SubSheet">
+    <display x="-15" y="330" w="90" h="60" />
+    <inputs>
+      <input type="number" name="Seconds to Wait" narrative="Number of Seconds toWait." expr="30" />
+    </inputs>
+    <onsuccess>caf7723d-f431-407d-a616-181e27595b6f</onsuccess>
+    <processid>ce4db061-078c-48c5-96e9-75de35dcd846</processid>
+  </stage>
+  <stage stageid="4d5f7aaf-f4b4-4fcf-8c93-9e0971f2fbd3" name="PID 1" type="Data">
+    <display x="-210" y="15" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4b8a1b57-feb7-4baf-8ad3-19fa6fdd5dcf" name="Get Audit Log" type="SubSheet">
+    <display x="-15" y="600" w="90" h="60" />
+    <onsuccess>f9f80efd-ac33-4e1c-a8f8-200865a326a3</onsuccess>
+    <processid>3b7ae1ef-4853-4cca-b1a0-20062deec8f6</processid>
+  </stage>
+  <stage stageid="caf7723d-f431-407d-a616-181e27595b6f" name="Launch BP" type="Action">
+    <display x="-15" y="405" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="BluePrism PID" />
+    </outputs>
+    <onsuccess>4a4cd907-d2c8-490b-976a-2c302f4cbcef</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="61614b46-8d52-48aa-8139-eef660e9f5ee" name="Sign In" type="Action">
+    <display x="-15" y="525" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="[Username]" />
+      <input type="password" name="Password" expr="[Password]" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>4b8a1b57-feb7-4baf-8ad3-19fa6fdd5dcf</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="f9f80efd-ac33-4e1c-a8f8-200865a326a3" name="Counter++" type="Calculation">
+    <display x="-15" y="675" w="90" h="30" />
+    <onsuccess>37b2a45e-faf8-4511-ab9d-fe8f7ffd9580</onsuccess>
+    <calculation expression="[Counter] + 1" stage="Counter" />
+  </stage>
+  <stage stageid="357ff3df-64ac-4441-9c01-dcb6b41553d2" name="Counter" type="ChoiceStart">
+    <display x="-15" y="855" w="90" h="30" />
+    <groupid>f8a753cd-4183-4f45-889e-cabe6d044a0f</groupid>
+    <choices>
+      <choice expression="[Counter] = 1">
+        <name>1</name>
+        <distance>150</distance>
+        <ontrue>501d8cc6-9a6a-4a9f-b0a1-084c35a9872f</ontrue>
+      </choice>
+      <choice expression="[Counter] = 2">
+        <name>2</name>
+        <distance>300</distance>
+        <ontrue>64d1d61e-420f-4bf4-8b18-9b6c2f55ebc7</ontrue>
+      </choice>
+    </choices>
+  </stage>
+  <stage stageid="1eebc3cc-42b7-4908-8fcd-d7b790b32982" name="Else" type="ChoiceEnd">
+    <display x="435" y="855" w="90" h="30" />
+    <onsuccess>86ef7cd4-db10-4d40-b835-1e30b49bd00b</onsuccess>
+    <groupid>f8a753cd-4183-4f45-889e-cabe6d044a0f</groupid>
+  </stage>
+  <stage stageid="37b2a45e-faf8-4511-ab9d-fe8f7ffd9580" name="Add Row?" type="Decision">
+    <display x="-15" y="735" w="90" h="30" />
+    <decision expression="[Counter] &lt; 3" />
+    <ontrue>c1b3b57d-7775-4101-9532-e61d8339ae99</ontrue>
+    <onfalse>7aef8f6a-371b-42cc-b833-ac02daf4f16f</onfalse>
+  </stage>
+  <stage stageid="c1b3b57d-7775-4101-9532-e61d8339ae99" name="Add Row" type="Action">
+    <display x="-15" y="795" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Expected Audit Log&quot;" />
+    </inputs>
+    <onsuccess>357ff3df-64ac-4441-9c01-dcb6b41553d2</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="7aef8f6a-371b-42cc-b833-ac02daf4f16f" name="Anchor3" type="Anchor">
+    <display x="-90" y="735" w="10" h="10" />
+    <onsuccess>0a8d2fca-d5a4-46bb-ab0b-e21549e52c64</onsuccess>
+  </stage>
+  <stage stageid="0a8d2fca-d5a4-46bb-ab0b-e21549e52c64" name="Anchor4" type="Anchor">
+    <display x="-90" y="855" w="10" h="10" />
+    <onsuccess>357ff3df-64ac-4441-9c01-dcb6b41553d2</onsuccess>
+  </stage>
+  <stage stageid="501d8cc6-9a6a-4a9f-b0a1-084c35a9872f" name="Populate Collection" type="MultipleCalculation">
+    <display x="135" y="900" w="90" h="30" />
+    <onsuccess>d3c928e5-a4e4-4d1a-9970-8977f7c581a7</onsuccess>
+    <steps>
+      <calculation expression="&quot;The user '&quot; &amp; [Current UserName] &amp; &quot;' imported the release: &quot;" stage="Expected Audit Log.Narrative" />
+      <calculation expression="&quot;Imported from file: &quot;" stage="Expected Audit Log.Comments" />
+    </steps>
+  </stage>
+  <stage stageid="fcd4c67a-98dd-4ea4-a9e0-1c7271a7a2fb" name="Anchor12" type="Anchor">
+    <display x="285" y="945" w="10" h="10" />
+    <onsuccess>d3c928e5-a4e4-4d1a-9970-8977f7c581a7</onsuccess>
+  </stage>
+  <stage stageid="d3c928e5-a4e4-4d1a-9970-8977f7c581a7" name="Anchor13" type="Anchor">
+    <display x="135" y="945" w="10" h="10" />
+    <onsuccess>8783bfab-7737-45bb-89a8-6018d7b1ac08</onsuccess>
+  </stage>
+  <stage stageid="8783bfab-7737-45bb-89a8-6018d7b1ac08" name="Anchor14" type="Anchor">
+    <display x="-120" y="945" w="10" h="10" />
+    <onsuccess>a4fb3fca-4570-4b70-b8fa-2867b62c195a</onsuccess>
+  </stage>
+  <stage stageid="a4fb3fca-4570-4b70-b8fa-2867b62c195a" name="Anchor15" type="Anchor">
+    <display x="-120" y="675" w="10" h="10" />
+    <onsuccess>f9f80efd-ac33-4e1c-a8f8-200865a326a3</onsuccess>
+  </stage>
+  <stage stageid="86ef7cd4-db10-4d40-b835-1e30b49bd00b" name="Anchor16" type="Anchor">
+    <display x="435" y="975" w="10" h="10" />
+    <onsuccess>3614eab9-e662-46cb-8bac-3cf20e4febdf</onsuccess>
+  </stage>
+  <stage stageid="3614eab9-e662-46cb-8bac-3cf20e4febdf" name="Anchor17" type="Anchor">
+    <display x="-15" y="975" w="10" h="10" />
+    <onsuccess>34326a8b-6889-4ac4-945a-01ab27bbfda4</onsuccess>
+  </stage>
+  <stage stageid="64d1d61e-420f-4bf4-8b18-9b6c2f55ebc7" name="Populate Collection" type="MultipleCalculation">
+    <display x="285" y="900" w="90" h="30" />
+    <onsuccess>fcd4c67a-98dd-4ea4-a9e0-1c7271a7a2fb</onsuccess>
+    <steps>
+      <calculation expression="&quot;The user '&quot; &amp; [Current UserName] &amp; &quot;' imported the work queue component: &quot;" stage="Expected Audit Log.Narrative" />
+      <calculation expression="&quot;&quot;" stage="Expected Audit Log.Comments" />
+    </steps>
+  </stage>
+  <stage stageid="34326a8b-6889-4ac4-945a-01ab27bbfda4" name="Compare Collections" type="SubSheet">
+    <display x="-15" y="1035" w="90" h="60" />
+    <inputs>
+      <input type="collection" name="Expected Audit" narrative="Expected Audit Log" expr="[Expected Audit Log]" />
+    </inputs>
+    <onsuccess>59805b0b-e811-4aff-9218-7f6aedf44254</onsuccess>
+    <processid>f86a702d-200e-4566-bedb-0a29199a499f</processid>
+  </stage>
+  <stage stageid="59805b0b-e811-4aff-9218-7f6aedf44254" name="Sign Out" type="Action">
+    <display x="-15" y="1110" w="90" h="30" />
+    <onsuccess>b44951c3-c992-4556-9fbf-343e9898971d</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="b44951c3-c992-4556-9fbf-343e9898971d" name="Exit Blue Prism" type="Action">
+    <display x="-15" y="1170" w="90" h="30" />
+    <onsuccess>bee1e402-82a5-48b3-ac01-ab26c72feb91</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="bee1e402-82a5-48b3-ac01-ab26c72feb91" name="End1" type="End">
+    <display x="-15" y="1230" w="90" h="30" />
+  </stage>
+  <stage stageid="4a4cd907-d2c8-490b-976a-2c302f4cbcef" name="Attach System" type="Action">
+    <display x="-15" y="465" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[BluePrism PID]" />
+    </inputs>
+    <onsuccess>61614b46-8d52-48aa-8139-eef660e9f5ee</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+</process>

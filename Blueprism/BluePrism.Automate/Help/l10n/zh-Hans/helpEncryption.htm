@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Blue Prism 数据加密</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="pagetitle">系统管理器</h1>
+        <h2>加密方案</h2>
+    </div>
+
+  <h3>概述</h3>
+  <p>Blue Prism 提供了一个加密工具，可以通过<code></code><a href="frmSystemManager.htm">系统管理器</a>的“安全性”部分中所维护的用户可定义加密方案来加密数据库中的敏感数据。以下是受支持的行业标准加密方法：</p>
+  <ul>
+    <li>AES-256 AesCryptoService（256 位）</li>
+    <li>AES-256 RijndaelManaged（256 位）</li>
+    <li>三重 DES（192 位）</li>
+  </ul>
+  <p>三重 DES（192 位）可以实现向后兼容性。强烈建议不要将新的加密方案配置为使用这一方法。</p>
+
+  <p>需要拥有“安全—查看加密方案配置”<code></code><a href="helpUserPermissions.htm">权限</a>，才能访问这个部分。但是，要创建、编辑或删除方案本身，只需拥有“安全—管理加密方案”<code></code>权限即可。</p>
+
+  <h3>管理方案</h3>
+  <p>系统可以提供现有加密方案摘要，以显示现有加密方案的名称、加密方法、密钥所在位置以及用于指明方案能否被选作数据加密器的状态（例如，选作默认加密方案或用于加密工作队列）。</p>
+  
+ 	<dl class="bulleted">
+  <dt>创建新方案</dt>
+  <dd>点击“新建”<code></code>链接后，系统会显示“定义加密方案”<code></code>表单，您可以在其中输入方案名称和密钥位置。默认情况下，新方案会被初始化为“不可用”；但是，只需选中“可用”<code></code>复选框，方案就能被选作数据加密器。</dd>
+  <dd>如果密钥存储在服务器中，则应使用<a href="helpBPServer.htm">配置工具</a>为各个服务器上所用的方案分配密钥。如果密钥存储在数据库中，则应在此处输入密钥。</dd>
+
+  <dt>编辑现有方案</dt>
+  <dd>点击“编辑”<code></code>链接后，系统会显示“定义加密方案”<code></code>表单，表单中则填有现有方案的详细信息。密钥本身无法直接更改。但是，密钥所在的位置可以更改。更改密钥位置时，请务必小心，以确保正确地传输密钥；否则，之前加密的数据可能会变为不可读状态。</dd>
+  <dd>请注意，已被选作数据加密器的方案无法设置为“不可用”。</dd>
+
+  <dt>删除现有方案</dt>
+  <dd>如果某个方案当前未被选作数据加密器，而且数据库中不存在使用这个方案加密过的数据，那么在点击“删除”<code></code>链接后，这个方案将被删除。在删除方案之前，应该先完成以下步骤：<ul>
+    <li>确保方案未被选作数据加密器（例如，没有被选作默认加密方案或被用于加密工作队列）</li>
+    <li>编辑方案并将其设置为“不可用”，以防其再次被选用</li>
+    <li>使用<a href="helpCommandLine.htm#reencryptdata">重新加密数据</a>命令行选项，以确保不存在其他使用该密钥加密的数据</li>
+    <li>删除方案</li>
+    <li>从所有服务器密钥存储库中删除该密钥（如果适用）</li>
+  </ul>
+  </dl>
+
+	<dd>注意： 如果无法在服务器中找到方案的密钥，则将附加“未解析密钥”<code></code>，因此所有尝试使用该密钥的加密/解密操作都可能会失败。</dd>
+
+  <h3>默认加密方案</h3>
+  <p>某些数据（如凭据和资源屏幕捕获）必须始终处于加密状态，因此必须在此下拉列表中选择一个已定义的方案。对于新安装，此选项将被设置为安装程序创建的默认方案“默认加密方案”<code></code>。但是，在为此方案分配密钥之前，无法创建任何凭据或捕获资源屏幕截图。</p>
+    
+</body>
+</html>

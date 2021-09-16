@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<title>仪表盘数据源</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+		dl.import-rules dd>ul>li { margin-bottom: 1em; }
+		dl.import-rules dd>ul { padding-left: 1em; }
+	</style>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">仪表盘</h1>
+		<h2>数据源</h2>
+	</div>
+
+  <h3>数据源</h3>
+  <p>SQL 存储过程提供磁贴使用的数据。为了使磁贴配置器检测到这些存储过程，必须将它们正确地命名：</p>
+  <ul>
+    <li>BPDS_I：带有 BPDS_I 命名前缀的数据源会被保留，以表示软件内置的内部数据源。</li>
+    <li>BPDS：带有 BPDS 命名前缀的数据源会被保留，以表示随软件一起提供的 SQL Server 存储过程。</li>
+      <ul>
+        <li>不得使用此前缀命名自定义存储过程，并且除非 Blue Prism 建议，否则不得以任何方式修改现有存储过程。</li>
+        <li>如果前缀为 BPDS 的存储过程并非由 Blue Prism 创建，则 Blue Prism 无法识别这些存储过程。</li>
+        <li>对这些过程手动进行的任何更改以后可能会被未来的产品更新覆盖。如果需要对这些存储过程进行任何自定义更改，请使用自定义数据源的相应前缀创建这些过程的副本。</li>
+      </ul>
+    <li>DS：前缀 DS 是为仪表盘磁贴创建的任何自定义存储过程所需的前缀。</li>
+  </ul>
+  
+  <p>可以对这些过程进行参数化，使它们能够与多个图表磁贴相关联（每个过程都指定一组不同的参数，例如为不同的队列组提供相同的视图）。</p>
+
+  <h3>创建自定义数据源</h3>
+  <p>如果在数据库中手动创建新的存储过程，必须确保 Blue Prism 用户可以使用它。扩展名为 bpa_ExecuteSP_DataSource_custom 的 Blue Prism SQL 安全角色即可确保如此。</p>
+
+  <p><code>GRANT EXECUTE ON OBJECT::[Stored Procedure Name] TO bpa_ExecuteSP_DataSource_custom;</code></p>
+  <p>例如，</p>
+  <p><code>GRANT EXECUTE ON OBJECT::dbo.DS_DailyProductivity TO bpa_ExecuteSP_DataSource_custom;</code></p>
+
+  <p>也可以从一个 Blue Prism 环境导出磁贴并将其导入到另一个 Blue Prism 环境中，因为这将自动扩展目标环境中的安全角色。</p>
+
+  <h3 id="DataFormat">磁贴数据格式</h3>
+  <p>磁贴使用的数据源自必须存在于 Blue Prism 数据库中的存储过程。存储过程必须返回存储过程已使用的数据表，以便图表磁贴返回表中的数据。返回数据中的第一列表示图表标签，后续列表示 1 到 n 个数据序列。</p>
+  
+  <p>例如，可以如下所示创建按状态返回队列卷的过程：</p>
+  <img src="Graphics/datasource-sql.png" alt="数据源 SQL 示例"/>
+  <p>当 Blue Prism 执行此过程时，它将返回以下内容：</p>
+  <img src="Graphics/datasource-output.png" alt="数据源输出示例"/>
+  <p>在生产环境中使用任何新的存储过程之前，应在实际数据集中测试查询的性能，以避免任何系统性能问题。</p>
+
+</body>
+</html>

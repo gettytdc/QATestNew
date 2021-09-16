@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Mainframe Integration</title>
+</head>
+<body class="slick troubleshooting">
+    <div class="header">
+        <h1 class="pagetitle">
+            Mainframe Integration</h1>
+    </div>
+
+    <h3>Introduction</h3>
+    <p>
+        Mainframe integration allows interaction with various terminal based applications.
+        These are typically legacy "green screen" applications which used to be accessed
+        via a "dumb terminal". The applications run on a mainframe. On modern systems dumb
+        terminals have been replaced by terminal emulators, which provide robotic automation
+        capabilities.</p>
+
+    <h3>Mainframe wizard</h3>
+    <p>
+        Blueprism integrates with various terminal emulators either through various emulator
+        specific COM API's or through the High Level Language API (HLLAPI). Blueprism currently
+        supports the following emulators:</p>
+    <ul>
+        <li>Attachmate</li>
+        <li>Attachmate Reflection</li>
+        <li>Hummingbird</li>
+        <li>IBM Host on Demand</li>
+        <li>IBM iAccess</li>
+        <li>IBM Personal Communicator</li>
+        <li>Infoconnect</li>
+        <li>NeoWare / WallData Rumba</li>
+        <li>Passport</li>
+        <li>Pericom / HP Teemtalk*</li>
+        <li>PowerTerm WebConnect 5.7</li>
+    </ul>
+
+    <p>* Teemtalk v4.3 support is for 3270 terminals only.
+       HP Teemtalk v7.0 removes support for DDE or HLLAPI integrations and
+       therefore alternative techniques such as surface automation will be
+       required to achieve UI automation</p>
+
+    <p>Other terminals may be supported by the Generic HLLAPI feature.</p>
+    <p>
+        To Integrate with a mainframe application run the
+        <a href="frmIntegrationAssistant.htm">Application Modeller</a> and
+        select mainframe. Refer to the <a href="helpApplicationParameters.htm#mainframe">
+        Mainframe Application Parameters</a> help for further information on
+        setting up mainframe applications</p>
+
+    <h3>Spying</h3>
+    <p>
+        Once the terminal is loaded, the spy tool needs to be used to tell Blueprism where
+        the terminal window is. After the terminal emulator window has been selected Blueprism
+        will provide the user with a grid that divides this area into the correct number
+        of rows and columns (eg 80x24). It is then possible to identify fields as rectangular
+        sections of the screen by dragging the mouse. Finally to capture the fields into
+        application manager the control key and left click combination is used whilst hovering
+        over the desired field.</p>
+
+    <p>
+        Further help with mainframe applications can be found in the
+        <a href="troubleshooting-mainframe.html">Troubleshooting guide</a></p>
+
+    <h4>Send Keys Mainframe</h4>
+    <p>
+        The send keys mainframe function takes a sequence of letters and control codes.
+        For example if you want to send the keys 'u' 's' 'e' 'r' 'ENTER' then the following
+        sequence can be used: "user{enter}". Send Keys Mainframe is available for the Micro Focus
+        reflections .NET connector and HLLAPI emulators.
+    </p>
+
+    <p>
+        The plus sign '+', caret '^', percent sign '%', tilde '~', and parentheses '(' ')' have
+        special meanings to SendKeys. To specify one of these characters, enclose it within braces.
+        For example, to specify the plus sign, use "{+}". To specify brace characters,
+        use "{{}" and "{}}". Brackets '[' ']' have no special meaning to SendKeys, but you must
+        enclose them in braces.
+    </p>
+
+    <p>
+        The following standard set of control codes are translated to mainframe specific commands. The
+        codes are not case sensitive.
+    </p>
+
+    <table>
+        <tr><th>Key</th><th>Code</th></tr>
+        <tr><td>{UpperShift}</td><td>Upper shift</td></tr>
+        <tr><td>{Alt}</td><td>Alt key.</td></tr>
+        <tr><td>{Ctrl}</td><td>Ctrl key.</td></tr>
+        <tr><td>{LeftTab}</td><td>Tab Backward key.</td></tr>
+        <tr><td>{Clear}</td><td>Clear key.</td></tr>
+        <tr><td>{Delete}</td><td>Delete key.</td></tr>
+        <tr><td>{Enter}</td><td>Send data to the host (Enter) key.</td></tr>
+        <tr><td>{EraseEOF}</td><td>Erase to end of field.</td></tr>
+        <tr><td>{Help}</td><td>Display the host help screen.</td></tr>
+        <tr><td>{Insert}</td><td>Insert key.</td></tr>
+        <tr><td>{Jump}</td><td>Partition Jump key.</td></tr>
+        <tr><td>{CursorLeft}</td><td>Left Arrow (Cursor) key.</td></tr>
+        <tr><td>{NewLine}</td><td>New Line key.</td></tr>
+        <tr><td>{Space}</td><td>Space key.</td></tr>
+        <tr><td>{Print}</td><td>Print the host screen.</td></tr>
+        <tr><td>{Reset}</td><td>Reset key.</td></tr>
+        <tr><td>{RightTab}</td><td>Tab Forward key.</td></tr>
+        <tr><td>{CursorUp}</td><td>Up Arrow (Cursor) key.</td></tr>
+        <tr><td>{CursorDown}</td><td>Down Arrow (Cursor) key.</td></tr>
+        <tr><td>{DBCS}</td><td>Double byte character set</td></tr>
+        <tr><td>{CursorRight}</td><td>Right Arrow (Cursor) key.</td></tr>
+        <tr><td>{Home}</td><td>Home key.</td></tr>
+        <tr><td>{PF1}</td><td>F1/PF1 function key.</td></tr>
+        <tr><td>{PF2}</td><td>F2/PF2 function key.</td></tr>
+        <tr><td>{PF3}</td><td>F3/PF3 function key.</td></tr>
+        <tr><td>{PF4}</td><td>F4/PF4 function key.</td></tr>
+        <tr><td>{PF5}</td><td>F5/PF5 function key.</td></tr>
+        <tr><td>{PF6}</td><td>F6/PF6 function key.</td></tr>
+        <tr><td>{PF7}</td><td>F7/PF7 function key.</td></tr>
+        <tr><td>{PF8}</td><td>F8/PF8 function key.</td></tr>
+        <tr><td>{PF9}</td><td>F9/PF9 function key.</td></tr>
+        <tr><td>{PF10}</td><td>F10/PF10 function key.</td></tr>
+        <tr><td>{PF11}</td><td>F11/PF11 function key.</td></tr>
+        <tr><td>{PF12}</td><td>F12/PF12 function key.</td></tr>
+        <tr><td>{PF13}</td><td>F13/PF13 function key.</td></tr>
+        <tr><td>{PF14}</td><td>F14/PF14 function key.</td></tr>
+        <tr><td>{PF15}</td><td>F15/PF15 function key.</td></tr>
+        <tr><td>{PF16}</td><td>F16/PF16 function key.</td></tr>
+        <tr><td>{PF17}</td><td>F17/PF17 function key.</td></tr>
+        <tr><td>{PF18}</td><td>F18/PF18 function key.</td></tr>
+        <tr><td>{PF19}</td><td>F19/PF19 function key.</td></tr>
+        <tr><td>{PF20}</td><td>F20/PF20 function key.</td></tr>
+        <tr><td>{PF21}</td><td>F21/PF21 function key.</td></tr>
+        <tr><td>{PF22}</td><td>F22/PF22 function key.</td></tr>
+        <tr><td>{PF23}</td><td>F23/PF23 function key.</td></tr>
+        <tr><td>{PF24}</td><td>F24/PF24 function key.</td></tr>
+        <tr><td>{End}</td><td>End of Field key.</td></tr>
+        <tr><td>{PageUp}</td><td>Page Up key.</td></tr>
+        <tr><td>{PageDown}</td><td>Page Down key.</td></tr>
+        <tr><td>{PA1}</td><td>PA1 function key.</td></tr>
+        <tr><td>{PA2}</td><td>PA2 function key.</td></tr>
+        <tr><td>{PA3}</td><td>PA3 function key.</td></tr>
+        <tr><td>{At}</td><td>@ (at) symbol key.</td></tr>
+        <tr><td>{AlternateCursor}</td><td>Alternate Cursor key.</td></tr>
+        <tr><td>{Backspace}</td><td>Backspace key.</td></tr>
+        <tr><td>{Test}</td><td>Activate test program (AS/400 legacy only).</td></tr>
+        <tr><td>{DeleteWord}</td><td>Delete Word key.</td></tr>
+        <tr><td>{FieldExit}</td><td>Field Exit key.</td></tr>
+        <tr><td>{EraseInput}</td><td>Erase Input key.</td></tr>
+        <tr><td>{SystemRequest}</td><td>Send system request (SysRq) key.</td></tr>
+        <tr><td>{InsertToggle}</td><td>Insert toggle key.</td></tr>
+        <tr><td>{CursorSelect}</td><td>Cursor Select key.</td></tr>
+        <tr><td>{CursorLeftFast}</td><td>Fast Left Arrow (Cursor) key.</td></tr>
+        <tr><td>{Attention}</td><td>Attention key to activate attention program (AS/400 only).</td></tr>
+        <tr><td>{DeviceCancel}</td><td>Device cancel key.</td></tr>
+        <tr><td>{PrintPS}</td><td>Print presentation space.</td></tr>
+        <tr><td>{CursorUpFast}</td><td>Fast Up Arrow (Cursor) key.</td></tr>
+        <tr><td>{CursorDownFast}</td><td>Fast Down Arror (Cursor) key.</td></tr>
+        <tr><td>{CursorRightFast}</td><td>Fast Right Arrow (Cursor) key.</td></tr>
+        <tr><td>{ReverseVideo}</td><td>Reverse Field key.</td></tr>
+        <tr><td>{Underscore}</td><td>Underscore key (PC/3270).</td></tr>
+        <tr><td>{ResetReverseVideo}</td><td>Reset Reverse Video key (PC/3270).</td></tr>
+        <tr><td>{Red}</td><td>Red (PC/3270).</td></tr>
+        <tr><td>{Pink}</td><td>Pink (PC/3270.</td></tr>
+        <tr><td>{Green}</td><td>Green (PC/3270).</td></tr>
+        <tr><td>{Yellow}</td><td>Yellow (PC/3270).</td></tr>
+        <tr><td>{Blue}</td><td>Blue (PC/3270).</td></tr>
+        <tr><td>{Turquoise}</td><td>Turquoise (PC/3270).</td></tr>
+        <tr><td>{White}</td><td>White (PC/3270).</td></tr>
+        <tr><td>{ResetHostColor}</td><td>Reset Host Color (PC/3270).</td></tr>
+        <tr><td>{PrintScrn}</td><td>Print (PC).</td></tr>
+        <tr><td>{Rollup}</td><td>Rollup (PC400).</td></tr>
+        <tr><td>{Rolldown}</td><td>Rolldown (PC400).</td></tr>
+        <tr><td>{ForwardWordTab}</td><td>Forward Word Tab.</td></tr>
+        <tr><td>{BackwardWordTab}</td><td>Backward Word Tab.</td></tr>
+        <tr><td>{FieldMinus}</td><td>Field Minus key.</td></tr>
+        <tr><td>{FieldPlus}</td><td>Field Plus key.</td></tr>
+        <tr><td>{RecordBackspace}</td><td>Record Backspace (PC400)</td></tr>
+        <tr><td>{PrintPSOH}</td><td>Print Presentation Space on Host (PC400)</td></tr>
+        <tr><td>{Dup}</td><td>Dup key.</td></tr>
+        <tr><td>{FieldMark}</td><td>Field Mark key.</td></tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,584 @@
+﻿<process name="Release Lock on Unlocked Process" version="1.0" bpversion="6.11.0.34639" narrative="Automated process that checks the Release Lock functionality" byrefcollection="true" preferredid="063cdac4-484e-4d2f-9d1f-3cf7282c6e43">
+  <view>
+    <camerax>-12</camerax>
+    <cameray>120</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="53be942c-f898-4f68-a3f2-c1934af1afe7" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>120</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="2bbd9806-b3e5-4ff3-ba46-ccc3ad8f5e90" type="Normal" published="False">
+    <name>Environmental Lock - Process Locked</name>
+    <view>
+      <camerax>-152</camerax>
+      <cameray>18</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="d9103b2e-b4a8-44bd-ae6f-a302bebb0baf" type="Normal" published="False">
+    <name>Environment Lock Released</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>48</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="8c4b7e39-24f1-4fb3-af9a-5600f11001d8" type="Normal" published="False">
+    <name>Cleanup</name>
+    <view>
+      <camerax>-24</camerax>
+      <cameray>2</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="ee787385-87b9-4265-846d-c92864b52f8c" name="Start" type="Start">
+    <display x="-15" y="-135" />
+    <onsuccess>5ee7fec0-85f6-4fa1-8277-67952653bb10</onsuccess>
+  </stage>
+  <stage stageid="a4dcd5f5-ba58-4229-9d50-710794a644ff" name="End" type="End">
+    <display x="-15" y="315" />
+  </stage>
+  <stage stageid="1e01bf25-bc64-4bb3-bb8f-aee06406b91a" name="Stage1" type="ProcessInfo">
+    <display x="-270" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="5ee7fec0-85f6-4fa1-8277-67952653bb10" name="Note1" type="Note">
+    <narrative>GIVEN User  runs "BPA Process - ReleaseLock" in the Control Room. </narrative>
+    <display x="-15" y="-60" w="270" h="30" />
+    <font family="Segoe UI" size="11" style="Bold" color="FF0000" />
+    <onsuccess>367fb949-6092-466a-bd21-e48fc86e561e</onsuccess>
+  </stage>
+  <stage stageid="0c282668-d0b2-4304-8398-6d2dda07f925" name="Note1" type="Note">
+    <narrative>WHEN User checks Environmental Locks 
+THEN the locked process will display
+</narrative>
+    <display x="-15" y="30" w="270" h="30" />
+    <font family="Segoe UI" size="11" style="Bold" color="FF0000" />
+    <onsuccess>0d2d5726-c215-4ae5-a17e-a0072d1b49d7</onsuccess>
+  </stage>
+  <stage stageid="f05b7c60-215c-4123-a735-cbb838529564" name="Setup" type="SubSheetInfo">
+    <subsheetid>53be942c-f898-4f68-a3f2-c1934af1afe7</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="210f207b-35b2-43f7-8330-60e43734ae96" name="Start" type="Start">
+    <subsheetid>53be942c-f898-4f68-a3f2-c1934af1afe7</subsheetid>
+    <display x="0" y="-135" />
+    <onsuccess>a401cfd6-6c98-4ab9-a105-b376575f0c32</onsuccess>
+  </stage>
+  <stage stageid="ea47dc87-6b38-4203-b02a-a7d72d23aa93" name="End" type="End">
+    <subsheetid>53be942c-f898-4f68-a3f2-c1934af1afe7</subsheetid>
+    <display x="0" y="270" />
+  </stage>
+  <stage stageid="2f6ea022-e2f9-4ea0-b8b8-4359f26034ae" name="Launch and Get PID" type="Action">
+    <subsheetid>53be942c-f898-4f68-a3f2-c1934af1afe7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="0" w="180" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>c0bedc81-ab58-40f5-a701-376b6c6d3a0e</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="62afce58-0309-4411-bd51-fd97e1b6d5df" name="Sign In (admin)" type="Action">
+    <subsheetid>53be942c-f898-4f68-a3f2-c1934af1afe7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="90" w="180" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="&quot;admin&quot;" />
+      <input type="password" name="Password" friendlyname="Password" expr="&quot;admin&quot;" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="&quot;admin&quot;" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="False" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="False" />
+      <input type="flag" name="Sign in Active Directorry" friendlyname="Sign in Active Directorry" narrative="Do you want sign in using Active Directory" expr="False" />
+      <input type="flag" name="Sign in" friendlyname="Sign in" narrative="Do you want sign in using legacy sso environment" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="Error message received while Login" stage="Error Message" />
+    </outputs>
+    <onsuccess>62c1b816-b685-405f-906e-a7bf6610a8e0</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="c0bedc81-ab58-40f5-a701-376b6c6d3a0e" name="Attach to System" type="Action">
+    <subsheetid>53be942c-f898-4f68-a3f2-c1934af1afe7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="45" w="180" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>62afce58-0309-4411-bd51-fd97e1b6d5df</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="59c4f4c9-1b1e-442d-afcc-effbfed2e9df" name="Create a session" type="Action">
+    <subsheetid>53be942c-f898-4f68-a3f2-c1934af1afe7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="180" w="180" h="30" />
+    <inputs>
+      <input type="flag" name="Requires Login" friendlyname="Requires Login" narrative="Flag indicating if the login info should be given too" expr="True" />
+      <input type="text" name="Arguments" friendlyname="Arguments" narrative="The arguments to pass to automatec, not including the authentication info" expr="&quot;/run ReleaseLock /resource &quot; &amp; [Resource Name]" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username that you want to authenticate against." expr="&quot;admin&quot;" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the username." expr="&quot;admin&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Output" friendlyname="Output" narrative="The output from the command" stage="" />
+    </outputs>
+    <onsuccess>d820f9c0-0d6f-47ac-b92f-6babca9030be</onsuccess>
+    <resource object="Call AutomateC" action="Call AutomateC" />
+  </stage>
+  <stage stageid="e8ef37ff-a44c-4406-90c9-4e9aa0954146" name="Cleanup" type="SubSheetInfo">
+    <subsheetid>8c4b7e39-24f1-4fb3-af9a-5600f11001d8</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="367fb949-6092-466a-bd21-e48fc86e561e" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="-15" w="270" h="30" />
+    <onsuccess>0c282668-d0b2-4304-8398-6d2dda07f925</onsuccess>
+    <processid>53be942c-f898-4f68-a3f2-c1934af1afe7</processid>
+  </stage>
+  <stage stageid="efb2a376-ce34-4d18-99a9-9dbeb5d7e718" name="Get Machine Name" type="Calculation">
+    <subsheetid>53be942c-f898-4f68-a3f2-c1934af1afe7</subsheetid>
+    <display x="0" y="-45" w="180" h="30" />
+    <onsuccess>2f6ea022-e2f9-4ea0-b8b8-4359f26034ae</onsuccess>
+    <calculation expression=" Replace(GetResourceName(), &quot;_debug&quot;, &quot;&quot;) &amp; &quot;:&quot; &amp; [Port]" stage="Resource Name" />
+  </stage>
+  <stage stageid="3f31a04d-4645-4892-9e6a-88944cff67ef" name="Output" type="Block">
+    <subsheetid>53be942c-f898-4f68-a3f2-c1934af1afe7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="639ead46-1c77-40af-901c-8e4314708ffc" name="Environmental Lock - Process Locked" type="SubSheetInfo">
+    <subsheetid>2bbd9806-b3e5-4ff3-ba46-ccc3ad8f5e90</subsheetid>
+    <display x="-285" y="-135" w="150" h="90" />
+  </stage>
+  <stage stageid="c594939b-034b-47a5-bc6b-ed00fd76edd1" name="Start" type="Start">
+    <subsheetid>2bbd9806-b3e5-4ff3-ba46-ccc3ad8f5e90</subsheetid>
+    <display x="-90" y="-165" />
+    <onsuccess>60501cdc-2f01-4bbd-b1b2-c188f3ab3fa9</onsuccess>
+  </stage>
+  <stage stageid="0d2d5726-c215-4ae5-a17e-a0072d1b49d7" name="Environmental Lock - Process Locked" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="75" w="270" h="30" />
+    <onsuccess>9f086319-5620-46c8-8459-8eac117d6f7d</onsuccess>
+    <processid>2bbd9806-b3e5-4ff3-ba46-ccc3ad8f5e90</processid>
+  </stage>
+  <stage stageid="60501cdc-2f01-4bbd-b1b2-c188f3ab3fa9" name="Go to System Tab" type="Action">
+    <subsheetid>2bbd9806-b3e5-4ff3-ba46-ccc3ad8f5e90</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-120" w="180" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>e94f8da0-6167-4b7c-b8e1-a0a30d819b84</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="c7793112-489d-4101-93da-1a2413f5da8b" name="Cleanup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="225" w="120" h="30" />
+    <onsuccess>00a5526d-7955-43db-9e61-9752d24797b6</onsuccess>
+    <processid>8c4b7e39-24f1-4fb3-af9a-5600f11001d8</processid>
+  </stage>
+  <stage stageid="e970e087-16d4-44fe-8021-7bf9dc4dcb87" name="Environment Lock Released" type="SubSheetInfo">
+    <subsheetid>d9103b2e-b4a8-44bd-ae6f-a302bebb0baf</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="0ef05c87-2a7e-4081-8d78-7e9893bcbff0" name="Start" type="Start">
+    <subsheetid>d9103b2e-b4a8-44bd-ae6f-a302bebb0baf</subsheetid>
+    <display x="0" y="-135" />
+    <onsuccess>f30a5442-414c-4c65-bc93-4df2010075b4</onsuccess>
+  </stage>
+  <stage stageid="e94f8da0-6167-4b7c-b8e1-a0a30d819b84" name="Click Environment Locks From System Tree" type="Action">
+    <subsheetid>2bbd9806-b3e5-4ff3-ba46-ccc3ad8f5e90</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-75" w="180" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Workflow&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Environment Locks&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="True" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="True" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="False" />
+    </inputs>
+    <onsuccess>24836c37-f628-474b-8b2d-540429463197</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="9ba80d59-25e0-4238-b3db-5812333af92b" name="Error Message" type="Data">
+    <subsheetid>53be942c-f898-4f68-a3f2-c1934af1afe7</subsheetid>
+    <display x="-195" y="-15" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a401cfd6-6c98-4ab9-a105-b376575f0c32" name="Resource Manager:Start Resource" type="Action">
+    <subsheetid>53be942c-f898-4f68-a3f2-c1934af1afe7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-90" w="180" h="30" />
+    <inputs>
+      <input type="flag" name="SSO" friendlyname="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="" />
+      <input type="password" name="Password" friendlyname="Password" narrative="The password to use for the resource. Only used if Username is given" expr="" />
+      <input type="number" name="Port" friendlyname="Port" narrative="The port number on which the resource PC should listen" expr="[Port]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" friendlyname="Process ID" narrative="The PID of the newly created process" stage="Process ID" />
+    </outputs>
+    <onsuccess>efb2a376-ce34-4d18-99a9-9dbeb5d7e718</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+  <stage stageid="35ee32b0-6c85-4d3f-81a1-198a605a10a3" name="Process ID" type="Data">
+    <subsheetid>53be942c-f898-4f68-a3f2-c1934af1afe7</subsheetid>
+    <display x="-195" y="15" w="150" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="dc8db6ee-8f86-4811-a8f8-754b61e98f86" name="pid" type="Data">
+    <display x="-270" y="90" w="150" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c6ff0885-48ad-45e7-8844-8e12f2075239" name="Resource Name" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="120" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b70388d8-ce91-406d-a4e0-48f28ca8e7fc" name="Global Variable" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-345" y="60" w="150" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="6ac0ef82-047b-4a17-924a-41b85278e81d" name="Process Name" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="150" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">ReleaseLock</initialvalue>
+  </stage>
+  <stage stageid="2bb7e873-c2d5-4f02-a3c1-38ce4e9b762a" name="Scenarios" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-165" y="-90" w="375" h="285" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="01199a01-6d7e-4c71-8132-56be9416c6d7" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-15" w="150" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3d1dc7cb-e175-44c5-bfaf-357c1135f19c" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="15" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9cea58a5-f8b1-43c9-a9d6-ef9269651c2f" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-345" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0523ec56-5819-46a9-941d-32dc0d4c41a1" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="165" y="30" />
+    <onsuccess>22fb6c6e-63dd-4950-a362-8e87cfc959f0</onsuccess>
+  </stage>
+  <stage stageid="22fb6c6e-63dd-4950-a362-8e87cfc959f0" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="165" y="75" w="90" h="30" />
+    <onsuccess>a15256f6-db27-4208-9a11-c7a1f9300331</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="a15256f6-db27-4208-9a11-c7a1f9300331" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="165" y="120" />
+    <onsuccess>6ebb4fd3-0462-40e1-9bc5-063a04e27368</onsuccess>
+  </stage>
+  <stage stageid="6ebb4fd3-0462-40e1-9bc5-063a04e27368" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="165" y="225" w="10" h="10" />
+    <onsuccess>c7793112-489d-4101-93da-1a2413f5da8b</onsuccess>
+  </stage>
+  <stage stageid="4e05172d-f8dd-4307-9458-78033762d4ba" name="Start" type="Start">
+    <subsheetid>8c4b7e39-24f1-4fb3-af9a-5600f11001d8</subsheetid>
+    <display x="-15" y="-135" />
+    <onsuccess>c05ae013-af6e-4eb4-9f34-b3343880dd6d</onsuccess>
+  </stage>
+  <stage stageid="c7daaa47-3f2d-4344-a9a0-2b2a512328ae" name="End" type="End">
+    <subsheetid>8c4b7e39-24f1-4fb3-af9a-5600f11001d8</subsheetid>
+    <display x="-15" y="0" />
+  </stage>
+  <stage stageid="972da3d0-e005-410d-9813-822a11d769cb" name="Close BP" type="Action">
+    <subsheetid>8c4b7e39-24f1-4fb3-af9a-5600f11001d8</subsheetid>
+    <display x="-15" y="-45" w="150" h="30" />
+    <onsuccess>c7daaa47-3f2d-4344-a9a0-2b2a512328ae</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="9f086319-5620-46c8-8459-8eac117d6f7d" name="Note1" type="Note">
+    <narrative>WHEN the Lock is Releases 
+THEN the process is unlocked and no longer displays in Environmental Locks</narrative>
+    <display x="-15" y="120" w="270" h="30" />
+    <font family="Segoe UI" size="11" style="Bold" color="FF0000" />
+    <onsuccess>a0aec62d-ec57-4f76-a2e2-dacb12e8958b</onsuccess>
+  </stage>
+  <stage stageid="a0aec62d-ec57-4f76-a2e2-dacb12e8958b" name="Environment Lock Released" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="165" w="270" h="30" />
+    <onsuccess>c7793112-489d-4101-93da-1a2413f5da8b</onsuccess>
+    <processid>d9103b2e-b4a8-44bd-ae6f-a302bebb0baf</processid>
+  </stage>
+  <stage stageid="d384390b-df48-4b1f-ab56-8daf12e86714" name="End1" type="End">
+    <subsheetid>2bbd9806-b3e5-4ff3-ba46-ccc3ad8f5e90</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="150" />
+  </stage>
+  <stage stageid="7b02a514-b1d1-4dea-b50a-35998579ed78" name="Release Lock on selected process " type="Action">
+    <subsheetid>d9103b2e-b4a8-44bd-ae6f-a302bebb0baf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="0" w="180" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" friendlyname="Process Name" expr="[Process Name]" />
+    </inputs>
+    <onsuccess>9d808efe-55e9-44a1-b442-90e111390347</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Environment Lock - Release Lock" />
+  </stage>
+  <stage stageid="24836c37-f628-474b-8b2d-540429463197" name="Blue Prism - System - Workflow::Environment Locks - Get List of Locked Processes" type="Action">
+    <subsheetid>2bbd9806-b3e5-4ff3-ba46-ccc3ad8f5e90</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-30" w="180" h="30" />
+    <outputs>
+      <output type="collection" name="Locked Processes" friendlyname="Locked Processes" narrative="List of locked Processes" stage="Locked Processes" />
+    </outputs>
+    <onsuccess>c7a23d28-cc7d-4c2b-9f2c-d5fcc7565f80</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Environment Locks - Get List of Locked Processes" />
+  </stage>
+  <stage stageid="2161f648-16f6-4de2-b515-e49344add078" name="Output variables" type="Block">
+    <subsheetid>2bbd9806-b3e5-4ff3-ba46-ccc3ad8f5e90</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="-75" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c7a23d28-cc7d-4c2b-9f2c-d5fcc7565f80" name="Check if Process is available" type="LoopStart">
+    <subsheetid>2bbd9806-b3e5-4ff3-ba46-ccc3ad8f5e90</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="15" w="180" h="30" />
+    <onsuccess>d06254b4-07de-4593-8b6b-ce9485c0be53</onsuccess>
+    <groupid>2d3beca7-2576-437a-aae3-b9a25700d5db</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Locked Processes</loopdata>
+  </stage>
+  <stage stageid="d2888cf3-09d2-4145-b95a-267f7ffc1e4d" name="Check if Process is available" type="LoopEnd">
+    <subsheetid>2bbd9806-b3e5-4ff3-ba46-ccc3ad8f5e90</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="105" w="180" h="30" />
+    <onsuccess>bf62e41e-5991-4171-9de1-2e9623e3abee</onsuccess>
+    <groupid>2d3beca7-2576-437a-aae3-b9a25700d5db</groupid>
+  </stage>
+  <stage stageid="d06254b4-07de-4593-8b6b-ce9485c0be53" name="Process Found?" type="Decision">
+    <subsheetid>2bbd9806-b3e5-4ff3-ba46-ccc3ad8f5e90</subsheetid>
+    <display x="-90" y="60" w="180" h="30" />
+    <decision expression="[Locked Processes.Process] = [Process Name]" />
+    <ontrue>a44e0679-2490-4be2-aacf-ce83aacd4e6e</ontrue>
+    <onfalse>d2888cf3-09d2-4145-b95a-267f7ffc1e4d</onfalse>
+  </stage>
+  <stage stageid="a44e0679-2490-4be2-aacf-ce83aacd4e6e" name="Anchor5" type="Anchor">
+    <subsheetid>2bbd9806-b3e5-4ff3-ba46-ccc3ad8f5e90</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="75" y="60" w="10" h="10" />
+    <onsuccess>bcaf96a1-13a9-4bac-8a80-e8f24f47f0fc</onsuccess>
+  </stage>
+  <stage stageid="bcaf96a1-13a9-4bac-8a80-e8f24f47f0fc" name="Anchor6" type="Anchor">
+    <subsheetid>2bbd9806-b3e5-4ff3-ba46-ccc3ad8f5e90</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="75" y="150" w="10" h="10" />
+    <onsuccess>d384390b-df48-4b1f-ab56-8daf12e86714</onsuccess>
+  </stage>
+  <stage stageid="bf62e41e-5991-4171-9de1-2e9623e3abee" name="Failed" type="Exception">
+    <subsheetid>2bbd9806-b3e5-4ff3-ba46-ccc3ad8f5e90</subsheetid>
+    <display x="45" y="105" w="30" h="30" />
+    <exception localized="yes" type="Fail" detail="&quot;Expected the process to be locked and it isnt'&quot;" />
+  </stage>
+  <stage stageid="c05ae013-af6e-4eb4-9f34-b3343880dd6d" name="Resource Manager:Kill Resource" type="Action">
+    <subsheetid>8c4b7e39-24f1-4fb3-af9a-5600f11001d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="-90" w="150" h="30" />
+    <inputs>
+      <input type="number" name="Port" friendlyname="Port" narrative="The port number of the resource PC to kill" expr="[Port]" />
+    </inputs>
+    <onsuccess>972da3d0-e005-410d-9813-822a11d769cb</onsuccess>
+    <resource object="Resource Manager" action="Kill Resource" />
+  </stage>
+  <stage stageid="bd5e96b9-5d87-403e-8b29-949573cf9820" name="Locked Processes" type="Collection">
+    <subsheetid>2bbd9806-b3e5-4ff3-ba46-ccc3ad8f5e90</subsheetid>
+    <display x="-285" y="-45" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Status" type="text" />
+      <field name="Name" type="text" />
+      <field name="Resource" type="text" />
+      <field name="Process" type="text" />
+      <field name="Lock Time" type="text" />
+      <field name="Last Comment" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="53ae9226-2576-4fb1-8e42-c7985c45d195" name="Select the Process to Unlock" type="Action">
+    <subsheetid>d9103b2e-b4a8-44bd-ae6f-a302bebb0baf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-45" w="180" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" friendlyname="Process Name" expr="[Process Name]" />
+    </inputs>
+    <onsuccess>7b02a514-b1d1-4dea-b50a-35998579ed78</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Environment Locks - Select a Locked Process by Name" />
+  </stage>
+  <stage stageid="9d808efe-55e9-44a1-b442-90e111390347" name="Release Lock on selected process - Press OK" type="Action">
+    <subsheetid>d9103b2e-b4a8-44bd-ae6f-a302bebb0baf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="45" w="180" h="30" />
+    <onsuccess>11acd5e7-8fd0-4819-a57a-0fa5551d0ba9</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Environment Lock - Release Lock pop-up - Select OK" />
+  </stage>
+  <stage stageid="c363a259-1c33-4178-9d72-4a94d95e4e5a" name="End1" type="End">
+    <subsheetid>d9103b2e-b4a8-44bd-ae6f-a302bebb0baf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="225" />
+  </stage>
+  <stage stageid="11acd5e7-8fd0-4819-a57a-0fa5551d0ba9" name="Blue Prism - System - Workflow::Environment Locks - Get List of Locked Processes" type="Action">
+    <subsheetid>d9103b2e-b4a8-44bd-ae6f-a302bebb0baf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="90" w="180" h="30" />
+    <outputs>
+      <output type="collection" name="Locked Processes" friendlyname="Locked Processes" narrative="List of locked Processes" stage="Locked Processes" />
+    </outputs>
+    <onsuccess>057696cc-0c21-4065-97ec-bbc2ef5757e0</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Environment Locks - Get List of Locked Processes" />
+  </stage>
+  <stage stageid="34f0fba8-c0b4-412a-a0e7-9d53b6cb101e" name="Failed" type="Exception">
+    <subsheetid>d9103b2e-b4a8-44bd-ae6f-a302bebb0baf</subsheetid>
+    <display x="135" y="180" />
+    <exception localized="yes" type="Fail" detail="&quot;Expected the process to not show and it is&quot;" />
+  </stage>
+  <stage stageid="7b00be9b-78ae-43e7-9d5b-b2d8394bf94f" name="Output" type="Block">
+    <subsheetid>d9103b2e-b4a8-44bd-ae6f-a302bebb0baf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="7d3997e8-069c-4102-b0e6-6a2eb484d16d" name="Port" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="180" w="150" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>8182</initialvalue>
+  </stage>
+  <stage stageid="2141b849-8fba-43df-8678-e72705d2017a" name="Locked Processes" type="Collection">
+    <subsheetid>d9103b2e-b4a8-44bd-ae6f-a302bebb0baf</subsheetid>
+    <display x="-195" y="-15" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Status" type="text" />
+      <field name="Name" type="text" />
+      <field name="Resource" type="text" />
+      <field name="Process" type="text" />
+      <field name="Lock Time" type="text" />
+      <field name="Last Comment" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="057696cc-0c21-4065-97ec-bbc2ef5757e0" name="Count Rows" type="Action">
+    <subsheetid>d9103b2e-b4a8-44bd-ae6f-a302bebb0baf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="135" w="180" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Locked Processes&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>040e0ba4-30d0-495e-bfe8-e3f729628c4d</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="d820f9c0-0d6f-47ac-b92f-6babca9030be" name="Pause" type="Action">
+    <subsheetid>53be942c-f898-4f68-a3f2-c1934af1afe7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="225" w="180" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="5" />
+    </inputs>
+    <onsuccess>ea47dc87-6b38-4203-b02a-a7d72d23aa93</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="040e0ba4-30d0-495e-bfe8-e3f729628c4d" name="Is count correct?" type="Decision">
+    <subsheetid>d9103b2e-b4a8-44bd-ae6f-a302bebb0baf</subsheetid>
+    <display x="0" y="180" w="180" h="30" />
+    <decision expression="[Count] = 0" />
+    <ontrue>c363a259-1c33-4178-9d72-4a94d95e4e5a</ontrue>
+    <onfalse>34f0fba8-c0b4-412a-a0e7-9d53b6cb101e</onfalse>
+  </stage>
+  <stage stageid="b07992c7-1f46-400a-a7bb-9de5ecef567d" name="Count" type="Data">
+    <subsheetid>d9103b2e-b4a8-44bd-ae6f-a302bebb0baf</subsheetid>
+    <display x="-195" y="15" w="150" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f30a5442-414c-4c65-bc93-4df2010075b4" name="Pause" type="Action">
+    <subsheetid>d9103b2e-b4a8-44bd-ae6f-a302bebb0baf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-90" w="180" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="120" />
+    </inputs>
+    <onsuccess>53ae9226-2576-4fb1-8e42-c7985c45d195</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="00a5526d-7955-43db-9e61-9752d24797b6" name="Failed?" type="Decision">
+    <display x="-15" y="270" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>b9be0236-3f82-42a2-94dc-58ed8d2575dc</ontrue>
+    <onfalse>a4dcd5f5-ba58-4229-9d50-710794a644ff</onfalse>
+  </stage>
+  <stage stageid="b9be0236-3f82-42a2-94dc-58ed8d2575dc" name="Re-Throw" type="Exception">
+    <display x="90" y="270" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="62c1b816-b685-405f-906e-a7bf6610a8e0" name="Publish Process" type="Action">
+    <subsheetid>53be942c-f898-4f68-a3f2-c1934af1afe7</subsheetid>
+    <display x="0" y="135" w="180" h="30" />
+    <inputs>
+      <input type="text" name="Username" narrative="username" expr="&quot;admin&quot;" />
+      <input type="text" name="Password" narrative="password" expr="&quot;admin&quot;" />
+      <input type="text" name="Command" narrative="command" expr="&quot;/publish &quot;&quot;&quot; &amp; [Process Name] &amp; &quot;&quot;&quot;&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="PID" narrative="PID of the process" stage="Command PID 1" />
+    </outputs>
+    <onsuccess>59c4f4c9-1b1e-442d-afcc-effbfed2e9df</onsuccess>
+    <resource object="Blue Prism - Commands" action="Send Command" />
+  </stage>
+  <stage stageid="492d7c0a-3b76-4402-933e-df8ff119bb06" name="Command PID 1" type="Data">
+    <subsheetid>53be942c-f898-4f68-a3f2-c1934af1afe7</subsheetid>
+    <display x="-195" y="45" w="150" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+</process>

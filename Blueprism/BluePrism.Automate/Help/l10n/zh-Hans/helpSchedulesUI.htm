@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<title>Blue Prism 调度程序配置—计划</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+</head>
+
+<body class="slick scheduler">
+	<div class="header">
+		<h1 class="pagetitle">调度程序配置</h1>
+		<h2>计划</h2>
+    </div>
+	<div class="captioned-image overview-screenshot nozoom">
+		<a href="Graphics/schedule-config.png" title="计划配置—点击查看大图"><img alt="计划配置—点击查看大图" src="Graphics/schedule-config.png"/></a>
+		<p>计划配置</p>
+	</div>
+	<h3>概述</h3>
+	<p>在计划管理器树中选择某个计划时，它将显示在 Blue Prism 客户端的右侧窗格中。</p>
+	<p>可以从此处将计划配置为从特定日期开始执行，以不同的间隔重复并在特定日期过期。</p>
+	<p>可以使用<a href="helpTasksUI.htm">任务配置</a>组件配置组成计划执行安排的任务。</p>
+	
+	<h3>目录</h3>
+	<ul class="contents">
+		<li><a href="#create-sched">创建计划</a></li>
+		<li><a href="#configure-sched">配置计划</a></li>
+		<li><a href="#trigger-sched">触发计划</a></li>
+		<li><a href="#manage-sched">保存/复制计划</a></li>
+		<li><a href="#remove-sched">移除计划</a></li>
+	</ul>
+
+	<h3 id="create-sched">创建计划</h3>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-newschedule.png" alt="创建计划"/>
+	</div>
+	<p>通过右键点击计划管理器树的“计划”元素并选择“新建计划”可创建计划。</p>
+	<p>新计划将被创建（填充以默认值），并在右侧窗格中被自动选中。请注意，在保存计划之前，它在数据库中不存在，并且不会由正在运行的调度程序执行。</p>
+	<div class="clearer"></div>
+	
+	<h3 id="configure-sched">配置计划</h3>
+	<h4 id="run-once">简单计划—运行一次</h4>
+	<p>创建新计划时，它将具有一个自动生成的名称，并且被初步设置为在当前日期和时间运行一次。</p>
+	<p>要创建仅在指定日期和时间运行一次的计划，应更改“开始于”日期和“运行时间”时间以指示计划应执行的日期和时间。</p>
+	<p>要配置任务，请参阅<a href="helpTasksUI.htm#configure-task">“配置任务”</a>部分。</p>
+	<div class="clearer"></div>
+	
+	<h4 id="run-hourly">每小时运行一次</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-hourly.png" alt="每小时运行一次计划"/>
+	</div>
+	<p>计划可以在指定时间之间按每小时间隔执行。</p>
+	<p>选择“每小时/每分钟运行”单选按钮和“每 &lt;n&gt; 小时”单选按钮可以按小时运行计划。</p>
+	<p>它可以配置为每小时运行一次，每 2 小时运行一次等，最长为 999 小时。</p>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/schedule-hourly-calendar.png" alt="特定工作日的每小时计划"/>
+	</div>
+	<p>默认情况下，计划将按照它应运行的每个间隔运行，但可以通过设置应执行计划的时间来进一步限制。超出指定范围的激活时间不会引发计划的执行。</p>
+	<p>还可以将计划配置为仅在预定义日历中定义的工作日每小时运行一次，方法是勾选“仅限日历中的日期”复选框，然后从下拉列表中选择所需的日历。</p>
+	<div class="clearer"></div>
+
+	<h4 id="run-minutely">每分钟运行</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-minutely.png" alt="每分钟运行一次计划"/>
+	</div>
+	<p>计划可以在指定边界之间的时间按每分钟间隔执行。</p>
+	<p>以分钟间隔运行的计划的配置与以<a href="#run-hourly">小时间隔</a>运行的计划的配置相同，并且具有相同的可用选项。</p>
+	<div class="clearer"></div>
+
+	<h4 id="run-daily">每天运行</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-daily.png" alt="每天运行一次计划"/>
+	</div>
+	<p>计划可以按每日间隔执行或在预定义的<a href="helpCalendar.htm">日历</a>中指定的工作日执行。</p>
+	<p>选择“每日运行”单选按钮可以启用计划的每日运行。</p>
+	<p>它可以配置为每天运行一次，每 2 天运行一次等，最长为 999 天。</p>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/schedule-daily-calendar.png" alt="仅限下列日期..."/>
+	</div>	
+	<p>默认情况下，计划将按照它应运行的每个间隔运行，但可以通过选中“仅限日历中的日期”复选框并设置要使用的日历来进一步限制，这表示只应在该日历中指定的工作日激活计划。</p>
+	<p>请参阅<a href="helpCalendar.htm">日历帮助主题</a>，了解有关日历的详细信息。</p>
+	
+	<h4 id="run-weekly">每周运行</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-weekly.png" alt="每周运行一次计划"/>
+	</div>
+	<p>计划可以在与起始日期相同的日期按照每周间隔执行，或者根据指定的日历在第一个/最后一个工作日执行。</p>
+	<p>选择“每周运行”单选按钮可以启用计划的每周运行。</p>
+	<p>它可以配置为每周运行一次，每 2 周运行一次等，最长为 999 周。</p>
+	<p>默认情况下，计划在与起始日期相同的日期每周运行。这可以修改为在日历中指定的每周第一个或最后一个工作日运行。</p>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/schedule-weekly-nth.png" alt="在第一个/最后一个工作日"/>
+	</div>	
+	<p>通过选中“在 [calendar] 中的 [nth] 工作日”单选按钮，选择是应在第一个还是最后一个工作日运行计划，然后指定日历，可以将计划配置为在每周的第一个或最后一个工作日运行。</p>
+	<p><strong>注意： </strong>从内部来说，每周的第一天为周一，比如，如果日历配置为从周日到周五，则在任何指定周中，周一将被视为第一个工作日，周日将被视为最后一个工作日（其他假日除外）。</p>
+	<p>请参阅<a href="helpCalendar.htm">日历帮助主题</a>，了解有关日历的详细信息。</p>
+	
+	<h4 id="run-monthly">每月运行</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-monthly.png" alt="每月运行一次计划"/>
+	</div>
+	<p>计划在与起始日期相同的日期按每月间隔执行（如果该日期不存在，则在当月的最后一天或次月的第一天执行—例如，2 月 31 日），或者在该月的第一、第二、第三、第四、第五或最后一个指定的工作日执行（例如，第一个周四、第三个周四、最后一个周五），或者根据指定日历在第一个或最后一个工作日执行。</p>
+	<p>选择“每月运行”单选按钮可以启用计划的每月运行。</p>
+	<p>它可以配置为每月运行一次，每 2 个月运行一次等，最长为 999 个月。</p>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/schedule-monthly-missing.png" alt="如果 [date] 不存在"/>
+	</div>	
+	<p>默认情况下，计划将在与起始日期相同的日期每月运行一次，跳过不存在该日期的任何月份。</p>
+	<p>如果特定月份的配置日期不存在，可以不使用跳过，而是将计划配置为在该月的最后一天或次月的第一天运行。可以通过从相邻下拉列表中选择适当的值来进行设置。</p>
+	<div class="clearer"></div>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/schedule-monthly-nthweekday.png" alt="在 [nth] [weekday]"/>
+	</div>	
+	<p>此外，也可以将计划配置为遇到一个月内的指定工作日时每月运行一次，例如，第一个周五、最后一个周三等。</p>
+	<p>通过选中“在每月的 [nth] [weekday]”单选按钮并选择以下内容来激活该功能：—</p>
+	<ul>
+		<li>它应该在遇到哪一个日期时运行：第一个、第二个、第三个、第四个、第五个或最后一个。请注意，如果指定的事件没有在一个月内发生，则会跳过该月份—例如，如果选择的是第五个周四，而一个月只有四个周四，那么该计划将不会在那个月执行。</li>
+		<li>它应该在哪个工作日运行</li>
+	</ul>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/schedule-monthly-nthworkingday.png" alt="在 [nth] 工作日"/>
+	</div>	
+	<p>最后，计划可配置为按照<a href="helpCalendar.htm">日历</a>中的指定在每个月的第一个或最后一个工作日运行</p>
+	<p>通过选中“在 [calendar] 的 [nth] 工作日”单选按钮并选择以下内容来激活该功能：—</p>
+	<ul>
+		<li>计划是应根据该日历在每个月的第一天还是最后一天运行。</li>
+		<li>应使用哪个日历来确定工作日。</li>
+	</ul>
+	<p>请参阅<a href="helpCalendar.htm">日历帮助主题</a>，了解有关日历的详细信息。</p>
+	<div class="clearer"></div>
+	
+	<h4 id="run-yearly">每年运行</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-yearly.png" alt="每年运行一次计划"/>
+	</div>
+	<p>计划可以在与起始日期相同的日期每年执行一次，跳过该日期不存在的任何年份—例如，如果配置为从闰年的 2 月 29 日开始运行，则会跳过下一个闰年之前的每个年份。</p>
+	<p>选择“每年运行”单选按钮可以启用计划的每年运行。</p>
+	<p>它可以配置为每年运行一次，每 2 年运行一次等，最长为 999 年。</p>
+	<div class="clearer"></div>
+	
+	<h4 id="expire-sched">设置过期日期</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-enddate.png" alt="计划过期"/>
+	</div>
+	<p>默认情况下，当计划配置为按照定期间隔执行时，计划的时间表将永远继续。</p>
+	<p>也可以指定“过期”日期和时间，这将导致计划在指定日期/时间或之后停止执行。</p>
+	<p>通过选中“过期于”单选按钮并选择所需的日期和时间来激活此功能。</p>
+
+	<div class="clearer"></div>
+	<h4 id="initial-task">设置要执行的初始任务</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-initialtask.png" alt="设置初始任务"/>
+	</div>
+	<p>首次创建计划时，还会创建一个空白任务，并将其设置为激活计划时要执行的初始任务。</p>
+	<p>如果需要其他任务，可以使用“初始任务”下拉列表来选择应第一个执行的任务。</p>
+	<div class="clearer"></div>
+
+	<h3 id="trigger-sched">触发计划</h3>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-runnow.png" alt="运行计划"/>
+	</div>
+	<p>无论时间数据如何，都可以通过右键点击并选择“立即运行”来启动计划。这将导致向数据库中写入一个标记，调度程序将在下次检查更改时使其生效。</p>
+	<p>调度程序每 30 秒检查一次计划数据的更改，因此假设调度程序在 Blue Prism 客户端所连接的同一数据库上运行，计划应在不超过 30 秒的时间内执行。</p>
+	<div class="clearer"></div>
+
+	<h3 id="manage-sched">保存/复制计划</h3>
+	<p>计划数据可以被保存（覆盖计划的任何以前数据）或克隆（使用相同数据创建新计划）。</p>
+	<h4 id="save-sched">保存计划</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-save.png" alt="保存计划"/>
+	</div>
+	<p>可以通过在计划管理器树中右键点击并选择“保存”来保存发生更改的计划。</p>
+	<p>此外，点击“应用更改”按钮时，所有发生更改的计划、报告和时间表都将被保存。</p>
+	<div class="clearer"></div>
+	
+	<h4 id="clone-sched">克隆计划</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-clone.png" alt="克隆计划"/>
+	</div>
+	<p>可以通过在计划管理器树中右键点击并选择“克隆”来克隆计划。</p>
+	<p>使用此方法创建的计划与通过在树中进行一次点击创建的计划具有相同的时间数据、任务和会话。</p>
+	<p>请注意，新克隆的计划在显式<a href="#save-sched">保存</a>（右键点击并保存，或点击“应用更改”）之前不会保存到数据库。</p>
+	<div class="clearer"></div>
+
+	<h3 id="remove-sched">移除计划</h3>
+	<p>计划可以通过以下两种方式之一移除—停用或删除。已停用的计划可以恢复，而已删除的计划则不可恢复。</p>
+	<p>已移除的计划（无论移除方法如何）都不会由调度程序执行，也不会显示在任何报告或时间表中。</p>
+	
+	<h4 id="retire-sched">停用计划</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-retire.png" alt="停用计划"/>
+	</div>
+	<p>可以通过在计划管理器树中右键点击并选择“停用”来从活动服务中“停用”计划。计划将移动到树的“已停用计划”组中。计划一旦被停用，调度程序将不会考虑执行它，并且它也不会显示在任何报告或时间表中。</p>
+	<p>请注意，停用计划的操作会立即执行—不需要单独保存。</p>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/schedule-retired.png" alt="查看已停用的计划"/>
+	</div>	
+	<p>已停用的计划可以在计划管理器树中选择，并且可以查看其设置，但不能从那里进行编辑。</p>
+	<div class="clearer"></div>
+	
+	<h4 id="unretire-sched">恢复已停用的计划</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-unretire.png" alt="取消停用计划"/>
+	</div>
+	<p>可以通过在计划管理器树中右键点击并选择“取消停用”来将已停用的计划恢复为活动服务。此操作立即执行，无需单独保存。</p>
+	<p>请注意，只要某个计划被恢复，它就可以由正在运行的调度程序激活。</p>
+	
+	<div class="clearer"></div>
+	<h4 id="delete-sched">删除计划</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-delete.png" alt="删除计划"/>
+	</div>
+	<p>可以通过在计划管理器树中右键点击并选择“删除”来删除计划。</p>
+	<p><strong>注意： </strong>如果计划尚未被调度程序执行，此操作会将其完全删除。否则，数据将保留在数据库上以供审计之用，但应用程序 UI 或调度程序无法引用该数据。</p>
+
+	<h3 id="see-also">相关主题</h3>
+	<ul class="relatedtopics">
+		<li><a href="helpSchedulerUI.htm">Blue Prism 调度程序</a></li>
+		<li><a href="helpTasksUI.htm">配置任务</a></li>
+		<li><a href="helpReportsUI.htm">配置报告</a></li>
+		<li><a href="helpTimetablesUI.htm">配置时间表</a></li>
+	</ul>
+
+	</body>
+</html>

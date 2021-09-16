@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<title>ダッシュボード</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+		dl.import-rules dd>ul>li { margin-bottom: 1em; }
+		dl.import-rules dd>ul { padding-left: 1em; }
+	</style>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">Blue Prism</h1>
+		<h2>FTE生産性の比較</h2>
+	</div>
+
+  <h3>BPDS_FTEProductivityComparison</h3>
+  <p>指定された期間中に完了したケースの数を返します。人員を表す指標と比較します（任意）。比較するにはパラメーター値が必要です。データは完了した日に対してのみ返されます（つまり、MI統計の最終コンパイル後に完了したケースは含まれません）。</p>
+  <p><b>ソース：</b>Blue Prismデータベース - ライブテーブルとMIリポジトリ（有効にするにはMI統計のコンパイルが必要です）</p>
+  
+  <h3>サンプルチャート</h3>
+  <img alt="FTE生産性の比較" src="Graphics/tile-FTEProductivityComparison.png"/>
+			
+  <h3>パラメーター</h3>
+  <table>
+    <tr>
+      <th>パラメーター名</th>
+      <th>データ型</th>
+      <th>説明</th>
+      <th>検証</th>
+    </tr>
+    <tr>
+      <td>@BPQueueName</td>
+      <td>テキスト</td>
+      <td>照会する個々のキューの名前（指定しない場合、すべてのキューが照会されます）</td>
+      <td>なし。</td>
+    </tr>
+    <tr>
+      <td>@NumberOfMonths</td>
+      <td>整数</td>
+      <td>レポーティング期間（月数）（指定しない場合、月数は6か月になります）</td>
+      <td>最大12か月</td>
+    </tr>
+    <tr>
+      <td>@FTEProductivity</td>
+      <td>小数点</td>
+      <td><p>比較用の1 FTEの日別生産性（つまり、1 FTEが1日に作業するケースの平均数）を表します。指定しない場合、完了したケースの数が返されます</p></td>
+      <td>なし。</td>
+    </tr>
+    <tr>
+      <td>@FTECost</td>
+      <td>小数点</td>
+      <td><p>@FTEProductivityが指定されている場合にのみ適用可能で、比較用に1 FTEの総負担費用（日別）を表します。</p></td>
+      <td>なし。</td>
+    </tr>
+    <tr>
+      <td>@DisplayAs</td>
+      <td>テキスト</td>
+      <td><p>@FTEProductivityが指定されている場合にのみ適用可能で、可能な値は次のとおりです。</p>
+          <ul>
+            <li><b>割合</b> - 値はFTE生産性の割合として返されます</li>
+            <li><b>数値</b> - 値は等価FTEの数として返されます</li>
+            <li><b>コスト</b> - 値は同数のFTEに基づくコスト削減として返されます（@FTECostの値が必要です）</li>
+          </ul>
+          <p>指定しない場合、値はFTE生産性の割合として返されます</p></td>
+      <td>割合、数、またはコスト</td>
+    </tr>
+  </table>
+  
+</body>
+</html>

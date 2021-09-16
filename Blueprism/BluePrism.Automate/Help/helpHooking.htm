@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Application Hooking</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="pagetitle">Help</h1>
+    </div>
+    
+    <h3>Overview</h3>
+    <p>
+		Application hooking is an invasive automation technique for retrieving
+		data from a graphical application. It involves injecting executable
+		code into the target application's memory space in order to feed back
+		information. Whilst technically invasive, this technique has no effect
+		on the target application's behaviour.
+	</p>
+	<p>
+		The process of feeding back data can be summarised as follows: Blue Prism
+		anticipates where the application will send data, it listens for data in that place,
+		intercepts and observes the data, and then passes it on to its intended destination.
+		A more technical description of this process is outlined below.
+	</p>
+    
+    <h3>How hooking works</h3>
+    <p>
+		The following description requires some technical knowledge.
+	</p>
+	<p>
+		Blue Prism replaces the implementation of functions within the target application's
+		copy of the windows user32, Kernel32 and gdi32 libraries. The new implementations take note of any
+		parameters passed, making this information available to Blue Prism, and then invoke
+		the original implementation, in order that the application continue to behave
+		as before.
+	</p>
+	<p>
+		Examples of functions replaced include DrawTextA and SetWindowPos, allowing Blue Prism
+		to know about any text rendered on the screen, and any windows created within the
+		application (respectively).
+	</p>
+	<p>
+		Blue Prism collates this information into an object model, remembering each piece
+		of information gathered and how each piece of information relates to the whole.
+		The model is updated in real time, with out-dated information discarded and new
+		information always observed, meaning that Blue Prism is always aware of the current
+		state of the application and ready to report on it.
+	</p>
+	<p>
+		This functionality allows Blue Prism to interact with the target application from
+		<a href="helpObjectStudio.htm">object studio</a>,
+		<a href="frmStagePropertiesWait.htm">waiting</a> for an anticipated feature in
+		the object model for example, or <a href="frmStagePropertiesRead.htm">reading</a>
+		data from the model to be used in a business process.
+	</p>
+	
+	
+    <h3>Uses</h3>
+    <p>
+		Hooking is usually used as a last resort, when no better form of integration
+		is available, (where &quot;better&quot; means a more platform-specific method
+		such as <a href="helpJavaAutomation.htm">java integration</a>).
+	</p>
+	<p>
+		Typically, hooking is used when the target application is implemented against a framework
+		which reimplements features provided by the Windows API. For example instead of
+		creating a button via the windows API, the framework may render its own button on
+		the screen. As a result, when Blue Prism attempts to inspect the application using
+		Windows integration techniques all that can be seen is a single window, rather than
+		a window containing several individual components such as buttons, edit fields and
+		combo boxes. In this case, hooking allows Blue Prism to observe the text drawn on the
+		button meaning that the button's location can be inferred.
+	</p>
+	<p>
+		Examples of frameworks for which hooking is suitable include
+		<a href="http://en.wikipedia.org/wiki/Smalltalk">Smalltalk</a>,
+		<a href="http://en.wikipedia.org/wiki/GTK+">GTK+</a>, and 
+		<a href="http://en.wikipedia.org/wiki/Qt_%28toolkit%29">Qt</a>.
+	</p>
+	
+	<h3>Advantages</h3>
+	<p>
+		Hooking technology is useful because it boasts key features above traditional macro-based
+		approaches to automation:
+	</p>
+	<ul>
+		<li class="bold">Reliability
+			<p class="indented">
+				Macro-based automation relies on a &quot;click and pray&quot;
+				approach which consists of naively sending mouse click messages at predetermined
+				screen coordinates. Such techniques are error prone and notoriously unpredictable. In
+				particular, they fail if any visual aspect of the application changes, be it due to
+				a software upgrade, a change in screen resolution, or differing themes/skins used across
+				different PCs. This can result in a non-functioning macro or, even worse, a macro
+				which has unintended behaviour, causing data corruption.
+			</p>
+		</li>
+		<li class="bold">Ease of data retrieval
+			<p class="indented">
+				Macro-based automation has no fail-safe method of retrieving data. At best, it can
+				focus an element of interest via a (naive) mouse click, send keyboard shortcuts to
+				select all text, and copy the selected text to the clipboard. Thus data is easily
+				missed and often incomplete. In contrast, hooking has all of the data captured
+				in real time, and can even detect the presence of the data - see &quot;detecting readiness&quot;
+				below.
+			</p>
+		</li>
+		<li class="bold">Detecting Readiness
+			<p class="indented">
+				Macro-based automation is usually based on naive pauses (timed waits) to ensure
+				that the application is ready to receive input, or that data is present and available for reading.
+				For example after clicking a &quot;Get Details&quot; button, it may be necessary to
+				wait for a reply from a remote database before the application can display some
+				data on the screen. The time taken to complete this operation is unpredictable and
+				can vary greatly, according to the load on the database server. As a result, a macro
+				can often exhibit unintended behaviour, because it moves on to the next stage before 
+				the target application is ready.
+			</p>
+			<p class="indented">
+				In contrast, Blue Prism's hooking model has details of the target application's state.
+				The model contains information about which components and which pieces of information
+				are present. For example, if data is presented in a pop-up window, Blue Prism is capable
+				of waiting as long as is necessary for the window to appear, and indeed for the data
+				within that window to appear. This ability to wait is as opposed to a fixed
+				wait of 30 seconds (for example) in a macro, which is hoped to be long enough for the
+				pop-up window to appear in &quot;most&quot; cases.
+			</p>
+		</li>
+		<li class="bold">Speed
+			<p class="indented">
+				As described above, Blue Prism has sophisticated waiting capabilities for detecting readiness
+				in the target application. This means that it only need wait as long is as necessary at each
+				stage. Consider again the example of waiting for the pop-up window. A macro may decide to
+				wait 30 seconds in each case in order to
+				guarantee (perceived) reliability in 99% of cases, when in fact 5 seconds is the typical
+				waiting period necessary. Hooking allows automation to continue as soon as the application
+				is ready, leading to superior performance.
+			</p>
+		</li>
+	</ul>
+	<p>
+		In summary, hooking technology makes automation feasible and desirable in situations
+		where automation might not previously have been considered suitable.
+	</p>
+    
+    
+    <h3>Disadvantages</h3>
+    <p>
+		Whilst hooking is an advanced technology, it is a technology designed to make the most
+		of a bad situation where (as described above) there is no obvious or direct mechanism
+		that allows easy automation. For this reason, it appears to be deficient when compared
+		to some of these other preferred techniques. These caveats are listed below.
+	</p>
+	<ul>
+		<li class="bold">Less control over how the application is launched
+			<p class="indented">
+				For technical reasons inherent in the nature of the technique, hooking can
+				only be done by Blue Prism when the application is launched. For this reason
+				the application must be launched by Blue Prism - the application can not be
+				attached to once already running, as with alternative integration techniques.
+			</p>
+		</li>
+		<li class="bold">More work involved in creating business objects
+			<p class="indented">
+				The user will have to do some work to ensure that certain data in the object
+				model are not confused. For example, Blue Prism has no way of knowing whether a
+				piece of text obtained via hooking is part of a button say, or part of a nearby
+				combo box. The user will have to exercise some care to avoid problems
+			</p>
+			<p class="indented">
+				For this reason, the user may be required to be inventive about how they interact
+				with the target application, based on how it appears to work and what information
+				happens to be available to Blue Prism via the hooking method - the information
+				available will vary from application to application.
+			</p>
+		</li>
+		<li class="bold">No ready-made convenience methods
+			<p class="indented">
+				Because hooking does not act with respect to a specific toolkit and its features
+				(in contrast to Blue Prism's <a href="helpJavaAutomation.htm">Java Automation
+				technology</a> for example), it cannot provide a specific set of features designed
+				for interacting with specific types of user interface element. Thus the user will have
+				to do some manual work for simulating the selection of a combo box item (for example),
+				whereas with a windows application Blue Prism can do the work of selecting a combo box
+				item instead - the user need only issue the instruction via a
+				<a href="frmStagePropertiesNavigate.htm">navigate stage</a>.
+			</p>
+		</li>
+	</ul>
+	
+	   
+    
+    <h3>When should I choose to use hooking?<a name="WhenToUseHooking" id="WhenToUseHooking"></a></h3>
+    <p>
+		In short: hooking is a last-resort technique. Use a more specific technique
+		such as browser automation or <a href="helpJavaAutomation.htm">Java Automation</a>
+		if available and applicable.
+	</p>
+    
+</body>
+</html>

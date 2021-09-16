@@ -1,0 +1,385 @@
+﻿<process name="Test To Check Auth Type in Users Table" version="1.0" bpversion="6.11.0.35077" narrative="" byrefcollection="true" preferredid="5ad840e2-1fcd-4de1-bd95-4192df9ec810">
+  <view>
+    <camerax>-26</camerax>
+    <cameray>-90</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="1238d78f-f71f-4868-82d7-688cf49181eb" type="Normal" published="False">
+    <name>Check Auth Type </name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="57c18d20-53f1-46d8-b0ac-e2b61718f35d" type="Normal" published="False">
+    <name>Setup - Create Native User</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="e296a903-10be-4882-8506-5b15ef39d6e2" name="Start" type="Start">
+    <display x="15" y="-150" />
+    <onsuccess>64c796f4-39c7-401e-bacc-f3cbfc45a9b3</onsuccess>
+  </stage>
+  <stage stageid="f406bc4a-a232-4ae7-8777-856ac52ecab4" name="End" type="End">
+    <display x="15" y="225" />
+  </stage>
+  <stage stageid="4b1ab2a6-a1f2-4689-ae3f-008be6c00126" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-90" w="150" h="90" />
+  </stage>
+  <stage stageid="af56caec-ea12-4aad-bbdf-95ca1a0c103e" name="Setup - Create Native User" type="SubSheetInfo">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="8fd9edfd-2f4c-4bf9-ba40-b7fc12aaa085" name="Start" type="Start">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>7e1949d5-fc79-4bcd-9fc1-b23be444e1bb</onsuccess>
+  </stage>
+  <stage stageid="7e1949d5-fc79-4bcd-9fc1-b23be444e1bb" name="Launch BP" type="Action">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <display x="-45" y="-90" w="120" h="30" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>dfdb70c7-39ae-4da2-83b1-255302ae7918</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="dfdb70c7-39ae-4da2-83b1-255302ae7918" name="Attach System" type="Action">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <display x="-45" y="-45" w="120" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>4a2e3cf0-21b7-419e-9ca2-c018025f4e07</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="4a2e3cf0-21b7-419e-9ca2-c018025f4e07" name="Sign In" type="Action">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <display x="-45" y="0" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="" />
+      <input type="password" name="Password" expr="" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Locale" friendlyname="Locale" narrative="Blue Prism Locale setting" stage="" />
+    </outputs>
+    <onsuccess>5e828532-908e-4074-9529-817f812bafdb</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="5e828532-908e-4074-9529-817f812bafdb" name="Browse to System" type="Action">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="45" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>b24520fd-0fe9-46da-829a-495add251283</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="b24520fd-0fe9-46da-829a-495add251283" name="Browse to Users" type="Action">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="90" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Users&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>719a0682-dcd4-4339-96ea-6885f7ec2aa3</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="10c21028-4603-4586-be70-4e7e3b2e3ea2" name="Password" type="Data">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>password</datatype>
+    <initialvalueenc>32</initialvalueenc>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4a5bd45c-c00a-4ff5-a8d6-f397735f1a3c" name="Input Variables" type="Block">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a46702ee-292f-47c9-a133-f1b2f77c9a7c" name="pid" type="Data">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b44d9977-ca3e-4eaf-a31c-c5f93332dd6a" name="Check Auth Type " type="SubSheetInfo">
+    <subsheetid>1238d78f-f71f-4868-82d7-688cf49181eb</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="4d6332b8-6c6b-4913-adbb-13fffb5ece23" name="Start" type="Start">
+    <subsheetid>1238d78f-f71f-4868-82d7-688cf49181eb</subsheetid>
+    <display x="-45" y="-135" />
+    <inputs>
+      <input type="text" name="User" narrative="The name of the user you want to check the auth type for." stage="Username (Native)" />
+      <input type="text" name="Auth Type" narrative="The expected auth type." stage="Auth type" />
+    </inputs>
+    <onsuccess>4466f00d-042b-4d14-a10b-3dc0945f0a0a</onsuccess>
+  </stage>
+  <stage stageid="55d69fbe-e558-41c4-8374-7b3a5a00ca97" name="End" type="End">
+    <subsheetid>1238d78f-f71f-4868-82d7-688cf49181eb</subsheetid>
+    <display x="-45" y="90" />
+  </stage>
+  <stage stageid="561be7e2-f575-413b-ac48-0b64bd98b021" name="Setup - Create Native User" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-30" w="150" h="30" />
+    <onsuccess>10eba127-6445-4d64-a61f-f9a5baa24c22</onsuccess>
+    <processid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</processid>
+  </stage>
+  <stage stageid="3ec4b2bc-3034-41dd-8351-181b427b7c12" name="Auth type" type="Data">
+    <subsheetid>1238d78f-f71f-4868-82d7-688cf49181eb</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Native</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="ea8d7a49-adeb-4ff8-93d3-217c12d7c98e" name="Input Variables" type="Block">
+    <subsheetid>1238d78f-f71f-4868-82d7-688cf49181eb</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a7cccd97-4241-407c-9b4f-cf5a0d274d9b" name="Check Auth Type " type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="60" w="150" h="30" />
+    <inputs>
+      <input type="text" name="User" friendlyname="User" narrative="The name of the user you want to check the auth type for." expr="[Username (Native)]" />
+      <input type="text" name="Auth Type" friendlyname="Auth Type" narrative="The expected auth type." expr="&quot;Native&quot;" />
+    </inputs>
+    <onsuccess>ac22fea0-40b3-40d4-a5d8-5904cc77235d</onsuccess>
+    <processid>1238d78f-f71f-4868-82d7-688cf49181eb</processid>
+  </stage>
+  <stage stageid="da934967-f3da-462f-8c79-8ba8bec8cd67" name="Username (Native)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="0" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">User US-6391</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="d33a7c0a-0cec-4cb1-b77e-eed1d3639a8e" name="Global Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-30" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4466f00d-042b-4d14-a10b-3dc0945f0a0a" name="Read User Details" type="Action">
+    <subsheetid>1238d78f-f71f-4868-82d7-688cf49181eb</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="90" h="30" />
+    <outputs>
+      <output type="collection" name="Users" friendlyname="Users" narrative="The details of the current uses." stage="Users" />
+    </outputs>
+    <onsuccess>c0654a1e-1338-4033-b687-36e5b14938f6</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Read User Details" />
+  </stage>
+  <stage stageid="797055aa-88b9-43f7-a4f8-fc5606caab74" name="Users" type="Collection">
+    <subsheetid>1238d78f-f71f-4868-82d7-688cf49181eb</subsheetid>
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c0654a1e-1338-4033-b687-36e5b14938f6" name="User Loop" type="LoopStart">
+    <subsheetid>1238d78f-f71f-4868-82d7-688cf49181eb</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="90" h="30" />
+    <onsuccess>c5120f4f-f62c-4f5e-bd63-55d4065bf490</onsuccess>
+    <groupid>61a0f146-0682-45d8-a7c5-ba1db2bded4c</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Users</loopdata>
+  </stage>
+  <stage stageid="c82db0b3-28e0-4f12-b7e3-ea032d0a9b3e" name="User Loop" type="LoopEnd">
+    <subsheetid>1238d78f-f71f-4868-82d7-688cf49181eb</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="45" w="90" h="30" />
+    <onsuccess>9056c33c-f1e6-4ab8-b120-4744717d96f9</onsuccess>
+    <groupid>61a0f146-0682-45d8-a7c5-ba1db2bded4c</groupid>
+  </stage>
+  <stage stageid="c5120f4f-f62c-4f5e-bd63-55d4065bf490" name="User Present" type="Decision">
+    <subsheetid>1238d78f-f71f-4868-82d7-688cf49181eb</subsheetid>
+    <display x="-45" y="0" w="90" h="30" />
+    <decision expression="[Users.Full Name]=[Username (Native)]&#xA;AND&#xA;[Users.Auth type]=[Auth type]" />
+    <ontrue>449a7641-0058-4120-aebd-360b19ff6445</ontrue>
+    <onfalse>c82db0b3-28e0-4f12-b7e3-ea032d0a9b3e</onfalse>
+  </stage>
+  <stage stageid="9056c33c-f1e6-4ab8-b120-4744717d96f9" name="Fail" type="Exception">
+    <subsheetid>1238d78f-f71f-4868-82d7-688cf49181eb</subsheetid>
+    <display x="45" y="45" />
+    <exception localized="yes" type="missing element" detail="&quot;User With Auth type not found&quot;" />
+  </stage>
+  <stage stageid="449a7641-0058-4120-aebd-360b19ff6445" name="Anchor1" type="Anchor">
+    <subsheetid>1238d78f-f71f-4868-82d7-688cf49181eb</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="90" y="0" w="10" h="10" />
+    <onsuccess>40b229de-0b54-46e9-8570-3c3285a6d561</onsuccess>
+  </stage>
+  <stage stageid="40b229de-0b54-46e9-8570-3c3285a6d561" name="Anchor2" type="Anchor">
+    <subsheetid>1238d78f-f71f-4868-82d7-688cf49181eb</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="90" y="90" w="10" h="10" />
+    <onsuccess>55d69fbe-e558-41c4-8374-7b3a5a00ca97</onsuccess>
+  </stage>
+  <stage stageid="64c796f4-39c7-401e-bacc-f3cbfc45a9b3" name="Note1" type="Note">
+    <narrative>GIVEN I sign in as a user who can create users
+WHEN when I create a native Blue Prism user</narrative>
+    <display x="15" y="-75" w="180" h="30" />
+    <onsuccess>561be7e2-f575-413b-ac48-0b64bd98b021</onsuccess>
+  </stage>
+  <stage stageid="10eba127-6445-4d64-a61f-f9a5baa24c22" name="Note2" type="Note">
+    <narrative>THEN the user created is tagged auth type native in the user table</narrative>
+    <display x="15" y="15" w="180" h="30" />
+    <onsuccess>a7cccd97-4241-407c-9b4f-cf5a0d274d9b</onsuccess>
+  </stage>
+  <stage stageid="ac22fea0-40b3-40d4-a5d8-5904cc77235d" name="Terminate" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" w="150" h="30" />
+    <onsuccess>b822e3be-3a52-4e80-bd1b-34c9f554aa2a</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="e36cf694-9a81-4fc5-817b-8655a042f0d1" name="Select User Type" type="Action">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="180" w="120" h="30" />
+    <inputs>
+      <input type="text" name="User Type" friendlyname="User Type" narrative="Type of the user want to select" expr="&quot;Create a single Blue Prism native user&quot;" />
+    </inputs>
+    <onsuccess>9a45dfaf-c766-4662-91a6-d3c2c450baca</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Select User Type" />
+  </stage>
+  <stage stageid="719a0682-dcd4-4339-96ea-6885f7ec2aa3" name="Press New" type="Action">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="135" w="120" h="30" />
+    <inputs>
+      <input type="flag" name="Via Burger Menu?" friendlyname="Via Burger Menu?" expr="&quot;True&quot;" />
+    </inputs>
+    <onsuccess>e36cf694-9a81-4fc5-817b-8655a042f0d1</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Press New External User" />
+  </stage>
+  <stage stageid="9a45dfaf-c766-4662-91a6-d3c2c450baca" name="Press Next" type="Action">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="225" w="120" h="30" />
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="The error message read when pressing next." stage="" />
+    </outputs>
+    <onsuccess>ccbea002-32cb-4c41-ad78-685b94dd822a</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Press Next" />
+  </stage>
+  <stage stageid="f156fb8a-cc5b-4cd1-b4ea-16f016ecec76" name="End" type="End">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <display x="-45" y="450" />
+  </stage>
+  <stage stageid="ccbea002-32cb-4c41-ad78-685b94dd822a" name="Add Username and Password" type="Action">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="270" w="120" h="30" />
+    <inputs>
+      <input type="text" name="User Name" friendlyname="User Name" narrative="Username to create new user" expr="[Username (Native)]" />
+      <input type="password" name="Password" friendlyname="Password" narrative="Password to set to new user" expr="[Password]" />
+    </inputs>
+    <onsuccess>0656450f-b805-42f4-922e-3049aca62462</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Write Username - Password" />
+  </stage>
+  <stage stageid="cbff418d-841b-4ae3-8288-481429e040c2" name="Press Next" type="Action">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="360" w="120" h="30" />
+    <onsuccess>5da64ced-6e62-41e6-a102-dceeb191d915</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Press Next" />
+  </stage>
+  <stage stageid="0656450f-b805-42f4-922e-3049aca62462" name="Press Next" type="Action">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="315" w="120" h="30" />
+    <onsuccess>cbff418d-841b-4ae3-8288-481429e040c2</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Press Next" />
+  </stage>
+  <stage stageid="5da64ced-6e62-41e6-a102-dceeb191d915" name="Press Finish" type="Action">
+    <subsheetid>57c18d20-53f1-46d8-b0ac-e2b61718f35d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="405" w="120" h="30" />
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="The error message read when pressing next." stage="" />
+    </outputs>
+    <onsuccess>f156fb8a-cc5b-4cd1-b4ea-16f016ecec76</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Press Finish" />
+  </stage>
+  <stage stageid="405c7d54-00a7-4381-8e10-eecc66a72398" name="Cleanup Block" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="-120" w="315" h="225" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="eff341f6-385c-466e-b5c8-f8573c8ec1ed" name="Recover1" type="Recover">
+    <loginhibit />
+    <display x="165" y="-15" />
+    <onsuccess>020b4e14-8b34-430e-a579-e5e1189f5c73</onsuccess>
+  </stage>
+  <stage stageid="020b4e14-8b34-430e-a579-e5e1189f5c73" name="Exception Calc" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="165" y="30" />
+    <onsuccess>a3e0c9ee-8d5e-49f7-8671-13b626cf26e2</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="a3e0c9ee-8d5e-49f7-8671-13b626cf26e2" name="Resume1" type="Resume">
+    <loginhibit />
+    <display x="165" y="75" />
+    <onsuccess>345ffbc7-53a5-4ada-9783-56786a690d59</onsuccess>
+  </stage>
+  <stage stageid="b822e3be-3a52-4e80-bd1b-34c9f554aa2a" name="Failed?" type="Decision">
+    <display x="15" y="180" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>19fc06c9-5638-468c-9635-125b0bdc2461</ontrue>
+    <onfalse>f406bc4a-a232-4ae7-8777-856ac52ecab4</onfalse>
+  </stage>
+  <stage stageid="24ace3df-b9bb-4429-8824-f00adcc765dd" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="75" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="cd28c01e-8e5f-4cf4-b5a1-785f56614683" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="105" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d18e8c80-fbe0-4306-b3dd-c320f90f518f" name="Local variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="19fc06c9-5638-468c-9635-125b0bdc2461" name="RETHROW" type="Exception">
+    <display x="105" y="180" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="345ffbc7-53a5-4ada-9783-56786a690d59" name="Anchor3" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="165" y="135" w="10" h="10" />
+    <onsuccess>ac22fea0-40b3-40d4-a5d8-5904cc77235d</onsuccess>
+  </stage>
+</process>

@@ -1,0 +1,494 @@
+﻿<process name="Treeview Clone Process Object" version="1.0" bpversion="6.10.0.27079" narrative="Automated process to ensure that a process / object can be successfully cloned from one group to another" byrefcollection="true" preferredid="d2e9e1c8-d93d-49f1-9e22-e8989991eacc" published="true">
+  <view>
+    <camerax>30</camerax>
+    <cameray>0</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="5e7205b3-c009-4b82-b8b7-162c02d221d7" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="c1e5eea6-7023-46a5-8c7f-1fba98e3ded9" type="Normal" published="False">
+    <name>Clone Process</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>42</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="7b2cf6c0-6bd5-4aa1-9711-cdba689698c0" type="Normal" published="False">
+    <name>Clone Object</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>114</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="c3f534f3-b231-485a-8172-8e771272247d" name="Stage1" type="ProcessInfo">
+    <display x="-270" y="-105" w="270" h="90" />
+  </stage>
+  <stage stageid="9bc5011d-5fa5-4c02-983f-ad3f48f744f5" name="Start" type="Start">
+    <display x="30" y="-135" />
+    <onsuccess>01070ee0-f0b3-47bd-add8-6ebbd41edf27</onsuccess>
+  </stage>
+  <stage stageid="c9e5e704-5e10-4f64-9678-a1a8ad8734fd" name="End" type="End">
+    <display x="30" y="360" />
+  </stage>
+  <stage stageid="01070ee0-f0b3-47bd-add8-6ebbd41edf27" name="Note1" type="Note">
+    <narrative>GIVEN I am a BP user and have signed in</narrative>
+    <display x="30" y="-90" w="270" h="30" />
+    <onsuccess>da97017f-33d6-47eb-8f17-ad97f8f47f1d</onsuccess>
+  </stage>
+  <stage stageid="3353974e-7ca0-4766-8472-d3d882a1048c" name="Note3" type="Note">
+    <narrative>WHEN I clone a process from one group to another
+THEN the cloned process is available in the target group</narrative>
+    <display x="30" y="30" w="270" h="60" />
+    <onsuccess>65785aa1-dba7-4be5-841d-35d86f778920</onsuccess>
+  </stage>
+  <stage stageid="be01b882-846e-403f-9e1d-8aacf6272e89" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="225" y="75" />
+    <onsuccess>a1f4120d-2559-4c5f-acdb-cb4b69842431</onsuccess>
+  </stage>
+  <stage stageid="a1f4120d-2559-4c5f-acdb-cb4b69842431" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="225" y="120" w="90" h="30" />
+    <onsuccess>e595992f-05f0-4a3f-9349-9c935dfff3b7</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="e595992f-05f0-4a3f-9349-9c935dfff3b7" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="225" y="165" />
+    <onsuccess>61f896b5-f7bf-4c22-9730-6c5255299020</onsuccess>
+  </stage>
+  <stage stageid="da97017f-33d6-47eb-8f17-ad97f8f47f1d" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="-45" w="270" h="30" />
+    <onsuccess>3353974e-7ca0-4766-8472-d3d882a1048c</onsuccess>
+    <processid>5e7205b3-c009-4b82-b8b7-162c02d221d7</processid>
+  </stage>
+  <stage stageid="6d46d8ec-5eff-4f96-9a2f-c0c37ec15a01" name="Failed?" type="Decision">
+    <display x="30" y="315" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>e77d4c89-7d5c-45e2-a7da-fca5d7494318</ontrue>
+    <onfalse>c9e5e704-5e10-4f64-9678-a1a8ad8734fd</onfalse>
+  </stage>
+  <stage stageid="e77d4c89-7d5c-45e2-a7da-fca5d7494318" name="Re-Throw" type="Exception">
+    <display x="135" y="315" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="61f896b5-f7bf-4c22-9730-6c5255299020" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="225" y="270" w="10" h="10" />
+    <onsuccess>154e881c-ea89-4a70-9eb8-80f8c34a9eff</onsuccess>
+  </stage>
+  <stage stageid="b574bc5e-196f-4949-803d-cfc4586ff641" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5d648996-1440-405d-8ca9-bf045dfdc39c" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1b188cf5-4101-4484-8b3d-655ecb315d94" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="76f6aa6a-0e23-49ae-ba3f-df43067e4ddc" name="pid" type="Data">
+    <display x="-210" y="90" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e09a6306-0fba-4c7a-9a38-3cea5977dcf9" name="Global Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="60" w="150" h="180" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="47cb0931-b43d-4f91-9a23-94bef9e4df88" name="Setup" type="SubSheetInfo">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="9c02ae22-4581-489f-9491-8b835e4604ed" name="Start" type="Start">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-60" y="-135" />
+    <onsuccess>707a6425-0b70-474d-a8ef-b7d0da86bb27</onsuccess>
+  </stage>
+  <stage stageid="6ac44d64-b413-4c29-9697-7b888b6e8df4" name="End" type="End">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-60" y="90" />
+  </stage>
+  <stage stageid="707a6425-0b70-474d-a8ef-b7d0da86bb27" name="Launch" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-90" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>e483b55f-303e-43f0-a597-817ad582e9be</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="ad7204cf-b3c5-4b27-8bed-7ae7f1141450" name="Sign In" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Locale" friendlyname="Locale" narrative="Blue Prism Locale setting" stage="" />
+    </outputs>
+    <onsuccess>2ead55e5-96b9-4d11-8ff9-65ce8fc0b0bd</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="e483b55f-303e-43f0-a597-817ad582e9be" name="Attach (Studio)" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>ad7204cf-b3c5-4b27-8bed-7ae7f1141450</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="98c6285d-0b03-402c-a458-bce1a4dc8730" name="Clone Process" type="SubSheetInfo">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="bce9ddf5-0028-4a35-90c9-d39631a175ba" name="Clone Object" type="SubSheetInfo">
+    <subsheetid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="65785aa1-dba7-4be5-841d-35d86f778920" name="Clone Process" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="90" w="270" h="30" />
+    <onsuccess>2d00d4c5-20af-42c8-851f-12c02c1b9667</onsuccess>
+    <processid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</processid>
+  </stage>
+  <stage stageid="2d00d4c5-20af-42c8-851f-12c02c1b9667" name="Note3" type="Note">
+    <narrative>WHEN I clone a business object from one group to another
+THEN the cloned business object is available in the target group</narrative>
+    <display x="30" y="150" w="270" h="60" />
+    <onsuccess>1ee20943-154b-440b-9064-63023a115654</onsuccess>
+  </stage>
+  <stage stageid="1ee20943-154b-440b-9064-63023a115654" name="Clone Object" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="210" w="270" h="30" />
+    <onsuccess>154e881c-ea89-4a70-9eb8-80f8c34a9eff</onsuccess>
+    <processid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</processid>
+  </stage>
+  <stage stageid="199c1406-160f-41af-b524-73540abcbac9" name="Scenarios" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-15" w="405" h="255" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="06ef2ea8-ce32-4f2a-aa0a-8a01940e9132" name="Process Name " type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Process TFM139</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="056cafea-872c-47cf-bbe5-ebab508f6aa1" name="Object Name " type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="150" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Object TFM139</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="5a8aa10c-71b7-45f2-8bc1-07388f1ae1fd" name="Local variables" type="Block">
+    <subsheetid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b52ee30f-5fca-4227-8809-6378965b4efb" name="Start" type="Start">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>aec79319-02d1-4800-a6d1-183f5c0079c5</onsuccess>
+  </stage>
+  <stage stageid="aec79319-02d1-4800-a6d1-183f5c0079c5" name="Browse to Studio" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>9b42a954-d34c-4857-8647-6d971353b4a2</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="dcd7023d-3a7f-409d-8759-676a4aa4f544" name="Local variables" type="Block">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="71f9a474-e622-41ef-8d1f-f36d2ff6a6de" name="End" type="End">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="285" />
+  </stage>
+  <stage stageid="e619bbaa-40ee-473a-8518-435a3fd41afb" name="Go To Home" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>71f9a474-e622-41ef-8d1f-f36d2ff6a6de</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="129d618d-c484-40d8-9f4e-317b66338c8b" name="Element in Tree?" type="Data">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3379d0d0-9a02-4be0-836e-2fbb4a91bef5" name="Check process in target folder" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Group to check" friendlyname="Group to check" narrative="Group containing expected moved group/process/object" expr="[Target Process Group]" />
+      <input type="text" name="Element to check" friendlyname="Element to check" narrative="Group/Process/Object expected" expr="[Process Name ]" />
+      <input type="number" name="Index Value" friendlyname="Index Value" narrative="(for default groups, 1 for process 2 for object)" expr="1" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Element in Tree?" friendlyname="Element in Tree?" stage="Element in Tree?" />
+    </outputs>
+    <onsuccess>874c88e5-6596-484b-9c5e-302c66698410</onsuccess>
+    <resource object="Blue Prism - Studio" action="Confirm Process/Object Location" />
+  </stage>
+  <stage stageid="874c88e5-6596-484b-9c5e-302c66698410" name="Is the Process available?" type="Decision">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="60" w="120" h="30" />
+    <decision expression="[Element in Tree?]" />
+    <ontrue>dfdbc31d-6861-46ec-a08c-6b55852bfdb8</ontrue>
+    <onfalse>18dadecb-0ec6-4be7-8f4c-cc4c95052a95</onfalse>
+  </stage>
+  <stage stageid="18dadecb-0ec6-4be7-8f4c-cc4c95052a95" name="Exception" type="Exception">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="45" y="60" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;Process is missing&quot;" />
+  </stage>
+  <stage stageid="d4dd1951-0b77-4ed1-b808-404a83d52861" name="Ensure process available in target folder" type="Block">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="-15" w="180" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c009f0c6-1861-4050-9fd5-d44f1de13206" name="Element in Tree?" type="Data">
+    <subsheetid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2ead55e5-96b9-4d11-8ff9-65ce8fc0b0bd" name="Browse to Studio" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>6ac44d64-b413-4c29-9697-7b888b6e8df4</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="dd9e861a-6905-47c2-8f76-dc9e38610fb4" name="Target Process Group" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="180" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">G2-TFM139</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="83f3ba78-ee64-4ea3-9864-e92142f294a7" name="Target Object Group" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="210" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">G4-TFM139</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="154e881c-ea89-4a70-9eb8-80f8c34a9eff" name="Exit BP" type="Action">
+    <display x="30" y="270" w="90" h="30" />
+    <onsuccess>6d46d8ec-5eff-4f96-9a2f-c0c37ec15a01</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="9b42a954-d34c-4857-8647-6d971353b4a2" name="Clone Process" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process/Object" friendlyname="Process/Object" narrative="The name of the process/object" expr="[Process Name ]" />
+      <input type="number" name="Process/Object Match Index" friendlyname="Process/Object Match Index" expr="" />
+      <input type="text" name="Target Group" friendlyname="Target Group" expr="[Target Process Group]" />
+      <input type="number" name="Target Group Match Index" friendlyname="Target Group Match Index" expr="" />
+    </inputs>
+    <onsuccess>3379d0d0-9a02-4be0-836e-2fbb4a91bef5</onsuccess>
+    <resource object="Blue Prism - Studio" action="Clone Process / Object" />
+  </stage>
+  <stage stageid="dfdbc31d-6861-46ec-a08c-6b55852bfdb8" name="Check process in target folder" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="135" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Group to check" friendlyname="Group to check" narrative="Group containing expected moved group/process/object" expr="&quot;G1-TFM139&quot;" />
+      <input type="text" name="Element to check" friendlyname="Element to check" narrative="Group/Process/Object expected" expr="[Process Name ]" />
+      <input type="number" name="Index Value" friendlyname="Index Value" narrative="(for default groups, 1 for process 2 for object)" expr="1" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Element in Tree?" friendlyname="Element in Tree?" stage="Element in Tree?" />
+    </outputs>
+    <onsuccess>a688c006-e02e-4225-b33f-9d7f4f83d4a6</onsuccess>
+    <resource object="Blue Prism - Studio" action="Confirm Process/Object Location" />
+  </stage>
+  <stage stageid="a688c006-e02e-4225-b33f-9d7f4f83d4a6" name="Is the Process available?" type="Decision">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="180" w="120" h="30" />
+    <decision expression="[Element in Tree?]" />
+    <ontrue>e619bbaa-40ee-473a-8518-435a3fd41afb</ontrue>
+    <onfalse>f7b38e14-1edb-40aa-8691-c8067af48bff</onfalse>
+  </stage>
+  <stage stageid="f7b38e14-1edb-40aa-8691-c8067af48bff" name="Exception" type="Exception">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="45" y="180" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;Process is missing&quot;" />
+  </stage>
+  <stage stageid="6e5b541f-bee9-4da9-92bb-c32db39c4c05" name="Ensure process available in original folder" type="Block">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="105" w="180" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3fcabd75-1f24-418c-9b62-85dec661ab69" name="Start" type="Start">
+    <subsheetid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>0a20f993-6c6c-4c93-a00b-ed3b737fec4b</onsuccess>
+  </stage>
+  <stage stageid="0a20f993-6c6c-4c93-a00b-ed3b737fec4b" name="Browse to Studio" type="Action">
+    <subsheetid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>a69e3fb2-3590-49c0-bab8-5be0147a4259</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="4bc78e2e-2b76-4d10-a1ec-55d55a14d69d" name="End" type="End">
+    <subsheetid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</subsheetid>
+    <display x="-45" y="285" />
+  </stage>
+  <stage stageid="8784eb70-b3e7-48c6-b0f4-50d56bfeafed" name="Go To Home" type="Action">
+    <subsheetid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>4bc78e2e-2b76-4d10-a1ec-55d55a14d69d</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="440bce83-9fc9-4500-a487-7f2d25df9954" name="Check object in target folder" type="Action">
+    <subsheetid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Group to check" friendlyname="Group to check" narrative="Group containing expected moved group/process/object" expr="[Target Object Group]" />
+      <input type="text" name="Element to check" friendlyname="Element to check" narrative="Group/Process/Object expected" expr="[Object Name ]" />
+      <input type="number" name="Index Value" friendlyname="Index Value" narrative="(for default groups, 1 for process 2 for object)" expr="1" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Element in Tree?" friendlyname="Element in Tree?" stage="Element in Tree?" />
+    </outputs>
+    <onsuccess>22170792-18b6-4ee2-ba85-73925f2e0897</onsuccess>
+    <resource object="Blue Prism - Studio" action="Confirm Process/Object Location" />
+  </stage>
+  <stage stageid="22170792-18b6-4ee2-ba85-73925f2e0897" name="Is the Object available?" type="Decision">
+    <subsheetid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</subsheetid>
+    <display x="-45" y="60" w="120" h="30" />
+    <decision expression="[Element in Tree?]" />
+    <ontrue>a9bc3484-e790-4fc6-8e7a-15cffd312837</ontrue>
+    <onfalse>e4461aee-cc2f-434c-8eb9-a288146380e0</onfalse>
+  </stage>
+  <stage stageid="e4461aee-cc2f-434c-8eb9-a288146380e0" name="Exception" type="Exception">
+    <subsheetid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</subsheetid>
+    <display x="45" y="60" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;Process is missing&quot;" />
+  </stage>
+  <stage stageid="a6a8e157-55aa-4c5c-a8a2-a2bd9676ae88" name="Ensure object available in target folder" type="Block">
+    <subsheetid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="-15" w="180" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a69e3fb2-3590-49c0-bab8-5be0147a4259" name="Clone Object" type="Action">
+    <subsheetid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process/Object" friendlyname="Process/Object" narrative="The name of the process/object" expr="[Object Name ]" />
+      <input type="number" name="Process/Object Match Index" friendlyname="Process/Object Match Index" expr="" />
+      <input type="text" name="Target Group" friendlyname="Target Group" expr="[Target Object Group]" />
+      <input type="number" name="Target Group Match Index" friendlyname="Target Group Match Index" expr="" />
+    </inputs>
+    <onsuccess>440bce83-9fc9-4500-a487-7f2d25df9954</onsuccess>
+    <resource object="Blue Prism - Studio" action="Clone Process / Object" />
+  </stage>
+  <stage stageid="a9bc3484-e790-4fc6-8e7a-15cffd312837" name="Check object in original folder" type="Action">
+    <subsheetid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="135" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Group to check" friendlyname="Group to check" narrative="Group containing expected moved group/process/object" expr="&quot;G3-TFM139&quot;" />
+      <input type="text" name="Element to check" friendlyname="Element to check" narrative="Group/Process/Object expected" expr="[Object Name ]" />
+      <input type="number" name="Index Value" friendlyname="Index Value" narrative="(for default groups, 1 for process 2 for object)" expr="1" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Element in Tree?" friendlyname="Element in Tree?" stage="Element in Tree?" />
+    </outputs>
+    <onsuccess>3013f6f9-9499-42c2-8dd0-d9e81c9639f4</onsuccess>
+    <resource object="Blue Prism - Studio" action="Confirm Process/Object Location" />
+  </stage>
+  <stage stageid="3013f6f9-9499-42c2-8dd0-d9e81c9639f4" name="Is the Object available?" type="Decision">
+    <subsheetid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</subsheetid>
+    <display x="-45" y="180" w="120" h="30" />
+    <decision expression="[Element in Tree?]" />
+    <ontrue>8784eb70-b3e7-48c6-b0f4-50d56bfeafed</ontrue>
+    <onfalse>2170e0fc-6189-43ff-9e46-7fa54e3c239f</onfalse>
+  </stage>
+  <stage stageid="2170e0fc-6189-43ff-9e46-7fa54e3c239f" name="Exception" type="Exception">
+    <subsheetid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</subsheetid>
+    <display x="45" y="180" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;Process is missing&quot;" />
+  </stage>
+  <stage stageid="975794fe-67a0-445e-9c11-d9a68667dcd0" name="Ensure object available in original folder" type="Block">
+    <subsheetid>7b2cf6c0-6bd5-4aa1-9711-cdba689698c0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="105" w="180" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+</process>

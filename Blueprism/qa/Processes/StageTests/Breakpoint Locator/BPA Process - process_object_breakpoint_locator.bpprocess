@@ -1,0 +1,963 @@
+﻿<process name="process_object_breakpoint_locator" version="1.0" bpversion="6.11.0.33113" narrative="" byrefcollection="true" preferredid="e661dfa9-3bea-4715-bc06-9d16e43ad400">
+  <view>
+    <camerax>87</camerax>
+    <cameray>95</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="52f5abbc-348f-40f6-bc97-d900ed21c35a" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>6</camerax>
+      <cameray>204</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4" type="Normal" published="False">
+    <name>Add Breakpoints (Process)</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>525</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="56161053-63ec-4652-b8f9-fd46b37a9bc3" type="Normal" published="False">
+    <name>Clear Breakpoints (Process)</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="16d64835-dfd8-4edb-9b77-eb8fcf213b0e" type="Normal" published="False">
+    <name>Add Breakpoints (Object)</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>525</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="d80cdb83-cd66-455d-b4c4-c2e4d89daca4" type="Normal" published="False">
+    <name>Clear Breakpoints (Object)</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="5726dc53-877a-4c35-a15e-21fd2ea8f6ab" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-165" w="150" h="120" />
+  </stage>
+  <stage stageid="aa990edc-2fc7-47cc-99b9-e1d5ca5f66aa" name="Start" type="Start">
+    <display x="60" y="-210" />
+    <onsuccess>b00b9c5e-a20f-4b73-84a2-1a59024a5632</onsuccess>
+  </stage>
+  <stage stageid="7d9767ff-d011-4b27-b2e7-e04177e2e330" name="End" type="End">
+    <display x="60" y="405" />
+  </stage>
+  <stage stageid="1eab2eba-3adc-4368-bed3-e9a856144151" name="CleanUp Block" type="Block">
+    <display x="-105" y="-180" w="390" h="465" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="81f08cdf-1a80-422f-b705-450be6f18a3e" name="Local Variables" type="Block">
+    <display x="-270" y="-15" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="64fa0f7c-be5d-484a-83c9-165ec358d9bc" name="Failed?" type="Data">
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="d5d7b49d-de06-4956-b867-064cec367376" name="Exception" type="Data">
+    <display x="-195" y="45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1b819353-42ac-490b-a034-66c523666241" name="Failed?" type="Decision">
+    <display x="60" y="360" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>d4fe9f9c-e98d-497f-a0e9-5807ef4224cb</ontrue>
+    <onfalse>7d9767ff-d011-4b27-b2e7-e04177e2e330</onfalse>
+  </stage>
+  <stage stageid="d4fe9f9c-e98d-497f-a0e9-5807ef4224cb" name="RETHROW" type="Exception">
+    <display x="165" y="360" />
+    <exception type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="88b2baf5-b5f7-4e16-8aa8-2c9c8dc02e10" name="Recover" type="Recover">
+    <display x="240" y="165" />
+    <onsuccess>6ef24d38-6388-4f07-954b-1aa6d7318eb0</onsuccess>
+  </stage>
+  <stage stageid="59370d6b-45f5-4bfb-9aa3-ebbeb763a74c" name="Resume" type="Resume">
+    <display x="240" y="255" />
+    <onsuccess>f3c0b641-ba91-47fd-96ba-d295cbcb41d7</onsuccess>
+  </stage>
+  <stage stageid="6ef24d38-6388-4f07-954b-1aa6d7318eb0" name="Exception Calc" type="MultipleCalculation">
+    <display x="240" y="210" />
+    <onsuccess>59370d6b-45f5-4bfb-9aa3-ebbeb763a74c</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="f873fab3-3b14-46f1-aade-2eddb5814f3e" name="Setup" type="SubSheet">
+    <display x="60" y="-105" w="300" h="30" />
+    <onsuccess>f77bb683-d463-4c5b-acf6-73870e4b79cf</onsuccess>
+    <processid>52f5abbc-348f-40f6-bc97-d900ed21c35a</processid>
+  </stage>
+  <stage stageid="a6e4adf8-43eb-4b1c-be98-4978ec09ab7b" name="Global Variables" type="Block">
+    <display x="-270" y="-90" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c36c129e-7643-439c-894e-869e9847a38b" name="Setup" type="SubSheetInfo">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <display x="-135" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="b231a50a-94c1-4830-a70d-f8de609e586d" name="Start" type="Start">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>c37fafd7-985b-488e-b201-248cc06419ad</onsuccess>
+  </stage>
+  <stage stageid="184ead6c-f33a-43ae-8b7e-f691460aad11" name="Add Breakpoints (Process)" type="SubSheetInfo">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <display x="-135" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="f8d42d9d-2af3-446e-80ba-9512f0f660df" name="Add Breakpoints (Process)" type="SubSheet">
+    <display x="60" y="-15" w="300" h="30" />
+    <onsuccess>d961c661-f551-4c82-96cb-0d08ea9e210e</onsuccess>
+    <processid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</processid>
+  </stage>
+  <stage stageid="34c8a8b7-2f3a-4fa9-87e4-9d0fcb068077" name="Add Breakpoints (Object)" type="SubSheetInfo">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <display x="-135" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="e1e443a2-cc25-4ad8-8051-289830cb7f0e" name="Add Breakpoints (Object)" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="165" w="300" h="30" />
+    <onsuccess>5f9c5e11-f978-46d7-b98c-b9693f24c98e</onsuccess>
+    <processid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</processid>
+  </stage>
+  <stage stageid="b00b9c5e-a20f-4b73-84a2-1a59024a5632" name="Note1" type="Note">
+    <narrative>GIVEN I have a process and an object with some stages available</narrative>
+    <display x="60" y="-150" w="300" h="30" />
+    <onsuccess>f873fab3-3b14-46f1-aade-2eddb5814f3e</onsuccess>
+  </stage>
+  <stage stageid="f77bb683-d463-4c5b-acf6-73870e4b79cf" name="Note1" type="Note">
+    <narrative>WHEN I open the process and add some Breakpoints to stages 
+THEN Breakpoints are displayed in Breakpoint Locator
+
+</narrative>
+    <display x="60" y="-60" w="300" h="30" />
+    <onsuccess>f8d42d9d-2af3-446e-80ba-9512f0f660df</onsuccess>
+  </stage>
+  <stage stageid="f3c0b641-ba91-47fd-96ba-d295cbcb41d7" name="Anchor7" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="240" y="315" w="10" h="10" />
+    <onsuccess>61507d3e-bab0-4a8f-a762-ecc08287746f</onsuccess>
+  </stage>
+  <stage stageid="f6e6d236-6443-4fce-9552-c0479c946d2d" name="pid" type="Data">
+    <display x="-195" y="-60" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c37fafd7-985b-488e-b201-248cc06419ad" name="Launch BP" type="Action">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>a152ac2a-560c-419d-8779-fcd501d916b6</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="0c0a0a4c-d2fa-42c9-81e1-fa641963f462" name="Sign In" type="Action">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+      <input type="flag" name="Sign in Active Directorry" friendlyname="Sign in Active Directorry" narrative="Do you want sign in using Active Directory" expr="" />
+      <input type="flag" name="Sign in" friendlyname="Sign in" narrative="Do you want sign in using legacy sso environment" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="Error message received while Login" stage="" />
+    </outputs>
+    <onsuccess>72f9ed6e-1124-423c-8fcc-fa311e7a7811</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="3c5d29e3-eb5b-4961-88e2-9b3f66fa3379" name="Note2" type="Note">
+    <narrative>WHEN I open the object and add some Breakpoints to stages 
+THEN Breakpoints are displayed in Breakpoint Locator</narrative>
+    <display x="60" y="120" w="300" h="30" />
+    <onsuccess>e1e443a2-cc25-4ad8-8051-289830cb7f0e</onsuccess>
+  </stage>
+  <stage stageid="a152ac2a-560c-419d-8779-fcd501d916b6" name="Attach to Studio" type="Action">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>0c0a0a4c-d2fa-42c9-81e1-fa641963f462</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="7fa14cb1-dc64-4213-b847-b5ac180981d1" name="End" type="End">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <display x="15" y="120" />
+  </stage>
+  <stage stageid="72f9ed6e-1124-423c-8fcc-fa311e7a7811" name="Go To Studio" type="Action">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>7fa14cb1-dc64-4213-b847-b5ac180981d1</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="61507d3e-bab0-4a8f-a762-ecc08287746f" name="Terminate" type="Action">
+    <display x="60" y="315" w="90" h="30" />
+    <onsuccess>1b819353-42ac-490b-a034-66c523666241</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="2da31030-f44d-4752-99b0-8a9bb0c65290" name="Start" type="Start">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>fa75cc43-488b-456b-91aa-f77f22d8a05e</onsuccess>
+  </stage>
+  <stage stageid="ab29f901-ffbd-4946-8e6f-2c544ca64e39" name="Select Stage" type="Action">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="number" name="X" friendlyname="X" narrative="X Coordinate" expr="[X]" />
+      <input type="number" name="Y" friendlyname="Y" narrative="Y Coordinate" expr="[Y Stage 1]" />
+    </inputs>
+    <onsuccess>d0ff89f0-4092-4312-bc60-d20b328dbc40</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Global Click By Coordinates" />
+  </stage>
+  <stage stageid="d0ff89f0-4092-4312-bc60-d20b328dbc40" name="Set Breakpoint Stage 1" type="Action">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="90" h="30" />
+    <inputs>
+      <input type="number" name="X" friendlyname="X" narrative="X Coordinate" expr="[X]" />
+      <input type="number" name="Y" friendlyname="Y" narrative="Y Coordinate" expr="[Y Stage 1]" />
+    </inputs>
+    <onsuccess>22135e37-5daa-4335-9565-e7989720c125</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Set Breakpoint" />
+  </stage>
+  <stage stageid="22135e37-5daa-4335-9565-e7989720c125" name="Select Stage" type="Action">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="number" name="X" friendlyname="X" narrative="X Coordinate" expr="[X]" />
+      <input type="number" name="Y" friendlyname="Y" narrative="Y Coordinate" expr="[Y Stage 2]" />
+    </inputs>
+    <onsuccess>dfee0879-1297-444a-b30e-de6cd5fc26ba</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Global Click By Coordinates" />
+  </stage>
+  <stage stageid="dfee0879-1297-444a-b30e-de6cd5fc26ba" name="Set Breakpoint Stage 2" type="Action">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="300" w="90" h="30" />
+    <inputs>
+      <input type="number" name="X" friendlyname="X" narrative="X Coordinate" expr="[X]" />
+      <input type="number" name="Y" friendlyname="Y" narrative="Y Coordinate" expr="[Y Stage 2]" />
+    </inputs>
+    <onsuccess>ce5dfa9e-f1e3-496d-b893-bde28b17ad0e</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Set Breakpoint" />
+  </stage>
+  <stage stageid="ce5dfa9e-f1e3-496d-b893-bde28b17ad0e" name="Open Breakpoint Locator" type="Action">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="345" w="90" h="30" />
+    <onsuccess>d9130d3e-9114-43b3-90df-d1e84abe1c4b</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Breakpoint Locator" />
+  </stage>
+  <stage stageid="1a9eb3f3-dab2-4d0d-a0a8-f600a06f1b14" name="Get List of Breakpoints" type="Action">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="435" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Pge to expand" friendlyname="Pge to expand" expr="&quot;Main Page&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Breakpoints" friendlyname="Breakpoints" stage="Breakpoints" />
+    </outputs>
+    <onsuccess>fb621b83-bd43-44ba-9133-b2c1ec5f4e0b</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Breakpoint Locator - Read Breakpoints List" />
+  </stage>
+  <stage stageid="565cdb20-ff51-485f-823d-90788f0a6517" name="Breakpoints" type="Collection">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <display x="-135" y="240" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8cbaca50-2daa-4f3b-8380-3ebc3e4e4cc3" name="Local variables" type="Block">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-15" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2105f8bc-293a-4efc-8e79-e900d01c6300" name="Expected Breakpoints" type="Collection">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <display x="-135" y="45" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Node Text" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Node Text" type="text" value="Get Time" />
+      </row>
+      <row>
+        <field name="Node Text" type="text" value="Note1" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="fb621b83-bd43-44ba-9133-b2c1ec5f4e0b" name="Breakpoints correct?" type="Decision">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <display x="15" y="480" w="90" h="30" />
+    <decision expression="[Breakpoints]=[Expected Breakpoints]" />
+    <ontrue>18d0cea7-a978-4f65-a83c-aa712ea4454c</ontrue>
+    <onfalse>2964a862-4b4e-4e0e-b884-a06a4ff3227b</onfalse>
+  </stage>
+  <stage stageid="2964a862-4b4e-4e0e-b884-a06a4ff3227b" name="Failed " type="Exception">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <display x="90" y="480" w="30" h="30" />
+    <exception localized="yes" type="FAILED" detail="&quot;Incorrect breakpoints returned&quot;" />
+  </stage>
+  <stage stageid="18d0cea7-a978-4f65-a83c-aa712ea4454c" name="End1" type="End">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="525" />
+  </stage>
+  <stage stageid="fa75cc43-488b-456b-91aa-f77f22d8a05e" name="Open Process" type="Action">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" friendlyname="Process Name" expr="[Process Name]" />
+      <input type="text" name="Folder to Select" friendlyname="Folder to Select" expr="&quot;Default&quot;" />
+      <input type="number" name="MatchIndex" friendlyname="MatchIndex" expr="1" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Access Warning" friendlyname="Access Warning" narrative="Access warning when opening member" stage="" />
+    </outputs>
+    <onsuccess>0a30217e-adaa-4d1f-b548-a31bd660ea27</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Process" />
+  </stage>
+  <stage stageid="0a30217e-adaa-4d1f-b548-a31bd660ea27" name="Get Start Bounds" type="Action">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit />
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Page Name" narrative="Name of the page in which the element resides." expr="&quot;Main Page&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Bounds" narrative="Bounds of the Start stage on screen." stage="Start Bounds" />
+    </outputs>
+    <onsuccess>711274d2-8b2f-4d03-8604-71c84703ff1a</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Get Start Stage Bounds" />
+  </stage>
+  <stage stageid="711274d2-8b2f-4d03-8604-71c84703ff1a" name="Find Y Stage 1" type="Calculation">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <onsuccess>e69d05ca-9958-43c8-8b1f-7c3719be7a85</onsuccess>
+    <calculation expression="[Start Bounds.Bottom] + 80" stage="Y Stage 1" />
+  </stage>
+  <stage stageid="c5b06ae0-c645-462a-801b-c52d58c920d6" name="Find X " type="Calculation">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="90" h="30" />
+    <onsuccess>ab29f901-ffbd-4946-8e6f-2c544ca64e39</onsuccess>
+    <calculation expression="([Start Bounds.Left]+([Start Bounds.Width]/2))" stage="X" />
+  </stage>
+  <stage stageid="e69d05ca-9958-43c8-8b1f-7c3719be7a85" name="Find Y Stage 2" type="Calculation">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="90" h="30" />
+    <onsuccess>c5b06ae0-c645-462a-801b-c52d58c920d6</onsuccess>
+    <calculation expression="[Start Bounds.Bottom] + 160" stage="Y Stage 2" />
+  </stage>
+  <stage stageid="edcc50ab-b277-41f5-8486-06752e836ba3" name="Output" type="Block">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="90" w="150" h="180" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="8e4bfd6c-3d45-4ff5-94da-0fa8c0508941" name="Process Name" type="Data">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-135" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Process TFM-301</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a96f4ae8-fdb2-4f72-b8e2-3dcd3908a7c1" name="Start Bounds" type="Collection">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <display x="-135" y="120" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="17d4bb63-e7ea-4c01-b678-5721144f3bc5" name="X" type="Data">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <display x="-135" y="150" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="539f415b-cc50-49c5-b7fb-427c6b4e7e31" name="Y Stage 2" type="Data">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <display x="-135" y="210" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="dfa0a73f-8bc5-4fc9-93d7-6f47d159ee36" name="Y Stage 1" type="Data">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <display x="-135" y="180" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8c70f4ce-45ce-42ca-a7f8-beccf6aada3c" name="Start" type="Start">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>1ba89df0-eb3e-43ad-a0bf-db39fc1eb964</onsuccess>
+  </stage>
+  <stage stageid="9ee71e6c-5045-44c2-980c-41fdf0f6e69b" name="Select Stage" type="Action">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="number" name="X" friendlyname="X" narrative="X Coordinate" expr="[X]" />
+      <input type="number" name="Y" friendlyname="Y" narrative="Y Coordinate" expr="[Y Stage 1]" />
+    </inputs>
+    <onsuccess>e4da168e-7a10-4671-98a5-5ff131b5d706</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Global Click By Coordinates" />
+  </stage>
+  <stage stageid="e4da168e-7a10-4671-98a5-5ff131b5d706" name="Set Breakpoint Stage 1" type="Action">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="90" h="30" />
+    <inputs>
+      <input type="number" name="X" friendlyname="X" narrative="X Coordinate" expr="[X]" />
+      <input type="number" name="Y" friendlyname="Y" narrative="Y Coordinate" expr="[Y Stage 1]" />
+    </inputs>
+    <onsuccess>2fd13b86-2534-4fea-a6af-8b54ef85437f</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Set Breakpoint" />
+  </stage>
+  <stage stageid="2fd13b86-2534-4fea-a6af-8b54ef85437f" name="Select Stage" type="Action">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="number" name="X" friendlyname="X" narrative="X Coordinate" expr="[X]" />
+      <input type="number" name="Y" friendlyname="Y" narrative="Y Coordinate" expr="[Y Stage 2]" />
+    </inputs>
+    <onsuccess>79fea019-f532-4552-b1dd-5f16efb63593</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Global Click By Coordinates" />
+  </stage>
+  <stage stageid="79fea019-f532-4552-b1dd-5f16efb63593" name="Set Breakpoint Stage 2" type="Action">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="300" w="90" h="30" />
+    <inputs>
+      <input type="number" name="X" friendlyname="X" narrative="X Coordinate" expr="[X]" />
+      <input type="number" name="Y" friendlyname="Y" narrative="Y Coordinate" expr="[Y Stage 2]" />
+    </inputs>
+    <onsuccess>59ec590b-2477-4c17-b120-020503dde51c</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Set Breakpoint" />
+  </stage>
+  <stage stageid="59ec590b-2477-4c17-b120-020503dde51c" name="Open Breakpoint Locator" type="Action">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="345" w="90" h="30" />
+    <onsuccess>45e2b411-0028-49fa-85fd-97ceb76c8ab5</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Breakpoint Locator" />
+  </stage>
+  <stage stageid="ea216707-b635-41cd-b122-b8a0898b8aba" name="Get List of Breakpoints" type="Action">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="435" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Pge to expand" friendlyname="Pge to expand" expr="&quot;Initialise&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Breakpoints" friendlyname="Breakpoints" stage="Breakpoints" />
+    </outputs>
+    <onsuccess>530271b1-6a34-433e-b71d-e7f1233ab77c</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Breakpoint Locator - Read Breakpoints List" />
+  </stage>
+  <stage stageid="8d288b3f-81fa-4d70-ae04-d6af05aa4be0" name="Breakpoints" type="Collection">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <display x="-135" y="240" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="928e18e2-2a42-4cf7-813a-ed9449bb7022" name="Local variables" type="Block">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-15" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="57596364-1656-492f-a6b8-c540f521565a" name="Expected Breakpoints" type="Collection">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <display x="-135" y="45" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Node Text" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Node Text" type="text" value="Calc1" />
+      </row>
+      <row>
+        <field name="Node Text" type="text" value="Calc2" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="530271b1-6a34-433e-b71d-e7f1233ab77c" name="Breakpoints correct?" type="Decision">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <display x="15" y="480" w="90" h="30" />
+    <decision expression="[Breakpoints]=[Expected Breakpoints]" />
+    <ontrue>8be05baf-ed56-4cd4-9fff-fc4d32cb8c61</ontrue>
+    <onfalse>2fcc4baf-704f-4d8a-9479-2b9501739b98</onfalse>
+  </stage>
+  <stage stageid="2fcc4baf-704f-4d8a-9479-2b9501739b98" name="Failed " type="Exception">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <display x="90" y="480" w="30" h="30" />
+    <exception localized="yes" type="FAILED" detail="&quot;Incorrect breakpoints returned&quot;" />
+  </stage>
+  <stage stageid="8be05baf-ed56-4cd4-9fff-fc4d32cb8c61" name="End1" type="End">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="525" />
+  </stage>
+  <stage stageid="1ba89df0-eb3e-43ad-a0bf-db39fc1eb964" name="Open Object" type="Action">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Folder to Select" friendlyname="Folder to Select" narrative="Name of folder the object you wish to select is contained within" expr="&quot;Default&quot;" />
+      <input type="number" name="MatchIndex" friendlyname="MatchIndex" expr="2" />
+      <input type="text" name="Object Name" friendlyname="Object Name" narrative="The name of the object you wish to open." expr="[Object Name]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Access Warning" friendlyname="Access Warning" stage="" />
+    </outputs>
+    <onsuccess>88079ab3-a30e-419a-b73a-4f75e9a376a7</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Object" />
+  </stage>
+  <stage stageid="88079ab3-a30e-419a-b73a-4f75e9a376a7" name="Get Start Bounds" type="Action">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit />
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Page Name" narrative="Name of the page in which the element resides." expr="&quot;Initialise&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Bounds" narrative="Bounds of the Start stage on screen." stage="Start Bounds" />
+    </outputs>
+    <onsuccess>2d2f687b-bf3b-429a-a9a7-ada1b23e557a</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Get Start Stage Bounds" />
+  </stage>
+  <stage stageid="2d2f687b-bf3b-429a-a9a7-ada1b23e557a" name="Find Y Stage 1" type="Calculation">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <onsuccess>7268d48c-492a-463f-8a26-993a1ff0a96c</onsuccess>
+    <calculation expression="[Start Bounds.Bottom] + 80" stage="Y Stage 1" />
+  </stage>
+  <stage stageid="ba2ead24-be38-4442-a53f-6fb38cf12974" name="Find X " type="Calculation">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="90" h="30" />
+    <onsuccess>9ee71e6c-5045-44c2-980c-41fdf0f6e69b</onsuccess>
+    <calculation expression="([Start Bounds.Left]+([Start Bounds.Width]/2))" stage="X" />
+  </stage>
+  <stage stageid="7268d48c-492a-463f-8a26-993a1ff0a96c" name="Find Y Stage 2" type="Calculation">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="90" h="30" />
+    <onsuccess>ba2ead24-be38-4442-a53f-6fb38cf12974</onsuccess>
+    <calculation expression="[Start Bounds.Bottom] + 160" stage="Y Stage 2" />
+  </stage>
+  <stage stageid="3f856322-68ed-490a-9b75-c11bd88fb052" name="Output" type="Block">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="90" w="150" h="180" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="76a4a934-be32-43d1-aad9-69555564ccd3" name="Object Name" type="Data">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-135" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Object TFM-301</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1cefb520-7ce4-4b70-b42b-630bb9dfbcdd" name="Start Bounds" type="Collection">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <display x="-135" y="120" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="788c8d41-0b66-4ae0-aa69-4d099d745aec" name="X" type="Data">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <display x="-135" y="150" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="96d07a9b-c319-4e62-b97d-3a44b8993193" name="Y Stage 2" type="Data">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <display x="-135" y="210" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1b172f3e-8c49-4f16-9660-84fb21c4bec9" name="Y Stage 1" type="Data">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <display x="-135" y="180" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="bdde00e8-d028-4e10-801e-ac7d24955d43" name="Clear Breakpoints (Process)" type="SubSheet">
+    <display x="60" y="75" w="300" h="30" />
+    <onsuccess>3c5d29e3-eb5b-4961-88e2-9b3f66fa3379</onsuccess>
+    <processid>56161053-63ec-4652-b8f9-fd46b37a9bc3</processid>
+  </stage>
+  <stage stageid="d961c661-f551-4c82-96cb-0d08ea9e210e" name="Note1" type="Note">
+    <narrative>WHEN the Breakpoints are cleared
+THEN the cleared Breakpoints no longer display within Breakpoint Locator
+
+</narrative>
+    <display x="60" y="30" w="300" h="30" />
+    <onsuccess>bdde00e8-d028-4e10-801e-ac7d24955d43</onsuccess>
+  </stage>
+  <stage stageid="7f626709-68e3-4e76-87db-0fc99cf1df69" name="Clear Breakpoints (Process)" type="SubSheetInfo">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="e548d674-c138-46eb-94c9-a990b74909be" name="Start" type="Start">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>358eccb8-4cc6-4fe3-9c98-dcd2d64d46f1</onsuccess>
+  </stage>
+  <stage stageid="8f3f63bf-577b-40fd-a612-46ac416e3cbc" name="End" type="End">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <display x="-45" y="270" />
+  </stage>
+  <stage stageid="9111c2d5-3320-4989-9e25-26334038318a" name="Clear Breakpoints (Object)" type="SubSheetInfo">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="73d11d7d-3087-4b06-a56c-5f9c1cc7f0af" name="End" type="End">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <display x="-45" y="270" />
+  </stage>
+  <stage stageid="57ca96fc-5d4d-43a2-b093-1850c172d073" name="Clear Breakpoints (Object)" type="SubSheet">
+    <display x="60" y="255" w="300" h="30" />
+    <onsuccess>61507d3e-bab0-4a8f-a762-ecc08287746f</onsuccess>
+    <processid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</processid>
+  </stage>
+  <stage stageid="5f9c5e11-f978-46d7-b98c-b9693f24c98e" name="Note1" type="Note">
+    <narrative>WHEN the Breakpoints are cleared
+THEN the cleared Breakpoints no longer display within Breakpoint Locator
+
+</narrative>
+    <display x="60" y="210" w="300" h="30" />
+    <onsuccess>57ca96fc-5d4d-43a2-b093-1850c172d073</onsuccess>
+  </stage>
+  <stage stageid="81aadc04-5a73-46d8-893b-c211d6e0502b" name="Close Breakpoint Locator" type="Action">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="180" w="90" h="30" />
+    <onsuccess>e5a2bbbf-998f-4d4f-a7e4-deaf66c1cd4b</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Close Breakpoint Locator" />
+  </stage>
+  <stage stageid="e5a2bbbf-998f-4d4f-a7e4-deaf66c1cd4b" name="Close Process" type="Action">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="225" w="90" h="30" />
+    <onsuccess>8f3f63bf-577b-40fd-a612-46ac416e3cbc</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="d9130d3e-9114-43b3-90df-d1e84abe1c4b" name="Expand Tree node" type="Action">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="390" w="90" h="30" />
+    <inputs>
+      <input type="text" name="The name of the page to expand" friendlyname="The name of the page to expand" expr="&quot;Main Page&quot;" />
+    </inputs>
+    <onsuccess>1a9eb3f3-dab2-4d0d-a0a8-f600a06f1b14</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Breakpoint Locator - Expand Tree node" />
+  </stage>
+  <stage stageid="45e2b411-0028-49fa-85fd-97ceb76c8ab5" name="Expand Tree node" type="Action">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="390" w="90" h="30" />
+    <inputs>
+      <input type="text" name="The name of the page to expand" friendlyname="The name of the page to expand" expr="&quot;Initialise&quot;" />
+    </inputs>
+    <onsuccess>ea216707-b635-41cd-b122-b8a0898b8aba</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Breakpoint Locator - Expand Tree node" />
+  </stage>
+  <stage stageid="f9d28d01-97f9-456b-a438-99672fa87732" name="Close Breakpoint Locator" type="Action">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="180" w="90" h="30" />
+    <onsuccess>7e8bceec-3f49-41e8-a043-f0806711a3cc</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Close Breakpoint Locator" />
+  </stage>
+  <stage stageid="7e8bceec-3f49-41e8-a043-f0806711a3cc" name="Close Object" type="Action">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="225" w="90" h="30" />
+    <onsuccess>73d11d7d-3087-4b06-a56c-5f9c1cc7f0af</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="358eccb8-4cc6-4fe3-9c98-dcd2d64d46f1" name="Clear Breakpoint" type="Action">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Stage name" friendlyname="Stage name" expr="&quot;Note1&quot;" />
+    </inputs>
+    <onsuccess>e21ac422-75d2-4b7f-9e6e-750e73a1999b</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Breakpoint Locator - Clear Breakpoint" />
+  </stage>
+  <stage stageid="e21ac422-75d2-4b7f-9e6e-750e73a1999b" name="Get List of Breakpoints" type="Action">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="90" h="30" />
+    <outputs>
+      <output type="collection" name="Breakpoints" friendlyname="Breakpoints" stage="Breakpoints" />
+    </outputs>
+    <onsuccess>a661dac4-518e-47b1-87b0-428bd4bf1e52</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Breakpoint Locator - Read Breakpoints List" />
+  </stage>
+  <stage stageid="a661dac4-518e-47b1-87b0-428bd4bf1e52" name="Breakpoints correct?" type="Decision">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <display x="-45" y="0" w="90" h="30" />
+    <decision expression="[Breakpoints]=[Expected Breakpoints]" />
+    <ontrue>224f438d-fe36-4a21-80d7-3a6fe9971459</ontrue>
+    <onfalse>6d23930d-ba26-40b3-8672-b190f84fbef1</onfalse>
+  </stage>
+  <stage stageid="6d23930d-ba26-40b3-8672-b190f84fbef1" name="Failed " type="Exception">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <display x="30" y="0" w="30" h="30" />
+    <exception localized="yes" type="FAILED" detail="&quot;Incorrect breakpoints returned&quot;" />
+  </stage>
+  <stage stageid="2cb1b4b2-f132-43d7-9983-3a888394cf66" name="Breakpoints" type="Collection">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <display x="-195" y="60" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="cbeb61b6-6590-4567-8dc3-fa2edf613942" name="Local variables" type="Block">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f21dfe2f-1243-44be-a6ee-26a80a4916bf" name="Expected Breakpoints" type="Collection">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Node Text" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Node Text" type="text" value="Get Time" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="6ceadfaa-8bf7-42e8-b86c-4056af7e3fa1" name="Output" type="Block">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="30" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="224f438d-fe36-4a21-80d7-3a6fe9971459" name="Clear All Breakpoints" type="Action">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="45" w="90" h="30" />
+    <onsuccess>0b5b3252-2922-47a8-a707-9ca032e4ecd0</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Breakpoint Locator - Clear All" />
+  </stage>
+  <stage stageid="0b5b3252-2922-47a8-a707-9ca032e4ecd0" name="Get Breakpoints Count" type="Action">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="90" w="90" h="30" />
+    <outputs>
+      <output type="number" name="Breakpoint count" friendlyname="Breakpoint count" stage="Breakpoint count" />
+    </outputs>
+    <onsuccess>29f0c2be-c8e1-4942-a952-d3933f666729</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Breakpoint Locator - Get Items Count" />
+  </stage>
+  <stage stageid="29f0c2be-c8e1-4942-a952-d3933f666729" name="Breakpoints cleared?" type="Decision">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <display x="-45" y="135" w="90" h="30" />
+    <decision expression="[Breakpoint count]=0" />
+    <ontrue>81aadc04-5a73-46d8-893b-c211d6e0502b</ontrue>
+    <onfalse>300574d8-adbc-48d1-8266-3f8cce8b559b</onfalse>
+  </stage>
+  <stage stageid="300574d8-adbc-48d1-8266-3f8cce8b559b" name="Failed " type="Exception">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <display x="30" y="135" w="30" h="30" />
+    <exception localized="yes" type="FAILED" detail="&quot;Incorrect breakpoints returned&quot;" />
+  </stage>
+  <stage stageid="78be4d41-4714-4941-9fd9-3e2d40449075" name="Breakpoint count" type="Data">
+    <subsheetid>56161053-63ec-4652-b8f9-fd46b37a9bc3</subsheetid>
+    <display x="-195" y="90" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b86a215c-3da2-4d03-b0e0-5515d7d26650" name="Start" type="Start">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>18ce2fdc-7fc2-4ebc-bfcc-c830808af991</onsuccess>
+  </stage>
+  <stage stageid="18ce2fdc-7fc2-4ebc-bfcc-c830808af991" name="Clear Breakpoint" type="Action">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Stage name" friendlyname="Stage name" expr="&quot;Calc1&quot;" />
+    </inputs>
+    <onsuccess>4277c66a-7df4-480a-8640-01ef8fa53f79</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Breakpoint Locator - Clear Breakpoint" />
+  </stage>
+  <stage stageid="4277c66a-7df4-480a-8640-01ef8fa53f79" name="Get List of Breakpoints" type="Action">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Pge to expand" friendlyname="Pge to expand" expr="&quot;Initialise&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Breakpoints" friendlyname="Breakpoints" stage="Breakpoints" />
+    </outputs>
+    <onsuccess>bc2b971c-04fd-4eb7-bdff-3a050d9cd04a</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Breakpoint Locator - Read Breakpoints List" />
+  </stage>
+  <stage stageid="bc2b971c-04fd-4eb7-bdff-3a050d9cd04a" name="Breakpoints correct?" type="Decision">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <display x="-45" y="0" w="90" h="30" />
+    <decision expression="[Breakpoints]=[Expected Breakpoints]" />
+    <ontrue>13f50683-051a-4e4b-aca0-582a7b36fa53</ontrue>
+    <onfalse>79815b60-bbd6-47fd-965d-9aedf1b1710d</onfalse>
+  </stage>
+  <stage stageid="79815b60-bbd6-47fd-965d-9aedf1b1710d" name="Failed " type="Exception">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <display x="30" y="0" w="30" h="30" />
+    <exception localized="yes" type="FAILED" detail="&quot;Incorrect breakpoints returned&quot;" />
+  </stage>
+  <stage stageid="13f50683-051a-4e4b-aca0-582a7b36fa53" name="Clear All Breakpoints" type="Action">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="45" w="90" h="30" />
+    <onsuccess>e2be4739-1e4a-4be8-94f6-ac9bc39afe6a</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Breakpoint Locator - Clear All" />
+  </stage>
+  <stage stageid="e2be4739-1e4a-4be8-94f6-ac9bc39afe6a" name="Get Breakpoints Count" type="Action">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="90" w="90" h="30" />
+    <outputs>
+      <output type="number" name="Breakpoint count" friendlyname="Breakpoint count" stage="Breakpoint count" />
+    </outputs>
+    <onsuccess>08e01bd3-f244-4af4-bb5a-2aaea2de9a7c</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Breakpoint Locator - Get Items Count" />
+  </stage>
+  <stage stageid="08e01bd3-f244-4af4-bb5a-2aaea2de9a7c" name="Breakpoints cleared?" type="Decision">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <display x="-45" y="135" w="90" h="30" />
+    <decision expression="[Breakpoint count]=0" />
+    <ontrue>f9d28d01-97f9-456b-a438-99672fa87732</ontrue>
+    <onfalse>91018e30-a7c4-4d26-944c-b717a5c24e99</onfalse>
+  </stage>
+  <stage stageid="91018e30-a7c4-4d26-944c-b717a5c24e99" name="Failed " type="Exception">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <display x="30" y="135" w="30" h="30" />
+    <exception localized="yes" type="FAILED" detail="&quot;Incorrect breakpoints returned&quot;" />
+  </stage>
+  <stage stageid="91e66f2a-ac1e-4012-958e-3448e60f0f14" name="Breakpoints" type="Collection">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <display x="-195" y="60" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7d9d9cee-f016-4b4f-a003-43c6c11b1959" name="Local variables" type="Block">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e2749330-c05e-402b-bb70-15c4a8241cd1" name="Output" type="Block">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="30" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="cba31ff8-4069-44be-882a-9d65d1d6ae52" name="Breakpoint count" type="Data">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <display x="-195" y="90" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4755a69f-984f-40e6-8ea3-bb5c80d7a583" name="Expected Breakpoints" type="Collection">
+    <subsheetid>d80cdb83-cd66-455d-b4c4-c2e4d89daca4</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Node Text" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Node Text" type="text" value="Calc2" />
+      </row>
+    </initialvalue>
+  </stage>
+</process>

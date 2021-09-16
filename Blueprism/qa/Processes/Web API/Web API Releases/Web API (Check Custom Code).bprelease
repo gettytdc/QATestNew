@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<bpr:release xmlns:bpr="http://www.blueprism.co.uk/product/release">
+    <bpr:name>Web API (Check Custom Code)</bpr:name>
+    <bpr:release-notes />
+    <bpr:created>2018-09-05 11:09:22Z</bpr:created>
+    <bpr:package-id>-1</bpr:package-id>
+    <bpr:package-name>&lt;Adhoc Package&gt;</bpr:package-name>
+    <bpr:user-created-by>matt</bpr:user-created-by>
+    <bpr:contents count="2">
+        <webapiservice id="f23ef4d2-783c-433e-82e4-53b75c6169e7" name="Web Api Service (Output Parameters - Invalid Common Code - C#)" enabled="true" xmlns="http://www.blueprism.co.uk/product/webapiservice">
+            <configuration baseurl="http://localhost:9000/" xmlns="">
+                <actions>
+                    <action id="32" name="Valid Ouput Code - Invalid Common Code - Should not Compile" documentationurl="" enabled="true" enableRequestOutputParameter="false" disableSendingOfRequest="false">
+                        <description><![CDATA[]]></description>
+                        <request httpmethod="GET" urlpath="/api/customers">
+                            <headers />
+                            <bodycontent type="0"></bodycontent>
+                        </request>
+                        <parameters />
+                        <outputparameters>
+                            <parameters>
+                                <customoutputparameter type="CustomCode" name="TestCode" datatype="flag"></customoutputparameter>
+                            </parameters>
+                            <code><![CDATA[TestCode = true;
+
+]]></code>
+                        </outputparameters>
+                    </action>
+                </actions>
+                <commonparameters />
+                <commonheaders />
+                <commonauthentications>
+                    <authentication type="0" />
+                </commonauthentications>
+                <commoncode>
+                    <codeproperties code="string TestInvalidCode(string input)&#xD;&#xA;{&#xD;&#xA;&#x9;// missing semi-colon - shouldn't allow code to compile&#xD;&#xA;&#x9;return input&#xD;&#xA;}&#xD;&#xA;" language="csharp">
+                        <namespaces>
+                            <namespace>System</namespace>
+                            <namespace>System.Drawing</namespace>
+                            <namespace>System.Data</namespace>
+                        </namespaces>
+                        <references>
+                            <reference>System.dll</reference>
+                            <reference>System.Data.dll</reference>
+                            <reference>System.Xml.dll</reference>
+                            <reference>System.Drawing.dll</reference>
+                        </references>
+                    </codeproperties>
+                </commoncode>
+                <configurationsettings>
+                    <configurationsettings requesttimeout="10" authserverrequesttimeout="10" />
+                </configurationsettings>
+            </configuration>
+        </webapiservice>
+        <webapiservice id="ca45812d-2549-43cf-b4d0-da5c86df11a9" name="Web API Service (Output Parameters - Valid Common code - C#)" enabled="true" xmlns="http://www.blueprism.co.uk/product/webapiservice">
+            <configuration baseurl="http://localhost:9000/" xmlns="">
+                <actions>
+                    <action id="33" name="Valid Output Code - Should Compile" documentationurl="" enabled="true" enableRequestOutputParameter="false" disableSendingOfRequest="false">
+                        <description><![CDATA[]]></description>
+                        <request httpmethod="GET" urlpath="/api/customers">
+                            <headers />
+                            <bodycontent type="0"></bodycontent>
+                        </request>
+                        <parameters />
+                        <outputparameters>
+                            <parameters>
+                                <customoutputparameter type="CustomCode" name="TestCode" datatype="text"></customoutputparameter>
+                            </parameters>
+                            <code><![CDATA[TestCode = TestValidCode("The code is valid");]]></code>
+                        </outputparameters>
+                    </action>
+                    <action id="34" name="Invalid Output Code - Should not Compile" documentationurl="" enabled="true" enableRequestOutputParameter="false" disableSendingOfRequest="false">
+                        <description><![CDATA[]]></description>
+                        <request httpmethod="GET" urlpath="/api/customers">
+                            <headers />
+                            <bodycontent type="0"></bodycontent>
+                        </request>
+                        <parameters />
+                        <outputparameters>
+                            <parameters>
+                                <customoutputparameter type="CustomCode" name="TestParam" datatype="text"></customoutputparameter>
+                            </parameters>
+                            <code><![CDATA[// missing semi-colon should prevent compilation
+
+testParam = "Invalid"]]></code>
+                        </outputparameters>
+                    </action>
+                    <action id="35" name="Valid Output Code - Invalid Code in Request Body - Should Compile" documentationurl="" enabled="true" enableRequestOutputParameter="false" disableSendingOfRequest="false">
+                        <description><![CDATA[]]></description>
+                        <request httpmethod="GET" urlpath="api/customers">
+                            <headers />
+                            <bodycontent type="4">
+                                <code><![CDATA[// missing semi-colon means this will not compile
+Request_Content = "Invalid code"]]></code>
+                            </bodycontent>
+                        </request>
+                        <parameters />
+                        <outputparameters>
+                            <parameters>
+                                <customoutputparameter type="CustomCode" name="TestCode" datatype="text"></customoutputparameter>
+                            </parameters>
+                            <code><![CDATA[TestCode = "The code is valid";]]></code>
+                        </outputparameters>
+                    </action>
+                </actions>
+                <commonparameters />
+                <commonheaders />
+                <commonauthentications>
+                    <authentication type="0" />
+                </commonauthentications>
+                <commoncode>
+                    <codeproperties code="string TestValidCode(string input)&#xD;&#xA;{&#xD;&#xA;&#x9;&#x9;return input;&#xD;&#xA;}&#xD;&#xA;" language="csharp">
+                        <namespaces>
+                            <namespace>System</namespace>
+                            <namespace>System.Drawing</namespace>
+                            <namespace>System.Data</namespace>
+                        </namespaces>
+                        <references>
+                            <reference>System.dll</reference>
+                            <reference>System.Data.dll</reference>
+                            <reference>System.Xml.dll</reference>
+                            <reference>System.Drawing.dll</reference>
+                        </references>
+                    </codeproperties>
+                </commoncode>
+                <configurationsettings>
+                    <configurationsettings requesttimeout="10" authserverrequesttimeout="10" />
+                </configurationsettings>
+            </configuration>
+        </webapiservice>
+    </bpr:contents>
+</bpr:release>

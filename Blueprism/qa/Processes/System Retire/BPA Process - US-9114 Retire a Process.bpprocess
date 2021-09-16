@@ -1,0 +1,466 @@
+﻿<process name="US-9114 Retire a Process" version="1.0" bpversion="6.11.0.30977" narrative="Verifies a process exists, retires an active process via System - Management - Processes, and then verifies the process is not present in Process Studio" byrefcollection="true" preferredid="27e3cc53-2b31-4641-87ea-0196d589a946" published="true">
+  <view>
+    <camerax>145</camerax>
+    <cameray>159</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="52f5abbc-348f-40f6-bc97-d900ed21c35a" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>283</camerax>
+      <cameray>42</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4" type="Normal" published="False">
+    <name>Verify Process Exists</name>
+    <view>
+      <camerax>283</camerax>
+      <cameray>135</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="16d64835-dfd8-4edb-9b77-eb8fcf213b0e" type="Normal" published="False">
+    <name>Retire Process</name>
+    <view>
+      <camerax>283</camerax>
+      <cameray>93</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="4599c0dc-27fe-4fbc-a5fe-e4ccb908aded" type="Normal" published="False">
+    <name>Verify Process is Retired</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>135</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="5726dc53-877a-4c35-a15e-21fd2ea8f6ab" name="Stage1" type="ProcessInfo">
+    <display x="-180" y="-165" w="150" h="120" />
+  </stage>
+  <stage stageid="aa990edc-2fc7-47cc-99b9-e1d5ca5f66aa" name="Start" type="Start">
+    <display x="15" y="-195" />
+    <onsuccess>b00b9c5e-a20f-4b73-84a2-1a59024a5632</onsuccess>
+  </stage>
+  <stage stageid="7d9767ff-d011-4b27-b2e7-e04177e2e330" name="End" type="End">
+    <display x="15" y="375" />
+  </stage>
+  <stage stageid="1eab2eba-3adc-4368-bed3-e9a856144151" name="Scenario 1 Cleanup" type="Block">
+    <display x="-90" y="-75" w="270" h="330" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="81f08cdf-1a80-422f-b705-450be6f18a3e" name="Local Variables" type="Block">
+    <display x="-255" y="150" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="64fa0f7c-be5d-484a-83c9-165ec358d9bc" name="Failed?" type="Data">
+    <display x="-180" y="180" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="d5d7b49d-de06-4956-b867-064cec367376" name="Exception" type="Data">
+    <display x="-180" y="210" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1b819353-42ac-490b-a034-66c523666241" name="Failed?" type="Decision">
+    <display x="15" y="330" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>d4fe9f9c-e98d-497f-a0e9-5807ef4224cb</ontrue>
+    <onfalse>7d9767ff-d011-4b27-b2e7-e04177e2e330</onfalse>
+  </stage>
+  <stage stageid="d4fe9f9c-e98d-497f-a0e9-5807ef4224cb" name="RETHROW" type="Exception">
+    <display x="105" y="330" />
+    <exception type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="88b2baf5-b5f7-4e16-8aa8-2c9c8dc02e10" name="Recover" type="Recover">
+    <display x="120" y="120" w="90" h="30" />
+    <onsuccess>6ef24d38-6388-4f07-954b-1aa6d7318eb0</onsuccess>
+  </stage>
+  <stage stageid="59370d6b-45f5-4bfb-9aa3-ebbeb763a74c" name="Resume" type="Resume">
+    <display x="120" y="225" w="90" h="30" />
+    <onsuccess>f3c0b641-ba91-47fd-96ba-d295cbcb41d7</onsuccess>
+  </stage>
+  <stage stageid="6ef24d38-6388-4f07-954b-1aa6d7318eb0" name="Exception Calc" type="MultipleCalculation">
+    <display x="120" y="165" w="90" h="30" />
+    <onsuccess>59370d6b-45f5-4bfb-9aa3-ebbeb763a74c</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="f873fab3-3b14-46f1-aade-2eddb5814f3e" name="Setup" type="SubSheet">
+    <display x="15" y="-45" w="90" h="30" />
+    <onsuccess>f77bb683-d463-4c5b-acf6-73870e4b79cf</onsuccess>
+    <processid>52f5abbc-348f-40f6-bc97-d900ed21c35a</processid>
+  </stage>
+  <stage stageid="a6e4adf8-43eb-4b1c-be98-4978ec09ab7b" name="Global Variables" type="Block">
+    <display x="-300" y="-105" w="195" h="240" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c36c129e-7643-439c-894e-869e9847a38b" name="Setup" type="SubSheetInfo">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <display x="-135" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="b231a50a-94c1-4830-a70d-f8de609e586d" name="Start" type="Start">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>c37fafd7-985b-488e-b201-248cc06419ad</onsuccess>
+  </stage>
+  <stage stageid="0438dfe2-e581-40b2-9881-fc14b826bf27" name="End" type="End">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <display x="15" y="195" />
+  </stage>
+  <stage stageid="184ead6c-f33a-43ae-8b7e-f691460aad11" name="Verify Process Exists" type="SubSheetInfo">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <display x="-135" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="be3c2d38-aae2-4c90-aacb-53b8e5d03023" name="Start" type="Start">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>875bd401-f5e2-47db-a7c9-fb8b8b62802c</onsuccess>
+  </stage>
+  <stage stageid="c2a38a93-a10a-4ed4-8360-965b8994459c" name="End" type="End">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <display x="15" y="315" />
+  </stage>
+  <stage stageid="f8d42d9d-2af3-446e-80ba-9512f0f660df" name="Verify Process Exists" type="SubSheet">
+    <display x="15" y="45" w="90" h="30" />
+    <onsuccess>3c5d29e3-eb5b-4961-88e2-9b3f66fa3379</onsuccess>
+    <processid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</processid>
+  </stage>
+  <stage stageid="34c8a8b7-2f3a-4fa9-87e4-9d0fcb068077" name="Retire Process" type="SubSheetInfo">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <display x="-135" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="1e6a18bd-05f8-4269-83e5-ac6ac990f9dd" name="Start" type="Start">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>6b182255-424a-408a-bb73-352213f2f664</onsuccess>
+  </stage>
+  <stage stageid="e25fec58-3feb-44c6-95a8-a2ee5661b1f8" name="End" type="End">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <display x="15" y="135" />
+  </stage>
+  <stage stageid="babf42d6-68de-4535-bc42-37b858e7a39f" name="Verify Process is Retired" type="SubSheetInfo">
+    <subsheetid>4599c0dc-27fe-4fbc-a5fe-e4ccb908aded</subsheetid>
+    <display x="-135" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="e8e9bf67-a172-40ad-bd96-779c9db954a6" name="Start" type="Start">
+    <subsheetid>4599c0dc-27fe-4fbc-a5fe-e4ccb908aded</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>2c9aa6b7-e560-4d73-9663-7cd8025e086d</onsuccess>
+  </stage>
+  <stage stageid="e1e443a2-cc25-4ad8-8051-289830cb7f0e" name="Retire Process" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" w="90" h="30" />
+    <onsuccess>bcdef768-935b-4d4b-ab58-26b1e1f40290</onsuccess>
+    <processid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</processid>
+  </stage>
+  <stage stageid="5ef2eeef-ebba-4625-b20e-e89c7cef87b5" name="Verify Process is Retired" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="225" w="90" h="30" />
+    <onsuccess>9526a3bf-7311-4e81-a5d8-359eda9e396e</onsuccess>
+    <processid>4599c0dc-27fe-4fbc-a5fe-e4ccb908aded</processid>
+  </stage>
+  <stage stageid="b00b9c5e-a20f-4b73-84a2-1a59024a5632" name="Note1" type="Note">
+    <narrative>GIVEN There is an active process I want to retire</narrative>
+    <display x="15" y="-120" w="150" h="30" />
+    <onsuccess>f873fab3-3b14-46f1-aade-2eddb5814f3e</onsuccess>
+  </stage>
+  <stage stageid="f77bb683-d463-4c5b-acf6-73870e4b79cf" name="Note1" type="Note">
+    <narrative>WHEN I go to System - Processes - Management
+
+</narrative>
+    <display x="15" y="0" w="150" h="30" />
+    <onsuccess>f8d42d9d-2af3-446e-80ba-9512f0f660df</onsuccess>
+  </stage>
+  <stage stageid="f3c0b641-ba91-47fd-96ba-d295cbcb41d7" name="Anchor7" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="120" y="285" w="10" h="10" />
+    <onsuccess>9526a3bf-7311-4e81-a5d8-359eda9e396e</onsuccess>
+  </stage>
+  <stage stageid="f6e6d236-6443-4fce-9552-c0479c946d2d" name="pid" type="Data">
+    <display x="-195" y="-60" w="150" h="60" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8e4bfd6c-3d45-4ff5-94da-0fa8c0508941" name="Process to Retire" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="0" w="150" h="60" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">AAA Process to Retire - US-9114</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="c37fafd7-985b-488e-b201-248cc06419ad" name="Launch BP" type="Action">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>a152ac2a-560c-419d-8779-fcd501d916b6</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="0c0a0a4c-d2fa-42c9-81e1-fa641963f462" name="Sign In" type="Action">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+      <input type="flag" name="Sign in Active Directorry" friendlyname="Sign in Active Directorry" narrative="Do you want sign in using Active Directory" expr="" />
+      <input type="flag" name="Sign in" friendlyname="Sign in" narrative="Do you want sign in using legacy sso environment" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="Error message received while Login" stage="" />
+    </outputs>
+    <onsuccess>0438dfe2-e581-40b2-9881-fc14b826bf27</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="875bd401-f5e2-47db-a7c9-fb8b8b62802c" name="Go to Studio Tab" type="Action">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>909c3437-b84d-4676-9e98-22fa47cabb6f</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="909c3437-b84d-4676-9e98-22fa47cabb6f" name="At Studio?" type="Action">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" />
+    <onsuccess>dc9c0208-118f-4270-957c-9d4fb84a0d46</onsuccess>
+    <resource object="Blue Prism - Studio" action="At Studio?" />
+  </stage>
+  <stage stageid="dc9c0208-118f-4270-957c-9d4fb84a0d46" name="Get Tree Items" type="Action">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" />
+    <inputs>
+      <input type="text" name="Tree Item" friendlyname="Tree Item" narrative="The name of the tree item you want to get the children for." expr="&quot;Default&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Child Tree Item" friendlyname="Child Tree Item" narrative="A collection containing a list child tree items." stage="Child Tree Item" />
+    </outputs>
+    <onsuccess>98d67364-8fc6-4cfd-8919-acf2059f1317</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="d7967977-95d4-4fc2-aaa2-0ef80a4608b1" name="Is Process Present?" type="Decision">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <display x="15" y="195" w="90" h="30" />
+    <decision expression="[Child Tree Item.Node Text]=[Process to Retire]" />
+    <ontrue>ecab396f-d968-45c2-9e1b-95810353f7df</ontrue>
+    <onfalse>d394dfbc-2b4a-4369-a250-5bab547fd2c2</onfalse>
+  </stage>
+  <stage stageid="edec5780-14ae-4a47-9b32-99ab8524b8cc" name="Process not in Group" type="Exception">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <display x="90" y="255" />
+    <exception localized="yes" type="System Exception" detail="&quot;The Process is not in the specified Group&quot;" />
+  </stage>
+  <stage stageid="6b182255-424a-408a-bb73-352213f2f664" name="Go to System Tab" type="Action">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>61e9789b-0963-4db4-a853-8ef60d723997</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="61e9789b-0963-4db4-a853-8ef60d723997" name="Click Item From System Tree" type="Action">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Processes&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Management&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>e85c1da3-00bd-4b05-b8b2-c56da69cb6c5</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="2c9aa6b7-e560-4d73-9663-7cd8025e086d" name="Go to Studio Tab" type="Action">
+    <subsheetid>4599c0dc-27fe-4fbc-a5fe-e4ccb908aded</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>fb80ccd7-f526-4774-a4c3-7e0f6c14ad6e</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="fb80ccd7-f526-4774-a4c3-7e0f6c14ad6e" name="At Studio?" type="Action">
+    <subsheetid>4599c0dc-27fe-4fbc-a5fe-e4ccb908aded</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" />
+    <onsuccess>43680ad7-5d7a-46c5-ac61-35d2ac936d3d</onsuccess>
+    <resource object="Blue Prism - Studio" action="At Studio?" />
+  </stage>
+  <stage stageid="e85c1da3-00bd-4b05-b8b2-c56da69cb6c5" name="Retire Process" type="Action">
+    <subsheetid>16d64835-dfd8-4edb-9b77-eb8fcf213b0e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" />
+    <inputs>
+      <input type="text" name="Process to Retire" friendlyname="Process to Retire" narrative="Name of process to be retired" expr="[Process to Retire]" />
+    </inputs>
+    <onsuccess>e25fec58-3feb-44c6-95a8-a2ee5661b1f8</onsuccess>
+    <resource object="Blue Prism - System - Processes" action="Management - Retire Active Process" />
+  </stage>
+  <stage stageid="3c5d29e3-eb5b-4961-88e2-9b3f66fa3379" name="Note2" type="Note">
+    <narrative>AND double-click the active process to send into Retired Processes</narrative>
+    <display x="15" y="90" w="150" h="30" />
+    <onsuccess>e1e443a2-cc25-4ad8-8051-289830cb7f0e</onsuccess>
+  </stage>
+  <stage stageid="bcdef768-935b-4d4b-ab58-26b1e1f40290" name="Note3" type="Note">
+    <narrative>THEN confirm the porcess is no longer present in Process Studio</narrative>
+    <display x="15" y="180" w="120" h="30" />
+    <onsuccess>5ef2eeef-ebba-4625-b20e-e89c7cef87b5</onsuccess>
+  </stage>
+  <stage stageid="a152ac2a-560c-419d-8779-fcd501d916b6" name="Attach to Studio" type="Action">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>d55e3bfd-aefb-4241-83f5-78de6a92bfb8</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="d55e3bfd-aefb-4241-83f5-78de6a92bfb8" name="Attach to System" type="Action">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>0c0a0a4c-d2fa-42c9-81e1-fa641963f462</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="56259dce-ea33-44b9-bb14-c4b3ff9fc309" name="Process Group" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="60" w="150" h="60" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Default</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="65b8cbaf-7dea-4b99-bfb5-a9973adc73e3" name="Local Variables" type="Block">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-15" w="135" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="9526a3bf-7311-4e81-a5d8-359eda9e396e" name="Exit Application" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="285" />
+    <onsuccess>1b819353-42ac-490b-a034-66c523666241</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="4c3a8ebb-0c80-4fa1-967a-cf60ee0ca9f0" name="Child Tree Item" type="Collection">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <display x="-135" y="15" w="90" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="98d67364-8fc6-4cfd-8919-acf2059f1317" name="Check Process in Tree" type="LoopStart">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" />
+    <onsuccess>d7967977-95d4-4fc2-aaa2-0ef80a4608b1</onsuccess>
+    <groupid>ffe50ef4-9ce0-430b-932a-3c9c5075953b</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Child Tree Item</loopdata>
+  </stage>
+  <stage stageid="d394dfbc-2b4a-4369-a250-5bab547fd2c2" name="Check Process in Tree" type="LoopEnd">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" />
+    <onsuccess>edec5780-14ae-4a47-9b32-99ab8524b8cc</onsuccess>
+    <groupid>ffe50ef4-9ce0-430b-932a-3c9c5075953b</groupid>
+  </stage>
+  <stage stageid="27d0eff7-323b-4222-ab56-f5308778e4be" name="End" type="End">
+    <subsheetid>4599c0dc-27fe-4fbc-a5fe-e4ccb908aded</subsheetid>
+    <display x="15" y="315" />
+  </stage>
+  <stage stageid="43680ad7-5d7a-46c5-ac61-35d2ac936d3d" name="Get Tree Items" type="Action">
+    <subsheetid>4599c0dc-27fe-4fbc-a5fe-e4ccb908aded</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" />
+    <inputs>
+      <input type="text" name="Tree Item" friendlyname="Tree Item" narrative="The name of the tree item you want to get the children for." expr="&quot;Default&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Child Tree Item" friendlyname="Child Tree Item" narrative="A collection containing a list child tree items." stage="Child Tree Item" />
+    </outputs>
+    <onsuccess>1c622982-a9f7-448c-8c05-5c5eb2169502</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="d0be9ca8-1931-43d2-9344-58839806de3b" name="Is Process Present?" type="Decision">
+    <subsheetid>4599c0dc-27fe-4fbc-a5fe-e4ccb908aded</subsheetid>
+    <display x="15" y="195" w="90" h="30" />
+    <decision expression="[Child Tree Item.Node Text]=[Process to Retire]" />
+    <ontrue>1cb5e983-7cc5-4cb0-96e3-7f5b05ac38b8</ontrue>
+    <onfalse>a00ff7fe-60d6-44bb-916d-c35b6e839515</onfalse>
+  </stage>
+  <stage stageid="1cb5e983-7cc5-4cb0-96e3-7f5b05ac38b8" name="Process not in Group" type="Exception">
+    <subsheetid>4599c0dc-27fe-4fbc-a5fe-e4ccb908aded</subsheetid>
+    <display x="105" y="195" />
+    <exception localized="yes" type="System Exception" detail="&quot;The Process has not been retired&quot;" />
+  </stage>
+  <stage stageid="1c622982-a9f7-448c-8c05-5c5eb2169502" name="Check Process in Tree" type="LoopStart">
+    <subsheetid>4599c0dc-27fe-4fbc-a5fe-e4ccb908aded</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" />
+    <onsuccess>d0be9ca8-1931-43d2-9344-58839806de3b</onsuccess>
+    <groupid>696e7bb3-a88c-4b4e-a140-174629fac5ff</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Child Tree Item</loopdata>
+  </stage>
+  <stage stageid="a00ff7fe-60d6-44bb-916d-c35b6e839515" name="Check Process in Tree" type="LoopEnd">
+    <subsheetid>4599c0dc-27fe-4fbc-a5fe-e4ccb908aded</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" />
+    <onsuccess>27d0eff7-323b-4222-ab56-f5308778e4be</onsuccess>
+    <groupid>696e7bb3-a88c-4b4e-a140-174629fac5ff</groupid>
+  </stage>
+  <stage stageid="081eee7e-5c6c-4a58-96f3-b28d1c4aed0d" name="Local Variables" type="Block">
+    <subsheetid>4599c0dc-27fe-4fbc-a5fe-e4ccb908aded</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-15" w="135" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c50a0f71-36e1-4791-bad4-f926586f42c3" name="Child Tree Item" type="Collection">
+    <subsheetid>4599c0dc-27fe-4fbc-a5fe-e4ccb908aded</subsheetid>
+    <display x="-120" y="15" w="90" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ecab396f-d968-45c2-9e1b-95810353f7df" name="Anchor1" type="Anchor">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="135" y="195" w="10" h="10" />
+    <onsuccess>dfb63fa6-427b-4b99-bae9-8aaf88c56fba</onsuccess>
+  </stage>
+  <stage stageid="dfb63fa6-427b-4b99-bae9-8aaf88c56fba" name="Anchor2" type="Anchor">
+    <subsheetid>4ac5e6c0-4a35-4f52-a97b-21bc64ad44f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="135" y="315" w="10" h="10" />
+    <onsuccess>c2a38a93-a10a-4ed4-8360-965b8994459c</onsuccess>
+  </stage>
+</process>

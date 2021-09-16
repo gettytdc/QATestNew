@@ -1,0 +1,1609 @@
+﻿<process name="Test Set Queue Data" version="1.0" narrative="Tests the setting of queue items' data objects" preferredid="7c8b2da8-7984-4254-99d1-794fb1998b37">
+  <view>
+    <camerax>0</camerax>
+    <cameray>0</cameray>
+    <zoom>1</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="66136f47-7032-4d69-b0d2-a258b39f7243" type="Normal" published="False">
+    <name>Clear Queue</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom>1</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="d7e19c24-23f7-470a-8619-dd2b3857e9ca" name="Start" type="Start">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>c88755be-931c-4fc3-8104-6eb3baee9d60</onsuccess>
+  </stage>
+  <stage stageid="b29b7569-23c7-44be-a2ce-c654d6fcdbf3" name="Stage1" type="ProcessInfo">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="72e1aea1-6b47-4eac-b60e-969446c253b7" name="Initial Data" type="Collection">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-345</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Loan Number" type="text" description="The loan number - the key field" />
+      <field name="Name" type="text" description="The name for the loan" />
+      <field name="Count" type="number" description="A count." />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Loan Number" type="text" value="12345678" />
+        <field name="Name" type="text" value="Stuart Wood" />
+        <field name="Count" type="number" value="1" />
+      </row>
+      <row>
+        <field name="Loan Number" type="text" value="87654321" />
+        <field name="Name" type="text" value="Andrew Marr" />
+        <field name="Count" type="number" value="99" />
+      </row>
+      <row>
+        <field name="Loan Number" type="text" value="45671234" />
+        <field name="Name" type="text" value="Natasha Keplinksy" />
+        <field name="Count" type="number" value="10" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="9be6d905-43fe-4be2-9833-0fd089a7fcba" name="Add Initial Data" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Initial Data]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="Item IDs" />
+    </outputs>
+    <onsuccess>ef87304e-b572-4f09-b0df-69ad1c5388b3</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="68f5a920-ea76-4342-a010-d502ff53a53b" name="Item IDs" type="Collection">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-75</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="ef87304e-b572-4f09-b0df-69ad1c5388b3" name="For Each Item ID" type="LoopStart">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="800000" />
+    <onsuccess>6387cb6b-3cbf-4cf1-ba14-64308f668cee</onsuccess>
+    <groupid>f3104b1d-ac3f-4617-a1b5-e2bb3f2914cd</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Item IDs</loopdata>
+  </stage>
+  <stage stageid="ef619602-e468-46a6-8491-093705209fe5" name="Next Item ID" type="LoopEnd">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>165</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="800000" />
+    <onsuccess>51185f16-19c9-43f8-91d5-33df232adadc</onsuccess>
+    <groupid>f3104b1d-ac3f-4617-a1b5-e2bb3f2914cd</groupid>
+  </stage>
+  <stage stageid="6387cb6b-3cbf-4cf1-ba14-64308f668cee" name="Note1" type="Note">
+    <narrative>Needs to be locked.
+This should fail</narrative>
+    <displayx>15</displayx>
+    <displayy>15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="008000" />
+    <onsuccess>6c9f2104-15b9-45b3-aa1b-4e68d12ca8aa</onsuccess>
+  </stage>
+  <stage stageid="6c9f2104-15b9-45b3-aa1b-4e68d12ca8aa" name="Set Data" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work item to set the data on. This item should be locked by the calling session. Mandatory parameter." expr="[Item IDs.Item ID]" />
+      <input type="collection" name="Data" narrative="A collection with one row containing the data to be set on the item. If the item has a keyvalue, the data in this collection should match it." expr="[Single Data]" />
+    </inputs>
+    <onsuccess>1421b45e-ef94-4c57-a404-2e7af3d184d9</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Set Data" />
+  </stage>
+  <stage stageid="bc7514f3-16e5-4d71-a0b2-ad984127b74c" name="Single Data" type="Collection">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Loan Number" type="text" description="The loan number - the key field" />
+      <field name="Name" type="text" description="The name for the loan" />
+      <field name="Count" type="number" description="A count." />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Loan Number" type="text" value="12345678" />
+        <field name="Name" type="text" value="Collaterly Sisters" />
+        <field name="Count" type="number" value="5" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="1421b45e-ef94-4c57-a404-2e7af3d184d9" name="Fail" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Data Set Exception" detail="&quot;Item not locked, but it allowed SetData : &quot; &amp; [Item IDs.Item ID]" />
+  </stage>
+  <stage stageid="19fca0a2-fcb1-4214-9014-797af31102e4" name="." type="Block">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>195</displaywidth>
+    <displayheight>150</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="504f9666-5e0d-465c-a92a-6bd4b8de4eab" name="Recover" type="Recover">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>d02146dc-d512-4669-94f4-39a6aae2f776</onsuccess>
+  </stage>
+  <stage stageid="d02146dc-d512-4669-94f4-39a6aae2f776" name="Resume" type="Resume">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>d4556a39-33a7-44aa-aa17-ffbf136f8e10</onsuccess>
+  </stage>
+  <stage stageid="d4556a39-33a7-44aa-aa17-ffbf136f8e10" name="anchor1" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>105</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>ef619602-e468-46a6-8491-093705209fe5</onsuccess>
+  </stage>
+  <stage stageid="6a91f76b-990b-45f8-8d74-ac7cface6004" name="Get Next" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="&quot;-&quot; &amp; [Tag: Has Date Of Birth]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Output Data" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>70221154-4294-4c0a-b808-fe2fd2cf0113</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="fc73fac1-6e7b-4305-b930-38d7a49d1a49" name="Queue Name" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-345</displayx>
+    <displayy>15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Loans</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="086d1bda-fa26-4b4b-bb56-97278e08e557" name="Item ID" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="380a4dba-a563-4c0d-961b-14cab115081a" name="Output Data" type="Collection">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>-270</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7016776b-8771-486d-8ec6-41515010907f" name="SetData(Secondary)" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work item to set the data on. This item should be locked by the calling session." expr="[Item ID]" />
+      <input type="collection" name="Data" narrative="A collection with one row containing the data to be set on the item. If the item has a key value and this collection has a key value, they should match exactly." expr="[Secondary Data]" />
+    </inputs>
+    <onsuccess>45cc904f-db2b-41c5-8dc7-ceb0cad62840</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Set Data" />
+  </stage>
+  <stage stageid="5feb9581-81a3-40b4-ba8a-f72d29dd4357" name="anchor2" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>df2aa1a6-07ee-4a78-a52b-289acda992ee</onsuccess>
+  </stage>
+  <stage stageid="2f5985eb-31cc-4d22-9a16-5ef28fd19c3d" name="Keyless Data" type="Collection">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>60</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Name" type="text" description="The name for the loan" />
+      <field name="Count" type="number" description="A count." />
+      <field name="Date of Birth" type="date" description="The date of birth" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Name" type="text" value="Collaterly Sisters" />
+        <field name="Count" type="number" value="5" />
+        <field name="Date of Birth" type="date" value="1903/04/05" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="9cfb7241-06a4-4c9c-a00a-8cf58d5f37e4" name="Clear Queue" type="SubSheetInfo">
+    <subsheetid>66136f47-7032-4d69-b0d2-a258b39f7243</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="ae1b1f26-2009-42cc-b88e-4360017b3b2c" name="Start" type="Start">
+    <subsheetid>66136f47-7032-4d69-b0d2-a258b39f7243</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" stage="Queue Name" />
+    </inputs>
+    <onsuccess>68f11d06-5439-4eec-8d22-2367d8ab29d3</onsuccess>
+  </stage>
+  <stage stageid="874dda20-4611-471e-aa89-f711edc1d68c" name="End" type="End">
+    <subsheetid>66136f47-7032-4d69-b0d2-a258b39f7243</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="3290e10a-fe26-4dc6-ab75-ba66485c17a2" name="Queue Name" type="Data">
+    <subsheetid>66136f47-7032-4d69-b0d2-a258b39f7243</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="68f11d06-5439-4eec-8d22-2367d8ab29d3" name="Get Next" type="Action">
+    <subsheetid>66136f47-7032-4d69-b0d2-a258b39f7243</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>2ea9606c-023a-4aa9-8094-21a4a6e3ddcd</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="28ee238c-3848-4012-bca1-2a55951ff0a4" name="Item ID" type="Data">
+    <subsheetid>66136f47-7032-4d69-b0d2-a258b39f7243</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2ea9606c-023a-4aa9-8094-21a4a6e3ddcd" name="One There?" type="Decision">
+    <subsheetid>66136f47-7032-4d69-b0d2-a258b39f7243</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID] &lt;&gt; &quot;&quot;" />
+    <ontrue>45867f6f-334f-4b74-ac5c-593fff068f25</ontrue>
+    <onfalse>e6c6db3a-e348-4d0a-9586-fafe22ac206d</onfalse>
+  </stage>
+  <stage stageid="45867f6f-334f-4b74-ac5c-593fff068f25" name="Mark Exception" type="Action">
+    <subsheetid>66136f47-7032-4d69-b0d2-a258b39f7243</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;Readying for deletion&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="False" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>7acca463-f201-4aca-b2b3-faba2a338e5d</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="7acca463-f201-4aca-b2b3-faba2a338e5d" name="anchor3" type="Anchor">
+    <subsheetid>66136f47-7032-4d69-b0d2-a258b39f7243</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>68f11d06-5439-4eec-8d22-2367d8ab29d3</onsuccess>
+  </stage>
+  <stage stageid="e6c6db3a-e348-4d0a-9586-fafe22ac206d" name="Delete Items" type="Action">
+    <subsheetid>66136f47-7032-4d69-b0d2-a258b39f7243</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete items from" expr="[Queue Name]" />
+      <input type="datetime" name="Date Threshold" narrative="The threshold date. Items completed or marked as an exception before this date will be deleted from the queue" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Deletion Count" narrative="Indicates the number of items which were deleted (which may legitimately be zero)." stage="" />
+    </outputs>
+    <onsuccess>874dda20-4611-471e-aa89-f711edc1d68c</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Delete Processed Items" />
+  </stage>
+  <stage stageid="4256275e-fbae-4bfa-9e09-8a47f296099b" name="Clear Queue" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+    </inputs>
+    <onsuccess>9be6d905-43fe-4be2-9833-0fd089a7fcba</onsuccess>
+    <processid>66136f47-7032-4d69-b0d2-a258b39f7243</processid>
+  </stage>
+  <stage stageid="096aa8d4-3fdd-441d-b852-efa3e6a6aa3d" name="Secondary Data" type="Collection">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Loan Number" type="text" description="The loan number - the key field" />
+      <field name="Name" type="text" description="The name for the loan" />
+      <field name="Count" type="number" description="A count." />
+      <field name="Date Of Birth" type="date" description="The date of birth." />
+    </collectioninfo>
+  </stage>
+  <stage stageid="93592db7-0163-48cc-a77a-1d8edafceabc" name="Tag: Has Date Of Birth" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-345</displayx>
+    <displayy>150</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Has Date Of Birth</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c887b75b-c6f1-4159-9914-157b07004843" name="Note2" type="Note">
+    <narrative>Add Date of Birth</narrative>
+    <displayx>270</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="008000" />
+    <onsuccess>e077f40d-00bb-420d-82c4-7a390adb14ce</onsuccess>
+  </stage>
+  <stage stageid="70221154-4294-4c0a-b808-fe2fd2cf0113" name="Finished?" type="Decision">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID] = &quot;&quot;" />
+    <ontrue>5feb9581-81a3-40b4-ba8a-f72d29dd4357</ontrue>
+    <onfalse>51a730a3-1e18-4eae-abac-54c203d59bda</onfalse>
+  </stage>
+  <stage stageid="51185f16-19c9-43f8-91d5-33df232adadc" name="anchor1" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>165</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>04d5d4b0-c026-4b01-93c4-d2fd51d019a9</onsuccess>
+  </stage>
+  <stage stageid="04d5d4b0-c026-4b01-93c4-d2fd51d019a9" name="anchor1" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>c887b75b-c6f1-4159-9914-157b07004843</onsuccess>
+  </stage>
+  <stage stageid="51a730a3-1e18-4eae-abac-54c203d59bda" name="Secondary.AddRow()" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>0</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to be modified" expr="&quot;Secondary Data&quot;" />
+    </inputs>
+    <onsuccess>8de43071-5095-4027-bf33-d4edbd95df46</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="8de43071-5095-4027-bf33-d4edbd95df46" name="Secondary := Output" type="MultipleCalculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>7016776b-8771-486d-8ec6-41515010907f</onsuccess>
+    <steps>
+      <calculation expression="[Output Data.Loan Number]" stage="Secondary Data.Loan Number" />
+      <calculation expression="[Output Data.Name]" stage="Secondary Data.Name" />
+      <calculation expression="[Output Data.Count]" stage="Secondary Data.Count" />
+      <calculation expression="[Dates Of Birth.Value]" stage="Secondary Data.Date Of Birth" />
+    </steps>
+  </stage>
+  <stage stageid="97fa6d9f-0592-4e95-8723-c1e85d4e89cf" name="Dates Of Birth" type="Collection">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-345</displayx>
+    <displayy>105</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Value" type="date" description="The date of birth" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Value" type="date" value="1986/05/12" />
+      </row>
+      <row>
+        <field name="Value" type="date" value="1972/11/01" />
+      </row>
+      <row>
+        <field name="Value" type="date" value="1991/01/31" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="e077f40d-00bb-420d-82c4-7a390adb14ce" name="For Each Date Of Birth" type="LoopStart">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="0000FF" />
+    <onsuccess>6a91f76b-990b-45f8-8d74-ac7cface6004</onsuccess>
+    <groupid>d8f57ecc-8979-4537-9741-a5c7d01cebaa</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Dates Of Birth</loopdata>
+  </stage>
+  <stage stageid="0a7d5534-439d-4d39-b2cc-d257fcc238cd" name="Next Date Of Birth" type="LoopEnd">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>270</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="0000FF" />
+    <onsuccess>05d7db80-c364-4bd7-97eb-37acbc942655</onsuccess>
+    <groupid>d8f57ecc-8979-4537-9741-a5c7d01cebaa</groupid>
+  </stage>
+  <stage stageid="a13f31f8-d78c-46ad-b1ab-812437de281a" name="Note3" type="Note">
+    <loginhibit />
+    <narrative>Constants</narrative>
+    <displayx>-345</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="000000" />
+  </stage>
+  <stage stageid="833705f2-c828-4bdc-858c-a709dbe544ef" name="Unlock Item" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="" />
+    </outputs>
+    <onsuccess>3e3c957d-ed13-4027-8e8b-91078673bc54</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="45cc904f-db2b-41c5-8dc7-ceb0cad62840" name="Tag with DOB Set" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[Item ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="[Tag: Has Date Of Birth]" />
+    </inputs>
+    <onsuccess>833705f2-c828-4bdc-858c-a709dbe544ef</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="df2aa1a6-07ee-4a78-a52b-289acda992ee" name="anchor1" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>270</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>0a7d5534-439d-4d39-b2cc-d257fcc238cd</onsuccess>
+  </stage>
+  <stage stageid="05d7db80-c364-4bd7-97eb-37acbc942655" name="Note2" type="Note">
+    <narrative>Check DOB is present</narrative>
+    <displayx>270</displayx>
+    <displayy>315</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="008000" />
+    <onsuccess>22578eb3-5d2d-4e42-b065-4f8c96981c20</onsuccess>
+  </stage>
+  <stage stageid="92d35930-718b-4e99-9b99-22678f0d6efc" name="Get Next" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>405</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="&quot;-&quot; &amp; [Tag: Verified Date Of Birth]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Output Data" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>994f60d9-2c19-49eb-bc2b-59b6d07e22b9</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="d0d5f994-69d3-4531-9558-667b0dd6a2dd" name="anchor2" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>450</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>c74f23d3-b89d-4481-829e-f500e72debf2</onsuccess>
+  </stage>
+  <stage stageid="994f60d9-2c19-49eb-bc2b-59b6d07e22b9" name="Finished?" type="Decision">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>450</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID] = &quot;&quot;" />
+    <ontrue>d0d5f994-69d3-4531-9558-667b0dd6a2dd</ontrue>
+    <onfalse>2d5ade15-cb98-4e6d-8063-dcef97933083</onfalse>
+  </stage>
+  <stage stageid="22578eb3-5d2d-4e42-b065-4f8c96981c20" name="For Each Date Of Birth" type="LoopStart">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>360</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="0000FF" />
+    <onsuccess>92d35930-718b-4e99-9b99-22678f0d6efc</onsuccess>
+    <groupid>578a5d1b-955c-46b5-85a2-416bd2ecdf7e</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Dates Of Birth</loopdata>
+  </stage>
+  <stage stageid="5b1b6025-e038-4811-a888-c136d087d2b0" name="Next Date Of Birth" type="LoopEnd">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>720</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="0000FF" />
+    <onsuccess>10b2c20a-3b92-47fc-87ab-ba8fb3e75e87</onsuccess>
+    <groupid>578a5d1b-955c-46b5-85a2-416bd2ecdf7e</groupid>
+  </stage>
+  <stage stageid="eaf493cd-15fa-46c1-ac45-7a597832c39b" name="Unlock Item" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>675</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="" />
+    </outputs>
+    <onsuccess>5b1b6025-e038-4811-a888-c136d087d2b0</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="19472509-35c1-40ba-b540-467818c050a9" name="Tag with DOB Verif" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>630</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[Item ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="[Tag: Verified Date Of Birth]" />
+    </inputs>
+    <onsuccess>eaf493cd-15fa-46c1-ac45-7a597832c39b</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="c74f23d3-b89d-4481-829e-f500e72debf2" name="anchor1" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>720</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>5b1b6025-e038-4811-a888-c136d087d2b0</onsuccess>
+  </stage>
+  <stage stageid="2d5ade15-cb98-4e6d-8063-dcef97933083" name="DOB Match?" type="Decision">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>495</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Dates Of Birth.Value] = [Output Data.Date Of Birth]" />
+    <ontrue>4b28ce3b-ba0b-413c-b795-8213345c1c17</ontrue>
+    <onfalse>d623009f-b9b8-4b28-81cc-5cb23908d195</onfalse>
+  </stage>
+  <stage stageid="865dfb0c-7080-4398-818b-5157d3f141a8" name="Tag: Verified Date Of Birth" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-345</displayx>
+    <displayy>195</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">DOB Verified</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d623009f-b9b8-4b28-81cc-5cb23908d195" name="Fail" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>540</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Data Not Set Exception" detail="&quot;Expected date of birth : &quot; &amp; [Dates Of Birth.Value] &amp; &quot;; but found : &quot; &amp; [Output Data.Date Of Birth] &amp; &quot; for item : &quot; &amp; [Item ID]" />
+  </stage>
+  <stage stageid="4b28ce3b-ba0b-413c-b795-8213345c1c17" name="anchor2" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>495</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>b7712a86-44b9-44d9-9c10-78520a512b54</onsuccess>
+  </stage>
+  <stage stageid="b7712a86-44b9-44d9-9c10-78520a512b54" name="anchor2" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>630</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>19472509-35c1-40ba-b540-467818c050a9</onsuccess>
+  </stage>
+  <stage stageid="d68a748b-43db-4e4d-bab8-c62bad7072d2" name="Data With Bad Key Value" type="Collection">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>105</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Loan Number" type="text" description="The loan number - the key field" />
+      <field name="Name" type="text" description="The name for the loan" />
+      <field name="Count" type="number" description="A count." />
+      <field name="Date Of Birth" type="date" description="The date of birth." />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Loan Number" type="text" value="11111111" />
+        <field name="Name" type="text" value="Seamus O'Malley" />
+        <field name="Count" type="number" value="-1" />
+        <field name="Date Of Birth" type="date" value="1903/02/01" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="208b4de2-59a4-48a7-95c9-09819ea1c639" name="Single Row Data" type="Collection">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>150</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <singlerow />
+      <field name="Loan Number" type="text" description="The loan number - the key field" />
+      <field name="Name" type="text" description="The name for the loan" />
+      <field name="Count" type="number" description="A count." />
+      <field name="Date Of Birth" type="date" description="The date of birth." />
+    </collectioninfo>
+    <initialvalue>
+      <singlerow />
+      <row>
+        <field name="Loan Number" type="text" value="12345678" />
+        <field name="Name" type="text" value="Single Rowed" />
+        <field name="Count" type="number" value="101" />
+        <field name="Date Of Birth" type="date" value="1901/02/03" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="aa973cbc-d89b-4c71-ac59-6d792bdb612a" name="Note4" type="Note">
+    <narrative>Bad Key Value should fail</narrative>
+    <displayx>435</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="008000" />
+    <onsuccess>431b1405-01dc-4140-bcc7-c768cf7b084e</onsuccess>
+  </stage>
+  <stage stageid="10b2c20a-3b92-47fc-87ab-ba8fb3e75e87" name="anchor1" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>720</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>df474992-81ce-4d1d-a595-40458ce2747d</onsuccess>
+  </stage>
+  <stage stageid="df474992-81ce-4d1d-a595-40458ce2747d" name="anchor1" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>aa973cbc-d89b-4c71-ac59-6d792bdb612a</onsuccess>
+  </stage>
+  <stage stageid="431b1405-01dc-4140-bcc7-c768cf7b084e" name="Get Next" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>435</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Output Data" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>69a52a3f-523d-4ade-a5a6-45e41a069387</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="69a52a3f-523d-4ade-a5a6-45e41a069387" name="SetData(BadKeyValue)" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>435</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work item to set the data on. This item should be locked by the calling session." expr="[Item ID]" />
+      <input type="collection" name="Data" narrative="A collection with one row containing the data to be set on the item. If the item has a key value and this collection has a key value, they should match exactly." expr="[Data With Bad Key Value]" />
+    </inputs>
+    <onsuccess>aa003c80-311e-4938-9d1d-38d93fd69543</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Set Data" />
+  </stage>
+  <stage stageid="aa003c80-311e-4938-9d1d-38d93fd69543" name="Fail" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>525</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Data Set Exception" detail="&quot;Allowed setting of the wrong key value; Current value : &quot; &amp; [Output Data.Loan Number] &amp; &quot;; Allowed setting of value : &quot; &amp; [Data With Bad Key Value.Loan Number]" />
+  </stage>
+  <stage stageid="60508670-7ae0-45d3-962a-99d5f5ce28aa" name="." type="Block">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>150</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="9caaa770-50f6-49cf-b318-709dfb23d31e" name="Recover" type="Recover">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>435</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>02ce72d8-19e4-4ab6-b179-51e66200511a</onsuccess>
+  </stage>
+  <stage stageid="02ce72d8-19e4-4ab6-b179-51e66200511a" name="Resume" type="Resume">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>435</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>c1202601-7fed-4d95-b091-1aa1162084f0</onsuccess>
+  </stage>
+  <stage stageid="c1202601-7fed-4d95-b091-1aa1162084f0" name="Note4" type="Note">
+    <narrative>No Key Value should work</narrative>
+    <displayx>435</displayx>
+    <displayy>75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="008000" />
+    <onsuccess>ee2ffc4b-1fe0-4c64-bb8f-2de9b9106da0</onsuccess>
+  </stage>
+  <stage stageid="ee2ffc4b-1fe0-4c64-bb8f-2de9b9106da0" name="SetData(Keyless)" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>435</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work item to set the data on. This item should be locked by the calling session." expr="[Item ID]" />
+      <input type="collection" name="Data" narrative="A collection with one row containing the data to be set on the item. If the item has a key value and this collection has a key value, they should match exactly." expr="[Keyless Data]" />
+    </inputs>
+    <onsuccess>9165636d-205b-423a-a652-63f3eac49bc7</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Set Data" />
+  </stage>
+  <stage stageid="9165636d-205b-423a-a652-63f3eac49bc7" name="Unlock Item" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>435</displayx>
+    <displayy>165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="" />
+    </outputs>
+    <onsuccess>1090783f-74c8-422f-ab2d-cd9e204c3ecb</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="1ff1d8c1-f0ec-4ccb-81d8-9a46c3edb774" name="anchor1" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>555</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>3f79bea6-9dc1-4d52-aa31-86536251a016</onsuccess>
+  </stage>
+  <stage stageid="9145aa89-21a7-4151-a383-a7025e1e92cf" name="Key Value" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="eb92a058-1b2d-494e-9e1b-141934fa051c" name="Get Next(Key:=Current)" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>435</displayx>
+    <displayy>255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="[Key Value]" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Output Data" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>7e27a73e-5bde-4db1-9454-20594ddc4b17</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="7e27a73e-5bde-4db1-9454-20594ddc4b17" name="Correct Name?" type="Decision">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>435</displayx>
+    <displayy>300</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Keyless Data.Name] = [Output Data.Name]" />
+    <ontrue>33209b70-c4e0-4826-ac33-404ffa88d4d5</ontrue>
+    <onfalse>b72957ba-08a8-4a8d-a244-e0908c61c1bb</onfalse>
+  </stage>
+  <stage stageid="33209b70-c4e0-4826-ac33-404ffa88d4d5" name="Unlock Item" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>435</displayx>
+    <displayy>345</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="" />
+    </outputs>
+    <onsuccess>ba613ab8-fbad-4635-b9df-4682bb631ffd</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="b72957ba-08a8-4a8d-a244-e0908c61c1bb" name="Fail" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>525</displayx>
+    <displayy>300</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Data Not Set Exception" detail="&quot;Name not saved correctly. Expected name : &quot; &amp; [Keyless Data.Name] &amp; &quot;; Found : &quot; &amp; [Output Data.Name]" />
+  </stage>
+  <stage stageid="3f79bea6-9dc1-4d52-aa31-86536251a016" name="Note4" type="Note">
+    <narrative>Single Row Collection should work</narrative>
+    <displayx>645</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="008000" />
+    <onsuccess>7a838e50-7d5c-4cb6-b762-a312b351d873</onsuccess>
+  </stage>
+  <stage stageid="65e39f67-9934-42fb-b951-2174dc6c89b7" name="SetData(SingleRow)" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>645</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work item to set the data on. This item should be locked by the calling session." expr="[Item ID]" />
+      <input type="collection" name="Data" narrative="A collection with one row containing the data to be set on the item. If the item has a key value and this collection has a key value, they should match exactly." expr="[Single Row Data]" />
+    </inputs>
+    <onsuccess>db16be9a-4e4a-4fe1-a05e-75a335059712</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Set Data" />
+  </stage>
+  <stage stageid="db16be9a-4e4a-4fe1-a05e-75a335059712" name="Unlock Item" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>645</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="" />
+    </outputs>
+    <onsuccess>6f2c1871-8a79-4e6a-84cd-d1072f661886</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="6f2c1871-8a79-4e6a-84cd-d1072f661886" name="Get Next(Key:=Current)" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>645</displayx>
+    <displayy>0</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="[Key Value]" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Output Data" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>31b76ee7-0b5b-4dd1-9310-6f7f631dcb6a</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="31b76ee7-0b5b-4dd1-9310-6f7f631dcb6a" name="Correct Name?" type="Decision">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>645</displayx>
+    <displayy>45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Single Row Data.Name] = [Output Data.Name]" />
+    <ontrue>cb5e5969-c81c-4361-a830-99e5b3ca56ec</ontrue>
+    <onfalse>277b1c92-d228-4fdc-bc8a-0a9142816534</onfalse>
+  </stage>
+  <stage stageid="277b1c92-d228-4fdc-bc8a-0a9142816534" name="Fail" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>750</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Data Not Set Exception" detail="&quot;Name not saved correctly. Expected name : &quot; &amp; [Keyless Data.Name] &amp; &quot;; Found : &quot; &amp; [Output Data.Name]" />
+  </stage>
+  <stage stageid="3d457647-f2b3-4e63-9031-0d53d22a41c0" name="End1" type="End">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>645</displayx>
+    <displayy>600</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="3e3c957d-ed13-4027-8e8b-91078673bc54" name="Secondary.DelRow()" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>225</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to be modified" expr="&quot;Secondary Data&quot;" />
+    </inputs>
+    <onsuccess>0a7d5534-439d-4d39-b2cc-d257fcc238cd</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Remove Row" />
+  </stage>
+  <stage stageid="1090783f-74c8-422f-ab2d-cd9e204c3ecb" name="Save Key Value" type="Calculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>435</displayx>
+    <displayy>210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>eb92a058-1b2d-494e-9e1b-141934fa051c</onsuccess>
+    <calculation expression="[Output Data.Loan Number]" stage="Key Value" />
+  </stage>
+  <stage stageid="7a838e50-7d5c-4cb6-b762-a312b351d873" name="Get Next(Key:=Current)" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>645</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="[Key Value]" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Output Data" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>65e39f67-9934-42fb-b951-2174dc6c89b7</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="c88755be-931c-4fc3-8104-6eb3baee9d60" name="Create Queue (If Not Exists)" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to be created" expr="[Queue Name]" />
+      <input type="text" name="Key Field" narrative="The key column to use in the collection which makes up a queue item" expr="&quot;Loan Number&quot;" />
+      <input type="number" name="Max Attempts" narrative="The maximum number of retry attempts for the queue. Default: 5" expr="" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" narrative="Whether the create call was successful or not" stage="" />
+      <output type="text" name="Subprocess Output" narrative="The output from the automatec &quot;create queue&quot; process" stage="" />
+    </outputs>
+    <onsuccess>4256275e-fbae-4bfa-9e09-8a47f296099b</onsuccess>
+    <resource object="Queue Utils" action="Create Queue" />
+  </stage>
+  <stage stageid="dba4060e-57b5-4358-acf2-5e1646b7e776" name="Queue Name (Keyless)" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-345</displayx>
+    <displayy>60</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Loans - Keyless</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c1deb27a-46ec-4098-be18-637ce675f52d" name="Empty Data" type="Collection">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>195</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Loan Number" type="text" description="The loan number - the key field" />
+      <field name="Name" type="text" description="The name for the loan" />
+      <field name="Count" type="number" description="A count." />
+      <field name="Date Of Birth" type="date" description="The date of birth." />
+    </collectioninfo>
+  </stage>
+  <stage stageid="cb5e5969-c81c-4361-a830-99e5b3ca56ec" name="Note4" type="Note">
+    <narrative>Empty Collection should fail</narrative>
+    <displayx>645</displayx>
+    <displayy>90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="008000" />
+    <onsuccess>99b1ffa3-b3a2-4c85-997c-508f4893cb18</onsuccess>
+  </stage>
+  <stage stageid="99b1ffa3-b3a2-4c85-997c-508f4893cb18" name="SetData(Empty)" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>645</displayx>
+    <displayy>150</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work item to set the data on. This item should be locked by the calling session." expr="[Item ID]" />
+      <input type="collection" name="Data" narrative="A collection with one row containing the data to be set on the item. If the item has a key value and this collection has a key value, they should match exactly." expr="[Empty Data]" />
+    </inputs>
+    <onsuccess>261d90f2-8bc0-48dc-b0a8-a3e68a1c1eab</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Set Data" />
+  </stage>
+  <stage stageid="d62775d6-da11-48cd-82dd-8401008c7557" name="." type="Block">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>585</displayx>
+    <displayy>120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>150</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="261d90f2-8bc0-48dc-b0a8-a3e68a1c1eab" name="Fail" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>750</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Data Set Exception" detail="&quot;Allowed setting with an empty collection&quot;" />
+  </stage>
+  <stage stageid="cd98d3e3-9de3-4fbd-854b-3a7ab3364101" name="Recover" type="Recover">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>645</displayx>
+    <displayy>195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e4e6bcf8-095c-4469-b8c7-135c9dd3fde2</onsuccess>
+  </stage>
+  <stage stageid="e4e6bcf8-095c-4469-b8c7-135c9dd3fde2" name="Resume" type="Resume">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>645</displayx>
+    <displayy>240</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>a3482be0-23e7-4bb5-bf8b-94326b28265d</onsuccess>
+  </stage>
+  <stage stageid="a3482be0-23e7-4bb5-bf8b-94326b28265d" name="Note4" type="Note">
+    <narrative>Multirow Collection should fail</narrative>
+    <displayx>645</displayx>
+    <displayy>300</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="008000" />
+    <onsuccess>006abb7d-e03d-477a-a4ba-1a57ef931eb5</onsuccess>
+  </stage>
+  <stage stageid="006abb7d-e03d-477a-a4ba-1a57ef931eb5" name="SetData(InitialData)" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>645</displayx>
+    <displayy>360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work item to set the data on. This item should be locked by the calling session." expr="[Item ID]" />
+      <input type="collection" name="Data" narrative="A collection with one row containing the data to be set on the item. If the item has a key value and this collection has a key value, they should match exactly." expr="[Initial Data]" />
+    </inputs>
+    <onsuccess>a5ef8c93-ef61-43d1-be39-b32dbf072dd7</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Set Data" />
+  </stage>
+  <stage stageid="2f508a90-e105-4a16-b873-ed7e38f804e0" name="." type="Block">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>585</displayx>
+    <displayy>330</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>150</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="93ea8de5-6e47-4056-abd2-df3c414bd81e" name="Recover" type="Recover">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>645</displayx>
+    <displayy>405</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>544a406b-8881-4b47-b52c-68db05e7e7bc</onsuccess>
+  </stage>
+  <stage stageid="544a406b-8881-4b47-b52c-68db05e7e7bc" name="Resume" type="Resume">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>645</displayx>
+    <displayy>450</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>18d21dec-4d7a-4e39-b850-f173f8da3f8e</onsuccess>
+  </stage>
+  <stage stageid="a5ef8c93-ef61-43d1-be39-b32dbf072dd7" name="Fail" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>750</displayx>
+    <displayy>360</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Data Set Exception" detail="&quot;Allowed setting with a multiple row collection&quot;" />
+  </stage>
+  <stage stageid="18d21dec-4d7a-4e39-b850-f173f8da3f8e" name="Unlock Item" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>645</displayx>
+    <displayy>510</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="" />
+    </outputs>
+    <onsuccess>433d8103-49a6-46c8-914e-fcf5c4291e68</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="ba613ab8-fbad-4635-b9df-4682bb631ffd" name="anchor1" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>555</displayx>
+    <displayy>345</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>1ff1d8c1-f0ec-4ccb-81d8-9a46c3edb774</onsuccess>
+  </stage>
+  <stage stageid="433d8103-49a6-46c8-914e-fcf5c4291e68" name="Scorched Earth Policy" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>645</displayx>
+    <displayy>555</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete" expr="[Queue Name]" />
+    </inputs>
+    <onsuccess>3d457647-f2b3-4e63-9031-0d53d22a41c0</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+</process>

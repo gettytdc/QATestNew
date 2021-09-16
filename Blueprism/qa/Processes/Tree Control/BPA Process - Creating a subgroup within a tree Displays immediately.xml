@@ -1,0 +1,579 @@
+﻿<process name="Creating a subgroup within a tree Displays immediately" version="1.0" bpversion="6.7.0.17310" narrative="BG-4287: This test launches an instance of Blue Prism, then from the studio tab creates a 'main group' with a 'sub group' under 'Processes', followed by a check that the new groups (particularly the sub group) can be read without needing a refresh, then repeats the same process under 'Objects'. Once happy that folders can be read without refresh folders will be deleted, then sign out of blue prism, detaach the PID and close the application for full clean up." byrefcollection="true" preferredid="3d109ac1-ebde-498a-970f-6ce7d01101f1" published="true">
+  <view>
+    <camerax>-22</camerax>
+    <cameray>0</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="3a22aa0c-305d-4ef6-acea-ed04a46e3ded" type="Normal" published="False">
+    <name>Set Up</name>
+    <view>
+      <camerax>-82</camerax>
+      <cameray>41</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="f029e9ee-3679-4ae3-bb8d-08fb50eabc6e" type="Normal" published="False">
+    <name>Create Group and subgroup (Processes)</name>
+    <view>
+      <camerax>9</camerax>
+      <cameray>135</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="4ec53cfe-238b-456f-9f08-b750b843ba1b" type="Normal" published="False">
+    <name>Create Group and subgroup (Objects)</name>
+    <view>
+      <camerax>9</camerax>
+      <cameray>128</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="3e3ffde3-4802-41fd-8db9-bc42dbc644bd" type="Normal" published="False">
+    <name>Clean Up</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>84</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="e7327b9d-1118-4e91-b899-bcffbf723b94" name="Start" type="Start">
+    <display x="15" y="-195" />
+    <onsuccess>fed547e4-2f84-4364-ad57-3daf951c10c5</onsuccess>
+  </stage>
+  <stage stageid="b88d8e60-e928-478e-a14b-8e1c5022e954" name="End" type="End">
+    <display x="15" y="270" />
+  </stage>
+  <stage stageid="73098930-adae-4274-ae76-f5132da280ae" name="Stage1" type="ProcessInfo">
+    <display x="-255" y="-120" w="240" h="120" />
+  </stage>
+  <stage stageid="7fe63880-c13e-4afb-98dd-fc21c6dc158b" name="Set Up" type="SubSheetInfo">
+    <subsheetid>3a22aa0c-305d-4ef6-acea-ed04a46e3ded</subsheetid>
+    <narrative>Launches an instance of Blue Prism, attaches to PID, signs in and navigates test to 'Studio' tab.</narrative>
+    <display x="-225" y="-45" w="150" h="90" />
+  </stage>
+  <stage stageid="77e02a7a-99d4-4b0a-8106-2aeea9e8cae9" name="Start" type="Start">
+    <subsheetid>3a22aa0c-305d-4ef6-acea-ed04a46e3ded</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>4dbfb714-f09b-4ccc-95f7-1aa78354961f</onsuccess>
+  </stage>
+  <stage stageid="6b1361ff-a3b3-4188-8c98-68d1be8b1e5e" name="End" type="End">
+    <subsheetid>3a22aa0c-305d-4ef6-acea-ed04a46e3ded</subsheetid>
+    <display x="15" y="210" />
+  </stage>
+  <stage stageid="4dbfb714-f09b-4ccc-95f7-1aa78354961f" name="Launch BluePrism and Get PID" type="Action">
+    <subsheetid>3a22aa0c-305d-4ef6-acea-ed04a46e3ded</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="120" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>46795975-9779-4cae-bea0-c3edaf9e5649</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="f7588f2f-362c-42e3-b13e-388ed7e5a8f6" name="pid" type="Data">
+    <subsheetid>3a22aa0c-305d-4ef6-acea-ed04a46e3ded</subsheetid>
+    <display x="-225" y="60" w="90" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7e3ac1e0-691c-43d4-b33e-a2414dd184bf" name="Sign In to Blue Prism" type="Action">
+    <subsheetid>3a22aa0c-305d-4ef6-acea-ed04a46e3ded</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="Error message received while Login" stage="Error Message" />
+    </outputs>
+    <onsuccess>c7b5d9b1-0a9d-470c-b5ee-a2274a6826d3</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="c7b5d9b1-0a9d-470c-b5ee-a2274a6826d3" name="Navigate to Studio" type="Action">
+    <subsheetid>3a22aa0c-305d-4ef6-acea-ed04a46e3ded</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="150" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>6b1361ff-a3b3-4188-8c98-68d1be8b1e5e</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="fed547e4-2f84-4364-ad57-3daf951c10c5" name="Set Up" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-135" w="120" h="30" />
+    <onsuccess>181191f9-144c-4c43-8d90-46f84de08bfa</onsuccess>
+    <processid>3a22aa0c-305d-4ef6-acea-ed04a46e3ded</processid>
+  </stage>
+  <stage stageid="181191f9-144c-4c43-8d90-46f84de08bfa" name="Note1" type="Note">
+    <narrative>GIVEN an instance of Blue Prism is launched and Studio tab is open.</narrative>
+    <display x="15" y="-75" w="210" h="60" />
+    <onsuccess>fb4c2d8d-9912-4d8c-b7b4-087957cf20a5</onsuccess>
+  </stage>
+  <stage stageid="4901ead8-969f-4f70-b1f7-7d1ac2ecb5d3" name="Note2" type="Note">
+    <narrative>WHEN a subgroup is created within a group...THEN subgroup is present and can be read without hard refresh needed.</narrative>
+    <display x="15" y="75" w="210" h="60" />
+    <onsuccess>2589ee66-e1e4-4805-907e-022acc38c5a2</onsuccess>
+  </stage>
+  <stage stageid="efe422c7-202f-4b92-9ffe-17aabeb3d839" name="Clean Up" type="SubSheetInfo">
+    <subsheetid>3e3ffde3-4802-41fd-8db9-bc42dbc644bd</subsheetid>
+    <narrative>Deletes the groups created for the purpose of this test and exits the application.</narrative>
+    <display x="-180" y="-45" w="150" h="90" />
+  </stage>
+  <stage stageid="11dd5e12-a419-4870-8fa1-0a036aa7f533" name="Start" type="Start">
+    <subsheetid>3e3ffde3-4802-41fd-8db9-bc42dbc644bd</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>a267039c-5b75-42b3-9bb1-c5ff7c1b0bb3</onsuccess>
+  </stage>
+  <stage stageid="2f6ad4a7-7bf1-40f2-b97d-7ddfb110bf6b" name="End" type="End">
+    <subsheetid>3e3ffde3-4802-41fd-8db9-bc42dbc644bd</subsheetid>
+    <display x="15" y="180" />
+  </stage>
+  <stage stageid="8831bce7-4c10-47eb-922b-439665e53951" name="Create Group and subgroup (Processes)" type="SubSheetInfo">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <narrative>Within the Blue Prism Studio tab, this page creates a 'Main Group' folder for Processes, then creates a 'SubGroup' folder for Processes and checks/reads the folders ensuring both new folders (particularly the sub group) are present.</narrative>
+    <display x="-195" y="-60" w="180" h="120" />
+  </stage>
+  <stage stageid="2bb1b62c-8f0b-4d33-9639-204f512d698c" name="Start" type="Start">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <display x="15" y="-120" />
+    <onsuccess>96a83ec3-f946-40e8-8d69-c3665d8936be</onsuccess>
+  </stage>
+  <stage stageid="9ebaf823-d5b1-4db0-b2ef-6f3a084966de" name="End" type="End">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <display x="15" y="420" />
+  </stage>
+  <stage stageid="fb4c2d8d-9912-4d8c-b7b4-087957cf20a5" name="Create Group and subgroup (Processes)" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="0" w="150" h="30" />
+    <onsuccess>4901ead8-969f-4f70-b1f7-7d1ac2ecb5d3</onsuccess>
+    <processid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</processid>
+  </stage>
+  <stage stageid="59713375-e4a1-4f60-9b98-df94f75277fa" name="Clean Up" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="120" h="30" />
+    <onsuccess>b88d8e60-e928-478e-a14b-8e1c5022e954</onsuccess>
+    <processid>3e3ffde3-4802-41fd-8db9-bc42dbc644bd</processid>
+  </stage>
+  <stage stageid="96a83ec3-f946-40e8-8d69-c3665d8936be" name="Create Process Group 1" type="Action">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-75" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Group Name" friendlyname="Group Name" narrative="The name you wish to give the group." expr="&quot;Group 1 (BG-4287)&quot;" />
+      <input type="flag" name="Process Group?" friendlyname="Process Group?" narrative="True or False, do you want to create a process group." expr="True" />
+      <input type="flag" name="Object Group?" friendlyname="Object Group?" narrative="True or False, do you want to create a object group?" expr="False" />
+      <input type="text" name="Target Group" friendlyname="Target Group" narrative="The name of the group you want to create this group inside - Default to Processes/ Object top level." expr="&quot;Processes&quot;" />
+      <input type="number" name="Target Group Match Index" friendlyname="Target Group Match Index" narrative="The match index incase the target group exists more than once." expr="1" />
+    </inputs>
+    <onsuccess>f8dea6b7-409f-480e-b0e4-fa87edfdd4f0</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Process / Object Group - Create" />
+  </stage>
+  <stage stageid="dfe4375c-dff8-467c-8f5e-8700f70ffe9f" name="Blue Prism::Exit Application" type="Action">
+    <subsheetid>3e3ffde3-4802-41fd-8db9-bc42dbc644bd</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="90" h="30" />
+    <onsuccess>2f6ad4a7-7bf1-40f2-b97d-7ddfb110bf6b</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="0d8a3cde-113b-40b5-9a7f-ada1f6e8de1f" name="Error Message" type="Data">
+    <subsheetid>3a22aa0c-305d-4ef6-acea-ed04a46e3ded</subsheetid>
+    <display x="-225" y="105" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="295f9979-cb63-4c2d-a7d2-3fac8e94e186" name="Read List of visible Groups" type="Action">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="240" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tree Item" friendlyname="Tree Item" narrative="The name of the tree item you want to get the children for." expr="&quot;Group 1 (BG-4287)&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Child Tree Item" friendlyname="Child Tree Item" narrative="A collection containing a list child tree items." stage="Child Tree Item" />
+    </outputs>
+    <onsuccess>fe850839-1ad8-48e9-b87d-eebed6eda34f</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="46795975-9779-4cae-bea0-c3edaf9e5649" name="Attach to Pid for Studio" type="Action">
+    <subsheetid>3a22aa0c-305d-4ef6-acea-ed04a46e3ded</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="0" w="120" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>7e3ac1e0-691c-43d4-b33e-a2414dd184bf</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="1a50fa8e-a99f-4cdf-bcfc-f1c28571464e" name="Child Tree Item" type="Collection">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <display x="-195" y="90" w="120" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Node Text" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="f8dea6b7-409f-480e-b0e4-fa87edfdd4f0" name="Read List of Visible Groups" type="Action">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-30" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tree Item" friendlyname="Tree Item" narrative="The name of the tree item you want to get the children for." expr="&quot;Processes&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Child Tree Item" friendlyname="Child Tree Item" narrative="A collection containing a list child tree items." stage="Child Tree Item" />
+    </outputs>
+    <onsuccess>5ee5fc61-712b-4a56-a49d-2475fc41c9b2</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="d4dbccc9-a62c-485f-9462-a032b0987ec4" name="Create Process Group 2" type="Action">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Group Name" friendlyname="Group Name" narrative="The name you wish to give the group." expr="&quot;Group 2 (BG-4287)&quot;" />
+      <input type="flag" name="Process Group?" friendlyname="Process Group?" narrative="True or False, do you want to create a process group." expr="True" />
+      <input type="flag" name="Object Group?" friendlyname="Object Group?" narrative="True or False, do you want to create a object group?" expr="False" />
+      <input type="text" name="Target Group" friendlyname="Target Group" narrative="The name of the group you want to create this group inside - Default to Processes/ Object top level." expr="&quot;Group 1 (BG-4287)&quot;" />
+      <input type="number" name="Target Group Match Index" friendlyname="Target Group Match Index" narrative="The match index incase the target group exists more than once." expr="1" />
+    </inputs>
+    <onsuccess>295f9979-cb63-4c2d-a7d2-3fac8e94e186</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Process / Object Group - Create" />
+  </stage>
+  <stage stageid="5ee5fc61-712b-4a56-a49d-2475fc41c9b2" name="Loop Process Tree" type="LoopStart">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Process Group 1 found?</narrative>
+    <display x="15" y="15" w="120" h="30" />
+    <onsuccess>9b667c43-a4bc-4c09-a8da-ddd94c14dbc6</onsuccess>
+    <groupid>eca81db4-8a08-4c8f-82b9-c10c6edb0595</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Child Tree Item</loopdata>
+  </stage>
+  <stage stageid="42f10d87-7d1d-4492-b965-615975e85e69" name="Loop Process Tree" type="LoopEnd">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="105" w="120" h="30" />
+    <onsuccess>1d01b678-f424-4079-9e66-52e4c84e8aaa</onsuccess>
+    <groupid>eca81db4-8a08-4c8f-82b9-c10c6edb0595</groupid>
+  </stage>
+  <stage stageid="9b667c43-a4bc-4c09-a8da-ddd94c14dbc6" name="Process group 1 found?" type="Decision">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <display x="15" y="60" w="120" h="30" />
+    <decision expression="[Child Tree Item.Node Text]= &quot;Group 1 (BG-4287)&quot;" />
+    <ontrue>b2d822c4-86dc-4e67-9080-f3a9051c1f2f</ontrue>
+    <onfalse>42f10d87-7d1d-4492-b965-615975e85e69</onfalse>
+  </stage>
+  <stage stageid="1d01b678-f424-4079-9e66-52e4c84e8aaa" name="Specified Process Group not found" type="Exception">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <display x="180" y="105" w="120" h="30" />
+    <exception localized="yes" type="Test Failed" detail="&quot;Specified Process Group Not Found&quot;" />
+  </stage>
+  <stage stageid="b2d822c4-86dc-4e67-9080-f3a9051c1f2f" name="Anchor1" type="Anchor">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="60" w="10" h="10" />
+    <onsuccess>f734583e-9483-4cfb-9b3f-7f58f40bead3</onsuccess>
+  </stage>
+  <stage stageid="f734583e-9483-4cfb-9b3f-7f58f40bead3" name="Anchor2" type="Anchor">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="150" w="10" h="10" />
+    <onsuccess>dbe9b932-10b3-46fe-a4a3-d8bf0ef39da7</onsuccess>
+  </stage>
+  <stage stageid="fe850839-1ad8-48e9-b87d-eebed6eda34f" name="Loop Process Tree" type="LoopStart">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Process group 2 found?</narrative>
+    <display x="15" y="285" w="120" h="30" />
+    <onsuccess>6b8cb1b2-2719-40d2-9ed2-fd37b5a3ea94</onsuccess>
+    <groupid>010c2dbc-d677-4d39-a92f-749c602d502d</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Child Tree Item</loopdata>
+  </stage>
+  <stage stageid="a938000d-f7ef-4a8a-acb2-e94a5406b0c4" name="Loop Process Tree" type="LoopEnd">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="375" w="120" h="30" />
+    <onsuccess>a9fb2408-2042-4938-9c24-48ea0bbf6194</onsuccess>
+    <groupid>010c2dbc-d677-4d39-a92f-749c602d502d</groupid>
+  </stage>
+  <stage stageid="6b8cb1b2-2719-40d2-9ed2-fd37b5a3ea94" name="Process  group 2 found?" type="Decision">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <display x="15" y="330" w="120" h="30" />
+    <decision expression="[Child Tree Item.Node Text]= &quot;Group 2 (BG-4287)&quot;" />
+    <ontrue>5efa6ead-a9b5-434a-b9e1-0f3aea316ec3</ontrue>
+    <onfalse>a938000d-f7ef-4a8a-acb2-e94a5406b0c4</onfalse>
+  </stage>
+  <stage stageid="a9fb2408-2042-4938-9c24-48ea0bbf6194" name="Specified Process Group not found" type="Exception">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <display x="180" y="375" w="120" h="30" />
+    <exception localized="yes" type="Test Failed" detail="&quot;Specified Process Group Not Found&quot;" />
+  </stage>
+  <stage stageid="5efa6ead-a9b5-434a-b9e1-0f3aea316ec3" name="Anchor1" type="Anchor">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="330" w="10" h="10" />
+    <onsuccess>59d76726-d9de-40f3-83bb-fc7d612d68ef</onsuccess>
+  </stage>
+  <stage stageid="59d76726-d9de-40f3-83bb-fc7d612d68ef" name="Anchor3" type="Anchor">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="420" w="10" h="10" />
+    <onsuccess>9ebaf823-d5b1-4db0-b2ef-6f3a084966de</onsuccess>
+  </stage>
+  <stage stageid="dbe9b932-10b3-46fe-a4a3-d8bf0ef39da7" name="Remove All Rows" type="Action">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="150" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Child Tree Item&quot;" />
+    </inputs>
+    <onsuccess>d4dbccc9-a62c-485f-9462-a032b0987ec4</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Remove All Rows" />
+  </stage>
+  <stage stageid="74b01d28-0b3b-4495-a5dc-672fd4716151" name="Create Group and subgroup (Objects)" type="SubSheetInfo">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <narrative>Within the Blue Prism Studio tab, this page creates a 'Main Group' folder for Objects, then creates a 'SubGroup' folder for objects and checks/reads the folders ensuring both new folders (particularly the sub group) are present.</narrative>
+    <display x="-195" y="-30" w="150" h="120" />
+  </stage>
+  <stage stageid="4901c64a-d53a-4f8b-b508-2a39b35eb146" name="Start" type="Start">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <display x="15" y="-120" />
+    <onsuccess>048f5e30-6acb-4055-8e7a-13de57928eb0</onsuccess>
+  </stage>
+  <stage stageid="49d3684f-51a8-470a-841e-e25f21037c35" name="End" type="End">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <display x="15" y="420" />
+  </stage>
+  <stage stageid="048f5e30-6acb-4055-8e7a-13de57928eb0" name="Create Object Group 1" type="Action">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-75" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Group Name" friendlyname="Group Name" narrative="The name you wish to give the group." expr="&quot;Group 3 (BG-4287)&quot;" />
+      <input type="flag" name="Process Group?" friendlyname="Process Group?" narrative="True or False, do you want to create a process group." expr="False" />
+      <input type="flag" name="Object Group?" friendlyname="Object Group?" narrative="True or False, do you want to create a object group?" expr="True" />
+      <input type="text" name="Target Group" friendlyname="Target Group" narrative="The name of the group you want to create this group inside - Default to Processes/ Object top level." expr="&quot;Objects&quot;" />
+      <input type="number" name="Target Group Match Index" friendlyname="Target Group Match Index" narrative="The match index incase the target group exists more than once." expr="1" />
+    </inputs>
+    <onsuccess>34ce71fb-e700-4d1b-82e4-5af38b0cc2fc</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Process / Object Group - Create" />
+  </stage>
+  <stage stageid="5f09dd04-e29f-4430-b941-bc8a679ac26b" name="Read List of visible Groups" type="Action">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="240" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tree Item" friendlyname="Tree Item" narrative="The name of the tree item you want to get the children for." expr="&quot;Group 3 (BG-4287)&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Child Tree Item" friendlyname="Child Tree Item" narrative="A collection containing a list child tree items." stage="Child Tree Item" />
+    </outputs>
+    <onsuccess>c72593a9-bf0a-496b-9c60-00aa1d15b798</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="0854a7c8-df02-4841-b4f5-6bac39fbc8a7" name="Child Tree Item" type="Collection">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <display x="-195" y="135" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Node Text" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="34ce71fb-e700-4d1b-82e4-5af38b0cc2fc" name="Read List of visible Groups" type="Action">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-30" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tree Item" friendlyname="Tree Item" narrative="The name of the tree item you want to get the children for." expr="&quot;Objects&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Child Tree Item" friendlyname="Child Tree Item" narrative="A collection containing a list child tree items." stage="Child Tree Item" />
+    </outputs>
+    <onsuccess>4eaf13d6-353d-41bc-af46-8d5e2a1b8813</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="b465fb60-eefc-4866-abd9-464755685ab5" name="Create Object Group 2" type="Action">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Group Name" friendlyname="Group Name" narrative="The name you wish to give the group." expr="&quot;Group 4 (BG-4287)&quot;" />
+      <input type="flag" name="Process Group?" friendlyname="Process Group?" narrative="True or False, do you want to create a process group." expr="False" />
+      <input type="flag" name="Object Group?" friendlyname="Object Group?" narrative="True or False, do you want to create a object group?" expr="True" />
+      <input type="text" name="Target Group" friendlyname="Target Group" narrative="The name of the group you want to create this group inside - Default to Processes/ Object top level." expr="&quot;Group 3 (BG-4287)&quot;" />
+      <input type="number" name="Target Group Match Index" friendlyname="Target Group Match Index" narrative="The match index incase the target group exists more than once." expr="1" />
+    </inputs>
+    <onsuccess>5f09dd04-e29f-4430-b941-bc8a679ac26b</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Process / Object Group - Create" />
+  </stage>
+  <stage stageid="4eaf13d6-353d-41bc-af46-8d5e2a1b8813" name="Loop ObjectTree" type="LoopStart">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="120" h="30" />
+    <onsuccess>c962dd19-d005-45e1-9ef5-1a84efda9e65</onsuccess>
+    <groupid>bcd63b6b-9675-445f-920a-8546c60be24a</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Child Tree Item</loopdata>
+  </stage>
+  <stage stageid="47f67e63-08dc-496c-b4d7-9bdb1e227f12" name="Loop ObjectTree" type="LoopEnd">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="105" w="120" h="30" />
+    <onsuccess>ad737bcb-0737-46c7-aaa4-08d248d4fbd4</onsuccess>
+    <groupid>bcd63b6b-9675-445f-920a-8546c60be24a</groupid>
+  </stage>
+  <stage stageid="c962dd19-d005-45e1-9ef5-1a84efda9e65" name="Object Group 1 found?" type="Decision">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <display x="15" y="60" w="120" h="30" />
+    <decision expression="[Child Tree Item.Node Text]= &quot;Group 3 (BG-4287)&quot;" />
+    <ontrue>fa6df540-2aef-40bb-9a2f-9b4776badcbd</ontrue>
+    <onfalse>47f67e63-08dc-496c-b4d7-9bdb1e227f12</onfalse>
+  </stage>
+  <stage stageid="ad737bcb-0737-46c7-aaa4-08d248d4fbd4" name="Specified Object Group Not Found" type="Exception">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <display x="180" y="105" w="120" h="30" />
+    <exception localized="yes" type="Test Failed" detail="&quot;Specified Object Group Not Found&quot;" />
+  </stage>
+  <stage stageid="fa6df540-2aef-40bb-9a2f-9b4776badcbd" name="Anchor1" type="Anchor">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="60" w="10" h="10" />
+    <onsuccess>2c1ba027-cca2-4e16-b81b-9ae66a0bdd2d</onsuccess>
+  </stage>
+  <stage stageid="2c1ba027-cca2-4e16-b81b-9ae66a0bdd2d" name="Anchor2" type="Anchor">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="150" w="10" h="10" />
+    <onsuccess>fc0f61a0-b82f-4eba-a03f-097dcf6d8bb5</onsuccess>
+  </stage>
+  <stage stageid="c72593a9-bf0a-496b-9c60-00aa1d15b798" name="Loop ObjectTree" type="LoopStart">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="285" w="120" h="30" />
+    <onsuccess>ed25c505-3b1c-46a6-8b16-96e8aabd55d1</onsuccess>
+    <groupid>3b3bc668-78be-42b7-ae17-27a8d7fb9537</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Child Tree Item</loopdata>
+  </stage>
+  <stage stageid="25a2e212-5525-4aa6-b67d-5c72951d973a" name="Loop ObjectTree" type="LoopEnd">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="375" w="120" h="30" />
+    <onsuccess>20d8f3ee-c070-43f5-9779-acddd0e1abe9</onsuccess>
+    <groupid>3b3bc668-78be-42b7-ae17-27a8d7fb9537</groupid>
+  </stage>
+  <stage stageid="ed25c505-3b1c-46a6-8b16-96e8aabd55d1" name="Object Group 2 found?" type="Decision">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <display x="15" y="330" w="120" h="30" />
+    <decision expression="[Child Tree Item.Node Text]= &quot;Group 4 (BG-4287)&quot;" />
+    <ontrue>83b3e6a2-813f-4000-b108-e35ce13d3a2a</ontrue>
+    <onfalse>25a2e212-5525-4aa6-b67d-5c72951d973a</onfalse>
+  </stage>
+  <stage stageid="20d8f3ee-c070-43f5-9779-acddd0e1abe9" name="Specified Object Group Not Found" type="Exception">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <display x="180" y="375" w="120" h="30" />
+    <exception localized="yes" type="Test Failed" detail="&quot;Specified Object Group Not Found&quot;" />
+  </stage>
+  <stage stageid="83b3e6a2-813f-4000-b108-e35ce13d3a2a" name="Anchor1" type="Anchor">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="330" w="10" h="10" />
+    <onsuccess>ab67395f-0ca3-4cf9-8e5b-3a78d682590b</onsuccess>
+  </stage>
+  <stage stageid="ab67395f-0ca3-4cf9-8e5b-3a78d682590b" name="Anchor3" type="Anchor">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="420" w="10" h="10" />
+    <onsuccess>49d3684f-51a8-470a-841e-e25f21037c35</onsuccess>
+  </stage>
+  <stage stageid="fc0f61a0-b82f-4eba-a03f-097dcf6d8bb5" name="Remove All Rows" type="Action">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="150" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Child Tree Item&quot;" />
+    </inputs>
+    <onsuccess>b465fb60-eefc-4866-abd9-464755685ab5</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Remove All Rows" />
+  </stage>
+  <stage stageid="2589ee66-e1e4-4805-907e-022acc38c5a2" name="Create Group and subgroup (Objects)" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="150" w="150" h="30" />
+    <onsuccess>59713375-e4a1-4f60-9b98-df94f75277fa</onsuccess>
+    <processid>4ec53cfe-238b-456f-9f08-b750b843ba1b</processid>
+  </stage>
+  <stage stageid="d66bfedf-cc33-48bc-a02c-1f1ddc20c2e7" name="Local Variables" type="Block">
+    <subsheetid>3a22aa0c-305d-4ef6-acea-ed04a46e3ded</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-300" y="30" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="9c924162-cdd7-42c3-a87d-029fb07f281f" name="List of Process Groups" type="Block">
+    <subsheetid>f029e9ee-3679-4ae3-bb8d-08fb50eabc6e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="30" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="5c978651-d6db-4fad-894f-ea3f202c88f3" name="List of Object Groups" type="Block">
+    <subsheetid>4ec53cfe-238b-456f-9f08-b750b843ba1b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="75" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a267039c-5b75-42b3-9bb1-c5ff7c1b0bb3" name="Delete group &quot;Group 4 (BG-4287)&quot;" type="Action">
+    <subsheetid>3e3ffde3-4802-41fd-8db9-bc42dbc644bd</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Group Name" friendlyname="Group Name" narrative="Name of the Group to Delete" expr="&quot;Group 4 (BG-4287)&quot;" />
+    </inputs>
+    <onsuccess>8f5d7b1f-3dbe-43d5-9f02-e237b479b173</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Delete Process Group / Object Group" />
+  </stage>
+  <stage stageid="8f5d7b1f-3dbe-43d5-9f02-e237b479b173" name="Delete group &quot;Group 3 (BG-4287)&quot;" type="Action">
+    <subsheetid>3e3ffde3-4802-41fd-8db9-bc42dbc644bd</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Group Name" friendlyname="Group Name" narrative="Name of the Group to Delete" expr="&quot;Group 3 (BG-4287)&quot;" />
+    </inputs>
+    <onsuccess>6f3348c8-1e55-4bc4-b67d-4daa2d915616</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Delete Process Group / Object Group" />
+  </stage>
+  <stage stageid="6f3348c8-1e55-4bc4-b67d-4daa2d915616" name="Delete group &quot;Group 2 (BG-4287)&quot;" type="Action">
+    <subsheetid>3e3ffde3-4802-41fd-8db9-bc42dbc644bd</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Group Name" friendlyname="Group Name" narrative="Name of the Group to Delete" expr="&quot;Group 2 (BG-4287)&quot;" />
+    </inputs>
+    <onsuccess>6f930afa-f8ad-44b8-93c1-efa944cf428a</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Delete Process Group / Object Group" />
+  </stage>
+  <stage stageid="6f930afa-f8ad-44b8-93c1-efa944cf428a" name="Delete group &quot;Group 1 (BG-4287)&quot;" type="Action">
+    <subsheetid>3e3ffde3-4802-41fd-8db9-bc42dbc644bd</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Group Name" friendlyname="Group Name" narrative="Name of the Group to Delete" expr="&quot;Group 1 (BG-4287)&quot;" />
+    </inputs>
+    <onsuccess>dfe4375c-dff8-467c-8f5e-8700f70ffe9f</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Delete Process Group / Object Group" />
+  </stage>
+</process>

@@ -1,0 +1,378 @@
+﻿<process name="Delete External Object" version="1.0" bpversion="6.7.0.16662" narrative="Test to ensure continuity between the two different ways of deleting an external object" byrefcollection="true" preferredid="b920e433-e75d-4dd7-8d29-9879210b2e19">
+  <view>
+    <camerax>0</camerax>
+    <cameray>492</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="9f6d79d9-f8e6-4431-b661-338d94c51384" type="Normal" published="False">
+    <name>Delete via Context Menu</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="ae1bb5b2-0507-4a88-8c8a-6f7e4d3e7508" type="Normal" published="False">
+    <name>Delete via Hyperlink</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>21</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="b80e11ec-47db-4998-8f1d-6db7a2ab4acd" type="Normal" published="False">
+    <name>Verify Object Deleted</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="fdb3d44e-1573-4941-b251-4792a624d819" type="Normal" published="False">
+    <name>Set up - External Objects</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>59</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="594e7c18-f587-408b-978e-6602074ca836" name="Start" type="Start">
+    <display x="15" y="-105" />
+    <onsuccess>8b0512ef-8b11-4d3e-9a62-63a8ef1eca6e</onsuccess>
+  </stage>
+  <stage stageid="180a9bee-cefe-462f-ab43-bece5ca2329c" name="End" type="End">
+    <display x="15" y="765" />
+  </stage>
+  <stage stageid="f37f1b06-b5bd-4a4f-88b8-03d928270b96" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="8b0512ef-8b11-4d3e-9a62-63a8ef1eca6e" name="Note1" type="Note">
+    <narrative>GIVEN that Blue Prism is currently logged in</narrative>
+    <display x="15" y="-30" w="210" h="60" />
+    <onsuccess>2cda7b14-d61b-4557-b6d7-6cf9ee6f248d</onsuccess>
+  </stage>
+  <stage stageid="2b717722-e594-4cdd-b31d-99eb024ebc93" name="Set up - External Objects" type="SubSheetInfo">
+    <subsheetid>fdb3d44e-1573-4941-b251-4792a624d819</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="dccd01c6-796a-4e04-aad7-07733a992711" name="Start" type="Start">
+    <subsheetid>fdb3d44e-1573-4941-b251-4792a624d819</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>c869426f-cd8b-46ab-979f-fb59f043d175</onsuccess>
+  </stage>
+  <stage stageid="1fd474f6-2279-4d95-89c4-5d39a14142a9" name="End" type="End">
+    <subsheetid>fdb3d44e-1573-4941-b251-4792a624d819</subsheetid>
+    <display x="15" y="255" w="90" h="30" />
+  </stage>
+  <stage stageid="c869426f-cd8b-46ab-979f-fb59f043d175" name="Launch Blue Prism" type="Action">
+    <subsheetid>fdb3d44e-1573-4941-b251-4792a624d819</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="120" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="Blue Prism PID" />
+    </outputs>
+    <onsuccess>52ff5601-882c-4f60-aaae-d2da077307fb</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="bb1f2699-909d-46c7-93f9-3bb74777ea92" name="Browse to System" type="Action">
+    <subsheetid>fdb3d44e-1573-4941-b251-4792a624d819</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>375d0b54-f71c-4b43-a898-75d93cb3cade</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="e88df03c-cf0f-41ab-88ce-86df3c31b950" name="Browse to External Objects" type="Action">
+    <subsheetid>fdb3d44e-1573-4941-b251-4792a624d819</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Objects&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;External&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>1fd474f6-2279-4d95-89c4-5d39a14142a9</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="52ff5601-882c-4f60-aaae-d2da077307fb" name="Blue Prism::Sign In" type="Action">
+    <subsheetid>fdb3d44e-1573-4941-b251-4792a624d819</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="Error message received while Login" stage="" />
+    </outputs>
+    <onsuccess>bb1f2699-909d-46c7-93f9-3bb74777ea92</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="375d0b54-f71c-4b43-a898-75d93cb3cade" name="Blue Prism - System (Parent)::Attach to Pid" type="Action">
+    <subsheetid>fdb3d44e-1573-4941-b251-4792a624d819</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" w="120" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[Blue Prism PID]" />
+    </inputs>
+    <onsuccess>e88df03c-cf0f-41ab-88ce-86df3c31b950</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="fe120356-5816-4378-94c0-ca50baf6bedf" name="Blue Prism PID" type="Data">
+    <subsheetid>fdb3d44e-1573-4941-b251-4792a624d819</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b9cbb787-b8f4-4bb5-a395-e664eda8a687" name="Local Variables" type="Block">
+    <subsheetid>fdb3d44e-1573-4941-b251-4792a624d819</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2cda7b14-d61b-4557-b6d7-6cf9ee6f248d" name="Set up - External Objects" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="120" h="30" />
+    <onsuccess>4ea0b9fe-689a-4eca-9980-4af848a3b6c6</onsuccess>
+    <processid>fdb3d44e-1573-4941-b251-4792a624d819</processid>
+  </stage>
+  <stage stageid="4ea0b9fe-689a-4eca-9980-4af848a3b6c6" name="Note1" type="Note">
+    <narrative>WHEN I create an external object 
+THEN an external object is created</narrative>
+    <display x="15" y="120" w="210" h="60" />
+    <onsuccess>087ca6d3-a86a-4907-9853-735598a80103</onsuccess>
+  </stage>
+  <stage stageid="087ca6d3-a86a-4907-9853-735598a80103" name="Blue Prism - System - Objects::Add New Object (External)" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" w="120" h="30" />
+    <inputs>
+      <input type="text" name="ObjectName" friendlyname="ObjectName" expr="[ObjectName]" />
+    </inputs>
+    <onsuccess>27c1accd-1637-4bdb-98f5-e030ed5db8e4</onsuccess>
+    <resource object="Blue Prism - System - Objects" action="Add New Object (External)" />
+  </stage>
+  <stage stageid="d43835a1-6773-408d-9b7e-afbda1e5a30e" name="ObjectName" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="0" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">External Object (BG-3755)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="3c1f2e85-5fd7-4a46-b7e2-0a58215a9ff5" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="75" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="27c1accd-1637-4bdb-98f5-e030ed5db8e4" name="Note1" type="Note">
+    <narrative>WHEN I select the external object AND click Delete Object via the Hyperlink
+THEN the "Checking For References" window appears and the object gets deleted</narrative>
+    <display x="15" y="270" w="210" h="60" />
+    <onsuccess>6f8d98d0-1fae-47ab-951b-f3b2a59f6bfd</onsuccess>
+  </stage>
+  <stage stageid="f1754dc3-0b80-4deb-bcf9-e90c0bf9d5ac" name="Verify Object Deleted" type="SubSheetInfo">
+    <subsheetid>b80e11ec-47db-4998-8f1d-6db7a2ab4acd</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="814af453-71f8-45ec-a335-be8af3197997" name="Start" type="Start">
+    <subsheetid>b80e11ec-47db-4998-8f1d-6db7a2ab4acd</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>bb5826ba-6598-4511-bf9b-8468333b02af</onsuccess>
+  </stage>
+  <stage stageid="88873e22-6e5e-4ed9-b6e1-a532954fe249" name="End" type="End">
+    <subsheetid>b80e11ec-47db-4998-8f1d-6db7a2ab4acd</subsheetid>
+    <display x="135" y="165" />
+  </stage>
+  <stage stageid="bb5826ba-6598-4511-bf9b-8468333b02af" name="Blue Prism - System - Objects::Select Object (External)" type="Action">
+    <subsheetid>b80e11ec-47db-4998-8f1d-6db7a2ab4acd</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-30" w="120" h="30" />
+    <inputs>
+      <input type="text" name="ObjectName" friendlyname="ObjectName" narrative="The name of the external object" expr="[ObjectName]" />
+      <input type="text" name="MouseButton" friendlyname="MouseButton" narrative="The mouse button to use when selecting the external object" expr="&quot;left&quot;" />
+      <input type="flag" name="ClickOnFound" friendlyname="ClickOnFound" narrative="Whether to click the selection if found" expr="False" />
+    </inputs>
+    <onsuccess>c8d72368-8b35-4872-9c55-f937fcf7e07a</onsuccess>
+    <resource object="Blue Prism - System - Objects" action="Select Object (External)" />
+  </stage>
+  <stage stageid="f0bc1c62-41d7-4e90-827b-29b71f0127b9" name="Block1" type="Block">
+    <subsheetid>b80e11ec-47db-4998-8f1d-6db7a2ab4acd</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-60" w="240" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="54295ae0-5ec9-48ff-86a1-e6fd4667011a" name="Exception Thrown" type="Recover">
+    <subsheetid>b80e11ec-47db-4998-8f1d-6db7a2ab4acd</subsheetid>
+    <loginhibit />
+    <display x="135" y="-30" />
+    <onsuccess>7e91b727-2bd4-49b2-bc65-fd486551707f</onsuccess>
+  </stage>
+  <stage stageid="5ea1c40c-1c9e-4cd9-b0a8-5180b16c220f" name="Resume1" type="Resume">
+    <subsheetid>b80e11ec-47db-4998-8f1d-6db7a2ab4acd</subsheetid>
+    <loginhibit />
+    <display x="135" y="105" />
+    <onsuccess>88873e22-6e5e-4ed9-b6e1-a532954fe249</onsuccess>
+  </stage>
+  <stage stageid="c8d72368-8b35-4872-9c55-f937fcf7e07a" name="FAIL" type="Exception">
+    <subsheetid>b80e11ec-47db-4998-8f1d-6db7a2ab4acd</subsheetid>
+    <display x="15" y="45" w="30" h="30" />
+    <exception localized="yes" type="Business Exception" detail="&quot;Object is still present&quot;" />
+  </stage>
+  <stage stageid="7e91b727-2bd4-49b2-bc65-fd486551707f" name="Is object missing exception?" type="Decision">
+    <subsheetid>b80e11ec-47db-4998-8f1d-6db7a2ab4acd</subsheetid>
+    <display x="135" y="45" w="90" h="30" />
+    <decision expression="ExceptionDetail() = &quot;External Objects wasn't found&quot;" />
+    <ontrue>5ea1c40c-1c9e-4cd9-b0a8-5180b16c220f</ontrue>
+    <onfalse>7cead621-d3cf-49f3-9a14-8701f5a36277</onfalse>
+  </stage>
+  <stage stageid="7cead621-d3cf-49f3-9a14-8701f5a36277" name="FAIL" type="Exception">
+    <subsheetid>b80e11ec-47db-4998-8f1d-6db7a2ab4acd</subsheetid>
+    <display x="225" y="45" w="30" h="30" />
+    <exception localized="yes" type="" detail="" usecurrent="yes" />
+  </stage>
+  <stage stageid="4105af1e-b187-4104-a62b-42adb018df67" name="Note1" type="Note">
+    <narrative>WHEN I create an external object 
+THEN an external object is created</narrative>
+    <display x="15" y="420" w="210" h="60" />
+    <onsuccess>60a8bdd6-9f01-40c4-933b-acca646d9295</onsuccess>
+  </stage>
+  <stage stageid="60a8bdd6-9f01-40c4-933b-acca646d9295" name="Blue Prism - System - Objects::Add New Object (External)" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="495" w="120" h="30" />
+    <inputs>
+      <input type="text" name="ObjectName" friendlyname="ObjectName" expr="[ObjectName]" />
+    </inputs>
+    <onsuccess>5c20ab40-57be-430e-93ba-dbb9f93ba0dd</onsuccess>
+    <resource object="Blue Prism - System - Objects" action="Add New Object (External)" />
+  </stage>
+  <stage stageid="5c20ab40-57be-430e-93ba-dbb9f93ba0dd" name="Note1" type="Note">
+    <narrative>WHEN I select the external object AND click Delete Object from the Context Menu
+THEN the "Checking For References" window appears</narrative>
+    <display x="15" y="570" w="210" h="60" />
+    <onsuccess>f0d9d346-d84c-426a-bed1-3f2bca653240</onsuccess>
+  </stage>
+  <stage stageid="c0374298-6663-44a8-bf5a-f7944d6f3af6" name="Blue Prism::Exit Application" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="705" w="120" h="30" />
+    <onsuccess>180a9bee-cefe-462f-ab43-bece5ca2329c</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="90d01b4d-d9da-45de-b3a0-880e761b167c" name="Delete via Hyperlink" type="SubSheetInfo">
+    <subsheetid>ae1bb5b2-0507-4a88-8c8a-6f7e4d3e7508</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="643ed5d5-7fe9-48ce-88e8-696f75d24afc" name="Start" type="Start">
+    <subsheetid>ae1bb5b2-0507-4a88-8c8a-6f7e4d3e7508</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>8a034985-3e39-43f3-9647-590399175370</onsuccess>
+  </stage>
+  <stage stageid="ad91aae8-9248-4e5b-9585-8dcdad1b85bb" name="End" type="End">
+    <subsheetid>ae1bb5b2-0507-4a88-8c8a-6f7e4d3e7508</subsheetid>
+    <display x="15" y="195" />
+  </stage>
+  <stage stageid="31cf6495-87f8-4e48-b6db-156d2d1dea60" name="Delete via Context Menu" type="SubSheetInfo">
+    <subsheetid>9f6d79d9-f8e6-4431-b661-338d94c51384</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="9a9f08c1-1eba-4ca9-816a-67e16f358286" name="Start" type="Start">
+    <subsheetid>9f6d79d9-f8e6-4431-b661-338d94c51384</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>dc03c6a4-7f3a-45d4-825b-7016ea5d1746</onsuccess>
+  </stage>
+  <stage stageid="b186b4ba-801c-40d5-9dd5-1e230126fdf9" name="End" type="End">
+    <subsheetid>9f6d79d9-f8e6-4431-b661-338d94c51384</subsheetid>
+    <display x="15" y="195" />
+  </stage>
+  <stage stageid="8a034985-3e39-43f3-9647-590399175370" name="Blue Prism - System - Objects::Select Object (External)" type="Action">
+    <subsheetid>ae1bb5b2-0507-4a88-8c8a-6f7e4d3e7508</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="120" h="30" />
+    <inputs>
+      <input type="text" name="ObjectName" friendlyname="ObjectName" narrative="The name of the external object" expr="[ObjectName]" />
+      <input type="flag" name="Right Click When Selected" friendlyname="Right Click When Selected" narrative="Whether to right click the selection when found" expr="False" />
+    </inputs>
+    <onsuccess>0c18a393-30fc-4d8b-a179-ee31b2144efb</onsuccess>
+    <resource object="Blue Prism - System - Objects" action="Select Object (External)" />
+  </stage>
+  <stage stageid="0c18a393-30fc-4d8b-a179-ee31b2144efb" name="Blue Prism - System - Objects::Press Delete Object hyperlink (External)" type="Action">
+    <subsheetid>ae1bb5b2-0507-4a88-8c8a-6f7e4d3e7508</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="120" h="30" />
+    <onsuccess>be839d6d-1f75-4b66-be92-845edf9392f2</onsuccess>
+    <resource object="Blue Prism - System - Objects" action="Press Delete Object hyperlink (External)" />
+  </stage>
+  <stage stageid="be839d6d-1f75-4b66-be92-845edf9392f2" name="Blue Prism - System - Objects::Delete Object from Checking for References Window (External)" type="Action">
+    <subsheetid>ae1bb5b2-0507-4a88-8c8a-6f7e4d3e7508</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="120" h="30" />
+    <onsuccess>9642b1fa-9959-4331-93f0-7b8ea4c21198</onsuccess>
+    <resource object="Blue Prism - System - Objects" action="Delete Object from Checking for References Window (External)" />
+  </stage>
+  <stage stageid="9642b1fa-9959-4331-93f0-7b8ea4c21198" name="Verify Object Deleted" type="SubSheet">
+    <subsheetid>ae1bb5b2-0507-4a88-8c8a-6f7e4d3e7508</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" w="120" h="30" />
+    <inputs>
+      <input type="text" name="ObjectName" friendlyname="ObjectName" narrative="The name of the external object" expr="[ObjectName]" />
+    </inputs>
+    <onsuccess>ad91aae8-9248-4e5b-9585-8dcdad1b85bb</onsuccess>
+    <processid>b80e11ec-47db-4998-8f1d-6db7a2ab4acd</processid>
+  </stage>
+  <stage stageid="6f8d98d0-1fae-47ab-951b-f3b2a59f6bfd" name="Delete via Hyperlink" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="345" w="120" h="30" />
+    <onsuccess>4105af1e-b187-4104-a62b-42adb018df67</onsuccess>
+    <processid>ae1bb5b2-0507-4a88-8c8a-6f7e4d3e7508</processid>
+  </stage>
+  <stage stageid="dc03c6a4-7f3a-45d4-825b-7016ea5d1746" name="Blue Prism - System - Objects::Select Object (External)" type="Action">
+    <subsheetid>9f6d79d9-f8e6-4431-b661-338d94c51384</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="120" h="30" />
+    <inputs>
+      <input type="text" name="ObjectName" friendlyname="ObjectName" narrative="The name of the external object" expr="[ObjectName]" />
+      <input type="flag" name="Right Click When Selected" friendlyname="Right Click When Selected" narrative="Whether to right click the selection when found" expr="True" />
+    </inputs>
+    <onsuccess>fd098630-c304-43d1-8d1f-8eac5435139c</onsuccess>
+    <resource object="Blue Prism - System - Objects" action="Select Object (External)" />
+  </stage>
+  <stage stageid="fd098630-c304-43d1-8d1f-8eac5435139c" name="Blue Prism - System - Objects::Press Delete Object Context Menu (External)" type="Action">
+    <subsheetid>9f6d79d9-f8e6-4431-b661-338d94c51384</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="120" h="30" />
+    <onsuccess>94dc2397-bcee-4cee-a692-17a48139f1f6</onsuccess>
+    <resource object="Blue Prism - System - Objects" action="Press Delete Object context menu (External)" />
+  </stage>
+  <stage stageid="94dc2397-bcee-4cee-a692-17a48139f1f6" name="Blue Prism - System - Objects::Delete Object from Checking for References Window (External)" type="Action">
+    <subsheetid>9f6d79d9-f8e6-4431-b661-338d94c51384</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="120" h="30" />
+    <onsuccess>78386198-73e7-46a9-a1b9-7c36edfb15bb</onsuccess>
+    <resource object="Blue Prism - System - Objects" action="Delete Object from Checking for References Window (External)" />
+  </stage>
+  <stage stageid="78386198-73e7-46a9-a1b9-7c36edfb15bb" name="Verify Object Deleted" type="SubSheet">
+    <subsheetid>9f6d79d9-f8e6-4431-b661-338d94c51384</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" w="120" h="30" />
+    <inputs>
+      <input type="text" name="ObjectName" friendlyname="ObjectName" narrative="The name of the external object" expr="[ObjectName]" />
+    </inputs>
+    <onsuccess>b186b4ba-801c-40d5-9dd5-1e230126fdf9</onsuccess>
+    <processid>b80e11ec-47db-4998-8f1d-6db7a2ab4acd</processid>
+  </stage>
+  <stage stageid="f0d9d346-d84c-426a-bed1-3f2bca653240" name="Delete via Context Menu" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="645" w="120" h="30" />
+    <onsuccess>c0374298-6663-44a8-bf5a-f7944d6f3af6</onsuccess>
+    <processid>9f6d79d9-f8e6-4431-b661-338d94c51384</processid>
+  </stage>
+</process>

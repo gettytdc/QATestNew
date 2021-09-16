@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Java Access Bridge - Setup Instructions</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="pagetitle">Help</h1>
+    </div>
+	
+	<h2>Java Access Bridge - Setup Instructions</h2>
+	
+	<h3>Overview</h3>
+	<p>
+		There are two methods of installing the <a href="http://java.sun.com/products/accessbridge/">Java Access Bridge</a> (JAB):
+		automatic and manual. The former is the preferred method and will suffice in the majority of situations;
+		the latter is described here for reference.
+	</p>
+	<p>
+		The manual method may be required
+		for use with non-standard installations of the Java Runtime Environment (JRE).
+		Such installations are sometimes used by vendors who want to maintain control
+		over the environment in which their software runs, or by vendors who have
+		modified the JRE for a special purpose.
+	</p>
+	
+	<h3>Prerequisites</h3>
+	<p>
+		The Java Runtime Environment (JRE) with which the Java Access Bridge (JAB) is to be used
+		must be installed first.
+	</p>
+	
+	<h3>Requirements</h3>
+	<p>
+		At the time of writing the latest version of the Java Access Bridge (JAB) is 2.0.1.
+		However this version contains a critical fault, and is not suitable for use with
+		Blue Prism. JAB version 2.0.0 is recommended for
+		use with JRE version 1.2.2 and above. A copy of JAB 2.0.0 is available from
+		Blue Prism on request. Please consult Blue Prism for advice if your JRE version is
+		lower than 1.2.2.
+	</p>
+	
+	<h3>Automatic Installation</h3>
+	<p>
+		To begin the automatic installation, run the installation executable and follow 
+		the on-screen instructions. When complete, reboot your PC.
+	</p>
+	
+	<h3>Manual Installation</h3>
+	<p>
+		Only use the manual installation for non-standard JREs; the automatic installer will
+		locate and amend any standard JREs as required.
+	</p>
+	
+	<div class="indented">
+		<h4>1. Extract files</h4>
+		<p>
+			Extract the contents of the installation archive accessbridge-2_0_0-manual_install.zip
+			into a temporary directory.
+		</p>
+		
+		<h4>2. Copy system files</h4>
+		<p>
+			Copy the files JavaAccessBridge.dll, JAWTAccessBridge.dll and WindowsAccessBridge.dll
+			into the windows system directory, located at:
+		</p>
+		<pre> c:\windows\system32\</pre>
+		<p>
+			Note that these files may already be present if you have run the automatic installer.
+			There is no need to replace them in this case (unless they correspond to an early version
+			of the Java Access Bridge such as version 1.0).
+		</p>
+		
+		<h4>3. Locate Target JRE</h4>
+		<p>
+			First locate your JRE installation(s). You may install the Java Access Bridge (JAB)
+			for use with more than one JRE installation at once. Indeed this may be necessary
+			as well as desirable since products such as the official Sun Microsystems&#153; Java web
+			browser plugin install a new separate JRE. Thus in order to be able to automate java
+			applications embedded in a web page, you will need to install the JAB in this JRE (as well
+			as any others you choose). To install into multiple JREs, repeat the instructions below for
+			each JRE installation directory.
+		</p>
+		<p>
+			Standard installations of the JRE are usually found in a directory such as:
+		</p>
+		<pre> c:\Program Files\Java\jdk1.5.0\jre\
+ c:\Program Files\Java\jre1.5.0_05</pre>
+		<p>
+			Non-standard installations of the JRE are usually found in a subdirectory of the 
+			directory in which the target application was installed. Eg:
+		</p>
+		<pre> c:\Program Files\MySpecialApplication\JRE\</pre>
+		
+		<h4>4. Locate the extensions directory</h4>
+		<p>
+			Navigate to the folder lib\ext under your installation directory. Eg:
+		</p>
+		<pre> c:\Program Files\Java\jdk1.5.0\jre\lib\ext
+ c:\Program Files\Java\jre1.5.0_05\lib\ext</pre>
+		
+		<h4>5. Copy Java files</h4>
+		<p>
+			Copy the file named access-bridge.jar into the &quot;ext&quot; directory identified in the previous step.
+		</p>
+		<p>
+			Please identify the version of the target JRE installation: a value of the form 1.X.
+			Copy into the &quot;ext&quot; directory the file named jaccess-1_X.jar (where X is
+			the number identified as part of the JRE version), and then rename it to jaccess.jar
+		</p>
+		<p>
+			Where there is no matching file use the first available file with a lower version
+			number instead, (eg in the case of 1.5 or 1.6, for which there is no matching file, please use the file jaccess-1.4.jar).
+		</p>
+		
+		<h4>6. Create properties file</h4>
+		<p>
+			Check for the existence of a file named accessibility.properties in the &quot;lib&quot; folder
+			(one level above the &quot;ext&quot; folder), and create it using a text editor if necessary.
+			Be sure to spell its name correctly. If the file does not yet include the following line then
+			append it to the end of the file, on its own line:
+		</p>
+		<pre>assistive_technologies=com.sun.java.accessibility.AccessBridge</pre>
+		<p>
+			It is perfectly acceptable for this line to be the only line in the file.
+		</p>
+			
+		<h4>7. Cleanup</h4>
+		<p>
+			Delete the temporary directory into which the contents of the installation archive
+			(accessbridge-2_0_0-manual_install.zip) were extracted.
+		</p>
+		<p>
+			Reboot your PC.
+		</p>
+	</div>
+
+	<h3>Notes</h3>
+	<p>
+		Each time the JRE in question is upgraded or modified
+		(eg for a security update, issued by Sun Microsystems&#153;, the creator of the Java Runtime
+		Environment), the Java Access Bridge installation will have to be repeated in order to make sure
+		that the new JRE has the correct extensions in place to work with the Access Bridge.
+	</p>
+	<p>
+		Each time a new JRE is installed on your machine (for example for use with a new piece of software,
+		it may be necessary to repeat the installation of the Java Access Bridge, even for your existing JREs).
+	</p>
+	
+</body>
+</html>

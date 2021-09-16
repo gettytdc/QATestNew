@@ -1,0 +1,774 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Calculations and Decisions</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="pagetitle">Help</h1>
+    </div>
+
+    <h3>Calculations and Decisions</h3>
+
+    <p>Calculations and Decisions are very similar and as such, they are edited in almost the same
+    way. Both are based on an expression, but with two key differences. Firstly, a Calculation is
+    an expression that can result in any value, but a Decision is an expression that must result in
+    TRUE, or FALSE. Secondly, the result of a Calculation is stored in a Data Item, whereas the
+    result of a Decision is not. It is used only to determine the direction the flow of a process
+    will take.</p>
+
+    <p>Expressions can be created in a variety of ways. They can be typed directly into the
+    Expression Editor, or can be built up by dragging and dropping items from either the Function
+    List, or the Data Item List. The Function List shows all the functions available in Blue Prism.
+    When a Function is dragged and dropped into the Expression Editor, the default function text is
+    automatically entered on the screen. Similarly, Data Items can be dragged in from the Data Item
+    List and their names will be automatically entered into the Expression Editor.</p>
+
+    <p>Functions can also be composed in the Function Builder area in the centre of the screen.
+    When a Function is selected from the Function List it is displayed in the Function Builder,
+    along with a description of its use and any of its parameters. Parameters can be given values
+    either by typing directly into the fields shown, or by dragging Data Items from the Data Item
+    List. Once the Function has been built, it can be transferred to the Expression Editor using
+    the Paste button.</p>
+
+    <p>A Calculation must specify the Data Item into which the evaluated result will be stored. The
+    'Store Result In' field can be populated by typing in a Data Item name, or by dragging in a
+    Data Item from the list on the right.</p>
+
+    <p>When an expression is complete, it should be checked for errors and this can be done by
+    selecting the 'Process Validation' button. Blue Prism will then check the expression and highlight
+    the likely location of the error.</p>
+
+    <p>Once checked, an expression can also be evaluated by selecting the Test Expression button.
+    If any Data Items have been used in the expression, a new
+    <a href="frmExpressionTest.htm">Expression Test Wizard</a> will appear that enables temporary
+    values to be given to each Data Item, so that a result can be obtained from the expression. If
+    no Data Items have been used in the expression, the evaluated result will be displayed in a
+    pop-up message. Should you wish to only test part of an expression you can select part of an
+    expression by dragging and highlighting with the mouse. When the Expression Test Wizard appears
+    only the selected part of the expression will be used.</p>
+
+    <h3>Expressions</h3>
+
+    <p>Expressions are built up from Data Items, Operators, Functions and Constants.</p>
+
+    <h3>Data Items</h3>
+
+    <p>Data Items are referenced by name and must be enclosed in square brackets, for example
+    <i>[Account Number] .</i></p>
+
+    <h3>Operators</h3>
+
+    <p>Operators are represented by their respective symbol, for example <em>1 + 2</em>.</p>
+
+    <h3>Functions</h3>
+
+    <p>Functions are in the form<i>FunctionName(parameter1,parameter2)</i>, for example
+    <em>Mid("Hello", 1, 2).</em></p>
+
+    <p>The syntax for most functions is self-explanatory. Below are details of the more complex
+    functions.</p>
+
+    <ul>
+        <li>
+            <p><u><i>DateDiff (interval,date1,date2)</i></u></p>
+            <div class="indented">
+                <p><b>The recommended way to find the difference between two Dates, Times, or DateTimes
+                    is to subtract them</b></p>
+                <p>For example, <em>MakeDate(26,5,1999) - MakeDate(29,5,1968)</em> will return a TimeSpan
+                    11319.00:00:00</p>
+                <p>When you need to find the difference in a non-fixed interval of time that can vary
+                    depending on the time of year, the DateDiff function provides some useful intervals.
+                    These are listed in the table within the DateAdd function below. If <i>date2</i> &gt; <i>date1</i>
+                    the returned number will be positive.</p>
+                <p> If Week of year is used, the return value represents
+                    the number of weeks between the first day of the week containing <i>date1</i> and the first day of
+                    the week containing <i>date2</i>.</p>
+                <p> When interval 2 Weekday is used, the return value represents the number of full calendar weeks 
+                    between the two dates (e.g. if <i>date1</i> is a Monday then it counts the number of Mondays up to and 
+                    including <i>date2</i>)</p>
+                <p> For example, if <i>date1</i> is a Thursday 2/3/2017 and <i>date2</i> is the following Tuesday 7/3/2017
+                    then <i>DateDiff(1, date1, date2)</i> using Week of year will return 1 because the first days of 
+                    the respective calendar weeks are a week apart.</p>
+                <p> However <i>DateDiff(2, date1, date2)</i> using Weekday
+                    will return 0, as there are no Thursdays between <i>date1</i> and <i>date2</i>.</p>
+                <h5 class="bold">Parameters</h5>
+                <p>The three parameters are as follows:</p>
+                <dl class="indented">
+                    <dt>Interval</dt><dd>A code specifying the desired units of the return value. These
+                        values are detailed in the DateAdd function.</dd>
+                    <dt>date1</dt><dd>The first of the two dates for comparison.</dd>
+                    <dt>date2</dt><dd>The second of the two dates for comparison.</dd>
+                </dl>
+                <h5 class="bold">Examples</h5>
+                <ul>
+                    <li>To calculate the number of weeks between 29/5/1968 and 26/5/1999 use DateDiff(1,
+                        MakeDate(29,5,1968), MakeDate(26,5,1999)). This will correctly return 1617.</li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <p><u><i>DateAdd(interval, number,date)</i></u></p>
+            <div class="indented">
+                <p><b>The recommended way to add an interval to a Date, Time, or DateTime is to add a TimeSpan</b></p>
+                <p>For example, <em>MakeDate(26,5,1999) + MakeTimeSpan(3, 0, 0, 0)</em> would result
+                    in 29/05/1999.</p>
+                <p>For times, <em>MakeTime(12,30,0) + MakeTimeSpan(0, 1, 5, 3)</em> would result in
+                    13:35:03.</p>
+                <p>When you need to add a non-fixed interval of time that can vary depending on the
+                    time of year the DateAdd function provides some useful intervals. Each type of interval
+                    is represented by the numbers listed below:</p>
+                <br />
+                <table cellspacing="0" cellpadding="0" border="1">
+                    <tr>
+                        <td align="center"><b>Interval</b></td>
+                        <td align="center"><b>DateAdd</b></td>
+                        <td align="center"><b>DateDiff</b></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>Year</td>
+                        <td>Year</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Week</td>
+                        <td>Week of year <em>(Calendar week)</em></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><em>(n/a)</em></td>
+                        <td>Weekday <em>(Full 7 day week)</em></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><em>(n/a)</em></td>
+                        <td>Second</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Quarter</td>
+                        <td>Quarter</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Month</td>
+                        <td>Month</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><em>(n/a)</em></td>
+                        <td>Minute</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td><em>(n/a)</em></td>
+                        <td>Hour</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td><em>(n/a)</em></td>
+                        <td>Day of year</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td><em>(n/a)</em></td>
+                        <td>Day</td>
+                    </tr>
+                </table>
+                <br />
+                <p>As indicated some intervals are not applicable to the DateAdd function but were
+                chosen so the same set of numbers could be used for the DateAdd function and the
+                DateDiff function</p>
+                <p>For example, to add a number of months to a date use interval number 5. So to add
+                    2 months to 26/5/1999, use <em>DateAdd(5, 2, MakeDate(26,5,1999))</em>. This would
+                    correctly return 26/7/1999.</p>
+                <p>Intervals are subtracted in a similar manner by using a negative value for the quantity
+                    of intervals, ie <em>DateAdd(5, -2, MakeDate(26,5,1999))</em> results in 26/3/1999.</p>
+                <p>The DateAdd function won't return an invalid date. For example if you added 1 month
+                    to January 31st 2005 using DateAdd(5,1,MakeDate(31,1,2005)) the function would return
+                    28/2/2005 (rather than returning 31/02/2005 - a date which does not exist).</p>
+            </div>
+        </li>
+        <li>
+            <p><u><i>FormatDate (Date, DateFormat);</i></u></p>
+            <div class="indented">
+                <p>
+                    This function is used to format a date into a desired form, or to extract a smaller
+                    piece of information (such as the day of the week) from a full date.
+                </p>
+
+                <h5 class="bold">Parameters</h5>
+                <p>The two parameters are as follows:</p>
+                <dl class="indented">
+                    <dt>Date</dt>
+                    <dd>The date value to be formatted as a text value</dd>
+                    <dt>Format</dt>
+                    <dd>
+                        The format string, which specifies the form of the desired output.
+                        This can either be inputted as a single letter denoting a standard date format
+                        or a string denoting a custom date format.
+                    </dd>
+                </dl>
+                <h5 class="bold">Examples</h5>
+                <ul>
+                    <li>FormatDate(&quot;02-11-2016&quot;, &quot;D&quot;) will return &quot;02 November 2016&quot;</li>
+                    <li>FormatDate(&quot;02 Nov 2016&quot;,&quot;d&quot;) will return &quot;2/11/2016&quot;</li>
+                    <li>FormatDate(&quot;02-11-2016&quot;, &quot;M&quot;) will return &quot;2 November&quot;</li>
+                    <li>FormatDate(&quot;02-11-2016&quot;, &quot;dddd&quot;) will return &quot;Wednesday&quot;</li>
+                    <li>FormatDate(&quot;02/11/2016&quot;, &quot;yyyy-MM-dd&quot;) will return &quot;2016-11-02&quot;</li>
+                    <li>FormatDate(&quot;02/11/2016&quot;, &quot;MMM dd, yyyy&quot;) will return &quot;Nov 02, 2016&quot;</li>
+                </ul>
+                <h5 class="bold">Format Strings</h5>
+                <ul>
+                    <li>
+                        For a full list of Standard Date and Time Format Strings,
+                        see <a href="https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx</a>.
+                    </li>
+                    <li>
+                        For further information on how to create a Custom Date and Time Format Strings,
+                        see <a href="https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx</a>.
+                    </li>
+               </ul>
+            </div>
+        </li>
+        <li>
+            <p><u><i>FormatDateTime (Date, DateFormat);</i></u></p>
+            <div class="indented">
+                <p>
+                    This function is used to format a datetime into a desired form, or to extract a smaller
+                    piece of information (such as the day of the week) from a full datetime.
+                </p>
+
+                <h5 class="bold">Parameters</h5>
+                <p>The two parameters are as follows:</p>
+                <dl class="indented">
+                    <dt>Date</dt>
+                    <dd>The datetime value to be formatted as a text value</dd>
+                    <dt>Format</dt>
+                    <dd>
+                        The format string, which specifies the form of the desired output.
+                        This can either be inputted as a single letter denoting a standard datetime format
+                        or a string denoting a custom datetime format.
+                    </dd>
+                </dl>
+                <h5 class="bold">Examples</h5>
+                <ul>
+                    <li>FormatDate(&quot;02-11-2016 09:23:43&quot;, &quot;t&quot;) will return &quot;09:23&quot;</li>
+                    <li>FormatDate(&quot;02 Nov 2016 09:23:43&quot;,&quot;F&quot;) will return &quot;02 November 2016 09:23:43&quot;</li>
+                    <li>FormatDate(&quot;02-11-2016 21:23:43&quot;, &quot;h:m tt&quot;) will return &quot;9:23 PM&quot;</li>
+                    <li>FormatDate(&quot;02-11-2016 21:23:43&quot;, &quot;dd/MM/yy HH:m:s&quot;) will return &quot;02/11/16 21:23:43&quot;</li>
+                </ul>
+                <h5 class="bold">Format Strings</h5>
+                <ul>
+                    <li>
+                        For a full list of Standard Date and Time Format Strings,
+                        see <a href="https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx</a>.
+                    </li>
+                    <li>
+                        For further information on how to create a Custom Date and Time Format Strings,
+                        see <a href="https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx</a>.
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <p><u><i>MakeDate (Day, Month, Year);</i></u></p>
+			<div class="indented">
+				<p>MakeDate() is used to create a date from numbers.</p>
+				
+				<h5 class="bold">Parameters</h5>
+				<p>The three parameters are as follows:</p>
+				<dl class="indented">
+					<dt>Day</dt><dd>The day of the month to be used. This must be valid with respect to the chosen month; 30 is not a valid value if the month is 2 (ie February)</dd>
+					<dt>Month</dt><dd>The 1-based index of the month desired (eg 4 corresponds to April). Must not exceed 12.</dd>
+					<dt>Year</dt><dd>The year desired, eg 2001.</dd>
+				</dl>
+
+				<h5 class="bold">Two-digit Years</h5>
+				<p>
+					For compatibility with old processes, where it was allowed, the MakeDate function will accept
+					two-digit years and interpret them using the <i>2029 rule</i>. However, it is strongly
+					recommended that this functionality is never used. Always give a full year, including the
+					century. In the case where the year is retrieved from another system in two digits, find out
+					what convention <i>that system</i> is using and apply it as soon as you read the data.
+				</p>
+
+				<h5 class="bold">Examples</h5>
+				<ul>
+					<li>MakeDate(21,6,2005) will return the date 21st June 2005</li>
+					<li>MakeDate(21,6,1995) will return the date 21st June 1995</li>
+					<li>MakeDate(5,12,29) will return the date 5th December 2029</li>
+					<li>MakeDate(5,12,30) will return the date 5th December 1930</li>
+				</ul>
+			
+				<h5 class="bold">Tips</h5>
+				<p>
+					The MakeDate function is the preferred way to form a new date, rather than using a string
+					such as &quot;02/03/2007&quot;, which has an ambiguous value depending on the current
+					locale (ie an American would probably interpret this date differently to a Briton).
+				</p>
+            </div>
+        </li>
+
+        <li>
+            <p><u><i>Mid (string, startpoint, maxcharacters);</i></u></p>
+			<div class="indented">
+				<p>
+					Mid() is used to reduce a longer string (ie sequence of letters) into a shorter
+					string contained in that string (ie a substring). For example, Mid() can be used to
+					reduce the string "Customer Name: John Smith", to the substring "John Smith".
+				</p>
+				
+				<h5 class="bold">Parameters</h5>
+				<p>The three parameters are as follows:</p>
+				<dl class="indented">
+					<dt>string</dt><dd>The larger string, from which a substring is to be extracted.</dd>
+					<dt>startpoint</dt><dd>The 1-based index of the first letter desired.</dd>
+					<dt>maxcharacters</dt><dd>The maximum number of characters desired. The return value
+												of the function will have this number of characters, unless
+												the larger string ends first, in which case this value will
+												become a theoretical maximum.</dd>
+				</dl>
+				
+				<h5 class="bold">Tips</h5>
+				<p>
+					When the user-specified maximum length
+					exceeds the length of the string supplied, Blue Prism will reduce this length to the
+					length of the supplied string. Thus, to save counting too many letters, it is often
+					convenient to write a large number in the last argument: Mid("Customer Name: John
+					Smith", 16, 100). The string "John" could be obtained using Mid("Customer Name: John
+					Smith",16,4). Note: The arguments are rounded off to whole integers, so Mid("abcdefg",
+					1.2, 1.8) would evaluate to "ab".
+				</p>
+				
+				<h5 class="bold">Examples</h5>
+				<ul>
+					<li>Mid("Customer Name: John Smith", 16, 25) - returns &quot;John Smith&quot;</li>
+				</ul>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Left (string, maxcharacters);</i></u></p>
+			<div class="indented">
+				<p>
+					Left() is used to return the first few letters of a longer string of letters.
+				</p>
+				
+				<h5 class="bold">Parameters</h5>
+				<p>The two parameters are as follows:</p>
+				<dl class="indented">
+					<dt>string</dt><dd>The larger string, from which a substring is to be extracted.</dd>
+					<dt>maxcharacters</dt><dd>The maximum number of characters desired. The return value
+												of the function will have this number of characters, unless
+												the larger string ends first, in which case this value will
+												become a theoretical maximum.</dd>
+				</dl>
+				
+				<h5 class="bold">Tips</h5>
+				<p>
+					If the value maxcharacters exceeds (or indeed is equal to) the number of characters in
+					the string, the function will simply return the string unmodified. The value supplied
+					to maxcharacters may be zero if desired (returns empty string), but may not a negative
+					number.	
+				</p>
+				
+				<h5 class="bold">Examples</h5>
+				<ul>
+					<li>Left(&quot;Blue Prism empowers business users to achieve more in less time&quot;, 10)
+					returns &quot;Blue Prism&quot;</li>
+				</ul>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Right (string, maxcharacters);</i></u></p>
+			<div class="indented">
+				<p>
+					Right() behaves exactly as Left(), but returns the ending string (with the specified
+					length) rather than the starting string.
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Len (string);</i></u></p>
+			<div class="indented">
+				<p>
+					Len() returns the number of characters in a string. For example Len("Blue Prism")
+					returns the number 10.
+				</p>
+            </div>
+        </li>
+
+        <li>
+            <p><u><i>Instr (string, substring);</i></u></p>
+            <div class="indented">
+				<p>
+					Instr() tests whether the smaller string <i>substring</i> is contained in the longer
+					string <i>string</i>. If it is, then Instr() returns the number of characters from the
+					left that the first occurrence of <i>substring</i> may be found.
+				</p>
+				
+				<h5 class="bold">Parameters</h5>
+				<p>The two parameters are as follows:</p>
+				<dl class="indented">
+					<dt>string</dt><dd>The larger string, from which a substring is to be extracted.</dd>
+					<dt>substring</dt><dd>The smaller string, whose presence is to be detected in the
+											larger string.</dd>
+				</dl>
+				
+				<h5 class="bold">Examples</h5>
+				<ul class="indented">
+					<li>Instr(&quot;Calculations are much faster with Blue Prism than with an abacus&quot;, &quot;are&quot;) will
+					return 14 because the word &quot;are&quot; first occurs at the fourteenth character.</li>
+				</ul>
+				
+				<h5 class="bold">Tips</h5>
+				<p>
+					If <i>substring</i> is not found in <i>string</i> then Instr() will return zero. Thus
+					Instr() is a useful way of testing for the presence of a smaller string in a larger
+					string: eg. <i>Instr(&quot;Apples&quot;, &quot;Bananas&quot;) &gt; 0</i> will return FALSE.
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>AddDays (date, numDays);</i></u></p>
+			<div class="indented">
+				<p>
+					This function will add a certain number of days to a chosen date.
+				</p>
+				
+				<h5 class="bold">Parameters</h5>
+				<p>The two parameters are as follows:</p>
+				<dl class="indented">
+					<dt>date</dt><dd>The date to which onto which the days should be added.</dd>
+					<dt>numDays</dt><dd>The number of days to be added.</dd>
+				</dl>
+									
+				<h5 class="bold">Examples</h5>
+				<ul class="indented">
+					<li>AddDays("01/01/2006", 10) will return the date "11/01/2006".</li>
+				</ul>
+				
+				<h5 class="bold">Tips</h5>
+				<p>
+					As with the function
+					DateAdd(), only valid dates will be returned. For example in a leap year adding one day
+					to 28 February will result in 29 February whereas during any other year it will result
+					in 1 March.
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>AddMonths (date, numMonths);</i></u></p>
+			<div class="indented">
+				<p>This function will add a certain number of months to a chosen date.</p>
+				
+				<h5 class="bold">Parameters</h5>
+				<p>The two parameters are as follows:</p>
+				<dl class="indented">
+					<dt>date</dt><dd>The date to which onto which the months should be added.</dd>
+					<dt>numMonths</dt><dd>The number of months to be added.</dd>
+				</dl>
+				
+				<h5 class="bold">Examples</h5>
+				<ul class="indented">
+					<li>AddMonths("01/01/2006", 10) will return the date "01/11/2006".</li>
+				</ul>
+				
+				<h5 class="bold">Tips</h5>
+				<p>
+					As with the function DateAdd(), only valid dates will be returned. For example adding 1 month to January
+					31st 2005 using AddMonths("31/01/2005",1) would return "28/2/2005" (rather than
+					returning "31/02/2005" - a date which does not exist).
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Now ();</i></u></p>
+			<div class="indented">
+            
+				<p>This function will return the current date and time and date as a
+				<a href="helpDatatypes.htm">datetime data item</a>.</p>
+			
+				<h5 class="bold">Tips</h5>
+				<p>
+					If you merely want to know today's date, it would be better to use
+					the Today() function instead.
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Today ();</i></u></p>
+			<div class="indented">
+				<p>
+					This function will return the current date as a <a href="helpDatatypes.htm">date
+					data item</a>.
+				</p>
+				
+				<h5 class="bold">Tips</h5>
+				<p>
+					If you want to know the current time together with today's date, it might be better to use
+					the Now() function instead.
+				</p>
+            </div>
+        </li>
+
+        <li>
+            <p><u><i>DecPad (number, numplaces);</i></u></p>
+			<div class="indented">
+				<p>
+					This function will represent a number in a text format. This is often useful when
+					dealing with currency, when numbers such as the number 1 are more often represented as
+					&quot;1.00&quot;.
+				</p>
+            
+				<h5 class="bold">Parameters</h5>
+				<p>The two parameters are as follows:</p>
+				<dl class="indented">
+					<dt>number</dt><dd>The number to be formatted as text.</dd>
+					<dt>numPlaces</dt><dd>The maximum number of decimal places desired.</dd>
+				</dl>
+				
+				<h5 class="bold">Examples</h5>
+				<ul class="indented">
+					<li>DecPad(1.296,2) will return the text &quot;1.30&quot;.</li>
+					<li>DecPad(1.1111,2) will return the text &quot;1.11&quot;</li>
+				</ul>
+				
+				<h5 class="bold">Tips</h5>
+				<p>
+					If the natural representation has too many decimal places then the appropriate
+					number of decimal places will be removed, whilst rounding the number to the appropriate
+					precision.
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>RndDn (number, numplaces);</i></u></p>
+			<div class="indented">
+				<p>
+					This function will round a number downwards to the desired number of decimal places.
+					The datatype of the value returned is number.
+				</p>
+				
+				<h5 class="bold">Parameters</h5>
+				<p>The two parameters are as follows:</p>
+				<dl class="indented">
+					<dt>number</dt><dd>The number to be rounded.</dd>
+					<dt>numPlaces</dt><dd>The maximum number of decimal places desired.</dd>
+				</dl>
+				
+				<h5 class="bold">Examples</h5>
+				<ul class="indented">
+					<li>RndDn(9.19996,3) will return the number 9.199</li>
+					<li>RndDn(9.1345,2) will return the number 9.13</li>
+					<li>RndDn(3.14159,10) would return 3.14159 (the number is unchanged)</li>
+				</ul>
+				
+				<h5 class="bold">Tips</h5>
+				<p>
+					If the number is already within the desired level of
+					precision then it will remain unchanged, and in particular it will not be reformatted
+					(as it would using the function DecPad).  See also the functions Round and RndUp.
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>RndUp (number, numplaces);</i></u></p>
+			<div class="indented">
+				<p>This function will round a number upwards to the desired number of decimal places; it
+				behaves analogously to the RndDn() function.</p>
+				
+				<h5 class="bold">Parameters</h5>
+				<p>The two parameters are as follows:</p>
+				<dl class="indented">
+					<dt>number</dt><dd>The number to be rounded.</dd>
+					<dt>numPlaces</dt><dd>The maximum number of decimal places desired.</dd>
+				</dl>
+				
+				<h5 class="bold">Examples</h5>
+				<ul class="indented">
+					<li>RndDn(9.19996,3) will return the number 9.200</li>
+					<li>RndDn(9.1345,2) will return the number 9.14</li>
+					<li>RndDn(3.14159,10) would return 3.14159 (the number is unchanged)</li>
+				</ul>
+				
+				<h5 class="bold">Tips</h5>
+				<p>
+					If the number is already within the desired level of
+					precision then it will remain unchanged, and in particular it will not be reformatted
+					(as it would using the function DecPad).  See also the functions Round and RndDn.
+				</p>
+            </div>
+        </li>
+
+        <li>
+            <p><u><i>Round (number, numplaces);</i></u></p>
+			<div class="indented">
+				<p>
+					The Round() function uses ‘banker's rounding’. This means a number containing decimal places will round up or down to the nearest whole number (integer). 
+					Where the decimal number is halfway between two whole numbers, the Round() function will round to the nearest even whole number.
+				</p>
+				
+				<h5 class="bold">Parameters</h5>
+				<p>The two parameters are as follows:</p>
+				<dl class="indented">
+					<dt>number</dt><dd>The number to be rounded.</dd>
+					<dt>numPlaces</dt><dd>The maximum number of decimal places desired.</dd>
+				</dl>
+				
+				<h5 class="bold">Examples</h5>
+				<ul class="indented">
+					<li>Round(2.5,0) will return the number 2</li>
+					<li>Round(3.5,0) will return the number 4</li>
+					<li>Round(3.513, 1) will return the number 3.5</li>
+					<li>Round(3.14159,10) would return 3.14159 (the number is unchanged)</li>
+				</ul>
+				
+				<h5 class="bold">Tips</h5>
+				<p>
+					If the number is already within the desired level of
+					precision then it will remain unchanged, and in particular it will not be reformatted
+					(as it would using the function DecPad).  See also the functions RndUp and RndDn.
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Sqrt (number);</i></u></p>
+			<div class="indented">
+				<p>This function will return the square root of the supplied number. The square root of
+				a number is the unique positive number which when multiplied by itself results in the number
+				you started with.</p>
+            </div>
+            
+            <h5 class="bold">Examples</h5>
+			<ul class="indented">
+				<li>Sqrt(100) returns the number 10</li>
+				<li>Sqrt(2) returns 1.4142135623731</li>
+			</ul>	
+        </li>
+		
+		<li>
+            <p><u><i>Log (number, base);</i></u></p>
+			<div class="indented">
+				<p>Evaluates the logarithm of the number to the specified base value.
+				For a value v and a base b,
+				the logarithm of v to the base b - written Log(v, b) - answers the question &quot;what is the value
+				x which satisfies b<sup>x</sup> = v?&quot;.</p>
+
+            </div>
+            
+            <h5 class="bold">Examples</h5>
+			<ul class="indented">
+				<li>Log(1000, 10) = 3 because 10<sup>3</sup> = 1000.</li>
+				<li>Log(1/4, 2) = -2 because 2<sup>-2</sup> = 1/4</li>
+			</ul>	
+        </li>
+
+        <li>
+            <p><u><i>Chr (keycode);</i></u></p>
+			<div class="indented">
+				<p>
+					This function will return the character represented by the supplied
+					<a href="helpASCII.htm">ASCII code</a>.
+				</p>
+				
+				<h5 class="bold">Examples</h5>
+				<ul class="indented">
+					<li>Chr(65) returns the text &quot;A&quot;</li>
+				</ul>
+				
+				<h5 class="bold">Tips</h5>
+				<p>
+					 For a full introduction to the ASCII code, please consult an external reference. A quick
+					guide is given on the Blue Prism <a href="helpASCII.htm">ASCII page</a>.
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Upper (string);</i></u></p>
+			<div class="indented">
+				<p>
+					This function will return the upper case representation of the supplied text. Any letters in the supplied
+					text which are already in upper case will be unchanged, whilst those which are not in
+					upper case will be changed.
+				</p>
+				
+				<h5 class="bold">Examples</h5>
+				<ul class="indented">
+					<li>Upper("software") will return the text &quot;SOFTWARE&quot;</li>
+					<li>Upper("aBcDeFg") will return the text &quot;ABCDEFG&quot;</li>
+				</ul>
+				
+				<h5 class="bold">Tips</h5>
+				<p>
+					 See also the Lower() function.
+				</p>
+            </div>
+        </li>
+
+        <li>
+            <p><u><i>Lower (string);</i></u></p>
+			<div class="indented">
+				<p>
+					This function will return the lower case representation of the supplied text. Any letters in the supplied
+					text which are already in lower case will be unchanged, whilst those which are not in
+					lower case will be changed.
+				</p>
+				
+				<h5 class="bold">Examples</h5>
+				<ul class="indented">
+					<li>Lower("SOFTWARE") will return the text &quot;software&quot;</li>
+					<li>Lower("aBcDeFg") will return the text &quot;abcdefg&quot;</li>
+				</ul>
+				
+				<h5 class="bold">Tips</h5>
+				<p>
+					 See also the Upper() function.
+				</p>
+            </div>
+        </li>
+    </ul>
+
+    <h3>Constants</h3>
+
+    <p>Text and passwords are represented by enclosing the text in quotes, for example <i>"This is
+    my text".</i></p>
+
+    <p>Numbers are represented by typing the plain number, for example <em>5</em> or
+    <em>1.2</em></p>
+
+    <p>Flags are represented by the words <em>True</em> or <em>False</em></p>
+
+    <p>Dates are represented as a text expression in <em>dd/mm/yyyy</em> format, for example
+    "12/03/2004"</p>
+
+    <h3>Casting</h3>
+
+    <p>Casting occurs when an entity of one data type is placed in an expression where another data
+    type was expected.</p>
+
+    <p>An example of this may be giving a number to a text function.</p>
+
+    <p>Len(100)</p>
+
+    <p>The 100 is automatically cast to a "100" text, then the Length function will return "3"
+    since 100 has 3 characters.</p>
+</body>
+</html>

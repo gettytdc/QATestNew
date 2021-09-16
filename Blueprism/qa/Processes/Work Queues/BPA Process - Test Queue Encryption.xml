@@ -1,0 +1,595 @@
+﻿<process name="Test Queue Encryption" version="1.0" bpversion="6.3.0.5030" narrative="This is a test that will test encrypted queues." byrefcollection="true" preferredid="7bdd7da8-9bff-40b6-a23d-e317f6b6d1b2">
+  <view>
+    <camerax>-109</camerax>
+    <cameray>572</cameray>
+    <zoom version="2">0.9375</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="463436bf-b3bb-4e0d-a9aa-ee48a9298d83" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-480</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>348460c5-4944-44db-8216-f90edda91cbe</onsuccess>
+  </stage>
+  <stage stageid="4af4b0a0-e321-4423-a2d1-136373f150d3" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>705</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="1639e958-0f25-487a-84c1-f46b7372ccdc" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-450</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="bf2e1b4e-c947-4612-b880-eb59eb67956f" name="Add to Queue" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Data]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>e3b5eeff-7b23-49b3-88ff-f43df8a82967</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="6ced15e6-b82c-4707-9368-d78eeb416fda" name="Data" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-255</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="ID" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="ID" type="number" value="0" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="e3b5eeff-7b23-49b3-88ff-f43df8a82967" name="Get Next Item" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>12748c12-5d9c-46df-b0fc-f2dc53ff7ba2</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="12748c12-5d9c-46df-b0fc-f2dc53ff7ba2" name="Mark Exception" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="[Exception Reason]" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="[Retry]" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>5d40022e-de34-47c9-87bb-c2592353a46e</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="737a9216-e6bb-46ac-9519-ed99718541e0" name="Item ID" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a6e366bd-00d8-4c40-ba23-18c1737bdac4" name="Attempts" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5d40022e-de34-47c9-87bb-c2592353a46e" name="Get Next Item" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>39e2f7a6-a6ee-468e-bfe3-7f26bc20cdfa</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="fcd4b778-4b72-4287-9dc5-e47c0433bbf4" name="Sign Into Blue Prism" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-315</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" expr="" />
+      <input type="password" name="Password" expr="" />
+    </inputs>
+    <onsuccess>a1170194-8297-440d-96fe-838c7addebce</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="9b20e4af-26d3-43e4-ba6f-712c685007a5" name="Create Work Queue" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the work queue" expr="[Queue Name]" />
+      <input type="text" name="Key Field" narrative="The key field for the work queue" expr="" />
+      <input type="flag" name="Active" narrative="Flag indicating if the work queue should be made active or not - default is True, ie. Active" expr="" />
+      <input type="number" name="Max Attempts" narrative="The maximum number of attempts to allow on this queue" expr="" />
+      <input type="flag" name="Set Encryption?" narrative="This is a flag to tick the encryption tickbox for a queue." expr="[Set Encryption?]" />
+      <input type="text" name="Scheme Name" narrative="This is the name of the scheme in which you wish to encrypt the queue with." expr="[Scheme Name]" />
+      <input type="flag" name="Set Active Queue" narrative="True or False, do you want to make this an active queue." expr="" />
+      <input type="text" name="Assigned Process" narrative="The name of the proccess you wish to assign to the active queue." expr="" />
+      <input type="text" name="Assigned Resource Group" narrative="The name of the resoruce group you want to assign to the active queue." expr="" />
+    </inputs>
+    <onsuccess>bf2e1b4e-c947-4612-b880-eb59eb67956f</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Create Work Queue" />
+  </stage>
+  <stage stageid="d85d98b1-ac74-4971-a6bb-62f7aad68adf" name="Scheme Name" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-375</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Work Queue Encrypter</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6b5433e9-ffaa-4f73-b2ad-e83b2a726027" name="Method" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-285</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Triple DES (192 bit) (Retired)</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f43d09cc-8b95-44be-bc0d-771fa19e512d" name="Queue Name" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-345</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Fail example</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3ad23989-802b-4424-8c5f-17c52b80e996" name="Retry" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="bc12554f-1b92-4f6a-b7d1-607368cf3014" name="Exception Reason" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Because I want it to</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7527204a-4b35-4dc6-b83f-880e92b95ee2" name="Set Encryption?" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-315</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="436975eb-f321-4c79-936d-45625820d2ef" name="Output Parameters" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>45</displayy>
+    <displaywidth>315</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="FF9900" />
+  </stage>
+  <stage stageid="8b259b19-932b-40af-8ab2-65cf4fe228fb" name="Terminate" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>645</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>4af4b0a0-e321-4423-a2d1-136373f150d3</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="aa482d89-0c08-4afa-92e5-d0e57358d563" name="Delete Item" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>285</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to delete. An error will be raised if this item does not exist, or is locked." expr="[Item ID]" />
+    </inputs>
+    <onsuccess>347da324-830d-4d12-8260-01a4cf6fc4cb</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Delete Item" />
+  </stage>
+  <stage stageid="39e2f7a6-a6ee-468e-bfe3-7f26bc20cdfa" name="Unlock Item" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>240</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="" />
+    </outputs>
+    <onsuccess>aa482d89-0c08-4afa-92e5-d0e57358d563</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="8c5c00c0-7681-475e-b3be-088cd43ceabe" name="Delete Queue" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>420</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete" expr="[Queue Name]" />
+    </inputs>
+    <onsuccess>80ca0b9e-b795-4177-b35b-b405d33dd68c</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Delete Work Queue" />
+  </stage>
+  <stage stageid="faba0d40-3efc-4604-8ace-16117f9b24ca" name="The Testing Part" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>0</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>195</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="FF6600" />
+  </stage>
+  <stage stageid="7c738f06-9cc0-42f2-9922-7b67b693f18a" name="Cleaning Up" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>210</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>465</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="CC99FF" />
+  </stage>
+  <stage stageid="9e6b9874-9f95-4b37-adfc-cf9054a1ad72" name="Setup Work" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>-435</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>420</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="871d65e2-4d02-4ae9-b834-6a5e0cdd2c8a" name="Scheme to Select" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Credentials Key</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="09119300-bdf7-4250-9dcc-b2b58f2a7c6d" name="Go To Home" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>b68e1c28-2aee-40d0-ad86-878117d665bc</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="b68e1c28-2aee-40d0-ad86-878117d665bc" name="Go To System" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>9b20e4af-26d3-43e4-ba6f-712c685007a5</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="347da324-830d-4d12-8260-01a4cf6fc4cb" name="Go To Home" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>330</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>e7dd01ad-a274-41ad-85aa-1bfdcbf45d2d</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="e7dd01ad-a274-41ad-85aa-1bfdcbf45d2d" name="Go To System" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>375</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>8c5c00c0-7681-475e-b3be-088cd43ceabe</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="a60c7271-f5f2-4526-a0b8-bb5dba611949" name="Create Encrypt Scheme" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Scheme Name" narrative="The name in which you want to call your encrpytion scheme." expr="[Scheme Name]" />
+      <input type="flag" name="Available?" narrative="This will tick a box that allows the encryption scheme to become available." expr="" />
+      <input type="flag" name="Database?" narrative="Mark as true if you want to store the scheme on the database. Please note that this will default to true." expr="" />
+      <input type="text" name="Method" narrative="The encryption method used with the scheme." expr="[Method]" />
+    </inputs>
+    <onsuccess>09119300-bdf7-4250-9dcc-b2b58f2a7c6d</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Encryption Schemes - Create Encryption Scheme" />
+  </stage>
+  <stage stageid="507d7136-b6de-4a08-9176-28b7d4b87b74" name="Click Encryption Schemes" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Encryption Schemes&quot;" />
+      <input type="flag" name="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="True" />
+      <input type="flag" name="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="False" />
+      <input type="flag" name="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="False" />
+    </inputs>
+    <onsuccess>a60c7271-f5f2-4526-a0b8-bb5dba611949</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="a1170194-8297-440d-96fe-838c7addebce" name="Go to System" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-270</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>507d7136-b6de-4a08-9176-28b7d4b87b74</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="629a9337-3d72-4451-b3a5-0e32b6157ac5" name="Delete Encrypt Scheme" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>600</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Scheme Name" narrative="This is the name of the encryption scheme you wish to delete. " expr="[Scheme Name]" />
+    </inputs>
+    <onsuccess>8b259b19-932b-40af-8ab2-65cf4fe228fb</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Encryption Schemes - Delete Encryption Scheme" />
+  </stage>
+  <stage stageid="63486c47-ae51-46d5-9fef-d48b82ec11c6" name="Click Encryption Schemes" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>555</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Encryption Schemes&quot;" />
+      <input type="flag" name="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="True" />
+      <input type="flag" name="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="False" />
+      <input type="flag" name="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="False" />
+    </inputs>
+    <onsuccess>629a9337-3d72-4451-b3a5-0e32b6157ac5</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="2d4244cb-b527-46df-8992-6890f53251b2" name="Go to System" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>510</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>63486c47-ae51-46d5-9fef-d48b82ec11c6</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="80ca0b9e-b795-4177-b35b-b405d33dd68c" name="Go to Home" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>465</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>2d4244cb-b527-46df-8992-6890f53251b2</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="348460c5-4944-44db-8216-f90edda91cbe" name="Launch Blue Prism" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-405</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>2d0940e5-6d6f-48e6-b8f7-ea0272b6dd5e</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="2d0940e5-6d6f-48e6-b8f7-ea0272b6dd5e" name="Attach System" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>fcd4b778-4b72-4287-9dc5-e47c0433bbf4</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="fd169da8-4060-4863-82e7-82c81285b946" name="pid" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+</process>

@@ -1,0 +1,797 @@
+﻿<process name="App Modeller - Launch App with File Path Containing Unicode Characters" version="1.0" bpversion="6.7.0.19126" narrative="This process is to ensure that applications which reside in paths containing unicode characters can be launched with Application Modeller " byrefcollection="true" preferredid="5bca2372-d424-4f18-87ee-d68ac71b5eeb" published="true">
+  <view>
+    <camerax>-98</camerax>
+    <cameray>1275</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="7e9a72f6-e767-4bf5-a633-3bf02461926e" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>168</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="4299b0dc-dada-4cd8-85a8-84f9a5e0dede" type="Normal" published="False">
+    <name>Launch App from Application Modeller</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>102</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="2dcd0e3b-414e-4ea7-8e04-075ee66fd9e9" type="Normal" published="False">
+    <name>Launch App from Launch button</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="61cd1281-ee43-47b5-8eeb-7d8395274af3" type="Normal" published="False">
+    <name>Add to CleanUp</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="9157fa8e-9400-4556-a343-16b289b45ba2" type="Normal" published="False">
+    <name>Clean Up</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>84</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="bf9405f2-d1f4-4d11-841d-12a82496066f" name="Stage1" type="ProcessInfo">
+    <display x="-435" y="795" w="210" h="90" />
+  </stage>
+  <stage stageid="ee3508d2-171c-4b41-8abf-67fa86a92289" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="990" w="150" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="42c35fae-fe03-40f1-a37c-7dbccc412297" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="1020" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="82d76452-2485-4660-a5e0-5659453621ad" name="Start" type="Start">
+    <display x="-15" y="795" />
+    <onsuccess>b55357de-7d91-4aeb-9947-9df67a645ae7</onsuccess>
+  </stage>
+  <stage stageid="9681f5ec-d0cd-4f13-ba92-2a2a4ec51e67" name="End" type="End">
+    <display x="-15" y="1680" />
+  </stage>
+  <stage stageid="b55357de-7d91-4aeb-9947-9df67a645ae7" name="Note1" type="Note">
+    <narrative>GIVEN a new Business Object is created
+
+AND Application Modeller is launched</narrative>
+    <display x="-15" y="870" w="210" h="60" />
+    <onsuccess>4b2cc319-2bed-4511-adf0-ed10c36fa219</onsuccess>
+  </stage>
+  <stage stageid="5410e913-b1b3-4589-ba5a-e55ab52e4fc1" name="Note3" type="Note">
+    <narrative>
+WHEN a File Path containing Unicode Characters is being added
+
+AND an attempt to Launch the app from Application Modeller is made
+
+THEN the Application is successfully Launched
+
+
+</narrative>
+    <display x="-15" y="1005" w="270" h="90" />
+    <onsuccess>d07746c3-9752-47d6-917c-2e61bafc2f61</onsuccess>
+  </stage>
+  <stage stageid="09e966fe-68cc-43b3-ac67-2e7175bebc19" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="150" y="1095" />
+    <onsuccess>4822a068-9f15-45d9-80fb-a6d735e63d8a</onsuccess>
+  </stage>
+  <stage stageid="4822a068-9f15-45d9-80fb-a6d735e63d8a" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="150" y="1140" w="90" h="30" />
+    <onsuccess>4f8cfcc8-5321-4341-88b9-b7933e407ed2</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="4f8cfcc8-5321-4341-88b9-b7933e407ed2" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="150" y="1185" />
+    <onsuccess>cc76c517-c76f-46a4-a648-3cb011b6b1cc</onsuccess>
+  </stage>
+  <stage stageid="4d32ed0a-2f98-4171-8e68-38a0fbd69176" name="Clean Up" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="1575" w="90" h="30" />
+    <onsuccess>1d7ec9f9-970b-41d6-a60d-dfbdfc56bdc2</onsuccess>
+    <processid>9157fa8e-9400-4556-a343-16b289b45ba2</processid>
+  </stage>
+  <stage stageid="1d7ec9f9-970b-41d6-a60d-dfbdfc56bdc2" name="Failed?" type="Decision">
+    <display x="-15" y="1620" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>ffbf10e6-d16f-4ac0-9112-105c483d35cf</ontrue>
+    <onfalse>9681f5ec-d0cd-4f13-ba92-2a2a4ec51e67</onfalse>
+  </stage>
+  <stage stageid="ffbf10e6-d16f-4ac0-9112-105c483d35cf" name="Re-Throw" type="Exception">
+    <display x="105" y="1620" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="07f8d951-f585-46ad-994d-96b6207f7c05" name="App launched from Application Modeller" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="1065" w="390" h="165" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="244359c9-c4df-450b-aeb3-5c9b1e50fd7c" name="Setup" type="SubSheetInfo">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <display x="-300" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="c9243eb2-2bb8-45eb-b88c-74172860b5e0" name="Start" type="Start">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>b86390f7-e30b-4f3d-8689-87b445701aa1</onsuccess>
+  </stage>
+  <stage stageid="dc6ad200-db82-4bc9-9ff5-8f0f4cb64624" name="End" type="End">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <display x="15" y="435" />
+  </stage>
+  <stage stageid="b86390f7-e30b-4f3d-8689-87b445701aa1" name="Launch Blue Prism" type="Action">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>439c982a-1de5-4f6f-8426-d9cec1d2079e</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="3fa2ad01-10cd-4c61-945f-8baeac56fe40" name="pid" type="Data">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <display x="-150" y="90" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="60ec2c7f-5743-4f73-b881-43f3a536b7b1" name="Attach System" type="Action">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>e3ce8261-5df2-4cf6-bc8d-2173b81928c6</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="e3ce8261-5df2-4cf6-bc8d-2173b81928c6" name="Sign In" type="Action">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="Error message received while Login" stage="" />
+    </outputs>
+    <onsuccess>717a2194-cc54-40e3-9276-f5d6eff360b5</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="717a2194-cc54-40e3-9276-f5d6eff360b5" name="Go To Studio" type="Action">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>1dc3465b-a83c-4332-950a-f0ed36a0f551</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="1dc3465b-a83c-4332-950a-f0ed36a0f551" name="Create Object" type="Action">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Object Name" friendlyname="Object Name" expr="[Object Name]" />
+      <input type="text" name="Object Description" friendlyname="Object Description" expr="" />
+      <input type="flag" name="Open on Creation?" friendlyname="Open on Creation?" narrative="Do you wan to open the object on creation? This will default to yes." expr="[Open Object on Creation?]" />
+    </inputs>
+    <onsuccess>cb85a974-b03e-495a-b216-04c3dac81761</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Create Object" />
+  </stage>
+  <stage stageid="d5eae323-a345-4027-8b1c-8740f5c14237" name="Open Application Modeller" type="Action">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process / Object Name" friendlyname="Process / Object Name" narrative="Name of the Process or Object" expr="[Object Name]" />
+    </inputs>
+    <onsuccess>2acfebfb-9329-4b4b-9b6d-98bc15a73b51</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Open Application Modeller" />
+  </stage>
+  <stage stageid="871d2b0b-9d85-4a54-ad1f-071e12c3ebb9" name="Launch App from Application Modeller" type="SubSheetInfo">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="992f3d95-05cb-4999-8043-3c58b4dbbfef" name="Start" type="Start">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <display x="15" y="-195" />
+    <onsuccess>66dc7021-1302-4f8a-8c7e-33a025994589</onsuccess>
+  </stage>
+  <stage stageid="a895b136-f0f4-4494-903b-ea69e4153f28" name="End" type="End">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <display x="15" y="570" />
+  </stage>
+  <stage stageid="d07746c3-9752-47d6-917c-2e61bafc2f61" name="Launch App from Application Modeller" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="1110" w="120" h="60" />
+    <onsuccess>cc76c517-c76f-46a4-a648-3cb011b6b1cc</onsuccess>
+    <processid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</processid>
+  </stage>
+  <stage stageid="4b2cc319-2bed-4511-adf0-ed10c36fa219" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="930" w="90" h="30" />
+    <onsuccess>5410e913-b1b3-4589-ba5a-e55ab52e4fc1</onsuccess>
+    <processid>7e9a72f6-e767-4bf5-a633-3bf02461926e</processid>
+  </stage>
+  <stage stageid="cc76c517-c76f-46a4-a648-3cb011b6b1cc" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="1185" w="10" h="10" />
+    <onsuccess>5195770a-b82d-4b5c-968b-094a402659c9</onsuccess>
+  </stage>
+  <stage stageid="943fbf75-ea43-4c86-b863-c9262f4e2b88" name="Add to CleanUp" type="SubSheetInfo">
+    <subsheetid>61cd1281-ee43-47b5-8eeb-7d8395274af3</subsheetid>
+    <display x="-225" y="-120" w="150" h="90" />
+  </stage>
+  <stage stageid="573ff231-4c22-46fa-afe0-23553411487d" name="Start" type="Start">
+    <subsheetid>61cd1281-ee43-47b5-8eeb-7d8395274af3</subsheetid>
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="Item Name" narrative="The name of the item you want to clean up" stage="Item Name" />
+    </inputs>
+    <onsuccess>9c570fb0-5773-4ba5-a00e-a4d1575a95b4</onsuccess>
+  </stage>
+  <stage stageid="2534e23c-0861-4787-b8eb-3de925547c47" name="End" type="End">
+    <subsheetid>61cd1281-ee43-47b5-8eeb-7d8395274af3</subsheetid>
+    <display x="15" y="30" />
+  </stage>
+  <stage stageid="9c570fb0-5773-4ba5-a00e-a4d1575a95b4" name="Add Row" type="Action">
+    <subsheetid>61cd1281-ee43-47b5-8eeb-7d8395274af3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;CleanUp Collection&quot;" />
+    </inputs>
+    <onsuccess>80da13fc-aa48-45cd-b0a8-b4f60fc18d37</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="80da13fc-aa48-45cd-b0a8-b4f60fc18d37" name="Add to Row" type="Calculation">
+    <subsheetid>61cd1281-ee43-47b5-8eeb-7d8395274af3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>2534e23c-0861-4787-b8eb-3de925547c47</onsuccess>
+    <calculation expression="[Item Name]" stage="CleanUp Collection.Item Name" />
+  </stage>
+  <stage stageid="aa6e5418-902b-4ae9-8444-66e0a7fbd9eb" name="Item Name" type="Data">
+    <subsheetid>61cd1281-ee43-47b5-8eeb-7d8395274af3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-135" y="-45" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="28b8c856-296a-4929-81f3-46a611a438c2" name="CleanUp Collection" type="Collection">
+    <subsheetid>61cd1281-ee43-47b5-8eeb-7d8395274af3</subsheetid>
+    <display x="-135" y="30" w="150" h="30" />
+    <datatype>collection</datatype>
+    <collectioninfo>
+      <field name="Item Name" type="text" description="The name of the item that needs cleaning up" />
+    </collectioninfo>
+    <noalwaysinit />
+  </stage>
+  <stage stageid="3244b6f7-154f-4d2c-93e3-c6f748ff2885" name="Clean Up" type="SubSheetInfo">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="806126e7-b8e3-4f3d-9764-4e64966a0d5f" name="Start" type="Start">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>c3292061-f2b5-4d93-93b4-5c5480691f48</onsuccess>
+  </stage>
+  <stage stageid="7d2ac1d7-29ea-407a-9dd4-79121f6140fc" name="To Clean" type="LoopStart">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>5a60fb47-b538-44d4-92ba-77d105288ad1</onsuccess>
+    <groupid>88da5db6-6749-4566-afa7-7f6f9b64b377</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Reversed CleanUp</loopdata>
+  </stage>
+  <stage stageid="c4658b55-7e40-4961-9796-35920c886d60" name="To Clean" type="LoopEnd">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <display x="15" y="210" w="90" h="30" />
+    <onsuccess>cd048be5-0a39-4311-aed1-ce3a4358204c</onsuccess>
+    <groupid>88da5db6-6749-4566-afa7-7f6f9b64b377</groupid>
+  </stage>
+  <stage stageid="c3292061-f2b5-4d93-93b4-5c5480691f48" name="Reverse Collection" type="Action">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="Collection" narrative="The collection to be reversed." expr="[CleanUp Collection]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Reversed Collection" narrative="The reversed collection." stage="Reversed CleanUp" />
+    </outputs>
+    <onsuccess>7d2ac1d7-29ea-407a-9dd4-79121f6140fc</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Reverse Collection" />
+  </stage>
+  <stage stageid="5a60fb47-b538-44d4-92ba-77d105288ad1" name="Which Clean Up" type="ChoiceStart">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <display x="15" y="30" w="90" h="30" />
+    <groupid>9b020427-1c77-47a3-b6c3-deddbc7f8ff9</groupid>
+    <choices>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Blue Prism&quot;">
+        <name>Blue Prism</name>
+        <distance>30</distance>
+        <ontrue>1feff611-c925-458b-b043-d0441168271a</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;New Object&quot;">
+        <name>Object Name</name>
+        <distance>75</distance>
+        <ontrue>5af2e5bc-b8a0-460f-b238-6c5057b99b10</ontrue>
+      </choice>
+    </choices>
+  </stage>
+  <stage stageid="729ad99b-9ed9-4ba7-9ccd-b127751c6def" name="Otherwise" type="ChoiceEnd">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <display x="15" y="165" w="90" h="30" />
+    <onsuccess>3d18ab29-b470-4b77-97c7-fd0de009a1dd</onsuccess>
+    <groupid>9b020427-1c77-47a3-b6c3-deddbc7f8ff9</groupid>
+  </stage>
+  <stage stageid="b3b8ae40-86df-44a5-b6d2-5d2807f54ebb" name="Anchor2" type="Anchor">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <display x="405" y="60" w="10" h="10" />
+    <onsuccess>ccad4d43-d516-441a-80d2-159f89e94615</onsuccess>
+  </stage>
+  <stage stageid="73e0740f-7f46-4583-8b2c-397efb24f965" name="Anchor4" type="Anchor">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <display x="405" y="210" w="10" h="10" />
+    <onsuccess>c4658b55-7e40-4961-9796-35920c886d60</onsuccess>
+  </stage>
+  <stage stageid="3d18ab29-b470-4b77-97c7-fd0de009a1dd" name="FAIL" type="Exception">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <display x="105" y="165" />
+    <exception type="" detail="&quot;You have entered a clean up item the choice doesn't recognise.&quot;" />
+  </stage>
+  <stage stageid="ccad4d43-d516-441a-80d2-159f89e94615" name="Anchor3" type="Anchor">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <display x="405" y="105" w="10" h="10" />
+    <onsuccess>73e0740f-7f46-4583-8b2c-397efb24f965</onsuccess>
+  </stage>
+  <stage stageid="cd048be5-0a39-4311-aed1-ce3a4358204c" name="End1" type="End">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <display x="15" y="255" />
+  </stage>
+  <stage stageid="1feff611-c925-458b-b043-d0441168271a" name="Terminate" type="Action">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <display x="315" y="60" w="90" h="30" />
+    <onsuccess>b3b8ae40-86df-44a5-b6d2-5d2807f54ebb</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="118db644-0072-4b4c-bc08-20b2b128d6ee" name="Browse to Studio" type="Action">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <display x="210" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>b464a95d-2670-4820-b6ac-9d84cacf7133</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="b464a95d-2670-4820-b6ac-9d84cacf7133" name="Delete Object" type="Action">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="315" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Deletion Reason" friendlyname="Deletion Reason" narrative="The reason you wish to delete the object." expr="&quot;No longer required&quot;" />
+      <input type="text" name="Object Name" friendlyname="Object Name" narrative="The name of the object you want to delete." expr="[Object Name]" />
+    </inputs>
+    <onsuccess>ccad4d43-d516-441a-80d2-159f89e94615</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Delete Object" />
+  </stage>
+  <stage stageid="f1efb9b0-33de-4170-bc65-01747520c1a0" name="Reversed CleanUp" type="Collection">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <display x="-165" y="30" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5af2e5bc-b8a0-460f-b238-6c5057b99b10" name="Close Object" type="Action">
+    <subsheetid>9157fa8e-9400-4556-a343-16b289b45ba2</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="105" y="105" w="90" h="30" />
+    <onsuccess>118db644-0072-4b4c-bc08-20b2b128d6ee</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="de601f79-b807-4cfd-8ca6-b08dd6994524" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-435" y="960" w="165" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e2ee7cf7-8fb4-4842-af11-c6d5d93eeb6f" name="Open Object on Creation?" type="Data">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="099e0ee6-da18-4f14-9efd-7f03e7c91dc1" name="Object Name" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="1125" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">AppModellerObject</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="439c982a-1de5-4f6f-8426-d9cec1d2079e" name="Add to CleanUp" type="SubSheet">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up" expr="&quot;Blue Prism&quot;" />
+    </inputs>
+    <onsuccess>60ec2c7f-5743-4f73-b881-43f3a536b7b1</onsuccess>
+    <processid>61cd1281-ee43-47b5-8eeb-7d8395274af3</processid>
+  </stage>
+  <stage stageid="cb85a974-b03e-495a-b216-04c3dac81761" name="Add to CleanUp" type="SubSheet">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up" expr="&quot;New Object&quot;" />
+    </inputs>
+    <onsuccess>d5eae323-a345-4027-8b1c-8740f5c14237</onsuccess>
+    <processid>61cd1281-ee43-47b5-8eeb-7d8395274af3</processid>
+  </stage>
+  <stage stageid="2acfebfb-9329-4b4b-9b6d-98bc15a73b51" name="App Name - Click Next" type="Action">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="300" w="90" h="30" />
+    <onsuccess>aa676d0b-326b-4fc9-a203-da829e3fd324</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Wizard - Press Next" />
+  </stage>
+  <stage stageid="aa676d0b-326b-4fc9-a203-da829e3fd324" name="Select App Type - Click Next" type="Action">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="345" w="90" h="30" />
+    <onsuccess>e48dc3c3-299a-4fd6-855b-0d2d9033bb4f</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Wizard - Press Next" />
+  </stage>
+  <stage stageid="e48dc3c3-299a-4fd6-855b-0d2d9033bb4f" name="Indicate App Type - Click Next" type="Action">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="390" w="90" h="30" />
+    <onsuccess>dc6ad200-db82-4bc9-9ff5-8f0f4cb64624</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Wizard - Press Next" />
+  </stage>
+  <stage stageid="66dc7021-1302-4f8a-8c7e-33a025994589" name="Application Modeller - Enter App File Path" type="Action">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="App File Path" friendlyname="App File Path" narrative="File Path for app to be launched" expr="[QA Root] &amp; [File Path]" />
+    </inputs>
+    <onsuccess>1a17e1b5-a6ef-4e70-9ccc-58a538dc6624</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Wizard - File App Path" />
+  </stage>
+  <stage stageid="fa9239e1-b6b6-4cf8-ad53-001f36a479ef" name="File Path" type="Data">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">\Code\UnicodeChar\出口退税申子化管理系統\UIAApp\UIATestApp\bin\Debug\UIATestApp.exe</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b7475d5d-9d93-44f2-a99a-52596861bf64" name="Input" type="Block">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="-45" w="120" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="28eabb1d-1376-4488-9416-417fd19dec5c" name="Input" type="Block">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-15" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="22c07726-2b5c-468f-b822-4be17e0c50fe" name="Output" type="Block">
+    <subsheetid>7e9a72f6-e767-4bf5-a633-3bf02461926e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="60" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="67d73c55-4ca8-4875-98bd-2b24d2f9a94d" name="Application Modeller - Press Launch" type="Action">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="345" w="90" h="30" />
+    <onsuccess>ba4b4001-713e-4b2b-927f-43caaa125dbc</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Press Launch" />
+  </stage>
+  <stage stageid="c9d57323-4c48-4a54-b2f8-0ca1030a361d" name="Enter CMD parameters - Click Next" type="Action">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <onsuccess>cded6839-b10c-4157-a0bc-6727b3069b66</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Wizard - Press Next" />
+  </stage>
+  <stage stageid="af2e1e55-a13a-463e-9b45-89da4b020816" name="Enter working directory - Click Next" type="Action">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <onsuccess>ca3ce9bb-5c0a-41c0-a3b6-2cbc38bf5739</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Wizard - Press Next" />
+  </stage>
+  <stage stageid="f6a65205-5ffd-4305-a1b8-cfeb536f0b54" name="Restrict auto techniques - Click Next" type="Action">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="90" h="30" />
+    <onsuccess>28e736c9-df02-40c1-85c8-541623d9bd96</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Wizard - Press Next" />
+  </stage>
+  <stage stageid="66bf12b9-e922-4d27-b516-b9cb7dd9ac97" name="Select App Manager mode - Click Next" type="Action">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="90" h="30" />
+    <onsuccess>4259c3ce-500f-4d34-bafe-b7ab9cd61074</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Wizard - Press Next" />
+  </stage>
+  <stage stageid="0bc5ff43-6748-4c61-8626-b3957bf24b72" name="App Modeler - Click Finish" type="Action">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="300" w="90" h="30" />
+    <onsuccess>67d73c55-4ca8-4875-98bd-2b24d2f9a94d</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Wizard - Press Finish" />
+  </stage>
+  <stage stageid="cf75e077-aef9-4065-986c-a4b0aab4328c" name="Global Variable" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-435" y="1095" w="165" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2b408ecc-1b6b-464b-bcc6-b7844f216e38" name="Attach App" type="Action">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="435" w="90" h="30" />
+    <onsuccess>fdf11113-2d56-43e5-a230-1ccf0f881edd</onsuccess>
+    <resource object="UIA Standard Actions" action="Attach" />
+  </stage>
+  <stage stageid="fdf11113-2d56-43e5-a230-1ccf0f881edd" name="Close App" type="Action">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="480" w="90" h="30" />
+    <onsuccess>cc882e1d-6916-42a5-ac95-6871cd53c515</onsuccess>
+    <resource object="UIA Standard Actions" action="Terminate" />
+  </stage>
+  <stage stageid="cc882e1d-6916-42a5-ac95-6871cd53c515" name="Close Object" type="Action">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="525" w="90" h="30" />
+    <onsuccess>a895b136-f0f4-4494-903b-ea69e4153f28</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="5195770a-b82d-4b5c-968b-094a402659c9" name="Note3" type="Note">
+    <narrative>
+WHEN a File Path containing Unicode Characters is being added
+
+AND an attempt to Launch the app from Launch is made
+
+THEN the Application is successfully Launched
+
+
+</narrative>
+    <display x="-15" y="1305" w="270" h="90" />
+    <onsuccess>43dd62fe-9009-4184-9408-9d48f1171206</onsuccess>
+  </stage>
+  <stage stageid="10b9048c-bd5a-4e0b-9c74-8c18a339339c" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="150" y="1395" />
+    <onsuccess>b56975db-d6c2-49b6-8fd8-7c8f2df4dceb</onsuccess>
+  </stage>
+  <stage stageid="b56975db-d6c2-49b6-8fd8-7c8f2df4dceb" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="150" y="1440" w="90" h="30" />
+    <onsuccess>147f65bb-6638-48f5-a541-6f8a02eff565</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="147f65bb-6638-48f5-a541-6f8a02eff565" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="150" y="1485" />
+    <onsuccess>6ece9eb1-3eaf-420f-a2e2-25380b37d647</onsuccess>
+  </stage>
+  <stage stageid="bf68f042-88d1-4520-8242-e5b65af1a57e" name="App launched from Launch Button" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="1365" w="390" h="165" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="43dd62fe-9009-4184-9408-9d48f1171206" name="Launch App from Launch Button" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="1410" w="120" h="60" />
+    <onsuccess>6ece9eb1-3eaf-420f-a2e2-25380b37d647</onsuccess>
+    <processid>2dcd0e3b-414e-4ea7-8e04-075ee66fd9e9</processid>
+  </stage>
+  <stage stageid="6ece9eb1-3eaf-420f-a2e2-25380b37d647" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="1485" w="10" h="10" />
+    <onsuccess>4d32ed0a-2f98-4171-8e68-38a0fbd69176</onsuccess>
+  </stage>
+  <stage stageid="e0267659-c282-4294-bfcc-c4ea1d24fc84" name="Launch App from Launch button" type="SubSheetInfo">
+    <subsheetid>2dcd0e3b-414e-4ea7-8e04-075ee66fd9e9</subsheetid>
+    <display x="-255" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="f98415f6-f7e0-49d0-9975-efd08c7aaacf" name="Start" type="Start">
+    <subsheetid>2dcd0e3b-414e-4ea7-8e04-075ee66fd9e9</subsheetid>
+    <display x="15" y="-135" />
+    <onsuccess>61811bfa-38f4-45cb-88ef-73f75e06e67a</onsuccess>
+  </stage>
+  <stage stageid="7ebcff42-3c52-41f1-a3ac-03c6e9d2faac" name="End" type="End">
+    <subsheetid>2dcd0e3b-414e-4ea7-8e04-075ee66fd9e9</subsheetid>
+    <display x="15" y="180" />
+  </stage>
+  <stage stageid="1b562586-08e9-4030-b540-89d7b8c8dcf5" name="Launch App" type="Action">
+    <subsheetid>2dcd0e3b-414e-4ea7-8e04-075ee66fd9e9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="File Path" friendlyname="File Path" narrative="Add File Path" expr="[File Path]" />
+    </inputs>
+    <onsuccess>15c9ba84-902f-45df-9612-f45c7f5770ba</onsuccess>
+    <resource object="UIA Standard Actions" action="Launch" />
+  </stage>
+  <stage stageid="c9a6c0b3-ed77-4c83-a683-0089e1985749" name="File Path" type="Data">
+    <subsheetid>2dcd0e3b-414e-4ea7-8e04-075ee66fd9e9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">\Code\UnicodeChar\出口退税申子化管理系統\UIAApp\UIATestApp\bin\Debug\UIATestApp.exe</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="bbfd59fa-eb89-4e51-b9ae-5a3a2d8d9781" name="Input" type="Block">
+    <subsheetid>2dcd0e3b-414e-4ea7-8e04-075ee66fd9e9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="-45" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="92632694-c1a0-4e24-aba8-5a43c7cb9138" name="Attach App" type="Action">
+    <subsheetid>2dcd0e3b-414e-4ea7-8e04-075ee66fd9e9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="90" h="30" />
+    <onsuccess>5f9be263-07e3-4eb9-9390-6ce562e59729</onsuccess>
+    <resource object="UIA Standard Actions" action="Attach" />
+  </stage>
+  <stage stageid="5f9be263-07e3-4eb9-9390-6ce562e59729" name="Close App" type="Action">
+    <subsheetid>2dcd0e3b-414e-4ea7-8e04-075ee66fd9e9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="90" w="90" h="30" />
+    <onsuccess>db14848c-2be2-4e34-a64f-a9f989ae9c22</onsuccess>
+    <resource object="UIA Standard Actions" action="Terminate" />
+  </stage>
+  <stage stageid="61811bfa-38f4-45cb-88ef-73f75e06e67a" name="Open Object" type="Action">
+    <subsheetid>2dcd0e3b-414e-4ea7-8e04-075ee66fd9e9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Object Name" friendlyname="Object Name" narrative="The name of the object you wish to open." expr="[Object Name]" />
+      <input type="text" name="Folder to Select" friendlyname="Folder to Select" narrative="Name of folder the object you wish to select is contained within" expr="&quot;Default&quot;" />
+      <input type="number" name="MatchIndex" friendlyname="MatchIndex" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Access Warning" friendlyname="Access Warning" stage="" />
+    </outputs>
+    <onsuccess>1b562586-08e9-4030-b540-89d7b8c8dcf5</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Object" />
+  </stage>
+  <stage stageid="db14848c-2be2-4e34-a64f-a9f989ae9c22" name="Close Object" type="Action">
+    <subsheetid>2dcd0e3b-414e-4ea7-8e04-075ee66fd9e9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" w="90" h="30" />
+    <onsuccess>7ebcff42-3c52-41f1-a3ac-03c6e9d2faac</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="a13fa965-4be1-4ee2-8c1a-3cae6812d6cf" name="QA Root" type="Data">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ba4b4001-713e-4b2b-927f-43caaa125dbc" name="Pause " type="Action">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="390" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="10" />
+    </inputs>
+    <onsuccess>2b408ecc-1b6b-464b-bcc6-b7844f216e38</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="15c9ba84-902f-45df-9612-f45c7f5770ba" name="Pause 10" type="Action">
+    <subsheetid>2dcd0e3b-414e-4ea7-8e04-075ee66fd9e9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="0" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="10" />
+    </inputs>
+    <onsuccess>92632694-c1a0-4e24-aba8-5a43c7cb9138</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="1a17e1b5-a6ef-4e70-9ccc-58a538dc6624" name="Pause " type="Action">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-105" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="5" />
+    </inputs>
+    <onsuccess>c9d57323-4c48-4a54-b2f8-0ca1030a361d</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="cded6839-b10c-4157-a0bc-6727b3069b66" name="Pause " type="Action">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="5" />
+    </inputs>
+    <onsuccess>af2e1e55-a13a-463e-9b45-89da4b020816</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="ca3ce9bb-5c0a-41c0-a3b6-2cbc38bf5739" name="Pause " type="Action">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="5" />
+    </inputs>
+    <onsuccess>f6a65205-5ffd-4305-a1b8-cfeb536f0b54</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="28e736c9-df02-40c1-85c8-541623d9bd96" name="Pause " type="Action">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="5" />
+    </inputs>
+    <onsuccess>66bf12b9-e922-4d27-b516-b9cb7dd9ac97</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="4259c3ce-500f-4d34-bafe-b7ab9cd61074" name="Pause " type="Action">
+    <subsheetid>4299b0dc-dada-4cd8-85a8-84f9a5e0dede</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="5" />
+    </inputs>
+    <onsuccess>0bc5ff43-6748-4c61-8626-b3957bf24b72</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+</process>

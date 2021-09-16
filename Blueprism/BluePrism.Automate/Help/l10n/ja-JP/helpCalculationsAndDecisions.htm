@@ -1,0 +1,648 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>計算と決定</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="pagetitle">ヘルプ</h1>
+    </div>
+
+    <h3>計算と決定</h3>
+
+    <p>計算と決定は非常によく似ているため、ほぼ同じ方法で編集されます。どちらも式に基づいていますが、2つの大きな違いがあります。第一に、計算は結果が任意の値になりうる式ですが、決定は結果がTRUEまたはFALSEになる必要がある式です。第二に、計算の結果はデータアイテムに格納されますが、決定の結果は格納されません。プロセスフローの方向を決定するためにのみ使用されます。</p>
+
+    <p>式はさまざまな方法で作成できます。式エディターに直接入力することも、関数リストまたはデータアイテムリストからアイテムをドラッグアンドドロップして作成することもできます。関数リストには、Blue Prismで使用可能なすべての関数が表示されます。
+ 関数を式エディターにドラッグアンドドロップすると、デフォルトの関数テキストが画面に自動的に入力されます。同様に、データアイテムはデータアイテムリストからドラッグでき、データアイテムの名前は式エディターに自動的に入力されます。</p>
+
+    <p>関数は、画面の中央にある関数ビルダー領域で構成することもできます。
+ 関数は、関数リストから選択されると、その使用方法に関する説明およびそのパラメーターと一緒に関数ビルダーに表示されます。パラメーターに値を指定するには、表示されているフィールドに値を直接入力するか、データアイテムリストからデータアイテムをドラッグします。関数を作成したら、［貼り付け］ボタンを使用してその関数を式エディターに転送できます。</p>
+
+    <p>計算では、評価結果が格納されるデータアイテムを指定する必要があります。［結果を保存］フィールドに値を設定するには、データアイテム名を入力するか、右側のリストからデータアイテムをドラッグします。</p>
+
+    <p>式が完成したら、エラーがないかチェックする必要があります。これは［プロセスの検証］ボタンをクリックして行うことができます。Blue Prismは式をチェックし、エラーの可能性がある場所をハイライト表示します。</p>
+
+    <p>チェックが終わったら、［式をテスト］ボタンを選択して式を評価することもできます。
+ 式にデータアイテムが使用されている場合は、新しい<a href="frmExpressionTest.htm">式のテストウィザード</a>が表示され、各データアイテムに一時的な値を指定し、式から結果を取得できます。式にデータアイテムが使用されていない場合、評価結果はポップアップメッセージに表示されます。式の一部だけをテストする場合は、式の一部をマウスでドラッグしてハイライトすることで選択できます。式のテストウィザードが表示されると、選択した式の一部のみが使用されます。</p>
+
+    <h3>式</h3>
+
+    <p>式は、データアイテム、演算子、関数、定数で構成されます。</p>
+
+    <h3>データアイテム</h3>
+
+    <p>データアイテムは名前で参照され、角括弧で囲む必要があります（例：<i>[Account Number]</i>）。</p>
+
+    <h3>演算子</h3>
+
+    <p>演算子はそれぞれの記号で表されます（例：<em>1 + 2</em>）。</p>
+
+    <h3>関数</h3>
+
+    <p>関数は<i>FunctionName(parameter1,parameter2)</i>形式です（例：<em>Mid("Hello", 1, 2)</em>）。</p>
+
+    <p>ほとんどの関数の構文は一目瞭然です。以下では、より複雑な関数について詳しく説明します。</p>
+
+    <ul>
+        <li>
+            <p><u><i>DateDiff (interval,date1,date2)</i></u></p>
+            <div class="indented">
+                <p><b>2つの日付、時間、または日時の差を調べるための推奨される方法は、それらを引き算することです。</b></p>
+                <p>たとえば、<em>MakeDate(26,5,1999) - MakeDate(29,5,1968)</em>は時間間隔11319.00:00:00を返します。</p>
+                <p>時期によって変化する可能性がある不定の時間間隔の差を調べる必要がある場合、DateDiff関数ではいくつかの有用な間隔が使用できます。
+ これらは下のDateAdd関数内の表にリストされています。<i>date2</i> &gt; <i>date1の場合</i>、返される数は正になります。</p>
+                <p> 年間通算週を使用する場合、戻り値は<i>date1</i>を含む週の最初の日から<i>date2</i>を含む週の最初の日までの週数を表します。</p>
+                <p> 間隔2の週日を使用する場合、戻り値は2つの日付の間の完全な暦週の数を表します（たとえば、<i>date1</i>が月曜日の場合、<i>date2</i>までの月曜日の数がカウントされます）。</p>
+                <p> たとえば、<i>date1</i>が2017年3月2日木曜日で<i>date2</i>が次の火曜日の2017年3月7日の場合、年間通算週を使用し<i>DateDiff(1, date1, date2)</i>は1を返します。それぞれの暦週の最初の日が1週間離れているためです。</p>
+                <p> ただし、週日を使用した<i>DateDiff(2, date1, date2)</i>は0を返します。<i>date1</i>と<i>date2</i>の間に木曜日がないためです。</p>
+                <h5 class="bold">パラメーター</h5>
+                <p>3つのパラメーターは以下のとおりです。</p>
+                <dl class="indented">
+                    <dt>Interval</dt><dd>目的の戻り値の単位を指定するコード。これらの値については、DateAdd関数で詳しく説明されています。</dd>
+                    <dt>date1</dt><dd>比較対象の2つの日付のうちの最初の日付。</dd>
+                    <dt>date2</dt><dd>比較対象の2つの日付のうちの2番目の日付。</dd>
+                </dl>
+                <h5 class="bold">例</h5>
+                <ul>
+                    <li>29/5/1968から26/5/1999までの週数を計算するには、DateDiff(1, MakeDate(29,5,1968), MakeDate(26,5,1999))を使用します。これは正しく1617を返します。</li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <p><u><i>DateAdd(interval, number,date)</i></u></p>
+            <div class="indented">
+                <p><b>日付、時間、または日時に間隔を追加するための推奨される方法は、時間間隔を追加することです。</b></p>
+                <p>たとえば、<em>MakeDate(26,5,1999) + MakeTimeSpan(3, 0, 0, 0)</em>は29/05/1999になります。</p>
+                <p>時間の場合、<em>MakeTime(12,30,0) + MakeTimeSpan(0, 1, 5, 3)</em>は13:35:03になります。</p>
+                <p>時期によって変化する可能性がある不定の時間間隔を追加する必要がある場合、DateAdd関数ではいくつかの有用な間隔を提供します。各タイプの間隔は、以下に示す番号によって表されます。</p>
+                <br/>
+                <table cellspacing="0" cellpadding="0" border="1">
+                    <tr>
+                        <td align="center"><b>Interval</b></td>
+                        <td align="center"><b>DateAdd</b></td>
+                        <td align="center"><b>DateDiff</b></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>年</td>
+                        <td>年</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>週</td>
+                        <td>年間通算週<em>（暦週）</em></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><em>（該当なし）</em></td>
+                        <td>週日<em>（週7日）</em></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><em>（該当なし）</em></td>
+                        <td>2番目</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>四半期</td>
+                        <td>四半期</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>月</td>
+                        <td>月</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><em>（該当なし）</em></td>
+                        <td>分</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td><em>（該当なし）</em></td>
+                        <td>時間</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td><em>（該当なし）</em></td>
+                        <td>年間通算日</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td><em>（該当なし）</em></td>
+                        <td>日</td>
+                    </tr>
+                </table>
+                <br/>
+                <p>表に示されているように、いくつかの間隔はDateAdd関数には適用できませんが、DateAdd関数とDateDiff関数に同じ番号セットを使用できるように選択されます。</p>
+                <p>たとえば、日付に月数を追加するには、間隔番号5を使用します。そのため、1999年5月26日に2か月を追加するには、<em>DateAdd(5, 2, MakeDate(26,5,1999))</em>を使用します。これは26/7/1999を正しく返します。</p>
+                <p>間隔は、間隔の量に負の値を使用して同様の方法で減算されます。つまり、<em>DateAdd(5, -2, MakeDate(26,5,1999))</em>は26/3/1999になります。</p>
+                <p>DateAdd関数は無効な日付を返しません。たとえば、DateAdd(5,1,MakeDate(31,1,2005))を使用して2005年1月31日に1か月を追加した場合、この関数は（存在しない31/02/2005ではなく）31/02/200を返します。</p>
+            </div>
+        </li>
+        <li>
+            <p><u><i>FormatDate (Date, DateFormat);</i></u></p>
+            <div class="indented">
+                <p>
+ この関数は、日付を目的の形式にフォーマットするため、または完全な日付からより小さな情報（曜日など）を抽出するために使用されます。
+                </p>
+
+                <h5 class="bold">パラメーター</h5>
+                <p>2つのパラメーターは以下のとおりです。</p>
+                <dl class="indented">
+                    <dt>Date</dt>
+                    <dd>テキスト値としてフォーマットされる日付値。</dd>
+                    <dt>Format</dt>
+                    <dd>
+ 目的の出力形式を指定するフォーマット文字列。
+ これは、標準の日付形式を示す1つの文字として、またはカスタムの日付形式を示す文字列として入力できます。
+                    </dd>
+                </dl>
+                <h5 class="bold">例</h5>
+                <ul>
+                    <li>FormatDate("02-11-2016", "D")は「02 November 2016」を返します。</li>
+                    <li>FormatDate("02 Nov 2016","d")は「2/11/2016」を返します。</li>
+                    <li>FormatDate("02-11-2016", "M")は「2 November」を返します。</li>
+                    <li>FormatDate("02-11-2016", "dddd")は「Wednesday」を返します。</li>
+                    <li>FormatDate("02/11/2016", "yyyy-MM-dd")は「2016-11-02」を返します。</li>
+                    <li>FormatDate("02/11/2016", "MMM dd, yyyy")は「Nov 02, 2016」を返します。</li>
+                </ul>
+                <h5 class="bold">フォーマット文字列</h5>
+                <ul>
+                    <li>
+ 標準の日時フォーマット文字列の一覧については、<a href="https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx</a>を参照してください。
+                    </li>
+                    <li>
+ カスタムの日時フォーマット文字列を作成する方法の詳細については、<a href="https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx</a>を参照してください。
+                    </li>
+               </ul>
+            </div>
+        </li>
+        <li>
+            <p><u><i>FormatDateTime (Date, DateFormat);</i></u></p>
+            <div class="indented">
+                <p>
+ この関数は、日時を目的の形式にフォーマットするため、または完全な日時からより小さな情報（曜日など）を抽出するために使用されます。
+                </p>
+
+                <h5 class="bold">パラメーター</h5>
+                <p>2つのパラメーターは以下のとおりです。</p>
+                <dl class="indented">
+                    <dt>Date</dt>
+                    <dd>テキスト値としてフォーマット設定される日時値。</dd>
+                    <dt>Format</dt>
+                    <dd>
+ 目的の出力形式を指定するフォーマット文字列。
+ これは、標準の日時形式を示す1つの文字として、またはカスタムの日時形式を示す文字列として入力できます。
+                    </dd>
+                </dl>
+                <h5 class="bold">例</h5>
+                <ul>
+                    <li>FormatDate("02-11-2016 09:23:43", "t")は「09:23」を返します。</li>
+                    <li>FormatDate("02 Nov 2016 09:23:43","F")は「02 November 2016 09:23:43」を返します。</li>
+                    <li>FormatDate("02-11-2016 21:23:43", "h:m tt")は「9:23 PM」を返します。</li>
+                    <li>FormatDate("02-11-2016 21:23:43", "dd/MM/yy HH:m:s")は「02/11/16 21:23:43」を返します。</li>
+                </ul>
+                <h5 class="bold">フォーマット文字列</h5>
+                <ul>
+                    <li>
+ 標準の日時フォーマット文字列の一覧については、<a href="https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx</a>を参照してください。
+                    </li>
+                    <li>
+ カスタムの日時フォーマット文字列を作成する方法の詳細については、<a href="https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx</a>を参照してください。
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <p><u><i>MakeDate (Day, Month, Year);</i></u></p>
+			<div class="indented">
+				<p>MakeDate(は、数字から日付を作成するために使用されます。</p>
+				
+				<h5 class="bold">パラメーター</h5>
+				<p>3つのパラメーターは以下のとおりです。</p>
+				<dl class="indented">
+					<dt>Day</dt><dd>使用する月の日。これは選択した月に関して有効でなければなりません。月が2（つまり2月）の場合、30は有効な値ではありません。</dd>
+					<dt>Month</dt><dd>目的の月の1から始まるインデックス（たとえば、4は4月に対応します）。13以上の値は指定できません。</dd>
+					<dt>Year</dt><dd>目的の年（2001など）。</dd>
+				</dl>
+
+				<h5 class="bold">2桁の年</h5>
+				<p>
+ 許容されていた古いプロセスとの互換性を確保するため、MakeDate関数は2桁の年を受け入れ、<i>2029ルール</i>を使用してそれらを解釈します。ただし、この機能を使用しないことを強く推奨します。必ず世紀を含む完全な年を指定してください。別のシステムから年を2桁で取得する場合は、<i>そのシステム</i>で使用されている規則を確認し、データを読み取ったらすぐにそれを適用してください。
+				</p>
+
+				<h5 class="bold">例</h5>
+				<ul>
+					<li>MakeDate(21,6,2005)は2005年6月21日の日付を返します。</li>
+					<li>MakeDate(21,6,1995)は1995年6月21日の日付を返します。</li>
+					<li>MakeDate(5,12,29)は2029年12月5日の日付を返します。</li>
+					<li>MakeDate(5,12,30)は1930年12月5日の日付を返します</li>
+				</ul>
+			
+				<h5 class="bold">ヒント</h5>
+				<p>
+ 現在のロケールに応じてあいまいな値を持つ「02/03/2007」（米国人はおそらくこの日付について英国人とは異なる解釈をします）などの文字列を使用する代わりに、MakeDate関数を使用して新しい日付を作成することを推奨します。
+				</p>
+            </div>
+        </li>
+
+        <li>
+            <p><u><i>Mid (string, startpoint, maxcharacters);</i></u></p>
+			<div class="indented">
+				<p>
+ Mid()は、長い文字列（文字のシーケンス）を、その文字列に含まれる短い文字列（部分文字列）に縮小するために使用されます。たとえば、Mid()を使用すると、文字列「Customer Name:John Smith」を部分文字列「John Smith」に縮小できます。パラメーター
+				</p>
+				
+				<h5 class="bold">3つのパラメーターは以下のとおりです。</h5>
+				<p>string</p>
+				<dl class="indented">
+					<dt>部分文字列が抽出される大きい文字列。</dt><dd>startpoint</dd>
+					<dt>目的の最初の文字の1から始まるインデックス。</dt><dd>maxcharacters</dd>
+					<dt>必要な最大文字数。</dt><dd>必要な最大文字数。関数の戻り値はこの文字数になります。ただし、大きい文字列が最初に終了する場合、この値は理論上の最大値になります。</dd>
+				</dl>
+				
+				<h5 class="bold">ヒント</h5>
+				<p>
+ ユーザー指定の最大長が指定された文字列の長さを超える場合、Blue Prismはこの長さを指定された文字列の長さに縮小します。そのため、あまりにも多くの文字を数えるのを避けるために最後の引数に大きい数を指定すると便利なことがよくあります。Mid("Customer Name:John Smith", 16, 100). 文字列「John」は、Mid("Customer Name:John Smith",16,4)を使用して取得できます。注意：引数は整数に丸められるため、Mid("abcdefg", 1.2, 1.8)は「ab」に評価されます。
+				</p>
+				
+				<h5 class="bold">例</h5>
+				<ul>
+					<li>Mid("Customer Name:John Smith", 16, 25) - 「John Smith」を返します。</li>
+				</ul>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Left (string, maxcharacters);</i></u></p>
+			<div class="indented">
+				<p>
+ Left()は、長い文字列の最初の数文字を返すために使用されます。
+				</p>
+				
+				<h5 class="bold">パラメーター</h5>
+				<p>2つのパラメーターは以下のとおりです。</p>
+				<dl class="indented">
+					<dt>string</dt><dd>部分文字列が抽出される大きい文字列。</dd>
+					<dt>maxcharacters</dt><dd>必要な最大文字数。関数の戻り値はこの文字数になります。ただし、大きい文字列が最初に終了する場合、この値は理論上の最大値になります。</dd>
+				</dl>
+				
+				<h5 class="bold">ヒント</h5>
+				<p>
+ maxcharactersの値が文字列内の文字数を超える（またはそれに等しい）場合、この関数は文字列を変更せずに返します。maxcharactersに指定する値は、必要に応じてゼロにする（空の文字列を返します）ことができますが、負の数にすることはできません。
+				</p>
+				
+				<h5 class="bold">例</h5>
+				<ul>
+					<li>Left("Blue Prism empowers business users to achieve more in less time", 10)は「Blue Prism」を返します。</li>
+				</ul>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Right (string, maxcharacters);</i></u></p>
+			<div class="indented">
+				<p>
+ Right()は、Left()とまったく同じように動作しますが、開始文字列ではなく（指定された長さの）終了文字列を返します。
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Len (string);</i></u></p>
+			<div class="indented">
+				<p>
+ Len()は、文字列内の文字数を返します。たとえば、Len("Blue Prism")は数値10を返します。
+				</p>
+            </div>
+        </li>
+
+        <li>
+            <p><u><i>Instr (string, substring);</i></u></p>
+            <div class="indented">
+				<p>
+ Instr()は、長いほうの文字列<i>string</i>に短いほうの文字列<i>substring</i>が含まれるかどうかをテストします。含まれる場合、Instr()は最初に出現する<i>substring</i>が見つかるまでの左からの文字数を返します。
+				</p>
+				
+				<h5 class="bold">パラメーター</h5>
+				<p>2つのパラメーターは以下のとおりです。</p>
+				<dl class="indented">
+					<dt>string</dt><dd>部分文字列が抽出される大きい文字列。</dd>
+					<dt>substring</dt><dd>長いほうの文字列に検出された短いほうの文字列です。</dd>
+				</dl>
+				
+				<h5 class="bold">例</h5>
+				<ul class="indented">
+					<li>Instr("Calculations are much faster with Blue Prism than with an abacus", "are")は14を返します。単語「are」が14番目の文字に最初に出現するからです。</li>
+				</ul>
+				
+				<h5 class="bold">ヒント</h5>
+				<p>
+ <i>string</i>に<i>substring</i>が見つからない場合、Instr()はゼロを返します。したがって、Instr（）は、大きいほうの文字列に小さいほうの文字列が存在するかどうかをテストするための便利な方法です（例：<i>Instr("Apples", "Bananas") &gt; 0</i>はFALSEを返します）。
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>AddDays (date, numDays);</i></u></p>
+			<div class="indented">
+				<p>
+ この関数は、選択された日付に特定の日数を追加します。
+				</p>
+				
+				<h5 class="bold">パラメーター</h5>
+				<p>2つのパラメーターは以下のとおりです。</p>
+				<dl class="indented">
+					<dt>date</dt><dd>日数を追加する日付。</dd>
+					<dt>numDays</dt><dd>追加する日数。</dd>
+				</dl>
+									
+				<h5 class="bold">例</h5>
+				<ul class="indented">
+					<li>AddDays("01/01/2006", 10)は日付「11/01/2006」を返します。</li>
+				</ul>
+				
+				<h5 class="bold">ヒント</h5>
+				<p>
+ DateAdd()と同様に、有効な日付だけが返されます。たとえば、うるう年では2月28日に1日を追加すると2月29日になりますが、それ以外の年では3月1日になります。
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>AddMonths (date, numMonths);</i></u></p>
+			<div class="indented">
+				<p>この関数は、選択された日付に特定の月数を追加します。</p>
+				
+				<h5 class="bold">パラメーター</h5>
+				<p>2つのパラメーターは以下のとおりです。</p>
+				<dl class="indented">
+					<dt>date</dt><dd>月を追加する日付。</dd>
+					<dt>numMonths</dt><dd>追加する月数。</dd>
+				</dl>
+				
+				<h5 class="bold">例</h5>
+				<ul class="indented">
+					<li>AddMonths("01/01/2006", 10)は日付「01/11/2006」を返します。</li>
+				</ul>
+				
+				<h5 class="bold">ヒント</h5>
+				<p>
+ DateAdd()と同様に、有効な日付だけが返されます。たとえば、AddMonths("31/01/2005",1)を使用して2005年1月31日に1か月を追加すると、「28/2/2005」が返されます（「31/02/2005」は存在しない日付であるため、返されません）。
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Now ();</i></u></p>
+			<div class="indented">
+            
+				<p>この関数は、現在の日時を<a href="helpDatatypes.htm">日時データアイテム</a>として返します。</p>
+			
+				<h5 class="bold">ヒント</h5>
+				<p>
+ 今日の日付を知りたいだけの場合は、代わりにToday()関数を使用することをお勧めします。
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Today ();</i></u></p>
+			<div class="indented">
+				<p>
+ この関数は、現在の<a href="helpDatatypes.htm">日付を日付データアイテム</a>として返します。
+				</p>
+				
+				<h5 class="bold">ヒント</h5>
+				<p>
+ 今日の日付と現在の時刻を知りたい場合は、代わりにNow()関数を使用することをお勧めします。
+				</p>
+            </div>
+        </li>
+
+        <li>
+            <p><u><i>DecPad (number, numplaces);</i></u></p>
+			<div class="indented">
+				<p>
+ この関数は、数値をテキストフォーマットで表します。これは、通貨を扱うとき、つまり1のような数字が「1.00」として表現されることが多いときに便利です。
+				</p>
+            
+				<h5 class="bold">パラメーター</h5>
+				<p>2つのパラメーターは以下のとおりです。</p>
+				<dl class="indented">
+					<dt>number</dt><dd>テキストとしてフォーマットされる数値。</dd>
+					<dt>numPlaces</dt><dd>必要な小数点以下最大桁数。</dd>
+				</dl>
+				
+				<h5 class="bold">例</h5>
+				<ul class="indented">
+					<li>DecPad(1.296,2)はテキスト「1.30」を返します。</li>
+					<li>DecPad(1.1111,2)はテキスト「1.11」を返します。</li>
+				</ul>
+				
+				<h5 class="bold">ヒント</h5>
+				<p>
+ 自然表現の小数点以下桁数が多すぎる場合は、適切な小数点以下桁数が削除され、数値が適切な精度に四捨五入されます。
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>RndDn (number, numplaces);</i></u></p>
+			<div class="indented">
+				<p>
+ この関数は、数値を指定された小数点以下桁数に切り捨てます。
+ 返される値のデータ型は数値です。
+				</p>
+				
+				<h5 class="bold">パラメーター</h5>
+				<p>2つのパラメーターは以下のとおりです。</p>
+				<dl class="indented">
+					<dt>number</dt><dd>四捨五入する数です。</dd>
+					<dt>numPlaces</dt><dd>必要な小数点以下最大桁数。</dd>
+				</dl>
+				
+				<h5 class="bold">例</h5>
+				<ul class="indented">
+					<li>RndDn(9.19996,3)は数値9.199を返します</li>
+					<li>RndDn(9.1345,2)は数値9.13を返します</li>
+					<li>RndDn(3.14159,10は3.14159を返します（数値は変更されません）。</li>
+				</ul>
+				
+				<h5 class="bold">ヒント</h5>
+				<p>
+ 数値がすでに目的の精度レベル内にある場合、その数値は変更されず、特には再フォーマットされません（DecPad関数を使用する場合と同様）。Round関数とRndUp関数も参照してください。
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>RndUp (number, numplaces);</i></u></p>
+			<div class="indented">
+				<p>この関数は、数値を指定された小数点以下桁数に切り上げます。RndDn()関数と同様に動作します。</p>
+				
+				<h5 class="bold">パラメーター</h5>
+				<p>2つのパラメーターは以下のとおりです。</p>
+				<dl class="indented">
+					<dt>number</dt><dd>四捨五入する数です。</dd>
+					<dt>numPlaces</dt><dd>必要な小数点以下最大桁数。</dd>
+				</dl>
+				
+				<h5 class="bold">例</h5>
+				<ul class="indented">
+					<li>RndDn(9.19996,3)は数値9.200を返します。</li>
+					<li>RndDn(9.1345,2は数値9.14を返します。</li>
+					<li>RndDn(3.14159,10は3.14159を返します（数値は変更されません）。</li>
+				</ul>
+				
+				<h5 class="bold">ヒント</h5>
+				<p>
+ 数値がすでに目的の精度レベル内にある場合、その数値は変更されず、特には再フォーマットされません（DecPad関数を使用する場合と同様）。Round関数とRndDn関数も参照してください。
+				</p>
+            </div>
+        </li>
+
+        <li>
+            <p><u><i>Round (number, numplaces);</i></u></p>
+			<div class="indented">
+				<p>
+ Round()関数では「端数処理」が行われます。つまり、小数点を含む数字は最も近い整数に切り上げまたは切り捨てられます（整数）。小数が2つの整数の中間に位置する場合、Round()関数では最も近い偶数に丸められます。
+				</p>
+				
+				<h5 class="bold">パラメーター</h5>
+				<p>2つのパラメーターは以下のとおりです。</p>
+				<dl class="indented">
+					<dt>number</dt><dd>四捨五入する数です。</dd>
+					<dt>numPlaces</dt><dd>必要な小数点以下最大桁数。</dd>
+				</dl>
+				
+				<h5 class="bold">例</h5>
+				<ul class="indented">
+					<li>Round(2.5,0)は数値2を返します</li>
+					<li>Round(3.5,0)は数値4を返します</li>
+					<li>Round(3.513, 1)は数値3.5を返します</li>
+					<li>Round(3.14159,10)は3.14159を返します（数値は変更されません）。</li>
+				</ul>
+				
+				<h5 class="bold">ヒント</h5>
+				<p>
+ 数値がすでに目的の精度レベル内にある場合、その数値は変更されず、特には再フォーマットされません（DecPad関数を使用する場合と同様）。RndUp関数とRndDn関数も参照してください。
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Sqrt (number);</i></u></p>
+			<div class="indented">
+				<p>この関数は、指定された数値の平方根を返します。数値の平方根は、それ自体を乗じたときに元の数になる一意の正数です。</p>
+            </div>
+            
+            <h5 class="bold">例</h5>
+			<ul class="indented">
+				<li>Sqrt(100)は数値10を返します。</li>
+				<li>Sqrt(2)は1.4142135623731を返します。</li>
+			</ul>	
+        </li>
+		
+		<li>
+            <p><u><i>Log (number, base);</i></u></p>
+			<div class="indented">
+				<p>数値の対数を指定された基数値に評価します。
+ 値がvで基数がbの場合、基数bに対するvの対数Log(v, b)は、「b<sup>x</sup> = vを満たす値xは何か」という問いに回答します。</p>
+
+            </div>
+            
+            <h5 class="bold">例</h5>
+			<ul class="indented">
+				<li>10<sup>3</sup> = 1000であるため、Log(1000, 10) = 3です。</li>
+				<li>2<sup>-2</sup> = 1/4であるため、Log(1/4, 2) = -2です。</li>
+			</ul>	
+        </li>
+
+        <li>
+            <p><u><i>Chr (keycode);</i></u></p>
+			<div class="indented">
+				<p>
+ この関数は、指定された<a href="helpASCII.htm">ASCIIコード</a>で表される文字を返します。
+				</p>
+				
+				<h5 class="bold">例</h5>
+				<ul class="indented">
+					<li>Chr(65)はテキスト「A」を返します。</li>
+				</ul>
+				
+				<h5 class="bold">ヒント</h5>
+				<p>
+ ASCIIコードの詳細については、外部の参考資料を参照してください。クイックガイドはBBlue Prismの<a href="helpASCII.htm">「ASCII」ページ</a>にあります。
+				</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Upper (string);</i></u></p>
+			<div class="indented">
+				<p>
+ この関数は、指定されたテキストの大文字表現を返します。指定されたテキスト内ですでに大文字である文字は変更されませんが、大文字ではない文字は変更されます。
+				</p>
+				
+				<h5 class="bold">例</h5>
+				<ul class="indented">
+					<li>Upper("software")はテキスト「SOFTWARE」を返します。</li>
+					<li>Upper("aBcDeFg"はテキスト「ABCDEFG」を返します。</li>
+				</ul>
+				
+				<h5 class="bold">ヒント</h5>
+				<p>
+ Lower()関数も参照してください。
+				</p>
+            </div>
+        </li>
+
+        <li>
+            <p><u><i>Lower (string);</i></u></p>
+			<div class="indented">
+				<p>
+ この関数は、指定されたテキストの小文字表現を返します。指定されたテキスト内ですでに小文字である文字は変更されませんが、小文字ではない文字は変更されます。
+				</p>
+				
+				<h5 class="bold">例</h5>
+				<ul class="indented">
+					<li>Lower("SOFTWARE")はテキスト「software」を返します。</li>
+					<li>Lower("aBcDeFg")はテキスト「abcdefg」を返します。</li>
+				</ul>
+				
+				<h5 class="bold">ヒント</h5>
+				<p>
+ Upper()関数も参照してください。
+				</p>
+            </div>
+        </li>
+    </ul>
+
+    <h3>定数</h3>
+
+    <p>テキストとパスワードは、<i>"This is my text"</i>のように、テキストを引用符で囲むことで表されます。</p>
+
+    <p>数値は、<em>5</em>や<em>1.2</em>などの簡単な数値を入力することによって表されます。</p>
+
+    <p>フラグは、<em>True</em>または<em>False</em>で表されます。</p>
+
+    <p>日付は、<em>dd/mm/yyyy</em>形式のテキスト表現として表されます（例：「12/03/2004」）。</p>
+
+    <h3>キャスティング</h3>
+
+    <p>キャスティングは、あるデータ型のエンティティが、別のデータ型が想定されている式に配置されたときに発生します。</p>
+
+    <p>キャスティングの例として、テキスト関数に数値を指定する場合があります。</p>
+
+    <p>Len(100)</p>
+
+    <p>100は自動的に「100」テキストにキャストされます。100は3文字なので、Length関数は「3」を返します。</p>
+</body>
+</html>

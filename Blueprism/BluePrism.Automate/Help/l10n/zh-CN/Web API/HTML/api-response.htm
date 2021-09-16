@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-gb" xml:lang="en-gb" data-mc-search-type="Stem" data-mc-help-system-file-name="Blue Prism Help.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>使用 JSONPath 提取响应数据</title>
+        <link type="text/css" href="../../AutomateHelp.css" rel="stylesheet"/>
+		<link href="../../TableStyles/bp_footer_tablestyle.css" rel="stylesheet"/>
+		<link href="../../TableStyles/bp-table-column-header.css" rel="stylesheet"/>
+        <link href="../../TableStyles/bp-table-row-header.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <h1 class="pagebreak"><a name="Extracti"></a>使用 JSONPath 提取响应数据</h1>
+        <p>当响应正文内容为 JSON 时，可以使用 JSONPath 将 JSON 的特定元素提取到输出参数中。输出参数具有指定的 Blue Prism 数据类型，而且使用 JSONPath 找到的对象将转换为该数据类型。此示例演示了如何从 JSON HTTP 响应中提取数据，并将其存储在流程的各个环节中。</p>
+        <h2>配置 API 定义响应</h2>
+        <p>API 定义返回以下 JSON 响应：</p>
+        <p><a href="../Images/api-response-eg.png"><img data-mc-width="604" data-mc-height="89" src="../Images/api-response-eg_thumb_0_128.png" tabindex=""/></a>
+        </p>
+        <p>要提取此数据，请为 API 定义中的所需操作选择响应。选择适当的数据类型和方法，为每个数据项添加一个参数。</p>
+        <p><a href="../Images/api-response-eg-parameters.png"><img data-mc-width="682" data-mc-height="109" src="../Images/api-response-eg-parameters_thumb_0_128.png" tabindex=""/></a>
+        </p>
+        <h2>在 Process Studio 中查看响应</h2>
+        <p>在 Process Studio 中，为使用为其配置响应的 Web API 操作的流程选择输出。系统已添加与添加到响应的参数名称对应的输出，并且已在流程中创建相关数据项以存储每个参数。</p>
+        <p><a href="../Images/api-response-eg-outputs.png"><img data-mc-width="802" data-mc-height="466" src="../Images/api-response-eg-outputs_thumb_0_128.png" tabindex=""/></a>
+        </p>
+        <p>运行流程时，响应中的数据存储在适当的环节中，因此可轻松用在流程的其他位置。</p>
+        <p><b>如果为输出参数定义的 JSONPath 在 HTTP 响应中找不到匹配项，则输出参数将返回空数据项/集合。</b></p>
+        <p><b>如果为输出参数定义的 JSONPath 在 HTTP 响应中找到多个可能的匹配项，则将在该流程中引发异常。</b></p>
+        <p>
+            <img src="../Images/api-response-eg-stages.png"/>
+        </p>
+        <h2 data-mc-conditions="Default.ScreenOnly">JSONPath 语法</h2>
+        <p data-mc-conditions="Default.ScreenOnly">Blue Prism 支持 JSONPath 表达式的以下语法：</p>
+        <table class="TableStyle-bp-table-row-header" style="mc-table-style: url('../../TableStyles/bp-table-row-header.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-bp-table-row-header-Column-Column1" data-mc-conditions="Default.ScreenOnly"/>
+            <col class="TableStyle-bp-table-row-header-Column-Column1" data-mc-conditions="Default.ScreenOnly"/>
+            <col class="TableStyle-bp-table-row-header-Column-Column1" data-mc-conditions="Default.ScreenOnly"/>
+            <thead>
+                <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                    <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                        <p data-mc-conditions="Default.ScreenOnly">JSONPath</p>
+                    </th>
+                    <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                        <p data-mc-conditions="Default.ScreenOnly">描述</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">$</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">根对象或元素。</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">@</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">当前对象或元素。</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">. 或 []</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">子运算符。</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">..</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">递归下降。</p>
+                    </td>
+                </tr>
+				<tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">*</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">通配符。</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">[]</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">原生数组运算符。</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">[start:end:step]</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">数组切片运算符。</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">?()</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">应用筛选器（脚本）表达式。</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">()</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">使用基础脚本引擎的脚本表达式。</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3 data-mc-conditions="Default.ScreenOnly">示例</h3>
+        <p data-mc-conditions="Default.ScreenOnly">某员工数据库包含许多记录，其中包括有关组织中员工的数据。</p>
+        <p class="code_sample" data-mc-conditions="Default.ScreenOnly">{ </p>
+		<p class="code_sample" style="text-indent: 0.25in;" data-mc-conditions="Default.ScreenOnly">staff-database:{</p>
+        <p class="code_sample" style="text-indent: 0.5in;" data-mc-conditions="Default.ScreenOnly">employee:[</p>
+        <p class="code_sample" style="text-indent: 1in;" data-mc-conditions="Default.ScreenOnly">{ </p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">id: 1245,</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">name: Geoff Bryant,</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">salary: 45000,</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">age: 46</p>
+        <p class="code_sample" style="text-indent: 1in;" data-mc-conditions="Default.ScreenOnly">},</p>
+        <p class="code_sample" style="text-indent: 1in;" data-mc-conditions="Default.ScreenOnly">{</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">id: 1365,</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">name: Tom Roberts,</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">salary: 38000,</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">job-title:developer</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">age: 34</p>
+        <p class="code_sample" style="text-indent: 1in;" data-mc-conditions="Default.ScreenOnly">},</p>
+        <p class="code_sample" style="text-indent: 1in;" data-mc-conditions="Default.ScreenOnly">{</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">id: 1287,</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">name: Herman Blunt,</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">salary: 27000,</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">job-title:tester</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">age: 26</p>
+        <p class="code_sample" style="text-indent: 1in;" data-mc-conditions="Default.ScreenOnly">},</p>
+		<p class="code_sample" style="text-indent: 0.5in;" data-mc-conditions="Default.ScreenOnly">]</p>
+        <p class="code_sample" style="text-indent: 0.25in;" data-mc-conditions="Default.ScreenOnly">}</p>
+        <p class="code_sample" data-mc-conditions="Default.ScreenOnly">}</p>
+        <p data-mc-conditions="Default.ScreenOnly">以下是如何使用 JSONPath 的示例 </p>
+        <table class="TableStyle-bp-table-row-header" style="mc-table-style: url('../TableStyles/bp-table-row-header.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-bp-table-row-header-Column-Column1" data-mc-conditions="Default.ScreenOnly"/>
+            <col class="TableStyle-bp-table-row-header-Column-Column1" data-mc-conditions="Default.ScreenOnly"/>
+            <thead>
+                <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                    <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                        <p data-mc-conditions="Default.ScreenOnly">JSONPath</p>
+                    </th>
+                    <th class="TableStyle-bp-table-row-header-HeadD-Column1-Header1">
+                        <p data-mc-conditions="Default.ScreenOnly">结果</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1" data-mc-conditions="Default.ScreenOnly">$.staff-database..salary</td>
+                    <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1" data-mc-conditions="Default.ScreenOnly">返回所有员工记录的薪金。</td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1" data-mc-conditions="Default.ScreenOnly">$.staff-database['employee']</td>
+                    <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1" data-mc-conditions="Default.ScreenOnly">返回所有员工记录。</td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1" data-mc-conditions="Default.ScreenOnly"> $..employee[?(@.job-title)]</td>
+                    <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1" data-mc-conditions="Default.ScreenOnly">筛选所有包含职务的记录。</td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1" data-mc-conditions="Default.ScreenOnly"> $..employee[?(@.salary&lt;40000)]</td>
+                    <td class="TableStyle-bp-table-row-header-BodyA-Column1-Body1" data-mc-conditions="Default.ScreenOnly">筛选所有薪金低于 40000 的记录。</td>
+                </tr>
+            </tbody>
+        </table>
+        <p> </p>
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../TableStyles/bp_footer_tablestyle.css');" class="TableStyle-bp_footer_tablestyle" cellspacing="0">
+            <col class="TableStyle-bp_footer_tablestyle-Column-Column1"/>
+            <tbody>
+                <tr class="TableStyle-bp_footer_tablestyle-Body-Body1">
+                    <td class="TableStyle-bp_footer_tablestyle-BodyD-Column1-Body1"> </td>
+                </tr>
+                <tr class="TableStyle-bp_footer_tablestyle-Body-Body1">
+                    <td style="text-align: center;" class="TableStyle-bp_footer_tablestyle-BodyD-Column1-Body1">机密商业信息</td>
+                </tr>
+                <tr class="TableStyle-bp_footer_tablestyle-Body-Body1">
+                    <td style="text-align: center;" class="TableStyle-bp_footer_tablestyle-BodyA-Column1-Body1">®Blue Prism 是 Blue Prism Limited 的注册商标</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

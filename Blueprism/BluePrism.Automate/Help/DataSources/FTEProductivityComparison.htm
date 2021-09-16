@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>Dashboards</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+		dl.import-rules dd>ul>li { margin-bottom: 1em; }
+		dl.import-rules dd>ul { padding-left: 1em; }
+	</style>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">Blue Prism</h1>
+		<h2>FTE Productivity Comparison</h2>
+	</div>
+
+  <h3>BPDS_FTEProductivityComparison</h3>
+  <p>Returns the number of cases completed over the specified period, optionally compared
+  against metrics representing a human workforce. Note that parameter values are required
+  to enable comparisons to be made. Data is only returned for completed days (i.e. cases
+  completed after the the MI statistics were last compiled are not included).</p>
+  <p><b>Source:</b> Blue Prism Database – Live tables and MI Repository (requires compiling
+  of MI statistics to be enabled)</p>
+  
+  <h3>Sample Chart</h3>
+  <img alt="FTE Productivity Comparison"	src="Graphics/tile-FTEProductivityComparison.png"/>
+			
+  <h3>Parameters</h3>
+  <table>
+    <tr>
+      <th>Parameter Name</th>
+      <th>Data Type</th>
+      <th>Description</th>
+      <th>Validation</th>
+    </tr>
+    <tr>
+      <td>@BPQueueName</td>
+      <td>Text</td>
+      <td>The name of an individual queue to be queried (if not specified all queues will be queried)</td>
+      <td>None.</td>
+    </tr>
+    <tr>
+      <td>@NumberOfMonths</td>
+      <td>Integer</td>
+      <td>Reporting period in months (if not specified the number of months is 6)</td>
+      <td>Max. 12 months</td>
+    </tr>
+    <tr>
+      <td>@FTEProductivity</td>
+      <td>Decimal</td>
+      <td><p>Represents the daily productivity of one FTE for comparison (i.e. the average number
+          of cases one FTE would work in a day). If not specified then the volume of completed
+          cases is returned</p></td>
+      <td>None.</td>
+    </tr>
+    <tr>
+      <td>@FTECost</td>
+      <td>Decimal</td>
+      <td><p>Only applicable if @FTEProductivity has been specified, represents the fully loaded
+          daily cost of one FTE for comparison</p></td>
+      <td>None.</td>
+    </tr>
+    <tr>
+      <td>@DisplayAs</td>
+      <td>Text</td>
+      <td><p>Only applicable if @FTEProductivity has been specified, possible values are:</p>
+          <ul>
+            <li><b>Percentage</b> – values are returned as a percentage of FTE productivity</li>
+            <li><b>Number</b> – values are returned as the number of equivalent FTEs</li>
+            <li><b>Cost</b> – values are returned as cost savings based on the equivalent number of FTEs (requires a values for @FTECost)</li>
+          </ul>
+          <p>If not specified values are returned as a percentage of FTE productivity</p></td>
+      <td>Percentage, Number or Cost</td>
+    </tr>
+  </table>
+  
+</body>
+</html>

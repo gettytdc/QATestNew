@@ -1,0 +1,314 @@
+﻿<process name="Test Blue Prism Process Studio Toolbar" version="1.0" bpversion="6.3.0.5548" narrative="Tests the toolbar by creating one of each stage type. Guards against regression of bug 3315." byrefcollection="true" preferredid="574ec757-0229-4cdc-b436-1a492400fb5c">
+  <view>
+    <camerax>98</camerax>
+    <cameray>30</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="5e1ed07d-3108-4f18-a6f0-d8cf241d7502" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>39d930a9-01e3-4963-bc8b-323d1e38d375</onsuccess>
+  </stage>
+  <stage stageid="eaa38038-b860-4ba1-b27e-678e0908eddb" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>495</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="9006659a-7b35-43ee-99ad-1c3ddba70662" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="a01674a6-e987-4be2-a3c5-ded09ab78626" name="Login" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" expr="&quot;admin&quot;" />
+      <input type="password" name="Password" expr="&quot;admin&quot;" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>fa672b0e-25d8-455a-9037-674859daa131</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="4311656d-70c6-4e1e-a8f8-56fc8bccef40" name="Create New Process" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Process Name" expr="[Name of Test Process]" />
+      <input type="text" name="Process Description" expr="&quot;asdf&quot;" />
+      <input type="flag" name="Open On Creation?" narrative="Do you want the process to open on create? This will default to yes." expr="" />
+      <input type="text" name="Group To Select" narrative="Group the process will be contained within" expr="" />
+    </inputs>
+    <onsuccess>1617d60c-6fc1-4c49-b6ea-424b15335759</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Create Process" />
+  </stage>
+  <stage stageid="a5f930ee-8fde-450f-ae34-26a1cdcc2c2e" name="Do Toolbar Test" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>255</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Process Studio Window Title" expr="&quot;Process Studio  - Edit - &quot; &amp; [Name of Test Process]" />
+    </inputs>
+    <onsuccess>4dbc4a74-99fe-4042-bb89-238113bc521b</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Test Process Studio Toolbar" />
+  </stage>
+  <stage stageid="5a1d3aa4-8223-4ae2-b554-9671452ef4e8" name="Name of Test Process" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Test Toolbar</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fd5b121f-e003-42f8-ab85-32c2ca7d2284" name="Exit Application" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>435</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>eaa38038-b860-4ba1-b27e-678e0908eddb</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="39d930a9-01e3-4963-bc8b-323d1e38d375" name="Launch Blue Prism" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>273dfefe-5227-438a-8d57-0b72cfdaa7ad</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="273dfefe-5227-438a-8d57-0b72cfdaa7ad" name="Attach Studio" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>a01674a6-e987-4be2-a3c5-ded09ab78626</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="39d05d17-be53-41d2-a527-8f9338647cfc" name="pid" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fa672b0e-25d8-455a-9037-674859daa131" name="Go To Studio" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>4311656d-70c6-4e1e-a8f8-56fc8bccef40</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="5045633b-ef4e-4814-b4a0-996502708954" name="Block1" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>315</displaywidth>
+    <displayheight>510</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="8a401883-3324-4ee3-a861-e36b710e6db9" name="Exception Detail" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8fd9d4fa-2e62-4761-9a94-d9f3e9874da8" name="Recover1" type="Recover">
+    <narrative>
+    </narrative>
+    <displayx>225</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>053214c5-ee5f-4999-8b2a-9956b6fdf77a</onsuccess>
+  </stage>
+  <stage stageid="053214c5-ee5f-4999-8b2a-9956b6fdf77a" name="record exception detail into data item" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>7ae093b0-dc2d-480b-90be-b31cae7a4cc2</onsuccess>
+    <calculation expression="ExceptionDetail()" stage="Exception Detail" />
+  </stage>
+  <stage stageid="7ae093b0-dc2d-480b-90be-b31cae7a4cc2" name="Resume1" type="Resume">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>4ddf12e9-7622-46b4-b4d4-6fa2d4dba1b3</onsuccess>
+  </stage>
+  <stage stageid="0c9230b7-c4c1-495d-b6b8-9d1ade1439ed" name="Reason for failure" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="Info" detail="[Exception Detail]" />
+  </stage>
+  <stage stageid="4ddf12e9-7622-46b4-b4d4-6fa2d4dba1b3" name="Exit Application" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>0c9230b7-c4c1-495d-b6b8-9d1ade1439ed</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="b17786fd-6897-499e-bd9a-3fb78937fe8e" name="Open process" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Process Name" expr="[Name of Test Process]" />
+      <input type="text" name="Folder to Select" expr="&quot;Default&quot;" />
+      <input type="number" name="MatchIndex" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Access Warning" narrative="Access warning when opening member" stage="" />
+    </outputs>
+    <onsuccess>a5f930ee-8fde-450f-ae34-26a1cdcc2c2e</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Process" />
+  </stage>
+  <stage stageid="1617d60c-6fc1-4c49-b6ea-424b15335759" name="Go To Home" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>de25de54-2b60-4877-a8cd-241a28329564</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="de25de54-2b60-4877-a8cd-241a28329564" name="Go To Studio" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>b17786fd-6897-499e-bd9a-3fb78937fe8e</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="03abd269-117c-44f3-a281-bd098dd0e3c6" name="Deleting Process" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>375</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Process Name" narrative="The name of the process you want to delete." expr="[Name of Test Process]" />
+      <input type="text" name="Deletion Reason" narrative="The reason you wish to delete the process." expr="" />
+      <input type="text" name="Group to Expand" narrative="Group containing the process" expr="" />
+    </inputs>
+    <onsuccess>fd5b121f-e003-42f8-ab85-32c2ca7d2284</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Delete Process" />
+  </stage>
+  <stage stageid="4dbc4a74-99fe-4042-bb89-238113bc521b" name="Close window" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>300</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>03abd269-117c-44f3-a281-bd098dd0e3c6</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+</process>

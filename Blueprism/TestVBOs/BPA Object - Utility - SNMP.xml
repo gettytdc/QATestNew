@@ -1,0 +1,403 @@
+﻿<process name="Utility - SNMP" version="5.0.999.999" narrative="Provides simple SNMP functionality." type="object" runmode="Exclusive" preferredid="d335fe0c-02d4-4cf0-b4d0-f3e0d18d0580">
+  <appdef>
+    <element name="Application Root">
+      <type>Application</type>
+      <id>5909054f-d2b4-4436-b1e1-8a94e6a193e5</id>
+      <datatype>unknown</datatype>
+      <diagnose>False</diagnose>
+    </element>
+  </appdef>
+  <view>
+    <camerax>0</camerax>
+    <cameray>0</cameray>
+    <zoom>1</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="3fb48d2b-58be-4330-ba7b-48f49eedf757" type="CleanUp" published="True">
+    <name>Clean Up</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom>1</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="2f7df22a-7cf4-4ad2-9969-23abea339966" type="Normal" published="True">
+    <name>Send Trap</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom>1</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="017d9a8b-a445-4567-b2a4-e2307892ccc4" name="Start" type="Start">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>5cb6c656-3a92-4efa-a08a-a821caac6010</onsuccess>
+  </stage>
+  <stage stageid="5cb6c656-3a92-4efa-a08a-a821caac6010" name="End" type="End">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="84745fe6-951f-4137-80cb-24ae770bfa6b" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <references>
+      <reference>System.Data.dll</reference>
+      <reference>System.Xml.dll</reference>
+      <reference>System.Drawing.dll</reference>
+    </references>
+    <imports>
+      <import>System</import>
+      <import>System.Drawing</import>
+      <import>System.Net</import>
+      <import>System.Collections.Generic</import>
+      <import>System.Net.Sockets</import>
+      <import>System.Text</import>
+    </imports>
+    <language>visualbasic</language>
+    <globalcode><![CDATA[
+
+]]></globalcode>
+    <code><![CDATA[
+	Private Enum DataType
+        Integer32 = 2
+        DisplayString = 3
+        OctetString = 4
+        ObjectIdentifier = 6
+        Sequence = &H30
+        IPAddress = &H40
+        TimeTicks = &H43
+        NetworkAddress = &H45
+        TrapV1Pdu = &HA4
+	End Enum
+
+
+	Private Function GetLengthInBytes(length As Integer) As List(Of Byte)
+		Dim data As New List(Of Byte)
+        Dim len As Integer = length
+		data.Add(len And &HFF)
+		len = len >> 8
+		While len <> 0
+			data.Add(len And &HFF)
+			len = len >> 8
+		End While
+		If length >= &H80 OrElse data.Count >1 Then
+			data.Insert(0, data.Count Or &H80)
+		End If
+		Return data
+	End Function
+
+
+	Private Function GetTrapMessageData(message As String, genericStatus As Integer) As List(Of Byte)
+
+		Dim data As New List(Of Byte)
+
+		Dim header() As Byte = {&H02,&H01,&H00,&H04,&H06,&H70,&H75,&H62,&H6C,&H69,&H63}
+		data.AddRange(header)
+
+		AddTrapPDU(data, message, genericStatus)
+
+		data.InsertRange(0, GetLengthInBytes(data.Count))
+		data.Insert(0, DataType.Sequence)
+
+		Return data
+
+	End Function
+
+
+	Private Sub AddTrapPDU(data As List(Of Byte), message As String, genericStatus As Integer)
+
+		Dim idata As New List(Of Byte)
+		AddTrapSourceOID(idata)
+		AddTrapSourceIP(idata)
+		AddTrapStatus(idata, genericStatus)
+		AddTrapStatus(idata, 0)
+		AddTrapTimeSinceLastTrap(idata)
+		AddTrapVariables(idata, message)
+
+		idata.InsertRange(0, GetLengthInBytes(idata.Count))
+		idata.Insert(0, DataType.TrapV1Pdu)
+
+		data.AddRange(idata)
+
+	End Sub
+
+	
+	Private Sub AddTrapSourceOID(data As List(Of Byte))
+
+		Dim privateEnt() As Byte = {&H2B,6,1,4,1}
+		data.Add(DataType.ObjectIdentifier)
+		data.AddRange(GetLengthInBytes(privateEnt.Length))
+		data.AddRange(privateEnt)
+
+	End Sub
+
+
+	Private Sub AddTrapSourceIP(data As List(Of Byte))
+
+		data.Add(DataType.IPAddress)
+		data.Add(4)
+		Dim ip() As Byte = {0,0,0,0}
+		data.AddRange(ip)
+
+	End Sub
+
+
+	Private Sub AddTrapStatus(data As List(Of Byte), status As Integer)
+
+		data.Add(DataType.Integer32)
+		data.Add(1)
+		data.Add(status)
+
+	End Sub
+
+	
+	Private Sub AddTrapTimeSinceLastTrap(data As List(Of Byte))
+
+		data.Add(DataType.TimeTicks)
+		data.Add(1)
+		data.Add(0)
+
+	End Sub
+
+
+	Private Sub AddTrapVariables(data As List(Of Byte),message As String)
+
+		Dim idata As New List(Of Byte)
+		AddTrapMessage(idata, message)
+		idata.InsertRange(0, GetLengthInBytes(idata.Count))
+		idata.Insert(0, DataType.Sequence)
+
+		data.AddRange(idata)
+
+	End Sub
+
+      
+	Private Sub AddTrapMessage(data As List(Of Byte),message As String)
+
+		Dim idata As New List(Of Byte)
+
+		idata.Add(DataType.ObjectIdentifier)
+		Dim messageOID() As Byte = {&H2B,6,1,2,1,1,1}
+		idata.AddRange(GetLengthInBytes(messageOID.Length))
+		idata.AddRange(messageOID)
+
+		idata.Add(DataType.OctetString)
+		Dim b As Byte() = Encoding.ASCII.GetBytes(message)
+		idata.AddRange(GetLengthInBytes(b.Length))
+		idata.AddRange(b)
+
+		idata.InsertRange(0, GetLengthInBytes(idata.Count))
+		idata.Insert(0, DataType.Sequence)
+
+		data.AddRange(idata)
+
+	End Sub]]></code>
+  </stage>
+  <stage stageid="a126d3af-9c4b-49d4-9501-914e795bbe08" name="Clean Up" type="SubSheetInfo">
+    <subsheetid>3fb48d2b-58be-4330-ba7b-48f49eedf757</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="2aa58224-136e-4e23-abff-d246a04ca7cc" name="Start" type="Start">
+    <subsheetid>3fb48d2b-58be-4330-ba7b-48f49eedf757</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>faa74a13-06c1-4dfd-99ac-3f18ed793f39</onsuccess>
+  </stage>
+  <stage stageid="faa74a13-06c1-4dfd-99ac-3f18ed793f39" name="End" type="End">
+    <subsheetid>3fb48d2b-58be-4330-ba7b-48f49eedf757</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="f96a5c4e-47a7-4c5a-9c6a-3c0be0b50429" name="Send Trap" type="SubSheetInfo">
+    <subsheetid>2f7df22a-7cf4-4ad2-9969-23abea339966</subsheetid>
+    <narrative>Send an SNMP trap. The SNMP 'GenericStatus' will always be 'EnterpriseSpecific'.</narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="eb72d625-dbff-4902-b404-6cb3035a69d4" name="Start" type="Start">
+    <subsheetid>2f7df22a-7cf4-4ad2-9969-23abea339966</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="To" narrative="Host to send to" stage="To" />
+      <input type="number" name="Port" narrative="The port to send to" stage="Port" />
+      <input type="text" name="Message" narrative="The message text" stage="Message" />
+    </inputs>
+    <onsuccess>7a5b67e5-4bb5-4378-9244-10c3192a35d0</onsuccess>
+  </stage>
+  <stage stageid="1598197e-2bff-4e45-b3a5-1e3f146e6e55" name="End" type="End">
+    <subsheetid>2f7df22a-7cf4-4ad2-9969-23abea339966</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="flag" name="Sent" narrative="True if the message was sent successfully" stage="Sent" />
+    </outputs>
+  </stage>
+  <stage stageid="895c4d87-130b-4bc3-899b-dd7a519e31cf" name="new" type="Note">
+    <subsheetid>3fb48d2b-58be-4330-ba7b-48f49eedf757</subsheetid>
+    <narrative>Clean Up Page
+
+This is an optional page where you might choose to perform some finalisation (or "cleanup") tasks as your business object is closed down.
+
+The cleanup action will be called automatically immediately after closing your business object at the end of a business process.
+
+You will not be able to call this action from a business process, nor will it be called at any other time than before the disposal of the business object.</narrative>
+    <displayx>-180</displayx>
+    <displayy>60</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>230</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="619f125f-1808-4d1c-9a9a-706a44ad0e37" name="new" type="Note">
+    <narrative>Initialise Page
+
+This is an optional page where you might choose to perform some initialisation tasks after your business object is loaded.
+
+The initialise action will be called automatically immediately after loading your business object.
+
+You will not be able to call this action from a business process, nor will it be called at any other time than after the creation of the object.</narrative>
+    <displayx>-180</displayx>
+    <displayy>60</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>230</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="95d50e72-e8e7-4a88-bdc8-b2053750f55b" name="To" type="Data">
+    <subsheetid>2f7df22a-7cf4-4ad2-9969-23abea339966</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="da0db26e-4f3e-406c-864f-cfa428f1d7d9" name="Port" type="Data">
+    <subsheetid>2f7df22a-7cf4-4ad2-9969-23abea339966</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="dbd687c0-8a1b-4d8a-b11f-2786b5500f5c" name="Message" type="Data">
+    <subsheetid>2f7df22a-7cf4-4ad2-9969-23abea339966</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7a5b67e5-4bb5-4378-9244-10c3192a35d0" name="Send" type="Code">
+    <subsheetid>2f7df22a-7cf4-4ad2-9969-23abea339966</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="To" expr="[To]" />
+      <input type="number" name="Port" expr="[Port]" />
+      <input type="text" name="Message" expr="[Message]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Sent" stage="Sent" />
+    </outputs>
+    <onsuccess>1598197e-2bff-4e45-b3a5-1e3f146e6e55</onsuccess>
+    <code><![CDATA[
+	Try
+		Dim client As New UDPClient([To], CInt(Port))
+		Dim data As List(Of Byte)
+		data = GetTrapMessageData(Message, 6)
+		client.Send(data.ToArray(), data.Count())
+		Sent = True
+	Catch ex As Exception
+		Sent = False
+	End Try]]></code>
+  </stage>
+  <stage stageid="36cfb001-b446-4f97-8a57-47ea0c86bc85" name="Sent" type="Data">
+    <subsheetid>2f7df22a-7cf4-4ad2-9969-23abea339966</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+</process>

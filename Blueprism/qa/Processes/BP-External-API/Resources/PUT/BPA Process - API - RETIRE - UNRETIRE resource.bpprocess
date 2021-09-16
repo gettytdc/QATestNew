@@ -1,0 +1,1222 @@
+﻿<process name="API - RETIRE - UNRETIRE resource" version="1.0" bpversion="7.0.0.39810" narrative="" byrefcollection="true" preferredid="8df40a3d-e4b8-4756-b314-080509dd4bf8">
+  <view>
+    <camerax>-26</camerax>
+    <cameray>135</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="3d3201bf-0cf2-4737-9959-f6f062d4f77a" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>-26</camerax>
+      <cameray>795</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="2b78e5c1-5bfb-4864-a1c6-aab2329c2454" type="Normal" published="False">
+    <name>Retire Resource</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>390</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="eca67e7e-2d4f-4768-81ac-6651937e293f" type="Normal" published="False">
+    <name>Ensure Resource is Retired</name>
+    <view>
+      <camerax>-60</camerax>
+      <cameray>435</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="15f16d37-8c5e-4888-90e4-7339a178ebf8" type="Normal" published="False">
+    <name>Un-Retire Resource</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>390</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="f5044d80-645b-4697-981b-c2294e8dda02" type="Normal" published="False">
+    <name>Ensure Resource is Un-Retired</name>
+    <view>
+      <camerax>-60</camerax>
+      <cameray>435</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="30565578-dc36-413c-a044-f8f1ff611836" name="Start" type="Start">
+    <display x="60" y="-345" />
+    <onsuccess>761da975-0485-4ab6-880a-32a5a5f85cd7</onsuccess>
+  </stage>
+  <stage stageid="4092daea-9958-43ad-8f16-409f7dd738d3" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-315" w="150" h="90" />
+  </stage>
+  <stage stageid="e62501cb-0cc9-4fb5-9ec1-954c6d964bbb" name="End1" type="End">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="345" />
+  </stage>
+  <stage stageid="ebf55df1-944b-4cd8-a1f6-03a899526a2e" name="Cleanup Block" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="-315" w="465" h="540" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="5a138af1-eec2-4ff2-96e0-024fd5719cfa" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-255" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d7d8fe93-db23-4dc8-b87c-cfd02504a7f5" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-225" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4c38b119-ac10-4318-a862-a5c58d6bc86b" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-195" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5f282bdb-0fc9-4bff-ae08-a6ba9630f383" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="300" y="15" w="90" h="30" />
+    <onsuccess>c895f115-6541-423a-afb8-f901f75edd15</onsuccess>
+  </stage>
+  <stage stageid="16b658ca-581e-44f5-b71f-99c2f0126c09" name="Get Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="300" y="-30" w="90" h="30" />
+    <onsuccess>5f282bdb-0fc9-4bff-ae08-a6ba9630f383</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="44f212aa-8c53-4b18-a0e2-0ba20f6431bb" name="Failed?" type="Decision">
+    <display x="60" y="300" w="150" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>c389f47b-829f-4bd1-8b5f-c7b4874fcf49</ontrue>
+    <onfalse>e62501cb-0cc9-4fb5-9ec1-954c6d964bbb</onfalse>
+  </stage>
+  <stage stageid="c389f47b-829f-4bd1-8b5f-c7b4874fcf49" name="RETHROW" type="Exception">
+    <display x="180" y="300" />
+    <exception localized="yes" type="Test Fail" detail="[Exception]" />
+  </stage>
+  <stage stageid="c895f115-6541-423a-afb8-f901f75edd15" name="Anchor31" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="300" y="255" w="10" h="10" />
+    <onsuccess>4262cbfb-a61d-45ea-8c5a-e51239509a21</onsuccess>
+  </stage>
+  <stage stageid="10943683-d47a-45f2-916e-d2c36059dae3" name="Setup" type="SubSheetInfo">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="-135" y="-195" w="150" h="90" />
+  </stage>
+  <stage stageid="5d4236db-ae60-4cf9-aef8-8fd0d304be60" name="Resources" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-15" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="761da975-0485-4ab6-880a-32a5a5f85cd7" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="-285" w="300" h="30" />
+    <onsuccess>e6d5a6bb-45d4-41a5-a2f5-8e5a12f3b2fd</onsuccess>
+    <processid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</processid>
+  </stage>
+  <stage stageid="e6d5a6bb-45d4-41a5-a2f5-8e5a12f3b2fd" name="Note1" type="Note">
+    <narrative>GIVEN I push a RETIRE resources request to the Blue Prism API
+WHEN the resource ID exists and the resource is not already retired
+THEN the resource will be successfully retired and the correct API reponse is returned</narrative>
+    <display x="60" y="-225" w="300" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>f5692707-9fa2-4865-9de0-49e7c552e91f</onsuccess>
+  </stage>
+  <stage stageid="1f0e2b55-344e-4607-9128-a9134259a661" name="Response Content" type="Data">
+    <display x="-195" y="-90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0665bddd-21c5-4680-b565-cf4bdbcb7add" name="HTTP Status Code" type="Data">
+    <display x="-195" y="-120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="102cb6ba-9e17-4bed-9990-814570f5aff6" name="Result Collection" type="Collection">
+    <display x="-195" y="-60" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="JSON:Array" type="collection">
+        <field name="name" type="text" />
+        <field name="attributes" type="collection" />
+        <field name="id" type="text" />
+        <field name="poolId" type="text" />
+        <field name="activeSessionCount" type="number" />
+        <field name="warningSessionCount" type="number" />
+        <field name="pendingSessionCount" type="number" />
+        <field name="databaseStatus" type="text" />
+        <field name="displayStatus" type="text" />
+        <field name="poolName" type="text" />
+        <field name="groupId" type="text" />
+        <field name="groupName" type="text" />
+      </field>
+    </collectioninfo>
+  </stage>
+  <stage stageid="3b38b17a-4fa6-468a-988e-f3ee1e702f59" name="API Response Data" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-150" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="bbcc12d2-91af-43f9-bba4-1f7f4cb9823f" name="pid" type="Data">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="-135" y="-105" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9e05b340-1832-4fcf-8a4a-27549567c446" name="Local Variable" type="Block">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-135" w="150" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="1db3331e-6d3a-4413-870b-ba28554111a3" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="300" y="-75" w="90" h="30" />
+    <onsuccess>16b658ca-581e-44f5-b71f-99c2f0126c09</onsuccess>
+  </stage>
+  <stage stageid="3c907437-0fc0-488b-bdb4-ab12714691f0" name="Resource Manager: Start Resource" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="SSO" friendlyname="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="&quot;False&quot;" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="" />
+      <input type="password" name="Password" friendlyname="Password" narrative="The password to use for the resource. Only used if Username is given" expr="" />
+      <input type="number" name="Port" friendlyname="Port" narrative="The port number on which the resource PC should listen" expr="[Port]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" friendlyname="Process ID" narrative="The PID of the newly created process" stage="Resource Process ID" />
+    </outputs>
+    <onsuccess>449b64d5-5a27-48cb-9cd0-4cb19ff0fc78</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+  <stage stageid="449b64d5-5a27-48cb-9cd0-4cb19ff0fc78" name="Get Resource Name" type="Calculation">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="15" y="165" w="90" h="30" />
+    <onsuccess>57279ff5-7b66-48cd-a45b-fec690fa8a18</onsuccess>
+    <calculation expression="Replace(GetResourceName(), &quot;_debug&quot;, &quot;&quot;) &amp; &quot;:&quot; &amp; [Port]" stage="Resource Name" />
+  </stage>
+  <stage stageid="d6aad6c5-7237-4d76-a8c4-0f3f59e7eb69" name="Resource Process ID" type="Data">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="-135" y="-75" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="33157784-40a5-474b-9182-3b1c0624ac29" name="Port" type="Data">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-135" y="-45" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>2500</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="f5692707-9fa2-4865-9de0-49e7c552e91f" name="Retire Resource" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="-165" w="300" h="30" />
+    <onsuccess>bdfa772a-381f-49c6-ad1a-3885695c7c4f</onsuccess>
+    <processid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</processid>
+  </stage>
+  <stage stageid="96689631-bcf8-469f-93c2-62e00dfe2e3a" name="Un-Retire Reource" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="75" w="300" h="30" />
+    <onsuccess>40f0a7ff-a8f3-41bd-8ccd-d13b5d018888</onsuccess>
+    <processid>15f16d37-8c5e-4888-90e4-7339a178ebf8</processid>
+  </stage>
+  <stage stageid="7f26ccb9-ab77-4eb7-ac77-7a6286583fac" name="Retire Resource" type="SubSheetInfo">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="2ea7ff9c-db78-4582-b187-b75208729469" name="Start" type="Start">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>6959ef05-39aa-4175-9c12-a04401915068</onsuccess>
+  </stage>
+  <stage stageid="5248be07-468d-411b-b87f-148ef863b64c" name="Un-Retire Resource" type="SubSheetInfo">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="b137cd15-f253-4300-80db-2b740b333be0" name="Resource ID" type="Data">
+    <display x="-195" y="45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="686abf65-d452-42d5-9fb1-41ae6e41d136" name="Convert Response to Collection" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="705" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Default Result Collection" />
+    </outputs>
+    <onsuccess>4b4e6a96-1feb-4d98-9d53-6719d7409b2d</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="00760941-3aff-44cc-b245-7ffd1c7c8c26" name="Get Resources" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="585" w="90" h="30" />
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>686abf65-d452-42d5-9fb1-41ae6e41d136</onsuccess>
+    <resource object="Blue Prism - API - Resources" action="GET Resources" />
+  </stage>
+  <stage stageid="e873569f-f876-41cd-aa2e-49b01856070a" name="End" type="End">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="15" y="1035" />
+  </stage>
+  <stage stageid="6ee90974-b6e7-49bc-971a-2b2a075ff663" name="Request Result" type="LoopStart">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="795" w="90" h="30" />
+    <onsuccess>51bda246-54af-4a6b-b6cc-3f9272172f4e</onsuccess>
+    <groupid>3deb3ab4-25da-4996-b205-0d8a2b7b6be2</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection</loopdata>
+  </stage>
+  <stage stageid="c93ca470-12c7-4fc5-8273-c85e71b88473" name="Request Result" type="LoopEnd">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="975" w="90" h="30" />
+    <onsuccess>adfcad57-d5de-4294-9e5f-305d354fc415</onsuccess>
+    <groupid>3deb3ab4-25da-4996-b205-0d8a2b7b6be2</groupid>
+  </stage>
+  <stage stageid="51bda246-54af-4a6b-b6cc-3f9272172f4e" name="Resources Data" type="LoopStart">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="840" w="90" h="30" />
+    <onsuccess>5ddfe3d5-b43c-4979-b07f-6bab749da441</onsuccess>
+    <groupid>9fd0529b-ed89-4124-9cd7-a846b4bb6e72</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection.JSON:Array</loopdata>
+  </stage>
+  <stage stageid="7253f22d-21c7-419e-8979-bdcbe4e2d90d" name="Resources Data" type="LoopEnd">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="930" w="90" h="30" />
+    <onsuccess>c93ca470-12c7-4fc5-8273-c85e71b88473</onsuccess>
+    <groupid>9fd0529b-ed89-4124-9cd7-a846b4bb6e72</groupid>
+  </stage>
+  <stage stageid="5ddfe3d5-b43c-4979-b07f-6bab749da441" name="Check resource name  is returned" type="Decision">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="15" y="885" w="90" h="30" />
+    <decision expression="[Result Collection.JSON:Array.name]=[Resource Name]" />
+    <ontrue>1107d11e-1d2d-4b41-882c-04a98dcb963a</ontrue>
+    <onfalse>7253f22d-21c7-419e-8979-bdcbe4e2d90d</onfalse>
+  </stage>
+  <stage stageid="adfcad57-d5de-4294-9e5f-305d354fc415" name="Resource Not Found" type="Exception">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="90" y="975" w="30" h="30" />
+    <exception localized="yes" type="FAILED" detail="&quot;The Expected Resource, &quot;&amp;[Resource Name]&amp;&quot; was not returned, the following is the full response content &quot;&amp; [Response Content]" />
+  </stage>
+  <stage stageid="cfa2ce2a-8b6f-46e5-a2dc-95fa554b9cab" name="Anchor19" type="Anchor">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="150" y="1035" w="10" h="10" />
+    <onsuccess>e873569f-f876-41cd-aa2e-49b01856070a</onsuccess>
+  </stage>
+  <stage stageid="1107d11e-1d2d-4b41-882c-04a98dcb963a" name="Extract Resource ID" type="Calculation">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="150" y="885" w="90" h="30" />
+    <onsuccess>cfa2ce2a-8b6f-46e5-a2dc-95fa554b9cab</onsuccess>
+    <calculation expression="[Result Collection.JSON:Array.id]" stage="Resource ID" />
+  </stage>
+  <stage stageid="2431c0ec-d122-426c-bf56-77b741a5035c" name="Note1" type="Note">
+    <narrative>GIVEN I push a UN-RETIRE resources request to the Blue Prism API
+WHEN the resource ID exists and the resource is retired
+THEN the resource will be successfully un-retired and the correct API reponse is returned</narrative>
+    <display x="60" y="15" w="300" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>96689631-bcf8-469f-93c2-62e00dfe2e3a</onsuccess>
+  </stage>
+  <stage stageid="1f4720fb-58c2-4e17-b7f7-d6ca45e0f580" name="Ensure Resource is Retired" type="SubSheetInfo">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="54631595-c250-4745-9233-07808a82754e" name="Ensure Resource is Un-Retired" type="SubSheetInfo">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="bdfa772a-381f-49c6-ad1a-3885695c7c4f" name="Note1" type="Note">
+    <narrative>GIVEN I the reource is RETIRED via API request
+WHEN I navigate to System &gt; Resources Management
+THEN the resource will show in the Retired Resources column</narrative>
+    <display x="60" y="-105" w="300" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>10d806dc-896a-4606-bb40-15acc0bdaa73</onsuccess>
+  </stage>
+  <stage stageid="10d806dc-896a-4606-bb40-15acc0bdaa73" name="Ensure Resource is Retired" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="-45" w="300" h="30" />
+    <onsuccess>2431c0ec-d122-426c-bf56-77b741a5035c</onsuccess>
+    <processid>eca67e7e-2d4f-4768-81ac-6651937e293f</processid>
+  </stage>
+  <stage stageid="40f0a7ff-a8f3-41bd-8ccd-d13b5d018888" name="Note1" type="Note">
+    <narrative>GIVEN I the reource is UN-RETIRED via API request
+WHEN I navigate to System &gt; Resources Management
+THEN the resource will show in the Active Resources column</narrative>
+    <display x="60" y="135" w="300" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>a58cba3d-49d9-487a-943c-535fb969877e</onsuccess>
+  </stage>
+  <stage stageid="a58cba3d-49d9-487a-943c-535fb969877e" name="Ensure Resource is Un-Retired" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="195" w="300" h="30" />
+    <onsuccess>4262cbfb-a61d-45ea-8c5a-e51239509a21</onsuccess>
+    <processid>f5044d80-645b-4697-981b-c2294e8dda02</processid>
+  </stage>
+  <stage stageid="57279ff5-7b66-48cd-a45b-fec690fa8a18" name="Attach (Control Room)" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>16e74e13-e897-4fe7-943d-05755b39a391</onsuccess>
+    <resource object="Blue Prism - Control Room (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="6b682c8c-de09-47ec-9d22-62c94249c467" name="Resource Manager: Stop Resource" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="15" y="300" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" friendlyname="Port" narrative="The port number whose resource should be stopped" expr="[Port]" />
+    </inputs>
+    <onsuccess>c454e16c-8062-4778-8891-b9a10f0976e4</onsuccess>
+    <resource object="Resource Manager" action="Stop Resource" />
+  </stage>
+  <stage stageid="6a3a16cc-c3a0-4896-af66-1a468cba5a97" name="Get Resource ID" type="Block">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="675" w="240" h="330" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="49cf888e-ae28-4c73-b60f-ed62344069c3" name="Start" type="Start">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <display x="-60" y="-135" />
+    <onsuccess>0266aafe-d21b-4032-ac3b-8b3f1e0d5aa2</onsuccess>
+  </stage>
+  <stage stageid="0266aafe-d21b-4032-ac3b-8b3f1e0d5aa2" name="Go to Home Tab" type="Action">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>dfdb2e96-5fff-4220-a5c7-056da821fc52</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="9911f1dd-14f3-422e-93ab-f0c036d66cf6" name="Local Variables" type="Block">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0cd0f8cd-8f99-4942-afbc-cb29391ba01e" name="Local Variables" type="Block">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4262cbfb-a61d-45ea-8c5a-e51239509a21" name="Exit App" type="Action">
+    <display x="60" y="255" w="90" h="30" />
+    <onsuccess>44f212aa-8c53-4b18-a0e2-0ba20f6431bb</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="ffe7b49e-7956-4723-90a2-e6199a78ef04" name="Resource Name" type="Data">
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b9ca78c3-b35f-44e9-9283-f863d1ed430b" name="End" type="End">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <display x="-45" y="450" />
+  </stage>
+  <stage stageid="6959ef05-39aa-4175-9c12-a04401915068" name="Retire Resource" type="Action">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="resourceId" friendlyname="resourceId" expr="[Resource ID]" />
+      <input type="text" name="attribute" friendlyname="attribute" expr="&quot;Retired&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>f7bd0753-875d-4cdb-8223-5e1e6574617d</onsuccess>
+    <resource object="Blue Prism - API - Resources" action="PUT Resources" />
+  </stage>
+  <stage stageid="f7bd0753-875d-4cdb-8223-5e1e6574617d" name="Response Code correct?" type="Decision">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <display x="-45" y="-30" w="120" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;204&quot;" />
+    <ontrue>93e89f1f-fa76-4f8a-b027-cfb0679e8e65</ontrue>
+    <onfalse>d07f5b93-7b61-4b87-a8ee-bfa2c6dcb69a</onfalse>
+  </stage>
+  <stage stageid="d07f5b93-7b61-4b87-a8ee-bfa2c6dcb69a" name="Incorrect Code Response" type="Exception">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <display x="45" y="-30" w="30" h="30" />
+    <exception localized="yes" type="Response Code Error" detail="&quot;It was expected that HTTP status code 200 would be returned. Actual returned HTTP status code was: &quot;&amp;[HTTP Status Code]" />
+  </stage>
+  <stage stageid="7d62122c-9164-401a-a3cb-c40e92f4ac5e" name="Error as expected?" type="Decision">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <display x="-45" y="135" w="120" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot; &amp; NewLine() &amp; &quot;HTTP Status Code: 409&quot; &amp; NewLine() &amp; &quot;HTTP Response Content: &quot;&quot;The given resource is already retired&quot;&quot;&quot;)&lt;&gt;0" />
+    <ontrue>a6c45cef-c951-4af6-ad1c-ac2a85c73de6</ontrue>
+    <onfalse>6d11e16b-a23f-430c-9506-21ece87723ee</onfalse>
+  </stage>
+  <stage stageid="51a71281-a714-441b-9315-9b7477f655ab" name="Resource Retired" type="Block">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="-105" w="210" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="50251c8b-e90b-4d41-9520-bf32d39e99b7" name="Resource ID already retired" type="Block">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="15" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FF9900" />
+  </stage>
+  <stage stageid="a6c45cef-c951-4af6-ad1c-ac2a85c73de6" name="Resume1" type="Resume">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <loginhibit />
+    <display x="-45" y="180" w="90" h="30" />
+    <onsuccess>b2acb486-5188-463f-b800-7abe39309e8a</onsuccess>
+  </stage>
+  <stage stageid="6d11e16b-a23f-430c-9506-21ece87723ee" name="Failed" type="Exception">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <display x="45" y="135" w="30" h="30" />
+    <exception localized="yes" type="&quot;System Exception&quot;" detail="&quot;The expected error was not displayed&quot;" />
+  </stage>
+  <stage stageid="b2acb486-5188-463f-b800-7abe39309e8a" name="Retire Resource" type="Action">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="resourceId" friendlyname="resourceId" expr="&quot;1c6111cc-d205-47a0-9f68-aef23f779dbc&quot;" />
+      <input type="text" name="attribute" friendlyname="attribute" expr="&quot;Retired&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>a9ccc51d-875b-4130-ae4b-54509df58307</onsuccess>
+    <resource object="Blue Prism - API - Resources" action="PUT Resources" />
+  </stage>
+  <stage stageid="e4dcdc7c-a398-40b7-9813-2bd997bc1532" name="Error as expected?" type="Decision">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <display x="-45" y="345" w="120" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot; &amp; NewLine() &amp; &quot;HTTP Status Code: 404&quot; &amp; NewLine() &amp; &quot;HTTP Response Content: &quot;&quot;Could not find a resource with this ID.&quot;&quot;&quot;)&lt;&gt;0" />
+    <ontrue>ad9454e3-8727-4006-821c-13c8c461fe7a</ontrue>
+    <onfalse>b66d7562-a543-49cd-a0b7-99c1b5e7ebbc</onfalse>
+  </stage>
+  <stage stageid="a9ccc51d-875b-4130-ae4b-54509df58307" name="Response Code Error" type="Exception">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <display x="45" y="255" w="30" h="30" />
+    <exception localized="yes" type="Response Code Error" detail="&quot;Incorrect response code returned&quot;" />
+  </stage>
+  <stage stageid="dedb04b6-a504-4bfe-a2ad-2e7abccbde3c" name="Resource ID does not exist" type="Block">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="225" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FF9900" />
+  </stage>
+  <stage stageid="0584e07b-a68f-406a-88b9-e413955097e9" name="Recover1" type="Recover">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <loginhibit />
+    <display x="-45" y="300" w="90" h="30" />
+    <onsuccess>e4dcdc7c-a398-40b7-9813-2bd997bc1532</onsuccess>
+  </stage>
+  <stage stageid="ad9454e3-8727-4006-821c-13c8c461fe7a" name="Resume1" type="Resume">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <loginhibit />
+    <display x="-45" y="390" w="90" h="30" />
+    <onsuccess>b9ca78c3-b35f-44e9-9283-f863d1ed430b</onsuccess>
+  </stage>
+  <stage stageid="b66d7562-a543-49cd-a0b7-99c1b5e7ebbc" name="Failed" type="Exception">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <display x="45" y="345" w="30" h="30" />
+    <exception localized="yes" type="&quot;System Exception&quot;" detail="&quot;The expected error was not displayed&quot;" />
+  </stage>
+  <stage stageid="99808946-1f02-4755-94d3-fe83fc91a5d4" name="Response Code Error" type="Exception">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <display x="45" y="45" w="30" h="30" />
+    <exception localized="yes" type="Response Code Error" detail="&quot;Incorrect response code returned&quot;" />
+  </stage>
+  <stage stageid="f76ef31f-13b8-4fb3-ad44-6a5b4f9a582e" name="Start" type="Start">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>8ed39a49-48ef-4c19-8cba-6ca59ed06055</onsuccess>
+  </stage>
+  <stage stageid="20a9217e-b231-4f57-b1b3-88916e940761" name="End" type="End">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <display x="-45" y="450" />
+  </stage>
+  <stage stageid="eafd9a01-b879-48c5-86c9-2492ce73ba46" name="Response Code correct?" type="Decision">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <display x="-45" y="-30" w="120" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;204&quot;" />
+    <ontrue>727b3cba-8c5d-4ef9-adcd-ce27eefb7842</ontrue>
+    <onfalse>177456b9-142b-410f-99c2-2ef35dda1b55</onfalse>
+  </stage>
+  <stage stageid="177456b9-142b-410f-99c2-2ef35dda1b55" name="Incorrect Code Response" type="Exception">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <display x="45" y="-30" w="30" h="30" />
+    <exception localized="yes" type="Response Code Error" detail="&quot;It was expected that HTTP status code 200 would be returned. Actual returned HTTP status code was: &quot;&amp;[HTTP Status Code]" />
+  </stage>
+  <stage stageid="3a62a0ea-fe95-4d43-9578-b764c1a2cdbe" name="Error as expected?" type="Decision">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <display x="-45" y="135" w="120" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot; &amp; NewLine() &amp; &quot;HTTP Status Code: 409&quot; &amp; NewLine() &amp; &quot;HTTP Response Content: &quot;&quot;The given resource is not currently retired&quot;&quot;&quot;)&lt;&gt;0" />
+    <ontrue>1ce9e3f2-3d3f-4d90-9576-af0ef5da5646</ontrue>
+    <onfalse>ca7294cc-14b9-4193-826b-90aac4210dd2</onfalse>
+  </stage>
+  <stage stageid="1ce9e3f2-3d3f-4d90-9576-af0ef5da5646" name="Resume1" type="Resume">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <loginhibit />
+    <display x="-45" y="180" w="90" h="30" />
+    <onsuccess>e5bf3c9c-1c65-4164-980c-61d81e4a09aa</onsuccess>
+  </stage>
+  <stage stageid="ca7294cc-14b9-4193-826b-90aac4210dd2" name="Failed" type="Exception">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <display x="45" y="135" w="30" h="30" />
+    <exception localized="yes" type="&quot;System Exception&quot;" detail="&quot;The expected error was not displayed&quot;" />
+  </stage>
+  <stage stageid="3a4bf643-b07f-44a2-a8cb-a95fdfc2db58" name="Error as expected?" type="Decision">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <display x="-45" y="345" w="120" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot; &amp; NewLine() &amp; &quot;HTTP Status Code: 404&quot; &amp; NewLine() &amp; &quot;HTTP Response Content: &quot;&quot;Could not find a resource with this ID.&quot;&quot;&quot;)&lt;&gt;0" />
+    <ontrue>f1beda37-e490-4526-a335-bd69b33abfa2</ontrue>
+    <onfalse>afbeb04a-752c-425f-bad2-8e2fda250210</onfalse>
+  </stage>
+  <stage stageid="8a4172fe-f4ed-4c47-9e02-b38229bb1987" name="Response Code Error" type="Exception">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <display x="45" y="255" w="30" h="30" />
+    <exception localized="yes" type="Response Code Error" detail="&quot;Incorrect response code returned&quot;" />
+  </stage>
+  <stage stageid="92eae81f-dd50-49f4-ab24-6d47ad6d9c30" name="Recover1" type="Recover">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <loginhibit />
+    <display x="-45" y="300" w="90" h="30" />
+    <onsuccess>3a4bf643-b07f-44a2-a8cb-a95fdfc2db58</onsuccess>
+  </stage>
+  <stage stageid="f1beda37-e490-4526-a335-bd69b33abfa2" name="Resume1" type="Resume">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <loginhibit />
+    <display x="-45" y="390" w="90" h="30" />
+    <onsuccess>20a9217e-b231-4f57-b1b3-88916e940761</onsuccess>
+  </stage>
+  <stage stageid="afbeb04a-752c-425f-bad2-8e2fda250210" name="Failed" type="Exception">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <display x="45" y="345" w="30" h="30" />
+    <exception localized="yes" type="&quot;System Exception&quot;" detail="&quot;The expected error was not displayed&quot;" />
+  </stage>
+  <stage stageid="0571f27f-6e3d-4797-888f-f418c322e2ac" name="Response Code Error" type="Exception">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <display x="45" y="45" w="30" h="30" />
+    <exception localized="yes" type="Response Code Error" detail="&quot;Incorrect response code returned&quot;" />
+  </stage>
+  <stage stageid="343ca7c7-0178-4ad7-bba3-dc3d7d1e617f" name="Resource Un-Retired" type="Block">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="-105" w="180" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="76a741fb-c9bb-4f64-8281-2a5d1f4d41ae" name="Resource already un-retired" type="Block">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="15" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FF9900" />
+  </stage>
+  <stage stageid="6d1b508c-08da-488e-aaf9-52cf889c3015" name="Resource ID does not exist" type="Block">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="225" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FF9900" />
+  </stage>
+  <stage stageid="93e89f1f-fa76-4f8a-b027-cfb0679e8e65" name="Retire Resource" type="Action">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="resourceId" friendlyname="resourceId" expr="[Resource ID]" />
+      <input type="text" name="attribute" friendlyname="attribute" expr="&quot;Retired&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>99808946-1f02-4755-94d3-fe83fc91a5d4</onsuccess>
+    <resource object="Blue Prism - API - Resources" action="PUT Resources" />
+  </stage>
+  <stage stageid="c031847e-26e2-4500-8639-e577a0b650ba" name="Browse to System" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="390" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>9aca480f-3c3e-4a49-9b2d-04087cfb05c7</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="9aca480f-3c3e-4a49-9b2d-04087cfb05c7" name="Browse to Resources Management" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="435" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Resources&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Management&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>6651b767-e1be-4685-b9cd-9bbfc17837cf</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="6651b767-e1be-4685-b9cd-9bbfc17837cf" name="Create Group " type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="480" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Folder Name" friendlyname="Folder Name" narrative="Name of the folder to be created" expr="&quot;BP-1534&quot;" />
+      <input type="text" name="Target Group" friendlyname="Target Group" narrative="The name of the group you want to create the new group under." expr="&quot;Resources&quot;" />
+      <input type="number" name="Target Group Match Index" friendlyname="Target Group Match Index" narrative="Incase the target group exists more than once, you can target it with match index." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" stage="" />
+    </outputs>
+    <onsuccess>b63523fe-2241-496b-9980-32ddf7ba2c02</onsuccess>
+    <resource object="Blue Prism - System - Resources" action="Create Group in Active Resources" />
+  </stage>
+  <stage stageid="b63523fe-2241-496b-9980-32ddf7ba2c02" name="Move resource into group" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="525" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Resource Name" friendlyname="Resource Name" expr="[Resource Name]" />
+      <input type="text" name="Target Group Name" friendlyname="Target Group Name" expr="&quot;BP-1534&quot;" />
+    </inputs>
+    <onsuccess>00760941-3aff-44cc-b245-7ffd1c7c8c26</onsuccess>
+    <resource object="Blue Prism - System - Resources" action="Drag Resource into Group" />
+  </stage>
+  <stage stageid="60cdc2bf-52eb-4396-9cc0-6dca879ec359" name="Get Group Tree Items" type="Action">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Resources Group name" friendlyname="Resources Group name" expr="&quot;Default&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Group Tree Items" friendlyname="Group Tree Items" stage="Group Tree Items" />
+    </outputs>
+    <onsuccess>6d9f4d0a-3f2d-419e-abad-fa125fec499a</onsuccess>
+    <resource object="Blue Prism - System - Resources" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="6877e89b-bff3-452c-8ca9-14e47eae637a" name="Is resource available?" type="Decision">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <display x="-60" y="150" w="120" h="30" />
+    <decision expression="[Group Tree Items.Node Text]=[Resource Name]" />
+    <ontrue>c07612e3-3fb5-4151-886a-13638ec3c881</ontrue>
+    <onfalse>b246379e-f6f5-4251-bccb-72feec774d6d</onfalse>
+  </stage>
+  <stage stageid="c07612e3-3fb5-4151-886a-13638ec3c881" name="Exception" type="Exception">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <display x="30" y="150" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;The resource has not been retired&quot;" />
+  </stage>
+  <stage stageid="6d9f4d0a-3f2d-419e-abad-fa125fec499a" name="Check group resources" type="LoopStart">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="105" w="90" h="30" />
+    <onsuccess>6877e89b-bff3-452c-8ca9-14e47eae637a</onsuccess>
+    <groupid>d4944055-5a17-4963-92db-dfd83691f179</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Group Tree Items</loopdata>
+  </stage>
+  <stage stageid="b246379e-f6f5-4251-bccb-72feec774d6d" name="Check group resources" type="LoopEnd">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="195" w="90" h="30" />
+    <onsuccess>cea81715-6187-4302-9ab6-aa50cbb09cc4</onsuccess>
+    <groupid>d4944055-5a17-4963-92db-dfd83691f179</groupid>
+  </stage>
+  <stage stageid="2c997fd7-45ff-47ac-970d-6909edbc4a86" name="Is resource available?" type="Decision">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <display x="-60" y="330" w="120" h="30" />
+    <decision expression="[Group Tree Items.Node Text]=[Resource Name]" />
+    <ontrue>2d0b0e4c-0fc6-4505-87a6-da2802c70193</ontrue>
+    <onfalse>42bbf743-8e54-45fc-8c6d-0b70e0bf0f4a</onfalse>
+  </stage>
+  <stage stageid="62e08c33-1da8-495b-940f-83675d274724" name="Check group resources" type="LoopStart">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="285" w="90" h="30" />
+    <onsuccess>2c997fd7-45ff-47ac-970d-6909edbc4a86</onsuccess>
+    <groupid>cd8dd301-2b08-45a7-a828-c7f5b962357e</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Group Tree Items</loopdata>
+  </stage>
+  <stage stageid="42bbf743-8e54-45fc-8c6d-0b70e0bf0f4a" name="Check group resources" type="LoopEnd">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="375" w="90" h="30" />
+    <onsuccess>00cb6006-3573-414c-9bbd-67e6a9797675</onsuccess>
+    <groupid>cd8dd301-2b08-45a7-a828-c7f5b962357e</groupid>
+  </stage>
+  <stage stageid="cea81715-6187-4302-9ab6-aa50cbb09cc4" name="Get Group Tree Items" type="Action">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Resources Group name" friendlyname="Resources Group name" expr="&quot;BP-1534&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Group Tree Items" friendlyname="Group Tree Items" stage="Group Tree Items" />
+    </outputs>
+    <onsuccess>62e08c33-1da8-495b-940f-83675d274724</onsuccess>
+    <resource object="Blue Prism - System - Resources" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="dfdb2e96-5fff-4220-a5c7-056da821fc52" name="Browse to System" type="Action">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>917f067b-06d8-40a9-8bb9-41f9155b793a</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="917f067b-06d8-40a9-8bb9-41f9155b793a" name="Browse to Resources Management" type="Action">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Resources&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Management&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>60cdc2bf-52eb-4396-9cc0-6dca879ec359</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="5d52be7c-ad01-4964-b754-d6edf9b5af7e" name="Group Tree Items" type="Collection">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="00cb6006-3573-414c-9bbd-67e6a9797675" name="End2" type="End">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="435" />
+  </stage>
+  <stage stageid="2d0b0e4c-0fc6-4505-87a6-da2802c70193" name="Exception" type="Exception">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <display x="30" y="330" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;The resource has not been retired&quot;" />
+  </stage>
+  <stage stageid="37821d33-f18b-431b-b6f1-889e781521d7" name="Ensure resource is NOT in Available Resources" type="Block">
+    <subsheetid>eca67e7e-2d4f-4768-81ac-6651937e293f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="30" w="180" h="375" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="027dfb86-6284-411c-82de-6f91adfee921" name="Start" type="Start">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <display x="-60" y="-135" />
+    <onsuccess>1847ba38-4556-4645-aa42-e4bce0f51c28</onsuccess>
+  </stage>
+  <stage stageid="1847ba38-4556-4645-aa42-e4bce0f51c28" name="Go to Home Tab" type="Action">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>9f2f78a5-0a34-4b3b-85f5-e55fc93c4d8e</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="afa7ceb3-bae4-4d73-8d0b-2fd123e51921" name="Get Group Tree Items" type="Action">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Resources Group name" friendlyname="Resources Group name" expr="&quot;Default&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Group Tree Items" friendlyname="Group Tree Items" stage="Group Tree Items" />
+    </outputs>
+    <onsuccess>c07f60f1-3bde-42fe-9cf5-14b04ce1a741</onsuccess>
+    <resource object="Blue Prism - System - Resources" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="b608ba37-786d-4c7c-bc89-87df2a905f39" name="Is resource available?" type="Decision">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <display x="-60" y="150" w="120" h="30" />
+    <decision expression="[Group Tree Items.Node Text]=[Resource Name]" />
+    <ontrue>d9e5562f-57b4-4c1d-9a97-fd8c2a8ddfe4</ontrue>
+    <onfalse>7b35a8eb-2666-4761-aabe-1e5633f25815</onfalse>
+  </stage>
+  <stage stageid="c07f60f1-3bde-42fe-9cf5-14b04ce1a741" name="Check group resources" type="LoopStart">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="105" w="90" h="30" />
+    <onsuccess>b608ba37-786d-4c7c-bc89-87df2a905f39</onsuccess>
+    <groupid>7e2d7caa-7125-43d4-8b92-c70a6b3d0a1d</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Group Tree Items</loopdata>
+  </stage>
+  <stage stageid="7b35a8eb-2666-4761-aabe-1e5633f25815" name="Check group resources" type="LoopEnd">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="195" w="90" h="30" />
+    <onsuccess>9fb6df86-df77-4d49-8de3-0677e9439b18</onsuccess>
+    <groupid>7e2d7caa-7125-43d4-8b92-c70a6b3d0a1d</groupid>
+  </stage>
+  <stage stageid="9fbd3bda-6bb1-4238-ab53-0de0b9293ade" name="Is resource available?" type="Decision">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <display x="-60" y="330" w="120" h="30" />
+    <decision expression="[Group Tree Items.Node Text]=[Resource Name]" />
+    <ontrue>88611b8e-8a54-4b8b-b0b8-b36d9afb3d39</ontrue>
+    <onfalse>4516738c-8ebe-4442-8c0b-6fc92e7734ef</onfalse>
+  </stage>
+  <stage stageid="9dbf5b25-98ea-4726-b6fe-a998ca3f1fd9" name="Check group resources" type="LoopStart">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="285" w="90" h="30" />
+    <onsuccess>9fbd3bda-6bb1-4238-ab53-0de0b9293ade</onsuccess>
+    <groupid>3bbf1e84-f89f-462b-a5cc-afcb96262b73</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Group Tree Items</loopdata>
+  </stage>
+  <stage stageid="4516738c-8ebe-4442-8c0b-6fc92e7734ef" name="Check group resources" type="LoopEnd">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="375" w="90" h="30" />
+    <onsuccess>9e85cb24-d48a-4190-9a6a-1cab97fe83ef</onsuccess>
+    <groupid>3bbf1e84-f89f-462b-a5cc-afcb96262b73</groupid>
+  </stage>
+  <stage stageid="aa9acde9-be52-4a91-bd85-45dd6ea87e68" name="Get Group Tree Items" type="Action">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Resources Group name" friendlyname="Resources Group name" expr="&quot;BP-1534&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Group Tree Items" friendlyname="Group Tree Items" stage="Group Tree Items" />
+    </outputs>
+    <onsuccess>9dbf5b25-98ea-4726-b6fe-a998ca3f1fd9</onsuccess>
+    <resource object="Blue Prism - System - Resources" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="9f2f78a5-0a34-4b3b-85f5-e55fc93c4d8e" name="Browse to System" type="Action">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>f1b65512-47f8-429b-b5fd-c4b268b391d4</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="f1b65512-47f8-429b-b5fd-c4b268b391d4" name="Browse to Resources Management" type="Action">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Resources&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Management&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>afa7ceb3-bae4-4d73-8d0b-2fd123e51921</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="9e85cb24-d48a-4190-9a6a-1cab97fe83ef" name="End2" type="End">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="435" />
+  </stage>
+  <stage stageid="88611b8e-8a54-4b8b-b0b8-b36d9afb3d39" name="Exception" type="Exception">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <display x="30" y="330" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;The resource was not expected in the BP-1534 Available Resources group but it is&quot;" />
+  </stage>
+  <stage stageid="4a2066b8-142f-4431-931a-0fa210343886" name="Group Tree Items" type="Collection">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="111ac555-7fa0-4a5e-b778-3b7bd953dd6a" name="Ensure resource is in Available Resources Default Group" type="Block">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="30" w="180" h="375" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="8ed39a49-48ef-4c19-8cba-6ca59ed06055" name="Retire Resource" type="Action">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="resourceId" friendlyname="resourceId" expr="[Resource ID]" />
+      <input type="text" name="attribute" friendlyname="attribute" expr="&quot;Debug&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>eafd9a01-b879-48c5-86c9-2492ce73ba46</onsuccess>
+    <resource object="Blue Prism - API - Resources" action="PUT Resources" />
+  </stage>
+  <stage stageid="727b3cba-8c5d-4ef9-adcd-ce27eefb7842" name="Retire Resource" type="Action">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="resourceId" friendlyname="resourceId" expr="[Resource ID]" />
+      <input type="text" name="attribute" friendlyname="attribute" expr="&quot;None&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>0571f27f-6e3d-4797-888f-f418c322e2ac</onsuccess>
+    <resource object="Blue Prism - API - Resources" action="PUT Resources" />
+  </stage>
+  <stage stageid="e5bf3c9c-1c65-4164-980c-61d81e4a09aa" name="Retire Resource" type="Action">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="resourceId" friendlyname="resourceId" expr="&quot;2c6342cc-a111-47a0-9f68-aef23f779dbc&quot;" />
+      <input type="text" name="attribute" friendlyname="attribute" expr="&quot;Private&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>8a4172fe-f4ed-4c47-9e02-b38229bb1987</onsuccess>
+    <resource object="Blue Prism - API - Resources" action="PUT Resources" />
+  </stage>
+  <stage stageid="9ffd7b63-6a3c-4083-9b3c-d18040baab56" name="Recover2" type="Recover">
+    <subsheetid>2b78e5c1-5bfb-4864-a1c6-aab2329c2454</subsheetid>
+    <loginhibit />
+    <display x="-45" y="90" w="90" h="30" />
+    <onsuccess>7d62122c-9164-401a-a3cb-c40e92f4ac5e</onsuccess>
+  </stage>
+  <stage stageid="4de0088e-1f87-409c-9370-bd87e4eb0280" name="Recover3" type="Recover">
+    <subsheetid>15f16d37-8c5e-4888-90e4-7339a178ebf8</subsheetid>
+    <loginhibit />
+    <display x="-45" y="90" w="90" h="30" />
+    <onsuccess>3a62a0ea-fe95-4d43-9578-b764c1a2cdbe</onsuccess>
+  </stage>
+  <stage stageid="9fb6df86-df77-4d49-8de3-0677e9439b18" name="Exception" type="Exception">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <display x="15" y="195" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;The resource was expected to be in the Default Available Resources group and it isn't&quot;" />
+  </stage>
+  <stage stageid="d9e5562f-57b4-4c1d-9a97-fd8c2a8ddfe4" name="Anchor1" type="Anchor">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="45" y="150" w="10" h="10" />
+    <onsuccess>aad35f84-60ef-48d9-bf50-d277fe3e57d7</onsuccess>
+  </stage>
+  <stage stageid="aad35f84-60ef-48d9-bf50-d277fe3e57d7" name="Anchor2" type="Anchor">
+    <subsheetid>f5044d80-645b-4697-981b-c2294e8dda02</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="45" y="240" w="10" h="10" />
+    <onsuccess>aa9acde9-be52-4a91-bd85-45dd6ea87e68</onsuccess>
+  </stage>
+  <stage stageid="c263f2d1-ccdd-4d7e-b2c6-81a570ef7749" name="Recover4" type="Recover">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit />
+    <display x="150" y="585" />
+    <onsuccess>78b13a3a-d1c0-4752-8122-99bf70598f5a</onsuccess>
+  </stage>
+  <stage stageid="78b13a3a-d1c0-4752-8122-99bf70598f5a" name="Resume2" type="Resume">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit />
+    <display x="150" y="630" />
+    <onsuccess>c4dc792f-04b7-4181-9176-8bead5abd7f5</onsuccess>
+  </stage>
+  <stage stageid="c4dc792f-04b7-4181-9176-8bead5abd7f5" name="Get Resources" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="150" y="705" w="90" h="30" />
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>686abf65-d452-42d5-9fb1-41ae6e41d136</onsuccess>
+    <resource object="Blue Prism - API - Resources" action="GET Resources" />
+  </stage>
+  <stage stageid="6eef5c1d-8715-4475-982f-c301311f01f2" name="Get Resources" type="Block">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="555" w="240" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="9b40a077-056f-4e3c-b13b-16593e1ea6e7" name="Default Result Collection" type="Collection">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="-135" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4b4e6a96-1feb-4d98-9d53-6719d7409b2d" name="Return to Collection" type="Calculation">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="750" w="90" h="30" />
+    <onsuccess>6ee90974-b6e7-49bc-971a-2b2a075ff663</onsuccess>
+    <calculation expression="[Default Result Collection.items]" stage="Result Collection" />
+  </stage>
+  <stage stageid="16e74e13-e897-4fe7-943d-05755b39a391" name="Pause 30" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="30" />
+    </inputs>
+    <onsuccess>6b682c8c-de09-47ec-9d22-62c94249c467</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="c454e16c-8062-4778-8891-b9a10f0976e4" name="Pause 60" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="345" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="60" />
+    </inputs>
+    <onsuccess>c031847e-26e2-4500-8639-e577a0b650ba</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="f490d932-767d-48e7-9cbb-efa518a60b0b" name="Start" type="Start">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="15" y="-270" />
+    <onsuccess>d3c721a7-8772-4662-a589-e31dfed52f0e</onsuccess>
+  </stage>
+  <stage stageid="d3c721a7-8772-4662-a589-e31dfed52f0e" name="Launch" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="15" y="-225" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>7b747610-cdd5-4f19-bba7-022941aa0064</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="7b747610-cdd5-4f19-bba7-022941aa0064" name="Attach to System" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="15" y="-180" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>05404a94-5118-4caa-814f-3ef48f35109f</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="05404a94-5118-4caa-814f-3ef48f35109f" name="Sign In Auth Server" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-135" w="90" h="30" />
+    <onsuccess>446affac-39a5-474b-8eb0-471a365d7061</onsuccess>
+    <resource object="Blue Prism" action="Sign in using Auth Server" />
+  </stage>
+  <stage stageid="446affac-39a5-474b-8eb0-471a365d7061" name="IMS Server:Attach" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-90" w="90" h="30" />
+    <onsuccess>62037e73-f95f-4603-aa85-157d7e73b527</onsuccess>
+    <resource object="IMS Server" action="Attach" />
+  </stage>
+  <stage stageid="62037e73-f95f-4603-aa85-157d7e73b527" name="IMS Server:Login" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="&quot;admin&quot;" />
+      <input type="text" name="Password" friendlyname="Password" expr="&quot;Qq1234!!&quot;" />
+    </inputs>
+    <onsuccess>c70c64b0-dd0a-4061-8028-f9afbe0bebc0</onsuccess>
+    <resource object="IMS Server" action="Login" />
+  </stage>
+  <stage stageid="c70c64b0-dd0a-4061-8028-f9afbe0bebc0" name="Setup Credential" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="Requires Login" friendlyname="Requires Login" narrative="Flag indicating if the login info should be given too" expr="True" />
+      <input type="text" name="Arguments" friendlyname="Arguments" narrative="The arguments to pass to automatec, not including the authentication info" expr="&quot;/createcredential &quot;&quot;BPE-API-Credential&quot;&quot; ServiceAccount E3NbGuz9G/nSpQWdz6DMROZhtIDHtUhev13wsCV72fY=  /credentialtype OAuth2ClientCredentials&quot;" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username that you want to authenticate against." expr="" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the username." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Output" friendlyname="Output" narrative="The output from the command" stage="" />
+    </outputs>
+    <onsuccess>f52ef44f-13fd-4ad5-9d81-8ce5e5c8975b</onsuccess>
+    <resource object="Call AutomateC" action="Call AutomateC" />
+  </stage>
+  <stage stageid="5a47d3eb-1623-41f7-8a72-fe41818449f9" name="Credential already exists?" type="Recover">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit />
+    <display x="120" y="15" w="90" h="30" />
+    <onsuccess>286f96c7-d7eb-4804-bb5b-741ae0da83fe</onsuccess>
+  </stage>
+  <stage stageid="286f96c7-d7eb-4804-bb5b-741ae0da83fe" name="Resume1" type="Resume">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit />
+    <display x="120" y="75" w="90" h="30" />
+    <onsuccess>f52ef44f-13fd-4ad5-9d81-8ce5e5c8975b</onsuccess>
+  </stage>
+  <stage stageid="f52ef44f-13fd-4ad5-9d81-8ce5e5c8975b" name="Anchor14" type="Anchor">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="10" h="10" />
+    <onsuccess>3c907437-0fc0-488b-bdb4-ab12714691f0</onsuccess>
+  </stage>
+  <stage stageid="6d55cc82-a87d-4f02-a034-b0a2226a9e36" name="Create credential" type="Block">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-15" w="225" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+</process>

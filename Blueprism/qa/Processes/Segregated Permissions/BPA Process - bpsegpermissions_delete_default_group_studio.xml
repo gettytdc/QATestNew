@@ -1,0 +1,347 @@
+﻿<process name="bpsegpermissions_delete_default_group_studio" version="1.0" bpversion="6.3.0.5030" narrative="automated test for US-1792, to test that any given user can only delete a top level group they have access to. Not including default folders, where applicable" byrefcollection="true" preferredid="533e13a3-0b14-4324-83cb-f386f33ac417">
+  <view>
+    <camerax>-232</camerax>
+    <cameray>-93</cameray>
+    <zoom version="2">0.9375</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="abb2306f-963b-4566-8650-7b0f78148abb" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-615</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="e3391cc7-075d-448e-91c8-d56fc88b47c9" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>-390</displayx>
+    <displayy>-330</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>55cb6ab2-79f5-4332-9a74-ab93b467fb7c</onsuccess>
+  </stage>
+  <stage stageid="e96935e1-4736-4bf6-8cb8-cd27f6552b82" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>390</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="90619f09-ef0f-4c04-a075-13722ecab2ad" name="Sign In as Admin" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-390</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" expr="&quot;admin&quot;" />
+      <input type="password" name="Password" expr="&quot;admin&quot;" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>c3158499-fded-47ce-b721-06858a4aafb0</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="6c5c218d-066a-43ff-8d80-02339e622c86" name="Recover For Clean Up" type="Recover">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9ebfaa66-ec75-453f-aec7-6a347692e211</onsuccess>
+    <breakpoint type="0">
+      <condition>
+      </condition>
+    </breakpoint>
+  </stage>
+  <stage stageid="380430a5-32b0-440e-a840-7909f8485b66" name="Rethrow" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>270</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="Access Rights" detail="[Exception Detail]" />
+  </stage>
+  <stage stageid="9ebfaa66-ec75-453f-aec7-6a347692e211" name="Store Error" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>6558b840-a3eb-4c72-9382-513549979bc6</onsuccess>
+    <calculation expression="ExceptionDetail()" stage="Exception Detail" />
+  </stage>
+  <stage stageid="d8b95ac9-2d52-40ca-bb3d-de8c919658fc" name="Exception Detail" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6558b840-a3eb-4c72-9382-513549979bc6" name="Resume1" type="Resume">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>65cda518-de1e-4a8b-8537-00d85b723a21</onsuccess>
+  </stage>
+  <stage stageid="b70effda-9375-4396-8f8c-86fca4114810" name="Exit" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>35af7f70-6f44-4d23-8f96-93e8692b5d10</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="452ade9e-0b04-4628-ab85-af4b1a772d7a" name="attempt to delete process default group" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-390</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="flag" name="do you wish to delete the process default group?" narrative="if false will attempt to delete object default group" expr="True" />
+    </inputs>
+    <onsuccess>95492808-abcc-46fe-bfa4-85d045f5c62c</onsuccess>
+    <resource object="Blue Prism - Studio" action="Delete process/object default group" />
+  </stage>
+  <stage stageid="877ff523-9586-4156-b1cb-0ec4f3986d6e" name="Test Failure?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>270</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="Len([Exception Detail]) &gt; 0" />
+    <ontrue>380430a5-32b0-440e-a840-7909f8485b66</ontrue>
+    <onfalse>f653cf8b-0228-4588-88a7-9965e5f422c5</onfalse>
+  </stage>
+  <stage stageid="7d656f78-f8c4-49fb-ab7b-14d78aa3b427" name="Sign out Admin User" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>b70effda-9375-4396-8f8c-86fca4114810</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="b3a88182-e992-4306-b12d-da7a0f393cfa" name="Anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-390</displayx>
+    <displayy>105</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>65cda518-de1e-4a8b-8537-00d85b723a21</onsuccess>
+  </stage>
+  <stage stageid="65cda518-de1e-4a8b-8537-00d85b723a21" name="Anchor2" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>105</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>7d656f78-f8c4-49fb-ab7b-14d78aa3b427</onsuccess>
+  </stage>
+  <stage stageid="93b016da-1196-4aa3-8fdf-1f02c2f2ba62" name="Test" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-450</displayx>
+    <displayy>-285</displayy>
+    <displaywidth>300</displaywidth>
+    <displayheight>375</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4dc52ffd-ac7d-4e54-af7c-f60566239687" name="Cleanup" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>75</displayy>
+    <displaywidth>165</displaywidth>
+    <displayheight>135</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b023143b-97ba-41cb-9fd5-d9abdebf24fd" name="Recover" type="Recover">
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>cc242d97-e773-4fd6-8fea-759b92eff56c</onsuccess>
+  </stage>
+  <stage stageid="cc242d97-e773-4fd6-8fea-759b92eff56c" name="Resume2" type="Resume">
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>bda476cd-04ca-4265-9c0a-0f4cf5ae57ed</onsuccess>
+  </stage>
+  <stage stageid="bda476cd-04ca-4265-9c0a-0f4cf5ae57ed" name="Anchor3" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>225</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>35af7f70-6f44-4d23-8f96-93e8692b5d10</onsuccess>
+  </stage>
+  <stage stageid="35af7f70-6f44-4d23-8f96-93e8692b5d10" name="Anchor4" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>225</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>877ff523-9586-4156-b1cb-0ec4f3986d6e</onsuccess>
+  </stage>
+  <stage stageid="c3158499-fded-47ce-b721-06858a4aafb0" name="Navigate to studio Tab" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-390</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>818b93b1-050e-4f4c-b266-4e431041846a</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="07c4179f-df8f-4e65-b98c-aa09fdf63d44" name="attempt to delete object default group" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-390</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="flag" name="do you wish to delete the process default group?" narrative="if false will attempt to delete object default group" expr="False" />
+    </inputs>
+    <onsuccess>b3a88182-e992-4306-b12d-da7a0f393cfa</onsuccess>
+    <resource object="Blue Prism - Studio" action="Delete process/object default group" />
+  </stage>
+  <stage stageid="f653cf8b-0228-4588-88a7-9965e5f422c5" name="Exit blue prism" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>330</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e96935e1-4736-4bf6-8cb8-cd27f6552b82</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="55cb6ab2-79f5-4332-9a74-ab93b467fb7c" name="Launch Blue Prism" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-390</displayx>
+    <displayy>-255</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>15ddebd3-10b5-4f3d-8f13-48a840d1f32b</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="15ddebd3-10b5-4f3d-8f13-48a840d1f32b" name="Attach Studio" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-390</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>90619f09-ef0f-4c04-a075-13722ecab2ad</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="0fad7480-bb38-425e-aa20-701a340034cb" name="pid" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-615</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="818b93b1-050e-4f4c-b266-4e431041846a" name="Go To Studio" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-390</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>452ade9e-0b04-4628-ab85-af4b1a772d7a</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="95492808-abcc-46fe-bfa4-85d045f5c62c" name="Go To Studio" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-390</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>07c4179f-df8f-4e65-b98c-aa09fdf63d44</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+</process>

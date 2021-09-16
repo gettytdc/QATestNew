@@ -1,0 +1,3 @@
+@echo off
+echo Running calculator spy...
+..\bin\uiscript <calcspy.txt
