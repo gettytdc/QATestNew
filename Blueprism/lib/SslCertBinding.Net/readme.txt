@@ -1,1 +1,0 @@
-From https://github.com/danmalcolm/SslCertBinding.Net/commits/sni-binding-support ecca52cff8e8ecd11464568c43bfe48de4b075e8 

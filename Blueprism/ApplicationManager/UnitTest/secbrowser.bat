@@ -1,3 +1,0 @@
-@echo off
-echo Running secure browser spy...
-..\bin\uiscript <secbrowser.txt
