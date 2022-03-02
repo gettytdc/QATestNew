@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_HTML5___Top_Navigation" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../../" data-mc-has-content-body="True" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Advanced setup">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="../../Skins/Favicons/apple-touch-icon.png"/>
+        <link rel="shortcut icon" href="../../Skins/Favicons/favicon-32x32.png"/>
+        <link rel="icon" sizes="96x96" href="../../Skins/Favicons/favicon-96x96.png"/>
+        <link rel="icon" sizes="32x32" href="../../Skins/Favicons/favicon-32x32.png"/>
+        <link rel="icon" sizes="2263x2263" href="../../Skins/Favicons/BP_Prism_RGB.png"/>
+        <meta charset="utf-8"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/><title>イベント構造</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet"/>
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet"/>
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet"/>
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet"/>
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet"/>
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet"/>
+        <link href="../../Skins/Fluid/stylesheets/foundation.6.2.3.css" rel="stylesheet"/>
+        <link href="../../Skins/Fluid/stylesheets/styles.css" rel="stylesheet"/>
+        <link href="../../Skins/Fluid/stylesheets/tablet.css" rel="stylesheet"/>
+        <link href="../../Skins/Fluid/stylesheets/mobile.css" rel="stylesheet"/>
+        <style>/*&lt;meta /&gt;*/
+
+.button.select-language-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/select-language.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.button.feedback-button
+{
+	-pie-background: linear-gradient(#ffffff, #ececec);
+}
+
+.button.print-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/printer.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.button.previous-topic-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/navigate-previous.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.button.next-topic-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/navigate-next.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.needs-pie
+{
+	behavior: url('../../Resources/Scripts/PIE-no-motw.htc');
+}
+
+</style>
+        <link href="./AutomateHelp.css" rel="stylesheet"/>
+    </head>
+    <body>
+                                            <div>
+                                                <h1 class="pagebreak">イベント構造</h1>
+                                                <p>このセクションでは、Blue Prismから受信した後のLogstashのイベント構造について詳しく説明します。この情報は、Logstash構成で条件文を構築して、コンテンツに基づきイベントを出力に迂回させるか、出力のカスタムメッセージ形式を作成するために使用できます。</p>
+                                                <p>イベント（セッションログまたはパブリッシュされたダッシュボード）はJSON文字列としてBlue Prismデータベースに保存されます。このJSON文字列をLogstashで使用可能なフィールドセットに変換するには、JSONフィルターを構成に追加します。</p>
+                                                <p class="code_sample">filter{</p>
+                                                <p class="code_sample">json{source =&gt; "eventdata"</p>
+                                                <p class="code_sample">target =&gt; "event"}</p>
+                                                <p class="code_sample">}</p>
+                                                <p>これにより、［イベント］フィールドにネストされるフィールドとしてセッションログ／パブリッシュされたダッシュボードが追加されます。</p>
+                                                <p>例：</p>
+                                                <p><span class="code_sample">［event］［eventType］</span>には、イベントのタイプ（セッションログ、パブリッシュされたダッシュボード、またはカスタムオブジェクトデータ）が含まれます。</p>
+                                                <p><span class="code_sample">［event］［EventData］</span>には、ネストされたフィールドとしてイベントのデータが含まれます。</p>
+                                                <p><span class="code_sample">［イベント］［EventData］［SessionNumber］</span>には、これがセッションログイベントである場合、セッション番号が含まれます。</p>
+                                                <p>「ProcessA」と名付けられたプロセスからのセッションログのみをテキストファイルに送信するには、出力に関する条件文を使用できます。</p>
+                                                <p class="code_sample">output{</p>
+                                                <p class="code_sample">If [event][eventType] == 1 and [event][EventData][ProcessName] == “ProcessA” {</p>
+                                                <p class="code_sample">file {</p>
+                                                <p class="code_sample">path =&gt; “C:\log.txt”</p>
+                                                <p class="code_sample">}</p>
+                                                <p class="code_sample">}</p>
+                                                <p class="code_sample">}</p>
+                                                <p>利用可能なフィールドの全リストは、次のテーブルを参照してください。</p>
+                                                <h2>一般</h2>
+                                                <table style="mc-table-style: url('../../resources/tablestyles/bp-table-row-header.css');margin-left: 0;margin-right: auto;" class="TableStyle-bp-table-row-header" cellspacing="0">
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;"/>
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;"/>
+                                                    <thead>
+                                                        <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                                                            <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                                                                <p>イベント</p>
+                                                            </th>
+                                                            <th class="TableStyle-bp-table-row-header-HeadD-Column1-Header1">
+                                                                <p>説明</p>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p class="code_sample">[event][eventType]
+                        </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>以下の番号は次のイベントタイプを表します。</p>
+                                                                <p>1 = セッションログ</p>
+                                                                <p>2 = パブリッシュされたダッシュボード</p>
+                                                                <p>3 = カスタム</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1">
+                                                                <p class="code_sample">[event][EventData]</p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyA-Column1-Body1">
+                                                                <p>イベントのデータ。このデータの構造はイベントタイプに応じて変わります。</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <h2 class="pagebreak">イベントタイプ - セッションログ</h2>
+                                                <table style="mc-table-style: url('../../resources/tablestyles/bp-table-row-header.css');margin-left: 0;margin-right: auto;" class="TableStyle-bp-table-row-header" cellspacing="0">
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;"/>
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;"/>
+                                                    <thead>
+                                                        <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                                                            <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                                                                <p>イベント</p>
+                                                            </th>
+                                                            <th class="TableStyle-bp-table-row-header-HeadD-Column1-Header1">
+                                                                <p>説明</p>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][StartDate]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> ISO 8601表記でフォーマットされたプロセスステージの開始日。要素の例  "2019-02-11T07:59:54.829674+00:00"</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][SessionNumber]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> このセッションログが属するセッションのセッション番号。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ResultType]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>プロセスステージの結果タイプ。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][Result]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> プロセスステージの結果。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][AttributeXML]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> XMLにシリアル化されたステージの入力および出力パラメーター。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ProcessName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> このステージが属するプロセス名。これはビジネスオブジェクトから記録される場合、空になります。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ObjectName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> このステージが属するビジネスオブジェクトの名前。これはセッションログがプロセスから記録される場合、空になります。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ActionName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> このログがアクションステージからのものである場合、これはそのアクションの名前です。その他の場合は、空になります。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][PageName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> このセッションログを作成したこのステージが属するページ名。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][StageType]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>このセッションログを作成したステージのタイプ。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][StageId]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyA-Column1-Body1">
+                                                                <p>このセッションログを作成したステージのID。</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <h2> イベントタイプ - パブリッシュされたダッシュボード</h2>
+                                                <table style="mc-table-style: url('../../resources/tablestyles/bp-table-row-header.css');margin-left: 0;margin-right: auto;" class="TableStyle-bp-table-row-header" cellspacing="0">
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;"/>
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;"/>
+                                                    <thead>
+                                                        <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                                                            <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                                                                <p>イベント</p>
+                                                            </th>
+                                                            <th class="TableStyle-bp-table-row-header-HeadD-Column1-Header1">
+                                                                <p>説明</p>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][Source]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> パブリッシュされたダッシュボードの名前。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][Subject]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">データを生成したダッシュボードタイルの名前。</td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1"><span class="code_sample">[event][EventData][Values]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyA-Column1-Body1">
+                                                                <p> ダッシュボードタイルからのデータ。</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <h2 class="pagebreak"> イベントタイプ - カスタムオブジェクトデータ</h2>
+                                                <table style="mc-table-style: url('../../resources/tablestyles/bp-table-row-header.css');margin-left: 0;margin-right: auto;" class="TableStyle-bp-table-row-header" cellspacing="0">
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;"/>
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;"/>
+                                                    <thead>
+                                                        <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                                                            <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                                                                <p>イベント</p>
+                                                            </th>
+                                                            <th class="TableStyle-bp-table-row-header-HeadD-Column1-Header1">
+                                                                <p>説明</p>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][CustomDataCollection]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> 送信されるプロセスからのカスタムデータ。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][SessionNumber]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">データの送信元のプロセスのセッション番号。</td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][StageID]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">このアクションの呼び出し元のステージID。</td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][StageName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> ［カスタムデータを送信］アクションステージの名前。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][StageType]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> ［カスタムデータを送信］アクションステージのタイプ。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][StartDate]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>［カスタムデータを送信］アクションが実行されるセッションの開始日。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ProcessName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> アクションの呼び出し元のプロセス名。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][PageName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> カスタムデータアクションが実行されるプロセスのページ名。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ObjectName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>データの送信元のオブジェクト - 常に「データゲートウェイ」。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][actionName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyA-Column1-Body1">
+                                                                <p>データの送信元のアクション - 常に「カスタムデータを送信」。</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section><a data-close="true"></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

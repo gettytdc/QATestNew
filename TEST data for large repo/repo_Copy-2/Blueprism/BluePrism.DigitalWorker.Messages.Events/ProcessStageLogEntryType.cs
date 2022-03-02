@@ -1,0 +1,40 @@
+﻿namespace BluePrism.DigitalWorker.Messages.Events
+{
+    public enum ProcessStageLogEntryType
+    {
+        Unknown = 0,
+        ActionStageStarted = 1,
+        ActionStageEnded = 2,
+        AlertStageEnded = 3,
+        CalculationStageEnded = 4,
+        ChoiceStageEnded = 5,
+        CodeStageEnded = 6,
+        DebugDataEmitted =7,
+        DecisionStageEnded = 8,
+        LoopStartStageEnded = 9,
+        LoopEndStageEnded = 10,
+        MultipleCalculationStageEnded = 11,
+        NavigationStageEnded = 12,
+        NoteStageStarted = 13,
+        ObjectStarted = 14,
+        ObjectEnded = 15,
+        ProcessStarted = 16,
+        ProcessEnded = 17, 
+        ProcessReferenceStarted = 18,
+        ProcessReferenceEnded = 19,
+        ProcessStageErrored = 20,
+        ProcessStopped = 21,
+        ReadStageEnded = 22,
+        RecoverStageEnded = 23,
+        ResumeStageEnded = 24,
+        SkillStageStarted = 25,
+        SkillStageEnded = 26,
+        SubsheetStarted = 27,
+        SubsheetEnded = 28,
+        SubsheetReferenceStageStarted = 29,
+        SubsheetReferenceStageEnded = 30,
+        UnexpectedException = 31,
+        WaitStageEnded = 32,
+        WriteStageEnded = 33        
+    }
+}

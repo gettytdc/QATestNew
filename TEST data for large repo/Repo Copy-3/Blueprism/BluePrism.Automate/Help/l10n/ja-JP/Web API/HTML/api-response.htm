@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-gb" xml:lang="en-gb" data-mc-search-type="Stem" data-mc-help-system-file-name="Blue Prism Help.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>JSONPathを使用して応答データを抽出する</title>
+        <link type="text/css" href="../../AutomateHelp.css" rel="stylesheet"/>
+		<link href="../../TableStyles/bp_footer_tablestyle.css" rel="stylesheet"/>
+		<link href="../../TableStyles/bp-table-column-header.css" rel="stylesheet"/>
+        <link href="../../TableStyles/bp-table-row-header.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <h1 class="pagebreak"><a name="Extracti"></a>JSONPathを使用して応答データを抽出する</h1>
+        <p>応答本文のコンテンツがJSONの場合、JSONPathを使用してJSONの特定の要素を出力パラメーターに抽出できます。出力パラメーターには指定されたBlue Prismデータ型があり、JSONPathを使用して見つかったオブジェクトはそのデータ型に変換されます。この例では、JSON HTTP応答からデータを抽出し、それをプロセスのステージに格納する方法を示します。</p>
+        <h2>API定義応答を構成する</h2>
+        <p>API定義は次のJSON応答を返します。</p>
+        <p><a href="../Images/api-response-eg.png"><img data-mc-width="604" data-mc-height="89" src="../Images/api-response-eg_thumb_0_128.png" tabindex=""/></a>
+        </p>
+        <p>このデータを抽出するには、API定義内の必要なアクションに対する応答を選択します。適切なデータ型とメソッドを選択し、各データアイテムにパラメーターを追加します。</p>
+        <p><a href="../Images/api-response-eg-parameters.png"><img data-mc-width="682" data-mc-height="109" src="../Images/api-response-eg-parameters_thumb_0_128.png" tabindex=""/></a>
+        </p>
+        <h2>プロセススタジオで応答を表示する</h2>
+        <p>プロセススタジオで、応答が構成されたWeb APIアクションを使用するプロセスの［出力］を選択します。応答に追加されたパラメーター名に対応する出力が追加され、各パラメーターを格納するプロセスで関連データアイテムが作成されました。</p>
+        <p><a href="../Images/api-response-eg-outputs.png"><img data-mc-width="802" data-mc-height="466" src="../Images/api-response-eg-outputs_thumb_0_128.png" tabindex=""/></a>
+        </p>
+        <p>プロセスが実行されると、応答からのデータは適切なステージに格納され、プロセス内の他の場所で簡単に使用できるようになります。</p>
+        <p><b>出力パラメーターに定義されたJSONPathがHTTP応答でマッチを見つけることができない場合、出力パラメーターは空のデータアイテム/コレクションを返します。</b></p>
+        <p><b>出力パラメーターに定義されたJSONPathがHTTP応答で可能性のあるマッチを複数見つけると、プロセスで例外がスローされます。</b></p>
+        <p>
+            <img src="../Images/api-response-eg-stages.png"/>
+        </p>
+        <h2 data-mc-conditions="Default.ScreenOnly">JSONPathの構文</h2>
+        <p data-mc-conditions="Default.ScreenOnly">Blue Prismでは、JSONPath式に対して次の構文をサポートします。</p>
+        <table class="TableStyle-bp-table-row-header" style="mc-table-style: url('../../TableStyles/bp-table-row-header.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-bp-table-row-header-Column-Column1" data-mc-conditions="Default.ScreenOnly"/>
+            <col class="TableStyle-bp-table-row-header-Column-Column1" data-mc-conditions="Default.ScreenOnly"/>
+            <col class="TableStyle-bp-table-row-header-Column-Column1" data-mc-conditions="Default.ScreenOnly"/>
+            <thead>
+                <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                    <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                        <p data-mc-conditions="Default.ScreenOnly">JSONPath</p>
+                    </th>
+                    <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                        <p data-mc-conditions="Default.ScreenOnly">説明</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">$</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">ルートオブジェクトまたは要素。</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">@</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">現在のオブジェクトまたは要素。</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">.または[]</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">子オペレーター。</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">..</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">再帰的な子。</p>
+                    </td>
+                </tr>
+				<tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">*</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">ワイルドカード。</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">[]</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">ネイティブ配列演算子。</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">[開始:終了:ステップ]</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">配列スライス演算子。</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">?()</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">フィルター（スクリプト）式を適用します。</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">()</p>
+                    </td>
+                    <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1">
+                        <p data-mc-conditions="Default.ScreenOnly">基礎となるスクリプトエンジンを使用したスクリプト式。</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3 data-mc-conditions="Default.ScreenOnly">例</h3>
+        <p data-mc-conditions="Default.ScreenOnly">スタッフデータベースには、組織の従業員に関するデータを含む多数のレコードが含まれています。</p>
+        <p class="code_sample" data-mc-conditions="Default.ScreenOnly">{ </p>
+		<p class="code_sample" style="text-indent: 0.25in;" data-mc-conditions="Default.ScreenOnly">スタッフデータベース:{</p>
+        <p class="code_sample" style="text-indent: 0.5in;" data-mc-conditions="Default.ScreenOnly">従業員:[</p>
+        <p class="code_sample" style="text-indent: 1in;" data-mc-conditions="Default.ScreenOnly">{ </p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">id: 1245,</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">名前: "ジェフ・ブライアント",</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">給料: 45000,</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">年齢: 46</p>
+        <p class="code_sample" style="text-indent: 1in;" data-mc-conditions="Default.ScreenOnly">},</p>
+        <p class="code_sample" style="text-indent: 1in;" data-mc-conditions="Default.ScreenOnly">{</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">id: 1365,</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">名前: "トム・ロバーツ",</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">給料: 38000,</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">役職名:"デベロッパー"</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">年齢: 34</p>
+        <p class="code_sample" style="text-indent: 1in;" data-mc-conditions="Default.ScreenOnly">},</p>
+        <p class="code_sample" style="text-indent: 1in;" data-mc-conditions="Default.ScreenOnly">{</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">id: 1287,</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">名前: "ハーマン・ブラント",</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">給料: 27000,</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">役職名:"テスター"</p>
+        <p class="code_sample" style="text-indent: 1.5in;" data-mc-conditions="Default.ScreenOnly">年齢: 26</p>
+        <p class="code_sample" style="text-indent: 1in;" data-mc-conditions="Default.ScreenOnly">},</p>
+		<p class="code_sample" style="text-indent: 0.5in;" data-mc-conditions="Default.ScreenOnly">]</p>
+        <p class="code_sample" style="text-indent: 0.25in;" data-mc-conditions="Default.ScreenOnly">}</p>
+        <p class="code_sample" data-mc-conditions="Default.ScreenOnly">}</p>
+        <p data-mc-conditions="Default.ScreenOnly">次はJSONPathの使用方法の例です </p>
+        <table class="TableStyle-bp-table-row-header" style="mc-table-style: url('../TableStyles/bp-table-row-header.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-bp-table-row-header-Column-Column1" data-mc-conditions="Default.ScreenOnly"/>
+            <col class="TableStyle-bp-table-row-header-Column-Column1" data-mc-conditions="Default.ScreenOnly"/>
+            <thead>
+                <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                    <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                        <p data-mc-conditions="Default.ScreenOnly">JSONPath</p>
+                    </th>
+                    <th class="TableStyle-bp-table-row-header-HeadD-Column1-Header1">
+                        <p data-mc-conditions="Default.ScreenOnly">結果</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1" data-mc-conditions="Default.ScreenOnly">$.staff-database..salary</td>
+                    <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1" data-mc-conditions="Default.ScreenOnly">すべての従業員レコードの給与を返します。</td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1" data-mc-conditions="Default.ScreenOnly">$.staff-database['employee']</td>
+                    <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1" data-mc-conditions="Default.ScreenOnly">すべての従業員レコードを返します。</td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1" data-mc-conditions="Default.ScreenOnly"> $..employee[?(@.job-title)]</td>
+                    <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1" data-mc-conditions="Default.ScreenOnly">役職を持つすべてのレコードをフィルターします。</td>
+                </tr>
+                <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                    <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1" data-mc-conditions="Default.ScreenOnly"> $..employee[?(@.salary&lt;40000)]</td>
+                    <td class="TableStyle-bp-table-row-header-BodyA-Column1-Body1" data-mc-conditions="Default.ScreenOnly">給与が40000未満のすべてのレコードをフィルターします。</td>
+                </tr>
+            </tbody>
+        </table>
+        <p> </p>
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../TableStyles/bp_footer_tablestyle.css');" class="TableStyle-bp_footer_tablestyle" cellspacing="0">
+            <col class="TableStyle-bp_footer_tablestyle-Column-Column1"/>
+            <tbody>
+                <tr class="TableStyle-bp_footer_tablestyle-Body-Body1">
+                    <td class="TableStyle-bp_footer_tablestyle-BodyD-Column1-Body1"> </td>
+                </tr>
+                <tr class="TableStyle-bp_footer_tablestyle-Body-Body1">
+                    <td style="text-align: center;" class="TableStyle-bp_footer_tablestyle-BodyD-Column1-Body1">非公開商用文書</td>
+                </tr>
+                <tr class="TableStyle-bp_footer_tablestyle-Body-Body1">
+                    <td style="text-align: center;" class="TableStyle-bp_footer_tablestyle-BodyA-Column1-Body1">®Blue PrismはBlue Prism Limitedの登録商標です</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

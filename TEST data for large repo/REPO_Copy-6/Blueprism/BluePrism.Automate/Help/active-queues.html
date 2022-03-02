@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>Active Queues</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+	</style>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">Process Features</h1>
+		<h2>Active Queues</h2>
+	</div>
+
+	<div class="captioned-image overview-screenshot nozoom">
+		<a href="Graphics/active-queues.png"
+			title="Active Queues - Click for a larger image"><img
+			alt="Active Queues - Click for a larger image"
+			src="Graphics/active-queues.png"/></a>
+		<p>Active Queues</p>
+	</div>
+
+	<h3 id="overview">Overview</h3>
+
+    <p><a href="helpQueues.htm">Work Queues</a> are available in the
+       Blue Prism product to enable cases to be queued and worked in
+       a predefined order within a session.</p>
+
+    <p>Using the traditional session management model, sessions are
+       started on resources which poll the work queue for cases to
+       work. These sessions are started in Control Room manually, or
+       via a <a href="helpScheduler.htm">scheduler</a> service which
+       is running on a <a href="helpBPServer.htm">Blue Prism Server</a>
+       instance.</p>
+
+    <p>Active queues introduce an alternative mechanism for managing
+       the sessions which work the queues, made possible by creating
+       a closer association between work queues and sessions.</p>
+
+    <p>Instead of creating sessions separately in Control Room and
+       then moving to the queue management page to see the results,
+       active queues allow you to set a target number of resources
+       which should be working the queue, Blue Prism uses the active
+       queue configuration to determine how to achieve that target.</p>
+
+    <h3 id="queue-requirements">Active Queue Requirements</h3>
+
+    <p>In order for Blue Prism to determine how to start and stop
+       sessions on behalf of a queue, it needs to know two things
+       about the queue:</p>
+
+    <ul>
+      <li>Which process works the queue?</li>
+      <li>Which resources should be used to work the queue?</li>
+    </ul>
+
+    <p>This information is set in the <a href="sysman-queues.html">
+       Work Queue Configuration</a> page in the <code>System</code>
+       section of the Blue Prism client, by associating a published
+       process and a resource group with the queue.</p>
+
+    <p>With this information, Blue Prism can find an available
+       resource and create a process on it which will then work
+       the queue.</p>
+
+    <p>In order to stop a session which is running on behalf of an
+       active queue, a 'stop request' is made to the session,
+       allowing it to ensure it does not stop in the middle of a
+       transaction. See <a href="#process-requirements">the process
+       requirements</a> for more detail.</p>
+
+    <h3 id="process-requirements">Process Requirements</h3>
+
+    <p>In order to operate on behalf of an active queue, a process
+       must meet some basic requirements.</p>
+
+    <ul>
+      <li>The process must be published before it can be set as the
+          assigned process in an active queue.</li>
+
+      <li><p>Assuming that the process contains a main loop, the function
+          <code>IsStopRequested()</code> must be queried using a
+          decision stage within that loop in order to ascertain if a
+          safe stop has been requested.</p>
+          <p>This is the mechanism used by the active queue controller to
+          stop sessions running on behalf of active queues that it is
+          controlling.</p></li>
+    </ul>
+
+     <h3 id="how-it-works">How It Works</h3>
+     <p>When the <code>Active Queues</code> section of Control Room is
+     entered, an <code>Active Queue Controller</code> is created for each
+     of the queues being displayed. These controllers remain in memory
+     until the user logs out of the client.</p>
+
+     <p>Each controller monitors the sessions running on the resources
+     assigned to their queue and polls the database for the latest
+     statistics for the queue that they are responsible for.</p>
+
+     <p>When a target resource value is set, the controller determines
+     whether it needs to create new sessions or stop existing sessions
+     to reach that target. If new sessions are required, it will create
+     and start the new sessions; if existing sessions must be stopped,
+     it will send a stop request to the appropriate number of sessions
+     to reach the target value.</p>
+
+     <h4>Creating new sessions</h4>
+     <p>If the queue controller determines that new sessions must be
+     created in order to reach the target, it will create and start
+     new sessions on the available resources in the resource group
+     assigned to its queue.</p>
+
+     <p>It will create sessions on the least busy resource first, eg.
+     if the group has three available resources and two of them are
+     running a background process, the first session it creates will
+     be on the resource which is not running any sessions.</p>
+
+     <p>If any sessions fail to be created or started for some reason,
+     it will retry on other resources. After three attempts, it will
+     abandon the session and decrement the target value to indicate
+     that it will no longer be attempting to create the session.</p>
+
+     <p>If any errors occur which cause a session to be abandoned by
+     the controller, they will be recorded in the Blue Prism event log
+     and will be visible using the Windows Event Viewer.</p>
+
+     <h4>Stopping existing sessions</h4>
+     <p>If the queue controller decides that existing sessions must be
+     stopped in order to reach the target, it will iterate through the
+     sessions and choose the oldest sessions (ie. the sessions that
+     were started at the earliest times) to send a stop request to.</p>
+
+     <p>Once a controller sends a stop request to a session, the
+     session is marked as <code>Stopping</code>. In this state, it is
+     still 'running' - ie. it is contributing to the 'Active Sessions'
+     count in the queue, and it is not available to run further
+     sessions on.</p>
+
+     <p>In order to stop correctly, the worker process must check the
+     <code>IsStopRequested()</code> function regularly, cleaning up
+     its environment and exiting the process when the function
+     indicates that a stop has been requested.</p>
+
+     <h4>Session completions / terminations</h4>
+     <p>When a session which is running on behalf of an active queue
+     completes or terminates, it is taken out of the 'Active Sessions'
+     count for the queue and becomes available again for further
+     sessions.</p>
+
+     <p>If the completion / termination occurs after a stop request
+     has been sent by a queue controller, the target resource value
+     is unchanged (ie. the session was expected to stop in order for
+     the target value to be reached).</p>
+
+     <p>If the completion / termination occurs before any stop request
+     has been sent by a queue controller, the target resource value
+     is decremented - ie. no other session is created to take its
+     place.</p>
+
+     <h3 id="pools">Active Queues and Resource Pools</h3>
+
+     <p>To a certain extent, <a href="helpResourcePools.htm">Resource
+     Pools</a> are trying to solve the same problem as the assigned
+     resource group in an active queue - that of finding an available
+     resource and executing a process on it.</p>
+
+     <p>As such, it is not recommended to use resource pools within
+     active queues - the active queue controller assumes that each
+     resource represents a single slot for running sessions on behalf
+     of its queue. Resource pools are transparent in that they appear
+     to be single resources which can run multiple exclusive sessions
+     and the queue controller can't drill down into the member
+     resources to ascertain availability.</p>
+
+     <p>If you do include a resource pool in a resource group assigned
+     to an active queue, it will be treated as a single resource in the
+     'Available Resources' count and it will only have a single session
+     assigned to it, at which point it will be taken out of
+     consideration for that queue.</p>
+
+
+</body>
+</html>

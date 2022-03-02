@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2AD28521-CF8E-41D9-BE71-DEE320C0F458}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BluePrism.DigitalWorker</RootNamespace>
+    <AssemblyName>BluePrism.DigitalWorker</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="DigitalWorker.cs" />
+    <Compile Include="EnvironmentFunctions\GetResourceNameFunction.cs" />
+    <Compile Include="ITaskDelay.cs" />
+    <Compile Include="Messaging\ISessionServiceClient.cs" />
+    <Compile Include="Messaging\LifecycleEventPublisher.cs" />
+    <Compile Include="EnvironmentFunctions\GetUserNameFunction.cs" />
+    <Compile Include="EnvironmentFunctions\GetStartTimeFunction.cs" />
+    <Compile Include="EnvironmentFunctions\IsStopRequestedFunction.cs" />
+    <Compile Include="Messaging\ILifecycleEventPublisher.cs" />
+    <Compile Include="Messaging\GetSessionVariablesConsumer.cs" />
+    <Compile Include="Messaging\RequestStopProcessConsumer.cs" />
+    <Compile Include="Messaging\SessionServiceClient.cs" />
+    <Compile Include="Messaging\StopProcessConsumer.cs" />
+    <Compile Include="Modules\BusModule.cs" />
+    <Compile Include="Sessions\Coordination\DigitalWorkerBusyException.cs" />
+    <Compile Include="Sessions\Coordination\ExclusiveProcessLock.cs" />
+    <Compile Include="Sessions\Coordination\ExclusiveProcessLockState.cs" />
+    <Compile Include="Messaging\Observers\ExclusiveProcessLockObserver.cs" />
+    <Compile Include="Sessions\Coordination\IExclusiveProcessLock.cs" />
+    <Compile Include="Messaging\Observers\IExclusiveProcessLockObserver.cs" />
+    <Compile Include="ProcessDataAccess.cs" />
+    <Compile Include="DigitalWorkerFeatureToggle.cs" />
+    <Compile Include="Modules\DigitalWorkerModule.cs" />
+    <Compile Include="IProcessDataAccess.cs" />
+    <Compile Include="Messaging\IMessageBusWrapper.cs" />
+    <Compile Include="Messaging\IRunProcessQueueCoordinator.cs" />
+    <Compile Include="Messaging\MessageBusWrapper.cs" />
+    <Compile Include="Messaging\RunProcessQueueCoordinator.cs" />
+    <Compile Include="Sessions\IDigitalWorkerRunnerRecord.cs" />
+    <Compile Include="Sessions\ILogEventPublisher.cs" />
+    <Compile Include="Sessions\IRunningSessionRegistry.cs" />
+    <Compile Include="Sessions\LogEventPublisher.cs" />
+    <Compile Include="Messaging\RunProcessConsumer.cs" />
+    <Compile Include="Notifications\INotificationHandler.cs" />
+    <Compile Include="Notifications\NotificationHandler.cs" />
+    <Compile Include="Notifications\ResourceNotificationEventArgs.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sessions\DigitalWorkerRunnerRecord.cs" />
+    <Compile Include="Sessions\DigitalWorkerSessionLoggingEngine.cs" />
+    <Compile Include="Sessions\Coordination\ISessionCoordinator.cs" />
+    <Compile Include="Sessions\IProcessInfoLoader.cs" />
+    <Compile Include="Sessions\ISessionCleanup.cs" />
+    <Compile Include="Sessions\ISessionRunner.cs" />
+    <Compile Include="Sessions\ISessionStatusPublisher.cs" />
+    <Compile Include="Sessions\ProcessInfo.cs" />
+    <Compile Include="Sessions\RunningSessionMonitor.cs" />
+    <Compile Include="Sessions\ServerProcessInfoLoader.cs" />
+    <Compile Include="Sessions\SessionCleanup.cs" />
+    <Compile Include="Sessions\SessionContext.cs" />
+    <Compile Include="Sessions\Coordination\SessionCoordinator.cs" />
+    <Compile Include="Sessions\RunningSessionRegistry.cs" />
+    <Compile Include="Sessions\SessionRunner.cs" />
+    <Compile Include="Sessions\SessionStatusPublisher.cs" />
+    <Compile Include="TaskDelay.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BluePrism.Automate\AutomateAppCore\AutomateAppCore.vbproj">
+      <Project>{ff422ddb-fb06-4249-8540-e26b749077cc}</Project>
+      <Name>AutomateAppCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BluePrism.AutomateProcessCore\BluePrism.AutomateProcessCore.vbproj">
+      <Project>{8c9488cf-db9d-4ae6-965e-1c214fdec7e6}</Project>
+      <Name>BluePrism.AutomateProcessCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BluePrism.Core\BluePrism.Core.csproj">
+      <Project>{5E6D62F4-EE6E-46C2-A7B9-3DB35CB21F90}</Project>
+      <Name>BluePrism.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BluePrism.DigitalWorker.Messages.Commands\BluePrism.DigitalWorker.Messages.Commands.csproj">
+      <Project>{0f14bb3e-2243-40d3-b144-324eedd8718b}</Project>
+      <Name>BluePrism.DigitalWorker.Messages.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BluePrism.DigitalWorker.Messages.Events\BluePrism.DigitalWorker.Messages.Events.csproj">
+      <Project>{a525741f-7e00-4acb-bc65-f2b2665ed6d0}</Project>
+      <Name>BluePrism.DigitalWorker.Messages.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BluePrism.DigitalWorker.MessagingClient\BluePrism.DigitalWorker.MessagingClient.csproj">
+      <Project>{1981e506-2a9b-4b27-922e-68bd2121c20d}</Project>
+      <Name>BluePrism.DigitalWorker.MessagingClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BluePrism.Server.Domain.Models\BluePrism.Server.Domain.Models.vbproj">
+      <Project>{1780b25d-c0d1-4f52-9bca-a017fce66b68}</Project>
+      <Name>BluePrism.Server.Domain.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BPCoreLib\BPCoreLib.vbproj">
+      <Project>{c712cf75-3d8a-48d2-9c43-55f67e382197}</Project>
+      <Name>BPCoreLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CharMatching\CharMatching.csproj">
+      <Project>{E538BFA3-2685-4B0D-82FA-B4015F601E52}</Project>
+      <Name>CharMatching</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac">
+      <Version>5.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="BluePrism.Cirrus.Common.MassTransit">
+      <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="BluePrism.Cirrus.Sessions.SessionService.Messages.Commands">
+      <Version>1.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="BluePrism.Cirrus.Sessions.SessionService.MessagingClient">
+      <Version>1.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="BluePrism.Common.Security">
+      <Version>1.11.0</Version>
+    </PackageReference>
+    <PackageReference Include="FeatureToggle">
+      <Version>3.5.1</Version>
+    </PackageReference>
+    <PackageReference Include="MassTransit.Autofac">
+      <Version>7.1.4</Version>
+    </PackageReference>
+    <PackageReference Include="MassTransit.RabbitMQ">
+      <Version>7.1.4</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="NLog.Extensions.Logging">
+      <Version>1.6.2</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reactive">
+      <Version>4.2.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildProjectDirectory)\..\Shared.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <!-- Defined in Shared.targets -->
+    <CallTarget Targets="Obfuscate" />
+    <CallTarget Targets="SignOutput" />
+  </Target>
+</Project>

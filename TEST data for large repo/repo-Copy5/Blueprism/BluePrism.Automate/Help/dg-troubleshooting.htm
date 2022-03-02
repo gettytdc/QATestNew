@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_HTML5___Top_Navigation" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../../" data-mc-has-content-body="True" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../Skins/Favicons/apple-touch-icon.png" />
+        <link rel="shortcut icon" href="../../Skins/Favicons/favicon-32x32.png" />
+        <link rel="icon" sizes="96x96" href="../../Skins/Favicons/favicon-96x96.png" />
+        <link rel="icon" sizes="32x32" href="../../Skins/Favicons/favicon-32x32.png" />
+        <link rel="icon" sizes="2263x2263" href="../../Skins/Favicons/BP_Prism_RGB.png" />
+        <meta charset="utf-8" />
+        <meta name="description" content="" />
+        <meta name="author" content="" /><title>Troubleshooting Data Gateways</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/stylesheets/foundation.6.2.3.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/stylesheets/styles.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/stylesheets/tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/stylesheets/mobile.css" rel="stylesheet" />
+        <style>/*&lt;meta /&gt;*/
+
+.button.select-language-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/select-language.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.button.feedback-button
+{
+	-pie-background: linear-gradient(#ffffff, #ececec);
+}
+
+.button.print-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/printer.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.button.previous-topic-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/navigate-previous.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.button.next-topic-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/navigate-next.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.needs-pie
+{
+	behavior: url('../../Resources/Scripts/PIE-no-motw.htc');
+}
+
+</style>
+        <link href="./AutomateHelp.css" rel="stylesheet" />
+    </head>
+    <body>
+                                            <div>
+                                                <h1 class="pagebreak">Troubleshooting<MadCap:conditionalText data-mc-conditions="Default.ScreenOnly"> Data Gateways</MadCap:conditionalText></h1>
+                                                <h2>How do I check that the Data Gateways system is functioning as expected?</h2>
+                                                <p>There are a number of ways to check Data Gateways for issues:</p>
+                                                <ul>
+                                                    <li class="bullet_1" value="1">
+                                                        <p><b>Check the status of the Data Gateways process in control room</b>
+                                                        </p>
+                                                        <p>If it is in an error state, the status message will provide information about what the problem is.</p>
+                                                    </li>
+                                                    <li class="bullet_1" value="2">
+                                                        <p><b>Check the event logs on the application server</b>
+                                                        </p>
+                                                        <p>Any Data Gateways process errors will be output into the event log from the Logstash Process Manager source. The standard output stream from the Logstash process is also written to the event log in the event of an error, which can help identify Logstash specific errors.</p>
+                                                    </li>
+                                                    <li class="bullet_1" value="3">
+                                                        <p><b>Check the Logstash logs on the application server</b>
+                                                        </p>
+                                                        <p>The logs are written to C:\Logstash\logstash\logs\.</p>
+                                                    </li>
+                                                </ul>
+                                                <h2>Should I&#160;use a dedicated application server for Data Gateways?</h2>
+                                                <p>For the majority of installations, existing application servers can be used for Data Gateways. However, where Data Gateways is being used to process large sets of data, or to direct data to a number of targets, it may be appropriate to deploy Data Gateways onto dedicated Blue Prism application servers which are used only for this purpose.</p>
+                                                <h2><a name="Can"></a>Can I&#160;change the port that the Data Gateway process uses to connect to the SQL server?</h2>
+                                                <p>By default, the Data Gateways process uses port 1433. However, an alternative port can by specified by editing a custom configuration.</p>
+                                                <p>The port is defined in the  Input section of the configuration file structure, as demonstrated in the example below. Edit a <a href="dg-custom-config.htm">custom configuration</a> and replace the highlighted value with the required port number:</p>
+                                                <p class="code_sample">input {</p>
+                                                <p class="code_sample">jdbc {</p>
+                                                <p class="code_sample">jdbc_driver_library =&gt; "..\sqljdbc_4.2\enu\jre8\sqljdbc42.jar"</p>
+                                                <p class="code_sample">jdbc_connection_string =&gt; "jdbc:sqlserver://SQL_SERVER_INSTANCE:<b>1433</b>;databaseName=BP_</p>
+                                                <p class="code_sample">DATABASE;"</p>
+                                                <p class="code_sample">jdbc_driver_class =&gt; "com.microsoft.sqlserver.jdbc.SQLServerDriver"</p>
+                                                <p class="code_sample">jdbc_user =&gt; "&lt;%Data Gateways BP Database SQL User.username%&gt;"</p>
+                                                <p class="code_sample">jdbc_password =&gt; "&lt;%Data Gateways BP Database SQL User.password%&gt;"</p>
+                                                <p class="code_sample">statement =&gt; "delete top(3000)from BPADataPipelineInput with (rowlock, readpast)</p>
+                                                <p class="code_sample">output deleted.eventdata"</p>
+                                                <p class="code_sample">schedule =&gt; "*/3* * * * *"</p>
+                                                <p class="code_sample">}}</p>
+                                                <h2>How do I set up Data Gateways Splunk outputs to use HTTPS?</h2>
+                                                <p>For details about how to achieve this, see:</p>
+                                                <p><a href="http://portal.blueprism.com/customer-support/support-center#/path/1357434942">http://portal.blueprism.com/customer-support/support-center#/path/1357434942</a>.</p>
+                                                <p>&#160;</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section><a data-close="true"></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

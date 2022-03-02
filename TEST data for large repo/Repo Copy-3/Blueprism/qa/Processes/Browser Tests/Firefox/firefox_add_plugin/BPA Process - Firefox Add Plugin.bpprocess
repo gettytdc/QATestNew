@@ -1,0 +1,132 @@
+﻿<process name="Firefox Add Plugin" version="1.0" bpversion="6.11.0.34614" narrative="" byrefcollection="true" preferredid="83df2d8d-298c-48f3-a3c0-1815d48fb636">
+  <view>
+    <camerax>0</camerax>
+    <cameray>84</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="5aba20d7-d10f-4e10-8ccf-4bcbb3f2b30e" name="Start" type="Start">
+    <display x="45" y="-105" />
+    <onsuccess>00a93fb8-30c8-43bb-a926-9dcc8328e769</onsuccess>
+  </stage>
+  <stage stageid="c39824dd-312f-404b-8984-8ec52cd6ea61" name="End" type="End">
+    <display x="45" y="225" />
+  </stage>
+  <stage stageid="78ebf0a5-5dac-4183-b5b5-31a0e249511a" name="Stage1" type="ProcessInfo">
+    <display x="-120" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="6be86272-3394-41c3-8da8-37d3bc115fa2" name="Add Firefox Plugin" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="15" w="90" h="30" />
+    <onsuccess>ae3e4afa-6820-4563-bd26-3b6aa4b7117c</onsuccess>
+    <resource object="Firefox Add Plugin Object" action="Add Firefox Plugin" />
+  </stage>
+  <stage stageid="b8653c3f-d701-4b5f-ad0e-c5f8d3b3ff27" name="Failed?" type="Decision">
+    <display x="45" y="135" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>e35717ec-2ae2-4ca0-a22d-f9f504b1e569</ontrue>
+    <onfalse>9d0aadbe-dea6-4453-b146-709b38666b14</onfalse>
+  </stage>
+  <stage stageid="b405a6fc-cdd1-49f7-9141-18ab53c2736d" name="RETHROW" type="Exception">
+    <display x="360" y="135" />
+    <exception localized="yes" type="Test Fail" detail="[Exception]" />
+  </stage>
+  <stage stageid="3043e80f-07f9-4f6c-87d3-cc1a918b611e" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="135" y="60" />
+    <onsuccess>bbd17ed7-e5d1-45c6-8ddc-3dbf4015c902</onsuccess>
+  </stage>
+  <stage stageid="b672711f-d649-4934-addb-13c6c1121182" name="Get Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="135" y="15" />
+    <onsuccess>3043e80f-07f9-4f6c-87d3-cc1a918b611e</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="aaffa8a9-fc55-4fff-965c-d8548538e1b5" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="135" y="-30" />
+    <onsuccess>b672711f-d649-4934-addb-13c6c1121182</onsuccess>
+  </stage>
+  <stage stageid="a768c4b4-6b32-4e40-a737-5c647d34b29b" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-15" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="44605590-74eb-40fd-b905-9cf71d7b3787" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b3cc8a19-f23d-45e5-b42f-92a3dc64a608" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="34062c7b-5857-410d-8f34-cd3169499570" name="Count" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="75" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="60d1ac43-be32-4614-be0a-ae33b0372c1c" name="RetryCount" type="Calculation">
+    <loginhibit onsuccess="true" />
+    <display x="210" y="135" />
+    <onsuccess>8a2c2ea6-b71f-4418-8de5-62e6b9f6a936</onsuccess>
+    <calculation expression="[Count]+1" stage="Count" />
+  </stage>
+  <stage stageid="bb8cca22-4457-4c6a-8580-066d503f0b4a" name="Block1" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="-60" w="195" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="8a2c2ea6-b71f-4418-8de5-62e6b9f6a936" name="Retry?" type="Decision">
+    <display x="285" y="135" />
+    <decision expression="[Count] &lt;=10" />
+    <ontrue>a6012b66-7cb9-4f89-a532-244b2ddcfe74</ontrue>
+    <onfalse>b405a6fc-cdd1-49f7-9141-18ab53c2736d</onfalse>
+  </stage>
+  <stage stageid="a6012b66-7cb9-4f89-a532-244b2ddcfe74" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="285" y="-75" w="10" h="10" />
+    <onsuccess>00a93fb8-30c8-43bb-a926-9dcc8328e769</onsuccess>
+  </stage>
+  <stage stageid="00a93fb8-30c8-43bb-a926-9dcc8328e769" name="Anchor2" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="-75" w="10" h="10" />
+    <onsuccess>6be86272-3394-41c3-8da8-37d3bc115fa2</onsuccess>
+  </stage>
+  <stage stageid="bbd17ed7-e5d1-45c6-8ddc-3dbf4015c902" name="Anchor3" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="135" y="105" w="10" h="10" />
+    <onsuccess>ae3e4afa-6820-4563-bd26-3b6aa4b7117c</onsuccess>
+  </stage>
+  <stage stageid="ae3e4afa-6820-4563-bd26-3b6aa4b7117c" name="Anchor4" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="105" w="10" h="10" />
+    <onsuccess>b8653c3f-d701-4b5f-ad0e-c5f8d3b3ff27</onsuccess>
+  </stage>
+  <stage stageid="e35717ec-2ae2-4ca0-a22d-f9f504b1e569" name="CleanUp" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="135" y="135" />
+    <onsuccess>60d1ac43-be32-4614-be0a-ae33b0372c1c</onsuccess>
+    <resource object="Firefox Add Plugin Object" action="Terminate" />
+  </stage>
+  <stage stageid="9d0aadbe-dea6-4453-b146-709b38666b14" name="CleanUp" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="180" />
+    <onsuccess>c39824dd-312f-404b-8984-8ec52cd6ea61</onsuccess>
+    <resource object="Firefox Add Plugin Object" action="Terminate" />
+  </stage>
+</process>

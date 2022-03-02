@@ -1,0 +1,35 @@
+﻿startapplication path="testapps\grid\vb6automatedtestapp.exe" hook=True
+$AbortIfNot OK
+
+#Wait for the application to appear...
+wait timeout=30000 {checkwindow windowtext="VB6 Automated Test App"}=True
+$AbortIf RESULT:0
+
+#Wait for the grid as well, it doesn't always seem to be there
+#immediately...
+wait timeout=5000 {checkwindow classname=MSFlexGridWndClass"}=True
+
+#Read the contents of the grid...
+$StartTiming
+getmsflexgridcontents classname=MSFlexGridWndClass
+$StopTiming
+
+#Read the contents of the grid again using the old method...
+$StartTiming
+getmsflexgridcontents classname=MSFlexGridWndClass method=old
+$StopTiming
+
+#Read the contents of the grid...
+$StartTiming
+getmsflexgridcontents classname=MSFlexGridWndClass
+$StopTiming
+
+#Read the contents of the grid again using the old method...
+$StartTiming
+getmsflexgridcontents classname=MSFlexGridWndClass method=old
+$StopTiming
+
+#Close the app
+closewindow windowtext="VB6 Automated Test App"
+
+#Finished!

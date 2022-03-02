@@ -1,0 +1,699 @@
+﻿<process name="Test Delete Processed from all Queues" version="1.0" bpversion="6.5.0.8587" narrative="Process to test deleting all processed items from all queues." byrefcollection="true" preferredid="457eec81-48a6-482e-8775-99c32fa90435">
+  <view>
+    <camerax>-50</camerax>
+    <cameray>-108</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="8e2fc6a2-b28e-44d2-af5a-bab66800035c" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>-315</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>2d9fe0be-07dc-4d9c-91c2-3941755960d1</onsuccess>
+  </stage>
+  <stage stageid="5603f3fd-9804-4610-98f8-84446d7820e3" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>900</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="9b076bfb-23bd-4733-8994-0fd5deda36f2" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>-285</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="3dd48c0d-86cc-4b26-983f-dbbf7b0ee3fe" name="Data" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="60b385b6-62f1-44d8-a06c-14d3c7c50e45" name="Add to Queue 1" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue 1]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Data]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>777ed776-6def-4c42-94dd-3e55bf477a47</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="35d1d0a0-f99d-4347-bb6a-1e430611ac02" name="Item ID" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="777ed776-6def-4c42-94dd-3e55bf477a47" name="GetNext" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue 1]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>af907573-37c7-4f1d-9486-f369e3ce9f38</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="3f2ccbe0-e20a-48f5-8366-9632ecacc650" name="Complete" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+    </inputs>
+    <onsuccess>d2009079-b2e8-4b3c-a56d-09009f994d01</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="2d94c785-89f3-4792-be6f-693138d8f2dd" name="Queue 1 (BG-1797)" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-150</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>210</displaywidth>
+    <displayheight>195</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c4b908ff-5f2c-4a6f-be90-6e9832e2f402" name="Add to Queue 2" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue 2]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Data]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>e29951e0-8357-447b-b98c-3ecc9638dbbd</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="5bfabc4e-cbe2-4e63-8b1a-3d6650a2ff4e" name="Queue 2 (BG-1797)" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-150</displayx>
+    <displayy>105</displayy>
+    <displaywidth>210</displaywidth>
+    <displayheight>195</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e29951e0-8357-447b-b98c-3ecc9638dbbd" name="GetNext" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue 2]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>eb5698f0-b61f-421e-af60-08b27c6d2878</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="398fde50-6906-498e-b1ae-9186c9d19707" name="Complete" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>270</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+    </inputs>
+    <onsuccess>10c9334f-cf1d-4667-9c1f-79feadb84e8c</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="af907573-37c7-4f1d-9486-f369e3ce9f38" name="Done?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>0</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID]=&quot;&quot;" />
+    <ontrue>678925b2-bedd-42b0-b979-3c1aeebcabcc</ontrue>
+    <onfalse>3f2ccbe0-e20a-48f5-8366-9632ecacc650</onfalse>
+  </stage>
+  <stage stageid="bbd15b0d-6823-4d2c-9a97-310199ff7fb6" name="Anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>b1471fde-51c5-42de-a59b-20827034d0db</onsuccess>
+  </stage>
+  <stage stageid="10c9334f-cf1d-4667-9c1f-79feadb84e8c" name="Anchor2" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>270</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>18b2c99e-9d69-441f-ab99-04962cc389c0</onsuccess>
+  </stage>
+  <stage stageid="18b2c99e-9d69-441f-ab99-04962cc389c0" name="Anchor3" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>180</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e29951e0-8357-447b-b98c-3ecc9638dbbd</onsuccess>
+  </stage>
+  <stage stageid="678925b2-bedd-42b0-b979-3c1aeebcabcc" name="Anchor6" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>0</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>bbd15b0d-6823-4d2c-9a97-310199ff7fb6</onsuccess>
+  </stage>
+  <stage stageid="eb5698f0-b61f-421e-af60-08b27c6d2878" name="Done?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>225</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID]=&quot;&quot;" />
+    <ontrue>1cd78e39-eddc-43bb-a1ea-2ca639d81a2e</ontrue>
+    <onfalse>398fde50-6906-498e-b1ae-9186c9d19707</onfalse>
+  </stage>
+  <stage stageid="61f7dfce-6831-4f54-9ef3-072de8f3ffa6" name="Anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>315</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>ead616e7-0aee-4892-b6dd-b2fbc9ac3116</onsuccess>
+  </stage>
+  <stage stageid="ead616e7-0aee-4892-b6dd-b2fbc9ac3116" name="Anchor2" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>315</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>f20a654d-2f6d-4713-8932-fe925cdca728</onsuccess>
+  </stage>
+  <stage stageid="1cd78e39-eddc-43bb-a1ea-2ca639d81a2e" name="Anchor6" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>225</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>61f7dfce-6831-4f54-9ef3-072de8f3ffa6</onsuccess>
+  </stage>
+  <stage stageid="e066c832-76ac-49c3-84a7-4ed22fc1f073" name="Local Variables" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-315</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>180</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="001bb840-9f1b-4567-b082-b18de12e537c" name="Build Collection" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Start Index" friendlyname="Start Index" narrative="The index that the collection should be built from" expr="1" />
+      <input type="number" name="End Index" friendlyname="End Index" narrative="The last index that should be added to the collection" expr="2500" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Output" friendlyname="Output" narrative="The collection which has been built" stage="Data" />
+    </outputs>
+    <onsuccess>60b385b6-62f1-44d8-a06c-14d3c7c50e45</onsuccess>
+    <resource object="Queue Utils" action="Build Large Collection" />
+  </stage>
+  <stage stageid="d2009079-b2e8-4b3c-a56d-09009f994d01" name="Anchor7" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>45</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>b98fbd9a-560b-4646-a9e7-d805091b62bb</onsuccess>
+  </stage>
+  <stage stageid="b98fbd9a-560b-4646-a9e7-d805091b62bb" name="Anchor8" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>777ed776-6def-4c42-94dd-3e55bf477a47</onsuccess>
+  </stage>
+  <stage stageid="5c793431-df70-4ec8-ac37-d788e151853a" name="Delete from Queues" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-150</displayx>
+    <displayy>330</displayy>
+    <displaywidth>210</displaywidth>
+    <displayheight>285</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f20a654d-2f6d-4713-8932-fe925cdca728" name="Delete Processed Items" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete items from" expr="" />
+      <input type="datetime" name="Date Threshold" friendlyname="Date Threshold" narrative="The threshold date. Items completed or marked with an exception before this date will be deleted from the queue - if not given, all processed items in the specified queue will be deleted." expr="" />
+      <input type="flag" name="Delete From All Queues" friendlyname="Delete From All Queues" narrative="Indicates whether to delete items from all queues. If this flag is set to true you cannot specify a queue to delete from. This value defaults to false if nothing is entered. " expr="True" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Deletion Count" friendlyname="Deletion Count" narrative="Indicates the number of items which were deleted (which may legitimately be zero)." stage="Deletion Count" />
+    </outputs>
+    <onsuccess>7d5e7c88-d67f-441d-abb4-f2d69253404b</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Delete Processed Items" />
+  </stage>
+  <stage stageid="3c085690-b008-4596-8390-df024c91a6b6" name="Deletion Count" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>0</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b4763a8b-c05d-4c5a-b5ab-2bd7a9e6e18f" name="Queue 1" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Queue 1 (BG-1797)</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5cff3268-a1de-4fd3-b460-7f3448be04f6" name="Get Completed Items (Queue 1)" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>450</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to retrieve the completed items from" expr="[Queue 1]" />
+      <input type="datetime" name="Start Date" friendlyname="Start Date" narrative="The start date from which any items marked as complete should be returned. Optional - No date indicates no start date threshold" expr="" />
+      <input type="datetime" name="End Date" friendlyname="End Date" narrative="The end date up to which any items marked as complete should be returned. Optional - No date indicates no end date threshold" expr="" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+      <input type="number" name="Maximum Rows" friendlyname="Maximum Rows" narrative="The maximum number of rows to return. Optional - No value indicates that all rows should be returned" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Completed Items" friendlyname="Completed Items" narrative="The items which were marked as complete within the given date range, up to the maximum count if one was given" stage="Completed Items" />
+    </outputs>
+    <onsuccess>917d01b2-0520-4952-88f6-ccf00174e579</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Completed Items" />
+  </stage>
+  <stage stageid="7d5e7c88-d67f-441d-abb4-f2d69253404b" name="Deletetion Count Correct?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>405</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Deletion Count]=5000" />
+    <ontrue>5cff3268-a1de-4fd3-b460-7f3448be04f6</ontrue>
+    <onfalse>5d177412-147d-415d-8b20-57c0745f103b</onfalse>
+  </stage>
+  <stage stageid="7843e9c8-3afa-4b32-849e-8e9eb66165be" name="Get Completed Items (Queue 2)" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>540</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to retrieve the completed items from" expr="[Queue 2]" />
+      <input type="datetime" name="Start Date" friendlyname="Start Date" narrative="The start date from which any items marked as complete should be returned. Optional - No date indicates no start date threshold" expr="" />
+      <input type="datetime" name="End Date" friendlyname="End Date" narrative="The end date up to which any items marked as complete should be returned. Optional - No date indicates no end date threshold" expr="" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+      <input type="number" name="Maximum Rows" friendlyname="Maximum Rows" narrative="The maximum number of rows to return. Optional - No value indicates that all rows should be returned" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Completed Items" friendlyname="Completed Items" narrative="The items which were marked as complete within the given date range, up to the maximum count if one was given" stage="" />
+    </outputs>
+    <onsuccess>c10d5f1c-1734-4f50-b747-eb028a290328</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Completed Items" />
+  </stage>
+  <stage stageid="cc0457b6-5b8f-4777-afbd-a9535274b737" name="Queue 2" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Queue 2 (BG-1797)</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b5387de5-5a8b-4cd7-815c-5bed8be14754" name="Local Variables" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-315</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>120</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2d9fe0be-07dc-4d9c-91c2-3941755960d1" name="Create Queue 1" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>-255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="flag" name="Requires Login" friendlyname="Requires Login" narrative="Flag indicating if the login info should be given too" expr="True" />
+      <input type="text" name="Arguments" friendlyname="Arguments" narrative="The arguments to pass to automatec, not including the authentication info" expr="&quot;/createqueue &quot;&quot;Field 1&quot;&quot; True 1 /queuename &quot;&quot;&quot;&amp;[Queue 1]&amp;&quot;&quot;&quot; &quot;" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username that you want to authenticate against." expr="" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the username." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Output" friendlyname="Output" narrative="The output from the command" stage="" />
+    </outputs>
+    <onsuccess>76ac68f7-e4dc-4184-b41f-014910115c1f</onsuccess>
+    <resource object="Call AutomateC" action="Call AutomateC" />
+  </stage>
+  <stage stageid="272f1b41-bea4-4052-80e8-1097029cc38d" name="Delete Processed Items" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>660</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete items from" expr="[Queue 1]" />
+      <input type="datetime" name="Date Threshold" friendlyname="Date Threshold" narrative="The threshold date. Items completed or marked with an exception before this date will be deleted from the queue - if not given, all processed items in the specified queue will be deleted." expr="" />
+      <input type="flag" name="Delete From All Queues" friendlyname="Delete From All Queues" narrative="Indicates whether to delete items from all queues. If this flag is set to true you cannot specify a queue to delete from. This value defaults to false if nothing is entered. " expr="True" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Deletion Count" friendlyname="Deletion Count" narrative="Indicates the number of items which were deleted (which may legitimately be zero)." stage="Deletion Count" />
+    </outputs>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Delete Processed Items" />
+  </stage>
+  <stage stageid="e53cbb38-ee3f-4e8c-b0e8-0603eef8cbdb" name="Exception Fail" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-150</displayx>
+    <displayy>630</displayy>
+    <displaywidth>210</displaywidth>
+    <displayheight>105</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="8aadcbaa-1f6d-4f4e-9691-782343a0575e" name="Recover" type="Recover">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>705</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>7dfec931-0ac1-48bb-83e9-cc34bcfda93d</onsuccess>
+  </stage>
+  <stage stageid="91bb5f16-e499-4b9a-bc59-6731e7823a02" name="Resume" type="Resume">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>810</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>ea00898e-fc05-4f09-aac6-900511b7bd74</onsuccess>
+  </stage>
+  <stage stageid="7dfec931-0ac1-48bb-83e9-cc34bcfda93d" name="Get Execption" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>765</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>91bb5f16-e499-4b9a-bc59-6731e7823a02</onsuccess>
+    <calculation expression="ExceptionDetail()" stage="Exception" />
+  </stage>
+  <stage stageid="1268bda2-1dea-47bd-9a26-3f17ce182543" name="Exception" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>60</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ea00898e-fc05-4f09-aac6-900511b7bd74" name="Error Correct?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>855</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Exception]=&quot;You have selected to delete worked items from all queues and specified a queue name. Remove the queue name or set the Delete From All Queues flag to False.&quot;" />
+    <ontrue>5603f3fd-9804-4610-98f8-84446d7820e3</ontrue>
+    <onfalse>8b417947-a105-4441-a7e5-9bd3d0640ba8</onfalse>
+  </stage>
+  <stage stageid="8b417947-a105-4441-a7e5-9bd3d0640ba8" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>855</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="ProcessException" detail="&quot;The error message was wrong: &quot;&amp;[Exception]" />
+  </stage>
+  <stage stageid="b99e5c82-a0f6-4f61-9a76-97cf8a5a01a3" name="Blank Collection" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="917d01b2-0520-4952-88f6-ccf00174e579" name="Blank?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>495</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Completed Items]=[Blank Collection]" />
+    <ontrue>7843e9c8-3afa-4b32-849e-8e9eb66165be</ontrue>
+    <onfalse>63f013fb-efe1-4f6a-b305-3042bba1ce4d</onfalse>
+  </stage>
+  <stage stageid="c10d5f1c-1734-4f50-b747-eb028a290328" name="Blank?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>585</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Completed Items]=[Blank Collection]" />
+    <ontrue>272f1b41-bea4-4052-80e8-1097029cc38d</ontrue>
+    <onfalse>663534d6-acde-4fab-b4e1-898808af9020</onfalse>
+  </stage>
+  <stage stageid="9665325f-36a1-4a4a-9548-7cd93e45b48b" name="Completed Items" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>30</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b1471fde-51c5-42de-a59b-20827034d0db" name="Anchor4" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>90</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>c4b908ff-5f2c-4a6f-be90-6e9832e2f402</onsuccess>
+  </stage>
+  <stage stageid="76ac68f7-e4dc-4184-b41f-014910115c1f" name="Create Queue 2" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="flag" name="Requires Login" friendlyname="Requires Login" narrative="Flag indicating if the login info should be given too" expr="True" />
+      <input type="text" name="Arguments" friendlyname="Arguments" narrative="The arguments to pass to automatec, not including the authentication info" expr="&quot;/createqueue &quot;&quot;Field 1&quot;&quot; True 1 /queuename &quot;&quot;&quot;&amp;[Queue 2]&amp;&quot;&quot;&quot; &quot;" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username that you want to authenticate against." expr="" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the username." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Output" friendlyname="Output" narrative="The output from the command" stage="" />
+    </outputs>
+    <onsuccess>001bb840-9f1b-4567-b082-b18de12e537c</onsuccess>
+    <resource object="Call AutomateC" action="Call AutomateC" />
+  </stage>
+  <stage stageid="5d177412-147d-415d-8b20-57c0745f103b" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>405</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="ProcessException" detail="&quot;The deletion count was wrong. It was &quot;&amp;[Deletion Count]&amp;&quot; and you expected it to be 5000.&quot;" />
+  </stage>
+  <stage stageid="63f013fb-efe1-4f6a-b305-3042bba1ce4d" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>495</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="ProcessException" detail="&quot;Completed sessions where found on Queue 1, therefore all processed items wern't deleted.&quot;" />
+  </stage>
+  <stage stageid="663534d6-acde-4fab-b4e1-898808af9020" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>585</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="ProcessException" detail="&quot;Completed sessions where found on Queue 2, therefore all processed items wern't deleted.&quot;" />
+  </stage>
+  <stage stageid="80197a3e-c67e-4109-ab8c-60f90efef986" name="Setup" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-150</displayx>
+    <displayy>-285</displayy>
+    <displaywidth>210</displaywidth>
+    <displayheight>150</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+</process>

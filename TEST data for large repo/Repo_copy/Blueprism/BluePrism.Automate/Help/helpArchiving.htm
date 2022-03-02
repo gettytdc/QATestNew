@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>Archiving</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">Blue Prism</h1>
+		<h2>Archiving</h2>
+	</div>
+
+	<h3 id="overview">Overview</h3>
+
+	<p>Blue Prism provides an archiving facility to ensure the continued
+	efficient running of your database server, whilst preserving a
+	complete and accurate record of all activity. Archiving involves the
+	transfer of session log data from the database to a file structure,
+	freeing up database space and allowing permanent archiving of the
+	old data. The archived data can also be restored back to the
+	database at any time.</p>
+
+	<p>There are three mechanisms available for archiving - two are
+	manually initiated and one is an automatic background task for a
+	running resource:</p>
+	<dl class="listplease">
+
+		<dt><a href="#manual">System Manager Interface</a></dt>
+		<dd>In this mode of operation, you are able to accurately
+		select particular session logs at various levels of granularity
+		(e.g. by day, month, process, PC) and archive them. Likewise,
+		selected logs can be restored</dd>
+
+		<dt><a href="#commandline">Command Line Interface</a></dt>
+		<dd>This method makes it simple to set up a scheduled task to
+		archive on a regular basis. For example, you might decide to
+		archive logs older than 6 months, and do this on a nightly basis
+		</dd>
+
+		<dt><a href="#automatic">Automatic Archiving</a></dt>
+		<dd>A registered resource can be nominated to automatically
+		archive the session logs on a regular basis. This checks
+		throughout the day while the resource is running and performs
+		an archive in the background as required.</dd>
+	</dl>
+
+	<h3 id="manual">Archiving logs manually</h3>
+
+	<p>The manual archiving is configured and executed on a per-machine
+	basis - ie. changing the archive directory on a machine will change
+	it locally on that machine only.</p>
+
+	<ul>
+		<li>Sign in as a Blue Prism user possessing
+		<a href="helpUserPermissions.htm">sufficient permissions</a> to
+		access <a href="frmSystemManager.htm">System Manager</a>.</li>
+
+		 <li>Enter the "System" section of System Manager and visit
+		the "Archiving" tab.</li>
+
+		<li>For the "Archive Folder", use the "Browse" button to select
+		a directory where you would like logs to be stored. Note: Blue
+		Prism will require read and write permission to this directory
+		and (for example in the case of a mapped network drive) this
+		location will need to be accessible (ie the remote machine
+		hosting the directory will need to be switched on) at the time
+		you wish to perform the archiving.</li>
+
+		<li>You can use the "Save" button to save the chosen directory
+		in the local PC's configuration file, so it will be remembered
+		next time you archive. This saved directory will also be used
+		for command-line archiving.</li>
+
+		<li>Select the logs that you would like to archive by checking
+		leaf nodes in the right hand 'database' tree view.</li>
+
+		<li>Check your selection in the right-hand tree view and click
+		the 'Archive' button (archiving progress is indicated by the 
+		progress bar).</li>
+
+		<li>Verify that your selected logs have newly appeared in the
+		left hand 'archive' tree view.</li>
+	</ul>
+
+	<h3 id="commandline">Command Line Archiving</h3>
+
+	<p>The archive operation can be performed on the command line,
+	using the <code>AutomateC</code> program.</p>
+
+	<p>See the <a href="helpCommandLine.htm">command line options</a>
+	help for a full description of the options available.</p>
+
+	<p>A scheduled archiving task which does not require an available
+	running resource can be performed by calling the command line
+	archive command within a Windows Scheduled Task.</p>
+
+	<p>For example, the following command would archive all logs
+	older than six months in a single sign on environment:</p>
+
+	<pre>AutomateC /archive /sso /age 6m</pre>
+
+	<p>When archiving and restoring via the command-line, the Archive
+	Folder selected via the interface in System Manager is used. There
+	is also a command-line option to allow you to set this directly if
+	necessary.</p>
+
+	<h3 id="automatic">Automatic Archiving</h3>
+
+	<p>Automatic archiving can be used to ensure that the logs never
+	grow too big by performing an archive operation whenever any session
+	logs exceed a specified age.</p>
+
+	<p>It causes a registered, running resource to check periodically
+	throughout the day for any session logs that ended before a
+	specified date/time and archive/delete them if such are found.</p>
+
+	<p>This is enabled and configured in System Manager, in the same
+	location as the <a href="#manual">manual archiving.</a></p>
+
+	<p>Press the <code>'Switch to Automatic mode'</code> button to
+	enable automatic mode. Options specific to this mode will be
+	displayed.</p>
+
+	<dl class="listplease">
+		<dt>Resource</dt>
+		<dd>Details the resource which should be responsible for
+		running the automatic archiving background task.</dd>
+
+		<dt>Mode</dt>
+		<dd>Allows either archiving of the logs into a folder local to
+		the resource which can be restored into the database at a later
+		date, or simply deleting of the log data.</dd>
+
+		<dt>Archive Folder</dt>
+		<dd>The folder into which the resource should write the archived
+		session logs. Note that this path must exist locally on the
+		resource which will be running the archive operation, so that,
+		eg. a folder of <code>C:\logs\BluePrism\sessions</code> must be
+		available to the resource specified or the archive operation
+		will fail.</dd>
+		<dd>This field is not necessary if the configured mode
+		indicates that the logs should be deleted directly.</dd>
+
+		<dt>Archive older than</dt>
+		<dd>Allows the age of the archiving to be specified. The
+		archiving operation will attempt to archive any session logs
+		which <em>ended</em> earlier than the specified age.</dd>
+		<dd>Note that some debug sessions may not get an end date,
+		so the automatic archiving will not include them in the
+		archiving. These will have to be archived <a href="#manual">
+		manually</a>.
+
+	</dl>
+
+	<h3 id="restore">Restoring logs</h3>
+
+	<p>Logs may only be restored manually to the database from the
+	archive directory. Note that if you have Automatic Archiving
+	enabled, and you restore logs older than the specified archiving
+	age, they will be re-archived at the next available opportunity. In
+	this scenario, you may want to disable Automatic Archiving
+	temporarily.</p>
+
+	<p>The procedure is as follows:</p>
+
+	<ul>
+		<li>Enter the Archiving area of System Manager and choose the
+		correct 'Archive Folder', as described in the <a href="#manual">
+		manual archiving</a> section.</li>
+
+		<li>Select the logs that you would like to restore by ticking
+		the appropriate entries in the left hand 'archive' tree.</li>
+
+		<li>Click the <code>Restore</code> button.</li>
+
+		<li>Verify that your selected logs have newly appeared in the
+		right-hand 'database' tree view.</li>
+	</ul>
+
+	<p><strong>Note: </strong> Session logs taken from other
+	environments cannot be restored - the same processes, resources and
+	users must exist for the the log to be restored correctly.</p>
+
+	<h3 id="view">Viewing logs from the database and from archive</h3>
+
+	<p>Should you wish to view any log from the database or from your
+	archive, you may do so from System Manager.</p>
+
+	<ul>
+		<li>Enter the Archiving area of System Manager, as described in
+		the <a href="#manual">manual archiving</a> section.</li>
+
+		<li>Find and select the log that you would like to view. Note
+		that you do not need to tick the entry, only select it by
+		clicking on the label of the entry. Entries in either tree can
+		be selected.</li>
+
+		<li>Click either the <code>View Log</code> or
+		<code>View File</code> button to view the selected log or file,
+		respectively.</li>
+	</ul>
+	
+	<div class="captioned-image screenshot">
+		<img src="Graphics/release-archive-lock.png"
+		 alt="Releasing the archive lock"/>
+	</div>
+	<h3 id="releaselock">Releasing the archive lock</h3>
+	
+	<p>Should the archiving resource fail for some reason during an archive
+	operation, it is possible that a lock may remain in the database preventing
+	the resource from resuming archiving upon restart. The resource may report
+	an error such as <i>Archiving failed - This machine is already performing an
+	archiving process</i>. If this occurs then a System Administrator (or user with
+	access to the Archiving screen) can manually release this lock using the option
+	on the menu button.</p>
+
+</body>
+</html>

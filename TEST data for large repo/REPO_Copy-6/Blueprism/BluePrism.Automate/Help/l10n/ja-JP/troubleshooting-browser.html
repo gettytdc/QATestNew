@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<title>トラブルシューティング - ブラウザー統合</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+</head>
+
+<body class="slick troubleshooting">
+	<div class="header">
+		<h1 class="pagetitle">トラブルシューティング</h1>
+		<h2>ブラウザーの統合</h2>
+	</div>
+
+	<h3>はじめに</h3>
+	<p>このページでは、Blue Prism内でブラウザー統合を使用する際に、いくつかの一般的な問題および推奨される解決方法について説明します。</p>
+
+	<h3>複数のブラウザーセッションが正しくアタッチ接続されない</h3>
+	<p>Internet Explorerバージョン7以降では、ブラウザー内の個別のセッションを、プライマリIEプロセスから生成された個別のプロセスで実行できるという機能が導入されました。</p>
+	<p>この機能は、保護モードで実行されているWindows VistaまたはWindows 7のIE7、すべてのバージョンのWindowsのIE8+に影響します。</p>
+
+	<h4>子インデックス番号</h4>
+
+	<p>Blue Prismバージョン4.1.3以降には、アタッチ先となるプロセスの子インデックスを指定できる機能があります。各セッションには、セッションのプロセスが作成された順番に基づき、一意のインデックスが指定されます。たとえば、メインの親プロセスのインデックスが「0」である場合、プロセスの最初のタブには子インデックス「1」が与えられます。子インデックスのパラメーターは、［ナビゲート］ステージのアタッチアクションで指定されます。</p>
+
+	<h4>TabProcGrowth</h4>
+
+	<p>前述の手段が適切ではない場合は、代替策として、複数のプロセスを作成しないようInternet Explorerを設定できます。
+ レジストリ設定で以下のレジストリキーを変更します。<code>HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main</code>、<code>TabProcGrowth</code>というDWORD値は、次のいずれかの値に設定する必要があります。</p>
+	<dl class="bulleted">
+		<dt>0（ゼロ）</dt>
+		<dd>IEセキュリティ ゾーンの保護モードを無効にし、同じプロセス内でタブとフレームを開くようInternet Explorerに指示します。</dd>
+		
+		<dt>1（1）</dt>
+		<dd>
+			<p>保護モードを有効のままにし、指定フレーム内のすべてのタブを1つのプロセス内で実行できます。</p>
+			<p>なお、これには、所定のIEインスタンスを起動し、個別にアタッチするプロセスフローを使用する必要があることに注意してください。
+ 2つのプロセス（フレーム用と、そのフレーム内のすべてのタブ用）は引き続き作成されます。</p>
+		</dd>
+	</dl>
+	<p>値を変更した後、新しい値を反映するには、Internet Explorerを再起動する必要があります。</p>
+		
+	<h4>誤った箇所でのハイライト</h4>
+	
+	<p>スパイしているまたはハイライトしている要素によって、スパイしている要素とハイライトしている要素の位置がずれていることが判明した場合は、Internet Explorerの（またはコントロールパネルの）ズーム設定を確認してください。</p>
+	<p>100%以外の値でこういった問題が発生する可能性があります。</p>
+
+	
+</body>
+</html>

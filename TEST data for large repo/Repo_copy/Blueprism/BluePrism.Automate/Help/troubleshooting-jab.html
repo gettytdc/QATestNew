@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>Troubleshooting - Java Access Bridge</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+</head>
+
+<body class="slick troubleshooting">
+	<div class="header">
+		<h1 class="pagetitle">Troubleshooting</h1>
+		<h2>Java Access Bridge</h2>
+	</div>
+
+	<h3>Introduction</h3>
+	<p>This page provides some common issues and suggested resolutions
+	for using the Java Access Bridge feature of Blue Prism</p>
+
+
+	<h5>The target application crashes when highlighting or accessing
+		elements</h5>
+
+	<p>If elements spy correctly, but then the target application
+	crashes when attempting to highlight or otherwise interact with
+	those elements, the problem is likely to be caused by a flaw in the
+	Java Access Bridge components, which have problems with large
+	numbers (approximately 200 or more) or elements on a single screen.
+	You can prevent this crashing by enabling the <a
+	href="helpApplicationParameters.htm#Options">'descendtree'</a>
+	target application option in Application Modeller. This mode is
+	significantly slower, so should only be used when necessary.</p>
+
+	<h5>JAB Versions</h5>
+	<p>It is recommended to use the latest possible JAB version for
+	the installed JRE. Since JRE7u6, JAB 2.0.3 comes bundled with
+	the java installer. Since Jre7u60, JAB 2.0.4 is bundled.
+
+	<table>
+	<tr><th>JRE Version</th><th>JAB Version</th></tr>
+	<tr><td>Below JRE5</td><td>2.0.1 or 2.0.0</td></tr>
+	<tr><td>JRE5 and later</td><td>2.0.2</td></tr>
+	<tr><td>JRE6 and later</td><td>2.0.2</td></tr>
+	<tr><td>JRE7 and later</td><td>2.0.4</td></tr>
+	</table>
+
+	<p>Blueprism can provide <em>BPJabInstaller-1.0.2.exe</em> which
+	can install various versions of JAB where the version of the JRE
+	does not have JAB bundled with it.</p>
+
+	<p>When JAB is bundled with the java installer it has to be enabled
+	this can be done using the following command line. Open a command
+	prompt and change to the java bin directory. e.g C:\Program Files\Java\Jre7\bin
+	Then run the following command:</p>
+
+	<pre>jabswitch.exe /enable</pre>
+
+	<p>JAB can also be enabled with the Windows Ease of Access control panel
+	(which can be activated by pressing Windows + U). The Ease of Access
+	control panel has a Java Access Bridge checkbox.<p>
+		
+	<h5>The spy tool doesn't recognise elements</h5>
+	
+	<p>If the spy tool does not seem to recognise elements as you hover
+	over them, check the following common causes first: a) failing to
+	reboot after installing Java Access Bridge, b) using the wrong Java
+	Access Bridge version</p>
+
+	<h5 id="TextBoxJRE13">Attempting to write to a text box gives an
+		error message</h5>
+	
+	<p>An error message such as 'Call to setTextContents failed. This
+	method is known not to work against version 1.3.x of the Java
+	Runtime Environment' indicates that you are trying to write to a
+	Java text box in an application running under JRE 1.3.
+	Unfortunately, this is impossible due to a missing implementation in
+	the Java Access Bridge connectors that correspond to that JRE
+	version.</p>
+	
+	<p>In all cases there is a workaround, though some thought and
+	ingenuity may be required on the part of the user. Here is a list of
+	suggested workarounds for common problems:
+	</p>
+
+	<dl class="bulleted">
+		<dt>General workaround - upgrade the Java Runtime Environment
+			(JRE)</dt>
+		<dd>In most cases your target application should continue to
+			function exactly as before following an upgrade, but you
+			should consider the associated risk of any potential
+			problems before doing so. Blue Prism will function
+			reliably against version 1.4.0 or greater.</dd>
+
+		<dt>To work around a writing problem</dt>
+		<dd>If you are having a problem writing data to an element, you
+			may send keystrokes to the application instead. This
+			involves <a href="helpGlossary.htm#Activate">activating the
+			window</a> containing the element of interest, <a
+			href="helpGlossary.htm#Focus">focusing the element</a> ready
+			to receive keyboard input, and using a <a
+			href="frmStagePropertiesNavigate.htm">Navigate stage</a> to
+			send keystrokes. Such keystrokes may need to include
+			backspace or delete in order to clear any existing data in
+			the element.
+		</dd>
+	 </dl>
+	
+	<h5>Accessing elements is very slow</h5>
+	
+	<p>There are some specific <a href="helpJavaAutomation.htm">
+	performance tips</a> available for Java Access Bridge.</p>
+
+</body>
+</html>

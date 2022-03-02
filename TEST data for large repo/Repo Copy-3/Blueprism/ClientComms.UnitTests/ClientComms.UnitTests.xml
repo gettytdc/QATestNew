@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ClientComms.UnitTests</name>
+    </assembly>
+    <members>
+        <member name="T:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.ElementMockExtensions">
+            <summary>
+            Utility functionality for working with mock IAutomationElement objects
+            </summary>
+        </member>
+        <member name="M:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.ElementMockExtensions.MockPattern``1(Moq.Mock{BluePrism.UIAutomation.IAutomationElement},BluePrism.UIAutomation.Patterns.PatternType)">
+            <summary>
+            Sets up a Mock IAutomationElement object to return a particular pattern
+            from the GetCurrentPattern(Of T) function. In addition, the mock element
+            is set up to return true when PatternIsSupported is called with the
+            specified PatternType.
+            </summary>
+            <typeparam name="TPattern">The type of pattern to set up</typeparam>
+            <param name="elementMock">The mock element object</param>
+            <param name="patternType">The type of pattern that is supported</param>
+            <returns>The mock pattern object</returns>
+        </member>
+        <member name="M:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.ElementMockExtensions.MockPattern``1(Moq.Mock{BluePrism.UIAutomation.IAutomationElement})">
+            <summary>
+            Sets up a Mock IAutomationElement object to return a particular pattern
+            from the GetCurrentPattern(Of T) function.
+            </summary>
+            <typeparam name="TPattern">The type of pattern to set up</typeparam>
+            <param name="elementMock">The mock IAutomationElement object</param>
+            <returns>The mock object created for the pattern</returns>
+        </member>
+        <member name="M:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.ElementMockExtensions.MockAncestors(Moq.Mock{BluePrism.UIAutomation.IAutomationElement},Moq.Mock{BluePrism.UIAutomation.IAutomationElement}[])">
+            <summary>
+            Sets up a mock IAutomationElement object to return a sequence of
+            parent element mocks when FindAll is called with Ancestor scope.
+            The first element in the sequence will also be returned if FindAll
+            is called with Parent scope.
+            </summary>
+            <param name="elementMock">The mock IAutomationElement object</param>
+            <param name="ancestorMocks">The mock IAutomationElement objects to include
+            in the sequence returned by FindAll. The first object in this sequence will
+            be set up as the main element's immediate parent.</param>
+        </member>
+        <member name="M:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.ElementMockExtensions.MockChildren(Moq.Mock{BluePrism.UIAutomation.IAutomationElement},Moq.Mock{BluePrism.UIAutomation.IAutomationElement}[])">
+            <summary>
+            Sets up a mock IAutomationElement object to return a sequence of
+            child element mocks when FindAll is called with Children or Descendants
+            scope. Also sets up the mock to include itself in the sequence when
+            FindAll is called with Subtree scope.
+            </summary>
+            <param name="elementMock">The mock IAutomationElement object</param>
+            <param name="childMocks">The mock IAutomationElement objects to include
+            in the sequence returned by FindAll</param>
+        </member>
+        <member name="P:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.GridHelperTests.GridMock">
+            <summary>
+            Shared mock IAutomationElement object that is set up to support
+            the IGridPattern using the GridPatternMock property
+            </summary>
+        </member>
+        <member name="P:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.GridHelperTests.GridPatternMock">
+            <summary>
+            Mock IGridPattern object of the shared mock GridElement object
+            </summary>
+        </member>
+        <member name="P:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.GridHelperTests.CellMockRow2Column5">
+            <summary>
+            Shared mock IAutomationElement object that GridMock is set up
+            to return at row 5 column 2 (indexes row 0, 1)
+            </summary>
+        </member>
+        <member name="P:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.GridHelperTests.CellChildMock1">
+            <summary>
+            Shared mock IAutomationElement object - child 1 of CellRow5Col2Mock
+            </summary>
+        </member>
+        <member name="P:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.GridHelperTests.CellChildMock2">
+            <summary>
+            Shared mock IAutomationElement object - child 2 of CellRow5Col2Mock
+            </summary>
+        </member>
+        <member name="T:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.GridSetupHelper">
+            <summary>
+            Contains shared setup functionality for unit testing grid elements
+            </summary>
+        </member>
+        <member name="M:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.GridSetupHelper.SetupCell(Moq.Mock{BluePrism.UIAutomation.Patterns.IGridPattern},System.Int32,System.Int32)">
+            <summary>
+            Sets up a mock IGridPattern's GetItem method to return a mock
+            IAutomationElement object at the specified column and row.
+            </summary>
+            <param name="patternMock">The mock IGridPattern object</param>
+            <param name="columnIndex">The column index for the item</param>
+            <param name="rowIndex">The row index for the item</param>
+            <returns>The mock IAutomationElement object that will be returned by
+            GetItem</returns>
+        </member>
+        <member name="M:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.GridSetupHelper.SetUpRow(Moq.Mock{BluePrism.UIAutomation.Patterns.IGridPattern},System.Int32,System.Int32)">
+            <summary>
+            Sets up a mock IGridPattern's GetItem method to return a mock
+            IAutomationElement objects for the specified number of columns
+            for a given row
+            </summary>
+            <param name="patternMock">The mock IGridPattern object</param>
+            <param name="columnCount">The number of columns to support</param>
+            <param name="rowIndex">The row index for the item</param>
+            <returns>A sequence of mock IAutomationElement objects that will be
+            returned by GetItem</returns>
+        </member>
+        <member name="T:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.ToggleSetupHelper">
+            <summary>
+            Shared test setup functionality for toggle elements
+            </summary>
+        </member>
+        <member name="M:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.ToggleSetupHelper.SetupState(Moq.Mock{BluePrism.UIAutomation.IAutomationElement},BluePrism.UIAutomation.ToggleState)">
+            <summary>
+            Sets up an element to implement the toggle pattern, setting the
+            CurrentToggleState property and toggling it as Toggle is called
+            </summary>
+            <param name="elementMock">The mock element object</param>
+            <param name="initialState">The initial toggle state</param>
+            <returns></returns>
+        </member>
+        <member name="T:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.UIAutomationHandlerTestBase`1">
+            <summary>
+            Base class for testing UIAutomation command handlers. Contains shared
+            functionality to initialise handler class. Note that this class inherits
+            from UnitTestBase, which initialises the handler using AutoFac.Extra.Moq
+            auto-mocking container (AMC). Any dependencies that are injected via the
+            constructor will be automatically created by the AMC and can be accessed
+            via the GetMock function.
+            </summary>
+            <typeparam name="THandler">The type of handler being tested</typeparam>
+        </member>
+        <member name="F:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.UIAutomationHandlerTestBase`1.TestPID">
+            <summary>
+            The test PID value used for handler during test
+            </summary>
+        </member>
+        <member name="M:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.UIAutomationHandlerTestBase`1.Setup">
+            <summary>
+            Sets up the handler before each individual test
+            </summary>
+        </member>
+        <member name="P:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.UIAutomationHandlerTestBase`1.Handler">
+            <summary>
+            The handler instance under test - same as ClassUnderTest
+            </summary>
+        </member>
+        <member name="P:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.UIAutomationHandlerTestBase`1.ElementMock">
+            <summary>
+            A mock IAutomationElement object for the handler's target element. This
+            is the target identified in the query that the stage in the application
+            object is acting on.
+            </summary>
+        </member>
+        <member name="P:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.UIAutomationHandlerTestBase`1.ApplicationMock">
+            <summary>
+            The mock used for the handler's ILocalTargetApp dependency
+            </summary>
+        </member>
+        <member name="P:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.UIAutomationHandlerTestBase`1.IdentifierHelperMock">
+            <summary>
+            The mock used for the handler's IUIAutomationIdentifierHelper dependency
+            </summary>
+        </member>
+        <member name="M:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.UIAutomationHandlerTestBase`1.SetupElement">
+            <summary>
+            Sets up a mock
+            </summary>
+        </member>
+        <member name="M:ClientComms.UnitTests.CommandHandlers.UIAutomation.Shared.UIAutomationHandlerTestBase`1.Execute(BluePrism.ApplicationManager.ApplicationManagerUtilities.clsQuery)">
+            <summary>
+            Calls the Execute function of the handler using the specified query and
+            returns the result
+            </summary>
+            <param name="query">The query to execute</param>
+            <returns>The return value from the Execute function</returns>
+        </member>
+        <member name="T:ClientComms.UnitTests.ClientComms.UnitTests.CommandHandling.HandlerCodeTests">
+            <summary>
+            Tests to ensure that handler code complies with any constraints
+            </summary>
+        </member>
+        <member name="F:ClientComms.UnitTests.ClientComms.UnitTests.RegionFinderTests.Region1Pixels">
+            <summary>
+            Pixel data for region 1 (located at 2,2 within window 1)
+            </summary>
+        </member>
+        <member name="F:ClientComms.UnitTests.ClientComms.UnitTests.RegionFinderTests.Region2Pixels">
+            <summary>
+            Pixel data for region 2 (located at 12,5 within window 1)
+            </summary>
+        </member>
+        <member name="F:ClientComms.UnitTests.ClientComms.UnitTests.RegionFinderTests.Region3Pixels">
+            <summary>
+            Pixel data for region 3 (located at 25,5 within window 1)
+            </summary>
+        </member>
+        <member name="F:ClientComms.UnitTests.ClientComms.UnitTests.RegionFinderTests.MissingRegion1Pixels">
+            <summary>
+            Pixel data for region that does not exist within window 1
+            </summary>
+        </member>
+        <member name="M:ClientComms.UnitTests.ClientComms.UnitTests.RegionFinderTests.ShouldTranslateRegionLocatedUsingCoordinatesRelativeToParentLocatedUsingImage">
+            <summary>
+            Tests scenario where region 1 is located using a 3x3 pixel image originally recorded
+            at (10,10) but which will actually be found at (2,2). The child region 2 located using
+            coordinates and originally recorded at (18, 13) - translated (8, 3) from region 1. The
+            final position of region 2 will be based on the point where region 1 was found, translated
+            by the original offset recorded between region 1 and region 2.
+            </summary>
+            <remarks></remarks>
+        </member>
+    </members>
+</doc>

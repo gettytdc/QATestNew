@@ -1,0 +1,32 @@
+
+startapplication path="testapps\vs2005testapp.exe" hook=False
+$AbortIfNot OK
+
+#Wait for the application to appear...
+wait timeout=25000 {checkwindow WindowText="Automated Test Form in VS2005" ClassName="WindowsForms10.Window.8.app.0.378734a" Visible="True" Enabled="True"}="True"
+$AbortIf RESULT:0
+
+
+#Click link label...
+clickmouse targx="5" targy="5" WindowText="My Link Label" ClassName="WindowsForms10.STATIC.app.0.378734a" Visible="True" Enabled="True"
+$AbortIfNot OK
+
+#Wait for confirmation to appear....
+wait timeout=5000 {checkwindow WindowText="Link Label Clicked" ClassName="WindowsForms10.EDIT.app.0.378734a" Visible="True" Enabled="True"}="True"
+$AbortIfNot RESULT:1
+
+#Wait before clicking it again, otherwise it's a double click...
+wait timeout=1000
+
+#Click label again
+clickmouse targx="5" targy="5" WindowText="My Link Label" ClassName="WindowsForms10.STATIC.app.0.378734a" Visible="True" Enabled="True"
+$AbortIfNot OK
+
+#Wait for confirmation to disappear...
+wait timeout=5000 {checkwindow WindowText="Link Label Clicked" ClassName="WindowsForms10.EDIT.app.0.378734a" Visible="True" Enabled="True"}="False"
+$AbortIfNot RESULT:1
+
+#Close the app
+closewindow windowtext="Automated Test Form in VS2005"
+
+#Finished!

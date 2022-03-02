@@ -1,0 +1,2322 @@
+﻿<process name="API - GET sessions - Logs - Paging" version="1.0" bpversion="7.0.0.40225" narrative="" byrefcollection="true" preferredid="3870e4ef-d0a5-44db-9e3f-1206defc31b6" published="true">
+  <view>
+    <camerax>-26</camerax>
+    <cameray>-162</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="35e4a25d-3be4-4079-9172-6a5adeca098f" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>9</camerax>
+      <cameray>-195</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="13a523ff-14e9-4e81-a2c5-f91df57a0fc7" type="Normal" published="False">
+    <name>Scenario 1 - Postive Scenarios</name>
+    <view>
+      <camerax>252</camerax>
+      <cameray>1950</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="b05944fd-1337-4ce4-80ea-5db386564f3b" type="Normal" published="False">
+    <name>Scenario 2- Negative Scenarios</name>
+    <view>
+      <camerax>158</camerax>
+      <cameray>1227</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="43eb6e5d-030d-453a-894c-1c6e09e52732" name="Start" type="Start">
+    <display x="15" y="-285" />
+    <onsuccess>95d8a8b4-41c6-45bc-939a-d1b9241f0630</onsuccess>
+  </stage>
+  <stage stageid="6b7ae773-943d-4f66-bb0a-3746d0fca712" name="Stage1" type="ProcessInfo">
+    <display x="-240" y="-255" w="150" h="90" />
+  </stage>
+  <stage stageid="f5798412-80be-487a-9afa-ad7468cf894c" name="Global Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-315" y="-195" w="150" h="210" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3731893d-c2d7-4710-9cc0-e553c4b56d68" name="Note1" type="Note">
+    <narrative>GIVEN I push a GET Sessions Log request 
+WHEN I supply invalid pagingToken / itemsPerPage data
+THEN the appropriate response is returned</narrative>
+    <display x="15" y="30" w="300" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>1bd01b32-d6f8-49bd-8b4e-d5ddc46143bb</onsuccess>
+  </stage>
+  <stage stageid="f6360219-a1f1-4612-bb06-624c50d8f06f" name="Setup" type="SubSheetInfo">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="-150" y="-855" w="150" h="90" />
+  </stage>
+  <stage stageid="95d8a8b4-41c6-45bc-939a-d1b9241f0630" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-225" w="300" h="30" />
+    <onsuccess>80a7af32-3491-4c80-88c4-acafc608fa18</onsuccess>
+    <processid>35e4a25d-3be4-4079-9172-6a5adeca098f</processid>
+  </stage>
+  <stage stageid="74c5c67a-0e2f-4c93-96a1-d4a874e6bdf7" name="Local Variables" type="Block">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-225" y="-795" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="9b740e32-6cca-42c9-b72e-c3d666bc88ff" name="Start" type="Start">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="0" y="-1080" />
+    <onsuccess>68bcf201-c431-4d75-91da-82d31dd4b2eb</onsuccess>
+  </stage>
+  <stage stageid="65e053ec-1fa4-4b13-8509-23ae9ad8a7ef" name="Attach Control" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-645" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>7df14caf-eda8-42a1-8703-1f0c72be573c</onsuccess>
+    <resource object="Blue Prism - Control Room (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="88833a9b-0b14-4e30-b3ee-39e5989d987f" name="pid" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="-150" y="-765" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="00de690c-983f-4850-b9c9-17d5f569f3a0" name="Response Content" type="Data">
+    <display x="-240" y="90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="53fbdcf9-bc1c-4a7d-ad8f-a482f7491078" name="HTTP Status Code" type="Data">
+    <display x="-240" y="60" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ccc957c8-f145-4ed6-bdff-63804bed1f43" name="API Response Data" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-315" y="30" w="150" h="180" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="34b9ddb6-8c39-412f-b5d4-43be9097a411" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-315" y="225" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4b28d2b6-e550-4eb5-bc24-a19c72604e56" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-240" y="255" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="11023205-eac8-4d11-9fd7-4efab2234d2b" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-240" y="285" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c2c13b44-cae6-4e0d-bc3a-d0f8f652fed4" name="Resume Scenario 1" type="Resume">
+    <loginhibit />
+    <display x="300" y="-75" />
+    <onsuccess>34b84501-90b3-43b8-bf97-fa8fd6290fc5</onsuccess>
+  </stage>
+  <stage stageid="fa92fa3b-ad01-4038-96c1-377000f74faf" name="Get Exception 1" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="300" y="-120" />
+    <onsuccess>c2c13b44-cae6-4e0d-bc3a-d0f8f652fed4</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="[Exception]&amp;&quot;,Scenario 1 Failed. Exception details: &quot;&amp;ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="7df14caf-eda8-42a1-8703-1f0c72be573c" name="Attach Studio" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-600" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>d972c264-cb20-4718-80a3-d095f0beeee5</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="72bfa5c9-0b38-4fd5-a5ea-c5e27b371303" name="Resource Manager: Start Resource" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-735" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="SSO" friendlyname="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="&quot;False&quot;" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="" />
+      <input type="password" name="Password" friendlyname="Password" narrative="The password to use for the resource. Only used if Username is given" expr="" />
+      <input type="number" name="Port" friendlyname="Port" narrative="The port number on which the resource PC should listen" expr="[Port 1]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" friendlyname="Process ID" narrative="The PID of the newly created process" stage="" />
+    </outputs>
+    <onsuccess>80649794-7e8a-47e8-a534-2e00f31a9ff5</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+  <stage stageid="8cd120e3-909b-4658-822f-80c0c1eb3c30" name="Create a Completed Session" type="Block">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-525" w="120" h="165" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="46743857-335c-4ac8-af7e-000aa36c04a5" name="Create a session which Completes" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-390" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="Requires Login" friendlyname="Requires Login" narrative="Flag indicating if the login info should be given too" expr="True" />
+      <input type="text" name="Arguments" friendlyname="Arguments" narrative="The arguments to pass to automatec, not including the authentication info" expr="&quot;/run &quot;&quot;&quot;&amp;[Expected Process Name]&amp;&quot;&quot;&quot; /resource &quot;&amp;[Expected resource name]" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username that you want to authenticate against." expr="&quot;admin&quot;" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the username." expr="&quot;admin&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Output" friendlyname="Output" narrative="The output from the command" stage="" />
+    </outputs>
+    <onsuccess>2bf8b8dc-e8d7-4ddb-ae79-6232890e0fcb</onsuccess>
+    <resource object="Call AutomateC" action="Call AutomateC" />
+  </stage>
+  <stage stageid="3ef5a1da-065a-4777-a3ae-fbe2505186b0" name="Result Collection" type="Collection">
+    <display x="-240" y="120" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="JSON:Array" type="collection">
+        <field name="sessionNumber" type="number" />
+        <field name="processId" type="text" />
+        <field name="processName" type="text" />
+        <field name="resourceId" type="text" />
+        <field name="resourceName" type="text" />
+        <field name="userName" type="text" />
+        <field name="status" type="text" />
+        <field name="exceptionType" type="text" />
+        <field name="startTime" type="datetime" />
+        <field name="endTime" type="datetime" />
+        <field name="latestStage" type="text" />
+        <field name="stageStarted" type="datetime" />
+        <field name="sessionId" type="text" />
+        <field name="terminationReason" type="text" />
+        <field name="exceptionMessage" type="text" />
+      </field>
+    </collectioninfo>
+  </stage>
+  <stage stageid="d972c264-cb20-4718-80a3-d095f0beeee5" name="Go to Tab: Control" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-555" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>bf17d6a4-0585-47c1-bab4-98b0319e8bb0</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="a629f503-4ac1-4545-ad9f-95a79a589ca9" name="Expected start time" type="Data">
+    <display x="-240" y="-135" w="120" h="30" />
+    <datatype>datetime</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="afa3f7ee-0759-44ca-8fc1-1783cc6dde14" name="Get start Date Time" type="Calculation">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-435" w="90" h="30" />
+    <onsuccess>46743857-335c-4ac8-af7e-000aa36c04a5</onsuccess>
+    <calculation expression="Now()" stage="Expected start time" />
+  </stage>
+  <stage stageid="2215d67c-74c8-4666-bdc4-4bcbf869be60" name="Scenario 2 - Negative scenario" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-15" w="405" h="135" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="feeaf1a4-094b-40a4-8168-c508b7bf74ef" name="Scenario 2- Negative Scenarios" type="SubSheetInfo">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="e557cdc1-2ceb-4ee4-bb0f-5279dd3e893f" name="Scenario 1 - Postive Scenarios" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-75" w="300" h="30" />
+    <onsuccess>12d01831-c038-4695-b97e-d07cfbe287c3</onsuccess>
+    <processid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</processid>
+  </stage>
+  <stage stageid="d9a7ccce-e65e-4305-848e-9ffcd9112ea7" name="Scenario 1 - Postive Scenarios" type="SubSheetInfo">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="cd5391ed-896a-47d2-a014-441e22eb1d1d" name="Start" type="Start">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="15" y="-195" />
+    <onsuccess>aae9e4dd-fb73-45a4-a6dd-a7a6addab4d8</onsuccess>
+  </stage>
+  <stage stageid="e85873f5-c2f6-4ad0-a169-e69be2ecc800" name="End1" type="End">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="315" />
+  </stage>
+  <stage stageid="1ac14194-bc23-4eba-8d05-4f20c9bc9a9c" name="Failed?" type="Decision">
+    <display x="15" y="270" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>1ebdc55d-f97f-4b58-ae2e-e00e40e01462</ontrue>
+    <onfalse>e85873f5-c2f6-4ad0-a169-e69be2ecc800</onfalse>
+  </stage>
+  <stage stageid="1ebdc55d-f97f-4b58-ae2e-e00e40e01462" name="RETHROW" type="Exception">
+    <display x="105" y="270" />
+    <exception localized="yes" type="Test Fail" detail="[Exception]" />
+  </stage>
+  <stage stageid="8f2ba679-c35a-4295-9fa5-ad8c949f6abc" name="Resource Manager: Stop Resource" type="Action">
+    <display x="15" y="225" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" friendlyname="Port" narrative="The port number whose resource should be stopped" expr="[Port 1]" />
+    </inputs>
+    <onsuccess>1ac14194-bc23-4eba-8d05-4f20c9bc9a9c</onsuccess>
+    <resource object="Resource Manager" action="Stop Resource" />
+  </stage>
+  <stage stageid="38c4908e-2e4a-4762-970e-fa109a67f5c4" name="Close BP" type="Action">
+    <display x="15" y="180" w="90" h="30" />
+    <onsuccess>8f2ba679-c35a-4295-9fa5-ad8c949f6abc</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="7ae3a534-cfb1-46f7-8c96-4186c3481e94" name="Resume Scenario 2" type="Resume">
+    <loginhibit />
+    <display x="300" y="60" />
+    <onsuccess>8e2084ae-e1f2-424c-8860-633f6024e2d5</onsuccess>
+  </stage>
+  <stage stageid="cf95b213-cc12-4dca-9748-032621338765" name="Get Exception 2" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="300" y="15" />
+    <onsuccess>7ae3a534-cfb1-46f7-8c96-4186c3481e94</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="[Exception]&amp;&quot;,Scenario 2 Failed. Exception details: &quot;&amp;ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="8e2084ae-e1f2-424c-8860-633f6024e2d5" name="Anchor38" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="300" y="135" w="10" h="10" />
+    <onsuccess>00063004-ac5e-4058-aa37-f00c2926b147</onsuccess>
+  </stage>
+  <stage stageid="34b84501-90b3-43b8-bf97-fa8fd6290fc5" name="Anchor39" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="300" y="-30" w="10" h="10" />
+    <onsuccess>12d01831-c038-4695-b97e-d07cfbe287c3</onsuccess>
+  </stage>
+  <stage stageid="2bf8b8dc-e8d7-4ddb-ae79-6232890e0fcb" name="Pause 30s" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-330" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="30" />
+    </inputs>
+    <onsuccess>83bb4afa-8c61-4db2-8edf-2d1ca50a1e39</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="12d01831-c038-4695-b97e-d07cfbe287c3" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-30" w="10" h="10" />
+    <onsuccess>3731893d-c2d7-4710-9cc0-e553c4b56d68</onsuccess>
+  </stage>
+  <stage stageid="00063004-ac5e-4058-aa37-f00c2926b147" name="Anchor6" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" w="10" h="10" />
+    <onsuccess>6eceb746-bcb2-49d6-ac2d-318c950d1f75</onsuccess>
+  </stage>
+  <stage stageid="6eceb746-bcb2-49d6-ac2d-318c950d1f75" name="Anchor44" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="150" w="10" h="10" />
+    <onsuccess>38c4908e-2e4a-4762-970e-fa109a67f5c4</onsuccess>
+  </stage>
+  <stage stageid="9dbfab29-a00f-47b2-8914-d293ff838e8f" name="Anchor45" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="375" y="150" w="10" h="10" />
+    <onsuccess>6eceb746-bcb2-49d6-ac2d-318c950d1f75</onsuccess>
+  </stage>
+  <stage stageid="5ad242eb-f831-435b-beeb-6abed4723db9" name="Resume Setup" type="Resume">
+    <loginhibit />
+    <display x="375" y="-225" />
+    <onsuccess>9dbfab29-a00f-47b2-8914-d293ff838e8f</onsuccess>
+  </stage>
+  <stage stageid="42d690fc-08b5-4699-9ef9-3ac40c7f4eb0" name="Get Exception Setup" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="300" y="-225" />
+    <onsuccess>5ad242eb-f831-435b-beeb-6abed4723db9</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="[Exception]&amp;&quot;,Setup Failed. Exception details: &quot;&amp;ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="8a198363-a5c8-4c5f-bb1c-31fcc16c5dde" name="Setup Cleanup" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-255" w="405" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b9118905-6a08-430f-a055-b917a9122a28" name="Expected end time" type="Data">
+    <display x="-240" y="-105" w="120" h="30" />
+    <datatype>datetime</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a2d6d677-f233-4eda-8a7b-664504a02a80" name="Start" type="Start">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="15" y="-150" />
+    <onsuccess>fc6a19e7-8dc3-4417-ba7b-b6c5d9dc5ff5</onsuccess>
+  </stage>
+  <stage stageid="fc6a19e7-8dc3-4417-ba7b-b6c5d9dc5ff5" name="When:" type="Note">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <narrative>WHEN user input an invalidated pagingToken (used in a previous request with different itemsPerPage values)
+THEN a response code of 400 should be returned along with an appropriate user error message</narrative>
+    <display x="15" y="-90" w="240" h="60" />
+    <onsuccess>edbeb442-85f8-4988-8b0c-a5c4cdba26db</onsuccess>
+  </stage>
+  <stage stageid="4fbc7bab-44bb-4bab-a776-6aeda1ffeebe" name="When:" type="Note">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <narrative>WHEN a user inputs invalid token value such as FDGE£$%^&amp;!*()_+{}~@:?&gt;&lt;12345ASDGHJK
+THEN a response code of 400 should be returned along with an appropriate user error message</narrative>
+    <display x="15" y="195" w="240" h="60" />
+    <onsuccess>b5f01bec-2be2-4da3-9609-a67611974b83</onsuccess>
+  </stage>
+  <stage stageid="63cd3e1a-9c37-4914-8826-5ad975380954" name="Anchor11" type="Anchor">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="210" y="750" w="10" h="10" />
+    <onsuccess>c6633efc-7a25-4fd3-a538-041a43594a15</onsuccess>
+  </stage>
+  <stage stageid="c6633efc-7a25-4fd3-a538-041a43594a15" name="Anchor32" type="Anchor">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="210" y="-90" w="10" h="10" />
+    <onsuccess>ac22298f-607b-4b94-9595-85a3b4412b61</onsuccess>
+  </stage>
+  <stage stageid="ac22298f-607b-4b94-9595-85a3b4412b61" name="When:" type="Note">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <narrative>WHEN the input parameter of itemsPerPage is set to a value of -1
+THEN a response code of 400 should be returned along with an appropriate user error message</narrative>
+    <display x="375" y="-90" w="240" h="60" />
+    <onsuccess>7f13fef8-7726-4f71-99cf-a6f9d43bea7b</onsuccess>
+  </stage>
+  <stage stageid="ad51d6fb-a812-4623-8075-ebe344d56770" name="When:" type="Note">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <narrative>WHEN the input parameter of itemsPerPage is set to a value of 1.5
+THEN a response code of 400 should be returned along with an appropriate user error message</narrative>
+    <display x="375" y="195" w="240" h="60" />
+    <onsuccess>99d2b36e-10ad-4151-802d-e6006bf8f3e4</onsuccess>
+  </stage>
+  <stage stageid="77680164-c03e-46b6-a1dc-cf6af8ba8265" name="When:" type="Note">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <narrative>WHEN the input parameter of itemsPerPage is set to a value of 0
+THEN a response code of 400 should be returned along with an appropriate user error message</narrative>
+    <display x="375" y="480" w="240" h="60" />
+    <onsuccess>679ae18c-f502-4680-8bf6-bde475164451</onsuccess>
+  </stage>
+  <stage stageid="15d559d7-9c8b-4488-9bbd-837fff11fabc" name="When:" type="Note">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <narrative>WHEN the input parameter of itemsPerPage is set to a string value
+THEN a response code of 400 should be returned along with an appropriate user error message</narrative>
+    <display x="375" y="765" w="240" h="60" />
+    <onsuccess>eeb1b728-2003-4e24-a45b-26a115afbf91</onsuccess>
+  </stage>
+  <stage stageid="7de7a518-448a-427b-9cf3-d6e1f9efef60" name="Resume1" type="Resume">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit />
+    <display x="15" y="120" w="90" h="30" />
+    <onsuccess>4fbc7bab-44bb-4bab-a776-6aeda1ffeebe</onsuccess>
+  </stage>
+  <stage stageid="02940f2d-907e-4704-b8f0-14ff27154e2c" name="Invalidated Token" type="Block">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC00" />
+  </stage>
+  <stage stageid="8b0d4b98-f9ec-4b62-943c-6592cf19de84" name="Invalid pagingToken values" type="Block">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="240" w="120" h="210" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC00" />
+  </stage>
+  <stage stageid="77bc8c2c-ea38-4821-ba4e-524e0c68dca6" name="Negative itemsPerPage value" type="Block">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="315" y="-45" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC00" />
+  </stage>
+  <stage stageid="e3d367fa-94e5-44db-b062-d1af4f2f2415" name="Decimal itemsPerPage value" type="Block">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="315" y="240" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC00" />
+  </stage>
+  <stage stageid="84843ded-d283-42d4-a757-356e6cf445f8" name="itemsPerPage value of 0" type="Block">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="315" y="525" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC00" />
+  </stage>
+  <stage stageid="db126208-1696-41f7-93cd-c4d1da65df63" name="itemsPerPage value string type" type="Block">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="315" y="810" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC00" />
+  </stage>
+  <stage stageid="455483c5-435e-419a-b3cd-b697791fbe79" name="Failed" type="Exception">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="105" y="-15" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed: Did not expect Get Sessions Log action to be able to request successfully. Check invalidated pagingToken section&quot;" />
+  </stage>
+  <stage stageid="7f564f9a-b7f3-451f-a84b-e1aa06d1eee7" name="http status code and response as expected?" type="Decision">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="15" y="75" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot;&amp;NewLine()&amp;&#xA;&quot;HTTP Status Code: 400&quot;&amp;NewLine()&amp;&#xA;&quot;HTTP Response Content: [{&quot;&quot;invalidField&quot;&quot;:&quot;&quot;PagingToken&quot;&quot;,&quot;&quot;message&quot;&quot;:&quot;&quot;Previously generated Paging Token cannot be used because paging, filtering and/ or sorting parameters have been updated&quot;&quot;}]&quot;)&lt;&gt;0" />
+    <ontrue>7de7a518-448a-427b-9cf3-d6e1f9efef60</ontrue>
+    <onfalse>e607bee3-6f10-40cd-94a4-94b46d0d1f78</onfalse>
+  </stage>
+  <stage stageid="e607bee3-6f10-40cd-94a4-94b46d0d1f78" name="Failed" type="Exception">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="105" y="75" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed: Incorrect response returned for invalidated pagingToken check&quot;" />
+  </stage>
+  <stage stageid="e0b60c1c-03e6-4bdc-b34e-59f7a554c20d" name="Recover1" type="Recover">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit />
+    <display x="15" y="30" w="90" h="30" />
+    <onsuccess>7f564f9a-b7f3-451f-a84b-e1aa06d1eee7</onsuccess>
+  </stage>
+  <stage stageid="069f2309-7fe4-476d-a08c-3bddda34efdc" name="Resume2" type="Resume">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit />
+    <display x="15" y="405" w="90" h="30" />
+    <onsuccess>16ecfdb4-f7e4-42c6-bcb4-dd2390822ece</onsuccess>
+  </stage>
+  <stage stageid="d3953ca1-c0e1-4cee-9a30-fb5423d941d5" name="Failed" type="Exception">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="105" y="270" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed: Expect Get Sessions Log action request to fail but this is not the case. Check invalid pagingToken values&quot;" />
+  </stage>
+  <stage stageid="60d10220-cabc-47cc-9f37-cdb86a9d7796" name="http status code and response as expected?" type="Decision">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="15" y="360" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot;&amp;NewLine()&amp;&#xA;&quot;HTTP Status Code: 400&quot;&amp;NewLine()&amp;&#xA;&quot;HTTP Response Content: [{&quot;&quot;invalidField&quot;&quot;:&quot;&quot;PagingToken&quot;&quot;,&quot;&quot;message&quot;&quot;:&quot;&quot;Paging Token is malformed\r\nPreviously generated Paging Token cannot be used because paging, filtering and/ or sorting parameters have been updated&quot;&quot;}]&quot;)&lt;&gt;0" />
+    <ontrue>069f2309-7fe4-476d-a08c-3bddda34efdc</ontrue>
+    <onfalse>88dad868-5fe5-49c7-ade2-856352f7f551</onfalse>
+  </stage>
+  <stage stageid="88dad868-5fe5-49c7-ade2-856352f7f551" name="Failed" type="Exception">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="105" y="360" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed: Incorrect response returned for invalid pagingToken values&quot;" />
+  </stage>
+  <stage stageid="0c3461d1-52e7-4165-a7e6-99981ceeaeba" name="Recover2" type="Recover">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit />
+    <display x="15" y="315" w="90" h="30" />
+    <onsuccess>60d10220-cabc-47cc-9f37-cdb86a9d7796</onsuccess>
+  </stage>
+  <stage stageid="1c16f56a-09a0-4627-93e0-78dccec644e9" name="Expected resource name" type="Data">
+    <display x="-240" y="-165" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="80649794-7e8a-47e8-a534-2e00f31a9ff5" name="Store resource name" type="Calculation">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-690" w="90" h="30" />
+    <onsuccess>65e053ec-1fa4-4b13-8509-23ae9ad8a7ef</onsuccess>
+    <calculation expression="Replace(GetResourceName(), &quot;_debug&quot;, &quot;&quot;) &amp; &quot;:&quot; &amp; [Port 1]" stage="Expected resource name" />
+  </stage>
+  <stage stageid="7dbe724d-2e1c-4e8d-960b-d9c130668ca0" name="End3" type="End">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-60" />
+  </stage>
+  <stage stageid="83bb4afa-8c61-4db2-8edf-2d1ca50a1e39" name="Get end Date Time" type="Calculation">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-285" w="90" h="30" />
+    <onsuccess>3071f124-6feb-4f0a-994f-f5b24ba6d909</onsuccess>
+    <calculation expression="Now()" stage="Expected end time" />
+  </stage>
+  <stage stageid="c1d7ff26-a667-432e-9d59-87a4f0dd5b03" name="Resume4" type="Resume">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit />
+    <display x="375" y="120" w="90" h="30" />
+    <onsuccess>ad51d6fb-a812-4623-8075-ebe344d56770</onsuccess>
+  </stage>
+  <stage stageid="7ef2e13a-01de-49f7-a3ea-8cad4254d427" name="Failed" type="Exception">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="465" y="-15" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed: check itemsPerPage-1, expected Get Sessions Log action to not be accepted and to cause an exception  instead but this is not the case&quot;" />
+  </stage>
+  <stage stageid="5bb97ec6-edcc-499a-9ee5-9c4e59e40c30" name="http status code and response as expected?" type="Decision">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="375" y="75" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot;&amp;NewLine()&amp;&#xA;&quot;HTTP Status Code: 400&quot;&amp;NewLine()&amp;&#xA;&quot;HTTP Response Content: [{&quot;&quot;invalidField&quot;&quot;:&quot;&quot;ItemsPerPage&quot;&quot;,&quot;&quot;message&quot;&quot;:&quot;&quot;'Items Per Page' must be between 1 and 1000. You entered -1.&quot;&quot;}]&quot;)&lt;&gt;0" />
+    <ontrue>c1d7ff26-a667-432e-9d59-87a4f0dd5b03</ontrue>
+    <onfalse>3c809437-e101-470b-a44c-fe6f1178c7e6</onfalse>
+  </stage>
+  <stage stageid="3c809437-e101-470b-a44c-fe6f1178c7e6" name="Failed" type="Exception">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="465" y="75" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed: Incorrect response returned for -1 Negative itemsPerPage&quot;" />
+  </stage>
+  <stage stageid="3ef0ff9d-fb90-4e1a-b535-3ad51189625e" name="Recover4" type="Recover">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit />
+    <display x="375" y="30" w="90" h="30" />
+    <onsuccess>5bb97ec6-edcc-499a-9ee5-9c4e59e40c30</onsuccess>
+  </stage>
+  <stage stageid="9d9aafc4-4757-4fae-abb8-026919571ede" name="Resume5" type="Resume">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit />
+    <display x="375" y="405" w="90" h="30" />
+    <onsuccess>77680164-c03e-46b6-a1dc-cf6af8ba8265</onsuccess>
+  </stage>
+  <stage stageid="7bddadd5-03f3-4842-bf05-7585b9e62d80" name="Failed" type="Exception">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="465" y="270" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed: check itemsPerPage 1.5. Expected Get Sessions Log action to not be accepted and to cause an exception instead but this is not the case&quot;" />
+  </stage>
+  <stage stageid="bc2eb9eb-c47f-4d7c-a755-d107728da4a2" name="http status code and response as expected?" type="Decision">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="375" y="360" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot;&amp;NewLine()&amp;&#xA;&quot;HTTP Status Code: 400&quot;&amp;NewLine()&amp;&#xA;&quot;HTTP Response Content: [{&quot;&quot;invalidField&quot;&quot;:&quot;&quot;ItemsPerPage&quot;&quot;,&quot;&quot;message&quot;&quot;:&quot;&quot;The value '1.5' is not valid for ItemsPerPage.&quot;&quot;}]&quot;)&lt;&gt;0" />
+    <ontrue>9d9aafc4-4757-4fae-abb8-026919571ede</ontrue>
+    <onfalse>9eb89bdb-a977-44bb-9268-5800d061eaf2</onfalse>
+  </stage>
+  <stage stageid="9eb89bdb-a977-44bb-9268-5800d061eaf2" name="Failed" type="Exception">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="465" y="360" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed: Incorrect response returned for 1.5 decimal itemsPerPage&quot;" />
+  </stage>
+  <stage stageid="43fa254a-ca95-4910-8585-3a7eeac31fc5" name="Recover5" type="Recover">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit />
+    <display x="375" y="315" w="90" h="30" />
+    <onsuccess>bc2eb9eb-c47f-4d7c-a755-d107728da4a2</onsuccess>
+  </stage>
+  <stage stageid="1ad6ce9b-978b-40a3-9980-44c09922d35e" name="Resume6" type="Resume">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit />
+    <display x="375" y="690" w="90" h="30" />
+    <onsuccess>15d559d7-9c8b-4488-9bbd-837fff11fabc</onsuccess>
+  </stage>
+  <stage stageid="fbb48b54-a4ec-4f0d-8600-bffa7bf11649" name="Failed" type="Exception">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="465" y="555" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed for itemsPerPage  - expected Get Sessions Log action to not be accepted and to cause an exception instead but this is not the case&quot;" />
+  </stage>
+  <stage stageid="5296d21a-66bf-4ec7-90e5-b328614f4364" name="Failed" type="Exception">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="465" y="645" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 Failed: Incorrect response returned for 0 as a value in itemsPerPage field&quot;" />
+  </stage>
+  <stage stageid="478e3b59-8ba5-4241-9b43-a178c958e60f" name="Recover6" type="Recover">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit />
+    <display x="375" y="600" w="90" h="30" />
+    <onsuccess>c3313177-3704-4ee3-b4b2-b43c6a8d9052</onsuccess>
+  </stage>
+  <stage stageid="98fb91fc-c193-44a2-9a7d-03c6f1be204a" name="Resume7" type="Resume">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit />
+    <display x="375" y="975" w="90" h="30" />
+    <onsuccess>0445acfd-53c1-4554-93bb-a29777407cad</onsuccess>
+  </stage>
+  <stage stageid="4a456676-3b67-4736-a4ef-f9111dce7ec0" name="Failed" type="Exception">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="465" y="840" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed for itemsPerPage as a string type - expected Get Sessions Log action to not be accpeted and to cause an exception instead but this is not the case&quot;" />
+  </stage>
+  <stage stageid="2e53b32a-75c8-4d6f-b85f-58f9a8bfcd2c" name="Failed" type="Exception">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="465" y="930" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed: Incorrect response returned for string type value in itemsPerPage field&quot;" />
+  </stage>
+  <stage stageid="ba1f1e8f-0359-44e4-9554-d0f7dfef067e" name="Recover7" type="Recover">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit />
+    <display x="375" y="885" w="90" h="30" />
+    <onsuccess>44e59fc3-307f-42b1-a1ba-0c49e4958539</onsuccess>
+  </stage>
+  <stage stageid="44e59fc3-307f-42b1-a1ba-0c49e4958539" name="http status code and response as expected?" type="Decision">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="375" y="930" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot;&amp;NewLine()&amp;&#xA;&quot;HTTP Status Code: 400&quot;&amp;NewLine()&amp;&#xA;&quot;HTTP Response Content: [{&quot;&quot;invalidField&quot;&quot;:&quot;&quot;ItemsPerPage&quot;&quot;,&quot;&quot;message&quot;&quot;:&quot;&quot;The value 'GHFREXTGDG' is not valid for ItemsPerPage.&quot;&quot;}]&quot;)&lt;&gt;0" />
+    <ontrue>98fb91fc-c193-44a2-9a7d-03c6f1be204a</ontrue>
+    <onfalse>2e53b32a-75c8-4d6f-b85f-58f9a8bfcd2c</onfalse>
+  </stage>
+  <stage stageid="708b80fe-9f7d-4c0e-87ea-3e286b150d9a" name="Local variables" type="Block">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="49b4a30a-4d86-4a66-b030-bf4f016cd6a0" name="Response Code and Session Count correct?" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="15" y="150" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=10" />
+    <ontrue>6d305a17-d0af-415e-a150-1286bcf6f64e</ontrue>
+    <onfalse>90863ac9-5064-4945-9c92-63fe6296f2a5</onfalse>
+  </stage>
+  <stage stageid="08afa1ae-e671-4918-bbc1-4b6909e52cbd" name="Default itemsPerPage and paginationToken" type="Block">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="-60" w="255" h="465" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="938a8880-9bd8-4602-a3b9-d44b7355ff27" name="Convert Response to Collection" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Default Result Collection" />
+    </outputs>
+    <onsuccess>f78cb375-ed07-44b9-b6be-016960c3333c</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="356368c6-2b40-45fa-bc27-8be3c7c86951" name="Count Rows" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Session Log Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>49b4a30a-4d86-4a66-b030-bf4f016cd6a0</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="087db177-2c5f-43bb-8848-f07e8d4d634b" name="Number of Items Returned" type="Data">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="90863ac9-5064-4945-9c92-63fe6296f2a5" name="Failed" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="105" y="150" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 1 - Check Default itemsPerPage and paginationToken with no values&quot;" />
+  </stage>
+  <stage stageid="56beb36a-da10-4815-aa38-dcbe6ae6fe27" name="Blue Prism - API - Get Sessions Log" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-30" w="90" h="30" />
+    <inputs>
+      <input type="text" name="SessionID" friendlyname="SessionID" narrative="i.e. ba9363c6-aedf-4f4b-9471-ec639dd35507" expr="[Session ID]" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="i.e. 1" expr="" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="i.e. 1" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>938a8880-9bd8-4602-a3b9-d44b7355ff27</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions Log" />
+  </stage>
+  <stage stageid="aae9e4dd-fb73-45a4-a6dd-a7a6addab4d8" name="When:" type="Note">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <narrative>WHEN the default parameter of itemsPerPage and paginationToken has no set values 
+AND Get Sessions Log was requested
+THEN a response code of 200 should be returned
+AND default number of 10 rows will display
+AND the 11th item/log  will not display</narrative>
+    <display x="15" y="-120" w="240" h="90" />
+    <onsuccess>56beb36a-da10-4815-aa38-dcbe6ae6fe27</onsuccess>
+  </stage>
+  <stage stageid="d20a195b-7652-4556-9c91-ca930f3a4ac5" name="When:" type="Note">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <narrative>WHEN itemsPerPage is set to 1 and paginationToken has no values
+AND Get Sessions Log was requested
+THEN a response code of 200 should be returned
+AND only 1 log item will display (this will be the first item in the log)
+AND paginationToken will be returned so the next page can be navigated to
+AND the 2nd log item will not be returned</narrative>
+    <display x="15" y="1005" w="240" h="90" />
+    <onsuccess>8e4c7410-3ad9-4ad2-82c5-9acaa451d505</onsuccess>
+  </stage>
+  <stage stageid="89382572-0152-4664-969e-526b2eaeb04e" name="Anchor3" type="Anchor">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="180" y="2145" w="10" h="10" />
+    <onsuccess>cb2aeb77-d3cf-4187-af5b-c1fd3ef1eef1</onsuccess>
+  </stage>
+  <stage stageid="cb2aeb77-d3cf-4187-af5b-c1fd3ef1eef1" name="Anchor5" type="Anchor">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="180" y="-120" w="10" h="10" />
+    <onsuccess>3e4302d3-4097-4e92-820e-c1e6e55564dd</onsuccess>
+  </stage>
+  <stage stageid="6d305a17-d0af-415e-a150-1286bcf6f64e" name="Search sessions log" type="LoopStart">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" w="90" h="30" />
+    <onsuccess>13af86e9-a87d-4fc0-8f92-e201b63bcd47</onsuccess>
+    <groupid>b0e07456-4d63-46f0-84a0-42a5f2697207</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Session Log Collection.items</loopdata>
+  </stage>
+  <stage stageid="05edc197-fb65-490b-804e-c8dbd4bf16e5" name="Search sessions log" type="LoopEnd">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="285" w="90" h="30" />
+    <onsuccess>ff1ecb07-c5e5-4c38-ac3b-161b224d9150</onsuccess>
+    <groupid>b0e07456-4d63-46f0-84a0-42a5f2697207</groupid>
+  </stage>
+  <stage stageid="13af86e9-a87d-4fc0-8f92-e201b63bcd47" name="Check the 11th session log item does not show" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="15" y="240" w="90" h="30" />
+    <decision expression="[Session Log Collection.items.JSON:Array.stageName]=&quot;Decision1&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.stageType]=&quot;Decision&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.result]=&quot;True&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.resourceStartTime]&gt;=[Expected start time]" />
+    <ontrue>49dec8c5-f2e0-4af6-b5ff-f1e737ca939e</ontrue>
+    <onfalse>05edc197-fb65-490b-804e-c8dbd4bf16e5</onfalse>
+  </stage>
+  <stage stageid="6eefe77a-027a-420f-93af-5867e7c8c781" name="Anchor4" type="Anchor">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="750" w="10" h="10" />
+    <onsuccess>63cd3e1a-9c37-4914-8826-5ad975380954</onsuccess>
+  </stage>
+  <stage stageid="71557fe1-40fb-480d-abd5-8af873b42fec" name="Session ID" type="Data">
+    <display x="-240" y="-75" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3e35bddb-c7c2-4635-abb1-ccff4208efdd" name="Pagination Tokens" type="Block">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="30" w="150" h="240" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="8f1b50b9-172f-47e4-b779-2f82c0ce4c1f" name="Note3" type="Note">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <narrative>Default items per page = 10
+
+No Pagination Token = Main page/1st Page
+
+Logs in total for this session = 14
+</narrative>
+    <display x="-195" y="105" w="120" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="993366" />
+  </stage>
+  <stage stageid="c682cc00-e5e9-40ee-bebe-692e35366588" name="Pagination Token  Log Items 10 per page, page 2" type="Data">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="180" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1730df3a-7f17-4d61-b98a-5cd506634a91" name="Pagination Token  Log Items 1 per page, page 2" type="Data">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="210" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fc744b56-4b75-478c-a820-a89b302dd075" name="Pagination Token  Log Items 1 per page, page 3" type="Data">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="240" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3071f124-6feb-4f0a-994f-f5b24ba6d909" name="Blue Prism  - API - Get Sessions" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process name starts with" friendlyname="Process name starts with" expr="[Expected Process Name]" />
+      <input type="number" name="Session number starts with" friendlyname="Session number starts with" expr="" />
+      <input type="text" name="Resource name starts with" friendlyname="Resource name starts with" expr="[Expected resource name]" />
+      <input type="text" name="Username starts with" friendlyname="Username starts with" expr="&quot;admin&quot;" />
+      <input type="text" name="Status" friendlyname="Status" expr="&quot;Completed&quot;" />
+      <input type="datetime" name="Start time greater than" friendlyname="Start time greater than" expr="[Expected start time]" />
+      <input type="datetime" name="Start time less than" friendlyname="Start time less than" expr="" />
+      <input type="datetime" name="End time greater than" friendlyname="End time greater than" expr="" />
+      <input type="datetime" name="End time less than" friendlyname="End time less than" expr="" />
+      <input type="text" name="Latest stage starts with" friendlyname="Latest stage starts with" expr="" />
+      <input type="datetime" name="Stage started greater than" friendlyname="Stage started greater than" expr="" />
+      <input type="datetime" name="Stage started less than" friendlyname="Stage started less than" expr="" />
+      <input type="text" name="Sort by" friendlyname="Sort by" expr="&quot;SessionNumberDesc&quot;" />
+      <input type="number" name="Page number" friendlyname="Page number" expr="1" />
+      <input type="number" name="Items per page" friendlyname="Items per page" expr="5" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>46100716-8918-4ee0-a3af-aa3ea66a0bfa</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions" />
+  </stage>
+  <stage stageid="a6db5dc4-eb15-45ee-bb1b-881a495084e9" name="Store SessionID" type="Calculation">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-105" w="90" h="30" />
+    <onsuccess>7dbe724d-2e1c-4e8d-960b-d9c130668ca0</onsuccess>
+    <calculation expression="[Result Collection.JSON:Array.sessionId]" stage="Session ID" />
+  </stage>
+  <stage stageid="46100716-8918-4ee0-a3af-aa3ea66a0bfa" name="Convert Response to Collection" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-195" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Default Result Collection" />
+    </outputs>
+    <onsuccess>b5b26515-61d8-4a8e-8d11-42eb51fcada2</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="57631682-4e7c-4424-a7d7-c80780e9db63" name="Session Log Collection" type="Collection">
+    <display x="-240" y="180" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="pagingToken" type="text" />
+      <field name="items" type="collection">
+        <field name="JSON:Array" type="collection">
+          <field name="stageName" type="text" />
+          <field name="stageType" type="text" />
+          <field name="result" type="text" />
+          <field name="resourceStartTime" type="datetime" />
+          <field name="logId" type="text" />
+          <field name="hasParameters" type="flag" />
+        </field>
+      </field>
+    </collectioninfo>
+  </stage>
+  <stage stageid="49dec8c5-f2e0-4af6-b5ff-f1e737ca939e" name="Unexpected log item found" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="105" y="240" />
+    <exception localized="yes" type="&quot;Unexpected log item found&quot;" detail="&quot;Scenario 1 failed: Did not expect the 11th log item to be found but it was found when pagination and items per page is left at default values&quot;" />
+  </stage>
+  <stage stageid="ff1ecb07-c5e5-4c38-ac3b-161b224d9150" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="15" y="330" w="90" h="30" />
+    <decision expression="[Session Log Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>dd216629-881c-4526-9f37-bd4301eb0381</ontrue>
+    <onfalse>83fb889b-8aee-4e36-87a1-a9d81e32cba7</onfalse>
+  </stage>
+  <stage stageid="83fb889b-8aee-4e36-87a1-a9d81e32cba7" name="Pagination Token does not exist" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="105" y="330" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 1 failed when checking default values: Pagination token was not returned&quot;" />
+  </stage>
+  <stage stageid="dd216629-881c-4526-9f37-bd4301eb0381" name="Store Pagination Token for Navigating" type="Calculation">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="375" w="90" h="30" />
+    <onsuccess>5e3c0a64-d18c-4d5b-9c78-29a90a0dedc9</onsuccess>
+    <calculation expression="[Session Log Collection.pagingToken]" stage="Pagination Token  Log Items 10 per page, page 2" />
+  </stage>
+  <stage stageid="14e2936c-94a3-49bb-99e6-71deba0c9e40" name="Response Code and Session Count correct?" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="15" y="735" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=4" />
+    <ontrue>dc672aba-a700-42f3-8631-36e2e1fa05ae</ontrue>
+    <onfalse>a0f102f6-ff7e-4365-b586-0aa0de785bcf</onfalse>
+  </stage>
+  <stage stageid="9a4b8cad-fcac-4fc4-8db9-6420a0c5d8e1" name="Default itemsPerPage and paginationToken Page #2" type="Block">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="525" w="255" h="420" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ecd5f49f-43f3-42f1-9d6b-7aeb348aaa83" name="Convert Response to Collection" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="600" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Default Result Collection" />
+    </outputs>
+    <onsuccess>12f0462d-dcb8-4f7f-bd4d-4dc3167286ea</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="c05f134a-e4d6-4a05-bd06-f041f6443d97" name="Count Rows" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="690" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Session Log Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>14e2936c-94a3-49bb-99e6-71deba0c9e40</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="a0f102f6-ff7e-4365-b586-0aa0de785bcf" name="Failed" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="105" y="735" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 1 - Check Default itemsPerPage and paginationToken Page #2&quot;" />
+  </stage>
+  <stage stageid="932d4572-de84-4a59-bc8b-9deb1ee1b271" name="Blue Prism - API - Get Sessions Log" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="555" w="90" h="30" />
+    <inputs>
+      <input type="text" name="SessionID" friendlyname="SessionID" narrative="i.e. ba9363c6-aedf-4f4b-9471-ec639dd35507" expr="[Session ID]" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="i.e. 1" expr="" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="i.e. 1" expr="[Pagination Token  Log Items 10 per page, page 2]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>ecd5f49f-43f3-42f1-9d6b-7aeb348aaa83</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions Log" />
+  </stage>
+  <stage stageid="5e3c0a64-d18c-4d5b-9c78-29a90a0dedc9" name="When:" type="Note">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <narrative>WHEN the parameter of itemsPerPage were left at default values and paginationToken value is set to page #2
+AND Get Sessions Log was requested
+THEN a response code of 200 should be returned
+AND the remaining rows (4 rows) will display
+AND the 11th item/log  will display
+AND there will be no more paginationToken due to no more pages to navigate forward.</narrative>
+    <display x="15" y="465" w="240" h="90" />
+    <onsuccess>932d4572-de84-4a59-bc8b-9deb1ee1b271</onsuccess>
+  </stage>
+  <stage stageid="dc672aba-a700-42f3-8631-36e2e1fa05ae" name="Search sessions log" type="LoopStart">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="780" w="90" h="30" />
+    <onsuccess>047374e5-fa59-4aed-999d-15a8e89f7797</onsuccess>
+    <groupid>75c6425c-8e21-460c-8157-e78bd6a5f189</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Session Log Collection.items</loopdata>
+  </stage>
+  <stage stageid="54e7abd7-7f1f-45f6-9252-66223a2e15f5" name="Search sessions log" type="LoopEnd">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="870" w="90" h="30" />
+    <onsuccess>8972707f-bc35-4f9f-9670-d6b8057c0ced</onsuccess>
+    <groupid>75c6425c-8e21-460c-8157-e78bd6a5f189</groupid>
+  </stage>
+  <stage stageid="047374e5-fa59-4aed-999d-15a8e89f7797" name="Check that the 11th log item show" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="15" y="825" w="90" h="30" />
+    <decision expression="[Session Log Collection.items.JSON:Array.stageName]=&quot;Decision1&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.stageType]=&quot;Decision&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.result]=&quot;True&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.resourceStartTime]&gt;=[Expected start time]" />
+    <ontrue>a20233de-3ce4-4c61-9866-cd31f1a8ee8e</ontrue>
+    <onfalse>54e7abd7-7f1f-45f6-9252-66223a2e15f5</onfalse>
+  </stage>
+  <stage stageid="8972707f-bc35-4f9f-9670-d6b8057c0ced" name="Unexpected log item found" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="105" y="870" />
+    <exception localized="yes" type="&quot;Unexpected log item found&quot;" detail="&quot;Scenario 1 failed: Expect the 11th log item to be found but it was not found when pagination values were entered for page 2 and items per page is left at default values&quot;" />
+  </stage>
+  <stage stageid="5713cf7a-feaa-44d1-86b9-1ec70266fb11" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="15" y="915" w="90" h="30" />
+    <decision expression="[Session Log Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>34bd263a-f1d4-4f6d-a8e6-56266b7647ae</ontrue>
+    <onfalse>d20a195b-7652-4556-9c91-ca930f3a4ac5</onfalse>
+  </stage>
+  <stage stageid="34bd263a-f1d4-4f6d-a8e6-56266b7647ae" name="Pagination Token unexpectedly was returned" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="105" y="915" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 1 failed when checking default values and page #2: Pagination token was not expected to return as this is the last page&quot;" />
+  </stage>
+  <stage stageid="0d024860-7258-49d4-9839-1fea5ea144e5" name="Anchor7" type="Anchor">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="915" w="10" h="10" />
+    <onsuccess>5713cf7a-feaa-44d1-86b9-1ec70266fb11</onsuccess>
+  </stage>
+  <stage stageid="a20233de-3ce4-4c61-9866-cd31f1a8ee8e" name="Anchor8" type="Anchor">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="825" w="10" h="10" />
+    <onsuccess>0d024860-7258-49d4-9839-1fea5ea144e5</onsuccess>
+  </stage>
+  <stage stageid="1278fb29-b37c-4a85-b30f-ebeb9ea7767b" name="Response Code and Session Count correct?" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="15" y="1275" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=1" />
+    <ontrue>1a336cf7-0945-4023-b84b-0dd33b0a22e5</ontrue>
+    <onfalse>5f88021f-3bc2-4a3d-b360-14f7ca7916c2</onfalse>
+  </stage>
+  <stage stageid="c76f8629-0745-4334-a7b5-6e2f61f44f00" name="1 itemsPerPage and paginationToken no values" type="Block">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="1065" w="255" h="465" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2725f3de-6629-4f21-b8f1-ebbdc9c1224b" name="Convert Response to Collection" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1140" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Default Result Collection" />
+    </outputs>
+    <onsuccess>82a6a5b1-5bea-4c87-9254-a5295305c1cf</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="41927e55-5b45-41d1-b73c-ed077d71aca7" name="Count Rows" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1230" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Session Log Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>1278fb29-b37c-4a85-b30f-ebeb9ea7767b</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="5f88021f-3bc2-4a3d-b360-14f7ca7916c2" name="Failed" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="105" y="1275" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 1 - Check itemsPerPage=1 and paginationToken has no values&quot;" />
+  </stage>
+  <stage stageid="8e4c7410-3ad9-4ad2-82c5-9acaa451d505" name="Blue Prism - API - Get Sessions Log" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1095" w="90" h="30" />
+    <inputs>
+      <input type="text" name="SessionID" friendlyname="SessionID" narrative="i.e. ba9363c6-aedf-4f4b-9471-ec639dd35507" expr="[Session ID]" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="i.e. 1" expr="1" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="i.e. 1" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>2725f3de-6629-4f21-b8f1-ebbdc9c1224b</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions Log" />
+  </stage>
+  <stage stageid="1a336cf7-0945-4023-b84b-0dd33b0a22e5" name="Search sessions log" type="LoopStart">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1320" w="90" h="30" />
+    <onsuccess>2a74632d-d930-4179-b361-5c2d26dd4125</onsuccess>
+    <groupid>cd2f2732-6f2e-4a5e-ba64-49dc6177f594</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Session Log Collection.items</loopdata>
+  </stage>
+  <stage stageid="c828002a-360e-4ac6-a476-dd3bdb133b75" name="Search sessions log" type="LoopEnd">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1410" w="90" h="30" />
+    <onsuccess>31ba356b-6f39-4147-8857-88ad20336955</onsuccess>
+    <groupid>cd2f2732-6f2e-4a5e-ba64-49dc6177f594</groupid>
+  </stage>
+  <stage stageid="2a74632d-d930-4179-b361-5c2d26dd4125" name="Check log item number 2 is not returned" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="15" y="1365" w="90" h="30" />
+    <decision expression="[Session Log Collection.items.JSON:Array.stageName]=&quot;Start&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.stageType]=&quot;Start&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.resourceStartTime]&gt;=[Expected start time]" />
+    <ontrue>ec24d72e-73a3-4a9f-98ae-e443553a96c1</ontrue>
+    <onfalse>c828002a-360e-4ac6-a476-dd3bdb133b75</onfalse>
+  </stage>
+  <stage stageid="ec24d72e-73a3-4a9f-98ae-e443553a96c1" name="Unexpected log item found" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="105" y="1365" />
+    <exception localized="yes" type="&quot;Unexpected log item found&quot;" detail="&quot;Scenario 1 failed: Did not expect log item number 2 to be found but it was found when there was 1 itemsPerPage and no paginationToken values supplied.&quot;" />
+  </stage>
+  <stage stageid="31ba356b-6f39-4147-8857-88ad20336955" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="15" y="1455" w="90" h="30" />
+    <decision expression="[Session Log Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>63cab6bf-ee29-4f3a-9df4-d3f94a440f7b</ontrue>
+    <onfalse>bb210032-a86d-497e-81fa-914682938100</onfalse>
+  </stage>
+  <stage stageid="bb210032-a86d-497e-81fa-914682938100" name="Pagination Token does not exist" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="105" y="1455" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 1 failed when checking 1 itemsPerPage and no paginationToken values. The Pagination token was not returned&quot;" />
+  </stage>
+  <stage stageid="63cab6bf-ee29-4f3a-9df4-d3f94a440f7b" name="Store Pagination Token for Navigating" type="Calculation">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1500" w="90" h="30" />
+    <onsuccess>7b081500-1f9c-47b3-a0d0-d596106fb49b</onsuccess>
+    <calculation expression="[Session Log Collection.pagingToken]" stage="Pagination Token  Log Items 1 per page, page 2" />
+  </stage>
+  <stage stageid="af906a6f-a70b-46d6-bd36-67fa8ee674ee" name="Expected Process Name" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-240" y="-45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Sub Process A BP-2193</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="92abb07f-69f3-4446-9014-c53890ca09e3" name="Response Code and Session Count correct?" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="330" y="150" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=1" />
+    <ontrue>47f82dc4-1469-41e5-8bb2-441928543e6f</ontrue>
+    <onfalse>6dd7cd15-4877-4982-b545-493316820da2</onfalse>
+  </stage>
+  <stage stageid="363a0db8-ece0-4111-bfcd-e244131e961c" name="1 itemsPerPage and paginationToken page #3" type="Block">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="210" y="-60" w="255" h="435" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="5dfffd70-7f55-466f-abf7-b51f210adf72" name="Convert Response to Collection" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Default Result Collection" />
+    </outputs>
+    <onsuccess>ef010926-8e3d-4e56-9be9-682da94dbed8</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="ba133873-f6fa-4347-b7a0-2636278203dd" name="Count Rows" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Session Log Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>92abb07f-69f3-4446-9014-c53890ca09e3</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="6dd7cd15-4877-4982-b545-493316820da2" name="Failed" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="420" y="150" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 1 - Check itemsPerPage=1 and paginationToken=#3&quot;" />
+  </stage>
+  <stage stageid="ab48a6c1-d9b8-45be-95f8-e58e09ee26e4" name="Blue Prism - API - Get Sessions Log" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="-30" w="90" h="30" />
+    <inputs>
+      <input type="text" name="SessionID" friendlyname="SessionID" narrative="i.e. ba9363c6-aedf-4f4b-9471-ec639dd35507" expr="[Session ID]" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="i.e. 1" expr="1" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="i.e. 1" expr="[Pagination Token  Log Items 1 per page, page 3]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>5dfffd70-7f55-466f-abf7-b51f210adf72</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions Log" />
+  </stage>
+  <stage stageid="47f82dc4-1469-41e5-8bb2-441928543e6f" name="Search sessions log" type="LoopStart">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="195" w="90" h="30" />
+    <onsuccess>e539947c-ed62-4612-a095-2d1069c2f8da</onsuccess>
+    <groupid>e17687ae-3454-4e93-8460-45075871a001</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Session Log Collection.items</loopdata>
+  </stage>
+  <stage stageid="1f375adb-599b-41cf-a9bb-ddeb44159be7" name="Search sessions log" type="LoopEnd">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="285" w="90" h="30" />
+    <onsuccess>0ece5afe-eb39-4e3f-96bd-27e791a21b6f</onsuccess>
+    <groupid>e17687ae-3454-4e93-8460-45075871a001</groupid>
+  </stage>
+  <stage stageid="e539947c-ed62-4612-a095-2d1069c2f8da" name="Check log item number 3 is now returned" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="330" y="240" w="90" h="30" />
+    <decision expression="[Session Log Collection.items.JSON:Array.stageName]=&quot;1+1=2?&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.stageType]=&quot;Decision&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.result]=&quot;True&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.resourceStartTime]&gt;=[Expected start time]" />
+    <ontrue>1f375adb-599b-41cf-a9bb-ddeb44159be7</ontrue>
+    <onfalse>11eda41e-cf73-42dd-bb1c-7402e2f9f5f7</onfalse>
+  </stage>
+  <stage stageid="11eda41e-cf73-42dd-bb1c-7402e2f9f5f7" name="Unexpected log item found" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="420" y="240" />
+    <exception localized="yes" type="&quot;Unexpected log item found&quot;" detail="&quot;Scenario 1 failed: Unexpected log item found when itemsPerPage=1 and paginationToken is page #3&quot;" />
+  </stage>
+  <stage stageid="0ece5afe-eb39-4e3f-96bd-27e791a21b6f" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="330" y="330" w="90" h="30" />
+    <decision expression="[Session Log Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>55a79d36-c216-4545-bfa1-cab0c5a393f3</ontrue>
+    <onfalse>d467e30e-dc44-46ea-9c7a-b600535de181</onfalse>
+  </stage>
+  <stage stageid="d467e30e-dc44-46ea-9c7a-b600535de181" name="Pagination Token does not exist" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="420" y="330" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 1 failed when checking paginationToken page #3 and itemsPerPage = 1. There are no paginationToken returned&quot;" />
+  </stage>
+  <stage stageid="3e4302d3-4097-4e92-820e-c1e6e55564dd" name="When:" type="Note">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <narrative>WHEN itemsPerPage is set to 1 and paginationToken has page #3's token
+AND Get Sessions Log  was requested
+THEN a response code of 200 should be returned
+AND only 1 log item will display
+AND paginationToken will be returned so the next page can be navigated to
+AND the 3rd log item will be returned</narrative>
+    <display x="330" y="-120" w="240" h="90" />
+    <onsuccess>ab48a6c1-d9b8-45be-95f8-e58e09ee26e4</onsuccess>
+  </stage>
+  <stage stageid="9b74277c-5bbc-4f63-ab42-59a53dfb7019" name="Response Code and Session Count correct?" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="330" y="1275" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=14" />
+    <ontrue>af680f13-73f1-4092-8c57-2d4862b245ed</ontrue>
+    <onfalse>ac08a023-0903-4b63-ae11-44855da717d7</onfalse>
+  </stage>
+  <stage stageid="d11ee9b0-c283-4876-8c75-669220e90044" name="itemsPerPage = 15 and paginationToken no values" type="Block">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="210" y="1065" w="255" h="420" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4d8c2cdb-9531-48cd-ba0d-330b120bc1cb" name="Convert Response to Collection" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1140" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Default Result Collection" />
+    </outputs>
+    <onsuccess>e7fab15e-7a01-4c8b-bce2-c79ad217b6bf</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="b303a1a0-5dd7-43f2-861e-8d8e8ecc716f" name="Count Rows" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1230" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Session Log Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>9b74277c-5bbc-4f63-ab42-59a53dfb7019</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="ac08a023-0903-4b63-ae11-44855da717d7" name="Failed" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="420" y="1275" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 1 - Check itemsPerPage = 15 and paginationToken has no values&quot;" />
+  </stage>
+  <stage stageid="1eb1378d-8ae6-4e46-85b6-e1e2870a6eee" name="Blue Prism - API - Get Sessions Log" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1095" w="90" h="30" />
+    <inputs>
+      <input type="text" name="SessionID" friendlyname="SessionID" narrative="i.e. ba9363c6-aedf-4f4b-9471-ec639dd35507" expr="[Session ID]" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="i.e. 1" expr="15" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="i.e. 1" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>4d8c2cdb-9531-48cd-ba0d-330b120bc1cb</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions Log" />
+  </stage>
+  <stage stageid="af680f13-73f1-4092-8c57-2d4862b245ed" name="Search sessions log" type="LoopStart">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1320" w="90" h="30" />
+    <onsuccess>a4375033-89d3-4c45-8723-314eb9b7582b</onsuccess>
+    <groupid>75c860d7-c5e5-4a8f-9243-b1bada09f2b5</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Session Log Collection.items</loopdata>
+  </stage>
+  <stage stageid="c2a1ea74-295e-4046-ab53-eed096710d8e" name="Search sessions log" type="LoopEnd">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1410" w="90" h="30" />
+    <onsuccess>705c9066-1a0b-4d98-a923-2005aab4f6e8</onsuccess>
+    <groupid>75c860d7-c5e5-4a8f-9243-b1bada09f2b5</groupid>
+  </stage>
+  <stage stageid="a4375033-89d3-4c45-8723-314eb9b7582b" name="Check the 14th log item is returned" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="330" y="1365" w="90" h="30" />
+    <decision expression="[Session Log Collection.items.JSON:Array.stageName]=&quot;End&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.stageType]=&quot;End&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.resourceStartTime]&gt;=[Expected start time]" />
+    <ontrue>cc415d92-c580-4839-9a85-c7266f2a0b44</ontrue>
+    <onfalse>c2a1ea74-295e-4046-ab53-eed096710d8e</onfalse>
+  </stage>
+  <stage stageid="705c9066-1a0b-4d98-a923-2005aab4f6e8" name="Unexpected log item found" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="420" y="1410" />
+    <exception localized="yes" type="&quot;Unexpected log item found&quot;" detail="&quot;Scenario 1 failed: expect all log items to display, however something went wrong when checking itemsPerPage = 15 and paginationToken has no values&quot;" />
+  </stage>
+  <stage stageid="8e23da77-cff7-4fee-bed1-6f28b676b76e" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="330" y="1455" w="90" h="30" />
+    <decision expression="[Session Log Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>1debdca6-e92f-46e2-83f0-439b151d5ca6</ontrue>
+    <onfalse>646fc3d1-f783-42f4-93db-36c9047b07df</onfalse>
+  </stage>
+  <stage stageid="1debdca6-e92f-46e2-83f0-439b151d5ca6" name="Pagination Token unexpectedly was returned" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="420" y="1455" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 1 failed when checking itemsPerPage=15 and paginationToken has no values. No paginationToken is expected to be found, however it was found.&quot;" />
+  </stage>
+  <stage stageid="4fd40e34-e78f-42fa-9ec2-3edcee269a05" name="Anchor7" type="Anchor">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="1455" w="10" h="10" />
+    <onsuccess>8e23da77-cff7-4fee-bed1-6f28b676b76e</onsuccess>
+  </stage>
+  <stage stageid="cc415d92-c580-4839-9a85-c7266f2a0b44" name="Anchor8" type="Anchor">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="1365" w="10" h="10" />
+    <onsuccess>4fd40e34-e78f-42fa-9ec2-3edcee269a05</onsuccess>
+  </stage>
+  <stage stageid="d4d9256b-4674-4187-8f72-7c912febd67b" name="When:" type="Note">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <narrative>WHEN itemsPerPage is set to 15 and paginationToken has no values
+AND Get Sessions Log was requested
+THEN a response code of 200 should be returned
+AND 14 log items will display
+AND paginationToken will not be returned 
+AND the 14th log item will display</narrative>
+    <display x="330" y="1005" w="240" h="90" />
+    <onsuccess>1eb1378d-8ae6-4e46-85b6-e1e2870a6eee</onsuccess>
+  </stage>
+  <stage stageid="7b03fa8e-5987-47d6-ab49-10dfdbcbcdeb" name="Response Code and Session Count correct?" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="330" y="1815" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=14" />
+    <ontrue>73606ebc-6b34-4307-aa12-be73200a0323</ontrue>
+    <onfalse>efbf52fa-f11d-4edc-839c-3575d787af9f</onfalse>
+  </stage>
+  <stage stageid="9bf79ddb-c515-48bc-9fab-58b867e04e4d" name="itemsPerPage = 1000 and paginationToken no values" type="Block">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="210" y="1605" w="255" h="420" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ceb845e6-695c-4f4a-8c84-4f6a3339e1be" name="Convert Response to Collection" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1680" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Default Result Collection" />
+    </outputs>
+    <onsuccess>5bde6bc3-1ed0-4e0c-9971-41255b111961</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="668d2ce5-7d8c-4931-ad9c-ded94d30cd4d" name="Count Rows" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1770" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Session Log Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>7b03fa8e-5987-47d6-ab49-10dfdbcbcdeb</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="efbf52fa-f11d-4edc-839c-3575d787af9f" name="Failed" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="420" y="1815" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 1 - Check itemsPerPage = 1000000 and paginationToken has no values&quot;" />
+  </stage>
+  <stage stageid="1b83a9ee-c97a-4425-aa22-39b76bb3d531" name="Blue Prism - API - Get Sessions Log" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1635" w="90" h="30" />
+    <inputs>
+      <input type="text" name="SessionID" friendlyname="SessionID" narrative="i.e. ba9363c6-aedf-4f4b-9471-ec639dd35507" expr="[Session ID]" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="i.e. 1" expr="1000" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="i.e. 1" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>ceb845e6-695c-4f4a-8c84-4f6a3339e1be</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions Log" />
+  </stage>
+  <stage stageid="73606ebc-6b34-4307-aa12-be73200a0323" name="Search sessions log" type="LoopStart">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1860" w="90" h="30" />
+    <onsuccess>139ca64c-122a-4f0d-8c1e-9f4134ac3499</onsuccess>
+    <groupid>41af1a6d-e3ae-48fd-82c2-027ac61ac8c3</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Session Log Collection.items</loopdata>
+  </stage>
+  <stage stageid="e75c3ec3-cbef-4a51-a58d-f44d303445ed" name="Search sessions log" type="LoopEnd">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1950" w="90" h="30" />
+    <onsuccess>da8b0d57-e435-4578-a377-2502bc1d5ffc</onsuccess>
+    <groupid>41af1a6d-e3ae-48fd-82c2-027ac61ac8c3</groupid>
+  </stage>
+  <stage stageid="139ca64c-122a-4f0d-8c1e-9f4134ac3499" name="Check the 14th log item is returned" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="330" y="1905" w="90" h="30" />
+    <decision expression="[Session Log Collection.items.JSON:Array.stageName]=&quot;End&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.stageType]=&quot;End&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.resourceStartTime]&gt;=[Expected start time]" />
+    <ontrue>b12b6c1b-f833-4211-9073-86dd6527f9eb</ontrue>
+    <onfalse>e75c3ec3-cbef-4a51-a58d-f44d303445ed</onfalse>
+  </stage>
+  <stage stageid="eda50924-e57e-44d9-bf2d-99c231c6dbbd" name="Unexpected log item found" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="420" y="1950" />
+    <exception localized="yes" type="&quot;Unexpected log item found&quot;" detail="&quot;Scenario 1 failed: expect all log items to display, however something went wrong when checking itemsPerPage = 1000000 and paginationToken has no values&quot;" />
+  </stage>
+  <stage stageid="da8b0d57-e435-4578-a377-2502bc1d5ffc" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="330" y="1995" w="90" h="30" />
+    <decision expression="[Session Log Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>a7697593-b5f5-4132-b850-bf385c17b43c</ontrue>
+    <onfalse>f8675bd8-8f26-45ee-8205-e9be7ac07139</onfalse>
+  </stage>
+  <stage stageid="a7697593-b5f5-4132-b850-bf385c17b43c" name="Pagination Token unexpectedly was returned" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="420" y="1995" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 1 failed when checking itemsPerPage=1000000 and paginationToken has no values. No paginationToken is expected to be found, however it was found.&quot;" />
+  </stage>
+  <stage stageid="561e5212-860c-4804-8bc0-31dd3f015f28" name="Anchor7" type="Anchor">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="1995" w="10" h="10" />
+    <onsuccess>da8b0d57-e435-4578-a377-2502bc1d5ffc</onsuccess>
+  </stage>
+  <stage stageid="b12b6c1b-f833-4211-9073-86dd6527f9eb" name="Anchor8" type="Anchor">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="1905" w="10" h="10" />
+    <onsuccess>561e5212-860c-4804-8bc0-31dd3f015f28</onsuccess>
+  </stage>
+  <stage stageid="646fc3d1-f783-42f4-93db-36c9047b07df" name="When:" type="Note">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <narrative>WHEN itemsPerPage is set to 1000000 and paginationToken has no values
+AND Get Sessions Log was requested
+THEN a response code of 200 should be returned
+AND 14 log items will display
+AND paginationToken will not be returned 
+AND the 14th log item will be returned</narrative>
+    <display x="330" y="1545" w="240" h="90" />
+    <onsuccess>1b83a9ee-c97a-4425-aa22-39b76bb3d531</onsuccess>
+  </stage>
+  <stage stageid="e78b2874-107d-46ca-a9d9-accb63f11fb4" name="End4" type="End">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="2100" />
+  </stage>
+  <stage stageid="234c7e4a-92db-4df4-bfb8-4be69d57f7ac" name="Note5" type="Note">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit />
+    <narrative>Logs Expected (DateTime will be different)
+-------------------------------------------------------
+{
+  "pagingToken": null,
+  "items": [
+    {
+      "stageName": "",
+      "stageType": "Undefined",
+      "result": "Created session log",
+      "resourceStartTime": "2021-02-08T09:54:15.867+00:00"
+    },
+    {
+      "stageName": "Start",
+      "stageType": "Start",
+      "result": "",
+      "resourceStartTime": "2021-02-08T09:54:15.947+00:00"
+    },
+    {
+      "stageName": "1+1=2?",
+      "stageType": "Decision",
+      "result": "True",
+      "resourceStartTime": "2021-02-08T09:54:16.007+00:00"
+    },
+    {
+      "stageName": "Note 1",
+      "stageType": "Note",
+      "result": "Yes this is right",
+      "resourceStartTime": "2021-02-08T09:54:16.063+00:00"
+    },
+    {
+      "stageName": "Store result",
+      "stageType": "Calculation",
+      "result": "Yes",
+      "resourceStartTime": "2021-02-08T09:54:16.083+00:00"
+    },
+    {
+      "stageName": "Note 2",
+      "stageType": "Note",
+      "result": "This is note two",
+      "resourceStartTime": "2021-02-08T09:54:16.107+00:00"
+    },
+    {
+      "stageName": "Page 1",
+      "stageType": "SubSheet",
+      "result": "",
+      "resourceStartTime": "2021-02-08T09:54:16.123+00:00"
+    },
+    {
+      "stageName": "Start",
+      "stageType": "Start",
+      "result": "",
+      "resourceStartTime": "2021-02-08T09:54:16.137+00:00"
+    },
+    {
+      "stageName": "End",
+      "stageType": "End",
+      "result": "",
+      "resourceStartTime": "2021-02-08T09:54:16.147+00:00"
+    },
+    {
+      "stageName": "Note 3",
+      "stageType": "Note",
+      "result": "Good burger",
+      "resourceStartTime": "2021-02-08T09:54:16.197+00:00"
+    },
+    {
+      "stageName": "Decision1",
+      "stageType": "Decision",
+      "result": "True",
+      "resourceStartTime": "2021-02-08T09:54:16.21+00:00"
+    },
+    {
+      "stageName": "Decision2",
+      "stageType": "Decision",
+      "result": "False",
+      "resourceStartTime": "2021-02-08T09:54:16.223+00:00"
+    },
+    {
+      "stageName": "This is an alert stage",
+      "stageType": "Alert",
+      "result": "We have done the calculation",
+      "resourceStartTime": "2021-02-08T09:54:16.24+00:00"
+    },
+    {
+      "stageName": "End",
+      "stageType": "End",
+      "result": "",
+      "resourceStartTime": "2021-02-08T09:54:16.333+00:00"
+    }
+  ]
+}</narrative>
+    <display x="-270" y="825" w="240" h="1050" />
+    <font family="Segoe UI" size="10" style="Regular" color="993366" />
+  </stage>
+  <stage stageid="ee6efd85-cced-416d-bf61-7af671d3e9b4" name="Response Code and Session Count correct?" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="15" y="1875" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=1" />
+    <ontrue>6c8e7d41-f830-4560-a0d7-4bd376fae762</ontrue>
+    <onfalse>b2db58c9-e6bd-4dd3-827f-7626a5f117c2</onfalse>
+  </stage>
+  <stage stageid="b385b282-3326-4b73-a576-6e5f4e42dbbc" name="1 itemsPerPage and paginationToken page #2" type="Block">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="1665" w="255" h="465" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="1529ba2d-1ec1-40e4-871d-36deca7f670b" name="Convert Response to Collection" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1740" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Default Result Collection" />
+    </outputs>
+    <onsuccess>9b971135-50cf-4e97-8984-00a4cc3c18dd</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="6dc1a9f4-2fb9-416b-a27a-ebf71eb66919" name="Count Rows" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1830" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Session Log Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>ee6efd85-cced-416d-bf61-7af671d3e9b4</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="b2db58c9-e6bd-4dd3-827f-7626a5f117c2" name="Failed" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="105" y="1875" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 1 - Check itemsPerPage=1 and paginationToken=#2&quot;" />
+  </stage>
+  <stage stageid="252c4f49-d000-4f7d-8b04-76b7118be92e" name="Blue Prism - API - Get Sessions Log" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1695" w="90" h="30" />
+    <inputs>
+      <input type="text" name="SessionID" friendlyname="SessionID" narrative="i.e. ba9363c6-aedf-4f4b-9471-ec639dd35507" expr="[Session ID]" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="i.e. 1" expr="1" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="i.e. 1" expr="[Pagination Token  Log Items 1 per page, page 2]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>1529ba2d-1ec1-40e4-871d-36deca7f670b</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions Log" />
+  </stage>
+  <stage stageid="6c8e7d41-f830-4560-a0d7-4bd376fae762" name="Search sessions log" type="LoopStart">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1920" w="90" h="30" />
+    <onsuccess>74975c52-00de-4f87-acd5-7b03557f502c</onsuccess>
+    <groupid>4b75385f-5ee2-4770-911a-e2d05b222397</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Session Log Collection.items</loopdata>
+  </stage>
+  <stage stageid="b4a329f7-9293-4bf9-8a50-fe185e6c8cd2" name="Search sessions log" type="LoopEnd">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="2010" w="90" h="30" />
+    <onsuccess>8c1598df-07d4-4002-9c2a-3e55d1950682</onsuccess>
+    <groupid>4b75385f-5ee2-4770-911a-e2d05b222397</groupid>
+  </stage>
+  <stage stageid="95698127-7684-4af5-ab25-003e7879d406" name="Unexpected log item found" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="105" y="1965" />
+    <exception localized="yes" type="&quot;Unexpected log item found&quot;" detail="&quot;Scenario 1 failed: Unexpected log when itemsPerPage=1 and paginationToken is page #2&quot;" />
+  </stage>
+  <stage stageid="8c1598df-07d4-4002-9c2a-3e55d1950682" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="15" y="2055" w="90" h="30" />
+    <decision expression="[Session Log Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>08df9c89-72e0-4224-82b7-7a10ae2dab83</ontrue>
+    <onfalse>386fc4cf-5c98-4029-b3e7-1750e3d708ac</onfalse>
+  </stage>
+  <stage stageid="386fc4cf-5c98-4029-b3e7-1750e3d708ac" name="Pagination Token does not exist" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="105" y="2055" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 1 failed when checking paginationToken page #2 and itemsPerPage = 1. PaginationToken was not returned&quot;" />
+  </stage>
+  <stage stageid="08df9c89-72e0-4224-82b7-7a10ae2dab83" name="Store Pagination Token for Navigating" type="Calculation">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="2100" w="90" h="30" />
+    <onsuccess>e565b390-b41c-4bd3-8267-4454aedd53ac</onsuccess>
+    <calculation expression="[Session Log Collection.pagingToken]" stage="Pagination Token  Log Items 1 per page, page 3" />
+  </stage>
+  <stage stageid="7b081500-1f9c-47b3-a0d0-d596106fb49b" name="When:" type="Note">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <narrative>WHEN itemsPerPage is set to 1 and paginationToken has page #2's token
+AND Get Sessions Log  was requested
+THEN a response code of 200 should be returned
+AND only 1 log item will display
+AND paginationToken will be returned so the next page can be navigated to
+AND the 3rd log item will not be returned</narrative>
+    <display x="15" y="1605" w="240" h="90" />
+    <onsuccess>252c4f49-d000-4f7d-8b04-76b7118be92e</onsuccess>
+  </stage>
+  <stage stageid="74975c52-00de-4f87-acd5-7b03557f502c" name="Check log item number 3 is not returned" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="15" y="1965" w="90" h="30" />
+    <decision expression="[Session Log Collection.items.JSON:Array.stageName]=&quot;1+1=2?&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.stageType]=&quot;Decision&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.result]=&quot;True&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.resourceStartTime]&gt;=[Expected start time]" />
+    <ontrue>95698127-7684-4af5-ab25-003e7879d406</ontrue>
+    <onfalse>b4a329f7-9293-4bf9-8a50-fe185e6c8cd2</onfalse>
+  </stage>
+  <stage stageid="e565b390-b41c-4bd3-8267-4454aedd53ac" name="Anchor2" type="Anchor">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="2145" w="10" h="10" />
+    <font family="Segoe UI" size="10" style="Regular" color="993366" />
+    <onsuccess>89382572-0152-4664-969e-526b2eaeb04e</onsuccess>
+  </stage>
+  <stage stageid="3ab76823-6d10-40c7-980b-e37566fe5d8c" name="Response Code and Session Count correct?" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="330" y="735" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=1" />
+    <ontrue>9e0e10b2-06d9-4f57-82d4-1daab8c4079d</ontrue>
+    <onfalse>08a78962-5769-4e9e-8b71-c9c6a7517f7f</onfalse>
+  </stage>
+  <stage stageid="06a0ca8d-0885-492f-8d38-f9c284d5519a" name="Navigate back to previous page using paginationToken" type="Block">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="210" y="525" w="255" h="420" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b96b0f76-f001-4e46-9448-fe92f6f4535e" name="Convert Response to Collection" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="600" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Default Result Collection" />
+    </outputs>
+    <onsuccess>0ff67009-efd3-4e16-b528-82afd9223926</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="731b7006-1985-438c-87d5-5475310c09ff" name="Count Rows" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="690" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Session Log Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>3ab76823-6d10-40c7-980b-e37566fe5d8c</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="08a78962-5769-4e9e-8b71-c9c6a7517f7f" name="Failed" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="420" y="735" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 1 - Check previous page navigation using paginationToken section&quot;" />
+  </stage>
+  <stage stageid="e75d419b-e089-4699-b0f3-8c3e25ec9bad" name="Blue Prism - API - Get Sessions Log" type="Action">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="555" w="90" h="30" />
+    <inputs>
+      <input type="text" name="SessionID" friendlyname="SessionID" narrative="i.e. ba9363c6-aedf-4f4b-9471-ec639dd35507" expr="[Session ID]" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="i.e. 1" expr="1" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="i.e. 1" expr="[Pagination Token  Log Items 1 per page, page 2]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>b96b0f76-f001-4e46-9448-fe92f6f4535e</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions Log" />
+  </stage>
+  <stage stageid="9e0e10b2-06d9-4f57-82d4-1daab8c4079d" name="Search sessions log" type="LoopStart">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="780" w="90" h="30" />
+    <onsuccess>8933adf8-119c-4918-bc7c-51d57fc4063a</onsuccess>
+    <groupid>79895441-6d8a-4866-9ca1-9d75fc9da1b0</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Session Log Collection.items</loopdata>
+  </stage>
+  <stage stageid="65ab139d-3e34-4962-9133-f1fea59e9d08" name="Search sessions log" type="LoopEnd">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="870" w="90" h="30" />
+    <onsuccess>d31dc5f6-1c45-49fd-81a0-2f8a962a273e</onsuccess>
+    <groupid>79895441-6d8a-4866-9ca1-9d75fc9da1b0</groupid>
+  </stage>
+  <stage stageid="9df46279-35c5-417d-aa5a-4dcf5dd53477" name="Unexpected log item found" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="420" y="825" />
+    <exception localized="yes" type="&quot;Unexpected log item found&quot;" detail="&quot;Scenario 1 failed: Unexpected log item found.  Check previous page navigation using paginationToken section&quot;" />
+  </stage>
+  <stage stageid="d31dc5f6-1c45-49fd-81a0-2f8a962a273e" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="330" y="915" w="90" h="30" />
+    <decision expression="[Session Log Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>d4d9256b-4674-4187-8f72-7c912febd67b</ontrue>
+    <onfalse>5d1824c5-12b4-483e-9c4b-0dc9be395067</onfalse>
+  </stage>
+  <stage stageid="5d1824c5-12b4-483e-9c4b-0dc9be395067" name="Pagination Token does not exist" type="Exception">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="420" y="915" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 1 failed when checking if paginationToken exist. It is expected to exist.  Check previous page navigation using paginationToken section&quot;" />
+  </stage>
+  <stage stageid="55a79d36-c216-4545-bfa1-cab0c5a393f3" name="When:" type="Note">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <narrative>WHEN itemsPerPage is set to 1 and paginationToken has page #2's token
+THEN I can NAVIGATE BACK to page 2 
+AND Get Sessions Log  was requested
+THEN a response code of 200 should be returned
+AND only 1 log item will display
+AND paginationToken will be returned so the previous page can be navigated to
+AND the 2nd log item will be returned</narrative>
+    <display x="330" y="450" w="240" h="120" />
+    <onsuccess>e75d419b-e089-4699-b0f3-8c3e25ec9bad</onsuccess>
+  </stage>
+  <stage stageid="8933adf8-119c-4918-bc7c-51d57fc4063a" name="Check log item number 2 is returned" type="Decision">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <display x="330" y="825" w="90" h="30" />
+    <decision expression="[Session Log Collection.items.JSON:Array.stageName]=&quot;Start&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.stageType]=&quot;Start&quot;&#xA;AND&#xA;[Session Log Collection.items.JSON:Array.resourceStartTime]&gt;=[Expected start time]" />
+    <ontrue>65ab139d-3e34-4962-9133-f1fea59e9d08</ontrue>
+    <onfalse>9df46279-35c5-417d-aa5a-4dcf5dd53477</onfalse>
+  </stage>
+  <stage stageid="edbeb442-85f8-4988-8b0c-a5c4cdba26db" name="Blue Prism - API - Get Sessions Log" type="Action">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="SessionID" friendlyname="SessionID" narrative="i.e. ba9363c6-aedf-4f4b-9471-ec639dd35507" expr="[Session ID]" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="i.e. 1" expr="" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="i.e. 1ecvsg43brfdtry46" expr="[Invalidated token]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>455483c5-435e-419a-b3cd-b697791fbe79</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions Log" />
+  </stage>
+  <stage stageid="4b2e6871-12ab-453b-9a48-aeed61282544" name="Invalidated token" type="Data">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+  </stage>
+  <stage stageid="0dd3b0b0-9c5b-4dcb-b05c-db2d9bf2305f" name="Local variable" type="Block">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="80a7af32-3491-4c80-88c4-acafc608fa18" name="Note2" type="Note">
+    <narrative>GIVEN I push a GET Sessions Log request 
+WHEN I supply valid pagingToken / itemsPerPage data
+THEN the appropriate response is returned
+AND the limit is configurable by the user</narrative>
+    <display x="15" y="-135" w="300" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>e557cdc1-2ceb-4ee4-bb0f-5279dd3e893f</onsuccess>
+  </stage>
+  <stage stageid="a81067cc-d4d9-4284-900e-ec4e05561b81" name="Scenario 1 - Positive scenario" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-180" w="405" h="135" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="1bd01b32-d6f8-49bd-8b4e-d5ddc46143bb" name="Scenario 2- Negative Scenarios" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="90" w="300" h="30" />
+    <onsuccess>00063004-ac5e-4058-aa37-f00c2926b147</onsuccess>
+    <processid>b05944fd-1337-4ce4-80ea-5db386564f3b</processid>
+  </stage>
+  <stage stageid="f8675bd8-8f26-45ee-8205-e9be7ac07139" name="Store invalid paginationToken for Negative scenario" type="Calculation">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="2055" w="90" h="30" />
+    <onsuccess>e78b2874-107d-46ca-a9d9-accb63f11fb4</onsuccess>
+    <calculation expression="[Pagination Token  Log Items 1 per page, page 2]" stage="Invalidated token" />
+  </stage>
+  <stage stageid="b5f01bec-2be2-4da3-9609-a67611974b83" name="Blue Prism - API - Get Sessions Log" type="Action">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="270" w="90" h="30" />
+    <inputs>
+      <input type="text" name="SessionID" friendlyname="SessionID" narrative="i.e. ba9363c6-aedf-4f4b-9471-ec639dd35507" expr="[Session ID]" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="i.e. 1" expr="" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="i.e. 1" expr="&quot;FDGE£$%^&amp;!*()_+{}~@:?&gt;&lt;12345ASDGHJK&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>d3953ca1-c0e1-4cee-9a30-fb5423d941d5</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions Log" />
+  </stage>
+  <stage stageid="16ecfdb4-f7e4-42c6-bcb4-dd2390822ece" name="When:" type="Note">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <narrative>WHEN a user inputs invalid values in both itemsPerPage and pagingToken
+THEN a response code of 400 should be returned along with an appropriate user error message</narrative>
+    <display x="15" y="495" w="240" h="60" />
+    <onsuccess>8a6b7eea-20f4-49a5-b4a1-2118d7826bb9</onsuccess>
+  </stage>
+  <stage stageid="0174c626-0433-43bd-b7a6-021b6d478ee7" name="Invalid pagingToken and itemsPerPage" type="Block">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="540" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC00" />
+  </stage>
+  <stage stageid="f58f8a12-faf3-4f09-832a-cf2bd30f3158" name="Resume3" type="Resume">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit />
+    <display x="15" y="705" w="90" h="30" />
+    <onsuccess>6eefe77a-027a-420f-93af-5867e7c8c781</onsuccess>
+  </stage>
+  <stage stageid="c802ad1f-5e6f-4235-a3e2-f5c500ec5042" name="http status code and response as expected?" type="Decision">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="15" y="660" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot;&amp;NewLine()&amp;&#xA;&quot;HTTP Status Code: 400&quot;&amp;NewLine()&amp;&#xA;&quot;HTTP Response Content: [{&quot;&quot;invalidField&quot;&quot;:&quot;&quot;ItemsPerPage&quot;&quot;,&quot;&quot;message&quot;&quot;:&quot;&quot;The value 'this is a string:[}{@£$£' is not valid for ItemsPerPage.&quot;&quot;}]&quot;)&lt;&gt;0" />
+    <ontrue>f58f8a12-faf3-4f09-832a-cf2bd30f3158</ontrue>
+    <onfalse>43fe8af6-7571-489a-9986-95dbddfdd598</onfalse>
+  </stage>
+  <stage stageid="8a6b7eea-20f4-49a5-b4a1-2118d7826bb9" name="Blue Prism - API - Get Sessions Log" type="Action">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="570" w="90" h="30" />
+    <inputs>
+      <input type="text" name="SessionID" friendlyname="SessionID" narrative="i.e. ba9363c6-aedf-4f4b-9471-ec639dd35507" expr="[Session ID]" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="i.e. 1" expr="&quot;this is a string:[}{@£$£&quot;" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="i.e. 1" expr="&quot;FDGE£$%^&amp;!*()_+{}~@:?&gt;&lt;12345ASDGHJK&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>ce350eb2-48f1-4d36-8c57-69d9e12c1279</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions Log" />
+  </stage>
+  <stage stageid="af6ceba3-31a1-4415-a45f-e63f2648c200" name="Recover3" type="Recover">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit />
+    <display x="15" y="615" w="90" h="30" />
+    <onsuccess>c802ad1f-5e6f-4235-a3e2-f5c500ec5042</onsuccess>
+  </stage>
+  <stage stageid="7f13fef8-7726-4f71-99cf-a6f9d43bea7b" name="Blue Prism - API - Get Sessions Log" type="Action">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="375" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="SessionID" friendlyname="SessionID" narrative="i.e. ba9363c6-aedf-4f4b-9471-ec639dd35507" expr="[Session ID]" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="i.e. 1" expr="-1" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="i.e. 1" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>7ef2e13a-01de-49f7-a3ea-8cad4254d427</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions Log" />
+  </stage>
+  <stage stageid="ce350eb2-48f1-4d36-8c57-69d9e12c1279" name="Failed" type="Exception">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="105" y="570" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed: Expect Get Sessions Log action request to fail but this is not the case. Check invalid pagingToken and invalid itemsPerPage&quot;" />
+  </stage>
+  <stage stageid="43fe8af6-7571-489a-9986-95dbddfdd598" name="Failed" type="Exception">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="105" y="660" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed: Incorrect response returned. Check invalid pagingToken and invalid itemsPerPage section&quot;" />
+  </stage>
+  <stage stageid="99d2b36e-10ad-4151-802d-e6006bf8f3e4" name="Blue Prism - API - Get Sessions Log" type="Action">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="375" y="270" w="90" h="30" />
+    <inputs>
+      <input type="text" name="SessionID" friendlyname="SessionID" narrative="i.e. ba9363c6-aedf-4f4b-9471-ec639dd35507" expr="[Session ID]" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="i.e. 1" expr="1.5" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="i.e. 1" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>7bddadd5-03f3-4842-bf05-7585b9e62d80</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions Log" />
+  </stage>
+  <stage stageid="679ae18c-f502-4680-8bf6-bde475164451" name="Blue Prism - API - Get Sessions Log" type="Action">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="375" y="555" w="90" h="30" />
+    <inputs>
+      <input type="text" name="SessionID" friendlyname="SessionID" narrative="i.e. ba9363c6-aedf-4f4b-9471-ec639dd35507" expr="[Session ID]" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="i.e. 1" expr="0" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="i.e. 1" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>fbb48b54-a4ec-4f0d-8600-bffa7bf11649</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions Log" />
+  </stage>
+  <stage stageid="eeb1b728-2003-4e24-a45b-26a115afbf91" name="Blue Prism - API - Get Sessions Log" type="Action">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="375" y="840" w="90" h="30" />
+    <inputs>
+      <input type="text" name="SessionID" friendlyname="SessionID" narrative="i.e. ba9363c6-aedf-4f4b-9471-ec639dd35507" expr="[Session ID]" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="i.e. 1" expr="&quot;GHFREXTGDG&quot;" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="i.e. 1" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>4a456676-3b67-4736-a4ef-f9111dce7ec0</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions Log" />
+  </stage>
+  <stage stageid="c3313177-3704-4ee3-b4b2-b43c6a8d9052" name="http status code and response as expected?" type="Decision">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="375" y="645" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot;&amp;NewLine()&amp;&#xA;&quot;HTTP Status Code: 400&quot;&amp;NewLine()&amp;&#xA;&quot;HTTP Response Content: [{&quot;&quot;invalidField&quot;&quot;:&quot;&quot;ItemsPerPage&quot;&quot;,&quot;&quot;message&quot;&quot;:&quot;&quot;'Items Per Page' must be between 1 and 1000. You entered 0.&quot;&quot;}]&quot;)&lt;&gt;0" />
+    <ontrue>1ad6ce9b-978b-40a3-9980-44c09922d35e</ontrue>
+    <onfalse>5296d21a-66bf-4ec7-90e5-b328614f4364</onfalse>
+  </stage>
+  <stage stageid="0445acfd-53c1-4554-93bb-a29777407cad" name="When:" type="Note">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <narrative>WHEN the input parameter of itemsPerPage is above the maximum configurable amount of 1000
+THEN a response code of 400 should be returned along with an appropriate user error message</narrative>
+    <display x="375" y="1050" w="240" h="60" />
+    <onsuccess>75000d71-eb0b-4ff2-8546-884987efbced</onsuccess>
+  </stage>
+  <stage stageid="87d68b1d-d61a-4668-9cf4-ffceabbc4e2b" name="itemsPerPage goes above maximum value" type="Block">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="315" y="1095" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC00" />
+  </stage>
+  <stage stageid="00f4f323-deb5-4998-87e8-31ec0786915b" name="Resume8" type="Resume">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit />
+    <display x="375" y="1260" w="90" h="30" />
+    <onsuccess>83dbcf1f-5bd3-4c33-baef-5e7d579340fb</onsuccess>
+  </stage>
+  <stage stageid="3dc293eb-dd10-4cc7-b248-5e12b27c8ef1" name="Failed" type="Exception">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="465" y="1125" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed for itemsPerPage as a string type - expected Get Sessions Log action to not be accpeted and to cause an exception instead but this is not the case&quot;" />
+  </stage>
+  <stage stageid="f27c05e5-7ed5-4201-be50-e982951de5c2" name="Failed" type="Exception">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="465" y="1215" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed: Incorrect response returned for string type value in itemsPerPage field&quot;" />
+  </stage>
+  <stage stageid="75000d71-eb0b-4ff2-8546-884987efbced" name="Blue Prism - API - Get Sessions Log" type="Action">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="375" y="1125" w="90" h="30" />
+    <inputs>
+      <input type="text" name="SessionID" friendlyname="SessionID" narrative="i.e. ba9363c6-aedf-4f4b-9471-ec639dd35507" expr="[Session ID]" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="i.e. 1" expr="1001" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="i.e. 1" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>3dc293eb-dd10-4cc7-b248-5e12b27c8ef1</onsuccess>
+    <resource object="Blue Prism - API - Sessions" action="GET Sessions Log" />
+  </stage>
+  <stage stageid="83dbcf1f-5bd3-4c33-baef-5e7d579340fb" name="End2" type="End">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="375" y="1320" />
+  </stage>
+  <stage stageid="e0770cfa-aba7-4965-a15e-8227d05445ed" name="http status code and response as expected?" type="Decision">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <display x="375" y="1215" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot;&amp;NewLine()&amp;&#xA;&quot;HTTP Status Code: 400&quot;&amp;NewLine()&amp;&#xA;&quot;HTTP Response Content: [{&quot;&quot;invalidField&quot;&quot;:&quot;&quot;ItemsPerPage&quot;&quot;,&quot;&quot;message&quot;&quot;:&quot;&quot;'Items Per Page' must be between 1 and 1000. You entered 1001.&quot;&quot;}]&quot;)&lt;&gt;0" />
+    <ontrue>00f4f323-deb5-4998-87e8-31ec0786915b</ontrue>
+    <onfalse>f27c05e5-7ed5-4201-be50-e982951de5c2</onfalse>
+  </stage>
+  <stage stageid="3f32cd03-8ef5-4c87-ac8b-5dca382c9c6e" name="Recover8" type="Recover">
+    <subsheetid>b05944fd-1337-4ce4-80ea-5db386564f3b</subsheetid>
+    <loginhibit />
+    <display x="375" y="1170" w="90" h="30" />
+    <onsuccess>e0770cfa-aba7-4965-a15e-8227d05445ed</onsuccess>
+  </stage>
+  <stage stageid="02d71164-0f9e-42c4-9a82-cc8856d42bbb" name="Port 1" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-240" y="-15" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>2678</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="bf17d6a4-0585-47c1-bab4-98b0319e8bb0" name="Publish Process" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-480" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name" friendlyname="Name" narrative="The name of the process to publish" expr="[Expected Process Name]" />
+    </inputs>
+    <onsuccess>afa3f7ee-0759-44ca-8fc1-1783cc6dde14</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Publish Process" />
+  </stage>
+  <stage stageid="b5b26515-61d8-4a8e-8d11-42eb51fcada2" name="Return to Collection" type="Calculation">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-150" w="90" h="30" />
+    <onsuccess>a6db5dc4-eb15-45ee-bb1b-881a495084e9</onsuccess>
+    <calculation expression="[Default Result Collection.items]" stage="Result Collection" />
+  </stage>
+  <stage stageid="6066a7fe-12c0-4f72-8223-907d362aba3d" name="Default Result Collection" type="Collection">
+    <display x="-240" y="150" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+  </stage>
+  <stage stageid="f78cb375-ed07-44b9-b6be-016960c3333c" name="Return to Collection" type="Calculation">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="60" w="90" h="30" />
+    <onsuccess>356368c6-2b40-45fa-bc27-8be3c7c86951</onsuccess>
+    <calculation expression="[Default Result Collection]" stage="Session Log Collection" />
+  </stage>
+  <stage stageid="ef010926-8e3d-4e56-9be9-682da94dbed8" name="Return to Collection" type="Calculation">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="60" w="90" h="30" />
+    <onsuccess>ba133873-f6fa-4347-b7a0-2636278203dd</onsuccess>
+    <calculation expression="[Default Result Collection]" stage="Session Log Collection" />
+  </stage>
+  <stage stageid="12f0462d-dcb8-4f7f-bd4d-4dc3167286ea" name="Return to Collection" type="Calculation">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="645" w="90" h="30" />
+    <onsuccess>c05f134a-e4d6-4a05-bd06-f041f6443d97</onsuccess>
+    <calculation expression="[Default Result Collection]" stage="Session Log Collection" />
+  </stage>
+  <stage stageid="0ff67009-efd3-4e16-b528-82afd9223926" name="Return to Collection" type="Calculation">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="645" w="90" h="30" />
+    <onsuccess>731b7006-1985-438c-87d5-5475310c09ff</onsuccess>
+    <calculation expression="[Default Result Collection]" stage="Session Log Collection" />
+  </stage>
+  <stage stageid="82a6a5b1-5bea-4c87-9254-a5295305c1cf" name="Return to Collection" type="Calculation">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1185" w="90" h="30" />
+    <onsuccess>41927e55-5b45-41d1-b73c-ed077d71aca7</onsuccess>
+    <calculation expression="[Default Result Collection]" stage="Session Log Collection" />
+  </stage>
+  <stage stageid="e7fab15e-7a01-4c8b-bce2-c79ad217b6bf" name="Return to Collection" type="Calculation">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1185" w="90" h="30" />
+    <onsuccess>b303a1a0-5dd7-43f2-861e-8d8e8ecc716f</onsuccess>
+    <calculation expression="[Default Result Collection]" stage="Session Log Collection" />
+  </stage>
+  <stage stageid="9b971135-50cf-4e97-8984-00a4cc3c18dd" name="Return to Collection" type="Calculation">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1785" w="90" h="30" />
+    <onsuccess>6dc1a9f4-2fb9-416b-a27a-ebf71eb66919</onsuccess>
+    <calculation expression="[Default Result Collection]" stage="Session Log Collection" />
+  </stage>
+  <stage stageid="5bde6bc3-1ed0-4e0c-9971-41255b111961" name="Return to Collection" type="Calculation">
+    <subsheetid>13a523ff-14e9-4e81-a2c5-f91df57a0fc7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1725" w="90" h="30" />
+    <onsuccess>668d2ce5-7d8c-4931-ad9c-ded94d30cd4d</onsuccess>
+    <calculation expression="[Default Result Collection]" stage="Session Log Collection" />
+  </stage>
+  <stage stageid="68bcf201-c431-4d75-91da-82d31dd4b2eb" name="Launch" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="0" y="-1035" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>ab420898-35e0-4db9-8141-f47c2a2a0869</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="ab420898-35e0-4db9-8141-f47c2a2a0869" name="Attach to System" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="0" y="-990" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>b75d9aeb-a707-4a2d-9a1c-22b2f496bfd9</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="b75d9aeb-a707-4a2d-9a1c-22b2f496bfd9" name="Sign In Auth Server" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-945" w="90" h="30" />
+    <onsuccess>4547b905-419d-4c96-a94f-076fafdd114b</onsuccess>
+    <resource object="Blue Prism" action="Sign in using Auth Server" />
+  </stage>
+  <stage stageid="4547b905-419d-4c96-a94f-076fafdd114b" name="IMS Server:Attach" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-900" w="90" h="30" />
+    <onsuccess>f4127df8-8751-47a8-8afd-fb92c250a86c</onsuccess>
+    <resource object="IMS Server" action="Attach" />
+  </stage>
+  <stage stageid="f4127df8-8751-47a8-8afd-fb92c250a86c" name="IMS Server:Login" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-855" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="&quot;admin&quot;" />
+      <input type="text" name="Password" friendlyname="Password" expr="&quot;Qq1234!!&quot;" />
+    </inputs>
+    <onsuccess>ed838477-a4e6-45ed-a977-9aa0652dc7d6</onsuccess>
+    <resource object="IMS Server" action="Login" />
+  </stage>
+  <stage stageid="ed838477-a4e6-45ed-a977-9aa0652dc7d6" name="Setup Credential" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-795" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="Requires Login" friendlyname="Requires Login" narrative="Flag indicating if the login info should be given too" expr="True" />
+      <input type="text" name="Arguments" friendlyname="Arguments" narrative="The arguments to pass to automatec, not including the authentication info" expr="&quot;/createcredential &quot;&quot;BPE-API-Credential&quot;&quot; ServiceAccount E3NbGuz9G/nSpQWdz6DMROZhtIDHtUhev13wsCV72fY=  /credentialtype OAuth2ClientCredentials&quot;" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username that you want to authenticate against." expr="" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the username." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Output" friendlyname="Output" narrative="The output from the command" stage="" />
+    </outputs>
+    <onsuccess>72bfa5c9-0b38-4fd5-a5ea-c5e27b371303</onsuccess>
+    <resource object="Call AutomateC" action="Call AutomateC" />
+  </stage>
+  <stage stageid="0eb7cc6e-01ad-4563-97dd-2efa371d8141" name="Credential already exists?" type="Recover">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit />
+    <display x="105" y="-795" w="90" h="30" />
+    <onsuccess>fa96e890-2852-474d-94b0-578f8657c711</onsuccess>
+  </stage>
+  <stage stageid="fa96e890-2852-474d-94b0-578f8657c711" name="Resume1" type="Resume">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit />
+    <display x="105" y="-735" w="90" h="30" />
+    <onsuccess>72bfa5c9-0b38-4fd5-a5ea-c5e27b371303</onsuccess>
+  </stage>
+  <stage stageid="4e7fc4da-32b4-4d22-bfc2-d4af495be12c" name="Create credential" type="Block">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-825" w="225" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ce433b49-b248-4e00-9e45-5d41affc0d66" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="210" y="15" />
+    <onsuccess>cf95b213-cc12-4dca-9748-032621338765</onsuccess>
+  </stage>
+  <stage stageid="e3c543a0-b0fe-4ed0-b85b-8fa7c7e9b876" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="210" y="-120" />
+    <onsuccess>fa92fa3b-ad01-4038-96c1-377000f74faf</onsuccess>
+  </stage>
+  <stage stageid="7a4b2c0a-9562-49f6-b9ca-e8db9dabaa0a" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="210" y="-225" />
+    <onsuccess>42d690fc-08b5-4699-9ef9-3ac40c7f4eb0</onsuccess>
+  </stage>
+</process>

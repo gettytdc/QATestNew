@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+      
+      <CustomAction Id="TryReadLoginAgentConfigFile" Return="check"
+                    BinaryKey="Wix_CustomActions.CA.dll"
+                    DllEntry="TryReadLoginAgentConfigFile" Impersonate="no"/>
+
+      <!-- Custom actions to allow the settings to be read/written from/to the UI -->
+      <CustomAction Id="UpdateValue_EnableSASProxy" Property="ENABLESASPROXY" 
+                    Value="[CHKENABLESASPROXY]" />
+      <CustomAction Id="UpdateValue_OverrideSASGPO" Property="ATTEMPTOVERRIDESASGPO" 
+                    Value="[CHKATTEMPTOVERRIDESASGPO]" />
+      <CustomAction Id="UpdateValue_OverrideLegalMsgGPO" Property="ATTEMPTOVERRIDELEGALMSGGPO" 
+                    Value="[CHKATTEMPTOVERRIDELEGALMSGGPO]" />
+
+      <CustomAction Id="UpdateUI_EnableSASProxy" Property="CHKENABLESASPROXY"
+                    Value="[CFGENABLESASPROXY]" />
+      <CustomAction Id="UpdateUI_OverrideSASGPO" Property="CHKATTEMPTOVERRIDESASGPO"
+                    Value="[CFGATTEMPTOVERRIDESASGPO]"  />
+      <CustomAction Id="UpdateUI_OverrideLegalMsgGPO" Property="CHKATTEMPTOVERRIDELEGALMSGGPO"
+                    Value="[CFGATTEMPTOVERRIDELEGALMSGGPO]" />
+
+      <UI Id="LoginAgent_UI">
+        <InstallUISequence>
+          <Custom Action ="TryReadLoginAgentConfigFile" Before="BPWelcomeDlg">
+          </Custom>
+          <Custom Action ="AssignConfigLocationForReading" Before ="TryReadValuesFromConfigFile">
+            <![CDATA[!SasService=3 OR &SasService<>2]]>
+          </Custom>
+          <Custom Action ="TryReadValuesFromConfigFile" Before="BPWelcomeDlg">
+            <![CDATA[!SasService=3 OR &SasService<>2]]>
+          </Custom>
+          <Custom Action ="UpdateUI_EnableSASProxy" After ="TryReadValuesFromConfigFile">
+            <![CDATA[!SasService=3 OR &SasService<>2]]>
+          </Custom>
+          <Custom Action ="UpdateUI_OverrideSASGPO" After ="TryReadValuesFromConfigFile">
+            <![CDATA[!SasService=3 OR &SasService<>2]]>
+          </Custom>
+          <Custom Action ="UpdateUI_OverrideLegalMsgGPO" After ="TryReadValuesFromConfigFile">
+            <![CDATA[!SasService=3 OR &SasService<>2]]>
+          </Custom>
+
+          <Show Dialog="BPPrepareDlg" Before="AppSearch" Overridable="no" />
+          <MigrateFeatureStates />
+          <Show Dialog="BPWelcomeDlg" After="MigrateFeatureStates" Overridable="no">1</Show>
+          <Show Dialog="BPExitDialog" OnExit="success" Overridable="yes">1</Show>
+          <Show Dialog="BPUserExit" OnExit="cancel" Overridable="yes" />
+          <Show Dialog="BPFatalError" OnExit="error" Overridable="yes" />
+
+          <Custom Action ="UpdateValue_EnableSASProxy" Before="ExecuteAction" />
+          <Custom Action ="UpdateValue_OverrideSASGPO" Before="ExecuteAction" />
+          <Custom Action ="UpdateValue_OverrideLegalMsgGPO" Before="ExecuteAction" />
+        </InstallUISequence>
+
+        <AdminUISequence>
+          <Show Dialog="BPWelcomeDlg" After="CostFinalize" Overridable="no">1</Show>
+          <Show Dialog="BPExitDialog" OnExit="success" Overridable="yes">1</Show>
+          <Show Dialog="BPUserExit" OnExit="cancel" Overridable="yes" />
+          <Show Dialog="BPFatalError" OnExit="error" Overridable="yes" />
+        </AdminUISequence>
+
+            <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
+            <TextStyle Id="WixUI_Font_Normal_Bold" FaceName="Tahoma" Size="8" Bold="yes"/>
+            <TextStyle Id="BP_Closeout_Font_White" FaceName="Tahoma" Size="8" Red="255" Blue="255" Green="255" />
+            <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" Red="255" Blue="255" Green="255" />
+            <TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" Blue="255" Red="255" Green="255" />
+            <TextStyle Id="BP_Font_Subtitle" FaceName="Tahoma" Size="8" Blue="255" Red="255" Green="255" />
+
+            <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
+            <!-- <Property Id="WixUI_Mode" Value="InstallDir" /> -->
+
+            <DialogRef Id="ErrorDlg" />
+            <DialogRef Id="FilesInUse"/>
+            <DialogRef Id="MsiRMFilesInUse" />
+            <DialogRef Id="ProgressDlg" />
+            <DialogRef Id="ResumeDlg" />
+
+            <!-- Create our own custom dialog used to configure the connection to be used by the login agent-->
+            <Dialog Id="BPConfigureDlg" Width="370" Height="270" Title="[ProductName] Setup">
+                <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)" />
+                <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" Disabled="yes" />
+                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+                    <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+                </Control>
+                <Control Id="Description" Type="Text" X="15" Y="50" Width="350" Height="55" Transparent="yes" NoPrefix="yes" NoWrap="no" Text="The Login Agent service accepts the name of the Blue Prism connection to use for its resource. Leave this empty to configure it after installation. Details are provided in the Installation Instructions for this software" />
+                <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="{\WixUI_Font_Title}Choose a Blue Prism connection to use" />
+                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+                <Control Id="ConnectionLabel" Type="Text" X="20" Y="90" Width="290" Height="10" NoPrefix="yes" Text="Connection Name" />
+                <Control Id="Connection" Type="Edit" X="20" Y="100" Width="320" Height="18" Property="CONNECTIONNAME" />
+            </Dialog>
+          
+           <!-- Override the feature selection dialog to remove the unnecessary subtitle text-->
+          <Dialog Id="BPCustomizeDlg" Width="370" Height="270" Title="!(loc.CustomizeDlg_Title)" TrackDiskSpace="yes">
+            <Control Id="Tree" Type="SelectionTree" X="25" Y="85" Width="175" Height="115" Property="_BrowseProperty" Sunken="yes" TabSkip="no" Text="!(loc.CustomizeDlgTree)" />
+            <Control Id="Reset" Type="PushButton" X="10" Y="243" Width="81" Height="17" Text="!(loc.CustomizeDlgReset)">
+              <Publish Event="Reset" Value="0">1</Publish>
+              <Subscribe Event="SelectionNoItems" Attribute="Enabled" />
+            </Control>
+            <Control Id="DiskCost" Type="PushButton" X="91" Y="243" Width="100" Height="17" Text="!(loc.CustomizeDlgDiskCost)">
+              <Publish Event="SpawnDialog" Value="BPDiskCostDlg">1</Publish>
+              <Subscribe Event="SelectionNoItems" Attribute="Enabled" />
+            </Control>
+            <Control Id="Back" Type="PushButton" X="192" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
+            <Control Id="Next" Type="PushButton" X="248" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)">
+              <Subscribe Event="SelectionNoItems" Attribute="Enabled" />
+            </Control>
+            <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+              <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+            </Control>
+            <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.CustomizeDlgBannerBitmap)" />
+            <Control Id="Text" Type="Text" X="25" Y="55" Width="320" Height="20" Text="!(loc.CustomizeDlgText)" />
+            <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+            <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+            <Control Id="Title" Type="Text" X="15" Y="6" Width="210" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.CustomizeDlgTitle)" />
+            <Control Id="Box" Type="GroupBox" X="210" Y="81" Width="150" Height="118" />
+            <Control Id="ItemDescription" Type="Text" X="215" Y="90" Width="131" Height="50" Text="!(loc.CustomizeDlgItemDescription)">
+              <Subscribe Event="SelectionDescription" Attribute="Text" />
+            </Control>
+            <Control Id="ItemSize" Type="Text" X="215" Y="140" Width="131" Height="50" Text="!(loc.CustomizeDlgItemSize)">
+              <Subscribe Event="SelectionSize" Attribute="Text" />
+            </Control>
+            <Control Id="Location" Type="Text" X="90" Y="210" Width="200" Height="20" Text="!(loc.CustomizeDlgLocation)">
+              <Subscribe Event="SelectionPath" Attribute="Text" />
+              <Subscribe Event="SelectionPathOn" Attribute="Visible" />
+              <Condition Action="hide">Installed</Condition>
+            </Control>
+            <Control Id="LocationLabel" Type="Text" X="25" Y="210" Width="65" Height="10" Text="!(loc.CustomizeDlgLocationLabel)">
+              <Subscribe Event="SelectionPathOn" Attribute="Visible" />
+              <Condition Action="hide">Installed</Condition>
+            </Control>
+          </Dialog>
+
+       <!--Create our own custom dialog used to configure the sas/group policy settings-->
+          <Dialog Id="BPSasConfigDlg" Width="370" Height="270" Title="[ProductName] Setup">
+            <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)"/>
+            <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" Disabled="no" />
+            <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+              <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+            </Control>
+            <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" 
+                     Text="{\WixUI_Font_Title}Configure the Blue Prism SAS Service" />
+
+           <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
+            <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+            
+            <Control Id="Description" Type="Text" X="15" Y="55" Width="350" Height="40" Transparent="yes" NoPrefix="yes" NoWrap="no" 
+                     Text="Configure the settings that will be applied each time the Secure Attention Sequence (SAS) Service is started:" />
+
+            <Control Id="SendSAS" Type="CheckBox" X="15" Y="75" Width="300" Height ="20" Property="CHKENABLESASPROXY" 
+                     CheckBoxValue ="true" 
+                     Text="{\WixUI_Font_Normal_Bold}  Enable SAS proxy">
+            </Control>
+            <Control Id="SendSAS_Description" Type="Text" X="32" Y="94" Width="300" Height="30" Transparent="yes" NoPrefix="yes" NoWrap="no" 
+                     Text="Allows the Blue Prism SAS Service to be instructed to send a SAS (Ctrl+Alt+Del) to the Resource." />
+
+            <Control Id="OverrideSAS" Type="CheckBox" X="15" Y="118" Width="300" Height ="20" Property="CHKATTEMPTOVERRIDESASGPO" 
+                     CheckBoxValue ="true"
+                     Text="{\WixUI_Font_Normal_Bold}  Set local SAS policy">
+            </Control>
+            <Control Id="OverrideSAS_Description" Type="Text" X="32" Y="138" Width="300" Height="40" Transparent="yes" NoPrefix="yes" NoWrap="no" 
+                     Text="Attempts to override local policy on the local Resource on-the-fly to allow SAS instructions to be received programmatically. Select this option if SAS is required at login and if the policy cannot be overridden centrally." />
+
+            <Control Id="OverrideLegalMsg" Type="CheckBox" X="15" Y="168" Width="300" Height ="20" Property="CHKATTEMPTOVERRIDELEGALMSGGPO" 
+                     CheckBoxValue ="true" 
+                     Text="{\WixUI_Font_Normal_Bold}  Set local legal message policy">
+            </Control>
+            <Control Id="OverrideLegalMsg_Description" Type="Text" X="32" Y="188" Width="300" Height="40" Transparent="yes" NoPrefix="yes" NoWrap="no" 
+                     Text="Attempts to override local policy on the local Resource on-the-fly to prevent the legal message displaying at logon. Select this option if a legal message displays at logon and the policy cannot be overridden centrally." />
+
+            <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+          </Dialog>
+
+          
+            <!-- Create our own custom dialog that appears if no Blue Prism installation has been found -->
+            <Dialog Id="BPNoBPDlg" Width="200" Height="100" Title="Blue Prism Not Found">
+                <Control Id="Message" Type="Text" X="10" Y="10" Width="180" Height="60" Text="Blue Prism was not found on this machine. [ProductName] requires Blue Prism 5.0.23 or later to be installed. Would you like to continue the installation anyway?" />
+                <Control Id="OK" Type="PushButton" X="150" Y="80" Width="40" Height="20" Text="OK" />
+                <Control Id="Cancel" Type="PushButton" X="110" Y="80" Width="40" Height="20" Text="Cancel" Cancel="yes">
+                    <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+                </Control>
+            </Dialog>
+
+            <!-- Override the welcome dialogue because it's totally different to the old installer. Ensure a warning message appears if BP not installed -->
+            <Dialog Id="BPWelcomeDlg" Width="370" Height="270" Title="[ProductName] Setup">
+                <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)">
+                    <Publish Event="SpawnDialog" Value="BPNoBPDlg">NOT Installed AND BPINSTALLDIR = "NOTINSTALLED"</Publish>
+                </Control>
+                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+                    <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+                </Control>
+                <Control Id="Description" Type="Text" X="15" Y="80" Width="350" Height="40" Transparent="yes" NoPrefix="yes" NoWrap="no" Text="The installer will guide you through the steps required to install [ProductName] on your computer." />
+                <Control Id="Warning" Type="Text" X="10" Y="190" Width="350" Height="40" Transparent="yes" NoPrefix="yes" NoWrap="no" Text="WARNING: This computer program is protected by copyright law and international treaties. Unauthorised reproduction or distribution of this program, or any portion of it, may result in severe civil or criminal penalties, and will be prosecuted to the maximum extent possible under the law." />
+                <Control Id="Title" Type="Text" X="15" Y="15" Width="220" Height="60" Transparent="yes" NoPrefix="yes" Text="{\WixUI_Font_Title}Welcome to the [ProductName] Setup Wizard" />
+                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+            </Dialog>
+
+            <!-- Override the browse file dialog to change the subtitle text to white -->
+            <Dialog Id="BPBrowseDlg" Width="370" Height="270" Title="!(loc.BrowseDlg_Title)">
+                <Control Id="PathEdit" Type="PathEdit" X="25" Y="202" Width="320" Height="18" Property="_BrowseProperty" Indirect="yes" />
+                <Control Id="OK" Type="PushButton" X="240" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUIOK)">
+                    <Publish Event="SetTargetPath" Value="[_BrowseProperty]">1</Publish>
+                    <Publish Event="EndDialog" Value="Return">1</Publish>
+                </Control>
+                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+                    <Publish Event="Reset" Value="0">1</Publish>
+                    <Publish Event="EndDialog" Value="Return">1</Publish>
+                </Control>
+                <Control Id="ComboLabel" Type="Text" X="25" Y="58" Width="44" Height="10" TabSkip="no" Text="!(loc.BrowseDlgComboLabel)" />
+                <Control Id="DirectoryCombo" Type="DirectoryCombo" X="70" Y="55" Width="220" Height="80" Property="_BrowseProperty" Indirect="yes" Fixed="yes" Remote="yes">
+                    <Subscribe Event="IgnoreChange" Attribute="IgnoreChange" />
+                </Control>
+                <Control Id="WixUI_Bmp_Up" Type="PushButton" X="298" Y="55" Width="19" Height="19" ToolTip="!(loc.BrowseDlgWixUI_Bmp_UpTooltip)" Icon="yes" FixedSize="yes" IconSize="16" Text="!(loc.BrowseDlgWixUI_Bmp_Up)">
+                    <Publish Event="DirectoryListUp" Value="0">1</Publish>
+                </Control>
+                <Control Id="NewFolder" Type="PushButton" X="325" Y="55" Width="19" Height="19" ToolTip="!(loc.BrowseDlgNewFolderTooltip)" Icon="yes" FixedSize="yes" IconSize="16" Text="!(loc.BrowseDlgNewFolder)">
+                    <Publish Event="DirectoryListNew" Value="0">1</Publish>
+                </Control>
+                <Control Id="DirectoryList" Type="DirectoryList" X="25" Y="83" Width="320" Height="98" Property="_BrowseProperty" Sunken="yes" Indirect="yes" TabSkip="no" />
+                <Control Id="PathLabel" Type="Text" X="25" Y="190" Width="320" Height="10" TabSkip="no" Text="!(loc.BrowseDlgPathLabel)" />
+                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.BrowseDlgBannerBitmap)" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+                <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" Text="{\BP_Font_Subtitle}!(loc.BrowseDlgDescription)" />
+                <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.BrowseDlgTitle)" />
+            </Dialog>
+
+            <!-- Override the disk cost dialog to change the subtitle text to white and also ensure it doesn't overlap with the Blue Prism Logo-->
+            <Dialog Id="BPDiskCostDlg" Width="370" Height="270" Title="!(loc.DiskCostDlg_Title)">
+                <Control Id="OK" Type="PushButton" X="304" Y="243" Width="56" Height="17" Default="yes" Cancel="yes" Text="!(loc.WixUIOK)">
+                    <Publish Event="EndDialog" Value="Return">1</Publish>
+                </Control>
+                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.DiskCostDlgBannerBitmap)" />
+                <Control Id="Text" Type="Text" X="20" Y="53" Width="330" Height="50" Text="!(loc.DiskCostDlgText)" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+                <Control Id="Description" Type="Text" X="20" Y="20" Width="220" Height="40" Transparent="yes" NoPrefix="yes" Text="{\BP_Font_Subtitle}!(loc.DiskCostDlgDescription)" />
+                <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.DiskCostDlgTitle)" />
+                <Control Id="VolumeList" Type="VolumeCostList" X="20" Y="100" Width="330" Height="120" Sunken="yes" Fixed="yes" Remote="yes" Text="!(loc.DiskCostDlgVolumeList)" />
+            </Dialog>
+
+            <!-- Override the out of disk dialog to change the subtitle text to white and also ensure it doesn't overlap with the Blue Prism Logo-->
+            <Dialog Id="BPOutOfDiskDlg" Width="370" Height="270" Title="!(loc.OutOfDiskDlg_Title)">
+                <Control Id="OK" Type="PushButton" X="304" Y="243" Width="56" Height="17" Default="yes" Cancel="yes" Text="!(loc.WixUIOK)">
+                    <Publish Event="EndDialog" Value="Return">1</Publish>
+                </Control>
+                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.OutOfDiskDlgBannerBitmap)" />
+                <Control Id="Text" Type="Text" X="20" Y="53" Width="330" Height="60" Text="!(loc.OutOfDiskDlgText)" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+                <Control Id="Description" Type="Text" X="20" Y="20" Width="220" Height="40" Transparent="yes" NoPrefix="yes" Text="{\BP_Font_Subtitle}!(loc.OutOfDiskDlgDescription)" />
+                <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.OutOfDiskDlgTitle)" />
+                <Control Id="VolumeList" Type="VolumeCostList" X="20" Y="120" Width="330" Height="100" Sunken="yes" Fixed="yes" Remote="yes" Text="!(loc.OutOfDiskDlgVolumeList)" />
+            </Dialog>
+
+            <!-- Override the rollback out of disk dialog to change the subtitle text to white and also ensure it doesn't overlap with the Blue Prism Logo-->
+            <Dialog Id="BPOutOfRbDiskDlg" Width="370" Height="270" Title="!(loc.OutOfRbDiskDlg_Title)">
+                <Control Id="No" Type="PushButton" X="304" Y="243" Width="56" Height="17" Default="yes" Cancel="yes" Text="!(loc.WixUINo)">
+                    <Publish Event="EndDialog" Value="Return">1</Publish>
+                </Control>
+                <Control Id="Yes" Type="PushButton" X="240" Y="243" Width="56" Height="17" Text="!(loc.WixUIYes)">
+                    <Publish Event="EnableRollback" Value="False">1</Publish>
+                    <Publish Event="EndDialog" Value="Return">1</Publish>
+                </Control>
+                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.OutOfRbDiskDlgBannerBitmap)" />
+                <Control Id="Text" Type="Text" X="20" Y="53" Width="330" Height="90" Text="!(loc.OutOfRbDiskDlgText) !(loc.OutOfRbDiskDlgText2)" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+                <Control Id="Description" Type="Text" X="20" Y="20" Width="220" Height="40" Transparent="yes" NoPrefix="yes" Text="{\BP_Font_Subtitle}!(loc.OutOfRbDiskDlgDescription)" />
+                <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.OutOfRbDiskDlgTitle)" />
+                <Control Id="VolumeList" Type="VolumeCostList" X="20" Y="150" Width="330" Height="70" Sunken="yes" Fixed="yes" Remote="yes" ShowRollbackCost="yes" Text="!(loc.OutOfRbDiskDlgVolumeList)" />
+            </Dialog>
+
+            <!-- Override the Verify Ready dialog in order that we open our overridden out of disk dialogs-->
+            <Dialog Id="BPVerifyReadyDlg" Width="370" Height="270" Title="!(loc.VerifyReadyDlg_Title)" TrackDiskSpace="yes">
+                <Control Id="Install" Type="PushButton" ElevationShield="yes" X="212" Y="243" Width="80" Height="17" Default="yes" Hidden="yes" Disabled="yes" Text="!(loc.VerifyReadyDlgInstall)">
+                    <Condition Action="show">NOT Installed AND ALLUSERS</Condition>
+                    <Condition Action="enable">NOT Installed</Condition>
+                    <Condition Action="default">NOT Installed</Condition>
+                    <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+                    <Publish Event="SpawnDialog" Value="BPOutOfRbDiskDlg">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)</Publish>
+                    <Publish Event="EndDialog" Value="Return">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="EnableRollback" Value="False">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="SpawnDialog" Value="BPOutOfDiskDlg">(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")</Publish>
+                </Control>
+                <Control Id="InstallNoShield" Type="PushButton" ElevationShield="no" X="212" Y="243" Width="80" Height="17" Default="yes" Hidden="yes" Disabled="yes" Text="!(loc.VerifyReadyDlgInstall)">
+                    <Condition Action="show">NOT Installed AND NOT ALLUSERS</Condition>
+                    <Condition Action="enable">NOT Installed</Condition>
+                    <Condition Action="default">NOT Installed</Condition>
+                    <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+                    <Publish Event="SpawnDialog" Value="BPOutOfRbDiskDlg">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)</Publish>
+                    <Publish Event="EndDialog" Value="Return">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="EnableRollback" Value="False">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="SpawnDialog" Value="BPOutOfDiskDlg">(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")</Publish>
+                </Control>
+                <Control Id="Change" Type="PushButton" ElevationShield="yes" X="212" Y="243" Width="80" Height="17" Default="yes" Hidden="yes" Disabled="yes" Text="!(loc.VerifyReadyDlgChange)">
+                    <Condition Action="show">WixUI_InstallMode = "Change" AND ALLUSERS AND (ADDLOCAL OR REMOVE)</Condition>
+                    <Condition Action="enable">WixUI_InstallMode = "Change"</Condition>
+                    <Condition Action="default">WixUI_InstallMode = "Change"</Condition>
+                    <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+                    <Publish Event="SpawnDialog" Value="BPOutOfRbDiskDlg">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)</Publish>
+                    <Publish Event="EndDialog" Value="Return">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="EnableRollback" Value="False">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="SpawnDialog" Value="BPOutOfDiskDlg">(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")</Publish>
+                </Control>
+                <Control Id="ChangeNoShield" Type="PushButton" ElevationShield="no" X="212" Y="243" Width="80" Height="17" Default="yes" Hidden="yes" Disabled="yes" Text="!(loc.VerifyReadyDlgChange)">
+                    <Condition Action="show">WixUI_InstallMode = "Change" AND (NOT ALLUSERS OR (NOT ADDLOCAL AND NOT REMOVE))</Condition>
+                    <Condition Action="enable">WixUI_InstallMode = "Change"</Condition>
+                    <Condition Action="default">WixUI_InstallMode = "Change"</Condition>
+                    <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+                    <Publish Event="SpawnDialog" Value="BPOutOfRbDiskDlg">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)</Publish>
+                    <Publish Event="EndDialog" Value="Return">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="EnableRollback" Value="False">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="SpawnDialog" Value="BPOutOfDiskDlg">(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")</Publish>
+                </Control>
+                <Control Id="Repair" Type="PushButton" X="212" Y="243" Width="80" Height="17" Default="yes" Hidden="yes" Disabled="yes" Text="!(loc.VerifyReadyDlgRepair)">
+                    <Condition Action="show">WixUI_InstallMode = "Repair"</Condition>
+                    <Condition Action="enable">WixUI_InstallMode = "Repair"</Condition>
+                    <Condition Action="default">WixUI_InstallMode = "Repair"</Condition>
+                    <Publish Event="ReinstallMode" Value="ecmus"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+                    <Publish Event="Reinstall" Value="All"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+                    <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+                    <Publish Event="SpawnDialog" Value="BPOutOfRbDiskDlg">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)</Publish>
+                    <Publish Event="EndDialog" Value="Return">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="EnableRollback" Value="False">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="SpawnDialog" Value="BPOutOfDiskDlg">(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")</Publish>
+                </Control>
+                <Control Id="Remove" Type="PushButton" ElevationShield="yes" X="212" Y="243" Width="80" Height="17" Hidden="yes" Disabled="yes" Text="!(loc.VerifyReadyDlgRemove)">
+                    <Condition Action="show">WixUI_InstallMode = "Remove" AND ALLUSERS</Condition>
+                    <Condition Action="enable">WixUI_InstallMode = "Remove"</Condition>
+                    <Publish Event="Remove" Value="All"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+                    <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+                    <Publish Event="SpawnDialog" Value="BPOutOfRbDiskDlg">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)</Publish>
+                    <Publish Event="EndDialog" Value="Return">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="EnableRollback" Value="False">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="SpawnDialog" Value="BPOutOfDiskDlg">(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")</Publish>
+                </Control>
+                <Control Id="RemoveNoShield" Type="PushButton" ElevationShield="no" X="212" Y="243" Width="80" Height="17" Hidden="yes" Disabled="yes" Text="!(loc.VerifyReadyDlgRemove)">
+                    <Condition Action="show">WixUI_InstallMode = "Remove" AND NOT ALLUSERS</Condition>
+                    <Condition Action="enable">WixUI_InstallMode = "Remove"</Condition>
+                    <Publish Event="Remove" Value="All"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+                    <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+                    <Publish Event="SpawnDialog" Value="OutOfRbDiskDlg">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)</Publish>
+                    <Publish Event="EndDialog" Value="Return">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="EnableRollback" Value="False">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="SpawnDialog" Value="OutOfDiskDlg">(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")</Publish>
+                </Control>
+                <Control Id="Update" Type="PushButton" ElevationShield="yes" X="212" Y="243" Width="80" Height="17" Hidden="yes" Disabled="yes" Text="!(loc.VerifyReadyDlgUpdate)">
+                    <Condition Action="show">WixUI_InstallMode = "Update" AND ALLUSERS</Condition>
+                    <Condition Action="enable">WixUI_InstallMode = "Update"</Condition>
+                    <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+                    <Publish Event="SpawnDialog" Value="BPOutOfRbDiskDlg">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)</Publish>
+                    <Publish Event="EndDialog" Value="Return">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="EnableRollback" Value="False">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="SpawnDialog" Value="BPOutOfDiskDlg">(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")</Publish>
+                </Control>
+                <Control Id="UpdateNoShield" Type="PushButton" ElevationShield="no" X="212" Y="243" Width="80" Height="17" Hidden="yes" Disabled="yes" Text="!(loc.VerifyReadyDlgUpdate)">
+                    <Condition Action="show">WixUI_InstallMode = "Update" AND NOT ALLUSERS</Condition>
+                    <Condition Action="enable">WixUI_InstallMode = "Update"</Condition>
+                    <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+                    <Publish Event="SpawnDialog" Value="BPOutOfRbDiskDlg">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)</Publish>
+                    <Publish Event="EndDialog" Value="Return">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="EnableRollback" Value="False">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
+                    <Publish Event="SpawnDialog" Value="BPOutOfDiskDlg">(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")</Publish>
+                </Control>
+
+                <Control Id="InstallTitle" Type="Text" X="15" Y="15" Width="300" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgInstallTitle)">
+                    <Condition Action="show">NOT Installed</Condition>
+                </Control>
+                <Control Id="InstallText" Type="Text" X="25" Y="70" Width="320" Height="80" Hidden="yes" Text="!(loc.VerifyReadyDlgInstallText)">
+                    <Condition Action="show">NOT Installed</Condition>
+                </Control>
+                <Control Id="ChangeTitle" Type="Text" X="15" Y="15" Width="300" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgChangeTitle)">
+                    <Condition Action="show">WixUI_InstallMode = "Change"</Condition>
+                </Control>
+                <Control Id="ChangeText" Type="Text" X="25" Y="70" Width="320" Height="80" Hidden="yes" Text="!(loc.VerifyReadyDlgChangeText)">
+                    <Condition Action="show">WixUI_InstallMode = "Change"</Condition>
+                </Control>
+                <Control Id="RepairTitle" Type="Text" X="15" Y="15" Width="300" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgRepairTitle)">
+                    <Condition Action="show">WixUI_InstallMode = "Repair"</Condition>
+                </Control>
+                <Control Id="RepairText" Type="Text" X="25" Y="70" Width="320" Height="80" Hidden="yes" NoPrefix="yes" Text="!(loc.VerifyReadyDlgRepairText)">
+                    <Condition Action="show">WixUI_InstallMode = "Repair"</Condition>
+                </Control>
+                <Control Id="RemoveTitle" Type="Text" X="15" Y="15" Width="300" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgRemoveTitle)">
+                    <Condition Action="show">WixUI_InstallMode = "Remove"</Condition>
+                </Control>
+                <Control Id="RemoveText" Type="Text" X="25" Y="70" Width="320" Height="80" Hidden="yes" NoPrefix="yes" Text="!(loc.VerifyReadyDlgRemoveText)">
+                    <Condition Action="show">WixUI_InstallMode = "Remove"</Condition>
+                </Control>
+                <Control Id="UpdateTitle" Type="Text" X="15" Y="15" Width="300" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgUpdateTitle)">
+                    <Condition Action="show">WixUI_InstallMode = "Update"</Condition>
+                </Control>
+                <Control Id="UpdateText" Type="Text" X="25" Y="70" Width="320" Height="80" Hidden="yes" NoPrefix="yes" Text="!(loc.VerifyReadyDlgUpdateText)">
+                    <Condition Action="show">WixUI_InstallMode = "Update"</Condition>
+                </Control>
+
+                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+                    <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+                </Control>
+                <Control Id="Back" Type="PushButton" X="156" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)">
+                    <Condition Action="default">WixUI_InstallMode = "Remove"</Condition>
+                </Control>
+                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.VerifyReadyDlgBannerBitmap)" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+            </Dialog>
+
+
+            <!-- Override the install dir dialog to provide a "disk cost" button -->
+            <Dialog Id="BPInstallDirDlg" Width="370" Height="270" Title="!(loc.InstallDirDlg_Title)">
+                <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)" />
+                <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
+                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+                    <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+                </Control>
+                <Control Id="Title" Type="Text" X="15" Y="15" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.InstallDirDlgTitle)" />
+                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+                <Control Id="FolderLabel" Type="Text" X="20" Y="60" Width="290" Height="30" NoPrefix="yes" Text="!(loc.InstallDirDlgFolderLabel)" />
+                <Control Id="Folder" Type="PathEdit" X="20" Y="100" Width="320" Height="18" Property="WIXUI_INSTALLDIR" Indirect="yes" />
+                <Control Id="ChangeFolder" Type="PushButton" X="20" Y="120" Width="56" Height="17" Text="!(loc.InstallDirDlgChange)" />
+                <Control Id="DiskCost" Type="PushButton" X="78" Y="120" Width="56" Height="17" Text="!(loc.CustomizeDlgDiskCost)">
+                    <Publish Event="SpawnDialog" Value="BPDiskCostDlg">1</Publish>
+                </Control>
+            </Dialog>
+
+            <!-- UI that gets spawned when the install is finished -->
+            <Dialog Id="BPExitDialog" Width="370" Height="270" Title="!(loc.ExitDialog_Title)">
+                <Control Id="Finish" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Cancel="yes" Text="!(loc.WixUIFinish)" />
+                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Disabled="yes" Text="!(loc.WixUICancel)" />
+                <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Disabled="yes" Text="!(loc.WixUIBack)" />
+                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+                <Control Id="Description" Type="Text" X="15" Y="80" Width="350" Height="40" Transparent="yes" NoPrefix="yes" Text="!(loc.ExitDialogDescription)" />
+                <Control Id="Title" Type="Text" X="15" Y="15" Width="220" Height="60" Transparent="yes" NoPrefix="yes" Text="!(loc.ExitDialogTitle)" />
+                <Control Id="OptionalText" Type="Text" X="15" Y="110" Width="220" Height="80" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="{\BP_Closeout_Font_White}[WIXUI_EXITDIALOGOPTIONALTEXT]">
+                    <Condition Action="show">WIXUI_EXITDIALOGOPTIONALTEXT AND NOT Installed</Condition>
+                </Control>
+                <Control Id="OptionalCheckBox" Type="CheckBox" X="20" Y="190" Width="220" Height="40" Hidden="yes" Property="WIXUI_EXITDIALOGOPTIONALCHECKBOX" CheckBoxValue="1" Text="[WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT]">
+                    <Condition Action="show">WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT AND NOT Installed</Condition>
+                </Control>
+            </Dialog>
+
+            <!-- UI that flashes up BEFORE the welcome dialog, showing things such as "Calculating disk cost". 
+            Remove the subtitle as it just gets covered by the logo and the screen is never up long enough to read it anyway. -->
+            <Dialog Id="BPPrepareDlg" Width="370" Height="270" Title="!(loc.PrepareDlg_Title)" Modeless="yes">
+                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+                <Control Id="Title" Type="Text" X="15" Y="15" Width="220" Height="60" Transparent="yes" NoPrefix="yes" Text="!(loc.PrepareDlgTitle)" />
+                <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Disabled="yes" TabSkip="yes" Text="!(loc.WixUIBack)" />
+                <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Disabled="yes" TabSkip="yes" Text="!(loc.WixUINext)" />
+                <Control Id="ActionData" Type="Text" X="135" Y="125" Width="220" Height="30" Transparent="yes" NoPrefix="yes">
+                    <Subscribe Event="ActionData" Attribute="Text" />
+                </Control>
+                <Control Id="ActionText" Type="Text" X="135" Y="100" Width="220" Height="20" Transparent="yes" NoPrefix="yes">
+                    <Subscribe Event="ActionText" Attribute="Text" />
+                </Control>
+            </Dialog>
+
+            <!-- Shown if the user cancels the install. -->
+            <Dialog Id="BPUserExit" Width="370" Height="270" Title="!(loc.UserExit_Title)">
+                <Control Id="Finish" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Cancel="yes" Text="!(loc.WixUIFinish)">
+                    <Publish Event="EndDialog" Value="Exit">1</Publish>
+                </Control>
+                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Disabled="yes" Text="!(loc.WixUICancel)" />
+                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+                <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Disabled="yes" Text="!(loc.WixUIBack)" />
+                <Control Id="Title" Type="Text" X="15" Y="15" Width="220" Height="60" Transparent="yes" NoPrefix="yes" Text="!(loc.UserExitTitle)" />
+                <Control Id="Description" Type="Text" X="15" Y="80" Width="350" Height="80" Transparent="yes" NoPrefix="yes" Text="!(loc.UserExitDescription1)" />
+                <Control Id="Description2" Type="Text" X="15" Y="180" Width="350" Height="80" Transparent="yes" NoPrefix="yes" Text="!(loc.UserExitDescription2)" />
+            </Dialog>
+
+            <!---Override the Fatal Error dialog so that is is properly branded rather than just using the default red wix screen-->
+            <Dialog Id="BPFatalError" Width="370" Height="270" Title="!(loc.FatalError_Title)">
+                <Control Id="Finish" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Cancel="yes" Text="!(loc.WixUIFinish)">
+                    <Publish Event="EndDialog" Value="Exit">1</Publish>
+                </Control>
+                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Disabled="yes" Text="!(loc.WixUICancel)" />
+                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+                <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Disabled="yes" Text="!(loc.WixUIBack)" />
+                <Control Id="Title" Type="Text" X="15" Y="15" Width="220" Height="60" Transparent="yes" NoPrefix="yes" Text="!(loc.FatalErrorTitle)" />
+                <Control Id="Description" Type="Text" X="15" Y="70" Width="220" Height="80" Transparent="yes" NoPrefix="yes" Text="!(loc.FatalErrorDescription1) !(loc.FatalErrorDescription2)" />
+            </Dialog>
+
+            <!-- Override Maintenance Type dialog so we can change the colour of the subtitle to make it visible on the dark blue background  -->
+            <Dialog Id="BPMaintenanceTypeDlg" Width="370" Height="270" Title="!(loc.MaintenanceTypeDlg_Title)">
+                <Control Id="ChangeButton" Type="PushButton" X="40" Y="65" Width="80" Height="17" ToolTip="!(loc.MaintenanceTypeDlgChangeButtonTooltip)" Default="yes" Text="!(loc.MaintenanceTypeDlgChangeButton)">
+                    <Publish Property="WixUI_InstallMode" Value="Change">1</Publish>
+                    <Condition Action="disable">ARPNOMODIFY</Condition>
+                </Control>
+                <Control Id="ChangeText" Type="Text" X="60" Y="85" Width="280" Height="20" Text="!(loc.MaintenanceTypeDlgChangeText)">
+                    <Condition Action="hide">ARPNOMODIFY</Condition>
+                </Control>
+                <Control Id="ChangeDisabledText" Type="Text" X="60" Y="85" Width="280" Height="20" NoPrefix="yes" Text="!(loc.MaintenanceTypeDlgChangeDisabledText)" Hidden="yes">
+                    <Condition Action="show">ARPNOMODIFY</Condition>
+                </Control>
+                <Control Id="RepairButton" Type="PushButton" X="40" Y="118" Width="80" Height="17" ToolTip="!(loc.MaintenanceTypeDlgRepairButtonTooltip)" Text="!(loc.MaintenanceTypeDlgRepairButton)">
+                    <Publish Property="WixUI_InstallMode" Value="Repair">1</Publish>
+                    <Condition Action="disable">ARPNOREPAIR</Condition>
+                </Control>
+                <Control Id="RepairText" Type="Text" X="60" Y="138" Width="280" Height="30" Text="!(loc.MaintenanceTypeDlgRepairText)">
+                    <Condition Action="hide">ARPNOREPAIR</Condition>
+                </Control>
+                <Control Id="RepairDisabledText" Type="Text" X="60" Y="138" Width="280" Height="30" NoPrefix="yes" Text="!(loc.MaintenanceTypeDlgRepairDisabledText)" Hidden="yes">
+                    <Condition Action="show">ARPNOREPAIR</Condition>
+                </Control>
+                <Control Id="RemoveButton" Type="PushButton" X="40" Y="171" Width="80" Height="17" ToolTip="!(loc.MaintenanceTypeDlgRemoveButtonTooltip)" Text="!(loc.MaintenanceTypeDlgRemoveButton)">
+                    <Publish Property="WixUI_InstallMode" Value="Remove">1</Publish>
+                    <Condition Action="disable">ARPNOREMOVE</Condition>
+                </Control>
+                <Control Id="RemoveText" Type="Text" X="60" Y="191" Width="280" Height="20" NoPrefix="yes" Text="!(loc.MaintenanceTypeDlgRemoveText)">
+                    <Condition Action="hide">ARPNOREMOVE</Condition>
+                </Control>
+                <Control Id="RemoveDisabledText" Type="Text" X="60" Y="191" Width="280" Height="20" NoPrefix="yes" Text="!(loc.MaintenanceTypeDlgRemoveDisabledText)" Hidden="yes">
+                    <Condition Action="show">ARPNOREMOVE</Condition>
+                </Control>
+                <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
+                <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Disabled="yes" Text="!(loc.WixUINext)" />
+                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+                    <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+                </Control>
+                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.MaintenanceTypeDlgBannerBitmap)" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+                <Control Id="Title" Type="Text" X="15" Y="6" Width="340" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.MaintenanceTypeDlgTitle)" />
+                <Control Id="Description" Type="Text" X="25" Y="23" Width="340" Height="20" Transparent="yes" NoPrefix="yes" Text="{\BP_Font_Subtitle}!(loc.MaintenanceTypeDlgDescription)" />
+            </Dialog>
+
+            <Publish Dialog="BPBrowseDlg" Control="OK" Event="DoAction" Value="WixUIValidatePath" Order="3">1</Publish>
+            <Publish Dialog="BPBrowseDlg" Control="OK" Event="SpawnDialog" Value="InvalidDirDlg" Order="4"><![CDATA[NOT WIXUI_DONTVALIDATEPATH AND WIXUI_INSTALLDIR_VALID<>"1"]]></Publish>
+
+            <Publish Dialog="BPExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999">1</Publish>
+
+            <Publish Dialog="BPWelcomeDlg" Control="Next" Event="NewDialog" Value="BPConfigureDlg">NOT Installed AND BPINSTALLDIR &lt;&gt; "NOTINSTALLED"</Publish>
+            <Publish Dialog="BPWelcomeDlg" Control="Next" Event="NewDialog" Value="BPVerifyReadyDlg">Installed AND PATCH</Publish>
+            <Publish Dialog="BPWelcomeDlg" Control="Next" Event="NewDialog" Value="BPMaintenanceTypeDlg">Installed AND NOT PATCH</Publish>
+
+            <Publish Dialog="BPNoBPDlg" Control="OK" Event="NewDialog" Value="BPConfigureDlg">1</Publish>
+
+            <Publish Dialog="BPConfigureDlg" Control="Next" Event="NewDialog" Value="BPInstallDirDlg">1</Publish>           
+            
+            <Publish Dialog="BPInstallDirDlg" Control="Back" Event="NewDialog" Value="BPConfigureDlg">1</Publish>
+            <Publish Dialog="BPInstallDirDlg" Control="Next" Event="SetTargetPath" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
+            <Publish Dialog="BPInstallDirDlg" Control="Next" Event="DoAction" Value="WixUIValidatePath" Order="2">NOT WIXUI_DONTVALIDATEPATH</Publish>
+            <Publish Dialog="BPInstallDirDlg" Control="Next" Event="SpawnDialog" Value="InvalidDirDlg" Order="3"><![CDATA[NOT WIXUI_DONTVALIDATEPATH AND WIXUI_INSTALLDIR_VALID<>"1"]]></Publish>
+            <Publish Dialog="BPInstallDirDlg" Control="Next" Event="NewDialog" Value="BPCustomizeDlg" Order="4">WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1"</Publish>
+            <Publish Dialog="BPInstallDirDlg" Control="ChangeFolder" Property="_BrowseProperty" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
+            <Publish Dialog="BPInstallDirDlg" Control="ChangeFolder" Event="SpawnDialog" Value="BPBrowseDlg" Order="2">1</Publish>
+
+          <!-- Only show the screen to configure SAS settings if the SAS Service has been selected for installation
+               or it's already installed and we are not uninstalling it -->
+          <Publish Dialog="BPCustomizeDlg" Control="Next" Event="NewDialog" Value="BPSasConfigDlg">
+            <![CDATA[(&SasService=3 OR (!SasService=3 AND NOT &SasService=2))]]>
+          </Publish>
+          <Publish Dialog="BPCustomizeDlg" Control="Next" Event="NewDialog" Value="BPVerifyReadyDlg">
+            <!-- This is just the negation of the condition above-->
+            <![CDATA[(NOT &SasService=3 AND (NOT !SasService=3 OR &SasService=2))]]>
+          </Publish>
+          <Publish Dialog="BPCustomizeDlg" Control="Back" Event="NewDialog" Value="BPInstallDirDlg">1</Publish>
+
+          <Publish Dialog="BPSasConfigDlg" Control="Next" Event="NewDialog" Value="BPVerifyReadyDlg">1</Publish>
+          <Publish Dialog="BPSasConfigDlg" Control="Back" Event="NewDialog" Value="BPCustomizeDlg">1</Publish>
+
+
+          <Publish Dialog="BPVerifyReadyDlg" Control="Back" Event="NewDialog" Value="BPCustomizeDlg" Order="1">NOT Installed AND <![CDATA[(&SasService<>3)]]></Publish>
+          <Publish Dialog="BPVerifyReadyDlg" Control="Back" Event="NewDialog" Value="BPSasConfigDlg" Order="1">NOT Installed AND <![CDATA[(&SasService=3)]]></Publish>
+            <Publish Dialog="BPVerifyReadyDlg" Control="Back" Event="NewDialog" Value="BPMaintenanceTypeDlg" Order="2">Installed AND NOT PATCH</Publish>
+            <Publish Dialog="BPVerifyReadyDlg" Control="Back" Event="NewDialog" Value="BPWelcomeDlg" Order="2">Installed AND PATCH</Publish>
+
+            <Publish Dialog="BPMaintenanceTypeDlg" Control="ChangeButton" Event="NewDialog" Value="BPInstallDirDlg">1</Publish>
+            <Publish Dialog="BPMaintenanceTypeDlg" Control="RepairButton" Event="NewDialog" Value="BPVerifyReadyDlg">1</Publish>
+            <Publish Dialog="BPMaintenanceTypeDlg" Control="RemoveButton" Event="NewDialog" Value="BPVerifyReadyDlg">1</Publish>
+            <Publish Dialog="BPMaintenanceTypeDlg" Control="Back" Event="NewDialog" Value="BPWelcomeDlg">1</Publish>
+
+        </UI>
+
+        <UIRef Id="WixUI_Common" />
+
+    </Fragment>
+</Wix>

@@ -1,0 +1,724 @@
+﻿<process name="surface_automation_5" version="1.0" bpversion="6.9.0.26004" narrative="" byrefcollection="true" preferredid="178753bc-0efc-4832-a771-0e38f9094a64">
+  <view>
+    <camerax>43.666687</camerax>
+    <cameray>109</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="589281f1-b798-40de-953b-d3bd1512503f" type="Normal" published="False">
+    <name>Get Text From Fixed List Regions</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>863.6</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="6671a543-46ee-4d59-8041-24a45cd597f8" type="Normal" published="False">
+    <name>Get Text From Relative List Regions</name>
+    <view>
+      <camerax>127</camerax>
+      <cameray>848.6</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="6897f1a0-704c-4a2c-88f4-5975f407a679" name="Start" type="Start">
+    <display x="30" y="-90" />
+    <onsuccess>563bf9d1-3ab8-4556-b824-3213869128d8</onsuccess>
+  </stage>
+  <stage stageid="836013b9-b05a-47dd-94fc-55889fd9c933" name="End" type="End">
+    <display x="30" y="240" />
+  </stage>
+  <stage stageid="6306b40b-9c36-4271-8c2a-0ce8f9614a1c" name="Stage1" type="ProcessInfo">
+    <display x="-180" y="-60" w="150" h="90" />
+  </stage>
+  <stage stageid="563bf9d1-3ab8-4556-b824-3213869128d8" name="Launch Surface Automation Test App" type="Action">
+    <display x="30" y="-45" w="210" h="30" />
+    <onsuccess>b0c65df6-38c0-48c2-b47e-11a948e12ef9</onsuccess>
+    <resource object="Simple Image Test App" action="Launch" />
+  </stage>
+  <stage stageid="bbbe1ed2-6dfd-4417-b4ae-61c1c65d5415" name="Terminate Test App" type="Action">
+    <display x="30" y="150" w="210" h="30" />
+    <onsuccess>2749fa4e-8792-4d3d-8bb0-df4fe848fbd0</onsuccess>
+    <resource object="Simple Image Test App" action="Terminate" />
+  </stage>
+  <stage stageid="f00b717a-33df-4306-8c87-6c069f3c7717" name="Expected Region Found Text" type="Data">
+    <display x="-180" y="30" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Image Found</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="fea73f74-94b2-4ec9-840f-1f5cc8334b72" name="Get Text From Fixed List Regions" type="SubSheetInfo">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="160d72d5-698d-43d2-ab4d-db481bffbc46" name="Start" type="Start">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="-135" />
+    <onsuccess>c9866978-90b4-4c39-b164-8b68373dc71c</onsuccess>
+  </stage>
+  <stage stageid="c9866978-90b4-4c39-b164-8b68373dc71c" name="Reset" type="Action">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="-90" w="90" h="30" />
+    <onsuccess>51aa8b85-e2b2-4192-b3cf-613f45518108</onsuccess>
+    <resource object="Simple Image Test App" action="Reset" />
+  </stage>
+  <stage stageid="0218871a-d7cf-4549-b396-515a2dfa02a7" name="FAIL" type="Exception">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="135" y="135" w="30" h="30" />
+    <exception type="Test Failed" detail="&quot;Expected text '&quot; &amp; [Expected Values (TopDown).Expected Text] &amp; &quot;' not found. Actual text: '&quot; &amp; [Element Text] &amp; &quot;'&quot;" savescreencapture="yes" />
+  </stage>
+  <stage stageid="fd1a5895-2bf5-46c4-9b86-6c297c618833" name="Get Element Text" type="Action">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Element Number" expr="[Expected Values (TopDown).Element Number]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Text" stage="Element Text" />
+    </outputs>
+    <onsuccess>8250851b-f553-4480-8269-90aab7272283</onsuccess>
+    <resource object="Simple Image Test App" action="Get Fixed List Region Text (TopDown)" />
+  </stage>
+  <stage stageid="e2f6636a-3796-44ad-8f74-7c59e560cdcc" name="Expected Values (TopDown)" type="Collection">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="-195" y="-15" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Element Number" type="number" />
+      <field name="Expected Text" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Element Number" type="number" value="1" />
+        <field name="Expected Text" type="text" value="One" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="2" />
+        <field name="Expected Text" type="text" value="Four" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="3" />
+        <field name="Expected Text" type="text" value="Seven" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="4" />
+        <field name="Expected Text" type="text" value="Ten" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="f764e248-14ff-403c-a4c9-bbdfe3aa301a" name="For Each Expected Value in List Region (TopDown)" type="LoopStart">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="30" w="120" h="30" />
+    <onsuccess>fd1a5895-2bf5-46c4-9b86-6c297c618833</onsuccess>
+    <groupid>2fe17b07-7a5d-4f8f-aa4a-6467d03fabbc</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Values (TopDown)</loopdata>
+  </stage>
+  <stage stageid="6c271309-08df-4b02-874e-a0cbaf144e49" name="Next" type="LoopEnd">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="195" w="120" h="30" />
+    <onsuccess>586a2780-72de-49b0-9491-9883b002d82c</onsuccess>
+    <groupid>2fe17b07-7a5d-4f8f-aa4a-6467d03fabbc</groupid>
+  </stage>
+  <stage stageid="05557051-f49b-4fd4-9071-d45a834a56b8" name="End2" type="End">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="930" />
+  </stage>
+  <stage stageid="c65de052-f84f-481e-9298-41da37912858" name="Element Text" type="Data">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="-195" y="15" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8250851b-f553-4480-8269-90aab7272283" name="Does element text match expected value?" type="Decision">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="135" w="120" h="60" />
+    <decision expression="[Expected Values (TopDown).Expected Text] = [Element Text]" />
+    <ontrue>6c271309-08df-4b02-874e-a0cbaf144e49</ontrue>
+    <onfalse>0218871a-d7cf-4549-b396-515a2dfa02a7</onfalse>
+  </stage>
+  <stage stageid="d21484b2-ce3a-4e0a-9c89-c41e227d4d58" name="FAIL" type="Exception">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="135" y="360" w="30" h="30" />
+    <exception type="Test Failed" detail="&quot;Expected text '&quot; &amp; [Expected Values (BottomUp).Expected Text] &amp; &quot;' not found. Actual text: '&quot; &amp; [Element Text] &amp; &quot;'&quot;" savescreencapture="yes" />
+  </stage>
+  <stage stageid="77dbb54c-970d-4d46-a29d-e9ce65eec65d" name="Get Element Text" type="Action">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="300" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Element Number" expr="[Expected Values (BottomUp).Element Number]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Text" stage="Element Text" />
+    </outputs>
+    <onsuccess>c919cbd4-b9ca-4161-b49d-30abe1bce792</onsuccess>
+    <resource object="Simple Image Test App" action="Get Fixed List Region Text (BottomUp)" />
+  </stage>
+  <stage stageid="d97b99a7-7ad4-4e10-bb19-7a1d43496dea" name="Expected Values (BottomUp)" type="Collection">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="-195" y="45" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Element Number" type="number" />
+      <field name="Expected Text" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Element Number" type="number" value="1" />
+        <field name="Expected Text" type="text" value="Eleven" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="2" />
+        <field name="Expected Text" type="text" value="Eight" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="3" />
+        <field name="Expected Text" type="text" value="Five" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="4" />
+        <field name="Expected Text" type="text" value="Two" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="586a2780-72de-49b0-9491-9883b002d82c" name="For Each Expected Value in List Region (BottomUp)" type="LoopStart">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="255" w="120" h="30" />
+    <onsuccess>77dbb54c-970d-4d46-a29d-e9ce65eec65d</onsuccess>
+    <groupid>add613cc-dfd0-438a-b715-fa640ca78db2</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Values (BottomUp)</loopdata>
+  </stage>
+  <stage stageid="00e700d5-3e7c-4224-befa-bafa8d7069ff" name="Next" type="LoopEnd">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="420" w="120" h="30" />
+    <onsuccess>42de9eb5-a053-4c2b-b58f-e2518a6efebd</onsuccess>
+    <groupid>add613cc-dfd0-438a-b715-fa640ca78db2</groupid>
+  </stage>
+  <stage stageid="c919cbd4-b9ca-4161-b49d-30abe1bce792" name="Does element text match expected value?" type="Decision">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="360" w="120" h="60" />
+    <decision expression="[Expected Values (BottomUp).Expected Text] = [Element Text]" />
+    <ontrue>00e700d5-3e7c-4224-befa-bafa8d7069ff</ontrue>
+    <onfalse>d21484b2-ce3a-4e0a-9c89-c41e227d4d58</onfalse>
+  </stage>
+  <stage stageid="6b18763d-5dd7-44af-a241-20b8ca2c6002" name="FAIL" type="Exception">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="135" y="585" w="30" h="30" />
+    <exception type="Test Failed" detail="&quot;Expected text '&quot; &amp; [Expected Values (LeftToRight).Expected Text] &amp; &quot;' not found. Actual text: '&quot; &amp; [Element Text] &amp; &quot;'&quot;" savescreencapture="yes" />
+  </stage>
+  <stage stageid="f163b6e6-3785-443d-b381-c403e6d956fe" name="Get Element Text" type="Action">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="525" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Element Number" expr="[Expected Values (LeftToRight).Element Number]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Text" stage="Element Text" />
+    </outputs>
+    <onsuccess>c2ab0ccf-6ea1-4523-8149-3adac33134c9</onsuccess>
+    <resource object="Simple Image Test App" action="Get Fixed List Region Text (LeftToRight)" />
+  </stage>
+  <stage stageid="0bd617fd-e615-42b6-99a9-7a23242c5991" name="Expected Values (LeftToRight)" type="Collection">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="-195" y="75" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Element Number" type="number" />
+      <field name="Expected Text" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Element Number" type="number" value="1" />
+        <field name="Expected Text" type="text" value="Seven" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="2" />
+        <field name="Expected Text" type="text" value="Eight" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="3" />
+        <field name="Expected Text" type="text" value="Nine" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="42de9eb5-a053-4c2b-b58f-e2518a6efebd" name="For Each Expected Value in List Region (LeftToRight)" type="LoopStart">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="480" w="120" h="30" />
+    <onsuccess>f163b6e6-3785-443d-b381-c403e6d956fe</onsuccess>
+    <groupid>7ca0c372-486a-4bb3-aaab-84b7c7061dda</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Values (LeftToRight)</loopdata>
+  </stage>
+  <stage stageid="4afc17c1-4081-4efc-b6ba-64cc8afeae4f" name="Next" type="LoopEnd">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="645" w="120" h="30" />
+    <onsuccess>ec458864-1ccd-4b9a-bc2b-42985d8033ad</onsuccess>
+    <groupid>7ca0c372-486a-4bb3-aaab-84b7c7061dda</groupid>
+  </stage>
+  <stage stageid="c2ab0ccf-6ea1-4523-8149-3adac33134c9" name="Does element text match expected value?" type="Decision">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="585" w="120" h="60" />
+    <decision expression="[Expected Values (LeftToRight).Expected Text] = [Element Text]" />
+    <ontrue>4afc17c1-4081-4efc-b6ba-64cc8afeae4f</ontrue>
+    <onfalse>6b18763d-5dd7-44af-a241-20b8ca2c6002</onfalse>
+  </stage>
+  <stage stageid="1d4d7205-e36e-4ff0-a58b-f21dd224d907" name="FAIL" type="Exception">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="135" y="810" w="30" h="30" />
+    <exception type="Test Failed" detail="&quot;Expected text '&quot; &amp; [Expected Values (RightToLeft).Expected Text] &amp; &quot;' not found. Actual text: '&quot; &amp; [Element Text] &amp; &quot;'&quot;" savescreencapture="yes" />
+  </stage>
+  <stage stageid="d41055df-adb7-44e4-8295-85c97937df4c" name="Get Element Text" type="Action">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="750" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Element Number" expr="[Expected Values (RightToLeft).Element Number]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Text" stage="Element Text" />
+    </outputs>
+    <onsuccess>9185ac62-5db5-44e4-8037-14d6bcab6832</onsuccess>
+    <resource object="Simple Image Test App" action="Get Fixed List Region Text (RightToLeft)" />
+  </stage>
+  <stage stageid="617d0f14-a414-4b13-997e-867928ae1e96" name="Expected Values (RightToLeft)" type="Collection">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="-195" y="105" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Element Number" type="number" />
+      <field name="Expected Text" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Element Number" type="number" value="1" />
+        <field name="Expected Text" type="text" value="Six" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="2" />
+        <field name="Expected Text" type="text" value="Five" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="3" />
+        <field name="Expected Text" type="text" value="Four" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="ec458864-1ccd-4b9a-bc2b-42985d8033ad" name="For Each Expected Value in List Region (RightToLeft)" type="LoopStart">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="705" w="120" h="30" />
+    <onsuccess>d41055df-adb7-44e4-8295-85c97937df4c</onsuccess>
+    <groupid>8cbd25a8-6b2b-421e-84ef-a40473cd45c4</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Values (RightToLeft)</loopdata>
+  </stage>
+  <stage stageid="d8d2a28d-4195-4906-9e31-123d65b54f41" name="Next" type="LoopEnd">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="870" w="120" h="30" />
+    <onsuccess>05557051-f49b-4fd4-9071-d45a834a56b8</onsuccess>
+    <groupid>8cbd25a8-6b2b-421e-84ef-a40473cd45c4</groupid>
+  </stage>
+  <stage stageid="9185ac62-5db5-44e4-8037-14d6bcab6832" name="Does element text match expected value?" type="Decision">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="810" w="120" h="60" />
+    <decision expression="[Expected Values (RightToLeft).Expected Text] = [Element Text]" />
+    <ontrue>d8d2a28d-4195-4906-9e31-123d65b54f41</ontrue>
+    <onfalse>1d4d7205-e36e-4ff0-a58b-f21dd224d907</onfalse>
+  </stage>
+  <stage stageid="a9e5fe70-e01e-43f8-b87a-04ad4c8f2647" name="Get Text From Relative List Regions" type="SubSheetInfo">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="4718aa9b-185b-428d-ba67-22d387c50030" name="Start" type="Start">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="-135" />
+    <onsuccess>df17dfbf-8c0b-4841-82dd-b4ae3950e2ea</onsuccess>
+  </stage>
+  <stage stageid="df17dfbf-8c0b-4841-82dd-b4ae3950e2ea" name="Reset" type="Action">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="-90" w="90" h="30" />
+    <onsuccess>ecae2472-5d97-4df6-9072-91eb2a6a331a</onsuccess>
+    <resource object="Simple Image Test App" action="Reset" />
+  </stage>
+  <stage stageid="32dfa860-9918-4147-9e1e-18af8ae3871a" name="FAIL" type="Exception">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="135" y="120" w="30" h="30" />
+    <exception type="Test Failed" detail="&quot;Expected text '&quot; &amp; [Expected Values (TopDown).Expected Text] &amp; &quot;' not found. Actual text: '&quot; &amp; [Element Text] &amp; &quot;'&quot;" savescreencapture="yes" />
+  </stage>
+  <stage stageid="99cd2b0a-1155-4b54-ac6c-fdf7bd11e83b" name="Get Element Text" type="Action">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="60" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Element Number" expr="[Expected Values (TopDown).Element Number]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Text" stage="Element Text" />
+    </outputs>
+    <onsuccess>e7b50b56-f128-485c-9985-060d379b2229</onsuccess>
+    <resource object="Simple Image Test App" action="Get Relative List Region Text (TopDown)" />
+  </stage>
+  <stage stageid="c592000f-c697-44d3-870b-9e0200c9ff8d" name="Expected Values (TopDown)" type="Collection">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="-195" y="-15" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Element Number" type="number" />
+      <field name="Expected Text" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Element Number" type="number" value="1" />
+        <field name="Expected Text" type="text" value="One" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="2" />
+        <field name="Expected Text" type="text" value="Four" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="3" />
+        <field name="Expected Text" type="text" value="Seven" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="4" />
+        <field name="Expected Text" type="text" value="Ten" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="b763a529-191e-4198-8afc-d9247a5c6b1b" name="For Each Expected Value in List Region (TopDown)" type="LoopStart">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="15" w="120" h="30" />
+    <onsuccess>99cd2b0a-1155-4b54-ac6c-fdf7bd11e83b</onsuccess>
+    <groupid>c7ab6c99-e943-495e-920d-8a3e20cfd375</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Values (TopDown)</loopdata>
+  </stage>
+  <stage stageid="30fa3d52-f23a-49e6-8a7b-b373678b6402" name="Next" type="LoopEnd">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="180" w="120" h="30" />
+    <onsuccess>1ac4254e-4b5d-400d-a39c-d5a5e5c0f763</onsuccess>
+    <groupid>c7ab6c99-e943-495e-920d-8a3e20cfd375</groupid>
+  </stage>
+  <stage stageid="9f15fe33-c897-41a4-8416-883222f6043a" name="End2" type="End">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="915" />
+  </stage>
+  <stage stageid="d9c5003a-69f0-42c1-bdc0-62c84507dc91" name="Element Text" type="Data">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="-195" y="105" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e7b50b56-f128-485c-9985-060d379b2229" name="Does element text match expected value?" type="Decision">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="120" w="120" h="60" />
+    <decision expression="[Expected Values (TopDown).Expected Text] = [Element Text]" />
+    <ontrue>30fa3d52-f23a-49e6-8a7b-b373678b6402</ontrue>
+    <onfalse>32dfa860-9918-4147-9e1e-18af8ae3871a</onfalse>
+  </stage>
+  <stage stageid="657a09f4-8ce9-419c-994b-cfdfde9ce74e" name="FAIL" type="Exception">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="135" y="345" w="30" h="30" />
+    <exception type="Test Failed" detail="&quot;Expected text '&quot; &amp; [Expected Values (BottomUp).Expected Text] &amp; &quot;' not found. Actual text: '&quot; &amp; [Element Text] &amp; &quot;'&quot;" savescreencapture="yes" />
+  </stage>
+  <stage stageid="9ea41c09-e685-47a0-9660-a8755bae29ac" name="Get Element Text" type="Action">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="285" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Element Number" expr="[Expected Values (BottomUp).Element Number]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Text" stage="Element Text" />
+    </outputs>
+    <onsuccess>bd04fa89-dd9b-4d40-b9e6-d60fc00dd38c</onsuccess>
+    <resource object="Simple Image Test App" action="Get Relative List Region Text (BottomUp)" />
+  </stage>
+  <stage stageid="952dddf5-7105-456b-8005-8cc9b195c2ff" name="Expected Values (BottomUp)" type="Collection">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="-195" y="15" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Element Number" type="number" />
+      <field name="Expected Text" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Element Number" type="number" value="1" />
+        <field name="Expected Text" type="text" value="Eleven" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="2" />
+        <field name="Expected Text" type="text" value="Eight" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="3" />
+        <field name="Expected Text" type="text" value="Five" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="4" />
+        <field name="Expected Text" type="text" value="Two" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="1ac4254e-4b5d-400d-a39c-d5a5e5c0f763" name="For Each Expected Value in List Region (BottomUp)" type="LoopStart">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="240" w="120" h="30" />
+    <onsuccess>9ea41c09-e685-47a0-9660-a8755bae29ac</onsuccess>
+    <groupid>6b59c5cf-232b-40bb-9293-c5d6e54f1c17</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Values (BottomUp)</loopdata>
+  </stage>
+  <stage stageid="718153d3-a499-4f0e-b6b8-5a36b81146ef" name="Next" type="LoopEnd">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="405" w="120" h="30" />
+    <onsuccess>5e3ec87d-9542-461a-aad9-1714efb4c2d0</onsuccess>
+    <groupid>6b59c5cf-232b-40bb-9293-c5d6e54f1c17</groupid>
+  </stage>
+  <stage stageid="bd04fa89-dd9b-4d40-b9e6-d60fc00dd38c" name="Does element text match expected value?" type="Decision">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="345" w="120" h="60" />
+    <decision expression="[Expected Values (BottomUp).Expected Text] = [Element Text]" />
+    <ontrue>718153d3-a499-4f0e-b6b8-5a36b81146ef</ontrue>
+    <onfalse>657a09f4-8ce9-419c-994b-cfdfde9ce74e</onfalse>
+  </stage>
+  <stage stageid="0c5eee21-c539-4fe9-b904-6a0cae906887" name="FAIL" type="Exception">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="135" y="570" w="30" h="30" />
+    <exception type="Test Failed" detail="&quot;Expected text '&quot; &amp; [Expected Values (LeftToRight).Expected Text] &amp; &quot;' not found. Actual text: '&quot; &amp; [Element Text] &amp; &quot;'&quot;" savescreencapture="yes" />
+  </stage>
+  <stage stageid="14d39370-29cf-4fc3-b77f-4f007b95d9d0" name="Get Element Text" type="Action">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="510" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Element Number" expr="[Expected Values (LeftToRight).Element Number]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Text" stage="Element Text" />
+    </outputs>
+    <onsuccess>95c1a4c9-faa6-4d37-a99b-60a138476c7d</onsuccess>
+    <resource object="Simple Image Test App" action="Get Relative List Region Text (LeftToRight)" />
+  </stage>
+  <stage stageid="35c62da9-6585-46f4-9e88-b9d5dff57d43" name="Expected Values (LeftToRight)" type="Collection">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="-195" y="75" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Element Number" type="number" />
+      <field name="Expected Text" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Element Number" type="number" value="1" />
+        <field name="Expected Text" type="text" value="Seven" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="2" />
+        <field name="Expected Text" type="text" value="Eight" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="3" />
+        <field name="Expected Text" type="text" value="Nine" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="5e3ec87d-9542-461a-aad9-1714efb4c2d0" name="For Each Expected Value in List Region (LeftToRight)" type="LoopStart">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="465" w="120" h="30" />
+    <onsuccess>14d39370-29cf-4fc3-b77f-4f007b95d9d0</onsuccess>
+    <groupid>50f7e5d9-f5fd-471a-ba01-58c0afe22eff</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Values (LeftToRight)</loopdata>
+  </stage>
+  <stage stageid="c9d63c29-9125-4ab9-bb4a-3d55939ba5a8" name="Next" type="LoopEnd">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="630" w="120" h="30" />
+    <onsuccess>67e0468d-2fb0-40f8-8938-7d0ed5fbbb07</onsuccess>
+    <groupid>50f7e5d9-f5fd-471a-ba01-58c0afe22eff</groupid>
+  </stage>
+  <stage stageid="95c1a4c9-faa6-4d37-a99b-60a138476c7d" name="Does element text match expected value?" type="Decision">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="570" w="120" h="60" />
+    <decision expression="[Expected Values (LeftToRight).Expected Text] = [Element Text]" />
+    <ontrue>c9d63c29-9125-4ab9-bb4a-3d55939ba5a8</ontrue>
+    <onfalse>0c5eee21-c539-4fe9-b904-6a0cae906887</onfalse>
+  </stage>
+  <stage stageid="49b76ee6-3d30-41de-b49e-7b216c10faac" name="FAIL" type="Exception">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="135" y="795" w="30" h="30" />
+    <exception type="Test Failed" detail="&quot;Expected text '&quot; &amp; [Expected Values (RightToLeft).Expected Text] &amp; &quot;' not found. Actual text: '&quot; &amp; [Element Text] &amp; &quot;'&quot;" savescreencapture="yes" />
+  </stage>
+  <stage stageid="cf09b89c-a1fa-4cac-b3a4-fa44148ad3ca" name="Get Element Text" type="Action">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="735" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Element Number" expr="[Expected Values (RightToLeft).Element Number]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Text" stage="Element Text" />
+    </outputs>
+    <onsuccess>38da3812-bfec-4281-9186-599198c53e36</onsuccess>
+    <resource object="Simple Image Test App" action="Get Relative List Region Text (RightToLeft)" />
+  </stage>
+  <stage stageid="c15eebb3-d7d7-4fdd-a5ac-0e681f145c73" name="Expected Values (RightToLeft)" type="Collection">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="-195" y="45" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Element Number" type="number" />
+      <field name="Expected Text" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Element Number" type="number" value="1" />
+        <field name="Expected Text" type="text" value="Six" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="2" />
+        <field name="Expected Text" type="text" value="Five" />
+      </row>
+      <row>
+        <field name="Element Number" type="number" value="3" />
+        <field name="Expected Text" type="text" value="Four" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="67e0468d-2fb0-40f8-8938-7d0ed5fbbb07" name="For Each Expected Value in List Region (RightToLeft)" type="LoopStart">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="690" w="120" h="30" />
+    <onsuccess>cf09b89c-a1fa-4cac-b3a4-fa44148ad3ca</onsuccess>
+    <groupid>4e2a0bc8-f6d5-4d97-b2af-2684c4d482d2</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Values (RightToLeft)</loopdata>
+  </stage>
+  <stage stageid="54e650d1-2d3b-4a0d-922b-5f1b605c5c92" name="Next" type="LoopEnd">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="855" w="120" h="30" />
+    <onsuccess>9f15fe33-c897-41a4-8416-883222f6043a</onsuccess>
+    <groupid>4e2a0bc8-f6d5-4d97-b2af-2684c4d482d2</groupid>
+  </stage>
+  <stage stageid="38da3812-bfec-4281-9186-599198c53e36" name="Does element text match expected value?" type="Decision">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="795" w="120" h="60" />
+    <decision expression="[Expected Values (RightToLeft).Expected Text] = [Element Text]" />
+    <ontrue>54e650d1-2d3b-4a0d-922b-5f1b605c5c92</ontrue>
+    <onfalse>49b76ee6-3d30-41de-b49e-7b216c10faac</onfalse>
+  </stage>
+  <stage stageid="a436aa45-8dec-4f89-9cd1-5138f6e35537" name="Get Text From Fixed List Regions" type="SubSheet">
+    <display x="30" y="75" w="210" h="30" />
+    <onsuccess>bbbe1ed2-6dfd-4417-b4ae-61c1c65d5415</onsuccess>
+    <processid>589281f1-b798-40de-953b-d3bd1512503f</processid>
+  </stage>
+  <stage stageid="b0c65df6-38c0-48c2-b47e-11a948e12ef9" name="Get Text From Relative List Regions" type="SubSheet">
+    <display x="30" y="30" w="210" h="30" />
+    <onsuccess>a436aa45-8dec-4f89-9cd1-5138f6e35537</onsuccess>
+    <processid>6671a543-46ee-4d59-8041-24a45cd597f8</processid>
+  </stage>
+  <stage stageid="51aa8b85-e2b2-4192-b3cf-613f45518108" name="Cycle to List Image" type="Action">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <display x="15" y="-30" w="90" h="30" />
+    <onsuccess>f764e248-14ff-403c-a4c9-bbdfe3aa301a</onsuccess>
+    <resource object="Simple Image Test App" action="Cycle to List Image" />
+  </stage>
+  <stage stageid="ecae2472-5d97-4df6-9072-91eb2a6a331a" name="Cycle to List Image" type="Action">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <display x="15" y="-45" w="90" h="30" />
+    <onsuccess>b763a529-191e-4198-8afc-d9247a5c6b1b</onsuccess>
+    <resource object="Simple Image Test App" action="Cycle to List Image" />
+  </stage>
+  <stage stageid="193595a6-6b6a-4aa3-8303-ac1d8834c967" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="195" y="0" />
+    <onsuccess>35b8a6b2-cf3a-4495-a43c-9c5440bd06ef</onsuccess>
+  </stage>
+  <stage stageid="35b8a6b2-cf3a-4495-a43c-9c5440bd06ef" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="195" y="45" w="90" h="30" />
+    <onsuccess>87b178f9-2e92-497f-928a-9bf4427bb36d</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="87b178f9-2e92-497f-928a-9bf4427bb36d" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="195" y="90" />
+    <onsuccess>7bdd3185-871e-4267-8d10-cf47e4330665</onsuccess>
+  </stage>
+  <stage stageid="7bdd3185-871e-4267-8d10-cf47e4330665" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="195" y="150" w="10" h="10" />
+    <onsuccess>bbbe1ed2-6dfd-4417-b4ae-61c1c65d5415</onsuccess>
+  </stage>
+  <stage stageid="37da02ab-eb91-4197-8da1-878e8877bc3b" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="105" w="150" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e9341321-f48f-4dbb-8876-8c25c5666cd2" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="135" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="814c2cf8-26d0-4639-a6f8-389e6e24921a" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="75" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="74987924-be01-4638-a0ca-193083af46c4" name="Global variable" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="0" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2749fa4e-8792-4d3d-8bb0-df4fe848fbd0" name="Failed?" type="Decision">
+    <display x="30" y="195" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>1d5df462-a58a-47ed-9c8e-cc9d325d44ac</ontrue>
+    <onfalse>836013b9-b05a-47dd-94fc-55889fd9c933</onfalse>
+  </stage>
+  <stage stageid="1d5df462-a58a-47ed-9c8e-cc9d325d44ac" name="Re-Throw" type="Exception">
+    <display x="120" y="195" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="1bf75d91-b7c3-4c16-8626-5eb596c02c01" name="Block1" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-15" w="345" h="135" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a5ab15e5-9089-4364-be34-97d9320e2806" name="Local variables" type="Block">
+    <subsheetid>589281f1-b798-40de-953b-d3bd1512503f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="180" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a31af078-d68c-408c-932d-3d03adc01573" name="Local variables" type="Block">
+    <subsheetid>6671a543-46ee-4d59-8041-24a45cd597f8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="180" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+</process>

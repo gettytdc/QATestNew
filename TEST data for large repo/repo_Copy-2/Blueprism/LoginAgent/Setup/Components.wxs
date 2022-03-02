@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <!-- All the component / component group definitions are in this file. -->
+  <Fragment>
+    <!-- I tried auto-harvesting the projects here, but it kicked out some spurious errors I didn't have time to fix
+         So everything is pulled in manually. This isn't a major issue, since the names are at least all references,
+         but it will mean extra effort if we add or remove elements of Login Agent in the future.
+         
+         Remember that, if a component is added here, it needs to be referenced in a feature, or it won't get linked
+         in, and you'll get an error from Light. -->
+    <ComponentGroup Id="BluePrismCredentialProvider" Directory="INSTALLFOLDER">
+      <!-- Guid="*" auto-generates a GUID for this component. The GUIDS here are generated based on the Path, so they won't change once generated unless that does. -->
+      <Component Id="BluePrismCredentialProvider" Guid="*">
+        <File Id="BluePrismCredentialProvider" Source="$(var.BluePrismCredentialProvider.TargetPath)" Name="$(var.BluePrismCredentialProvider.TargetFileName)" />
+      </Component>
+      <Component Id="BluePrismCredentialProvider.Register" Guid="*">
+        <File Id="BluePrismCredentialProvider.Register" Source="$(var.BluePrismCredentialProvider.ProjectDir)Register.reg" Name="Register.reg" />
+      </Component>
+      <Component Id="BluePrismCredentialProvider.Unregister" Guid="*">
+        <File Id="BluePrismCredentialProvider.Unregister" Source="$(var.BluePrismCredentialProvider.ProjectDir)Unregister.reg" Name="Unregister.reg" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="Utilities" Directory="INSTALLFOLDER">
+      <Component Id="Utilities" Guid="*">
+        <File Id="Utilities" Source="$(var.Utilities.TargetPath)" Name="$(var.Utilities.TargetFileName)" />
+      </Component>
+    </ComponentGroup>
+    <Component Id="LoginAgentServiceConfig" Directory="CONFIGDIR">
+      <Condition><![CDATA[ CONNECTIONNAME <> "" ]]></Condition>
+      <File Id="LoginAgentServiceConfig" Source="$(var.ProjectDir)res\LoginAgentService.config" Name="LoginAgentService.config" />
+      <util:XmlFile Id="ConnName" ElementPath="/configuration/startuparguments/argument[\[]@name='dbconname'[\]]/value" File="[#LoginAgentServiceConfig]" Action="setValue" Value="[CONNECTIONNAME]" />
+      <util:XmlFile Id="WorkDir" ElementPath="/configuration/workingdirectory" File="[#LoginAgentServiceConfig]" Name="path" Action="setValue" Value="[BPINSTALLDIR]" />
+    </Component>
+    <Component Id="LoginAgentServiceConfigNoConnection" Directory="CONFIGDIR">
+      <Condition><![CDATA[ CONNECTIONNAME = "" ]]></Condition>
+      <File Id="LoginAgentServiceConfigNoConnection" Source="$(var.ProjectDir)res\LoginAgentServiceNoConfig.config" Name="LoginAgentService.config" />
+      <util:XmlFile Id="WorkDirNoConnection" ElementPath="/configuration/workingdirectory" File="[#LoginAgentServiceConfigNoConnection]" Name="path" Action="setValue" Value="[BPINSTALLDIR]" />
+    </Component>
+    <Component Id ="CopyCredentialProvToSystemDir" Directory="WindowsFolder" Guid="*" >
+      <File Id="BluePrismCredentialProviderWin" Source="$(var.BluePrismCredentialProvider.TargetPath)" Name="$(var.BluePrismCredentialProvider.TargetFileName)" />
+    </Component>
+    <ComponentGroup Id="LoginAgentService" Directory="INSTALLFOLDER">
+      <Component Id="LoginAgentService.Binaries" Guid="*">
+        <File Id="LoginAgentService" Source="$(var.LoginAgentService.TargetPath)" Name="$(var.LoginAgentService.TargetFileName)" />
+        <ServiceInstall Id="LoginAgentService" Type="ownProcess" Account="[SERVICEACCOUNT]" Password="[SERVICEPASSWORD]" 
+                        ErrorControl="normal" Start="auto" Name="LoginAgent" 
+                        DisplayName="Blue Prism Login Agent" 
+                        Description="Agent software providing secure automatic login and screen locking for Blue Prism clients" />
+        <ServiceControl Id="LoginAgentService" Remove="uninstall" Name="LoginAgent" Stop="uninstall" />
+      </Component>
+  
+      <Component Id="LoginAgentRelease" Guid="*">
+        <File Id="LoginAgentRelease" Source="$(var.LoginAgentService.ProjectDir)Login Agent Release.bprelease" Name="Login Agent Release.bprelease" />
+      </Component>
+      <Component Id="LoginAgentRegistry" Guid="*">
+        <RegistryKey Root="HKCR" Key="CLSID\{75A22DF0-B81D-46ed-B119-CD30507BD615}" ForceDeleteOnUninstall="yes" ForceCreateOnInstall="yes">
+          <RegistryValue Type="string" Value="BluePrismCredentialProvider" />
+        </RegistryKey>
+        <RegistryKey Root="HKCR" Key="CLSID\{75A22DF0-B81D-46ed-B119-CD30507BD615}\InprocServer32" ForceDeleteOnUninstall="yes" ForceCreateOnInstall="yes">
+          <RegistryValue Type="string" Value="BluePrismCredentialProvider.dll" />
+          <RegistryValue Type="string" Name="ThreadingModel" Value="Apartment" />
+        </RegistryKey>
+        <RegistryKey Root="HKLM" Key="SOFTWARE">
+          <RegistryKey Key="Blue Prism Limited\LoginAgent" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes">
+            <!-- This is fine for a proto, but we don't want to go into production with these keys set. -->
+            <RegistryValue Type="string" Name="LogFileDir" Value="C:\Temp" />
+            <RegistryValue Type="integer" Name="LogLevel" Value="0" />
+          </RegistryKey>
+          <RegistryKey Key="Microsoft\Windows\CurrentVersion">
+            <RegistryKey Key="Authentication\Credential Providers\{75A22DF0-B81D-46ed-B119-CD30507BD615}" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes">
+              <RegistryValue Type="string" Value="BluePrismCredentialProvider" />
+            </RegistryKey>
+           </RegistryKey>
+         </RegistryKey>
+        <RegistryKey Root="HKU" Key=".DEFAULT\Control Panel\Desktop">
+          <RegistryValue Name="ScreenSaveActive" Type="string" Value="0" />
+        </RegistryKey>
+      </Component>
+    </ComponentGroup>
+   
+  <ComponentGroup Id="BluePrismSasService" Directory="INSTALLFOLDER">
+      <Component Id="BluePrismSasService.Binaries" Guid="*" Transitive="yes">
+        <File Id="BluePrismSASService" Source="$(var.BluePrismSASService.TargetPath)" Name="$(var.BluePrismSASService.TargetFileName)" />
+        <ServiceInstall Id="BluePrismSASService" Type="ownProcess" Account="[SERVICEACCOUNT]" Password="[SERVICEPASSWORD]" 
+                        ErrorControl="normal" Start="auto" Name="BluePrismSASService" 
+                        DisplayName="Blue Prism SAS Service" 
+                        Description="Agent software providing the ability for Login Agent to send a secure authentication sequence" />
+        <ServiceControl Id="BluePrismSASService" Remove="uninstall" Name="BluePrismSASService" Stop="uninstall" />
+      </Component >
+    </ComponentGroup>
+      
+  </Fragment>
+</Wix>

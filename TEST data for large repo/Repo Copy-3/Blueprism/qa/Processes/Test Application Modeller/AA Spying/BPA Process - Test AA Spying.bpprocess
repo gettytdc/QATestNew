@@ -1,0 +1,290 @@
+﻿<process name="Test AA Spying" version="1.0" bpversion="6.10.0.30061" narrative="" byrefcollection="true" preferredid="794167ac-0223-409b-8f49-0caf87cd3d88">
+  <view>
+    <camerax>15</camerax>
+    <cameray>-204</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="930e632a-fa1d-4779-80e3-f9974ccbadfd" name="Start" type="Start">
+    <display x="15" y="-480" w="90" h="30" />
+    <onsuccess>3b078e29-5c0e-44cb-9212-03f38e13888d</onsuccess>
+  </stage>
+  <stage stageid="76f67eaa-32e4-438a-9bcf-a3cf074f2649" name="End" type="End">
+    <display x="15" y="330" w="90" h="30" />
+  </stage>
+  <stage stageid="1aaa1541-391d-460d-8760-b3533fb5f1df" name="Stage1" type="ProcessInfo">
+    <display x="-120" y="-450" w="150" h="90" />
+  </stage>
+  <stage stageid="7c18605f-6532-4bf5-ae4b-1da56864584b" name="Sign In" type="Action">
+    <display x="15" y="-345" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="" />
+      <input type="password" name="Password" expr="" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>641bedd8-155e-42b7-9395-eacd07c5d62f</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="88bb1b58-42bc-4e0e-b2ed-1e81721ee7c0" name="Open Object" type="Action">
+    <display x="15" y="-210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Object Name" narrative="The name of the object you wish to open." expr="&quot;Test App&quot;" />
+      <input type="text" name="Folder to Select" narrative="Name of folder the object you wish to select is contained within" expr="" />
+      <input type="number" name="MatchIndex" expr="" />
+    </inputs>
+    <onsuccess>9d2fb92b-8cfc-46a1-8def-f67800f177fe</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Object" />
+  </stage>
+  <stage stageid="9d2fb92b-8cfc-46a1-8def-f67800f177fe" name="Open Application Modeller" type="Action">
+    <display x="15" y="-165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process / Object Name" narrative="Name of the Process or Object" expr="&quot;Test App&quot;" />
+    </inputs>
+    <onsuccess>39785ec5-9953-43bb-951e-d5f5bd367442</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Open Application Modeller" />
+  </stage>
+  <stage stageid="c43c4eaf-d823-4d6a-9178-d3de357d18d3" name="Create Element Node" type="Action">
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name that you want to give the new element." expr="[New Elements.Element Name]" />
+      <input type="text" name="Parent Element" narrative="The name of the element you want the new element to be a child of. If left blank it will default to the model root," expr="[New Elements.Parent]" />
+    </inputs>
+    <onsuccess>1e7e3dea-248a-41e9-9915-afddbfa64215</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Create New Element" />
+  </stage>
+  <stage stageid="1e7e3dea-248a-41e9-9915-afddbfa64215" name="Identify Element" type="Action">
+    <display x="15" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Element Name" narrative="The name of the element you want to identify." expr="[New Elements.Element Name]" />
+      <input type="text" name="Spy Mode" narrative="The name of the spy mode you want to use." expr="[New Elements.Spy Mode]" />
+      <input type="text" name="Control Type" narrative="The control type you want to select." expr="[New Elements.Control Type]" />
+    </inputs>
+    <onsuccess>2b2360df-8b5e-4ea4-8087-cc60fdc09694</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Identify Element" />
+  </stage>
+  <stage stageid="ea76c07e-96aa-41c2-b72f-e9716f7cfdd9" name="Launch Application" type="Action">
+    <display x="15" y="-75" w="90" h="30" />
+    <onsuccess>8fe61811-038b-4f97-a0b9-0a8e01539ea3</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Press Launch" />
+  </stage>
+  <stage stageid="8fe61811-038b-4f97-a0b9-0a8e01539ea3" name="For Each Element" type="LoopStart">
+    <display x="15" y="-30" w="90" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="3366FF" />
+    <onsuccess>c43c4eaf-d823-4d6a-9178-d3de357d18d3</onsuccess>
+    <groupid>03df0c6f-79a0-4623-bc29-5814874a1ddb</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>New Elements</loopdata>
+  </stage>
+  <stage stageid="2b2360df-8b5e-4ea4-8087-cc60fdc09694" name="For Each Element" type="LoopEnd">
+    <display x="15" y="105" w="90" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="3366FF" />
+    <onsuccess>61014551-5100-44a5-8ae4-02d908d0d15e</onsuccess>
+    <groupid>03df0c6f-79a0-4623-bc29-5814874a1ddb</groupid>
+  </stage>
+  <stage stageid="26d5a1e9-370c-463c-8bc8-440d2dd04e93" name="New Elements" type="Collection">
+    <display x="-120" y="-330" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Element Name" type="text" description="The name of your new element." />
+      <field name="Parent" type="text" description="The name of the element that you want the new element to be a child of. If left blank it will be a child of the root of the model." />
+      <field name="Control Type" type="text" />
+      <field name="Spy Mode" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Element Name" type="text" value="New Button" />
+        <field name="Parent" type="text" value="Button (UIA)" />
+        <field name="Control Type" type="text" value="Button" />
+        <field name="Spy Mode" type="text" value="Accessibility" />
+      </row>
+      <row>
+        <field name="Element Name" type="text" value="New CheckBox" />
+        <field name="Parent" type="text" value="CheckBox (UIA)" />
+        <field name="Control Type" type="text" value="CheckBox" />
+        <field name="Spy Mode" type="text" value="Accessibility" />
+      </row>
+      <row>
+        <field name="Element Name" type="text" value="New Hyperlink" />
+        <field name="Parent" type="text" value="Hyperlink (UIA)" />
+        <field name="Control Type" type="text" value="Hyperlink" />
+        <field name="Spy Mode" type="text" value="Accessibility" />
+      </row>
+      <row>
+        <field name="Element Name" type="text" value="New EditBox" />
+        <field name="Parent" type="text" value="EditBox (UIA)" />
+        <field name="Control Type" type="text" value="EditBox" />
+        <field name="Spy Mode" type="text" value="Accessibility" />
+      </row>
+      <row>
+        <field name="Element Name" type="text" value="New List" />
+        <field name="Parent" type="text" value="List (UIA)" />
+        <field name="Control Type" type="text" value="List" />
+        <field name="Spy Mode" type="text" value="Accessibility" />
+      </row>
+      <row>
+        <field name="Element Name" type="text" value="New Treeview" />
+        <field name="Parent" type="text" value="Treeview (UIA)" />
+        <field name="Control Type" type="text" value="Treeview" />
+        <field name="Spy Mode" type="text" value="Accessibility" />
+      </row>
+      <row>
+        <field name="Element Name" type="text" value="New ComboBox" />
+        <field name="Parent" type="text" value="ComboBox (UIA)" />
+        <field name="Control Type" type="text" value="ComboBox" />
+        <field name="Spy Mode" type="text" value="Accessibility" />
+      </row>
+      <row>
+        <field name="Element Name" type="text" value="New Radio Button" />
+        <field name="Parent" type="text" value="RadioButton (UIA)" />
+        <field name="Control Type" type="text" value="Radio Button" />
+        <field name="Spy Mode" type="text" value="Accessibility" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="61014551-5100-44a5-8ae4-02d908d0d15e" name="Terminate" type="Action">
+    <display x="15" y="150" w="90" h="30" />
+    <onsuccess>2efa61a6-28d3-4b99-b141-6b3bddcfc23e</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="f5cc31bf-289f-4a35-801a-a704165d8727" name="Kill Cassini" type="Process">
+    <display x="15" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" narrative="The name of the process to search for in memory" expr="[Process to seach for.Process Name]" />
+      <input type="number" name="PID" narrative="WHat will be the PID of the process you are searching for, by default set to a value of -1" expr="[Process to seach for.PID]" />
+    </inputs>
+    <onsuccess>a0b3394e-1fd5-49cd-ac35-555238dd4277</onsuccess>
+    <processid>7e02d20c-9445-45b7-beaf-f1dbaad4be33</processid>
+  </stage>
+  <stage stageid="2efa61a6-28d3-4b99-b141-6b3bddcfc23e" name="Processes" type="LoopStart">
+    <display x="15" y="195" w="90" h="30" />
+    <onsuccess>f5cc31bf-289f-4a35-801a-a704165d8727</onsuccess>
+    <groupid>39d379a0-bf79-44ca-8db4-7d424578e031</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Process to seach for</loopdata>
+  </stage>
+  <stage stageid="a0b3394e-1fd5-49cd-ac35-555238dd4277" name="Processes" type="LoopEnd">
+    <display x="15" y="285" w="90" h="30" />
+    <onsuccess>76f67eaa-32e4-438a-9bcf-a3cf074f2649</onsuccess>
+    <groupid>39d379a0-bf79-44ca-8db4-7d424578e031</groupid>
+  </stage>
+  <stage stageid="ea95b701-e393-4915-8f3b-f2e221f5a7b1" name="Process to seach for" type="Collection">
+    <display x="-120" y="-360" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Process Name" type="text" />
+      <field name="PID" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Process Name" type="text" value="WindowsFormsApp2" />
+        <field name="PID" type="number" value="" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="6338c003-c135-4cb3-87c3-ba83098ab1bc" name="Local Variables" type="Block">
+    <display x="-195" y="-390" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="34735978-107b-433a-82df-4a27a24a09be" name="Kill Cassini" type="Process">
+    <display x="120" y="-345" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" narrative="The name of the process to search for in memory" expr="[Process to seach for.Process Name]" />
+      <input type="number" name="PID" narrative="WHat will be the PID of the process you are searching for, by default set to a value of -1" expr="[Process to seach for.PID]" />
+    </inputs>
+    <onsuccess>7832a881-083b-4ee4-a2d3-a5bfa6f4fc56</onsuccess>
+    <processid>7e02d20c-9445-45b7-beaf-f1dbaad4be33</processid>
+  </stage>
+  <stage stageid="3e6ae934-bcdc-4a61-aaf7-ceeb6633aebd" name="Processes" type="LoopStart">
+    <display x="120" y="-390" w="90" h="30" />
+    <onsuccess>34735978-107b-433a-82df-4a27a24a09be</onsuccess>
+    <groupid>8d16b957-3944-44f8-8ec0-b81ce72e9afc</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Process to seach for</loopdata>
+  </stage>
+  <stage stageid="7832a881-083b-4ee4-a2d3-a5bfa6f4fc56" name="Processes" type="LoopEnd">
+    <display x="120" y="-300" w="90" h="30" />
+    <onsuccess>ee9214ce-5fb0-4d87-8622-19fb2156258b</onsuccess>
+    <groupid>8d16b957-3944-44f8-8ec0-b81ce72e9afc</groupid>
+  </stage>
+  <stage stageid="c7d618ad-d42c-4b9e-bf03-0df93a772882" name="Note1" type="Note">
+    <narrative>Clean Up</narrative>
+    <display x="120" y="-435" w="90" h="30" />
+    <onsuccess>3e6ae934-bcdc-4a61-aaf7-ceeb6633aebd</onsuccess>
+  </stage>
+  <stage stageid="ee9214ce-5fb0-4d87-8622-19fb2156258b" name="Bubble Up" type="Exception">
+    <display x="120" y="-255" w="90" h="30" />
+    <exception localized="yes" type="" detail="" usecurrent="yes" />
+  </stage>
+  <stage stageid="3b078e29-5c0e-44cb-9212-03f38e13888d" name="Launch Blue Prism" type="Action">
+    <display x="15" y="-435" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>2685cf10-49dc-48cd-964d-18d918744fca</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="2685cf10-49dc-48cd-964d-18d918744fca" name="Attach Studio" type="Action">
+    <display x="15" y="-390" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>7c18605f-6532-4bf5-ae4b-1da56864584b</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="887e45ef-5b53-4776-9753-a092e23baf79" name="pid" type="Data">
+    <display x="-120" y="-300" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="641bedd8-155e-42b7-9395-eacd07c5d62f" name="Go To Home" type="Action">
+    <loginhibit />
+    <display x="15" y="-300" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>f8548085-43f7-47d1-8243-399f92e32298</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="f8548085-43f7-47d1-8243-399f92e32298" name="Go To Studio" type="Action">
+    <loginhibit />
+    <display x="15" y="-255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>88bb1b58-42bc-4e0e-b2ed-1e81721ee7c0</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="3b0b7bd2-7fd4-43b3-808a-71422a16a1ff" name="QA Root" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-225" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b0ceadfc-bfbf-4ac8-b311-3e800a65c4ca" name="Environment Variables" type="Block">
+    <display x="-195" y="-255" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="39785ec5-9953-43bb-951e-d5f5bd367442" name="Write Executable Path" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Executable Path" friendlyname="Executable Path" narrative="The executable path you want to change the application model to." expr="[QA Root]&amp;&quot;\Code\Simple Automation App\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\WindowsFormsApp2.exe&quot;" />
+    </inputs>
+    <onsuccess>ea76c07e-96aa-41c2-b72f-e9716f7cfdd9</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Application Modeller - Write Executable Path" />
+  </stage>
+  <stage stageid="b2f920fc-c271-43a1-bce6-c8e859471fe4" name="Recover" type="Recover">
+    <display x="120" y="-480" w="90" h="30" />
+    <onsuccess>c7d618ad-d42c-4b9e-bf03-0df93a772882</onsuccess>
+  </stage>
+</process>

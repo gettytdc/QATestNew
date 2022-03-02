@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Blue Prism 服务器</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+</head>
+
+<body class="slick">
+    <div class="header">
+        <h1 class="pagetitle">Blue Prism 服务器</h1>
+		<h2>简介</h2>
+    </div>
+	
+	<div class="captioned-image overview-screenshot nozoom">
+		<a href="Graphics/bpserver.png" title="服务器配置—点击查看大图">
+		<img alt="服务器配置—点击查看大图" src="Graphics/bpserver.png"/></a>
+		<p>直接访问架构与 Blue Prism 服务器架构的对比</p>
+	</div>
+	
+	<h3 id="overview">概述</h3>
+	<p>Blue Prism 可以基于两种不同的网络架构来运行：—</p>
+	<dl class="listplease">
+		<dt>直接访问</dt>
+		<dd>
+			<p>Blue Prism 客户端（无论是运行整个 Blue Prism 客户端软件，还是只作为运行时资源运行）可以直接访问监管 Blue Prism 环境的数据库。</p>
+			<p>每个客户端都需要存储这个数据库的身份验证详细信息。此外，根据所采用的身份验证模式，客户端或许还能向用户提供 Blue Prism 数据库的完整访问权限（不是必需的）。</p>
+		</dd>
+		<dt>Blue Prism 服务器</dt>
+		<dd>
+			<p>Blue Prism 客户端和资源会连接到中央计算机上运行的 BP 服务器服务。该服务会充当数据库的代理，并成为系统中唯一一处需要使用身份验证数据才能访问和修改相关数据的地方。</p>
+		</dd>
+	</dl>
+	<p><a href="helpScheduler.htm">Blue Prism 调度程序</a>也会在 BP 服务器服务中运行，而且可能会保留“直接访问”架构并运行 BP 服务器实例（主要用于运行调度程序）。</p>
+	
+	<div class="captioned-image screenshot"><img src="Graphics/bpserver-config.png" alt="配置 BP 服务器"/>
+	</div>
+	<h3 id="configuring">配置 BP 服务器</h3>
+	<h4>服务器配置概述</h4>
+	<p>Blue Prism 服务器服务会在安装 Blue Prism 软件的过程中予以安装。只需在“开始”菜单中依次点击以下各项，即可在“已安装的服务”<code></code>列表中找到这项服务：<code>所有程序：管理工具：服务</code>。</p>
+	
+	<p>服务器可通过运行安装在 Blue Prism 安装目录（通常为 <code> C:\Program Files\Blue Prism Limited\Blue Prism Automate</code>）中的 BPServer.exe 来进行配置。</p>
+	
+	<p>您可以在打开的对话框中指定 Blue Prism 服务器的多项配置，以便连接到不同的数据库并监听多个客户端。</p>
+	
+	<p>这个对话框不会再用来配置 <a href="helpScheduler.htm">Blue Prism 调度程序</a>。现可在<a href="helpSystemManagerScheduler.htm">系统管理器</a>中对此进行环境级别的配置。</p>
+
+	<hr class="clearer light"></hr>
+	
+	<h4>编辑现有配置</h4>
+	<p>在进行安装时，安装程序会为 Blue Prism 服务器创建一个名为“默认”<code></code>的默认配置。当您打开服务器配置对话框时，“配置”<code></code>下拉框中所选的就是这个配置。</p>
+	
+	<p>要编辑某个配置，请确保在“配置”<code></code>下拉框中选中该配置，然后点击“编辑...”<code></code>按钮。</p>
+	
+	<p>这将打开<a href="#server-details">服务器配置详细信息</a>对话框，该对话框中包含当前为所选配置存储的详细信息。</p>
+	
+	<p><strong>注意： </strong>在安装 Blue Prism 时默认安装的 Blue Prism 服务器服务会尝试加载名为“默认”的服务器配置—如果这个配置不存在，则无法启动。请参阅<a href="#running-multiple">运行多个 BP 服务器</a>，以了解有关如何配置服务以加载不同配置的指导信息。</p>
+	
+	<h4>创建新配置</h4>
+	<p>点击“新建...”按钮后，<a href="#server-details">服务器配置详细信息</a>对话框会随即打开，您可以在其中指定相关的配置。</p>
+	
+	<h4>删除配置</h4>
+	<p>要删除某个配置，请确保在“配置”<code></code>下拉框中选中该配置，然后点击“删除”<code></code>按钮。</p>
+	<p>请注意，系统将会删除该配置，并立即保存所做的更改。</p>
+
+	<div class="clearer"></div>
+	<div class="captioned-image screenshot"><img src="Graphics/bpserver-instance-config.png" alt="配置 BP 服务器实例"/>
+	</div>
+	<h3 id="server-details">服务器配置详细信息</h3>
+	<p>在“服务器配置详细信息”对话框中，您可以指定：—</p>
+	<h4>“详细信息”选项卡</h4>
+	<dl class="bulleted">
+		<dt id="config-name">名称</dt>
+		<dd>配置的名称。此项的主要作用是信息记录。但是，如果定义了<a href="#running-multiple">多个 BP 服务器服务</a>，则此项也可用来指明某个服务应该使用哪个服务器配置。请注意，在这种情况下，建议使用不含空格或标点符号的简单名称，以简化对应服务的安装操作。</dd>
+		
+		<dt id="config-connection">连接</dt>
+		<dd>服务器配置应该用来连接其所服务的 Blue Prism 数据库的连接设置。可用的连接取决于 Blue Prism 客户端的<a href="helpConnections.htm">连接</a>对话框（可通过登录页面访问）中所配置的连接。</dd>
+		
+		<dt id="config-port">侦听端口</dt>
+		<dd>应该要侦听的 TCP/IP 端口，看看有没有源自 Blue Prism 客户端的连接。如果正同时运行多个服务器，则必须为每个服务器配置设置不同的侦听端口，否则服务器可能无法启动</dd>
+
+        <dt id="connection-mode">连接模式</dt>
+        <dd>以下连接模式可用于 Blue Prism 客户端和 Blue Prism 服务器之间的连接：—<dl class="listplease">
+                <dt>WCF：采用消息加密和 Windows 身份验证的 SOAP</dt>
+                <dd>
+                    <ul>
+                        <li>需要设备之间的信任关系：是</li>
+                        <li>Blue Prism 身份验证模式：Blue Prism 本机/单点登录</li>
+                        <li>需要服务器端证书：否</li>
+                        <li>传输：SOAP over HTTP</li>
+                    </ul>
+                    <p>仅加密消息内容。SOAP 和 HTTP 标头保持未加密状态，可为复杂的路由、负载均衡器、代理等提供帮助。客户端和服务器标识通过 Windows/Active Directory 进行验证。</p>
+                </dd>
+                <dt>WCF：采用传输加密和 Windows 身份验证的 SOAP</dt>
+                <dd>
+                    <ul>
+                        <li>需要设备之间的信任关系：是</li>
+                        <li>Blue Prism 身份验证模式：Blue Prism 本机/单点登录</li>
+                        <li>需要服务器端证书：是</li>
+                        <li>传输：SOAP over HTTPS</li>
+                    </ul>
+                    <p>包含 SOAP 标头的传输使用基于证书的加密方式进行加密。客户端和服务器标识通过 Windows/Active Directory 进行验证。</p>
+                </dd>
+                <dt>WCF：采用传输加密的 SOAP</dt>
+                <dd>
+                    <ul>
+                        <li>需要设备之间的信任关系：否</li>
+                        <li>Blue Prism 身份验证模式：Blue Prism 原生</li>
+                        <li>需要服务器端证书：是</li>
+                        <li>传输：SOAP over HTTPS</li>
+                    </ul>
+                    <p>包含 SOAP 标头的传输使用基于证书的加密方式进行加密。使用证书验证服务器标识。</p>
+                </dd>
+                <dt>.NET Remoting：安全</dt>
+                <dd>
+                    <ul>
+                        <li>需要设备之间的信任关系：是</li>
+                        <li>Blue Prism 身份验证模式：Blue Prism 本机/单点登录</li>
+                        <li>需要服务器端证书：是</li>
+                        <li>传输：TcpChannel over SChannel</li>
+                    </ul>
+                    <p>为向后兼容性而提供。在客户端和服务器之间协商加密。客户端和服务器标识通过 Windows/Active Directory 进行验证。</p>
+                </dd>
+                <dt>.NET Remoting：不安全</dt>
+                <dd>
+                    <ul>
+                        <li>需要设备之间的信任关系：否</li>
+                        <li>Blue Prism 身份验证模式：Blue Prism 原生</li>
+                        <li>需要服务器端证书：否</li>
+                        <li>传输：TcpChannel</li>
+                    </ul>
+                    <p>不推荐—为向后兼容性而提供。连接安全性需要完全由第三方解决方案提供。</p>
+                </dd>
+                <dt>WCF：不安全</dt>
+                <dd>
+                    <ul>
+                        <li>需要设备之间的信任关系：是</li>
+                        <li>Blue Prism 身份验证模式：Blue Prism 本机/单点登录</li>
+                        <li>需要服务器端证书：是</li>
+                        <li>传输：SOAP over HTTP</li>
+                    </ul>
+                    <p>不推荐。连接安全性需要完全由第三方解决方案提供。</p>
+                </dd>
+            </dl>
+        </dd>
+   
+		<dt id="config-bind">主机名或 IP 地址/IP 地址</dt>
+		<dd>如果服务器有多个网络接口，您可以指定服务器应该使用哪个 IP 地址来侦听连接情况。采用 WCF 连接模式时，可以使用主机名来替代 IP 地址。</dd>	
+		<dd>如果将此字段留空，Blue Prism 服务器将会接受来自任意地址的请求。</dd>
+
+		<dt id="disable-scheduler">禁用调度程序</dt>
+		<dd>选中此选项时，使用这个配置的服务器不会尝试运行任何计划任务。在需要部署一个服务器来负责运行计划的多服务器环境中，此选项可能非常有用。</dd>		
+		
+		<dt id="enable-dashboards">启用已发布的仪表盘</dt>
+		<dd>选中此选项时，服务器将定期获取已配置的所有<a href="dashboards-ui.htm#Published">已发布的仪表盘</a>的相关数据，并且采用 JSON 格式将结果写入到 Windows 事件日志中，以供外部应用程序使用。</dd>
+		
+	</dl>
+	
+	<h4>“证书”选项卡（仅适用于 WCF 连接模式）</h4>
+	<dl class="bulleted">
+	<dt>证书列表</dt>
+	<dd>已在计算机上发现的针对当前端口的所有证书绑定都将列在这个面板中。系统会列出针对这个端口的所有绑定，以便用户确定这些绑定是否适用于所选的主机名或 IP 地址。</dd>
+	<dd>您可以在这个部分中添加新的证书绑定。您还可以查看或删除现有的证书绑定。</dd>	
+	
+	<h4>“添加新的证书绑定”窗口（仅适用于 WCF 连接模式）</h4>
+	<p>可以在“证书”选项卡中添加新的证书绑定。</p>
+	<dl class="bulleted">
+	<dt>证书绑定地址</dt>
+	<dd>您可以在这个部分中选择是要使用“通配符”IP 地址、具体的 IP 地址还是主机名来为当前端口添加证书绑定。选项将因您为服务器指定的 IP 地址或主机名而异。</dd>
+	<dd>请注意，版本低于 Windows 8 的操作系统不支持使用主机名的绑定。系统将会显示相关的警告；您需要转而使用“任何 IP 地址”选项来添加绑定。</dd>	
+	<dt>本地计算机证书存储库</dt>
+	<dd>您可以使用此选项来指定要从中选择证书的存储库。在大多数情况下，您都应该使用默认的“我的（个人）”选项。在您点击“确定”按钮后，系统将要求您从这个存储库中选择一个证书。</dd>
+	</dl></dl>
+		
+	<h4>“密钥存储库”选项卡</h4>
+	<dl class="bulleted">
+	<dt>加密密钥</dt>
+	<dd>对于已在 Blue Prism 中定义的任意<a href="helpEncryption.htm">加密方案</a>，如果数据库中没有关联的密钥，则应将密钥及其关联方案的名称添加到服务器密钥存储库中。</dd>
+	<dd>在完成添加并启动服务器后，所连接的 Blue Prism 客户端将能使用这些密钥来加密和解密这个连接的凭证和队列项数据。</dd>
+	
+	<dt>将密钥分别存储在各个文件中</dt>
+	<dd>选中此选项时，密钥会与主服务器配置分开存储，以便在需要时通过操作系统权限和加密策略来控制对于密钥的访问。各个密钥将会写入到位于指定文件夹中且根据其关联的<a href="helpEncryption.htm">加密方案</a>名称来命名的独立文件中。</dd>
+	<dd>建议您将这个指定的文件夹只用来保存 Blue Prism 的加密密钥文件。请注意，多个服务器配置不能使用同一个文件夹。</dd>
+	<dd>如果修改服务器配置的用户没有一个或多个密钥文件的读取权限，此选项将会被禁用，以防密钥意外丢失。</dd>
+	</dl>
+	
+	<h4>“服务器服务”选项卡</h4>
+	<dl class="bulleted">
+	<dt>Windows 服务列表</dt>
+        <dd>此处会显示一个列表，其中列有已在本地计算机上检测到的各个 Blue Prism 服务器 Windows服务。这个列表只会显示与正在编辑的配置相关联的服务。这个列表中含有与服务设置和状态有关的信息。</dd>
+        <dd>此外，它还包含相关的详细信息，可以指明运行服务的用户帐户是否有权限侦听已为服务器配置指定的地址和端口。点击“管理权限”后将会打开一个窗口，您可以在其中管理这些权限。</dd>
+        <dd><code></code>如果在本地计算机上没有检测到与当前正在编辑的配置相关联的 Windows 服务，您可以通过点击“创建服务”按钮，或通过从提升的命令提示符中运行选项卡上所示的示例命令文本，来创建新的服务。</dd>
+
+	
+	<h4>“管理 URL 权限”窗口（仅适用于 WCF 连接模式）</h4>
+	<dl class="bulleted">
+	<dt>URL 权限列表</dt>
+	<dd>已在计算机上找到的与配置中的地址和端口有关的所有 URL 权限都将列在这个面板上。</dd>
+	<dd>请注意，针对 http URL 设置的 URL 权限不适用于使用 https 的服务器；反之亦然。也无法单独设置同时适用于 http 和 https URL（除了 http/https 部分之外，URL 的其他部分完全相同）的 URL 权限。这个列表中将同时包含使用 http 和 https URL 的权限，以便用户发现可能存在的任意冲突。</dd>
+	<dd>您可以在这个部分中添加新的 URL 权限。您还可以编辑或删除现有的权限。</dd>	
+	
+	<h4>“添加/编辑 URL 权限”窗口（仅适用于 WCF 连接模式）</h4>
+	<p>您可以在“管理 URL 权限”窗口中添加或编辑 URL 权限。</p>
+	<dl class="bulleted">
+		<dt>URL</dt>
+		<dd>您可以在这个部分中选择是要使用“通配符”IP 地址、具体的 IP 地址还是服务器所用的主机来添加 URL 权限。可用的选项将因您为服务器指定的地址而异。</dd>
+		<dt>用户</dt>
+		<dd>此处将会列出已被设置为运行在计算机上所检测到的 Windows 服务的用户帐户（以及在您进行编辑时属于某个现有 URL 权限的其他帐户），以供您选择。</dd>
+	</dl></dl></dl>
+	
+	<h4>“日志记录”选项卡</h4>
+	<dl class="bulleted">
+		<dt id="config-log">向事件日志发送服务状态消息 </dt>
+		<dd>选中此选项时，这个配置的状态消息会被记录到 Windows 事件日志中。</dd>
+
+		<dt id="log-verbose">记录详细消息</dt>
+		<dd>选中此选项时，除了状态消息以外，所有的“封送处理”和“连接断开”消息都将记录到 Windows 事件日志中。</dd>
+		
+		<dt id="log-traffic">记录流量详细信息</dt>
+		<dd>启用后，服务器上所有从客户端至远程对象 instancesn 的调用都会被记录。此选项仅用于进行诊断。</dd>
+	</dl>
+	
+	<p>“确定”<code></code>按钮将用于提交您所做的更改，“取消”<code></code>将用于放弃这些更改。请注意，当您点击“确定”<code></code>后，配置将被永久保存。</p>
+		
+	<h3 id="running">运行 BP 服务器</h3>
+	<p>您可以在“配置”<code></code>下拉框中选择所需的服务器配置详细信息，然后点击“启动”<code></code>按钮，以便直接从配置程序中执行服务器。服务器将会持续运行，直至您关闭程序或点击“停止”<code></code>按钮。</p>
+	
+	<p>或者，它也能以 Windows 服务的形式执行。请打开“服务”<code></code>管理工具并找到“Blue Prism 服务器”<code></code>条目。</p>
+	
+	<p>您可以在此处启动或停止该服务。该服务可以设置为在 Windows 开始运行时自动启动，还可以配置为在出现任意错误时重新启动。请注意，该服务将默认使用名为“默认”<code></code>的配置。如果这个配置已删除或重命名，则该服务将无法启动。</p>
+	
+	<h3 id="running-multiple">运行多个 BP 服务器</h3>
+	<p>您可以在同一个计算机上同时运行多个 Blue Prism 服务器实例，这些实例可能会连接不同的数据库并为不同的客户端服务。</p>
+	
+	<p>如果要通过服务器配置程序来运行，则只需打开这个程序多次，然后分别选用不同的配置并启动各个实例。</p>
+	
+	<p>如果要以服务的形式来运行，则必须设置多个服务，以启用这项功能。</p>
+
+	<p>服务可以使用 Microsoft 中的“服务控制”程序来进行配置。请参阅 <a href="http://support.microsoft.com/kb/251192">Microsoft 知识库文章 Q251192</a>，以进一步了解有关“服务控制”(SC) 程序的详细信息。</p>
+
+	<p>在配置对话框中设置好所需的配置后，可以通过运行以下命令专门为该配置注册某项服务：—</p>
+	
+	<pre>sc create <span style="color: #088">{SERVICENAME}</span> binPath= "C:\Program Files\Blue Prism Limited\Blue Prism Automate\BPServerService.exe <span style="color:#088">{CONFIGURATIONNAME}</span>"</pre>
+	
+	<p>其中，<code style="color: #088">{SERVICENAME}</code> 表示所要使用的服务的名称，<code style="color: #088">{CONFIGURATIONNAME}</code> 则是服务应该使用的服务器配置的名称。</p>
+
+	<p>请务必注意，“binPath”与等号之间不能有空格，等号与路径之间要有一个空格。</p>
+	
+	<p>如果所需的服务名称包含空格字符，则应使用引号将它括起来，<i>例如：</i></p>
+	
+	<pre>sc create <span style="color:#088">"BP Server II"</span> binPath= <i>...etc...</i></pre>
+	
+	<p>配置名称不应该包含任何空格或引号字符，以便服务控制程序能够正确地加以引用。</p>
+
+	<h3>连接 BP 服务器</h3>
+	<p>要配置能与 Blue Prism 服务器实例进行通信的连接，请参阅 Blue Prism 客户端的<a href="helpConnections.htm">登录</a>页面中的<a href="frmLogin.htm">“连接”对话框</a>。</p>
+	
+</body>
+</html>

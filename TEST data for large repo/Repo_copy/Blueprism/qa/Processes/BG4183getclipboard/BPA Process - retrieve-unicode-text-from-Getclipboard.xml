@@ -1,0 +1,75 @@
+﻿<process name="retrieve-unicode-text-from-Getclipboard" version="1.0" bpversion="6.8.0.22545" narrative="Retrieving unicode text from the clipboard using the function GetClipboard()" byrefcollection="true" preferredid="ba25d249-5c88-4b1f-ad5f-cc14a701e8c4">
+  <view>
+    <camerax>-43</camerax>
+    <cameray>-16</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="ae017fc8-b9c9-467f-b084-93faaae2c223" name="Start" type="Start">
+    <display x="15" y="-165" />
+    <onsuccess>a9770197-5efb-424c-96ad-6fbce2166a9f</onsuccess>
+  </stage>
+  <stage stageid="ba465160-37b6-4f80-a025-97a06828e04e" name="End" type="End">
+    <display x="15" y="135" />
+  </stage>
+  <stage stageid="a3521a3a-cb89-4f00-b258-aa7bee2dac33" name="Stage1" type="ProcessInfo">
+    <display x="-210" y="-135" w="150" h="90" />
+  </stage>
+  <stage stageid="a9770197-5efb-424c-96ad-6fbce2166a9f" name="Note1" type="Note">
+    <narrative>GIVEN I have unicode text set as my clipboard</narrative>
+    <display x="15" y="-120" w="270" h="30" />
+    <onsuccess>256e7c72-ae2e-4084-b0a4-a4705f26c616</onsuccess>
+  </stage>
+  <stage stageid="d7eb23c3-3192-4ac8-9fc6-1f59f8646066" name="Clipboard Correct??" type="Decision">
+    <display x="15" y="90" w="120" h="30" />
+    <decision expression="[Clipboard]=[Expected Text]" />
+    <ontrue>ba465160-37b6-4f80-a025-97a06828e04e</ontrue>
+    <onfalse>87ebcfdd-bb2b-4a62-a5f2-22657942fd91</onfalse>
+  </stage>
+  <stage stageid="87ebcfdd-bb2b-4a62-a5f2-22657942fd91" name="FAIL" type="Exception">
+    <display x="120" y="90" />
+    <exception localized="yes" type="Error" detail="&quot;Clipboard text MissMatch&quot;" />
+  </stage>
+  <stage stageid="5d967823-9d20-44e9-beb4-9134bdeffa85" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="-75" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="256e7c72-ae2e-4084-b0a4-a4705f26c616" name="Set Clipboard" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-75" w="270" h="30" />
+    <inputs>
+      <input type="text" name="Clipboard" friendlyname="Clipboard" narrative="The value to set the clipboard to." expr="[Expected Text]" />
+    </inputs>
+    <onsuccess>feab78d0-1b69-4150-874a-4f7e44f016f9</onsuccess>
+    <resource object="Utility - Environment" action="Set Clipboard" />
+  </stage>
+  <stage stageid="1124eabd-b530-4ee1-b684-e7fd9530d34b" name="Get Clipboard()" type="Calculation">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="270" h="30" />
+    <onsuccess>d7eb23c3-3192-4ac8-9fc6-1f59f8646066</onsuccess>
+    <calculation expression="GetClipboard()" stage="Clipboard" />
+  </stage>
+  <stage stageid="b35864c3-c269-4786-82a4-75fd95504b34" name="Clipboard" type="Data">
+    <display x="-210" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b5618ba9-42f2-4ed4-8262-ccbde1d49599" name="Expected Text" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Russian:Стройгазмонтаж Chinese:早上好 Japanese:おはようございます Tamil:வணக்கம் ****Date:23/10/2019*** SpecialCharacters: !£$%^&amp;*()</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="feab78d0-1b69-4150-874a-4f7e44f016f9" name="Note2" type="Note">
+    <narrative>WHEN the GetClipboard() function is used to retrieve the unicode text 
+THEN this text is outputting in correct format</narrative>
+    <display x="15" y="-15" w="270" h="60" />
+    <onsuccess>1124eabd-b530-4ee1-b684-e7fd9530d34b</onsuccess>
+  </stage>
+</process>

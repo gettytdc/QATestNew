@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Process Import</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="pagetitle">Process Import</h1>
+    </div>
+	
+	<p><strong>Note: </strong> This mechanism has largely been
+	superseded by the <a href="relman.html">Release Manager</a>. For
+	specific details about importing a process see the help
+	documentation for the <a href="relman-import-release.html">Import
+	Release</a> wizard.<br/>
+	This documentation remains for the editions of Blue Prism in which
+	the Release Manager is unavailable.</p>
+
+    <h3>Overview</h3>
+
+    <p>The process import feature allows you to import a process or
+    (<a href="helpBusinessObjects.htm#VBO">visual business object</a>) which was created within a different
+    <a href="helpConnections.htm">Blue Prism database</a>. This is particularly useful if you have
+    separate databases for testing and production environments, and you wish to transfer changes made
+    in the test environment into the production environment. Using the Process Import wizard is quick
+    and simple.
+    </p>
+    <p>
+		The task is summarised by the following flow chart. Each step is annotated below.
+		<img style="display: block; margin-left:auto; margin-right:auto" src="graphics/ProcessImportWizard.png" alt="Flowchart summarising the steps involved in an import" />
+	</p>
+	
+
+	<h3>1. Choose a file to import</h3>
+
+	<p>A file name for the process must be specified. Click browse and navigate to the location
+	of the file you wish to import. The file must contain a process or business object which has
+	been <a href="frmProcessExport.htm">exported</a> from another database.</p>
+
+	<div class="indented">
+	<h3 id="IDConflict">1a. Resolve ID conflicts, where necessary</h3>
+	<p>
+	   Each process and business object has an internal ID which it retains when it is exported.
+	   Each process and business object must have an ID which is unique amongst all other processes
+	   and business objects in the same database. The ID is used for several purposes, including maintaining
+	   references in <a href="frmStagePropertiesSubProcess.htm">Sub-Process Stages</a>.
+	</p>
+	<p>
+	   A naming conflict usually occurs when you export a process from a live environment, make some
+	   modifications to it in a test environment, and then want to propagate those changes back to the
+	   live environment by importing it. In this case you should choose to overwrite the existing process
+	   with the incoming process. This will maintain the sequence of edits in the
+	   <a href="helpProcessHistory.htm">process' history</a>. Any sub-process references made in other
+	   processes (or business objects) will point to the latest version of the process, in its newly imported state.
+	 </p>
+	 <p>
+		Alternatively, you may choose a new ID for the incoming process, which will mean that the two processes
+		will co-exist, under different names (the wizard will enforce the choice of a new name for the incoming process).
+		In this case, sub-process references made in other processes (or business objects) will point to the original
+		process, rather than the newly imported one.
+	  </p>
+	  </div>
+	  
+	  
+	  <h3>2. Enter a process name</h3>
+	  <p>
+		The name for the process from the original file will be shown. This name can be left as
+		it is but if you wish to change or update it, the name can contain any characters, including
+		spaces. The name can only be up to 128 characters long.
+	  </p>
+	  <p>
+		The chosen name must not conflict with any existing name in the database (except perhaps in the case
+		when a process is to be written over an existing process in the database, as in the case of an
+		<a href="#IDConflict">ID conflict</a>).
+	   </p>
+	   <p>
+		If you are overwriting an existing process, the name you choose here will be the name of that process,
+		in its latest form: that is, the existing process will be both overwritten and renamed.
+	   </p>
+	   
+	   <div class="indented">
+	   <h3 id="NameConflict">2a. Resolve naming conflicts, where necessary</h3>
+	   <p>
+			If your chosen name for the process conflicts with the name of an existing process, then you must
+			either click the &quot;Back&quot; button and choose another name, or you must choose from the
+			options presented. 
+		</p>
+		<p>
+			If you have chosen to overwrite an existing process, because of an <a href="#IDConflict">ID conflict</a>,
+			then your only further option will be to rename the existing process, to make way for the incoming process.
+			In all other cases, you will have the option to overwrite the existing process.
+		</p>
+		</div>
+		
+	<h3>3. Enter a process description</h3>
+	<p>The description of the business process can be up to 1000 characters long, and will be
+	shown on a note field at the top of the finished process flowchart.</p>
+
+	<h3>4. Continue to Process Studio</h3>
+
+	<p>Once you have completed steps 1,2 and 3, your choices will be actioned, and irreversibly applied.
+	You will then be presented with the option to open the imported process in <a href="frmProcess.htm">process studio</a>, after the wizard
+	closes.
+	</p>
+	
+</body>
+</html>

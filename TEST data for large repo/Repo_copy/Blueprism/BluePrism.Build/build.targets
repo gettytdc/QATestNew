@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Commit" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="common.targets" />
+
+    <!-- Build parameters -->
+    <PropertyGroup>
+        <!-- Platforms in which to build BluePrism - overridden via command line. Multiple platforms can be separated
+        with semi-colons and should be quoted in the command, e.g. /p:BluePrismPlatforms="x86;x64"-->
+        <BluePrismPlatforms>x64</BluePrismPlatforms>
+        <!-- The suffix applied to the assembly version to form the version number based on the Semantic Versioning spec
+        which is currently used to label msi filenames e.g. "[AssemblyVersion]-[SemanticVersionSuffix]". If this is blank then 
+        just the Assembly version is returned.-->
+        <SemanticVersionSuffix></SemanticVersionSuffix>
+        <!-- Controls whether a file containing build information is output during build -->
+        <CreateBuildDataFileEnabled>True</CreateBuildDataFileEnabled>
+        <!-- Unit test code currently included in debug configuration only (using #if DEBUG) 
+        - this property can be overriden via command line -->
+        <UnitTestsEnabled Condition=" $(Configuration) == 'Debug' ">True</UnitTestsEnabled>
+        <!-- Enable Unit Test Coverage Report Creation using dotCover -->
+        <UnitTestCoverageEnabled></UnitTestCoverageEnabled>
+        <!-- Enables obfuscation -->
+        <ObfuscationEnabled>False</ObfuscationEnabled>
+        <!-- Used to sign binaries - see readme.txt for details on testing signing in dev environment -->
+        <SigningCertificateHash></SigningCertificateHash>
+        <!-- Enables signing of binaries (if SigningCertificateHash is supplied) -->
+        <SigningEnabled>True</SigningEnabled>
+        <!-- Controls whether unversioned files and directories are deleted before building. Git must be on the 
+        path for this to work.  -->
+        <CleanBeforeBuildEnabled>False</CleanBeforeBuildEnabled>
+        <!-- Controls whether version number changes are reverted after build - used during development/testing.
+        Git must be on the path for this to work. Note that this reverts all VBO files. Be sure that this is
+        what you want to do -->
+        <RevertSourceCodeChangesEnabled>False</RevertSourceCodeChangesEnabled>
+       
+        <!-- Controls whether the Browser plugins are packaged and included in the installer. We want to prevent this for CI builds. -->
+        <IncludeBrowserPlugin>False</IncludeBrowserPlugin>
+
+        <!-- Used during build script development/testing to omit build steps -->
+        <SkipBuild>False</SkipBuild>
+        <BuildBluePrism>True</BuildBluePrism>
+        <BuildLoginAgent>True</BuildLoginAgent>
+        <BuildAppMan32Citrix>True</BuildAppMan32Citrix>
+    </PropertyGroup>
+    <ItemGroup>
+        <!-- Target BluePrism platforms. This is expanded from the $(BluePrismPlatforms) property 
+        which can be set via command line-->
+        <BluePrismPlatform Include="$(BluePrismPlatforms)" />
+        <!-- Target LoginAgent platforms. The BluePrism installer includes LoginAgent msis for 
+        all platforms -->
+        <LoginAgentPlatform Include="x86;x64" />
+        <AppMan32Citrix Include="x86;x64" />
+    </ItemGroup>
+
+    <!-- Directory and file paths. 
+    
+    * Directory properties end with "Directory" and values do not include a final backslash
+    * Absolute file path properties end with "FullPath"    
+    -->
+    <PropertyGroup>
+        <SharedBinDirectory>$(RootDirectory)\bin</SharedBinDirectory>
+        <LoginAgentBinDirectory>$(RootDirectory)\LoginAgent\bin</LoginAgentBinDirectory>
+
+        <BluePrismSlnDirectory>$(RootDirectory)</BluePrismSlnDirectory>
+        <BluePrismSlnFullPath>$(BluePrismSlnDirectory)\BluePrism.sln</BluePrismSlnFullPath>
+        <BluePrismMapFilesPath>$(BluePrismSlnDirectory)\obfuscated\mappings</BluePrismMapFilesPath>
+        <LoginAgentSlnDirectory>$(RootDirectory)\LoginAgent</LoginAgentSlnDirectory>
+        <LoginAgentSlnFullPath>$(LoginAgentSlnDirectory)\LoginAgent.sln</LoginAgentSlnFullPath>
+
+        <AppMan32CitrixSlnDirectory>$(RootDirectory)\AppMan32.Citrix</AppMan32CitrixSlnDirectory>
+        <AppMan32CitrixSlnFullPath>$(AppMan32CitrixSlnDirectory)\AppMan32.Citrix.vcxproj</AppMan32CitrixSlnFullPath>
+
+       <NuGetExeFullPath>NuGet.exe</NuGetExeFullPath>
+
+        <!-- Paths to libraries and tools -->
+        <SDKVersionDirectoryName>10.0.18362.0</SDKVersionDirectoryName>
+        <WindowsKitsRootDirectory>$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Kits\Installed Roots', 'KitsRoot10', null, RegistryView.Registry32, RegistryView.Default))</WindowsKitsRootDirectory>
+        <WindowsKitsRootDirectory Condition="'$(WindowsKitsRootDirectory)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Kits\Installed Roots', 'KitsRoot81', null, RegistryView.Registry32, RegistryView.Default))</WindowsKitsRootDirectory>
+        <WindowsKitsRootDirectory Condition="'$(WindowsKitsRootDirectory)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Kits\Installed Roots', 'KitsRoot', null, RegistryView.Registry32, RegistryView.Default))</WindowsKitsRootDirectory>
+        <SignToolFullPath>$(WindowsKitsRootDirectory)bin\$(SDKVersionDirectoryName)\x86\signtool.exe</SignToolFullPath>
+    </PropertyGroup>
+  
+    <Target Name="Restore" >
+      <Exec Command="&quot;$(NuGetExeFullPath)&quot; restore &quot;$(BluePrismSlnFullPath)&quot;" />
+    </Target>
+  
+    <!-- Standard commit build -->
+    <Target Name="Commit" DependsOnTargets="Build;RunUnitTests;RunUnitTests32Bit;RunUnitTestCoverage;" />
+
+    <!-- Builds product -->
+    <Target Name="Build" DependsOnTargets="Prepare;InitVersionNumbers;UpdateVersionNumbersInSourceCode;PackageBrowserPlugins;BuildAppMan32Citrix;Restore;BuildBluePrism;CreateBuildDataFile;RevertSourceCodeChanges;GenerateSQLScript" >
+        <OnError ExecuteTargets="RevertSourceCodeChanges" />
+    </Target>
+
+    <!-- Builds BluePrism solution (including the BluePrism installer) and signs the installer. As the BluePrism installer includes 
+    the LoginAgent installers, the LoginAgent solution (including the installer) is built before this. -->
+    <Target Name="BuildBluePrism" DependsOnTargets="CheckSignToolPath;CompileBluePrism;ZipMapFiles;CopyNuGetPackages" />
+
+    <Target Name="CompileBluePrism" DependsOnTargets="BuildLoginAgent" Outputs="%(BluePrismPlatform.Identity)"
+            Condition=" '$(BuildBluePrism)' == 'True' " >
+        <!-- Build the solution - Note that signing of assemblies and msi files is coordinated within the
+        individual projects. This ensures that project output files are signed before they are packaged 
+        into the installer .msi file. We supply the properties SigningEnabled, SignToolFullPath and 
+        SigningCertificateHash in our call to MSBuild so that they can be used by the project files.
+        The Version and PackageVersion properties are used by .NET Standard projects. The 
+        SigningCertificateFingerprint property is used by the BluePrism.Build.Siprox package. -->
+        <MSBuild Projects="$(BluePrismSlnFullPath)"
+                 Properties="Configuration=$(Configuration);Platform=%(BluePrismPlatform.Identity);SemanticVersion=$(SemanticVersion);Version=$(AssemblyVersion);PackageVersion=$(SemanticVersion);UnitTestsEnabled=$(UnitTestsEnabled);ObfuscationEnabled=$(ObfuscationEnabled);SigningEnabled=$(SigningEnabled);SignToolFullPath=$(SignToolFullPath);SigningCertificateHash=$(SigningCertificateHash);SigningCertificateFingerprint=$(SigningCertificateHash);IncludePlugin=$(IncludeBrowserPlugin)"
+                 Condition=" '$(SkipBuild)' != 'True' " />
+        
+        <!-- Copy setup output to shared bin folder -->
+        <ItemGroup>
+            <PublishOutput Include="$(BluePrismSlnDirectory)\Publish\Automate*.msi" />
+        </ItemGroup>
+        <Copy SourceFiles="@(PublishOutput)" DestinationFolder="$(SharedBinDirectory)" />
+        
+    </Target>
+
+    <Target Name="CheckSignToolPath" Condition=" '$(SigningEnabled)' == 'True' ">
+        <Error Condition="!Exists('$(SignToolFullPath)')" Text="signtool.exe not found at $(SignToolFullPath)" />
+    </Target>
+
+    <Target Name="BuildLoginAgent" DependsOnTargets="CompileLoginAgent" />
+
+    <Target Name="BuildAppMan32Citrix" DependsOnTargets="CompileAppMan32Citrix" />
+
+  <!-- Builds the LoginAgent solution, which includes the LoginAgent installer. Both platforms are built so that
+    the x86 and x64 versions of the LoginAgent installer can be included in each BluePrism installer -->
+    <Target Name="CompileLoginAgent" Outputs="%(LoginAgentPlatform.Identity)"
+            Condition=" '$(BuildLoginAgent)' == 'True' " >
+        <!-- Build the solution - Note that signing of assemblies and msi files is coordinated within the
+        individual projects. This ensures that project output files are signed before they are packaged 
+        into the installer .msi file. We supply the properties SigningEnabled, SignToolFullPath and 
+        SigningCertificateHash in our call to MSBuild so that they can be used by the project files. -->
+        <MSBuild Projects="$(LoginAgentSlnFullPath)" Properties="Configuration=$(Configuration);Platform=%(LoginAgentPlatform.Identity);UnitTestsEnabled=$(UnitTestsEnabled);ObfuscationEnabled=$(ObfuscationEnabled);ObfuscationEnabled=$(ObfuscationEnabled);SigningEnabled=$(SigningEnabled);SignToolFullPath=$(SignToolFullPath);SigningCertificateHash=$(SigningCertificateHash)"
+                 Condition=" '$(SkipBuild)' != 'True' " />
+    </Target>
+
+  <!-- Builds the AppMan32.Citrix solution -->
+  <Target Name="CompileAppMan32Citrix" Outputs="%(AppMan32Citrix.Identity)"
+          Condition=" '$(BuildAppMan32Citrix)' == 'True' " >
+    <!-- Build the solution - Note that signing of assemblies and msi files is coordinated within the
+        individual projects. This ensures that project output files are signed before they are packaged 
+        into the installer .msi file. We supply the properties SigningEnabled, SignToolFullPath and 
+        SigningCertificateHash in our call to MSBuild so that they can be used by the project files. -->
+    <MSBuild Projects="$(AppMan32CitrixSlnFullPath)" Properties="Configuration=$(Configuration);Platform=win32;UnitTestsEnabled=$(UnitTestsEnabled);ObfuscationEnabled=$(ObfuscationEnabled)"
+             Condition=" '$(SkipBuild)' != 'True' " />
+  </Target>
+  
+  <!-- Updates version XML attributes in VBO files -->
+    <Target Name="UpdateVBOVersionNumbers">
+        <ItemGroup>
+            <VBOFiles Include="$(RootDirectory)\VBO\BPA Object -*.xml" />
+        </ItemGroup>
+        <PropertyGroup>
+            <!-- Match version attribute within process element at start of file -->
+            <!-- (?<=^\s*\<process\s+[^>]*\s+version=")[^"]+ -->
+            <VersionRegex>(?&lt;=^\s*\&lt;process\s+[^&gt;]*\s+version=")[^"]*</VersionRegex>
+        </PropertyGroup>
+        <!-- Using simple Regex replacement - the XmlPoke task changes whitespace during transform -->
+        <MSBuild.ExtensionPack.FileSystem.File TaskAction="Replace" RegexPattern="$(VersionRegex)" RegexOptionList="IgnoreCase" Replacement="$(AssemblyVersion)" Files="@(VBOFiles)"/>
+    </Target>
+
+    <!-- Updates version attributes in cpp projects files -->
+    <Target Name="UpdateCPlusPlusVersionNumbers">
+        <ItemGroup>
+            <RCFiles Include="$(RootDirectory)\**\*.rc" />
+        </ItemGroup>
+        <!-- Using simple Regex replacement - the XmlPoke task changes whitespace during transform -->
+        <MSBuild.ExtensionPack.FileSystem.File TaskAction="Replace" TextEncoding="Windows-1252" RegexPattern="FILEVERSION\s+\S+"  Replacement="FILEVERSION $(AssemblyVersion.Replace('.',','))" Files="@(RCFiles)"/>
+        <MSBuild.ExtensionPack.FileSystem.File TaskAction="Replace" TextEncoding="Windows-1252" RegexPattern="PRODUCTVERSION\s+\S+" Replacement="PRODUCTVERSION $(AssemblyVersion.Replace('.',','))" Files="@(RCFiles)"/>
+        <MSBuild.ExtensionPack.FileSystem.File TaskAction="Replace" TextEncoding="Windows-1252" RegexPattern='VALUE "FileVersion", "[0-9]*[,.][0-9]*[,.][0-9]*[,.][0-9]*"' Replacement='VALUE "FileVersion", "$(AssemblyVersion.Replace(".",","))"' Files="@(RCFiles)"/>
+        <MSBuild.ExtensionPack.FileSystem.File TaskAction="Replace" TextEncoding="Windows-1252" RegexPattern='VALUE "ProductVersion", "[0-9]*[,.][0-9]*[,.][0-9]*[,.][0-9]*"' Replacement='VALUE "ProductVersion", "$(AssemblyVersion)"' Files="@(RCFiles)"/>
+    </Target>
+
+    <!-- Reverts any changes to source code made during build (when updating version numbers) -->
+    <Target Name="RevertSourceCodeChanges" Condition=" '$(RevertSourceCodeChangesEnabled)' == 'True' ">
+        <ItemGroup>
+            <FilesToRevert Include="$(RootDirectory)\VBO\*.xml;$(RootDirectory)\bin\LoginAgent*.msi;$(RootDirectory)\SharedAssemblyInfo.*;$(RootDirectory)\**\*.rc;$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\manifest.json" />
+        </ItemGroup>
+        <Exec Command="git checkout head @(FilesToRevert->'&quot;%(FullPath)&quot;', ' ')" />
+    </Target>
+
+    <!-- Uses automatec.exe to generate database scripts that are made available with installer -->
+    <Target Name="GenerateSQLScript">
+        <PropertyGroup>
+            <AutomateExe>$(SharedBinDirectory)\AutomateC.exe</AutomateExe>
+        </PropertyGroup>
+
+        <Exec Command="&quot;$(AutomateExe)&quot; /getdbversion" ConsoleToMSBuild="true">
+            <Output TaskParameter="ConsoleOutput" PropertyName="DBVersion" />
+        </Exec>
+
+        <Exec Command="&quot;$(AutomateExe)&quot; /getdbscript" ConsoleToMSBuild="true">
+            <Output TaskParameter="ConsoleOutput" PropertyName="CreateScriptContent" />
+        </Exec>
+
+        <Exec Command="&quot;$(AutomateExe)&quot; /getdbscript /fromrev 10" ConsoleToMSBuild="true">
+            <Output TaskParameter="ConsoleOutput" PropertyName="UpgradeScriptContent" />
+        </Exec>
+
+        <PropertyGroup>
+            <ScriptOutputDirectory>$(OutputDirectory)\Database</ScriptOutputDirectory>
+            <CreateScriptFullPath>$(ScriptOutputDirectory)\BluePrismDBCreate_R$(DBVersion).sql</CreateScriptFullPath>
+            <UpgradeScriptFullPath>$(ScriptOutputDirectory)\BluePrismDBUpgrade_R$(DBVersion).sql</UpgradeScriptFullPath>
+        </PropertyGroup>
+
+        <MakeDir Directories="$(ScriptOutputDirectory)" Condition="!Exists($(ScriptOutputDirectory))" />
+
+        <WriteLinesToFile
+            File="$(CreateScriptFullPath)"
+            Lines="$(CreateScriptContent)"
+            Overwrite="true" />
+
+        <WriteLinesToFile
+            File="$(UpgradeScriptFullPath)"
+            Lines="$(UpgradeScriptContent)"
+            Overwrite="true" />
+
+    </Target>
+  <PropertyGroup>
+    <ExternalLoginBrowserUnitTestsFilePath>$(RootDirectory)\BluePrism.ExternalLoginBrowser.UnitTests\bin\Debug\BluePrism.ExternalLoginBrowser.UnitTests.dll</ExternalLoginBrowserUnitTestsFilePath>
+  </PropertyGroup>
+
+  <!-- Run unit tests -->
+  <Target Name="RunUnitTests" Condition=" $(UnitTestsEnabled) == 'True' " >
+
+    <Error Condition="!Exists('$(NUnitRunnerToolsDirectory)')" Text="NUnit.Runners not found at $(NUnitRunnerToolsDirectory)" />
+
+    <PropertyGroup>
+      <ResultsXmlFilePath>$(BuildDirectory)\unit-test-results.xml</ResultsXmlFilePath>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <TestAssembly Include="$(SharedBinDirectory)\AutomateAppCore.dll" />
+      <TestAssembly Include="$(SharedBinDirectory)\AutomateProcessCore.dll" />
+      <TestAssembly Include="$(RootDirectory)\LoginAgent\bin\LoginAgentService.exe" />
+      <TestAssembly Include="$(RootDirectory)\**\bin\$(Configuration)\*IntegrationTests.dll" />
+      <TestAssembly Include="$(SharedBinDirectory)\BluePrism.UnitTesting.dll" />
+      <TestAssembly Include="$(SharedBinDirectory)\BluePrism.DigitalWorker.UnitTests.dll" />
+      <TestAssembly Include="$(RootDirectory)\**\bin\$(Configuration)\*UnitTests.dll"
+                    Exclude="$(ExternalLoginBrowserUnitTestsFilePath)" />
+      <TestAssembly Include="$(SharedBinDirectory)\AutomateUI.UnitTests.dll" />
+      <TestAssembly Include="$(RootDirectory)\BPServer.UnitTests\bin\$(Configuration)\BPServer.UnitTests.dll" />
+    </ItemGroup>
+    <!--<Message Text="TestAssembly: @(TestAssembly->'%(FullPath)', '%0a') " />-->
+
+    <MSBuild.ExtensionPack.CodeQuality.NUnit3
+      ToolPath="$(NUnitRunnerToolsDirectory)"
+      OutputXmlFile="$(ResultsXmlFilePath)"
+      Assemblies="@(TestAssembly)">
+      <Output TaskParameter="Total" PropertyName="UnitTestTotal"/>
+      <Output TaskParameter="NotRun" PropertyName="UnitTestNotRun"/>
+      <Output TaskParameter="Failures" PropertyName="UnitTestFailures"/>
+      <Output TaskParameter="Errors" PropertyName="UnitTestErrors"/>
+      <Output TaskParameter="Inconclusive" PropertyName="UnitTestInconclusive"/>
+      <Output TaskParameter="Ignored" PropertyName="UnitTestIgnored"/>
+      <Output TaskParameter="Skipped" PropertyName="UnitTestSkipped"/>
+      <Output TaskParameter="Invalid" PropertyName="UnitTestInvalid"/>
+    </MSBuild.ExtensionPack.CodeQuality.NUnit3>
+
+   <Error Condition="$(UnitTestErrors) > 0 Or $(UnitTestFailures) > 0" Text="Unit tests failed - $(UnitTestErrors) error(s), $(UnitTestFailures) failure(s)" />
+  </Target>
+
+  <!-- Run 32 bit unit tests -->
+  <Target Name="RunUnitTests32Bit" Condition=" $(UnitTestsEnabled) == 'True' " >
+
+    <Error Condition="!Exists('$(NUnitRunnerToolsDirectory)')" Text="NUnit.Runners not found at $(NUnitRunnerToolsDirectory)" />
+
+    <PropertyGroup>
+      <ResultsXmlFilePath32BitTests>$(BuildDirectory)\unit-test-results-32-bit.xml</ResultsXmlFilePath32BitTests>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <TestAssembly Include="$(ExternalLoginBrowserUnitTestsFilePath)" />
+    </ItemGroup>
+
+    <MSBuild.ExtensionPack.CodeQuality.NUnit3
+        ToolPath="$(NUnitRunnerToolsDirectory)"
+        OutputXmlFile="$(ResultsXmlFilePath32BitTests)"
+        Assemblies="@(TestAssembly)"
+        Use32Bit="true">
+      <Output TaskParameter="Total" PropertyName="UnitTestTotal"/>
+      <Output TaskParameter="NotRun" PropertyName="UnitTestNotRun"/>
+      <Output TaskParameter="Failures" PropertyName="UnitTestFailures"/>
+      <Output TaskParameter="Errors" PropertyName="UnitTestErrors"/>
+      <Output TaskParameter="Inconclusive" PropertyName="UnitTestInconclusive"/>
+      <Output TaskParameter="Ignored" PropertyName="UnitTestIgnored"/>
+      <Output TaskParameter="Skipped" PropertyName="UnitTestSkipped"/>
+      <Output TaskParameter="Invalid" PropertyName="UnitTestInvalid"/>
+    </MSBuild.ExtensionPack.CodeQuality.NUnit3>
+
+    <Error Condition="$(UnitTestErrors) > 0 Or $(UnitTestFailures) > 0" Text="Unit tests failed - $(UnitTestErrors) error(s), $(UnitTestFailures) failure(s)" />
+  </Target>
+    <!--Unit Test Coverage-->
+    <Target Name="RunUnitTestCoverage" Condition=" $(UnitTestCoverageEnabled) == 'True' " >
+
+      <Error Condition="!Exists('$(NUnitRunnerToolsDirectory)')" Text="NUnit.Runners not found at $(NUnitRunnerToolsDirectory)" />
+      <PropertyGroup>
+        <NUnitExe>$(NUnitRunnerToolsDirectory)\nunit3-console.exe</NUnitExe>        
+        <!--ApplicationManagerUtilities-->
+        <ApplicationManagerUtilitiesProj>ApplicationManagerUtilities.UnitTests</ApplicationManagerUtilitiesProj>
+        <ApplicationManagerUtilitiesPath>$(RootDirectory)\$(ApplicationManagerUtilitiesProj)\bin\$(Configuration)\$(ApplicationManagerUtilitiesProj).dll</ApplicationManagerUtilitiesPath>
+        
+        <!-- Automate App Core-->
+        <AutomateAppCoreProj>AutomateAppCore.UnitTests</AutomateAppCoreProj>
+        <AutomateAppCorePath>$(RootDirectory)\$(AutomateAppCoreProj)\bin\$(Configuration)\$(AutomateAppCoreProj).dll</AutomateAppCorePath>
+        <!--Automate C-->
+        <AutomateCProj>AutomateC.UnitTests</AutomateCProj>
+        <AutomateCPath>$(RootDirectory)\$(AutomateCProj)\bin\$(Configuration)\$(AutomateCProj).dll</AutomateCPath>
+        <!--AutomateConfig-->
+        <AutomateConfigProj>AutomateConfig.UnitTests</AutomateConfigProj>
+        <AutomateConfigPath>$(RootDirectory)\$(AutomateConfigProj)\bin\$(Configuration)\$(AutomateConfigProj).dll</AutomateConfigPath>
+        <!--AutomateControls-->
+        <AutomateControlsProj>AutomateControls.UnitTests</AutomateControlsProj>
+        <AutomateControlsPath>$(RootDirectory)\$(AutomateControlsProj)\bin\$(Configuration)\$(AutomateControlsProj).dll</AutomateControlsPath>
+        <!--AutomateProcessCore-->
+        <AutomateProcessCoreProj>AutomateProcessCore.UnitTests</AutomateProcessCoreProj>
+        <AutomateProcessCorePath>$(RootDirectory)\$(AutomateProcessCoreProj)\bin\$(Configuration)\$(AutomateProcessCoreProj).dll</AutomateProcessCorePath>
+        <!--AutomateUI-->
+        <AutomateUIProj>AutomateUI.UnitTests</AutomateUIProj>
+        <AutomateUIPath>$(RootDirectory)\bin\$(AutomateUIProj).dll</AutomateUIPath>
+        <!--ActiveDirectoryUserSearcher-->
+        <ActiveDirectoryUserSearcherProj>BluePrism.ActiveDirectoryUserSearcher.UnitTests</ActiveDirectoryUserSearcherProj>
+        <ActiveDirectoryUserSearcherPath>$(RootDirectory)\$(ActiveDirectoryUserSearcherProj)\bin\$(Configuration)\$(ActiveDirectoryUserSearcherProj).dll</ActiveDirectoryUserSearcherPath>
+        <!--ActiveDirectoryUserSearchService-->
+        <ActiveDirectoryUserSearchServiceProj>BluePrism.ActiveDirectoryUserSearchService.UnitTests</ActiveDirectoryUserSearchServiceProj>
+        <ActiveDirectoryUserSearchServicePath>$(RootDirectory)\$(ActiveDirectoryUserSearchServiceProj)\bin\$(Configuration)\$(ActiveDirectoryUserSearchServiceProj).dll</ActiveDirectoryUserSearchServicePath>
+        <!--BrowserAutomation-->
+        <BrowserAutomationProj>BluePrism.BrowserAutomation.UnitTests</BrowserAutomationProj>
+        <BrowserAutomationPath>$(RootDirectory)\$(BrowserAutomationProj)\bin\$(Configuration)\$(BrowserAutomationProj).dll</BrowserAutomationPath>
+        <!--Caching-->
+        <CachingProj>BluePrism.Caching.UnitTests</CachingProj>
+        <CachingPath>$(RootDirectory)\$(CachingProj)\bin\$(Configuration)\$(CachingProj).dll</CachingPath>
+        <!--Core-->
+        <CoreProj>BluePrism.Core.UnitTests</CoreProj>
+        <CorePath>$(RootDirectory)\$(CoreProj)\bin\$(Configuration)\$(CoreProj).dll</CorePath>
+        <!--DatabaseInstaller-->
+        <DatabaseInstallerProj>BluePrism.Database.UnitTests</DatabaseInstallerProj>
+        <DatabaseInstallerPath>$(RootDirectory)\BluePrism.DatabaseInstaller.UnitTests\bin\$(Configuration)\$(DatabaseInstallerProj).dll</DatabaseInstallerPath>
+        <!--DataPipeline-->
+        <DataPipelineProj>BluePrism.DataPipeline.UnitTests</DataPipelineProj>
+        <DataPipelinePath>$(RootDirectory)\$(DataPipelineProj)\bin\$(Configuration)\$(DataPipelineProj).dll</DataPipelinePath>
+        <!--DigitialWorker-->
+        <DigitalWorkerProj>BluePrism.DigitalWorker.UnitTests</DigitalWorkerProj>
+        <DigitalWorkerPath>$(RootDirectory)\$(DigitalWorkerProj)\bin\$(Configuration)\$(DigitalWorkerProj).dll</DigitalWorkerPath>
+        <!--DocumentProcessing.Integration-->
+        <DocumentProcessingIntegrationProj>BluePrism.DocumentProcessing.Integration.UnitTests</DocumentProcessingIntegrationProj>
+        <DocumentProcessingIntegrationPath>$(RootDirectory)\$(DocumentProcessingIntegrationProj)\bin\$(Configuration)\$(DocumentProcessingIntegrationProj).dll</DocumentProcessingIntegrationPath>
+        <!--ExternalLoginBrowser-->
+        <ExternalLoginBrowserProj>BluePrism.ExternalLoginBrowser.UnitTests</ExternalLoginBrowserProj>
+        <ExternalLoginBrowserPath>$(RootDirectory)\$(ExternalLoginBrowserProj)\bin\$(Configuration)\$(ExternalLoginBrowserProj).dll</ExternalLoginBrowserPath>
+        <!--IntegrationTests-->
+        <IntegrationTestsProj>BluePrism.IntegrationTests</IntegrationTestsProj>
+        <IntegrationTestsPath>$(RootDirectory)\$(IntegrationTestsProj)\bin\$(Configuration)\$(IntegrationTestsProj).dll</IntegrationTestsPath>
+        <!--BluePrism Skills-->
+        <SkillsUnitTestsProj>BluePrism.Skills.UnitTests</SkillsUnitTestsProj>
+        <SkillsUnitTestsPath>$(RootDirectory)\$(SkillsUnitTestsProj)\bin\$(Configuration)\$(SkillsUnitTestsProj).dll</SkillsUnitTestsPath>
+        <!--Scheduler-->
+        <SchedulerProj>BPScheduler.UnitTests</SchedulerProj>
+        <SchedulerPath>$(RootDirectory)\$(SchedulerProj)\bin\$(Configuration)\$(SchedulerProj).dll</SchedulerPath>
+        <!--ClientComms-->
+        <ClientCommsProj>ClientComms.UnitTests</ClientCommsProj>
+        <ClientCommsPath>$(RootDirectory)\$(ClientCommsProj)\bin\$(Configuration)\$(ClientCommsProj).dll</ClientCommsPath>
+        <!--Internationalisation-->
+        <InternationalisationProj>Internationalisation.UnitTests</InternationalisationProj>
+        <InternationalisationPath>$(RootDirectory)\$(InternationalisationProj)\bin\$(Configuration)\$(InternationalisationProj).dll</InternationalisationPath>
+        
+        <DotCoverFilters>-:type=*UnitTest*;-:module=*UnitTesting*</DotCoverFilters>
+        <OutputDir>$(RootDirectory)\Output</OutputDir>
+        <!--$(OutputDir)\$(DataPipelineProj).dcvr;-->
+        <!--$(OutputDir)\$(ExternalLoginBrowserProj).dcvr;-->
+        <MergeSources>$(OutputDir)\$(AutomateCProj).dcvr;$(OutputDir)\$(ApplicationManagerUtilitiesProj).dcvr;$(OutputDir)\$(AutomateConfigProj).dcvr;$(OutputDir)\$(AutomateControlsProj).dcvr;$(OutputDir)\$(AutomateProcessCoreProj).dcvr;$(OutputDir)\$(AutomateUIProj).dcvr;$(OutputDir)\$(ActiveDirectoryUserSearcherProj).dcvr;$(OutputDir)\$(ActiveDirectoryUserSearchServiceProj).dcvr;$(OutputDir)\$(BrowserAutomationProj).dcvr;$(OutputDir)\$(CachingProj).dcvr;$(OutputDir)\$(CoreProj).dcvr;$(OutputDir)\$(DatabaseInstallerProj).dcvr;$(OutputDir)\$(DigitalWorkerProj).dcvr;$(OutputDir)\$(DocumentProcessingIntegrationProj).dcvr;$(OutputDir)\$(IntegrationTestsProj).dcvr;$(OutputDir)\$(SkillsUnitTestsProj).dcvr;$(OutputDir)\$(SchedulerProj).dcvr;$(OutputDir)\$(ClientCommsProj).dcvr;$(OutputDir)\$(InternationalisationProj).dcvr;</MergeSources>
+      </PropertyGroup>
+      
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(ApplicationManagerUtilitiesPath) /Output=$(OutputDir)\$(ApplicationManagerUtilitiesProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(AutomateAppCorePath) /Output=$(OutputDir)\$(AutomateAppCoreProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(AutomateConfigPath) /Output=$(OutputDir)\$(AutomateConfigProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(AutomateControlsPath) /Output=$(OutputDir)\$(AutomateControlsProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(AutomateProcessCorePath) /Output=$(OutputDir)\$(AutomateProcessCoreProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(AutomateUIPath) /Output=$(OutputDir)\$(AutomateUIProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(ActiveDirectoryUserSearcherPath) /Output=$(OutputDir)\$(ActiveDirectoryUserSearcherProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(ActiveDirectoryUserSearchServicePath) /Output=$(OutputDir)\$(ActiveDirectoryUserSearchServiceProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(BrowserAutomationPath) /Output=$(OutputDir)\$(BrowserAutomationProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(CachingPath) /Output=$(OutputDir)\$(CachingProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(CorePath) /Output=$(OutputDir)\$(CoreProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(DatabaseInstallerPath) /Output=$(OutputDir)\$(DatabaseInstallerProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(DigitalWorkerPath) /Output=$(OutputDir)\$(DigitalWorkerProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(DocumentProcessingIntegrationPath) /Output=$(OutputDir)\$(DocumentProcessingIntegrationProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(IntegrationTestsPath) /Output=$(OutputDir)\$(IntegrationTestsProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(SkillsUnitTestsPath) /Output=$(OutputDir)\$(SkillsUnitTestsProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(SchedulerPath) /Output=$(OutputDir)\$(SchedulerProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(ClientCommsPath) /Output=$(OutputDir)\$(ClientCommsProj).dcvr /Filters=$(DotCoverFilters)" />
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(InternationalisationPath) /Output=$(OutputDir)\$(InternationalisationProj).dcvr /Filters=$(DotCoverFilters)" />
+
+      <Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(AutomateCPath) /Output=$(OutputDir)\$(AutomateCProj).dcvr /Filters=$(DotCoverFilters)" />
+      <!--<Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(DataPipelinePath) /Output=$(OutputDir)\$(DataPipelineProj).dcvr /Filters=$(DotCoverFilters)" />-->
+      <!--<Exec Command="dotcover cover /TargetExecutable:$(NUnitExe) /TargetArguments=$(ExternalLoginBrowserPath) /Output=$(OutputDir)\$(ExternalLoginBrowserProj).dcvr /Filters=$(DotCoverFilters)" />-->
+
+      
+      <Exec Command="dotcover merge --Source=$(MergeSources) --Output=$(OutputDir)\mergedSnapshot.dcvr"/>
+      <Exec Command="dotcover report --ReportType=HTML --Source=$(OutputDir)\mergedSnapshot.dcvr --Output=$(OutputDir)\dotCover.Output.html" />
+    </Target>
+
+  <!-- Creates zip archive containing compiled dlls for static scan-->
+    <Target Name="VeracodePackage" DependsOnTargets="Build;ZipVeracodePackage" >
+
+    </Target>
+
+    <Target Name="ZipVeracodePackage">
+        <PropertyGroup>
+            <PackageName>veracode-$([System.DateTime]::Now.ToString(yyyy-MM-dd))</PackageName>
+            <PackageDirectory>$(OutputDirectory)\$(PackageName)</PackageDirectory>
+            <ZipFileName>$(PackageName).zip</ZipFileName>
+            <ZipFileFullPath>$(OutputDirectory)\$(ZipFileName)</ZipFileFullPath>
+        </PropertyGroup>
+        <ItemGroup>
+            <PackageFiles Include="$(SharedBinDirectory)\**\*.exe;
+                                   $(SharedBinDirectory)\**\*.dll;
+                                   $(SharedBinDirectory)\**\*.pdb;
+                                   $(LoginAgentBinDirectory)\**\*.exe;
+                                   $(LoginAgentBinDirectory)\**\*.dll;
+                                   $(LoginAgentBinDirectory)\**\*.pdb;"
+                          Exclude="$(SharedBinDirectory)\**\tesseract*.exe;
+                                   $(SharedBinDirectory)\**\bpocrpp*.exe;
+                                   $(RootDirectory)\**\bin\**\Castle.Core*;
+                                   $(RootDirectory)\**\bin\**\d3dcompiler_47.*;
+                                   $(RootDirectory)\**\bin\**\FluentAssertions.*;
+                                   $(RootDirectory)\**\bin\**\LoginAgentServiceTest.*;
+                                   $(RootDirectory)\**\bin\**\Microsoft.DiaSymReader.Native.*;
+                                   $(RootDirectory)\**\bin\**\Moq.*;
+                                   $(RootDirectory)\**\bin\**\SciLexer.dll;" />
+        </ItemGroup>
+        <RemoveDir Directories="$(PackageDirectory)" />
+        <Delete Files="$(ZipFileFullPath)" />
+        <MakeDir Directories="$(PackageDirectory)" />
+        <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(PackageDirectory)" />
+        <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" CompressPath="$(PackageDirectory)" ZipFileName="$(ZipFileFullPath)"/>
+    </Target>
+    
+    <Target Name="ZipMapFiles" Condition="'$(ObfuscationEnabled)'=='True'">
+        <PropertyGroup>
+            <PackageName>mapfiles-$(SemanticVersion)</PackageName>
+            <PackageDirectory>$(OutputDirectory)\$(PackageName)</PackageDirectory>
+            <ZipFileName>$(PackageName).zip</ZipFileName>
+            <ZipFileFullPath>$(OutputDirectory)\$(ZipFileName)</ZipFileFullPath>
+        </PropertyGroup>
+        <ItemGroup>
+            <PackageFiles Include="$(BluePrismMapFilesPath)\*.*" />
+        </ItemGroup>
+        <RemoveDir Directories="$(PackageDirectory)" />
+        <Delete Files="$(ZipFileFullPath)" />
+        <MakeDir Directories="$(PackageDirectory)" />
+        <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(PackageDirectory)" />
+        <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" CompressPath="$(PackageDirectory)" ZipFileName="$(ZipFileFullPath)"/>
+    </Target>
+
+    <Target Name="CreateChromeEdgeExtension" DependsOnTargets="UpdateChromeEdgePluginVersionNumber">
+      <PropertyGroup>
+        <PackageName>ChromeEdgeExtension-$(SemanticVersion)</PackageName>
+        <PackageDirectory>$(OutputDirectory)\$(PackageName)</PackageDirectory>
+        <ZipFileName>$(PackageName).zip</ZipFileName>
+        <ZipFileFullPath>$(OutputDirectory)\$(ZipFileName)</ZipFileFullPath>
+      </PropertyGroup>
+      <ItemGroup>
+        <PackageFiles Include="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\*.*" />
+      </ItemGroup>
+      <ItemGroup>
+        <_CopyIconsFolder Include="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\icons\*.*" />
+      </ItemGroup>
+      <ItemGroup>
+        <_CopyCryptographyFolder Include="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\Cryptography\*.*" />
+      </ItemGroup>
+      <ItemGroup>
+        <_CopyCryptoJSFolder Include="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\crypto-js\*.*" />
+      </ItemGroup>
+      <RemoveDir Directories="$(PackageDirectory)" />
+      <Delete Files="$(ZipFileFullPath)" />
+      <MakeDir Directories="$(PackageDirectory)" />
+      <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(PackageDirectory)" />
+      <Copy SourceFiles="@(_CopyIconsFolder)" DestinationFolder="$(PackageDirectory)\icons\"/>
+      <Copy SourceFiles="@(_CopyCryptographyFolder)" DestinationFolder="$(PackageDirectory)\Cryptography\"/>
+      <Copy SourceFiles="@(_CopyCryptoJSFolder)" DestinationFolder="$(PackageDirectory)\crypto-js\"/>
+      <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" CompressPath="$(PackageDirectory)" RemoveRoot="$(PackageDirectory)" ZipFileName="$(ZipFileFullPath)"/>
+    </Target>
+
+    <Target Name="CopyNuGetPackages">
+        <ItemGroup>
+            <NuGetPackages Include="$(BluePrismSlnDirectory)\**\*.nupkg" Exclude="$(BluePrismSlnDirectory)\packages\**" />
+        </ItemGroup>
+        <Copy SourceFiles="@(NuGetPackages)" DestinationFolder="$(OutputDirectory)\NuGet" />
+    </Target>
+
+  <UsingTask TaskName="WriteBrowserPluginVersion" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll">
+        <ParameterGroup>
+            <PluginManifestFilePath ParameterType="System.String" Required="true" />
+            <SemanticVersion ParameterType="System.String" Required="true" />
+            <PreventDuplicateVersionNumbers ParameterType="System.Boolean" Required="true" />
+            <PluginVersionNumber ParameterType="System.String" Output="true" />
+        </ParameterGroup>
+        <Task>
+            <Code Type="Fragment" Language="cs">
+                <![CDATA[  
+
+                    string text = File.ReadAllText(PluginManifestFilePath);
+                    var regex = new System.Text.RegularExpressions.Regex(@"""version"":\s*""\d+.*\d*.\d*.\d*""");
+                    SemanticVersion = SemanticVersion.Replace("-prerelease", ".");
+                    PluginVersionNumber = SemanticVersion;
+                    if (PreventDuplicateVersionNumbers)
+                    {
+                      PluginVersionNumber += new String(Path.GetRandomFileName().Where(c => c != '.' && (c < '0' || c > '9')).ToArray());
+                    }
+                    text = regex.Replace(text, "\"version\": \"" + PluginVersionNumber + "\"");
+                    regex = new System.Text.RegularExpressions.Regex(@"""version_name"":\s*""\d+.*\d*.\d*.\d*""");
+                    text = regex.Replace(text, "\"version_name\": \"" + SemanticVersion + "\"");
+                    File.WriteAllText(PluginManifestFilePath, text);
+                    
+                ]]>
+            </Code>
+        </Task>
+    </UsingTask>
+    
+    <Target Name="UpdateFirefoxPluginVersionNumber" DependsOnTargets="InitVersionNumbers;CreateChromeEdgeExtension">
+      <WriteBrowserPluginVersion PluginManifestFilePath="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\manifest.json" SemanticVersion="$(SemanticVersion)" PreventDuplicateVersionNumbers="True" >
+        <Output PropertyName="GeneratedVersionNumber" TaskParameter="PluginVersionNumber" />       
+      </WriteBrowserPluginVersion>
+      <PropertyGroup>
+        <FirefoxExtVersionNumber>$(GeneratedVersionNumber)</FirefoxExtVersionNumber>
+      </PropertyGroup>
+    </Target>
+
+    <Target Name="UpdateChromeEdgePluginVersionNumber">
+      <WriteBrowserPluginVersion PluginManifestFilePath="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\manifest.json" SemanticVersion="$(SemanticVersion)" PreventDuplicateVersionNumbers="False">
+        <Output PropertyName="GeneratedVersionNumber" TaskParameter="PluginVersionNumber" />       
+      </WriteBrowserPluginVersion>
+    </Target>
+
+    <Target Name="PackageBrowserPlugins" DependsOnTargets="PackageFirefoxPlugin;" Condition=" '$(IncludeBrowserPlugin)' == 'True' "/>
+
+    <Target Name="PackageFirefoxPlugin" DependsOnTargets="BuildPlugin;">
+      <Exec Command="npm run package-firefox" WorkingDirectory="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\" ConsoleToMSBuild="true" />
+      <Copy SourceFiles="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\web-ext-artifacts\blue_prism_611_browser_extension-$(FirefoxExtVersionNumber)-an+fx.xpi" DestinationFiles="$(RootDirectory)\BluePrism.BrowserAutomation\bin\$(Configuration)\Plugin\FirefoxPlugin.xpi" />   
+      <Copy SourceFiles="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\web-ext-artifacts\blue_prism_611_browser_extension-$(FirefoxExtVersionNumber)-an+fx.xpi" DestinationFiles="$(OutputDirectory)\FirefoxPlugin-$(FirefoxExtVersionNumber).xpi" />
+    </Target>
+    
+    <Target Name="NPMInstall">
+        <Exec Command="npm install" WorkingDirectory="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\" ConsoleToMSBuild="true" />
+    </Target>
+
+    <Target Name="BuildPlugin" DependsOnTargets="UpdateFirefoxPluginVersionNumber; NPMInstall;">
+        <Exec Command="npm run build-$(Configuration)" WorkingDirectory="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\" ConsoleToMSBuild="true" />
+        <ItemGroup>
+            <_CopyIconsFolder Include="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\icons\*.*" />
+        </ItemGroup>
+        <ItemGroup>
+            <_CopyCryptographyFolder Include="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\Cryptography\*.*" />
+        </ItemGroup>
+        <ItemGroup>
+            <_CopyCryptoJSFolder Include="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\crypto-js\*.*" />
+        </ItemGroup>
+        <Copy SourceFiles="@(_CopyIconsFolder)" DestinationFolder="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\build\icons\"/>
+        <Copy SourceFiles="@(_CopyCryptographyFolder)" DestinationFolder="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\build\Cryptography\"/>
+        <Copy SourceFiles="@(_CopyCryptoJSFolder)" DestinationFolder="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\build\crypto-js\"/>
+        <Copy SourceFiles="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\manifest.json" DestinationFolder="$(RootDirectory)\BluePrism.BrowserAutomation\Plugin\build"/>
+    </Target>
+
+
+  <!-- Custom task used to get installer filename and hash for each installer based on platforms being built -->
+    <UsingTask TaskName="GetInstallers" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" >
+        <ParameterGroup>
+            <SharedBinDirectory ParameterType="System.String" Required="true" />
+            <SemanticVersion ParameterType="System.String" Required="true" />
+            <Platforms ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+            <Result ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true" />
+        </ParameterGroup>
+        <Task>
+            <Using Namespace="System.Security.Cryptography"/>
+            <Code Type="Fragment" Language="cs">
+<![CDATA[  
+var installerItems = new List<ITaskItem>();
+foreach (var platformItem in Platforms)
+{
+string platform = platformItem.GetMetadata("Identity");
+// Note: The file name replicates logic in the "Output Name" property in the Setup 
+// project properties
+System.Collections.Generic.Dictionary<string, string> fileNames = new System.Collections.Generic.Dictionary<string, string>{ {string.Format("Automate{0}_{1}.msi", SemanticVersion, platform), "" },
+                                        { string.Format("Automate_Trial{0}_{1}.msi", SemanticVersion, platform) , "TRIAL_" } };
+    foreach (var fileName in fileNames)
+    {
+        string fullPath = Path.Combine(SharedBinDirectory, fileName.Key);
+        if (File.Exists(fullPath))
+        {
+            var installerItem = new TaskItem(platform);
+            string hash;
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(fullPath))
+                {
+                    var hashBytes = md5.ComputeHash(stream);
+                    hash = BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
+                }
+            }
+            installerItem.SetMetadata("Hash", hash);
+            installerItem.SetMetadata("File", fileName.Key);
+            installerItem.SetMetadata("Edition", fileName.Value);
+            installerItems.Add(installerItem);
+        }
+    }
+}
+Result = installerItems.ToArray();
+]]>
+            </Code>
+        </Task>
+    </UsingTask>
+
+    <!-- Creates a BuildData.properties file containing information about the build and the binaries
+    produced. This is used for CI server integration. -->
+    <Target Name="CreateBuildDataFile" DependsOnTargets="InitVersionNumberProperties;"
+            Condition=" '$(CreateBuildDataFileEnabled)' == 'True' ">
+        <GetInstallers Platforms="@(BluePrismPlatform)" SharedBinDirectory="$(SharedBinDirectory)" 
+                       SemanticVersion="$(SemanticVersion)">
+            <Output ItemName="Installers" TaskParameter="Result" />
+        </GetInstallers>
+        <ItemGroup>
+            <PropertiesFileLines Include="ASSEMBLY_VERSION=$(AssemblyVersion)" />
+            <PropertiesFileLines Include="FRIENDLY_VERSION=$(FriendlyVersion)" />
+            <PropertiesFileLines Include="SEMANTIC_VERSION=$(SemanticVersion)" />
+            <!-- Include a property for each platform installer -->
+            <PropertiesFileLines Condition=" '@(Installers)' != '' "
+                                 Include="%(Installers.Edition)%(Installers.Identity)_FILENAME=%(Installers.File)
+%(Installers.Edition)%(Installers.Identity)_HASH=%(Installers.Hash)" />
+            <PropertiesFileLines Include="CREATED_ON=$([System.DateTime]::Now.ToString(&quot;o&quot;))" />
+        </ItemGroup>
+        <PropertyGroup>
+            <PropertiesFileFullPath>$(OutputDirectory)\BuildData.properties</PropertiesFileFullPath>
+        </PropertyGroup>
+        <WriteLinesToFile File="$(PropertiesFileFullPath)" Lines="@(PropertiesFileLines)" Overwrite="true" />
+    </Target>
+    
+</Project>

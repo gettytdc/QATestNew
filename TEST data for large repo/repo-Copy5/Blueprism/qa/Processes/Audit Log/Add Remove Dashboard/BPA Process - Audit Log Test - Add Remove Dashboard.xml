@@ -1,0 +1,674 @@
+﻿<process name="Audit Log Test - Add Remove Dashboard" version="1.0" bpversion="6.8.0.21720" narrative="Testing Audit Log for adding and removing dashboard to analytics tab." byrefcollection="true" preferredid="4973d327-f64d-4906-8623-522bb2f41f7c">
+  <view>
+    <camerax>-10</camerax>
+    <cameray>1717</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="60043f4f-cfba-4c6e-9645-38a5f43d51c0" type="Normal" published="False">
+    <name>Compare Collections</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>147</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="327adae3-2d05-43a1-9b97-aedf4f4054ae" type="Normal" published="False">
+    <name>Get Audit Log</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="1db4c55a-bb78-43ae-a90d-bc62ed4b3275" type="Normal" published="False">
+    <name>Global Variables</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="f3d39fd5-8212-470e-9410-de3e08904d47" name="Start" type="Start">
+    <display x="15" y="-225" w="90" h="30" />
+    <onsuccess>dd8382dc-c149-42a2-a4f0-38819597ddc5</onsuccess>
+  </stage>
+  <stage stageid="b498afab-3353-48b1-8969-706c8a18192f" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="2295ca23-3483-45e7-9fe6-d6026081fee6" name="Launch BP" type="Action">
+    <display x="15" y="-45" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="BluePrism PID" />
+    </outputs>
+    <onsuccess>f2c038b3-b26c-4546-8428-655f65a02a31</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="dd82af76-0974-4fdb-bf9f-9875d9ae8a57" name="Sign In" type="Action">
+    <display x="15" y="135" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="[Username]" />
+      <input type="password" name="Password" expr="[Password]" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>57f44b74-4136-4777-b97d-10a3eb41857b</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="dd8382dc-c149-42a2-a4f0-38819597ddc5" name="Get Username" type="Calculation">
+    <display x="15" y="-165" w="90" h="30" />
+    <onsuccess>310f816a-d65c-4dbc-9256-c089691e00b1</onsuccess>
+    <calculation expression="GetUserName()" stage="Current UserName" />
+  </stage>
+  <stage stageid="310f816a-d65c-4dbc-9256-c089691e00b1" name="Get UTC Time" type="Calculation">
+    <display x="15" y="-105" w="90" h="30" />
+    <onsuccess>2295ca23-3483-45e7-9fe6-d6026081fee6</onsuccess>
+    <calculation expression="UTCTime()" stage="Current UTC Time" />
+  </stage>
+  <stage stageid="009e09e3-087e-4daf-aaa6-dd2a0098006d" name="Local Variables" type="Block">
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="781543ae-fb86-4c32-8e0d-03e3707b58d8" name="Expected Audit Log" type="Collection">
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Narrative" type="text" />
+      <field name="Comments" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="1cf68be4-db7c-430e-9d77-98c384d037a7" name="Counter" type="Data">
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ad9997df-7d37-4ec1-8870-e8be43ae5c55" name="Compare Collections" type="SubSheetInfo">
+    <subsheetid>60043f4f-cfba-4c6e-9645-38a5f43d51c0</subsheetid>
+    <narrative>Compares values recorded in Audit Log against values that are EXPECTED in Audit Log.</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="9ac3ecb5-3c4e-4f90-8e88-e2aa854ddee3" name="Start" type="Start">
+    <subsheetid>60043f4f-cfba-4c6e-9645-38a5f43d51c0</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <display x="15" y="-105" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="Expected Audit" narrative="Expected Audit Log" stage="Expected Audit Log" />
+    </inputs>
+    <onsuccess>bc7d7a35-3d36-4e28-9159-c098442031b7</onsuccess>
+  </stage>
+  <stage stageid="681bb30e-0613-4bb9-a02b-875430bb46b1" name="End" type="End">
+    <subsheetid>60043f4f-cfba-4c6e-9645-38a5f43d51c0</subsheetid>
+    <display x="15" y="315" w="90" h="30" />
+  </stage>
+  <stage stageid="6237d622-bba8-403f-b433-137772761020" name="Expected Audit Log" type="Collection">
+    <subsheetid>60043f4f-cfba-4c6e-9645-38a5f43d51c0</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Narrative" type="text" />
+      <field name="Comments" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="3c233747-372d-49cf-b1c9-431ac1fe4fcd" name="Audit Log Table" type="LoopStart">
+    <subsheetid>60043f4f-cfba-4c6e-9645-38a5f43d51c0</subsheetid>
+    <display x="15" y="15" w="90" h="30" />
+    <onsuccess>45d07816-a15c-4d45-b488-b1e407643665</onsuccess>
+    <groupid>0d3cd279-1ee6-4c3f-af44-b61f06362c27</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Audit Log Table</loopdata>
+  </stage>
+  <stage stageid="32084810-db44-42b7-a61f-3d26e3feb34e" name="Audit Log Table" type="LoopEnd">
+    <subsheetid>60043f4f-cfba-4c6e-9645-38a5f43d51c0</subsheetid>
+    <display x="15" y="195" w="90" h="30" />
+    <onsuccess>674074b7-49f8-4312-8626-ca14a475939b</onsuccess>
+    <groupid>0d3cd279-1ee6-4c3f-af44-b61f06362c27</groupid>
+  </stage>
+  <stage stageid="45d07816-a15c-4d45-b488-b1e407643665" name="Correct Time?" type="Decision">
+    <subsheetid>60043f4f-cfba-4c6e-9645-38a5f43d51c0</subsheetid>
+    <display x="15" y="75" w="90" h="30" />
+    <decision expression="ToTime([Audit Log Table.Time (Local)]) &gt; [Current UTC Time]" />
+    <ontrue>2766faca-2825-433c-8960-d779808f60c8</ontrue>
+    <onfalse>a047dafb-a049-40ec-b660-64d96c0c5d1e</onfalse>
+  </stage>
+  <stage stageid="bc7d7a35-3d36-4e28-9159-c098442031b7" name="Expected Audit Log" type="LoopStart">
+    <subsheetid>60043f4f-cfba-4c6e-9645-38a5f43d51c0</subsheetid>
+    <display x="15" y="-45" w="90" h="30" />
+    <onsuccess>3c233747-372d-49cf-b1c9-431ac1fe4fcd</onsuccess>
+    <groupid>c15c86ab-f939-4aae-825c-6ead1297d75d</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Audit Log</loopdata>
+  </stage>
+  <stage stageid="674074b7-49f8-4312-8626-ca14a475939b" name="Expected Audit Log" type="LoopEnd">
+    <subsheetid>60043f4f-cfba-4c6e-9645-38a5f43d51c0</subsheetid>
+    <display x="15" y="255" w="90" h="30" />
+    <onsuccess>681bb30e-0613-4bb9-a02b-875430bb46b1</onsuccess>
+    <groupid>c15c86ab-f939-4aae-825c-6ead1297d75d</groupid>
+  </stage>
+  <stage stageid="2766faca-2825-433c-8960-d779808f60c8" name="Found Match?" type="Decision">
+    <subsheetid>60043f4f-cfba-4c6e-9645-38a5f43d51c0</subsheetid>
+    <display x="15" y="135" w="90" h="30" />
+    <decision expression="(InStr([Audit Log Table.Comments], [Expected Audit Log.Comments]) &gt; 0&#xA;AND&#xA;InStr([Audit Log Table.Narrative], [Expected Audit Log.Narrative]) &gt; 0)&#xA;OR&#xA;([Audit Log Table.Comments] = [Expected Audit Log.Comments]&#xA;AND&#xA;InStr([Audit Log Table.Narrative], [Expected Audit Log.Narrative]) &gt; 0)" />
+    <ontrue>a55066df-6ce7-4d76-af42-ca0991d4537f</ontrue>
+    <onfalse>32084810-db44-42b7-a61f-3d26e3feb34e</onfalse>
+  </stage>
+  <stage stageid="a047dafb-a049-40ec-b660-64d96c0c5d1e" name="Result Not Found" type="Exception">
+    <subsheetid>60043f4f-cfba-4c6e-9645-38a5f43d51c0</subsheetid>
+    <display x="135" y="75" w="90" h="30" />
+    <exception type="System Exception" detail="&quot;Following Record was not found in Audit log: Narrative containing &lt;&quot; &amp; [Expected Audit Log.Narrative] &amp; &quot;&gt; and Comment containing &lt;&quot; &amp; [Expected Audit Log.Comments] &amp; &quot;&gt;&quot;" />
+  </stage>
+  <stage stageid="a55066df-6ce7-4d76-af42-ca0991d4537f" name="Anchor1" type="Anchor">
+    <subsheetid>60043f4f-cfba-4c6e-9645-38a5f43d51c0</subsheetid>
+    <display x="90" y="135" w="10" h="10" />
+    <onsuccess>fe5f21e2-b02e-4b69-a28e-9973b343c54c</onsuccess>
+  </stage>
+  <stage stageid="fe5f21e2-b02e-4b69-a28e-9973b343c54c" name="Anchor2" type="Anchor">
+    <subsheetid>60043f4f-cfba-4c6e-9645-38a5f43d51c0</subsheetid>
+    <display x="90" y="255" w="10" h="10" />
+    <onsuccess>674074b7-49f8-4312-8626-ca14a475939b</onsuccess>
+  </stage>
+  <stage stageid="c3e5bd16-271b-4fc1-b394-5f30d1493f84" name="Get Audit Log" type="SubSheetInfo">
+    <subsheetid>327adae3-2d05-43a1-9b97-aedf4f4054ae</subsheetid>
+    <narrative>Gets Content of Audit Log table.</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="6f32ac87-d6d8-4fb0-913d-953fa0096dc1" name="Start" type="Start">
+    <subsheetid>327adae3-2d05-43a1-9b97-aedf4f4054ae</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <display x="15" y="-105" w="90" h="30" />
+    <onsuccess>632bd970-2a2e-4a85-87ec-011207a8ff46</onsuccess>
+  </stage>
+  <stage stageid="a09dce67-7a4c-4146-83f7-9b3db930024a" name="End" type="End">
+    <subsheetid>327adae3-2d05-43a1-9b97-aedf4f4054ae</subsheetid>
+    <display x="15" y="195" w="90" h="30" />
+  </stage>
+  <stage stageid="632bd970-2a2e-4a85-87ec-011207a8ff46" name="Go to System" type="Action">
+    <subsheetid>327adae3-2d05-43a1-9b97-aedf4f4054ae</subsheetid>
+    <display x="15" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>cbe8514a-a6eb-4cad-bf9d-ac981f04476f</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="cbe8514a-a6eb-4cad-bf9d-ac981f04476f" name="Select Audit Logs" type="Action">
+    <subsheetid>327adae3-2d05-43a1-9b97-aedf4f4054ae</subsheetid>
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Audit&quot;" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Audit Logs&quot;" />
+      <input type="flag" name="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>9657b753-ea36-40c5-8b7f-c350f830a405</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="9657b753-ea36-40c5-8b7f-c350f830a405" name="Get Audit Log Table" type="Action">
+    <subsheetid>327adae3-2d05-43a1-9b97-aedf4f4054ae</subsheetid>
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="date" name="Audit Date" narrative="Date for the Audit to View" expr="Today()" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Audit Log Table" narrative="Contents of the Audit Log Viewer" stage="Audit Log Table" />
+    </outputs>
+    <onsuccess>bab5551b-660c-4720-a185-322dc5ba7be4</onsuccess>
+    <resource object="Blue Prism - System - Audit" action="Get View Log Content for Audit Log" />
+  </stage>
+  <stage stageid="bab5551b-660c-4720-a185-322dc5ba7be4" name="Reverse Collection" type="Action">
+    <subsheetid>327adae3-2d05-43a1-9b97-aedf4f4054ae</subsheetid>
+    <display x="15" y="135" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="Collection" narrative="The collection to be reversed." expr="[Audit Log Table]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Reversed Collection" narrative="The reversed collection." stage="Audit Log Table" />
+    </outputs>
+    <onsuccess>a09dce67-7a4c-4146-83f7-9b3db930024a</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Reverse Collection" />
+  </stage>
+  <stage stageid="32515ed2-3578-449b-bc63-31a1195b287c" name="Global Variables" type="SubSheetInfo">
+    <subsheetid>1db4c55a-bb78-43ae-a90d-bc62ed4b3275</subsheetid>
+    <narrative>Variables that are available accross the process.</narrative>
+    <display x="-150" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="85fba57d-e9cb-4cfe-ba09-7d31a9199468" name="Start" type="Start">
+    <subsheetid>1db4c55a-bb78-43ae-a90d-bc62ed4b3275</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <display x="75" y="-90" />
+    <onsuccess>badbee36-ebe9-4286-bf2b-ab468a72ff98</onsuccess>
+  </stage>
+  <stage stageid="badbee36-ebe9-4286-bf2b-ab468a72ff98" name="End" type="End">
+    <subsheetid>1db4c55a-bb78-43ae-a90d-bc62ed4b3275</subsheetid>
+    <display x="75" y="75" />
+  </stage>
+  <stage stageid="8f407ef3-8cd9-4bed-aa93-bf588a0a8eb5" name="Username" type="Data">
+    <subsheetid>1db4c55a-bb78-43ae-a90d-bc62ed4b3275</subsheetid>
+    <display x="-150" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">admin</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="e75cd18c-517f-4cef-92de-88be5e19ca91" name="Password" type="Data">
+    <subsheetid>1db4c55a-bb78-43ae-a90d-bc62ed4b3275</subsheetid>
+    <display x="-150" y="15" w="120" h="30" />
+    <datatype>password</datatype>
+    <initialvalueenc>32,17,25,89,3</initialvalueenc>
+    <alwaysinit />
+  </stage>
+  <stage stageid="baffc74e-3d95-4a3e-b435-84d08bab5a3b" name="Global Variables" type="Block">
+    <subsheetid>1db4c55a-bb78-43ae-a90d-bc62ed4b3275</subsheetid>
+    <display x="-225" y="-45" w="150" h="270" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="9551e3b1-85b8-43c3-8904-7cd3237b9d5c" name="BluePrism PID" type="Data">
+    <subsheetid>1db4c55a-bb78-43ae-a90d-bc62ed4b3275</subsheetid>
+    <display x="-150" y="45" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2d2802c6-2eec-4407-ae79-18d8c932db8e" name="Audit Log Table" type="Collection">
+    <subsheetid>1db4c55a-bb78-43ae-a90d-bc62ed4b3275</subsheetid>
+    <display x="-150" y="75" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Time (Local)" type="text" />
+      <field name="Narrative" type="text" />
+      <field name="Comments" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="6dcb8bd3-aa38-4942-9ec1-a077832de93c" name="Current UserName" type="Data">
+    <subsheetid>1db4c55a-bb78-43ae-a90d-bc62ed4b3275</subsheetid>
+    <display x="-150" y="105" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3517acf6-5868-41e5-b047-6401ed0ae776" name="Current UTC Time" type="Data">
+    <subsheetid>1db4c55a-bb78-43ae-a90d-bc62ed4b3275</subsheetid>
+    <display x="-150" y="135" w="120" h="30" />
+    <datatype>time</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="57f44b74-4136-4777-b97d-10a3eb41857b" name="Click Analytics Tab" type="Action">
+    <display x="15" y="195" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Analytics&quot;" />
+    </inputs>
+    <onsuccess>f84291e6-5a3b-42ef-a509-f2bd92e3c7f0</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="f84291e6-5a3b-42ef-a509-f2bd92e3c7f0" name="Note3" type="Note">
+    <narrative>Create Dashboard</narrative>
+    <display x="15" y="255" w="90" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>8ba37a1d-ddd6-49c8-9249-ab9eccff2dc9</onsuccess>
+  </stage>
+  <stage stageid="8ba37a1d-ddd6-49c8-9249-ab9eccff2dc9" name="Click Dashboard" type="Action">
+    <display x="15" y="315" w="90" h="30" />
+    <onsuccess>e569f8cd-bc51-4f98-8994-b88f70fc9fda</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Click Dashboard SubPage" />
+  </stage>
+  <stage stageid="e569f8cd-bc51-4f98-8994-b88f70fc9fda" name="Set Dashboard Type" type="Action">
+    <display x="15" y="375" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Menu Option" narrative="Option from Dashboard's Right Click Menu. Case Sensitive." expr="[Dashboard Menu Option]" />
+      <input type="text" name="Dashboard Item" narrative="Item Name to right click on. Default: Default dashboard." expr="" />
+    </inputs>
+    <onsuccess>a91e47fe-ee0d-4334-8e10-939fe0f22e89</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Select Dashboard Menu Option" />
+  </stage>
+  <stage stageid="05300da5-159d-4014-8c7c-f485f4489748" name="Drag Tile to Dashboard" type="Action">
+    <display x="15" y="555" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tile Name" narrative="Time Name to Include in Dashboard. Separate multiple tiles with semicolon." expr="[Tile Details.Tile Name]" />
+    </inputs>
+    <onsuccess>47d358a5-27fd-468a-be3b-9284e5d0da6a</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Edit Dashboard - Drag Tile Into Edit-Mode Dashboard" />
+  </stage>
+  <stage stageid="773aac9b-a478-4198-a75b-f440f491acd1" name="Tile Details" type="LoopStart">
+    <display x="15" y="495" w="90" h="30" />
+    <onsuccess>05300da5-159d-4014-8c7c-f485f4489748</onsuccess>
+    <groupid>2bef7509-0a0a-4332-90d3-c6c3a89bd7b2</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Tile Details</loopdata>
+  </stage>
+  <stage stageid="47d358a5-27fd-468a-be3b-9284e5d0da6a" name="Tile Details" type="LoopEnd">
+    <display x="15" y="615" w="90" h="30" />
+    <onsuccess>9c1fb9b3-e791-4a79-bafc-acd75fbf18f6</onsuccess>
+    <groupid>2bef7509-0a0a-4332-90d3-c6c3a89bd7b2</groupid>
+  </stage>
+  <stage stageid="9c1fb9b3-e791-4a79-bafc-acd75fbf18f6" name="Set Dashboard Name" type="Action">
+    <display x="15" y="675" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Dashboard Name" narrative="Name to set on the dashboard." expr="[Dashboard Name]" />
+    </inputs>
+    <onsuccess>9f717d87-6708-4f46-bf8d-15b3f4bc9cff</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Edit Dashboard - Set Dashboard Name" />
+  </stage>
+  <stage stageid="a91e47fe-ee0d-4334-8e10-939fe0f22e89" name="Click Tile Library" type="Action">
+    <display x="15" y="435" w="90" h="30" />
+    <onsuccess>773aac9b-a478-4198-a75b-f440f491acd1</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Click Tile Library SubPage" />
+  </stage>
+  <stage stageid="9f717d87-6708-4f46-bf8d-15b3f4bc9cff" name="Get Dashboard Name" type="Action">
+    <display x="15" y="735" w="90" h="30" />
+    <outputs>
+      <output type="text" name="Dashboard Name" narrative="Name of the Dashboard" stage="Captured Dashboard Name" />
+    </outputs>
+    <onsuccess>f044315e-6c9a-48e6-a2de-ee0c62b94d98</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Edit Dashboard - Read Dashboard Name" />
+  </stage>
+  <stage stageid="f044315e-6c9a-48e6-a2de-ee0c62b94d98" name="Correct Name?" type="Decision">
+    <display x="15" y="795" w="90" h="30" />
+    <decision expression="[Dashboard Name] = [Captured Dashboard Name]&#xA;AND&#xA;[Captured Dashboard Name] &lt;&gt; &quot;&quot;" />
+    <ontrue>ca40ae71-a1e0-4867-9248-c4fdc00f7809</ontrue>
+    <onfalse>c89d2c90-a7ca-4fe9-ba6a-0531af8b58dc</onfalse>
+  </stage>
+  <stage stageid="c89d2c90-a7ca-4fe9-ba6a-0531af8b58dc" name="RetrtyCount++" type="Calculation">
+    <display x="135" y="795" w="90" h="30" />
+    <onsuccess>68bf8cb7-57f1-4cb1-938d-bea78e365e7d</onsuccess>
+    <calculation expression="[RetryCount] + 1" stage="RetryCount" />
+  </stage>
+  <stage stageid="68bf8cb7-57f1-4cb1-938d-bea78e365e7d" name="Retry?" type="Decision">
+    <display x="135" y="675" w="90" h="30" />
+    <decision expression="[RetryCount] &lt;= 3" />
+    <ontrue>9c1fb9b3-e791-4a79-bafc-acd75fbf18f6</ontrue>
+    <onfalse>655b6a7d-a5d8-4637-9962-0990ea92ba6d</onfalse>
+  </stage>
+  <stage stageid="655b6a7d-a5d8-4637-9962-0990ea92ba6d" name="Set Name Failed" type="Exception">
+    <display x="255" y="675" w="90" h="30" />
+    <exception type="System Exception" detail="&quot;Blue Prism was unable to set the dashboard name.&quot;" />
+  </stage>
+  <stage stageid="8d56a60e-e775-49ba-995f-2f8bdb3aacf9" name="Save Dashboard" type="Action">
+    <display x="15" y="915" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Pane Mernu Option" narrative="Edit, Save, Refresh, or Close" expr="&quot;Save&quot;" />
+    </inputs>
+    <onsuccess>d1a7b0dd-1816-4c51-84d8-27bd1e5d4f26</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Edit Dashboard - Click Pane Menu Option" />
+  </stage>
+  <stage stageid="d1a7b0dd-1816-4c51-84d8-27bd1e5d4f26" name="Dashboard in Edit Mode?" type="Action">
+    <display x="15" y="975" w="90" h="30" />
+    <outputs>
+      <output type="flag" name="Edit Mode?" narrative="True if dashboard is in Edit mode, False otherwise." stage="Edit Mode?" />
+    </outputs>
+    <onsuccess>67c1ec8c-c628-482a-8ce0-88f482b402ca</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Edit Dashboard - Dashboard in Edit Mode?" />
+  </stage>
+  <stage stageid="67c1ec8c-c628-482a-8ce0-88f482b402ca" name="Edit Mode?" type="Decision">
+    <display x="15" y="1035" w="90" h="30" />
+    <decision expression="[Edit Mode?]" />
+    <ontrue>f586d78a-844f-4236-bbb8-5ecb3cb3fd4e</ontrue>
+    <onfalse>752a9cac-fe23-410f-a3de-5fca8d2adbd3</onfalse>
+  </stage>
+  <stage stageid="f586d78a-844f-4236-bbb8-5ecb3cb3fd4e" name="RetrtyCount++" type="Calculation">
+    <display x="135" y="1035" w="90" h="30" />
+    <onsuccess>04cfafcc-6cc9-4a42-9cc7-494618bfbff8</onsuccess>
+    <calculation expression="[RetryCount] + 1" stage="RetryCount" />
+  </stage>
+  <stage stageid="04cfafcc-6cc9-4a42-9cc7-494618bfbff8" name="Retry?" type="Decision">
+    <display x="135" y="915" w="90" h="30" />
+    <decision expression="[RetryCount] &lt;= 3" />
+    <ontrue>8d56a60e-e775-49ba-995f-2f8bdb3aacf9</ontrue>
+    <onfalse>179f21cf-6bf0-4a7b-a8a1-41bfa1912215</onfalse>
+  </stage>
+  <stage stageid="179f21cf-6bf0-4a7b-a8a1-41bfa1912215" name="Fail To Save Dashboard" type="Exception">
+    <display x="255" y="915" w="90" h="30" />
+    <exception type="System Exception" detail="&quot;Blue Prism is unable to save the dashboard.&quot;" />
+  </stage>
+  <stage stageid="ca40ae71-a1e0-4867-9248-c4fdc00f7809" name="Reset RetryCount" type="Calculation">
+    <display x="15" y="855" w="90" h="30" />
+    <onsuccess>8d56a60e-e775-49ba-995f-2f8bdb3aacf9</onsuccess>
+    <calculation expression="0" stage="RetryCount" />
+  </stage>
+  <stage stageid="f4c15a55-7a3e-4336-84b6-02663ca4221f" name="Tile Details" type="Collection">
+    <subsheetid>1db4c55a-bb78-43ae-a90d-bc62ed4b3275</subsheetid>
+    <display x="-150" y="195" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Tile Name" type="text" description="Name of the Tile." />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Tile Name" type="text" value="Total Automations" />
+      </row>
+      <row>
+        <field name="Tile Name" type="text" value="Exceptions" />
+      </row>
+      <row>
+        <field name="Tile Name" type="text" value="FTE Comparison" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="666b8600-a740-4d18-9572-d7e6d20e8884" name="Dashboard Menu Option" type="Data">
+    <display x="-195" y="90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Create Personal Dashboard</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1bcc24cf-9dc9-4502-a62d-74eb630e37ee" name="RetryCount" type="Data">
+    <display x="-195" y="120" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="de1ae60a-214d-4969-a6ed-e04e8be1605b" name="Captured Dashboard Name" type="Data">
+    <display x="-195" y="150" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e04223c7-96d0-42c0-8200-cfbeeb2615fb" name="Dashboard Name" type="Data">
+    <display x="-195" y="180" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">AuditLogDashboardTest</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="02fa0937-ae19-4056-90d9-dfb9dbe20faa" name="Edit Mode?" type="Data">
+    <display x="-195" y="210" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e9b27685-ace3-477e-9771-fb97df7dc741" name="Note3" type="Note">
+    <narrative>Delete Existing Dashboards</narrative>
+    <display x="15" y="1275" w="120" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>c2b3031e-1dda-4e38-ade4-f94bc29f3dde</onsuccess>
+  </stage>
+  <stage stageid="c2b3031e-1dda-4e38-ade4-f94bc29f3dde" name="Delete Dashboard 1" type="Action">
+    <display x="15" y="1335" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Dashboard Name" narrative="Dashboard Name to Delete" expr="[Dashboard Name]" />
+    </inputs>
+    <onsuccess>021eb231-449a-42cd-8772-090dc43ea0d6</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Delete Existing Dashboard" />
+  </stage>
+  <stage stageid="7e2174b8-cba5-48d1-875f-ce7570fab2e5" name="Click Dashboard" type="Action">
+    <display x="15" y="1155" w="90" h="30" />
+    <onsuccess>e034de48-9aec-4551-9035-b02443a7910a</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Click Dashboard SubPage" />
+  </stage>
+  <stage stageid="e034de48-9aec-4551-9035-b02443a7910a" name="Expand All" type="Action">
+    <display x="15" y="1215" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Menu Option" narrative="Option from Dashboard's Right Click Menu. Case Sensitive." expr="&quot;Expand All&quot;" />
+      <input type="text" name="Dashboard Item" narrative="Item Name to right click on. Default: Default dashboard." expr="[Dashboard Name]" />
+    </inputs>
+    <onsuccess>e9b27685-ace3-477e-9771-fb97df7dc741</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Select Dashboard Menu Option" />
+  </stage>
+  <stage stageid="021eb231-449a-42cd-8772-090dc43ea0d6" name="Get Audit Log" type="SubSheet">
+    <display x="15" y="1395" w="90" h="30" />
+    <onsuccess>aba47520-ab3d-47e3-b9df-83cc90b8e13b</onsuccess>
+    <processid>327adae3-2d05-43a1-9b97-aedf4f4054ae</processid>
+  </stage>
+  <stage stageid="aba47520-ab3d-47e3-b9df-83cc90b8e13b" name="Counter++" type="Calculation">
+    <display x="15" y="1455" w="90" h="30" />
+    <onsuccess>fbbf0c54-42f4-4d0c-9fad-06149630d6c4</onsuccess>
+    <calculation expression="[Counter] + 1" stage="Counter" />
+  </stage>
+  <stage stageid="6f86115a-0935-44ed-b2ae-3dfa538d8b68" name="Counter" type="ChoiceStart">
+    <display x="15" y="1635" w="90" h="30" />
+    <groupid>4f509c51-8f0e-4c08-b8db-60bfadf26b0e</groupid>
+    <choices>
+      <choice expression="[Counter] = 1">
+        <name>1</name>
+        <distance>150</distance>
+        <ontrue>2477a5ef-d0ae-4465-bcff-b3b124d2b2bc</ontrue>
+      </choice>
+      <choice expression="[Counter] = 2">
+        <name>2</name>
+        <distance>300</distance>
+        <ontrue>b3b20165-1099-4d13-981b-d19a041e65be</ontrue>
+      </choice>
+    </choices>
+  </stage>
+  <stage stageid="b79a15df-c930-4dba-812f-fef8afa74196" name="Else" type="ChoiceEnd">
+    <display x="465" y="1635" w="90" h="30" />
+    <onsuccess>6e6f963c-f6f8-44f4-8e98-7725dacb7e8e</onsuccess>
+    <groupid>4f509c51-8f0e-4c08-b8db-60bfadf26b0e</groupid>
+  </stage>
+  <stage stageid="fbbf0c54-42f4-4d0c-9fad-06149630d6c4" name="Add Row?" type="Decision">
+    <display x="15" y="1515" w="90" h="30" />
+    <decision expression="[Counter] &lt; 3" />
+    <ontrue>4b0311fd-5e7e-44a4-86e0-dd35589af185</ontrue>
+    <onfalse>254a686a-24af-4656-b939-7cebb9b3ab1e</onfalse>
+  </stage>
+  <stage stageid="4b0311fd-5e7e-44a4-86e0-dd35589af185" name="Add Row" type="Action">
+    <display x="15" y="1575" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Expected Audit Log&quot;" />
+    </inputs>
+    <onsuccess>6f86115a-0935-44ed-b2ae-3dfa538d8b68</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="254a686a-24af-4656-b939-7cebb9b3ab1e" name="Anchor3" type="Anchor">
+    <display x="-60" y="1515" w="10" h="10" />
+    <onsuccess>f96bab90-649c-44f4-803c-b1636dca83b9</onsuccess>
+  </stage>
+  <stage stageid="f96bab90-649c-44f4-803c-b1636dca83b9" name="Anchor4" type="Anchor">
+    <display x="-60" y="1635" w="10" h="10" />
+    <onsuccess>6f86115a-0935-44ed-b2ae-3dfa538d8b68</onsuccess>
+  </stage>
+  <stage stageid="2477a5ef-d0ae-4465-bcff-b3b124d2b2bc" name="Populate Collection" type="MultipleCalculation">
+    <display x="165" y="1680" w="90" h="30" />
+    <onsuccess>9592d166-5793-4d83-bf14-472f8bae0231</onsuccess>
+    <steps>
+      <calculation expression="&quot;The user '&quot; &amp; [Current UserName] &amp; &quot;' deleted the dashboard '&quot; &amp; [Dashboard Name] &amp; &quot;'&quot;" stage="Expected Audit Log.Narrative" />
+      <calculation expression="&quot;Dashboard ID:&quot;" stage="Expected Audit Log.Comments" />
+    </steps>
+  </stage>
+  <stage stageid="9370d6d8-4804-422c-8c5e-80021f78de32" name="Anchor12" type="Anchor">
+    <display x="315" y="1725" w="10" h="10" />
+    <onsuccess>9592d166-5793-4d83-bf14-472f8bae0231</onsuccess>
+  </stage>
+  <stage stageid="9592d166-5793-4d83-bf14-472f8bae0231" name="Anchor13" type="Anchor">
+    <display x="165" y="1725" w="10" h="10" />
+    <onsuccess>44b5ae8b-1188-4355-aa1f-5f00aaa25003</onsuccess>
+  </stage>
+  <stage stageid="44b5ae8b-1188-4355-aa1f-5f00aaa25003" name="Anchor14" type="Anchor">
+    <display x="-90" y="1725" w="10" h="10" />
+    <onsuccess>da26403b-99ac-42da-acf0-5ca8b41c5905</onsuccess>
+  </stage>
+  <stage stageid="da26403b-99ac-42da-acf0-5ca8b41c5905" name="Anchor15" type="Anchor">
+    <display x="-90" y="1455" w="10" h="10" />
+    <onsuccess>aba47520-ab3d-47e3-b9df-83cc90b8e13b</onsuccess>
+  </stage>
+  <stage stageid="6e6f963c-f6f8-44f4-8e98-7725dacb7e8e" name="Anchor16" type="Anchor">
+    <display x="465" y="1755" w="10" h="10" />
+    <onsuccess>5b94a78f-bec7-4643-8073-b9484855c499</onsuccess>
+  </stage>
+  <stage stageid="5b94a78f-bec7-4643-8073-b9484855c499" name="Anchor17" type="Anchor">
+    <display x="15" y="1755" w="10" h="10" />
+    <onsuccess>86eef33f-6846-4d5e-83dc-e5a657cd3797</onsuccess>
+  </stage>
+  <stage stageid="b3b20165-1099-4d13-981b-d19a041e65be" name="Populate Collection" type="MultipleCalculation">
+    <display x="315" y="1680" w="90" h="30" />
+    <onsuccess>9370d6d8-4804-422c-8c5e-80021f78de32</onsuccess>
+    <steps>
+      <calculation expression="&quot;The user '&quot; &amp; [Current UserName] &amp; &quot;' created the dashboard '&quot; &amp; [Dashboard Name] &amp; &quot;'&quot;" stage="Expected Audit Log.Narrative" />
+      <calculation expression="&quot;Name:&quot; &amp; [Dashboard Name]" stage="Expected Audit Log.Comments" />
+    </steps>
+  </stage>
+  <stage stageid="84074c3a-4c84-40fe-bd2f-33ef8f8d985e" name="Dashboard Variables" type="Block">
+    <display x="-270" y="60" w="150" h="180" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="86eef33f-6846-4d5e-83dc-e5a657cd3797" name="Compare Collections" type="SubSheet">
+    <display x="15" y="1815" w="90" h="60" />
+    <inputs>
+      <input type="collection" name="Expected Audit" narrative="Expected Audit Log" expr="[Expected Audit Log]" />
+    </inputs>
+    <onsuccess>95e95777-13cd-4068-ba65-156391aeb247</onsuccess>
+    <processid>60043f4f-cfba-4c6e-9645-38a5f43d51c0</processid>
+  </stage>
+  <stage stageid="95e95777-13cd-4068-ba65-156391aeb247" name="Sign Out" type="Action">
+    <display x="15" y="1890" w="90" h="30" />
+    <onsuccess>47999070-8198-49d3-9c2c-a3cb63b1b5f7</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="47999070-8198-49d3-9c2c-a3cb63b1b5f7" name="Exit Blue Prism" type="Action">
+    <display x="15" y="1950" w="90" h="30" />
+    <onsuccess>3b0280e1-44b9-4087-b847-995a6ac94d52</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="3b0280e1-44b9-4087-b847-995a6ac94d52" name="End" type="End">
+    <display x="15" y="2010" w="90" h="30" />
+  </stage>
+  <stage stageid="752a9cac-fe23-410f-a3de-5fca8d2adbd3" name="Click Analytics Tab" type="Action">
+    <display x="15" y="1095" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Analytics&quot;" />
+    </inputs>
+    <onsuccess>7e2174b8-cba5-48d1-875f-ce7570fab2e5</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="f2c038b3-b26c-4546-8428-655f65a02a31" name="Attach System" type="Action">
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[BluePrism PID]" />
+    </inputs>
+    <onsuccess>e31c0807-0f39-4c3a-aaba-920a3929d761</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="e31c0807-0f39-4c3a-aaba-920a3929d761" name="Attach Analytics" type="Action">
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[BluePrism PID]" />
+    </inputs>
+    <onsuccess>dd82af76-0974-4fdb-bf9f-9875d9ae8a57</onsuccess>
+    <resource object="Blue Prism - Analytics (Parent)" action="Attach to Pid" />
+  </stage>
+</process>

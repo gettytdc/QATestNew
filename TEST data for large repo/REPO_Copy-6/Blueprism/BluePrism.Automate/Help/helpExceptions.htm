@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Exceptions</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="pagetitle">Help</h1>
+    </div>
+	
+	<div class="Highlighted">
+		<p>
+			This feature is subject to version restrictions. Please see the <a href="helpVersion.htm">
+			version page</a> for further information.
+		</p>
+	</div>
+
+    <h3>Exceptions</h3>
+	<p>Exceptions occur during the running of a process for various reasons. There may be, for example:</p>
+
+	<ul>
+	<li>A mistake in the process itself (e.g. an invalid expression entered into a calculation)</li>
+    <li>Failure to match an element (e.g. trying to 'press' a button that doesn't exist)</li>
+    <li>Something wrong with the data (e.g. an account type we don't know how to work)</li>
+	</ul>
+
+	<p>Usually when an exception occurs, the process stops and its status in Control Room shows as Terminated.
+	Sometimes, it is not desirable for the process to stop when an exception is encountered. In certain 
+	contexts, we are able to handle the exception and continue with processing. For example, if a Customer
+	System tells us we can't work a particular case because it is locked, we can trap the resulting exception, 
+	mark that case to be worked later, and then the process can carry on running and continue to work 
+	subsequent cases.</p>
+	
+	<h3>Hierarchy of Processing</h3>
+	<p>The most important exception handling concept is the hierarchical nature of the processing. When an 
+	exception occurs, the following happens:</p>
+
+	<ul>
+	<li>If the current stage is within a <a href="#Blocks">Block</a>, and that block contains a Recovery Stage, 
+	control transfers there</li>
+	<li>Otherwise, if the current page contains a Recovery Stage (outside a block), control transfers there</li>
+	<li>If this page was called by another (e.g. as a page reference, an action or a subprocess call), then the
+	 exception occurs at the stage that made the original call, and the above rules apply once again.</li>
+	<li>Ultimately if the exception goes unhandled by all the above, it must occur at a stage on the main page of 
+	the original parent process, with no Recovery Stage present. At this point, the process itself stops in an 
+	Exception state, and the process status will be marked as Terminated.</li>
+	</ul>
+
+	<p>If a new exception occurs during recovery, the above process resumes from the next level up the 
+	hierarchy.</p>
+	
+	<h3>Exception Stage</h3>
+	<p>An Exception Stage is used to raise an exception at any point during the process flow. An exception
+	deliberately raised in this way behaves in the same way as any normal exception that may occur during
+	processing.</p>
+	
+	<p>The Exception stage has the following details associated with it:</p>
+
+	<ul>
+	<li>Exception Type - a user-defined label describing the category of exception. Users can create their
+	own categories, such as &quot;Data Exception&quot; and &quot;Timeout Exception&quot;.
+	The Blue Prism product automatically collates and remembers all Exception Types created in all
+	processes and business objects. This means that the same types can be reused globally in a consistent
+	manner across all processes/objects.</li>
+	<li>Exception Detail - A expression containing any relevant details of the exception.</li>
+	</ul>
+
+	<h3>Recover Stage</h3>
+	<p>A <a href="frmStagePropertiesRecover.htm">Recover Stage</a> provides a means of recovering
+	from an exception. If an exception occurs on a page, 
+	and that page contains a Recover Stage, the process flow continues there. Once the process flow has 
+	transferred to a Recover Stage, the process is in Recovery Mode, and remains so until either a Resume 
+	Stage is encountered, or until a further exception occurs. If another exception occurs while still in recovery
+	mode, the exception is not caught by the same recovery stage, but instead 'bubbles up' to the next level.</p> 
+	
+	<h3>Resume Stage</h3>
+	<p>A Resume Stage is used to signal that recovery has finished, and normal processing is continuing. Typically, 
+	a Recover Stage will be followed by a number of decision/choice stages that lead to different types of cleanup
+	(depending on the type of exception). These 
+	stages can then be linked back into the main flow, which must be done via a Resume Stage. Without a Resume 
+	Stage, any further exception which occurred would not 
+	be handled by the same Recover Stage, but would bubble up to 
+	the next level, as if there was no exception handling in place. Once the Resume Stage has been passed, normal
+	exception handling will take place again.</p>
+	
+	<h3>Blocks<a name="Blocks" id="Blocks" /></h3>
+	
+	<p>A block is a rectangular region that groups together all the stages that fall completely within it.
+	A block can contain its own Recover Stage, which will handle exceptions that occur within that block.</p>
+	
+	<p>Visually, a block appears as a rectangle, with the internal area shaded. The block also has its name in 
+	a label in the top left-hand corner. This is the only field available on the block's properties form.</p>
+
+	<p>When a block is selected from the toolbar a new block can be created by dragging with the mouse to the 
+	desired size. Blocks can be resized by dragging one of their four corners. It is an error for blocks to 
+	overlap, if you have any overlapping blocks they will be shown in
+	<a href="frmValidateResults.htm">Process Validation</a>.</p>
+
+	<h3>Exception Functions</h3>
+	<p>The expression editor functions treeview includes an extra branch called Exceptions, containing the three
+	exception functions ExceptionText(), ExceptionDetail() and ExceptionStage(). These functions can be used from
+	a calculation or decision when the process is in recovery mode.</p>
+
+	<p>Additionally, a third item 'Types' is present, which can be expanded, and contains all the Exception types 
+	previously used. Dragging these items from the treeview pastes a string constant e.g. "UserNameTooLong" into 
+	the expression view.</p>
+	
+	<h3>Exception message dialogs</h3>
+	<p>Exception message dialogs that usually pop up during debugging do not appear if the exception is handled
+	by a Recovery Stage. Instead the process flow will jump to the recovery stage. In addition the message that
+	used to pop up in a dialog will now be shown above the status bar of Process Studio.</p>
+	
+	<h3>Log History Viewer</h3>
+	<p>The log history viewer can be accessed by clicking the button on the right of the status bar. Clicking 
+	this button pops up a textbox showing the last ten lines of log output. This is useful when you need to 
+	find out what caused the exception, or where the exception came from when the exception has been raised 
+	by a subpage.</p>
+</body>
+</html>

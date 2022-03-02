@@ -1,0 +1,138 @@
+﻿<process name="Test Environment Utility" version="1.0" bpversion="6.7.0.16843" narrative="" byrefcollection="true" preferredid="2036be26-d0a2-41b9-a4bb-3598a073b1b4">
+  <view>
+    <camerax>0</camerax>
+    <cameray>147</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="e2971224-dc53-476d-b633-6d1e1bcffedb" name="Start" type="Start">
+    <display x="15" y="-105" />
+    <onsuccess>0682ae5e-3c4f-4395-9bd3-5161b938c6cd</onsuccess>
+  </stage>
+  <stage stageid="09ffb6c5-215a-452c-b84e-06e49fc9c20c" name="End" type="End">
+    <display x="15" y="435" />
+  </stage>
+  <stage stageid="26c0a8a5-f5ea-4b53-827c-a9238c7cafa3" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="0682ae5e-3c4f-4395-9bd3-5161b938c6cd" name="Send Ping" type="Action">
+    <display x="15" y="-45" />
+    <inputs>
+      <input type="text" name="Arguments" narrative="The arguments that coincide with the process." expr="&quot;Ping&quot;" />
+      <input type="text" name="Process Name" narrative="The name of the process to start." expr="[QA Root]&amp;&quot;\Code\Environment Utility App\Start Process Test.exe&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Standard Output" stage="Standard Output" />
+      <output type="text" name="Standard Error" stage="Standard Error" />
+    </outputs>
+    <onsuccess>217f160d-be7a-493b-915c-b1ba92992dcf</onsuccess>
+    <resource object="Utility - Environment" action="Start Process Read Stderr and Stdout" />
+  </stage>
+  <stage stageid="e39aa21b-f3fd-46aa-9904-273400271dd5" name="Standard Output" type="Data">
+    <display x="-240" y="-15" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="72cc1ba6-367a-471a-a106-96d208c26af6" name="Standard Error" type="Data">
+    <display x="-150" y="-15" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="217f160d-be7a-493b-915c-b1ba92992dcf" name="Was Ping Received" type="Decision">
+    <display x="15" y="15" />
+    <decision expression="Trim([Standard Output]) = &quot;Ping&quot;" />
+    <ontrue>8a86268e-5250-4769-ba1e-dd411a116062</ontrue>
+    <onfalse>29758c6e-0f1f-430e-bc10-d473008f26e5</onfalse>
+  </stage>
+  <stage stageid="29758c6e-0f1f-430e-bc10-d473008f26e5" name="Exception1" type="Exception">
+    <display x="120" y="15" />
+    <exception type="Process Exception" detail="&quot;Command 'Ping' was not found. This indicates the automated test has failed.&quot; &amp; [Standard Error]" />
+  </stage>
+  <stage stageid="8a86268e-5250-4769-ba1e-dd411a116062" name="Send No Args" type="Action">
+    <display x="15" y="75" />
+    <inputs>
+      <input type="text" name="Arguments" narrative="The arguments that coincide with the process." expr="" />
+      <input type="text" name="Process Name" narrative="The name of the process to start." expr="[QA Root]&amp;&quot;\Code\Environment Utility App\Start Process Test.exe&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Standard Output" stage="Standard Output" />
+      <output type="text" name="Standard Error" stage="Standard Error" />
+    </outputs>
+    <onsuccess>809cb1c1-49fc-4ed9-abde-2e5f4ce8e311</onsuccess>
+    <resource object="Utility - Environment" action="Start Process Read Stderr and Stdout" />
+  </stage>
+  <stage stageid="39d691c7-69cd-47df-9d48-087936995606" name="Block1" type="Block">
+    <display x="-285" y="-45" w="180" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="809cb1c1-49fc-4ed9-abde-2e5f4ce8e311" name="Was No Args Error Returned" type="Decision">
+    <display x="15" y="135" />
+    <decision expression="Trim([Standard Error]) = &quot;No arguments passed.&quot;" />
+    <ontrue>bf202d4b-4c22-43ad-99f4-b3ec4b3e111a</ontrue>
+    <onfalse>75de9c08-6f5a-4b98-97e9-5eecc8f8de67</onfalse>
+  </stage>
+  <stage stageid="75de9c08-6f5a-4b98-97e9-5eecc8f8de67" name="Exception1" type="Exception">
+    <display x="120" y="135" />
+    <exception type="Process Exception" detail="[Standard Error]" />
+  </stage>
+  <stage stageid="bf202d4b-4c22-43ad-99f4-b3ec4b3e111a" name="Send Ping and Incorrect Arg" type="Action">
+    <display x="15" y="195" />
+    <inputs>
+      <input type="text" name="Arguments" narrative="The arguments that coincide with the process." expr="&quot;Ping Break&quot;" />
+      <input type="text" name="Process Name" narrative="The name of the process to start." expr="[QA Root]&amp;&quot;\Code\Environment Utility App\Start Process Test.exe&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Standard Output" stage="Standard Output" />
+      <output type="text" name="Standard Error" stage="Standard Error" />
+    </outputs>
+    <onsuccess>ac2a6f31-9909-422a-9f3c-b8f60e86b493</onsuccess>
+    <resource object="Utility - Environment" action="Start Process Read Stderr and Stdout" />
+  </stage>
+  <stage stageid="ac2a6f31-9909-422a-9f3c-b8f60e86b493" name="Standard Output and Error Contains Data" type="Decision">
+    <display x="15" y="255" />
+    <decision expression="Trim([Standard Error]) = &quot;Command Break not found.&quot; AND Trim([Standard Output]) = &quot;Ping&quot;" />
+    <ontrue>64e8920b-73f7-4018-b389-6aacdf8dba13</ontrue>
+    <onfalse>a375b042-e1d3-4973-aceb-2df3e5c0b852</onfalse>
+  </stage>
+  <stage stageid="a375b042-e1d3-4973-aceb-2df3e5c0b852" name="Exception1" type="Exception">
+    <display x="120" y="255" />
+    <exception type="Process Exception" detail="[Standard Error]" />
+  </stage>
+  <stage stageid="64e8920b-73f7-4018-b389-6aacdf8dba13" name="Send Wrong Parameter" type="Action">
+    <display x="15" y="315" />
+    <inputs>
+      <input type="text" name="Arguments" narrative="The arguments that coincide with the process." expr="&quot;Wrong&quot;" />
+      <input type="text" name="Process Name" narrative="The name of the process to start." expr="[QA Root]&amp;&quot;\Code\Environment Utility App\Start Process Test.exe&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Standard Output" stage="Standard Output" />
+      <output type="text" name="Standard Error" stage="Standard Error" />
+    </outputs>
+    <onsuccess>f29ab768-fd02-496b-a229-22f044cbc37a</onsuccess>
+    <resource object="Utility - Environment" action="Start Process Read Stderr and Stdout" />
+  </stage>
+  <stage stageid="f29ab768-fd02-496b-a229-22f044cbc37a" name="Standard Output Contains Data" type="Decision">
+    <display x="15" y="375" />
+    <decision expression="Trim([Standard Error]) = &quot;Command Wrong not found.&quot;" />
+    <ontrue>09ffb6c5-215a-452c-b84e-06e49fc9c20c</ontrue>
+    <onfalse>487fb361-85c7-4906-9084-36a93ccb46a9</onfalse>
+  </stage>
+  <stage stageid="487fb361-85c7-4906-9084-36a93ccb46a9" name="Exception1" type="Exception">
+    <display x="120" y="375" />
+    <exception type="Process Exception" detail="[Standard Error]" />
+  </stage>
+  <stage stageid="0e99d734-6555-400e-a72f-a27ba28ea1b2" name="QA Root" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+</process>

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>调试帮助</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="pagetitle">帮助</h1>
+    </div>
+
+    <h3>在 Process Studio 和 Object Studio 中进行调试</h3>
+
+    <p>借助调试工具，您可以在 <a href="frmProcess.htm">Process Studio</a> 或 <a href="helpObjectStudio.htm">Object Studio</a> 中模拟执行（即运行）业务流程或业务对象。您全程都可以在<a href="helpFlowCharts.htm">流程图</a>中查看具体的执行路径、查询数据项的值、在执行期间修改流程图、跳转到所需的区域。</p>
+
+    <p>调试程序在 Process Studio 和 Object Studio 中会表现出不同的行为，这可以体现流程与对象之间的结构差异。接下来，本文会对这些差异进行概括介绍。</p>
+
+    <h3>调试工具栏 <a name="DebugToolbar" id="DebugToolbar"></a></h3>
+
+    <p>调试工具栏位于 Process Studio/Object Studio 屏幕顶部。它包含以下按钮：</p>
+
+    <ul>
+        <li class="bold">
+ 播放 
+
+            <p class="indented">使流程从当前位置开始运行至流程图的终点。运行速度可以通过播放按钮内的下拉菜单来改变。</p>
+        </li>
+
+        <li class="bold">
+ 单步 
+
+            <p class="indented">从当前环节推进一步。如果下一环节位于另一个页面、流程或业务对象中，显示画面会跳转到相应的位置，并按需加载新的 Process Studio/Object Studio 窗口。</p>
+        </li>
+
+        <li class="bold">
+ 单步跳过 
+
+            <p class="indented">此命令的行为和“单步”命令一样；但是，如果当前环节是一个页面引用环节或子流程，则会一次性执行被引用页面/流程中所含的所有环节，然后再跳转到当前页面上的下一个环节。也就是说，不会接着执行嵌套的子页面，而是会跳过它。</p>
+        </li>
+
+        <li class="bold">
+ 单步跳出 
+
+            <p class="indented">继续运行，直至执行流从当前页面/子流程重新转移至调用当前页面/子流程的环节。</p>
+        </li>
+
+        <li class="bold">
+ 暂停 
+
+            <p class="indented">在当前位置暂停执行。要继续执行，请使用“播放”、“单步”、“单步跳出”等按钮</p>
+        </li>
+
+        <li class="bold">
+ 重启 
+
+            <p class="indented">重启调试程序。</p>
+        </li>
+    </ul>
+     
+    <h3>Process Studio 调试与 Object Studio 调试 <a name="Concepts" id="Concepts"></a></h3>
+
+    <h5 class="bold">流程对象与业务对象之间的概念差异</h5>
+
+    <ul>
+		
+        <li class="bold"><a name="Pages" id="Pages"></a> 流控制和页面 
+
+            <p class="indented">业务流程会从主页面上的开始环节开始执行，然后沿着环节之间的连线继续执行。在某些位置，执行流会根据<a href="helpCalculationsAndDecisions.htm">决策环节</a>或<a href="frmStagePropertiesChoice.htm">选择环节</a>的结果沿着一条路径或另一条路径继续推进。</p>
+
+            <p class="indented">每个页面都是整个自然流中的一个逻辑子部分。页面有两个主要用途：a) 重复使用经常重复的环节组；以及 b) 将整个流程图整理得井然有序。因此，任何流程实际上都能在单个页面上实现等效呈现。</p>
+
+            <p class="indented">相反，业务对象中的公开页面则无法做到部分呈现；每个页面本身就是一个实体，拥有自己的起点。从这层意义上来说，业务对象并没有唯一的起点：只是包含很多功能，而每个功能都有自己唯一的起点。</p>
+        </li>
+    </ul>
+
+    <h5 class="bold">调试差异</h5>
+
+    <ul>
+		<li class="bold"><a name="EntryPoints" id="EntryPoints"></a> 流起点 
+
+            <p class="indented">由于业务对象的起点不是唯一的，所以当您按下 Object Studio 中的“重启”时，调试程序不会跳转到第一页上的开始环节，而是跳转到当前页面上的开始环节。</p>
+        </li>
+
+		
+        <li class="bold"><a name="EndPoints" id="EndPoints"></a> 流终点 
+
+            <p class="indented">同样地，执行流会在业务对象中的同一个页面上结束（不会返回到调用页面），但在以下情况下除外：业务对象调试操作是父流程调用的。在这种情况下，执行流会返回到父流程，并从调用当前业务对象操作的操作环节开始继续推进。</p>
+        </li>
+
+		<li class="bold"><a name="DataResetting" id="DataResetting"></a>数据项的重置 
+
+            <p class="indented">在 Process Studio 中调用“重启”命令后，所有数据项都会重置为其<a href="frmStagePropertiesData.htm">初始值</a>。在 Object Studio 调用“重置”后，当前页面上的所有数据项都会重置，但所有其他数据项则会保留现有值。</p>
+        </li>
+
+        <li class="bold">
+ 清理页面的执行（仅限 Object Studio） 
+
+            <p class="indented">在 Object Studio 中调用“重启”命令后，清理页面会被调用。因此，请务必检查您的清理页面是否有效，检查这个页面是否每次都能运行并完成。</p>
+        </li>
+
+		
+        <li class="bold"><a name="Launching" id="Launching"></a> 启动目标应用程序（仅限 Object Studio） 
+
+            <p class="indented">根据业务对象的具体设计，您可能无法轻松地运行目标应用程序启动操作，然后再测试所需的其他操作。例如，如果您正要测试在应用程序的某个特殊屏幕中获取数据的操作，而您必须按照复杂的路线导航到相应的屏幕，那您就会面临上述情况。</p>
+
+            <p class="indented">“启动”按钮可用于启动（或附加到）您的应用程序。
+ 然后，您可以导航到应用程序中的所需屏幕，选择所需的操作页面，然后开始进行调试。</p>
+
+            <p class="indented">请注意，“启动”按钮会先执行初始化页面，然后再启动应用程序。如果这会为您带来不便，那您可能会想要重新设计初始化页面，以测试自定义标志数据项，并在发现业务对象并非处于所需状态时提早退出。</p>
+        </li>
+    </ul>
+</body>
+</html>

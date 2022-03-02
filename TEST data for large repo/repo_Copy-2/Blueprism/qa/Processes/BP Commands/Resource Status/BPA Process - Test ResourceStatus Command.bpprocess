@@ -1,0 +1,1149 @@
+﻿<process name="Test ResourceStatus Command" version="1.0" bpversion="6.10.0.28595" narrative="" byrefcollection="true" preferredid="9710aab2-9f6c-4e4c-8e50-a1bc071e9705">
+  <view>
+    <camerax>85</camerax>
+    <cameray>25</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="4be97e8a-7ef8-42da-8ca2-b99983f82bee" type="Normal" published="False">
+    <name>setup</name>
+    <view>
+      <camerax>15</camerax>
+      <cameray>-12</cameray>
+      <zoom version="2">0.9375</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="33796715-8265-4fe0-9b08-1d80e5b2381a" type="Normal" published="False">
+    <name>cleanup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>48</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="717d68fa-bcd1-4cbb-8e77-0d71f5411d9c" name="Start" type="Start">
+    <display x="15" y="-315" />
+    <onsuccess>fd70b7a4-bf96-4cf4-ad69-9ce01084c389</onsuccess>
+  </stage>
+  <stage stageid="aff91c38-857d-4558-892b-ba0f3c8c4753" name="Stage1" type="ProcessInfo">
+    <display x="-210" y="-285" w="150" h="90" />
+  </stage>
+  <stage stageid="899f99fe-0513-427e-b192-94840b725f6f" name="setup" type="SubSheetInfo">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <display x="-120" y="-360" w="150" h="90" />
+  </stage>
+  <stage stageid="d57eda8f-119d-4925-b222-e7b712a37f98" name="Start" type="Start">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <display x="15" y="-390" />
+    <inputs>
+      <input type="collection" name="User Setup" stage="User Setup" />
+    </inputs>
+    <onsuccess>4eeda4b4-ca36-4619-a93b-55ba159a1112</onsuccess>
+  </stage>
+  <stage stageid="b11c400d-79cd-48a0-ba2c-e90d8a5f7eb6" name="Create New User" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="375" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="The username of the user you wish to create." expr="[User Setup.User Name]" />
+      <input type="password" name="Password" friendlyname="Password" narrative="The password in which you want to assign to the user." expr="[User Setup.Password]" />
+      <input type="date" name="User Expiry Date" friendlyname="User Expiry Date" narrative="The date in which the user account will expire." expr="" />
+      <input type="date" name="Password Expiry Date" friendlyname="Password Expiry Date" narrative="The date in which the password will expire. " expr="" />
+      <input type="collection" name="Roles" friendlyname="Roles" narrative="The roles you wish to give to your user." expr="[User Setup.Roles]" />
+      <input type="text" name="Password Duration" friendlyname="Password Duration" narrative="The duration, in weeks you wish the password to last before expiring." expr="" />
+    </inputs>
+    <onsuccess>087cd2dd-d3cc-440d-bd05-bd420c62f9b5</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Create New Username" />
+  </stage>
+  <stage stageid="019688f7-fbc7-4327-86e5-268a3f4aab8f" name="setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-210" w="240" h="30" />
+    <inputs>
+      <input type="collection" name="User Setup" friendlyname="User Setup" expr="[Create User]" />
+    </inputs>
+    <onsuccess>3c7f4765-b42e-4e4d-9be3-93ef5ab626b9</onsuccess>
+    <processid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</processid>
+  </stage>
+  <stage stageid="b389ae12-c754-48b3-b1b4-9073a73a1069" name="cleanup" type="SubSheetInfo">
+    <subsheetid>33796715-8265-4fe0-9b08-1d80e5b2381a</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="ba020801-0170-4813-9c8f-9aab65047712" name="Start" type="Start">
+    <subsheetid>33796715-8265-4fe0-9b08-1d80e5b2381a</subsheetid>
+    <display x="15" y="-165" />
+    <onsuccess>d036dc57-3762-4ee2-b6b0-03094c2cf115</onsuccess>
+  </stage>
+  <stage stageid="66efdb53-fb36-42bd-9541-2f0f1b9582a8" name="End" type="End">
+    <subsheetid>33796715-8265-4fe0-9b08-1d80e5b2381a</subsheetid>
+    <display x="15" y="285" />
+  </stage>
+  <stage stageid="2c460840-feaf-4f6a-9415-91c45b589ee9" name="Delete User" type="Action">
+    <subsheetid>33796715-8265-4fe0-9b08-1d80e5b2381a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="The name of the user you wish to delete." expr="[Create User.User Name]" />
+    </inputs>
+    <onsuccess>1f123649-3c35-414e-9023-55ad8ea16be3</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Delete Username" />
+  </stage>
+  <stage stageid="81a6a6d6-18dc-4a6d-acf8-13080e791b42" name="cleanup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="180" y="-105" />
+    <onsuccess>c6ec22c2-36e0-47f7-93c7-c761b8f04e79</onsuccess>
+    <processid>33796715-8265-4fe0-9b08-1d80e5b2381a</processid>
+  </stage>
+  <stage stageid="7e8af499-6c41-46e8-97ab-90fbd9b0ab1f" name="Navigate to System" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>f739e33e-a238-44c0-acb8-e00b6243a7e5</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="7ed59adf-672e-4056-adba-0e3c1cd7c4ef" name="Scenarios" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="0" w="390" h="585" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="7ee0010a-ee1e-408d-a869-f25c4b3281ae" name="Data" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="-225" w="150" h="300" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d036dc57-3762-4ee2-b6b0-03094c2cf115" name="Navigate to system" type="Action">
+    <subsheetid>33796715-8265-4fe0-9b08-1d80e5b2381a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>8c89d834-5b5f-4aff-81dc-8c7bc11d8c7f</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="11607a89-2424-495b-8595-45bb041ae2d5" name="Sign out" type="Action">
+    <subsheetid>33796715-8265-4fe0-9b08-1d80e5b2381a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="240" w="90" h="30" />
+    <onsuccess>66efdb53-fb36-42bd-9541-2f0f1b9582a8</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="f739e33e-a238-44c0-acb8-e00b6243a7e5" name="Navigate to Users" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="285" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Users&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>b9e11a5e-e67f-458c-984f-3cf5f8c92832</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="8c89d834-5b5f-4aff-81dc-8c7bc11d8c7f" name="Navigate to Users" type="Action">
+    <subsheetid>33796715-8265-4fe0-9b08-1d80e5b2381a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Users&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>676c24da-0c35-46d4-b33b-61312eb7002e</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="4b8f475a-2439-4a13-ab74-155100012207" name="Write error" type="Calculation">
+    <loginhibit onsuccess="true" />
+    <display x="180" y="-210" />
+    <onsuccess>6bf9e882-f47f-4f1f-8515-1840362445ba</onsuccess>
+    <calculation expression="[Error] &amp; &quot; &quot; &amp; ExceptionDetail()" stage="Error" />
+  </stage>
+  <stage stageid="28237c57-4ee7-41d1-bf06-5c155b0b282b" name="Create User" type="Collection">
+    <display x="-210" y="-195" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="User Name" type="text" />
+      <field name="Password" type="password" />
+      <field name="Roles" type="collection">
+        <field name="Role" type="text" />
+      </field>
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="User Name" type="text" value="dev3369" />
+        <field name="Password" type="password" encvalue="aCpGKl8qTyp6KlgqQypZKkcqBCppKkUqRypHKkUqRCoEKnkqTypJKl8qWCpDKl4qUyoEKnkqQypHKloqRipPKmUqSCpMKl8qWSpJKksqXipFKlgq:TipPKlwqGSoZKhwqEyo=" />
+        <field name="Roles" type="collection">
+          <row>
+            <field name="Role" type="text" value="Developers" />
+          </row>
+        </field>
+      </row>
+      <row>
+        <field name="User Name" type="text" value="test3369" />
+        <field name="Password" type="password" encvalue="aCpGKl8qTyp6KlgqQypZKkcqBCppKkUqRypHKkUqRCoEKnkqTypJKl8qWCpDKl4qUyoEKnkqQypHKloqRipPKmUqSCpMKl8qWSpJKksqXipFKlgq:XipPKlkqXioZKhkqHCoTKg==" />
+        <field name="Roles" type="collection">
+          <row>
+            <field name="Role" type="text" value="Testers" />
+          </row>
+        </field>
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="6e84895d-9320-4374-9e85-11224050c785" name="User Setup" type="Collection">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <display x="-120" y="-270" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="bb4f2412-8c08-42ad-88b4-d848e40deff3" name="Setup Data" type="Block">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-300" w="150" h="330" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b9e11a5e-e67f-458c-984f-3cf5f8c92832" name="User loop" type="LoopStart">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="330" />
+    <onsuccess>b11c400d-79cd-48a0-ba2c-e90d8a5f7eb6</onsuccess>
+    <groupid>3a9d681b-71a5-46d9-94f1-ca7739ed3213</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>User Setup</loopdata>
+  </stage>
+  <stage stageid="087cd2dd-d3cc-440d-bd05-bd420c62f9b5" name="User loop" type="LoopEnd">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="420" />
+    <onsuccess>579bb451-cfe9-45c7-b8a4-983ad3276a48</onsuccess>
+    <groupid>3a9d681b-71a5-46d9-94f1-ca7739ed3213</groupid>
+  </stage>
+  <stage stageid="ff6ffbaf-97f9-452d-b574-62edc50f9c37" name="command line output" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-75" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9a03f035-3689-4633-ab06-feccb29b097b" name="Commands (non SSO)" type="Collection">
+    <display x="-210" y="-165" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="AutomateC Command" type="text" description="command to send to automcateC" />
+      <field name="Requires Login" type="flag" />
+      <field name="Negative Test" type="flag" />
+      <field name="Username" type="text" />
+      <field name="Password" type="text" />
+      <field name="Scenario" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="AutomateC Command" type="text" value="/resourcestatus [Resource] /user admin" />
+        <field name="Requires Login" type="flag" value="False" />
+        <field name="Negative Test" type="flag" value="True" />
+        <field name="Username" type="text" value="" />
+        <field name="Password" type="text" value="" />
+        <field name="Scenario" type="number" value="1" />
+      </row>
+      <row>
+        <field name="AutomateC Command" type="text" value="/resourcestatus [Resource] /user admin a" />
+        <field name="Requires Login" type="flag" value="False" />
+        <field name="Negative Test" type="flag" value="True" />
+        <field name="Username" type="text" value="" />
+        <field name="Password" type="text" value="" />
+        <field name="Scenario" type="number" value="2" />
+      </row>
+      <row>
+        <field name="AutomateC Command" type="text" value="/resourcestatus [Resource] " />
+        <field name="Requires Login" type="flag" value="True" />
+        <field name="Negative Test" type="flag" value="False" />
+        <field name="Username" type="text" value="admin" />
+        <field name="Password" type="text" value="admin" />
+        <field name="Scenario" type="number" value="3" />
+      </row>
+      <row>
+        <field name="AutomateC Command" type="text" value="/resourcestatus [Resource] " />
+        <field name="Requires Login" type="flag" value="True" />
+        <field name="Negative Test" type="flag" value="True" />
+        <field name="Username" type="text" value="dev3369" />
+        <field name="Password" type="text" value="dev3369" />
+        <field name="Scenario" type="number" value="4" />
+      </row>
+      <row>
+        <field name="AutomateC Command" type="text" value="/resourcestatus [Resource] " />
+        <field name="Requires Login" type="flag" value="True" />
+        <field name="Negative Test" type="flag" value="False" />
+        <field name="Username" type="text" value="test3369" />
+        <field name="Password" type="text" value="test3369" />
+        <field name="Scenario" type="number" value="5" />
+      </row>
+      <row>
+        <field name="AutomateC Command" type="text" value="/resourcestatus all " />
+        <field name="Requires Login" type="flag" value="True" />
+        <field name="Negative Test" type="flag" value="" />
+        <field name="Username" type="text" value="admin" />
+        <field name="Password" type="text" value="admin" />
+        <field name="Scenario" type="number" value="6" />
+      </row>
+      <row>
+        <field name="AutomateC Command" type="text" value="/resourcestatus [Resource]  1 m" />
+        <field name="Requires Login" type="flag" value="True" />
+        <field name="Negative Test" type="flag" value="False" />
+        <field name="Username" type="text" value="admin" />
+        <field name="Password" type="text" value="admin" />
+        <field name="Scenario" type="number" value="7" />
+      </row>
+      <row>
+        <field name="AutomateC Command" type="text" value="/resourcestatus all " />
+        <field name="Requires Login" type="flag" value="False" />
+        <field name="Negative Test" type="flag" value="True" />
+        <field name="Username" type="text" value="" />
+        <field name="Password" type="text" value="" />
+        <field name="Scenario" type="number" value="8" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="bf897343-5c98-4fb4-94d6-a1f0a582fc08" name="cleanup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="660" w="90" h="30" />
+    <onsuccess>ea7b1aa4-a6ed-42a9-92a9-862e1409e36b</onsuccess>
+    <processid>33796715-8265-4fe0-9b08-1d80e5b2381a</processid>
+  </stage>
+  <stage stageid="44960c3a-e768-4008-8acf-cab19034d6c0" name="End1" type="End">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="780" w="90" h="30" />
+  </stage>
+  <stage stageid="dfa195ba-d156-448f-bd27-1e3ba75fddc6" name="Write error" type="Calculation">
+    <loginhibit onsuccess="true" />
+    <display x="-75" y="495" />
+    <onsuccess>f26a163d-f07a-44a3-8ec0-35ff764bf778</onsuccess>
+    <calculation expression="[Error] &amp; &quot; &quot; &amp; ExceptionDetail()" stage="Error" />
+  </stage>
+  <stage stageid="f26a163d-f07a-44a3-8ec0-35ff764bf778" name="Resume1" type="Resume">
+    <loginhibit />
+    <display x="-75" y="540" />
+    <onsuccess>65792a40-5373-42d6-8f21-8cb6b812eb2f</onsuccess>
+  </stage>
+  <stage stageid="c6ec22c2-36e0-47f7-93c7-c761b8f04e79" name="Rethrow" type="Exception">
+    <display x="180" y="-60" />
+    <exception localized="yes" type="Test error" detail="[Error]" />
+  </stage>
+  <stage stageid="ea7b1aa4-a6ed-42a9-92a9-862e1409e36b" name="Test errors?" type="Decision">
+    <display x="15" y="720" w="90" h="60" />
+    <decision expression="[Error] = &quot;&quot;" />
+    <ontrue>44960c3a-e768-4008-8acf-cab19034d6c0</ontrue>
+    <onfalse>4f500432-ea34-4060-8d26-b46b0cf6218d</onfalse>
+  </stage>
+  <stage stageid="4f500432-ea34-4060-8d26-b46b0cf6218d" name="Test Fail" type="Exception">
+    <display x="120" y="720" />
+    <exception localized="yes" type="Test Fail" detail="[Error]" />
+  </stage>
+  <stage stageid="9a339f90-15f6-4153-a174-7c58cc195c8b" name="Process Name" type="Data">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <display x="-120" y="-150" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Pending Session US3369</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="97a8bc45-0b9b-464b-8114-8bda3637c140" name="Resource" type="Data">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <display x="-120" y="-180" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">BP0554:8123</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="5d0c26ad-3a27-4af9-b98b-f0f13b0680cc" name="Port Number" type="Data">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <display x="-120" y="-240" w="150" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>8123</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="2177a30d-a6da-4aed-9437-4c2b7d241613" name="Make Resource" type="Calculation">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <display x="150" y="15" w="90" h="30" />
+    <onsuccess>4ae26f72-a4e2-4460-8d28-c482888a6332</onsuccess>
+    <calculation expression="Replace(GetResourceName(), &quot;_debug&quot;, &quot;&quot;)&amp;&quot;:&quot;&amp;[Port Number]" stage="Resource" />
+  </stage>
+  <stage stageid="9708c24d-18cb-4a69-9b96-9ae68c259d0d" name="Cleanup Block" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-285" w="345" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="920268ec-a146-464e-9324-bbf5271edce3" name="command line expected" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a9b1938f-4697-4265-8028-5e8cb42b158d" name="Scenario?" type="ChoiceStart">
+    <display x="15" y="30" w="150" h="30" />
+    <groupid>d813979c-e22a-4d53-84e8-252b6e45ee8c</groupid>
+    <choices>
+      <choice expression="[Commands.Scenario] = 1">
+        <name>Scenario 1</name>
+        <distance>30</distance>
+        <ontrue>d073c049-b522-4f06-b90f-ec00d95f4710</ontrue>
+      </choice>
+      <choice expression="[Commands.Scenario] = 2">
+        <name>Scenario 2</name>
+        <distance>90</distance>
+        <ontrue>dc41bfa9-ea50-4c0d-9bd2-394726dab89b</ontrue>
+      </choice>
+      <choice expression="[Commands.Scenario] = 3">
+        <name>Scenario 3</name>
+        <distance>150</distance>
+        <ontrue>b561184e-8550-4c0f-82dd-f666fe23ac8a</ontrue>
+      </choice>
+      <choice expression="[Commands.Scenario] = 4">
+        <name>Scenario 4</name>
+        <distance>210</distance>
+        <ontrue>34846600-47b7-4d96-932c-774e4181ec77</ontrue>
+      </choice>
+      <choice expression="[Commands.Scenario] = 5">
+        <name>Scenario 5</name>
+        <distance>270</distance>
+        <ontrue>ebf93395-19ab-4443-a980-c9973018d797</ontrue>
+      </choice>
+      <choice expression="[Commands.Scenario] = 6">
+        <name>Scenario 6</name>
+        <distance>330</distance>
+        <ontrue>3922392c-ff49-4b23-9d64-23fbb7e99690</ontrue>
+      </choice>
+      <choice expression="[Commands.Scenario] = 7">
+        <name>Scenario7</name>
+        <distance>390</distance>
+        <ontrue>2b44c754-3f1c-4e74-bcab-cb1de6284cf1</ontrue>
+      </choice>
+      <choice expression="[Commands.Scenario] = 8">
+        <name>Scenario8</name>
+        <distance>450</distance>
+        <ontrue>1437768d-6bc1-4570-ab91-58ffeac88fb8</ontrue>
+      </choice>
+    </choices>
+  </stage>
+  <stage stageid="524ea8d2-84ee-4bbe-8dca-646445f2d558" name="Otherwise1" type="ChoiceEnd">
+    <display x="15" y="540" />
+    <onsuccess>a7845ff4-bf45-4cbb-93c9-ba2a2e275e96</onsuccess>
+    <groupid>d813979c-e22a-4d53-84e8-252b6e45ee8c</groupid>
+  </stage>
+  <stage stageid="d073c049-b522-4f06-b90f-ec00d95f4710" name="Scenario 1 as expected?" type="Decision">
+    <display x="105" y="60" w="120" h="30" />
+    <decision expression="StartsWith([command line output], &quot;Bad command line arguments: argument missing for parameter '/user'.&quot;)" />
+    <ontrue>c0254303-59d7-4f64-a9bc-b9d0c361f453</ontrue>
+    <onfalse>289ccd6e-f92e-4f17-91d9-5ee27c47b60a</onfalse>
+  </stage>
+  <stage stageid="dc41bfa9-ea50-4c0d-9bd2-394726dab89b" name="Scenario 2 as expected?" type="Decision">
+    <display x="105" y="120" w="120" h="30" />
+    <decision expression="StartsWith([command line output], &quot;Login failed: The username or password is incorrect. Please try again.&quot;)" />
+    <ontrue>7aa406fe-ad8b-4450-af5e-0a8435d6809b</ontrue>
+    <onfalse>65198157-f5fc-4fb1-8f18-41ed95b4b3e4</onfalse>
+  </stage>
+  <stage stageid="b561184e-8550-4c0f-82dd-f666fe23ac8a" name="Scenario 3 as expected?" type="Decision">
+    <display x="105" y="180" w="120" h="30" />
+    <decision expression="StartsWith([command line output], &quot;Showing All sessions for &quot;&amp; [Resource])&#xA;AND &#xA;InStr([command line output] , &quot;Total Sessions: 1&quot;) &gt; 0&#xA;AND&#xA;InStr([command line output] , &quot;Pending&quot;) &gt; 0" />
+    <ontrue>f6455fdb-5a15-4e8f-9ad8-f9d5f982cf46</ontrue>
+    <onfalse>b25d8c73-6571-4d97-b168-ae267cb258e1</onfalse>
+  </stage>
+  <stage stageid="34846600-47b7-4d96-932c-774e4181ec77" name="Scenario 4 as expected?" type="Decision">
+    <display x="105" y="240" w="120" h="30" />
+    <decision expression="StartsWith([command line output], &quot;Error: Permission denied. Permissions required: View Resource, View Resource Screen Captures, Configure Resource, Control Resource, Manage Resource Access Rights&quot;)" />
+    <ontrue>6638b963-5630-4d99-a013-50e47f1f9217</ontrue>
+    <onfalse>309bc61f-8738-49e6-977e-7333d6e8be37</onfalse>
+  </stage>
+  <stage stageid="ebf93395-19ab-4443-a980-c9973018d797" name="Scenario 5 as expected?" type="Decision">
+    <display x="105" y="300" w="120" h="30" />
+    <decision expression="StartsWith([command line output], &quot;Showing All sessions for&quot;)&#xA;AND&#xA;InStr([command line output] , &quot;Pending&quot;) = 0&#xA;AND&#xA;InStr([command line output] , &quot;Running&quot;) = 0&#xA;AND&#xA;InStr([command line output] , &quot;Completed&quot;) = 0&#xA;AND&#xA;InStr([command line output] , &quot;Terminated&quot;) = 0" />
+    <ontrue>707f456c-376f-439f-9a31-b343e40bd188</ontrue>
+    <onfalse>57be1988-e0f4-4dee-b930-fcd03c8da23b</onfalse>
+  </stage>
+  <stage stageid="3922392c-ff49-4b23-9d64-23fbb7e99690" name="Scenario 6 as expected?" type="Decision">
+    <display x="105" y="360" w="120" h="30" />
+    <decision expression="StartsWith([command line output], &quot;Showing All sessions for all&quot;)&#xA;AND &#xA;ToNumber(Mid([command line output], 47 , 1)) &gt; 1&#xA;AND&#xA;InStr([command line output] , &quot;Pending&quot;) &gt; 0&#xA;AND&#xA;InStr([command line output] , &quot;Running&quot;) &gt; 0" />
+    <ontrue>c6e02d75-03bb-4bed-b68c-d4a438a7f87a</ontrue>
+    <onfalse>05a46798-ba08-4f81-b8af-39468ec34ab7</onfalse>
+  </stage>
+  <stage stageid="2b44c754-3f1c-4e74-bcab-cb1de6284cf1" name="Scenario 7 as expected?" type="Decision">
+    <display x="105" y="420" w="120" h="30" />
+    <decision expression="StartsWith([command line output], &quot;Showing sessions for resource &quot;&amp; [Resource])&#xA;AND &#xA;InStr([command line output] , &quot;No sessions found for selected options&quot;) &gt; 0" />
+    <ontrue>406b1e66-3b35-4f7b-b9f9-d6f79f76d415</ontrue>
+    <onfalse>a314fdb1-8da5-425a-844c-b09c5d0a47b7</onfalse>
+  </stage>
+  <stage stageid="c0254303-59d7-4f64-a9bc-b9d0c361f453" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="105" y="90" w="10" h="10" />
+    <onsuccess>191f7f52-5b24-457d-b616-732f5f0051c4</onsuccess>
+  </stage>
+  <stage stageid="191f7f52-5b24-457d-b616-732f5f0051c4" name="Anchor2" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="255" y="90" w="10" h="10" />
+    <onsuccess>9e080396-1861-4fd6-ae2f-0a261d3669dc</onsuccess>
+  </stage>
+  <stage stageid="7aa406fe-ad8b-4450-af5e-0a8435d6809b" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="105" y="150" w="10" h="10" />
+    <onsuccess>9e080396-1861-4fd6-ae2f-0a261d3669dc</onsuccess>
+  </stage>
+  <stage stageid="9e080396-1861-4fd6-ae2f-0a261d3669dc" name="Anchor2" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="255" y="150" w="10" h="10" />
+    <onsuccess>4971469f-9d4e-450f-a02d-3ff57c9e8018</onsuccess>
+  </stage>
+  <stage stageid="f6455fdb-5a15-4e8f-9ad8-f9d5f982cf46" name="Anchor3" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="105" y="210" w="10" h="10" />
+    <onsuccess>4971469f-9d4e-450f-a02d-3ff57c9e8018</onsuccess>
+  </stage>
+  <stage stageid="4971469f-9d4e-450f-a02d-3ff57c9e8018" name="Anchor4" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="255" y="210" w="10" h="10" />
+    <onsuccess>253a719e-5935-4f62-87b5-5bfaf8001340</onsuccess>
+  </stage>
+  <stage stageid="6638b963-5630-4d99-a013-50e47f1f9217" name="Anchor5" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="105" y="270" w="10" h="10" />
+    <onsuccess>253a719e-5935-4f62-87b5-5bfaf8001340</onsuccess>
+  </stage>
+  <stage stageid="707f456c-376f-439f-9a31-b343e40bd188" name="Anchor6" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="105" y="330" w="10" h="10" />
+    <onsuccess>55cdef56-1e62-4ce7-8ec3-eee87f22972c</onsuccess>
+  </stage>
+  <stage stageid="253a719e-5935-4f62-87b5-5bfaf8001340" name="Anchor7" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="255" y="270" w="10" h="10" />
+    <onsuccess>55cdef56-1e62-4ce7-8ec3-eee87f22972c</onsuccess>
+  </stage>
+  <stage stageid="55cdef56-1e62-4ce7-8ec3-eee87f22972c" name="Anchor8" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="255" y="330" w="10" h="10" />
+    <onsuccess>e2dbcc4e-d4c8-4a2f-a8bb-c7199e4d990b</onsuccess>
+  </stage>
+  <stage stageid="c6e02d75-03bb-4bed-b68c-d4a438a7f87a" name="Anchor9" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="105" y="390" w="10" h="10" />
+    <onsuccess>e2dbcc4e-d4c8-4a2f-a8bb-c7199e4d990b</onsuccess>
+  </stage>
+  <stage stageid="e2dbcc4e-d4c8-4a2f-a8bb-c7199e4d990b" name="Anchor10" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="255" y="390" w="10" h="10" />
+    <onsuccess>302fc010-bc3c-4b38-a077-7e7d20b60ef2</onsuccess>
+  </stage>
+  <stage stageid="406b1e66-3b35-4f7b-b9f9-d6f79f76d415" name="Anchor11" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="105" y="450" w="10" h="10" />
+    <onsuccess>302fc010-bc3c-4b38-a077-7e7d20b60ef2</onsuccess>
+  </stage>
+  <stage stageid="302fc010-bc3c-4b38-a077-7e7d20b60ef2" name="Anchor12" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="255" y="450" w="10" h="10" />
+    <onsuccess>e4f758f0-c189-4435-b632-91bca6a64564</onsuccess>
+  </stage>
+  <stage stageid="289ccd6e-f92e-4f17-91d9-5ee27c47b60a" name="Command error 1" type="Exception">
+    <display x="210" y="60" />
+    <exception localized="yes" type="Test Error" detail="&quot;command &quot; &amp; [Commands.AutomateC Command] &amp; &quot; returned the following unexpected text: &quot; &amp; [command line output]" />
+  </stage>
+  <stage stageid="b25d8c73-6571-4d97-b168-ae267cb258e1" name="Command error 3" type="Exception">
+    <display x="210" y="180" />
+    <exception localized="yes" type="Test Error" detail="&quot;command &quot; &amp; [Commands.AutomateC Command] &amp; &quot; returned the following unexpected text: &quot; &amp; [command line output]" />
+  </stage>
+  <stage stageid="65198157-f5fc-4fb1-8f18-41ed95b4b3e4" name="Command error 2" type="Exception">
+    <display x="210" y="120" />
+    <exception localized="yes" type="Test Error" detail="&quot;command &quot; &amp; [Commands.AutomateC Command] &amp; &quot; returned the following unexpected text: &quot; &amp; [command line output]" />
+  </stage>
+  <stage stageid="309bc61f-8738-49e6-977e-7333d6e8be37" name="Command error 4" type="Exception">
+    <display x="210" y="240" />
+    <exception localized="yes" type="Test Error" detail="&quot;command &quot; &amp; [Commands.AutomateC Command] &amp; &quot; returned the following unexpected text: &quot; &amp; [command line output]" />
+  </stage>
+  <stage stageid="57be1988-e0f4-4dee-b930-fcd03c8da23b" name="Command error 5" type="Exception">
+    <display x="210" y="300" />
+    <exception localized="yes" type="Test Error" detail="&quot;command &quot; &amp; [Commands.AutomateC Command] &amp; &quot; returned the following unexpected text: &quot; &amp; [command line output]" />
+  </stage>
+  <stage stageid="05a46798-ba08-4f81-b8af-39468ec34ab7" name="Command error 6" type="Exception">
+    <display x="210" y="360" />
+    <exception localized="yes" type="Test Error" detail="&quot;command &quot; &amp; [Commands.AutomateC Command] &amp; &quot; returned the following unexpected text: &quot; &amp; [command line output]" />
+  </stage>
+  <stage stageid="a314fdb1-8da5-425a-844c-b09c5d0a47b7" name="Command error 7" type="Exception">
+    <display x="210" y="420" />
+    <exception localized="yes" type="Test Error" detail="&quot;command &quot; &amp; [Commands.AutomateC Command] &amp; &quot; returned the following unexpected text: &quot; &amp; [command line output]" />
+  </stage>
+  <stage stageid="3a262e54-f86c-4ed7-8bba-211ea04f1c0b" name="Error" type="Data">
+    <display x="-210" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a7845ff4-bf45-4cbb-93c9-ba2a2e275e96" name="Choice Error" type="Exception">
+    <display x="210" y="540" />
+    <exception localized="yes" type="Test Error" detail="&quot;Choice stage hit the otherwise stage, this shoudln't have happened. potentially a test data error&quot;" />
+  </stage>
+  <stage stageid="4377596c-34b0-491c-a91c-95491dfe0017" name="Call automateC" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-30" w="240" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="The username that you want to authenticate against." expr="[Commands.Username]" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the username." expr="[Commands.Password]" />
+      <input type="flag" name="Requires Login" friendlyname="Requires Login" narrative="Flag indicating if the login info should be given too" expr="[Commands.Requires Login]" />
+      <input type="text" name="Arguments" friendlyname="Arguments" narrative="The arguments to pass to automatec, not including the authentication info" expr="[Commands.AutomateC Command]" />
+      <input type="flag" name="Negative Test" friendlyname="Negative Test" narrative="Set if expecting an error executing command" expr="[Commands.Negative Test]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Output" friendlyname="Output" narrative="The output from the command" stage="command line output" />
+    </outputs>
+    <onsuccess>a9b1938f-4697-4265-8028-5e8cb42b158d</onsuccess>
+    <resource object="Blue Prism - Commands" action="Call automateC" />
+  </stage>
+  <stage stageid="84c4f878-9e50-4e6a-8a7d-ffef95c977ce" name="Write Resource into Command" type="Calculation">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="150" y="105" w="90" h="30" />
+    <onsuccess>fe93cb4d-2c2b-486a-b80c-e0e3ba1e6f73</onsuccess>
+    <calculation expression="Replace([Commands.AutomateC Command], &quot;[Resource]&quot;, [Resource])" stage="Commands.AutomateC Command" />
+  </stage>
+  <stage stageid="4ae26f72-a4e2-4460-8d28-c482888a6332" name="Write to command collection" type="LoopStart">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="150" y="60" w="90" h="30" />
+    <onsuccess>84c4f878-9e50-4e6a-8a7d-ffef95c977ce</onsuccess>
+    <groupid>5dd308db-6bf4-4706-8eae-eec4ca20e949</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Commands</loopdata>
+  </stage>
+  <stage stageid="fe93cb4d-2c2b-486a-b80c-e0e3ba1e6f73" name="Write to command collection" type="LoopEnd">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="150" y="150" w="90" h="30" />
+    <onsuccess>21cedda8-0dd6-4e3f-b4c7-e15250efd80b</onsuccess>
+    <groupid>5dd308db-6bf4-4706-8eae-eec4ca20e949</groupid>
+  </stage>
+  <stage stageid="3c7f4765-b42e-4e4d-9be3-93ef5ab626b9" name="Command loop" type="LoopStart">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-150" w="240" h="30" />
+    <onsuccess>1553cfd9-d8c3-432b-b539-54ce66c29d3c</onsuccess>
+    <groupid>19ea13f6-5eee-456e-9529-0171fcde10d3</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Commands</loopdata>
+  </stage>
+  <stage stageid="8461d39d-3a69-48f4-b4cc-39611fe8c71f" name="Command loop" type="LoopEnd">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="615" w="240" h="30" />
+    <onsuccess>bf897343-5c98-4fb4-94d6-a1f0a582fc08</onsuccess>
+    <groupid>19ea13f6-5eee-456e-9529-0171fcde10d3</groupid>
+  </stage>
+  <stage stageid="eb8d94f5-155d-4427-81de-d4f9945283c3" name="Navigate to Studio" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>da94a1c1-3bba-4689-9d8a-f7ce47b74af7</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="da94a1c1-3bba-4689-9d8a-f7ce47b74af7" name="Load Manage Access Rights Window" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Target Element" friendlyname="Target Element" narrative="Element (Process/object/group) to display current Access rights" expr="[Restricted Folder]" />
+      <input type="flag" name="Nested?" friendlyname="Nested?" narrative="Set flag if element is contained within another element" expr="False" />
+      <input type="text" name="Nesting Structure" friendlyname="Nesting Structure" narrative="Provide a colleciton of parent elements to expand nodes" expr="" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Access Rights Screen loaded" friendlyname="Access Rights Screen loaded" narrative="Flag set to true if screen successfully loaded" stage="" />
+      <output type="text" name="Exception" friendlyname="Exception" narrative="Exception text output" stage="" />
+    </outputs>
+    <onsuccess>dac43922-5316-43a8-ac3f-ee56bfb3903c</onsuccess>
+    <resource object="Blue Prism - Studio" action="Manage Access Rights Select Window" />
+  </stage>
+  <stage stageid="fcafb4b3-a3bb-4d5f-853d-1a24683ec9a5" name="Restricted Folder" type="Data">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-120" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">us3369</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="dac43922-5316-43a8-ac3f-ee56bfb3903c" name="Set to Restricted" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="105" w="90" h="30" />
+    <onsuccess>d9569d40-4f2d-4da5-97f0-9891f2976bc3</onsuccess>
+    <resource object="Blue Prism - Studio" action="Manage Access Rights Set Restricted" />
+  </stage>
+  <stage stageid="d9569d40-4f2d-4da5-97f0-9891f2976bc3" name="Remove Test Process Permissions" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="150" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="Set Role Permissions" friendlyname="Set Role Permissions" narrative="Collection with users and permissions to be set" expr="[Set Role Permissions]" />
+      <input type="flag" name="Negative Test?" friendlyname="Negative Test?" narrative="flag to change the flow so a user can attempt to set permissions when folder is not restritcted" expr="" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Permissions Set?" friendlyname="Permissions Set?" narrative="Flag to indicate if permissions have been set " stage="" />
+      <output type="text" name="Exception" friendlyname="Exception" narrative="text passed from exception" stage="" />
+    </outputs>
+    <onsuccess>f00ba20b-42df-4f09-b4b1-ab871593e282</onsuccess>
+    <resource object="Blue Prism - Studio" action="Manage Access Rights Set Individual Permissions - Process" />
+  </stage>
+  <stage stageid="f00ba20b-42df-4f09-b4b1-ab871593e282" name="Click Ok" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" w="90" h="30" />
+    <onsuccess>7e8af499-6c41-46e8-97ab-90fbd9b0ab1f</onsuccess>
+    <resource object="Blue Prism - Studio" action="Manage Access Rights Accept/Close Window" />
+  </stage>
+  <stage stageid="17768200-8e37-4941-a445-61b279839c03" name="User role" type="Data">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-90" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Testers</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7f3433aa-f4b0-4eb5-ba6c-79f447670f7e" name="Set Role Permissions" type="Collection">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <display x="-120" y="-60" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Role Name" type="text" />
+      <field name="Create Process" type="flag" />
+      <field name="Delete Process" type="flag" />
+      <field name="Edit Process" type="flag" />
+      <field name="Export Process" type="flag" />
+      <field name="Import Process" type="flag" />
+      <field name="Execute Process" type="flag" />
+      <field name="View Process" type="flag" />
+      <field name="Edit Process Groups" type="flag" />
+      <field name="Manage Process Access Rights" type="flag" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Role Name" type="text" value="Testers" />
+        <field name="Create Process" type="flag" value="False" />
+        <field name="Delete Process" type="flag" value="False" />
+        <field name="Edit Process" type="flag" value="False" />
+        <field name="Export Process" type="flag" value="False" />
+        <field name="Import Process" type="flag" value="False" />
+        <field name="Execute Process" type="flag" value="False" />
+        <field name="View Process" type="flag" value="False" />
+        <field name="Edit Process Groups" type="flag" value="False" />
+        <field name="Manage Process Access Rights" type="flag" value="False" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="1437768d-6bc1-4570-ab91-58ffeac88fb8" name="Scenario 8 as expected?" type="Decision">
+    <display x="105" y="480" w="120" h="30" />
+    <decision expression="StartsWith([command line output], &quot;Error: You must supply valid login details for that action&quot;)" />
+    <ontrue>4c5d4c9f-bad2-4ad3-8d18-66b629128465</ontrue>
+    <onfalse>75a7a4bd-ed02-42eb-9354-c4490f66cb31</onfalse>
+  </stage>
+  <stage stageid="75a7a4bd-ed02-42eb-9354-c4490f66cb31" name="Command error 8" type="Exception">
+    <display x="210" y="480" />
+    <exception localized="yes" type="Test Error" detail="&quot;command &quot; &amp; [Commands.AutomateC Command] &amp; &quot; returned the following unexpected text: &quot; &amp; [command line output]" />
+  </stage>
+  <stage stageid="e4f758f0-c189-4435-b632-91bca6a64564" name="Anchor15" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="255" y="510" w="10" h="10" />
+    <onsuccess>6f56fe63-a428-4de4-b8df-0f106fe9b86d</onsuccess>
+  </stage>
+  <stage stageid="4c5d4c9f-bad2-4ad3-8d18-66b629128465" name="Anchor16" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="105" y="510" w="10" h="10" />
+    <onsuccess>e4f758f0-c189-4435-b632-91bca6a64564</onsuccess>
+  </stage>
+  <stage stageid="676c24da-0c35-46d4-b33b-61312eb7002e" name="Loop Start1" type="LoopStart">
+    <subsheetid>33796715-8265-4fe0-9b08-1d80e5b2381a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-30" w="90" h="30" />
+    <onsuccess>2c460840-feaf-4f6a-9415-91c45b589ee9</onsuccess>
+    <groupid>e944ec4e-4907-4afa-8f20-ad3964dbacde</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Create User</loopdata>
+  </stage>
+  <stage stageid="1f123649-3c35-414e-9023-55ad8ea16be3" name="Loop End1" type="LoopEnd">
+    <subsheetid>33796715-8265-4fe0-9b08-1d80e5b2381a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="60" w="90" h="30" />
+    <onsuccess>139daeeb-12bb-484d-ad7c-6a7329e37c7c</onsuccess>
+    <groupid>e944ec4e-4907-4afa-8f20-ad3964dbacde</groupid>
+  </stage>
+  <stage stageid="9452cc44-0127-41db-924c-0c48933a26d3" name="pid" type="Data">
+    <display x="-210" y="15" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="92d1c36d-450e-4bd9-8a91-e8fba7526450" name="Error Message (expected)" type="Data">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <display x="-120" y="-30" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="cba2c76e-606a-487d-a82f-1d6c3b82d37d" name="Position of Pending Session" type="Data">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <display x="-120" y="0" w="150" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b18dea9e-79c1-4829-8744-d14a24e8a4f7" name="Commands" type="Collection">
+    <display x="-210" y="-105" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="AutomateC Command" type="text" description="command to send to automcateC" />
+      <field name="Requires Login" type="flag" />
+      <field name="Negative Test" type="flag" />
+      <field name="Username" type="text" />
+      <field name="Password" type="text" />
+      <field name="Scenario" type="number" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="a2eb79f5-d789-41d8-b2e1-7000744847fa" name="Is SSO?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="45" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="8bcd645c-67c1-4101-b380-b24a99d980a9" name="Is SSO?" type="Decision">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <display x="15" y="-120" w="90" h="30" />
+    <decision expression="SingleSignon()" />
+    <ontrue>f92eaf79-a4bb-475e-a027-cb7fa8a23993</ontrue>
+    <onfalse>b27e9395-aa4a-4f55-bc23-66b213706c49</onfalse>
+  </stage>
+  <stage stageid="3d091d7b-4a8c-46c2-a187-82e7b586765e" name="Commands SSO" type="Collection">
+    <display x="-210" y="-135" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="AutomateC Command" type="text" description="command to send to automcateC" />
+      <field name="Requires Login" type="flag" />
+      <field name="Negative Test" type="flag" />
+      <field name="Username" type="text" />
+      <field name="Password" type="text" />
+      <field name="Scenario" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="AutomateC Command" type="text" value="/resourcestatus [Resource]  /sso" />
+        <field name="Requires Login" type="flag" value="False" />
+        <field name="Negative Test" type="flag" value="False" />
+        <field name="Username" type="text" value="" />
+        <field name="Password" type="text" value="" />
+        <field name="Scenario" type="number" value="3" />
+      </row>
+      <row>
+        <field name="AutomateC Command" type="text" value="/resourcestatus all /sso" />
+        <field name="Requires Login" type="flag" value="False" />
+        <field name="Negative Test" type="flag" value="" />
+        <field name="Username" type="text" value="" />
+        <field name="Password" type="text" value="" />
+        <field name="Scenario" type="number" value="6" />
+      </row>
+      <row>
+        <field name="AutomateC Command" type="text" value="/resourcestatus [Resource]  1 m /sso" />
+        <field name="Requires Login" type="flag" value="False" />
+        <field name="Negative Test" type="flag" value="False" />
+        <field name="Username" type="text" value="" />
+        <field name="Password" type="text" value="" />
+        <field name="Scenario" type="number" value="7" />
+      </row>
+      <row>
+        <field name="AutomateC Command" type="text" value="/resourcestatus all " />
+        <field name="Requires Login" type="flag" value="False" />
+        <field name="Negative Test" type="flag" value="True" />
+        <field name="Username" type="text" value="" />
+        <field name="Password" type="text" value="" />
+        <field name="Scenario" type="number" value="8" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="b304f527-1656-42a5-a215-b7c2590e6621" name="End2" type="End">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="150" y="330" />
+  </stage>
+  <stage stageid="579bb451-cfe9-45c7-b8a4-983ad3276a48" name="Anchor18" type="Anchor">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="75" y="420" w="10" h="10" />
+    <onsuccess>4d2b5b94-1330-4e2c-bb59-400ef5c313dc</onsuccess>
+  </stage>
+  <stage stageid="3a0003b0-940a-437d-a312-39d91b526bd3" name="Write commands" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-30" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Start Row" friendlyname="Start Row" narrative="The row index to start copying from. The index is from 0 to N-1 (where N is the total number of rows in the collection)." expr="0" />
+      <input type="number" name="Number of Rows to Copy" friendlyname="Number of Rows to Copy" narrative="The number of rows to copy." expr="8" />
+      <input type="collection" name="Source Collection" friendlyname="Source Collection" narrative="The collection to copy." expr="[Commands (non SSO)]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Output Collection" friendlyname="Output Collection" narrative="The copied collection." stage="Commands" />
+    </outputs>
+    <onsuccess>eb8d94f5-155d-4427-81de-d4f9945283c3</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Copy Rows" />
+  </stage>
+  <stage stageid="0f7343c8-2ca6-428f-8a07-37d14d0a39d3" name="Create Session" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <display x="150" y="240" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Process Name" narrative="The name of the process of interest - if it is not found, the 'Ungrouped Processes' group will be opened and checked" expr="[Process Name]" />
+      <input type="text" name="Resource Name" narrative="The name of the Resource PC on which to create the session" expr="[Resource]" />
+      <input type="text" name="Group to Expand" narrative="Default value is 'Default'." expr="&quot;us3369&quot;" />
+      <input type="flag" name="Negative Test" narrative="Check for negative testing " expr="" />
+      <input type="text" name="Resource Group to Expand" narrative="Default value is 'Default'" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Position of Pending Session" narrative="The 1-based index of the newly created session in the Environment list in Control Room" stage="Position of Pending Session" />
+      <output type="text" name="Error Message (expected)" narrative="Error message returned (negative testing)" stage="Error Message (expected)" />
+    </outputs>
+    <onsuccess>71d0bf01-69d7-4787-9305-6e18b5e4f9ad</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Create Session" />
+  </stage>
+  <stage stageid="21cedda8-0dd6-4e3f-b4c7-e15250efd80b" name="Navigate to Control" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <display x="150" y="195" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>0f7343c8-2ca6-428f-8a07-37d14d0a39d3</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="f92eaf79-a4bb-475e-a027-cb7fa8a23993" name="Wrtie commands SSO" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="150" y="-120" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Start Row" friendlyname="Start Row" narrative="The row index to start copying from. The index is from 0 to N-1 (where N is the total number of rows in the collection)." expr="0" />
+      <input type="number" name="Number of Rows to Copy" friendlyname="Number of Rows to Copy" narrative="The number of rows to copy." expr="4" />
+      <input type="collection" name="Source Collection" friendlyname="Source Collection" narrative="The collection to copy." expr="[Commands SSO]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Output Collection" friendlyname="Output Collection" narrative="The copied collection." stage="Commands" />
+    </outputs>
+    <onsuccess>7593bf3b-2a8d-4b21-92af-1213df913bee</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Copy Rows" />
+  </stage>
+  <stage stageid="0dab88a0-b8ad-43af-9629-6a96d6f796b8" name="Delete Session" type="Action">
+    <subsheetid>33796715-8265-4fe0-9b08-1d80e5b2381a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="150" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Process Name" narrative="The expected process name of the session of interest. This will be double checked before deleting the session at the specified position." expr="[Process Name]" />
+      <input type="text" name="Resource Name" narrative="The expected resource name of the pending session of interset. This will be double checked before deleting the session" expr="[Resource]" />
+      <input type="number" name="Session Position" friendlyname="Session Position" narrative="The 1-based index of the session of interest, in the Environment list" expr="[Position of Pending Session]" />
+      <input type="text" name="Session Status" friendlyname="Session Status" narrative="The expected status of the session. This will be double checked - the default value is 'Pending'" expr="&quot;Pending&quot;" />
+    </inputs>
+    <onsuccess>c7bf0f60-709b-474f-815a-ab2376dac23d</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Delete Session" />
+  </stage>
+  <stage stageid="139daeeb-12bb-484d-ad7c-6a7329e37c7c" name="Navigate to Control" type="Action">
+    <subsheetid>33796715-8265-4fe0-9b08-1d80e5b2381a</subsheetid>
+    <display x="15" y="105" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>0dab88a0-b8ad-43af-9629-6a96d6f796b8</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="c7bf0f60-709b-474f-815a-ab2376dac23d" name="Kill Resource" type="Action">
+    <subsheetid>33796715-8265-4fe0-9b08-1d80e5b2381a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" friendlyname="Port" narrative="The port number of the resource PC to kill" expr="[Port Number]" />
+    </inputs>
+    <onsuccess>11607a89-2424-495b-8595-45bb041ae2d5</onsuccess>
+    <resource object="Resource Manager" action="Kill Resource" />
+  </stage>
+  <stage stageid="b27e9395-aa4a-4f55-bc23-66b213706c49" name="Start Resource" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <display x="15" y="-75" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" narrative="The port number on which the resource PC should listen" expr="[Port Number]" />
+      <input type="flag" name="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="False" />
+      <input type="text" name="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="" />
+      <input type="password" name="Password" narrative="The password to use for the resource. Only used if Username is given" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" narrative="The PID of the newly created process" stage="" />
+    </outputs>
+    <onsuccess>3a0003b0-940a-437d-a312-39d91b526bd3</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+  <stage stageid="7593bf3b-2a8d-4b21-92af-1213df913bee" name="Start Resource SSO" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <display x="150" y="-75" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" narrative="The port number on which the resource PC should listen" expr="[Port Number]" />
+      <input type="flag" name="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="True" />
+      <input type="text" name="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="" />
+      <input type="password" name="Password" narrative="The password to use for the resource. Only used if Username is given" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" narrative="The PID of the newly created process" stage="" />
+    </outputs>
+    <onsuccess>9d48c079-9e1e-4fca-8dd3-88536a8a07b9</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+  <stage stageid="9d48c079-9e1e-4fca-8dd3-88536a8a07b9" name=" Wait for the resource" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="150" y="-30" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Sleep Time (Seconds)" friendlyname="Sleep Time (Seconds)" narrative="The time (in seconds) for which to sleep" expr="20" />
+    </inputs>
+    <onsuccess>2177a30d-a6da-4aed-9437-4c2b7d241613</onsuccess>
+    <resource object="Utility - General" action="Sleep" />
+  </stage>
+  <stage stageid="4d2b5b94-1330-4e2c-bb59-400ef5c313dc" name="Anchor17" type="Anchor">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="75" y="15" w="10" h="10" />
+    <onsuccess>2177a30d-a6da-4aed-9437-4c2b7d241613</onsuccess>
+  </stage>
+  <stage stageid="6bf9e882-f47f-4f1f-8515-1840362445ba" name="Resume2" type="Resume">
+    <loginhibit />
+    <display x="180" y="-150" />
+    <onsuccess>81a6a6d6-18dc-4a6d-acf8-13080e791b42</onsuccess>
+  </stage>
+  <stage stageid="4c399db7-4dd9-4707-b0e2-b5b8772a3767" name="Recover2" type="Recover">
+    <subsheetid>33796715-8265-4fe0-9b08-1d80e5b2381a</subsheetid>
+    <loginhibit />
+    <display x="105" y="240" />
+    <onsuccess>364c78d8-51d2-4821-8682-8dab018cc2d5</onsuccess>
+  </stage>
+  <stage stageid="364c78d8-51d2-4821-8682-8dab018cc2d5" name="Resume3" type="Resume">
+    <subsheetid>33796715-8265-4fe0-9b08-1d80e5b2381a</subsheetid>
+    <loginhibit />
+    <display x="105" y="285" />
+    <onsuccess>66efdb53-fb36-42bd-9541-2f0f1b9582a8</onsuccess>
+  </stage>
+  <stage stageid="71d0bf01-69d7-4787-9305-6e18b5e4f9ad" name="Pause 1 Minute" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="150" y="285" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="60" />
+    </inputs>
+    <onsuccess>b304f527-1656-42a5-a215-b7c2590e6621</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="0ee1ecb3-2bc9-45e1-bf5b-6a18155741f4" name="Sign in" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Locale" friendlyname="Locale" narrative="Blue Prism Locale setting" stage="" />
+    </outputs>
+    <onsuccess>8bcd645c-67c1-4101-b380-b24a99d980a9</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="4eeda4b4-ca36-4619-a93b-55ba159a1112" name="Launch BP" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-345" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>f30c5f2d-afd9-49ed-98c3-36313c77d5d9</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="f30c5f2d-afd9-49ed-98c3-36313c77d5d9" name="Attach System(parent)" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-300" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>af4b734d-426c-4858-9ee0-37dff198da6e</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="af4b734d-426c-4858-9ee0-37dff198da6e" name="Attached Studio(parent)" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-255" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>136458d0-69fb-424b-b7f4-5dc22843859f</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="136458d0-69fb-424b-b7f4-5dc22843859f" name="Attached Control Room" type="Action">
+    <subsheetid>4be97e8a-7ef8-42da-8ca2-b99983f82bee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-210" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>0ee1ecb3-2bc9-45e1-bf5b-6a18155741f4</onsuccess>
+    <resource object="Blue Prism - Control Room (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="fd70b7a4-bf96-4cf4-ad69-9ce01084c389" name="Note1" type="Note">
+    <narrative>GIVEN I have a session created on a reason</narrative>
+    <display x="15" y="-255" w="240" h="30" />
+    <font family="Segoe UI" size="12" style="Bold" color="339966" />
+    <onsuccess>019688f7-fbc7-4327-86e5-268a3f4aab8f</onsuccess>
+  </stage>
+  <stage stageid="1553cfd9-d8c3-432b-b539-54ce66c29d3c" name="Note1" type="Note">
+    <narrative>WHEN I run commands against the resource
+THEN the relevent ouputs should be produced</narrative>
+    <display x="15" y="-90" w="240" h="60" />
+    <font family="Segoe UI" size="12" style="Bold" color="339966" />
+    <onsuccess>4377596c-34b0-491c-a91c-95491dfe0017</onsuccess>
+  </stage>
+  <stage stageid="6f56fe63-a428-4de4-b8df-0f106fe9b86d" name="Anchor13" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="255" y="615" w="10" h="10" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>8461d39d-3a69-48f4-b4cc-39611fe8c71f</onsuccess>
+  </stage>
+  <stage stageid="2ef71103-dc2c-4608-a9b2-fda0456ff508" name="Anchor14" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="570" w="10" h="10" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>8461d39d-3a69-48f4-b4cc-39611fe8c71f</onsuccess>
+  </stage>
+  <stage stageid="65792a40-5373-42d6-8f21-8cb6b812eb2f" name="Anchor19" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="-75" y="570" w="10" h="10" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>2ef71103-dc2c-4608-a9b2-fda0456ff508</onsuccess>
+  </stage>
+</process>

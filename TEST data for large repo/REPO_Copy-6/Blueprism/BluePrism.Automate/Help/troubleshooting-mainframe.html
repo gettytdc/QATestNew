@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>Troubleshooting - Mainframe Integration</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+</head>
+
+<body class="slick troubleshooting">
+	<div class="header">
+		<h1 class="pagetitle">Troubleshooting</h1>
+		<h2>Mainframe Integration</h2>
+	</div>
+	
+	<h3>Introduction</h3>
+	<p>This page provides some common issues and suggested resolutions
+	for using mainframe automation within Blue Prism</p>
+
+	<h5>Launching a mainframe app causes an error message, similar to :
+		"Unable to load DLL 'HLLAPI32.DLL': The specified module
+		could not be found"</h5>
+	
+	<p>This is due to the mainframe installation not adding its install
+		directory to the Windows <code>PATH</code> environment variable.
+	</p>
+	
+	<p>To resolve this issue, open <code>System Properties</code> in
+	the Windows Control Panel, enter <code>Advanced</code>, click the
+	<code>Environment Variables</code> button and append the path to the
+	directory containing the referenced file to the PATH variable,
+	prefixed with a semi-colon.</p>
+	
+	
+	<h5>My mainframe app exits when my process finishes / resets</h5>
+
+	<p>When a Blue Prism Visual Business Object accesses a mainframe, it
+	opens a connection through a terminal emulator onto that mainframe,
+	and processes any communication through that emulator.</p>
+	
+	<p>When the process using the VBO is completed or reset, the VBO
+	closes the connection it opened within the terminal emulator.</p>
+	
+	<p>Some emulators will leave the mainframe connection and
+	corresponding window open, but some (specifically some EHLLAPI
+	emulators) will close themselves down, severing the connection to
+	the mainframe as part of their disconnection process. This could
+	potentially leave users logged into the mainframe session if the
+	process has not logged them out normally.</p>
+	
+	<p>One way around this is to launch the emulator separately and
+	attach to it using the appropriate action within the VBO. This
+	ensures that the mainframe session is not terminated when the VBO
+	is reset.</p>
+	
+	<p>Another approach is to set the additional
+	<a href="helpApplicationParameters.htm#Options">nodisconnect option</a>
+	in the application parameters.</p>
+
+	<p>Alternatively, care should be taken to ensure that the session is
+	logged out in the <a href="helpInitAndCleanup.htm#cleanup">Clean
+	Up</a> page of the VBO.</p>
+
+	<h5>Setting the cursor position does not work</h5>
+
+	<p>Even when the Terminal Emulator API supports setting the cursor
+	position, the underlying mainframe application may not. In this case
+	it might take no notice of the cursor movements at all, or the cursor
+	might move, but subsequent text entry will revert it to its previous
+	position. This behaviour is defined by the application itself, and
+	cannot be altered.</p>
+
+	<h5>Attaching to an existing session.</h5>
+
+	<p>Only (E)HLLAPI based terminal emulators allow attaching to an
+	existing session. Once a session identifier has been setup in both
+	Blue Prism and the mainframe application (which is sometimes called
+	a short name) You can attach to the existing session using an
+	attach action within a navigate stage.</p>
+
+	<h5>Unexpected results when running two sessions simultaneously on
+		the same Resource.</h5>
+
+	<p>It is not possible to use any (E)HLLAPI-based terminal emulator
+	to run more than one session simulateously from within the same
+	Windows process. This is a design limitation of the API itself.</p>
+
+	<p>There are two ways to work around this. You can use two (or more)
+	separate Resource PC instances, and run the processes on these. From
+	V4.2 onwards, the simpler solution is to use any of the external
+	Process Mode options (set via Application Modeller) to cause Application
+	Manager to run as a separate Windows process for the Business Object in
+	question.</p>
+
+    <h5>Attachmate Reflection (.NET API)</h5>
+
+    <p>To use the Reflection .NET API, the <b>Application Programmer Interface</b>
+    component from the Reflection installer must be selected. Please refer
+    to the terminal emulation setup support guide for more details.</p>
+
+    <h5>IBM Personal communicator - International considerations</h5>
+
+    <p>When using IBM Personal communicator with double byte character sets
+    (DBCS). The option to display Shitf-In/Shift-Out characters can be
+    configured in the .ws session file.
+        <ul>
+            <li>If SoSiToSpace=Y in the .ws file, then SO/SI is converted to space (0x20)</li>
+            <li>If SoSiToSpace=N in the . ws file, then SO/SI is converted to equivalent SO/SI (0x0e/0x0f)</li>
+            <li>If the SoSiToSpace variable is not set, it is treated as SoSiToSpace=N</li>
+        </ul>
+    The SoSiToSpace value needs to be placed under the [DBCS] section of the ini file. It is recommended that a text editor other than Windows Notepad is used to edit the file as Notepad can corrupt the file if it includes non asci data.</p>
+    <p>Example:</p>
+    <ul>
+        <li>[DBCS]</li>
+        <li>SoSiToSpace=Y</li>
+    </ul>
+    <div class="captioned-image section-screenshot">
+    <a title="Configuring the .ws session file - Click for a larger image" href="Graphics/example-ws-sessionfile.png">
+    <img src="Graphics/example-ws-sessionfile.png" alt="Configuring the .ws session file - Click for a larger image" /></a>
+    </div>
+    
+

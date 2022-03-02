@@ -1,0 +1,783 @@
+﻿<process name="Edge Integration Slider_Progress Bar Test" version="1.0" bpversion="6.8.0.22504" narrative="Edge" byrefcollection="true" preferredid="671ed5bc-75a3-4b95-bdfa-6f6deff48ede">
+  <view>
+    <camerax>78</camerax>
+    <cameray>60</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="ab30e82e-e993-4722-9932-590f0851da70" type="Normal" published="False">
+    <name>Expected Values</name>
+    <view>
+      <camerax>-141</camerax>
+      <cameray>150</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="d2eacdde-688e-40f1-9d6e-2b7cb073ecbb" type="Normal" published="False">
+    <name>Set New Value</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>42</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd" type="Normal" published="False">
+    <name>Set New Slider Value Negative</name>
+    <view>
+      <camerax>-68</camerax>
+      <cameray>21</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="753ca34b-a417-4196-96f6-8d47ac08c016" type="Normal" published="False">
+    <name>Set New Progress Bar Value</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="5358345d-fdea-4798-affd-19e90d7b2fa9" type="Normal" published="False">
+    <name>Set New Progress Bar Negative </name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="0ff3f5ad-21f6-4e7f-90dd-1131f5cd8443" type="Normal" published="False">
+    <name>Clean up</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="1fd9ea96-d029-44c5-a274-224dd968d1b1" name="Stage1" type="ProcessInfo">
+    <display x="-285" y="-90" w="150" h="90" />
+  </stage>
+  <stage stageid="d5bdfcfe-f55c-4eed-b3bf-c223e3383251" name="Expected Values" type="SubSheetInfo">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="-195" y="-120" w="150" h="90" />
+  </stage>
+  <stage stageid="ab0a49a3-3672-4e67-afb2-c2ace16dc5cd" name="Start" type="Start">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="15" y="-120" />
+    <onsuccess>829c3b5d-9dc3-4ed9-8ed6-a37520d46adc</onsuccess>
+  </stage>
+  <stage stageid="00930130-fcb5-4dbc-96de-0a365a4964fa" name="End" type="End">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="15" y="375" />
+  </stage>
+  <stage stageid="d5d8ecd6-0e76-4f39-81fc-911e41254654" name="expected min value" type="Data">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <loginhibit />
+    <display x="-135" y="-30" />
+    <datatype>number</datatype>
+    <initialvalue>-10</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a281b2ea-bd9e-4a69-9633-6fe49797b7d9" name="expected max value" type="Data">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <loginhibit />
+    <display x="-135" y="15" />
+    <datatype>number</datatype>
+    <initialvalue>10</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a6a47eaf-8a44-4f12-bb51-ccd4d80f8fa6" name="min value as expected?" type="Decision">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <loginhibit />
+    <display x="15" y="-30" />
+    <decision expression="[expected min value]=[min value]" />
+    <ontrue>2c5ef531-ccb3-41bf-b74f-24d167bce671</ontrue>
+    <onfalse>a638c9ec-afff-4b43-bb35-60291a4b2939</onfalse>
+  </stage>
+  <stage stageid="a638c9ec-afff-4b43-bb35-60291a4b2939" name="min value not as expected" type="Exception">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="105" y="-30" />
+    <exception type="Failure" detail="&quot; the min value for the slider is not as expected&quot;" />
+  </stage>
+  <stage stageid="829c3b5d-9dc3-4ed9-8ed6-a37520d46adc" name="Get Min" type="Action">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="15" y="-75" />
+    <outputs>
+      <output type="number" name="min value" stage="min value" />
+    </outputs>
+    <onsuccess>a6a47eaf-8a44-4f12-bb51-ccd4d80f8fa6</onsuccess>
+    <resource object="Chrome controls-slider" action="Get Slider Min" />
+  </stage>
+  <stage stageid="2c5ef531-ccb3-41bf-b74f-24d167bce671" name="Get Max Slider" type="Action">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="15" y="15" />
+    <outputs>
+      <output type="number" name="max value" stage="max value" />
+    </outputs>
+    <onsuccess>8fc7d354-23d7-4871-983f-5ea4c751cb69</onsuccess>
+    <resource object="Chrome controls-slider" action="Get Slider Max" />
+  </stage>
+  <stage stageid="8fc7d354-23d7-4871-983f-5ea4c751cb69" name="max value as expected?" type="Decision">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <loginhibit />
+    <display x="15" y="60" />
+    <decision expression="[expected max value]=[max value]" />
+    <ontrue>afba769d-3da5-4a67-8930-740fd9e48735</ontrue>
+    <onfalse>4d4c3e67-9215-47db-a845-2d98e6a3d7c6</onfalse>
+  </stage>
+  <stage stageid="4d4c3e67-9215-47db-a845-2d98e6a3d7c6" name="max value not as expected" type="Exception">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="105" y="60" />
+    <exception type="Failure" detail="&quot; the max value for the slider is not as expected&quot;" />
+  </stage>
+  <stage stageid="a4f13028-1d2f-4eb5-a7a2-c996e6e978e8" name="expected current value" type="Data">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <loginhibit />
+    <display x="-135" y="60" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b8f05bae-ecf0-4a21-a178-097cd2ea18cc" name="Get current" type="Action">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="15" y="195" />
+    <outputs>
+      <output type="text" name="Current value" stage="Current value" />
+    </outputs>
+    <onsuccess>52b2428e-d72d-42ad-8975-6e7ae9f43081</onsuccess>
+    <resource object="Chrome controls-slider" action="Get Slider Current Value" />
+  </stage>
+  <stage stageid="9055351e-b380-4378-8f85-6d9f84801ef9" name="Set New Value" type="SubSheetInfo">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="6d6d8c83-170e-4914-9028-d047a5ac740b" name="Start" type="Start">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>ebe5de70-626a-4e7a-b710-0d614ac75c53</onsuccess>
+  </stage>
+  <stage stageid="c6cf23a7-e521-4f19-b753-2737e8727810" name="End" type="End">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <display x="15" y="165" />
+  </stage>
+  <stage stageid="cd057b65-a0b5-42ca-b47c-87c20e6f10ea" name="Set New Slider Value Negative" type="SubSheetInfo">
+    <subsheetid>7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd</subsheetid>
+    <narrative>Sets the slider value to -30 and 11, niether are possibe. Expected it to be set at min (-10) and max (1) respectively. </narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="3efe65d7-5fde-474c-811b-1ce435ffc039" name="Start" type="Start">
+    <subsheetid>7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>a6f6f960-c27f-4ddb-9541-0a1335af3d38</onsuccess>
+  </stage>
+  <stage stageid="da61b792-4d6e-4d5f-9799-0bde76b58386" name="End" type="End">
+    <subsheetid>7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd</subsheetid>
+    <display x="15" y="210" />
+  </stage>
+  <stage stageid="c1a164db-aba3-4e83-8aff-3450a9aa507e" name="expected newly set value" type="Data">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <loginhibit />
+    <display x="-180" y="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">7</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ebe5de70-626a-4e7a-b710-0d614ac75c53" name="Get Current Value" type="Action">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <display x="15" y="-60" />
+    <outputs>
+      <output type="text" name="Current value" stage="Current value" />
+    </outputs>
+    <onsuccess>08db5410-68f5-4dd4-bb8b-a846244a224e</onsuccess>
+    <resource object="Chrome controls-slider" action="Get Slider Current Value" />
+  </stage>
+  <stage stageid="2b395c7f-0558-46d7-9408-1182cb6adebc" name="Slider current value as expected after reset?" type="Decision">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <loginhibit />
+    <display x="15" y="120" />
+    <decision expression="[newly set value] = [expected newly set value]" />
+    <ontrue>c6cf23a7-e521-4f19-b753-2737e8727810</ontrue>
+    <onfalse>55e8fce4-5028-44c8-a2a4-ead408f57fa7</onfalse>
+  </stage>
+  <stage stageid="55e8fce4-5028-44c8-a2a4-ead408f57fa7" name="current value not as expected" type="Exception">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <display x="90" y="120" />
+    <exception type="Failure" detail="&quot; the current value of the slider is not as expected&quot;" />
+  </stage>
+  <stage stageid="08db5410-68f5-4dd4-bb8b-a846244a224e" name="Decision1" type="Decision">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <display x="15" y="-15" />
+    <decision expression="[Current value] = [Expected Current Value]" />
+    <ontrue>cd90a066-3459-4d51-9c24-e170ae2b9ae7</ontrue>
+    <onfalse>b37bf888-f026-4ddb-9397-7c4245327303</onfalse>
+  </stage>
+  <stage stageid="cd90a066-3459-4d51-9c24-e170ae2b9ae7" name="Set Slider Value" type="Action">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <display x="15" y="30" />
+    <inputs>
+      <input type="number" name="set slider value" expr="7" />
+    </inputs>
+    <onsuccess>3dd6c371-322b-4635-a38b-ad509532adf5</onsuccess>
+    <resource object="Chrome controls-slider" action="Set New Slider Value" />
+  </stage>
+  <stage stageid="3dd6c371-322b-4635-a38b-ad509532adf5" name="Get Newly Set Value" type="Action">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <display x="15" y="75" />
+    <outputs>
+      <output type="text" name="Current value" stage="newly set value" />
+    </outputs>
+    <onsuccess>2b395c7f-0558-46d7-9408-1182cb6adebc</onsuccess>
+    <resource object="Chrome controls-slider" action="Get Slider Current Value" />
+  </stage>
+  <stage stageid="b7bbfc1f-9906-4abf-8e6e-8e31e0978bdb" name="min value" type="Data">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="-195" y="-30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="95cba324-f30b-48e3-9d1b-361a853bc673" name="Current value" type="Data">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="-195" y="60" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b49b713f-3608-48c1-ab5c-fa2c72df1182" name="End" type="End">
+    <display x="15" y="390" />
+  </stage>
+  <stage stageid="dc932caa-33d8-4931-aa39-4a9a08ae1541" name="Launch" type="Action">
+    <display x="15" y="-60" />
+    <inputs>
+      <input type="flag" name="FireFox" expr="" />
+      <input type="flag" name="Edge" friendlyname="Edge" expr="True" />
+    </inputs>
+    <onsuccess>a4c3c894-50a2-4c58-b51c-b7b19d9b7a2d</onsuccess>
+    <resource object="Chrome App Model" action="Launch" />
+  </stage>
+  <stage stageid="42becbef-5ca3-43a6-8f72-ff510a0e1710" name="Progress Bar Test" type="Block">
+    <display x="-180" y="-105" w="405" h="420" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0d6ecca7-ce72-4b08-be42-4fb29e86c9e0" name="Recover1" type="Recover">
+    <display x="180" y="15" />
+    <onsuccess>fb8172f4-6bba-44fb-852c-17a233125c5f</onsuccess>
+  </stage>
+  <stage stageid="7586f48a-34ea-4be7-b184-8f710a19e8d8" name="Resume1" type="Resume">
+    <display x="180" y="105" />
+    <onsuccess>0d08f881-7595-4d8b-b6ba-b837efb884ee</onsuccess>
+  </stage>
+  <stage stageid="ca9e331f-c264-4eec-b719-6312d9d06eea" name="Exception1" type="Exception">
+    <display x="375" y="150" />
+    <exception type="ChromeIntegration Table Fail" detail="[Exception]" />
+  </stage>
+  <stage stageid="fb8172f4-6bba-44fb-852c-17a233125c5f" name="Write Excpetion" type="Calculation">
+    <display x="180" y="60" />
+    <onsuccess>7586f48a-34ea-4be7-b184-8f710a19e8d8</onsuccess>
+    <calculation expression="ExceptionDetail()" stage="Exception" />
+  </stage>
+  <stage stageid="3ba4c47f-5e80-443b-ad56-eaca6d62553c" name="Exception" type="Data">
+    <display x="-285" y="0" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5da59321-380a-489a-83f9-adcab4336720" name="Output" type="Block">
+    <display x="-360" y="-30" w="150" h="75" />
+    <font family="Segoe UI" size="10" style="Regular" color="00FF00" />
+  </stage>
+  <stage stageid="a4c3c894-50a2-4c58-b51c-b7b19d9b7a2d" name="Expected Values" type="SubSheet">
+    <display x="15" y="-15" />
+    <onsuccess>a43de40b-18b5-4f44-9373-4666f8400a75</onsuccess>
+    <processid>ab30e82e-e993-4722-9932-590f0851da70</processid>
+  </stage>
+  <stage stageid="a43de40b-18b5-4f44-9373-4666f8400a75" name="Set New Value" type="SubSheet">
+    <display x="15" y="30" />
+    <onsuccess>3109e9cb-976e-4648-b6c3-75574c9cda9c</onsuccess>
+    <processid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</processid>
+  </stage>
+  <stage stageid="13c0e5e5-113e-45d1-aac1-147fbc5d7329" name="Set New Slider Value Negative" type="SubSheet">
+    <display x="15" y="195" />
+    <onsuccess>47607194-202d-44ae-9f41-43530e468190</onsuccess>
+    <processid>7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd</processid>
+  </stage>
+  <stage stageid="9cd4efc2-f981-40fb-bb70-0d28c45dee77" name="Current value" type="Data">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <display x="-225" y="-15" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7cfc8643-b0e4-40cd-8ced-e07724bcc78b" name="Expected Current Value" type="Data">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <display x="-165" y="-15" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="aed9d6d1-0689-421a-b7a7-66976ee24512" name="max value" type="Data">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="-195" y="15" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b37bf888-f026-4ddb-9397-7c4245327303" name="current value not as expected" type="Exception">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <display x="90" y="-15" />
+    <exception type="Failure" detail="&quot;current slider value not as expected&quot;" />
+  </stage>
+  <stage stageid="760a469e-9d32-440a-bbf2-83c48c5d07ca" name="newly set value" type="Data">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <display x="-240" y="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="de0b776f-a344-49bb-bdd8-8123b015cdc6" name="Slider current value as expected after reset?" type="Decision">
+    <subsheetid>7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd</subsheetid>
+    <loginhibit />
+    <display x="15" y="30" />
+    <decision expression="[newly set negative value] = [expected newly set negative value]" />
+    <ontrue>93b3ef62-4d48-45ba-8e1a-dceb37b697e0</ontrue>
+    <onfalse>757f6b09-d528-4e58-b66e-a2f9565b5dc3</onfalse>
+  </stage>
+  <stage stageid="757f6b09-d528-4e58-b66e-a2f9565b5dc3" name="current value not as expected" type="Exception">
+    <subsheetid>7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd</subsheetid>
+    <display x="90" y="30" />
+    <exception type="Failure" detail="&quot; the current value of the slider is not as expected&quot;" />
+  </stage>
+  <stage stageid="a6f6f960-c27f-4ddb-9541-0a1335af3d38" name="Set Slider Value" type="Action">
+    <subsheetid>7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd</subsheetid>
+    <display x="15" y="-60" />
+    <inputs>
+      <input type="number" name="set slider value" expr="-30" />
+    </inputs>
+    <onsuccess>0e856ee1-94f8-45dd-8058-5f862d653680</onsuccess>
+    <resource object="Chrome controls-slider" action="Set New Slider Value" />
+  </stage>
+  <stage stageid="0e856ee1-94f8-45dd-8058-5f862d653680" name="Get Newly Negative Set Value" type="Action">
+    <subsheetid>7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd</subsheetid>
+    <display x="15" y="-15" />
+    <outputs>
+      <output type="text" name="Current value" stage="newly set negative value" />
+    </outputs>
+    <onsuccess>de0b776f-a344-49bb-bdd8-8123b015cdc6</onsuccess>
+    <resource object="Chrome controls-slider" action="Get Slider Current Value" />
+  </stage>
+  <stage stageid="93b3ef62-4d48-45ba-8e1a-dceb37b697e0" name="Set Slider Value" type="Action">
+    <subsheetid>7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd</subsheetid>
+    <display x="15" y="75" />
+    <inputs>
+      <input type="number" name="set slider value" expr="11" />
+    </inputs>
+    <onsuccess>2e5357fb-dfac-4a54-ae5b-5cdc003acece</onsuccess>
+    <resource object="Chrome controls-slider" action="Set New Slider Value" />
+  </stage>
+  <stage stageid="2e5357fb-dfac-4a54-ae5b-5cdc003acece" name="Get Newly positive Set Value" type="Action">
+    <subsheetid>7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd</subsheetid>
+    <display x="15" y="120" />
+    <outputs>
+      <output type="text" name="Current value" stage="newly set positive value" />
+    </outputs>
+    <onsuccess>2e4d8656-2f58-4fde-8905-f2d63924f706</onsuccess>
+    <resource object="Chrome controls-slider" action="Get Slider Current Value" />
+  </stage>
+  <stage stageid="2e4d8656-2f58-4fde-8905-f2d63924f706" name="Slider current value as expected after reset?" type="Decision">
+    <subsheetid>7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd</subsheetid>
+    <loginhibit />
+    <display x="15" y="165" />
+    <decision expression="[expected newly set positive value] = [newly set positive value]" />
+    <ontrue>da61b792-4d6e-4d5f-9799-0bde76b58386</ontrue>
+    <onfalse>baba9500-e320-4868-974e-db47d5127806</onfalse>
+  </stage>
+  <stage stageid="baba9500-e320-4868-974e-db47d5127806" name="current value not as expected" type="Exception">
+    <subsheetid>7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd</subsheetid>
+    <display x="90" y="165" />
+    <exception type="Failure" detail="&quot; the current value of the slider is not as expected&quot;" />
+  </stage>
+  <stage stageid="631d816a-39b5-4d6e-8c81-eb678f1c5299" name="newly set negative value" type="Data">
+    <subsheetid>7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd</subsheetid>
+    <display x="-240" y="-15" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="24298f51-ed52-4a2c-8635-8928be36181f" name="Slider Data" type="Block">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="-240" y="-60" w="150" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="fef72e33-0539-4c22-ae18-27350bedc145" name="Data" type="Block">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <display x="-270" y="-45" w="135" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="093be755-039f-43e1-ac35-cdcf56ff363c" name="newly set positive value" type="Data">
+    <subsheetid>7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd</subsheetid>
+    <display x="-240" y="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ab77cd07-0333-47f7-8fbc-7f5ae22a7aa2" name="expected newly set negative value" type="Data">
+    <subsheetid>7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd</subsheetid>
+    <display x="-165" y="-15" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">-10</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="58e9ddee-40ed-4997-8a26-7374fd3c957f" name="expected newly set positive value" type="Data">
+    <subsheetid>7ffb237d-6cbd-4bd2-be4f-e9c54aadadcd</subsheetid>
+    <display x="-165" y="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">10</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0576bc02-16c3-4277-b180-c0040ece636c" name="Progress Bar Data" type="Block">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="-240" y="105" w="150" h="135" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="afba769d-3da5-4a67-8930-740fd9e48735" name="Get Max Progress Bar" type="Action">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="15" y="105" />
+    <outputs>
+      <output type="number" name="progress bar max value" stage="progress bar max value" />
+    </outputs>
+    <onsuccess>f972308f-e41c-486e-9300-fd4253e8bb2f</onsuccess>
+    <resource object="Chrome controls-ProgressBar" action="Get Max PB Value" />
+  </stage>
+  <stage stageid="32f8d955-4fa3-4b77-a544-8ed36e769b45" name="Get Current Progress Bar" type="Action">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="15" y="285" />
+    <outputs>
+      <output type="text" name="progress bar current value" stage="progress bar current value" />
+    </outputs>
+    <onsuccess>b77a2df0-04a3-4508-8bcc-1517624a3a0e</onsuccess>
+    <resource object="Chrome controls-ProgressBar" action="Get Current PB Value" />
+  </stage>
+  <stage stageid="b77a2df0-04a3-4508-8bcc-1517624a3a0e" name="Slider current value as expected?" type="Decision">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <loginhibit />
+    <display x="15" y="330" />
+    <decision expression="[progress bar current value] = [expected progress bar current value]" />
+    <ontrue>00930130-fcb5-4dbc-96de-0a365a4964fa</ontrue>
+    <onfalse>17197fc9-d782-4abd-ae0a-171d3088e441</onfalse>
+  </stage>
+  <stage stageid="17197fc9-d782-4abd-ae0a-171d3088e441" name="default current value not as expected" type="Exception">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="105" y="330" />
+    <exception type="Failure" detail="&quot; the standard current value of the slider is not as expected&quot;" />
+  </stage>
+  <stage stageid="91cacd42-f70d-444e-b92b-255fac8998a3" name="Set New Progress Bar Value" type="SubSheetInfo">
+    <subsheetid>753ca34b-a417-4196-96f6-8d47ac08c016</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="817957cd-44c5-47ba-ae02-93154bc340be" name="Start" type="Start">
+    <subsheetid>753ca34b-a417-4196-96f6-8d47ac08c016</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>f4c4e10b-2d22-48b6-b528-8f49a0e85943</onsuccess>
+  </stage>
+  <stage stageid="66908896-1c35-416e-97d2-4f3547a966d0" name="End" type="End">
+    <subsheetid>753ca34b-a417-4196-96f6-8d47ac08c016</subsheetid>
+    <display x="15" y="90" />
+  </stage>
+  <stage stageid="edc88c79-8ee8-47d0-8d99-2519e885e864" name="Set New Progress Bar Negative " type="SubSheetInfo">
+    <subsheetid>5358345d-fdea-4798-affd-19e90d7b2fa9</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="af881140-dbc3-433d-9ef6-efd86f82f143" name="Start" type="Start">
+    <subsheetid>5358345d-fdea-4798-affd-19e90d7b2fa9</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>9d3a1c48-6231-464a-9b5f-d1b37f7d61b0</onsuccess>
+  </stage>
+  <stage stageid="a5a7369d-ee40-40fb-8d0b-a16580172d7b" name="End" type="End">
+    <subsheetid>5358345d-fdea-4798-affd-19e90d7b2fa9</subsheetid>
+    <display x="15" y="75" />
+  </stage>
+  <stage stageid="bb34d314-4aac-486c-8870-e357a010519e" name="expected max value" type="Data">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <loginhibit />
+    <display x="-165" y="120" />
+    <datatype>number</datatype>
+    <initialvalue>100</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b2017dcd-705a-4d3e-8d22-aa8e917ef0f9" name="expected default current value" type="Data">
+    <subsheetid>d2eacdde-688e-40f1-9d6e-2b7cb073ecbb</subsheetid>
+    <loginhibit />
+    <display x="-165" y="165" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">50</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2142cbee-17ac-4f41-9d76-9a64a70716b4" name="set progress bar value" type="Data">
+    <subsheetid>753ca34b-a417-4196-96f6-8d47ac08c016</subsheetid>
+    <loginhibit />
+    <display x="-210" y="-15" />
+    <datatype>number</datatype>
+    <initialvalue>75</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f972308f-e41c-486e-9300-fd4253e8bb2f" name="progress bar max value as expected" type="Decision">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <loginhibit />
+    <display x="15" y="150" />
+    <decision expression="[progress bar max value] = 100" />
+    <ontrue>b8f05bae-ecf0-4a21-a178-097cd2ea18cc</ontrue>
+    <onfalse>322c0db6-0ae1-4b4a-8567-a0ac0d8f1509</onfalse>
+  </stage>
+  <stage stageid="322c0db6-0ae1-4b4a-8567-a0ac0d8f1509" name="max value of progress bar fail" type="Exception">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="105" y="150" />
+    <exception type="Failure" detail="&quot;The retrieved max value of the progress bar is not as expected&quot;" />
+  </stage>
+  <stage stageid="52b2428e-d72d-42ad-8975-6e7ae9f43081" name="default value as expected?" type="Decision">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <loginhibit />
+    <display x="15" y="240" />
+    <decision expression="[expected current value] = [Current value]" />
+    <ontrue>32f8d955-4fa3-4b77-a544-8ed36e769b45</ontrue>
+    <onfalse>ec24c35d-a99a-45ab-9f76-11f19a9208d5</onfalse>
+  </stage>
+  <stage stageid="ec24c35d-a99a-45ab-9f76-11f19a9208d5" name="fail, unexpected default value" type="Exception">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="105" y="240" />
+    <exception type="" detail="&quot;The retrieved default value of the progress bar is not as expected&quot;" />
+  </stage>
+  <stage stageid="4b743501-a70c-471d-b45b-d865a5e1af4e" name="progress bar max value" type="Data">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="-195" y="135" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="45d20070-7973-419d-a826-5f3be8179dc0" name="progress bar current value" type="Data">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="-195" y="180" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="de72237d-ed52-49f5-8e78-201601312b96" name="expected progress bar current value" type="Data">
+    <subsheetid>ab30e82e-e993-4722-9932-590f0851da70</subsheetid>
+    <display x="-135" y="180" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">50</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="47607194-202d-44ae-9f41-43530e468190" name="Set New Progress Bar Value" type="SubSheet">
+    <display x="15" y="240" />
+    <onsuccess>b2af623c-d672-4f1c-9b82-78f18a50e712</onsuccess>
+    <processid>753ca34b-a417-4196-96f6-8d47ac08c016</processid>
+  </stage>
+  <stage stageid="b2af623c-d672-4f1c-9b82-78f18a50e712" name="Set New Progress Bar Negative " type="SubSheet">
+    <display x="15" y="285" />
+    <onsuccess>0da42611-17d1-4540-be41-2009769988a7</onsuccess>
+    <processid>5358345d-fdea-4798-affd-19e90d7b2fa9</processid>
+  </stage>
+  <stage stageid="f4c4e10b-2d22-48b6-b528-8f49a0e85943" name="Set Progress Bar Value" type="Action">
+    <subsheetid>753ca34b-a417-4196-96f6-8d47ac08c016</subsheetid>
+    <display x="15" y="-60" />
+    <inputs>
+      <input type="number" name="set progress bar value" expr="[set progress bar value]" />
+    </inputs>
+    <onsuccess>764153c4-53a7-43c0-8d14-d884ac8e95b0</onsuccess>
+    <resource object="Chrome controls-ProgressBar" action="Set PB Value" />
+  </stage>
+  <stage stageid="764153c4-53a7-43c0-8d14-d884ac8e95b0" name="Check Progress Bar" type="Action">
+    <subsheetid>753ca34b-a417-4196-96f6-8d47ac08c016</subsheetid>
+    <display x="15" y="-15" />
+    <outputs>
+      <output type="text" name="progress bar current value" stage="progress bar current value" />
+    </outputs>
+    <onsuccess>cb9083be-a6f6-4aa1-9acd-d5bcf7779e7e</onsuccess>
+    <resource object="Chrome controls-ProgressBar" action="Get Current PB Value" />
+  </stage>
+  <stage stageid="5a459984-5f6f-4012-b41a-d286b82d0ff6" name="progress bar current value" type="Data">
+    <subsheetid>753ca34b-a417-4196-96f6-8d47ac08c016</subsheetid>
+    <display x="-135" y="-15" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="cb9083be-a6f6-4aa1-9acd-d5bcf7779e7e" name="Decision2" type="Decision">
+    <subsheetid>753ca34b-a417-4196-96f6-8d47ac08c016</subsheetid>
+    <display x="15" y="30" />
+    <decision expression="[set progress bar value] =ToNumber([progress bar current value])" />
+    <ontrue>66908896-1c35-416e-97d2-4f3547a966d0</ontrue>
+    <onfalse>78719147-7fc5-4c45-b4c3-d6fd1626c32d</onfalse>
+  </stage>
+  <stage stageid="78719147-7fc5-4c45-b4c3-d6fd1626c32d" name="Exception2" type="Exception">
+    <subsheetid>753ca34b-a417-4196-96f6-8d47ac08c016</subsheetid>
+    <display x="90" y="30" />
+    <exception type="Failure" detail="&quot;Progress bar current value not as expected&quot;" />
+  </stage>
+  <stage stageid="799395e2-68d3-4b78-a567-1fc25774a5fc" name="set progress bar value" type="Data">
+    <subsheetid>5358345d-fdea-4798-affd-19e90d7b2fa9</subsheetid>
+    <loginhibit />
+    <display x="-210" y="-15" />
+    <datatype>number</datatype>
+    <initialvalue>200</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9d3a1c48-6231-464a-9b5f-d1b37f7d61b0" name="Set Progress Bar Value" type="Action">
+    <subsheetid>5358345d-fdea-4798-affd-19e90d7b2fa9</subsheetid>
+    <display x="15" y="-60" />
+    <inputs>
+      <input type="number" name="set progress bar value" expr="[set progress bar value]" />
+    </inputs>
+    <onsuccess>a30caded-339c-47bb-a00f-a867c2d1dede</onsuccess>
+    <resource object="Chrome controls-ProgressBar" action="Set PB Value" />
+  </stage>
+  <stage stageid="a30caded-339c-47bb-a00f-a867c2d1dede" name="Check Progress Bar" type="Action">
+    <subsheetid>5358345d-fdea-4798-affd-19e90d7b2fa9</subsheetid>
+    <display x="15" y="-15" />
+    <outputs>
+      <output type="text" name="progress bar current value" stage="progress bar current value" />
+    </outputs>
+    <onsuccess>b05843fd-f5fd-4c04-a800-f46056a1581b</onsuccess>
+    <resource object="Chrome controls-ProgressBar" action="Get Current PB Value" />
+  </stage>
+  <stage stageid="6a84eae6-0172-4ffa-9f3e-f486f0a9f758" name="progress bar current value" type="Data">
+    <subsheetid>5358345d-fdea-4798-affd-19e90d7b2fa9</subsheetid>
+    <display x="-135" y="-15" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b05843fd-f5fd-4c04-a800-f46056a1581b" name="Decision2" type="Decision">
+    <subsheetid>5358345d-fdea-4798-affd-19e90d7b2fa9</subsheetid>
+    <display x="15" y="30" />
+    <decision expression="ToNumber([progress bar current value]) = 100" />
+    <ontrue>a5a7369d-ee40-40fb-8d0b-a16580172d7b</ontrue>
+    <onfalse>63940d3d-8669-428f-b294-7ba6b519b955</onfalse>
+  </stage>
+  <stage stageid="63940d3d-8669-428f-b294-7ba6b519b955" name="Exception2" type="Exception">
+    <subsheetid>5358345d-fdea-4798-affd-19e90d7b2fa9</subsheetid>
+    <display x="90" y="30" />
+    <exception type="Failure" detail="&quot;Progress bar current value not as expected&quot;" />
+  </stage>
+  <stage stageid="b38c8489-6e22-4ade-8bae-c20755e9a310" name="Clean up" type="SubSheetInfo">
+    <subsheetid>0ff3f5ad-21f6-4e7f-90dd-1131f5cd8443</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="d2132e11-4091-404f-bc2a-19e7d042724a" name="Start" type="Start">
+    <subsheetid>0ff3f5ad-21f6-4e7f-90dd-1131f5cd8443</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>90218592-2c37-4b9d-90fc-f937f46d768e</onsuccess>
+  </stage>
+  <stage stageid="b1802b2b-4161-4dfa-bbb7-48a205e72c90" name="End" type="End">
+    <subsheetid>0ff3f5ad-21f6-4e7f-90dd-1131f5cd8443</subsheetid>
+    <display x="15" y="0" />
+  </stage>
+  <stage stageid="90218592-2c37-4b9d-90fc-f937f46d768e" name="Terminate" type="Action">
+    <subsheetid>0ff3f5ad-21f6-4e7f-90dd-1131f5cd8443</subsheetid>
+    <display x="15" y="-60" />
+    <onsuccess>b1802b2b-4161-4dfa-bbb7-48a205e72c90</onsuccess>
+    <resource object="Chrome App Model" action="terminate" />
+  </stage>
+  <stage stageid="fe5ce2b1-3df7-4eb0-b654-d1fd90fd648a" name="Recover Clean up" type="Recover">
+    <subsheetid>0ff3f5ad-21f6-4e7f-90dd-1131f5cd8443</subsheetid>
+    <display x="120" y="-90" />
+    <onsuccess>08a699f8-0a9e-4d57-bf84-c7b57bc98d90</onsuccess>
+  </stage>
+  <stage stageid="08a699f8-0a9e-4d57-bf84-c7b57bc98d90" name="Resume1" type="Resume">
+    <subsheetid>0ff3f5ad-21f6-4e7f-90dd-1131f5cd8443</subsheetid>
+    <display x="120" y="-45" />
+    <onsuccess>84f073f2-cfe3-4378-b28c-7f508396b873</onsuccess>
+  </stage>
+  <stage stageid="84f073f2-cfe3-4378-b28c-7f508396b873" name="End1" type="End">
+    <subsheetid>0ff3f5ad-21f6-4e7f-90dd-1131f5cd8443</subsheetid>
+    <display x="120" y="0" />
+  </stage>
+  <stage stageid="0da42611-17d1-4540-be41-2009769988a7" name="Clean up" type="SubSheet">
+    <display x="15" y="345" />
+    <onsuccess>b49b713f-3608-48c1-ab5c-fa2c72df1182</onsuccess>
+    <processid>0ff3f5ad-21f6-4e7f-90dd-1131f5cd8443</processid>
+  </stage>
+  <stage stageid="17fe6862-5098-4569-a833-d832697beb11" name="Clean up" type="SubSheet">
+    <display x="285" y="150" />
+    <onsuccess>ca9e331f-c264-4eec-b719-6312d9d06eea</onsuccess>
+    <processid>0ff3f5ad-21f6-4e7f-90dd-1131f5cd8443</processid>
+  </stage>
+  <stage stageid="0d08f881-7595-4d8b-b6ba-b837efb884ee" name="Anchor1" type="Anchor">
+    <display x="180" y="150" w="10" h="10" />
+    <onsuccess>17fe6862-5098-4569-a833-d832697beb11</onsuccess>
+  </stage>
+  <stage stageid="0e7214f4-dff0-408f-a3bf-db728a9bb9bd" name="Note1" type="Note">
+    <narrative>GIVEN I have a webpage 
+
+WHEN I launch the webpage using these Edge browser 
+
+AND spy the webelements
+
+THEN user can able to launch, process and access the webelements in the webpage using Edge browser</narrative>
+    <display x="15" y="-180" w="420" h="120" />
+    <onsuccess>dc932caa-33d8-4931-aa39-4a9a08ae1541</onsuccess>
+  </stage>
+  <stage stageid="3782a119-008c-4ef2-8282-68b7757cb013" name="Start" type="Start">
+    <display x="15" y="-270" />
+    <inputs>
+      <input type="flag" name="Pause During Test?" stage="Pause" />
+    </inputs>
+    <onsuccess>0e7214f4-dff0-408f-a3bf-db728a9bb9bd</onsuccess>
+  </stage>
+  <stage stageid="d9c30ec8-eedf-48ea-8d96-0c6c5730f322" name="Pause" type="Data">
+    <display x="-285" y="90" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3109e9cb-976e-4648-b6c3-75574c9cda9c" name="Pause True?" type="Decision">
+    <display x="15" y="105" />
+    <decision expression="[Pause]" />
+    <ontrue>724242d3-4a0d-419a-b3e7-617ecb4ab91b</ontrue>
+    <onfalse>13c0e5e5-113e-45d1-aac1-147fbc5d7329</onfalse>
+  </stage>
+  <stage stageid="724242d3-4a0d-419a-b3e7-617ecb4ab91b" name="Sleep" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="90" y="105" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="60" />
+    </inputs>
+    <onsuccess>a3c0170f-f257-43e8-a664-6dee79bf56e2</onsuccess>
+    <resource object="Chrome App Model" action="Sleep" />
+  </stage>
+  <stage stageid="a3c0170f-f257-43e8-a664-6dee79bf56e2" name="Anchor2" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="90" y="195" w="10" h="10" />
+    <onsuccess>13c0e5e5-113e-45d1-aac1-147fbc5d7329</onsuccess>
+  </stage>
+  <stage stageid="f7ee719c-055e-496d-85db-99c74e7517a9" name="Input Variable" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="60" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+</process>

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+
+    <title>Optical Character Recognition (OCR)</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="pagetitle">Help</h1>
+    </div>
+
+    <h3>Optical Character Recognition (OCR)</h3>
+    <p>An OCR engine is available within Blue Prism for situations where it is
+    not appropriate to use the native character recognition engine to interact
+    with on-screen text. Commonly this will include scenarios such as where
+    smoothed-text is enforced; or for interacting with scanned or
+    otherwise-restricted copies of electronic documents.</p>
+    
+    <p>The Blue Prism capability uses an embedded Tesseract OCR engine to
+    recognise text using pattern matching and complex, language-based text
+    recognition.</p>
+    
+    <p>In order to maximise the effectiveness of the recognition a minimum of
+    300 dots-per-inch (dpi) is required. For images, such as on-screen text,
+    where the dpi is lower than this, a Scale parameter will artificially
+    increase the size of the captured region before passing it to the engine.
+    Generally setting the scale factor to 4 or 5 will provide successful results.
+    </p>
+
+    <p>The OCR engine is leveraged though a <a href="frmStagePropertiesRead.htm">Read</a>
+    stage when used against a previously captured Application Modeller region
+    and includes the options to read text, lists and grids. It is also possible
+    to output the pre-worked images to a specific diagnostics location to allow
+    verification that the scaling being applied is sufficient for the selected
+    region.</p>
+
+    <h5 id="lang">Language Packs</h5>
+    <p>Language packs for use with Tesseract can be obtained from the
+    internet. Blue Prism works with Tesseract version 4.0.0 and it is
+    imperative that the correct major version of the language files are used
+    with it. Currently, the version 4.0.0 language files can be downloaded from
+    the <a target="_blank" href="https://github.com/tesseract-ocr/tesseract/wiki/Data-Files">Tesseract website</a>.</p>
+
+    <p>To add support for another language, download the appropriate files and
+    copy them to the Tesseract\tessdata folder (usually
+    <code>C:\Program Files\Blue Prism Limited\Blue Prism Automate\Tesseract\tessdata</code>).
+    </p>
+
+    <p>The language files are prefixed with a language code e.g fra (French),
+    deu (German), jpn (Japanese), chi-tra (Traditional Chinese) etc. Once
+    installed on each of the required devices, this code can be specified in the
+    Language parameter of the "Read Text with OCR" action within a
+    <a href="frmStagePropertiesRead.htm">Read</a> stage, to instruct the engine
+    to use the required pack.</p>
+
+    <h5 id="lang">Page Segmentation Mode</h5>
+    <p>The "Read Text with OCR" action within a <a href="frmStagePropertiesRead.htm">Read</a>
+    stage has an optional text parameter Page Segmentation Mode, allowing a
+    Tesseract-defined value to be specified. The values which can be entered in
+    this parameter are shown below, along with a brief description of their
+    action.</p>
+
+    <p>If no value is entered for the Page Segmentation Mode, then the default
+    value of Auto will be used.
+        <dl class="indented">
+            <dt>OSD</dt>
+            <dd>
+                Orientation and script detection (OSD) only
+            </dd>
+            <dt>AutoWithOSD</dt>
+            <dd>Automatic page segmentation with OSD.</dd>
+            <dt>AutoNoOCR</dt>
+            <dd>Automatic page segmentation, but no OSD, or OCR.</dd>
+            <dt>Auto</dt>
+            <dd>Fully automatic page segmentation, but no OSD. (Default)</dd>
+            <dt>Column</dt>
+            <dd>Assume a single column of text of variable sizes</dd>
+            <dt>VerticalBlock</dt>
+            <dd>Assume a single uniform block of vertically aligned text</dd>
+            <dt>Block</dt>
+            <dd>Assume a single uniform block of text</dd>
+            <dt>Line</dt>
+            <dd>Treat the image as a single text line</dd>
+            <dt>Word</dt>
+            <dd>Treat the image as a single word</dd>
+            <dt>CircledWord</dt>
+            <dd>Treat the image as a single word in a circle</dd>
+            <dt>Character</dt>
+            <dd>Treat the image as a single character</dd>
+            <dt>SparseText</dt>
+            <dd>Find as much text as possible in no particular order.</dd>
+            <dt>SparseTextWithOSD</dt>
+            <dd>Sparse text with OSD.</dd>
+            <dt>RawLine</dt>
+            <dd>Treat the image as a single text line, bypassing workarounds
+            that are Tesseract-specific.</dd>
+        </dl>
+        For further information on segmentation modes please consult the
+        official documentation provided by Tesseract on their website.
+    </p>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+﻿<process name="Test BP Queue Management UI" version="1.0" bpversion="6.3.0.5030" narrative="Tests the system manager queue management area, via the Blue Prism user interface" byrefcollection="true" preferredid="1da727a0-4289-4f6e-91f9-c4327003e124">
+  <view>
+    <camerax>0</camerax>
+    <cameray>-3</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="53b150ed-0dfa-4a3a-8c05-128db054bd8e" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>b4ad9ed7-7de3-4e4d-8950-27caacf3b501</onsuccess>
+  </stage>
+  <stage stageid="c5378093-0137-4b0b-bde5-5d3dda4a4fac" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="ed263e60-5823-4469-9e44-d89082c9ed4a" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="e0c93386-a06f-4482-b9ef-03c9f02e3337" name="Sign-in" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" expr="&quot;admin&quot;" />
+      <input type="password" name="Password" expr="&quot;admin&quot;" />
+    </inputs>
+    <onsuccess>28c75ab2-5682-40d8-a9bb-9392ffb6d8b1</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="5bd2bfb4-1b54-4c2b-af1a-5d80dd8b9c23" name="Test Queue Management" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>f600fe53-468b-43df-b620-6266555a108a</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Test Work Queue Management" />
+  </stage>
+  <stage stageid="f600fe53-468b-43df-b620-6266555a108a" name="Exit" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>c5378093-0137-4b0b-bde5-5d3dda4a4fac</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="28c75ab2-5682-40d8-a9bb-9392ffb6d8b1" name="Open System Tab" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>99169971-128e-48e6-a85b-5261969fb57d</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="99169971-128e-48e6-a85b-5261969fb57d" name="Select Work Queues" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Workflow&quot;" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Work Queues&quot;" />
+      <input type="flag" name="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="True" />
+      <input type="flag" name="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="False" />
+      <input type="flag" name="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="False" />
+    </inputs>
+    <onsuccess>5bd2bfb4-1b54-4c2b-af1a-5d80dd8b9c23</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="b4ad9ed7-7de3-4e4d-8950-27caacf3b501" name="Launch Blue Prism" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>cfd3789a-c623-4c38-9931-f42a803a97d1</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="cfd3789a-c623-4c38-9931-f42a803a97d1" name="Attach System" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>e0c93386-a06f-4482-b9ef-03c9f02e3337</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="87908bc0-5970-4c35-a644-302a25598bbf" name="pid" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+</process>

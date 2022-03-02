@@ -1,0 +1,610 @@
+﻿<process name="Test_Chrome_detachNavigateAction" version="1.0" bpversion="7.0.0.36879" narrative="Test_Chrome_detachNavigateAction" byrefcollection="true" preferredid="29f17cae-eb2f-4703-8c2c-4fb2cbe7526d">
+  <view>
+    <camerax>3</camerax>
+    <cameray>465</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="37f0852d-2c33-470f-8424-824c190ae3b3" type="Normal" published="False">
+    <name>Launch_MultiBrowser_Instances_Group1</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>90</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="16ff721c-b483-4942-92e6-9698c77e01f3" type="Normal" published="False">
+    <name>Detach_WithTracking_ID</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="0e952449-0dc2-4075-8447-c50de72bbc09" type="Normal" published="False">
+    <name>Launch_MultiBrowser_Instances_Group2</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>75</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="2e20b0b9-6cf4-467d-83ed-65ed7e98f639" type="Normal" published="False">
+    <name>Interact_Browser_with_TrackingId</name>
+    <view>
+      <camerax>-63</camerax>
+      <cameray>-57</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="034240d9-c3f5-4373-b237-3af341c80bf3" type="Normal" published="False">
+    <name>Ternimate_WithTracking_ID </name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>150</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="b414e72c-0426-4e33-9759-7fc1fa157c93" name="Start" type="Start">
+    <display x="-60" y="-270" w="90" h="30" />
+    <onsuccess>544f83c6-3988-49ba-beb6-f92202b03ddd</onsuccess>
+  </stage>
+  <stage stageid="2a94a083-ec30-4a2f-abbb-dd9f6d1c7824" name="End" type="End">
+    <display x="-60" y="465" />
+  </stage>
+  <stage stageid="d1b65a43-7716-452c-887e-0293ae4d877d" name="Stage1" type="ProcessInfo">
+    <display x="-495" y="-195" w="210" h="90" />
+  </stage>
+  <stage stageid="544f83c6-3988-49ba-beb6-f92202b03ddd" name="Note1" type="Note">
+    <narrative>Given I am automating multiple same broswer type instances 
+
+
+When I use detach action from Navigate Properties, using tracking id
+
+
+Then I should not be able to interact with the detached browser 
+
+
+AND I should still be able to interact with the attached browser</narrative>
+    <display x="-60" y="-150" w="540" h="180" />
+    <onsuccess>532a3606-16f6-4013-8005-413044d12a4d</onsuccess>
+  </stage>
+  <stage stageid="1720f5cc-f4b7-4fee-8763-ad0506c145f5" name="Scenarios" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-315" y="-45" w="540" h="345" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="fbbcd2f2-3c0d-459c-af2e-393cdfb0abd7" name="Recover1" type="Recover">
+    <loginhibit />
+    <display x="150" y="180" />
+    <onsuccess>d1c8b4b9-62b7-44b6-9511-4b44e522c867</onsuccess>
+  </stage>
+  <stage stageid="d1c8b4b9-62b7-44b6-9511-4b44e522c867" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="150" y="225" />
+    <onsuccess>cfc422f7-d3b0-4f49-a8df-415dd02cb807</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="[Exception] &amp; &quot;---CHROME EXCEPTION :---- &quot; &amp; ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="cfc422f7-d3b0-4f49-a8df-415dd02cb807" name="Resume1" type="Resume">
+    <loginhibit />
+    <display x="150" y="270" />
+    <onsuccess>ce1f89ea-c78a-4a80-86fb-e3613643cf87</onsuccess>
+  </stage>
+  <stage stageid="9b2c962a-8d46-42ed-aa33-69882d3ce1c7" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-510" y="-105" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f8946e45-34d4-40e0-8e38-c805f980bacc" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-510" y="-60" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f1cc8e6a-c2b6-432c-a8d3-1a2b51f3563e" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-600" y="-135" w="210" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="78158846-4077-4f50-80b2-0bd333e31d9e" name="Failed" type="Decision">
+    <display x="-60" y="390" w="120" h="60" />
+    <decision expression="[Failed?]" />
+    <ontrue>99256c3d-a416-4fd4-a481-66962cafa900</ontrue>
+    <onfalse>2a94a083-ec30-4a2f-abbb-dd9f6d1c7824</onfalse>
+  </stage>
+  <stage stageid="99256c3d-a416-4fd4-a481-66962cafa900" name="RETHROW" type="Exception">
+    <display x="90" y="390" w="90" h="30" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="ce1f89ea-c78a-4a80-86fb-e3613643cf87" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="270" w="10" h="10" />
+    <onsuccess>83694f64-8cb8-4f4f-a789-2a29e4de07c8</onsuccess>
+  </stage>
+  <stage stageid="4fa614d4-09ef-4e04-b780-dd46e3a5d980" name="Tracking_ids" type="Collection">
+    <display x="-495" y="15" w="150" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Tracking_id" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="03884904-d546-4d5f-b6e7-1e5877539ce0" name="Tracking_id" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-495" y="60" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2b326c0a-9d42-4b8a-8f15-a711f575c1ed" name="Launch_MultiBrowser_Instances_Group1" type="SubSheetInfo">
+    <subsheetid>37f0852d-2c33-470f-8424-824c190ae3b3</subsheetid>
+    <display x="-390" y="-150" w="150" h="90" />
+  </stage>
+  <stage stageid="a0194c7a-ebe9-4818-a4a2-478d514843d8" name="Start" type="Start">
+    <subsheetid>37f0852d-2c33-470f-8424-824c190ae3b3</subsheetid>
+    <display x="-45" y="-180" />
+    <onsuccess>8c5b5e13-0c7e-4d1d-9d25-27d758046d37</onsuccess>
+  </stage>
+  <stage stageid="c49af784-018e-4de0-a0f4-554b6941fe43" name="End" type="End">
+    <subsheetid>37f0852d-2c33-470f-8424-824c190ae3b3</subsheetid>
+    <display x="-45" y="165" />
+  </stage>
+  <stage stageid="7776e711-3115-47d4-b519-917e51498103" name="Detach_WithTracking_ID" type="SubSheetInfo">
+    <subsheetid>16ff721c-b483-4942-92e6-9698c77e01f3</subsheetid>
+    <display x="-270" y="-135" w="150" h="90" />
+  </stage>
+  <stage stageid="775a6381-24cc-4e44-8519-5eb4eb6857bb" name="Start" type="Start">
+    <subsheetid>16ff721c-b483-4942-92e6-9698c77e01f3</subsheetid>
+    <display x="-30" y="-165" />
+    <onsuccess>a1c729d7-c350-4c26-b551-70825b4aee57</onsuccess>
+  </stage>
+  <stage stageid="839557e4-a9b5-4407-aceb-ff6c04d5af06" name="End" type="End">
+    <subsheetid>16ff721c-b483-4942-92e6-9698c77e01f3</subsheetid>
+    <display x="-30" y="60" />
+  </stage>
+  <stage stageid="db3982f5-2dea-4827-99de-623ea323cdf4" name="PAUSE" type="Action">
+    <subsheetid>37f0852d-2c33-470f-8424-824c190ae3b3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-75" w="150" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="10" />
+    </inputs>
+    <onsuccess>fcf3a961-a2b5-456d-bb4c-d2664a44b29a</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="8c5b5e13-0c7e-4d1d-9d25-27d758046d37" name="Launch Browser" type="Action">
+    <subsheetid>37f0852d-2c33-470f-8424-824c190ae3b3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-120" w="150" h="30" />
+    <inputs>
+      <input type="flag" name="FireFox" friendlyname="FireFox" expr="False" />
+      <input type="flag" name="Edge" friendlyname="Edge" expr="False" />
+      <input type="flag" name="Tracking Id" friendlyname="Tracking Id" narrative="Enable tracking id where multiple browser instances and new port range enabled" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Tracking_id" friendlyname="Tracking_id" narrative="Launched browser tracking id" stage="Tracking_id" />
+    </outputs>
+    <onsuccess>db3982f5-2dea-4827-99de-623ea323cdf4</onsuccess>
+    <resource object="Chrome App Model" action="Launch" />
+  </stage>
+  <stage stageid="29e93dcf-e564-4539-a5c8-beeb75fdf42f" name="Loop to 3?" type="Decision">
+    <subsheetid>37f0852d-2c33-470f-8424-824c190ae3b3</subsheetid>
+    <display x="-45" y="90" w="90" h="60" />
+    <decision expression="[Count]&gt;1" />
+    <ontrue>c49af784-018e-4de0-a0f4-554b6941fe43</ontrue>
+    <onfalse>a1885d65-e472-4a1d-94ab-5b76ff098e0d</onfalse>
+  </stage>
+  <stage stageid="7d136b74-030d-4398-a02c-6d1218bd5b1e" name="Count" type="Data">
+    <subsheetid>37f0852d-2c33-470f-8424-824c190ae3b3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-390" y="-60" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>1</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a1885d65-e472-4a1d-94ab-5b76ff098e0d" name="Count++" type="Calculation">
+    <subsheetid>37f0852d-2c33-470f-8424-824c190ae3b3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-165" y="90" />
+    <onsuccess>dc85ce9d-1b8b-4ce7-9396-e60d89c51a4f</onsuccess>
+    <calculation expression="[Count]+1" stage="Count" />
+  </stage>
+  <stage stageid="dc85ce9d-1b8b-4ce7-9396-e60d89c51a4f" name="Anchor2" type="Anchor">
+    <subsheetid>37f0852d-2c33-470f-8424-824c190ae3b3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-225" y="90" w="10" h="10" />
+    <onsuccess>2cc447c4-8e26-4465-927e-281e7f7bcb29</onsuccess>
+  </stage>
+  <stage stageid="2cc447c4-8e26-4465-927e-281e7f7bcb29" name="Anchor3" type="Anchor">
+    <subsheetid>37f0852d-2c33-470f-8424-824c190ae3b3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-225" y="-120" w="10" h="10" />
+    <onsuccess>8c5b5e13-0c7e-4d1d-9d25-27d758046d37</onsuccess>
+  </stage>
+  <stage stageid="fcf3a961-a2b5-456d-bb4c-d2664a44b29a" name="Collections:Add Row" type="Action">
+    <subsheetid>37f0852d-2c33-470f-8424-824c190ae3b3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-30" w="150" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Tracking_ids&quot;" />
+    </inputs>
+    <onsuccess>7aa05168-c920-47f4-848f-d852a10d4f49</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="7aa05168-c920-47f4-848f-d852a10d4f49" name="StoreTracking ids" type="Calculation">
+    <subsheetid>37f0852d-2c33-470f-8424-824c190ae3b3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="15" />
+    <onsuccess>29e93dcf-e564-4539-a5c8-beeb75fdf42f</onsuccess>
+    <calculation expression="[Tracking_id]" stage="Tracking_ids.Tracking_id" />
+  </stage>
+  <stage stageid="6fa48fd5-8f77-4b2e-9524-22a1ba5f99ec" name="Local Variable" type="Block">
+    <subsheetid>37f0852d-2c33-470f-8424-824c190ae3b3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-465" y="-90" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="532a3606-16f6-4013-8005-413044d12a4d" name="Launch_MultiBrowser_Instances_Group1" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-15" w="150" h="30" />
+    <onsuccess>3f9e4658-984e-4ef1-85bd-9c600bba1aac</onsuccess>
+    <processid>37f0852d-2c33-470f-8424-824c190ae3b3</processid>
+  </stage>
+  <stage stageid="37f0c7ec-d85b-4a13-942a-adea25df3786" name="Detach" type="Action">
+    <subsheetid>16ff721c-b483-4942-92e6-9698c77e01f3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="-75" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Browser Tracking id" friendlyname="Browser Tracking id" narrative="Browser Tracking id" expr="[Tracking_ids.Tracking_id]" />
+      <input type="flag" name="Tracking ID required?" friendlyname="Tracking ID required?" expr="True" />
+    </inputs>
+    <onsuccess>f332e616-e6da-4d72-87db-9bc6e604f002</onsuccess>
+    <resource object="Chrome App Model" action="Detach" />
+  </stage>
+  <stage stageid="a1c729d7-c350-4c26-b551-70825b4aee57" name="Loop Start1" type="LoopStart">
+    <subsheetid>16ff721c-b483-4942-92e6-9698c77e01f3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="-120" />
+    <onsuccess>37f0c7ec-d85b-4a13-942a-adea25df3786</onsuccess>
+    <groupid>63c90a2c-1ccf-4dae-aeb1-1d0bb527451a</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Tracking_ids</loopdata>
+  </stage>
+  <stage stageid="cdc32570-d49c-4f73-a3e9-ff2bf6b49100" name="Loop Start1" type="LoopEnd">
+    <subsheetid>16ff721c-b483-4942-92e6-9698c77e01f3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="15" />
+    <onsuccess>839557e4-a9b5-4407-aceb-ff6c04d5af06</onsuccess>
+    <groupid>63c90a2c-1ccf-4dae-aeb1-1d0bb527451a</groupid>
+  </stage>
+  <stage stageid="f332e616-e6da-4d72-87db-9bc6e604f002" name="PAUSE" type="Action">
+    <subsheetid>16ff721c-b483-4942-92e6-9698c77e01f3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="-30" w="120" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="10" />
+    </inputs>
+    <onsuccess>cdc32570-d49c-4f73-a3e9-ff2bf6b49100</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="7bee96b3-be12-4e8d-ba56-1f6d541120f6" name="Detach_WithTracking_ID" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="105" w="150" h="30" />
+    <onsuccess>c834340a-f084-43af-9452-07152483abde</onsuccess>
+    <processid>16ff721c-b483-4942-92e6-9698c77e01f3</processid>
+  </stage>
+  <stage stageid="7d85b8a0-1c89-411c-ba93-2de1a33cb086" name="Global Variable" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-600" y="-15" w="210" h="210" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="76b2de27-8afe-4bf6-8c79-64b73309a428" name="Interact_Browser_with_TrackingId" type="SubSheetInfo">
+    <subsheetid>2e20b0b9-6cf4-467d-83ed-65ed7e98f639</subsheetid>
+    <display x="-375" y="-225" w="240" h="90" />
+  </stage>
+  <stage stageid="fd5ea3c4-7304-4391-ac04-ec41f4f224ba" name="Start" type="Start">
+    <subsheetid>2e20b0b9-6cf4-467d-83ed-65ed7e98f639</subsheetid>
+    <display x="-75" y="-255" />
+    <onsuccess>47855494-2e4d-42e0-826a-536475c4b5fc</onsuccess>
+  </stage>
+  <stage stageid="d8a8f8f4-4927-4319-9c0c-2ccf776283af" name="End" type="End">
+    <subsheetid>2e20b0b9-6cf4-467d-83ed-65ed7e98f639</subsheetid>
+    <display x="-75" y="135" />
+  </stage>
+  <stage stageid="ab4d119f-82bd-45fb-89e5-5ab24de434ec" name="Interact Using Tracking_Id" type="Action">
+    <subsheetid>2e20b0b9-6cf4-467d-83ed-65ed7e98f639</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-75" y="-135" w="150" h="30" />
+    <inputs>
+      <input type="text" name="Browser Tracking Id" friendlyname="Browser Tracking Id" narrative="Browser Tracking Id" expr="[Tracking_id_group2]" />
+      <input type="text" name="Write to Textbox" friendlyname="Write to Textbox" narrative="Write to Textbox" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="HTML Textbox Value" friendlyname="HTML Textbox Value" narrative="HTML Textbox Value" stage="HTML Textbox Value" />
+      <output type="text" name="Label element Value" friendlyname="Label element Value" narrative="Label element Value" stage="" />
+      <output type="text" name="Rich Textbox Value" friendlyname="Rich Textbox Value" narrative="Rich Textbox Value" stage="" />
+      <output type="text" name="List Box Value" friendlyname="List Box Value" narrative="List Box Value" stage="" />
+      <output type="text" name="Submit Button Value" friendlyname="Submit Button Value" narrative="Submit Button Value" stage="" />
+      <output type="text" name="Update Value From Textbox" friendlyname="Update Value From Textbox" narrative="Update Value From Textbox" stage="" />
+    </outputs>
+    <onsuccess>0083fe67-1acf-4123-8f2d-f6953f52d962</onsuccess>
+    <resource object="Chrome Standard Actions" action="Get Current Value - Read / Write Actions" />
+  </stage>
+  <stage stageid="40245cb9-e8e1-4016-8534-3dffe5029931" name="HTML Textbox Value" type="Data">
+    <subsheetid>2e20b0b9-6cf4-467d-83ed-65ed7e98f639</subsheetid>
+    <display x="-375" y="-60" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="deaf945f-d1f2-418a-84d8-9a01ff11be55" name="Output Variables" type="Block">
+    <subsheetid>2e20b0b9-6cf4-467d-83ed-65ed7e98f639</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-480" y="-90" w="225" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e77e4b6a-a5c6-453b-9fb8-c77e086f3ee5" name="Actual-HTML Textbox Value" type="Data">
+    <subsheetid>2e20b0b9-6cf4-467d-83ed-65ed7e98f639</subsheetid>
+    <display x="-360" y="-135" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">My HTML Textbox</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5dd92192-608f-46c5-ac6c-28e2d3ab9ebc" name="Actual Input Variables" type="Block">
+    <subsheetid>2e20b0b9-6cf4-467d-83ed-65ed7e98f639</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-480" y="-165" w="225" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0083fe67-1acf-4123-8f2d-f6953f52d962" name="Read Text Match?" type="Decision">
+    <subsheetid>2e20b0b9-6cf4-467d-83ed-65ed7e98f639</subsheetid>
+    <display x="-75" y="-60" w="90" h="90" />
+    <decision expression="[HTML Textbox Value] = [Actual-HTML Textbox Value]" />
+    <ontrue>7479556c-2cfa-492d-b532-8f7d56515479</ontrue>
+    <onfalse>6ee8a26e-48aa-4351-b75f-e4483f4ac122</onfalse>
+  </stage>
+  <stage stageid="6ee8a26e-48aa-4351-b75f-e4483f4ac122" name="FAIL" type="Exception">
+    <subsheetid>2e20b0b9-6cf4-467d-83ed-65ed7e98f639</subsheetid>
+    <display x="60" y="-60" />
+    <exception localized="yes" type="" detail="&quot;HTML Textbox value missmatch&quot;" />
+  </stage>
+  <stage stageid="7e73340a-8040-474e-945d-246d71c3a52a" name="Launch_MultiBrowser_Instances_Group2" type="SubSheetInfo">
+    <subsheetid>0e952449-0dc2-4075-8447-c50de72bbc09</subsheetid>
+    <display x="-390" y="-150" w="150" h="90" />
+  </stage>
+  <stage stageid="adf97c5a-ec4a-47f6-9d5d-c9584bf7a115" name="Start" type="Start">
+    <subsheetid>0e952449-0dc2-4075-8447-c50de72bbc09</subsheetid>
+    <display x="-45" y="-195" />
+    <onsuccess>efaffce8-c8a9-46f7-8ae4-253fcd8d6351</onsuccess>
+  </stage>
+  <stage stageid="81911276-7dfa-408c-a89a-b78864be45ae" name="End" type="End">
+    <subsheetid>0e952449-0dc2-4075-8447-c50de72bbc09</subsheetid>
+    <display x="-45" y="150" />
+  </stage>
+  <stage stageid="9f38eb7c-e13d-4f43-95db-4efed728ac0d" name="PAUSE" type="Action">
+    <subsheetid>0e952449-0dc2-4075-8447-c50de72bbc09</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="150" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="10" />
+    </inputs>
+    <onsuccess>135b766d-9952-40f0-b4d7-00cd2e2ae63b</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="efaffce8-c8a9-46f7-8ae4-253fcd8d6351" name="Launch Browser" type="Action">
+    <subsheetid>0e952449-0dc2-4075-8447-c50de72bbc09</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-135" w="150" h="30" />
+    <inputs>
+      <input type="flag" name="FireFox" friendlyname="FireFox" expr="False" />
+      <input type="flag" name="Edge" friendlyname="Edge" expr="False" />
+      <input type="flag" name="Tracking Id" friendlyname="Tracking Id" narrative="Enable tracking id where multiple browser instances and new port range enabled" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Tracking_id" friendlyname="Tracking_id" narrative="Launched browser tracking id" stage="Tracking_id_group2" />
+    </outputs>
+    <onsuccess>9f38eb7c-e13d-4f43-95db-4efed728ac0d</onsuccess>
+    <resource object="Chrome App Model" action="Launch" />
+  </stage>
+  <stage stageid="4f6745c8-95c7-4843-bf7b-281696b09d02" name="Loop to 3?" type="Decision">
+    <subsheetid>0e952449-0dc2-4075-8447-c50de72bbc09</subsheetid>
+    <display x="-45" y="75" w="90" h="60" />
+    <decision expression="[Count]&gt;1" />
+    <ontrue>81911276-7dfa-408c-a89a-b78864be45ae</ontrue>
+    <onfalse>9ab56959-b478-4dbb-89cc-e21e6d413990</onfalse>
+  </stage>
+  <stage stageid="55f3d940-e801-4c7b-b8b9-ba37a6510061" name="Count" type="Data">
+    <subsheetid>0e952449-0dc2-4075-8447-c50de72bbc09</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-390" y="-60" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>1</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9ab56959-b478-4dbb-89cc-e21e6d413990" name="Count++" type="Calculation">
+    <subsheetid>0e952449-0dc2-4075-8447-c50de72bbc09</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-165" y="75" />
+    <onsuccess>077b6e0a-0b23-41bc-b1f8-eae8aa5cf891</onsuccess>
+    <calculation expression="[Count]+1" stage="Count" />
+  </stage>
+  <stage stageid="077b6e0a-0b23-41bc-b1f8-eae8aa5cf891" name="Anchor2" type="Anchor">
+    <subsheetid>0e952449-0dc2-4075-8447-c50de72bbc09</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-225" y="75" w="10" h="10" />
+    <onsuccess>3ea86380-ba17-4904-93e0-e9bdc9a8ceab</onsuccess>
+  </stage>
+  <stage stageid="3ea86380-ba17-4904-93e0-e9bdc9a8ceab" name="Anchor3" type="Anchor">
+    <subsheetid>0e952449-0dc2-4075-8447-c50de72bbc09</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-225" y="-135" w="10" h="10" />
+    <onsuccess>efaffce8-c8a9-46f7-8ae4-253fcd8d6351</onsuccess>
+  </stage>
+  <stage stageid="135b766d-9952-40f0-b4d7-00cd2e2ae63b" name="Collections:Add Row" type="Action">
+    <subsheetid>0e952449-0dc2-4075-8447-c50de72bbc09</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="150" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Tracking_ids_Group2&quot;" />
+    </inputs>
+    <onsuccess>3be52bda-ec0f-45b5-97cc-558efb8d0542</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="3be52bda-ec0f-45b5-97cc-558efb8d0542" name="StoreTracking ids" type="Calculation">
+    <subsheetid>0e952449-0dc2-4075-8447-c50de72bbc09</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="0" />
+    <onsuccess>4f6745c8-95c7-4843-bf7b-281696b09d02</onsuccess>
+    <calculation expression="[Tracking_id_group2]" stage="Tracking_ids_Group2.Tracking_id" />
+  </stage>
+  <stage stageid="71b58e9a-aa5b-4cc5-8ffd-4d12d1a97b25" name="Local Variable" type="Block">
+    <subsheetid>0e952449-0dc2-4075-8447-c50de72bbc09</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-465" y="-90" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d9af3eb8-c1aa-4027-b513-e2383f5dd9a1" name="Tracking_ids_Group2" type="Collection">
+    <display x="-495" y="105" w="150" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Tracking_id" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="3ce1af36-05f1-4aee-9164-7a1da445e4a6" name="Tracking_id_group2" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-510" y="150" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="47855494-2e4d-42e0-826a-536475c4b5fc" name="Loop Start2" type="LoopStart">
+    <subsheetid>2e20b0b9-6cf4-467d-83ed-65ed7e98f639</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-75" y="-195" />
+    <onsuccess>ab4d119f-82bd-45fb-89e5-5ab24de434ec</onsuccess>
+    <groupid>7a680915-4e9c-4248-8c8e-bf630eced225</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Tracking_ids_Group2</loopdata>
+  </stage>
+  <stage stageid="fdd99a51-20d5-4833-bf2a-86868f7a7cb2" name="Loop End1" type="LoopEnd">
+    <subsheetid>2e20b0b9-6cf4-467d-83ed-65ed7e98f639</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-75" y="75" />
+    <onsuccess>d8a8f8f4-4927-4319-9c0c-2ccf776283af</onsuccess>
+    <groupid>7a680915-4e9c-4248-8c8e-bf630eced225</groupid>
+  </stage>
+  <stage stageid="7479556c-2cfa-492d-b532-8f7d56515479" name="PAUSE" type="Action">
+    <subsheetid>2e20b0b9-6cf4-467d-83ed-65ed7e98f639</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-75" y="30" w="120" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="10" />
+    </inputs>
+    <onsuccess>fdd99a51-20d5-4833-bf2a-86868f7a7cb2</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="3f9e4658-984e-4ef1-85bd-9c600bba1aac" name="Launch_MultiBrowser_Instances_Group2" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="45" w="150" h="30" />
+    <onsuccess>7bee96b3-be12-4e8d-ba56-1f6d541120f6</onsuccess>
+    <processid>0e952449-0dc2-4075-8447-c50de72bbc09</processid>
+  </stage>
+  <stage stageid="c834340a-f084-43af-9452-07152483abde" name="Interact_Browser_with_TrackingId" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="165" w="150" h="30" />
+    <onsuccess>20c18669-7551-4e02-8e90-95c71e96c367</onsuccess>
+    <processid>2e20b0b9-6cf4-467d-83ed-65ed7e98f639</processid>
+  </stage>
+  <stage stageid="bea6b39a-c3e1-4bdc-84ea-04e5be6a313c" name="Ternimate_WithTracking_ID " type="SubSheetInfo">
+    <subsheetid>034240d9-c3f5-4373-b237-3af341c80bf3</subsheetid>
+    <display x="-240" y="-60" w="150" h="90" />
+  </stage>
+  <stage stageid="a0e8f226-f84f-4699-9319-b15f2d55aa2d" name="Start" type="Start">
+    <subsheetid>034240d9-c3f5-4373-b237-3af341c80bf3</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>3dce4163-79c5-4356-85d0-50531ba91ef5</onsuccess>
+  </stage>
+  <stage stageid="8796249b-e940-48e9-9aa3-3eed96d0b4ba" name="End" type="End">
+    <subsheetid>034240d9-c3f5-4373-b237-3af341c80bf3</subsheetid>
+    <display x="15" y="150" />
+  </stage>
+  <stage stageid="41b39bd8-4ca5-43a1-8544-30dd09961ef2" name="Terminate" type="Action">
+    <subsheetid>034240d9-c3f5-4373-b237-3af341c80bf3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="0" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Browser Tracking Id" friendlyname="Browser Tracking Id" narrative="Browser Tracking Id" expr="[Tracking_ids_Group2.Tracking_id]" />
+      <input type="flag" name="Tracking Id" friendlyname="Tracking Id" narrative="Enable Tracking Id if required" expr="True" />
+    </inputs>
+    <onsuccess>7ad315f3-5bea-4f01-ab52-10563f69b687</onsuccess>
+    <resource object="Chrome App Model" action="terminate" />
+  </stage>
+  <stage stageid="3dce4163-79c5-4356-85d0-50531ba91ef5" name="Loop Start1" type="LoopStart">
+    <subsheetid>034240d9-c3f5-4373-b237-3af341c80bf3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" />
+    <onsuccess>41b39bd8-4ca5-43a1-8544-30dd09961ef2</onsuccess>
+    <groupid>7fac67bb-b3af-483c-bc53-3d608e200cc5</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Tracking_ids_Group2</loopdata>
+  </stage>
+  <stage stageid="ce87e19c-4bd0-47c3-88cb-bbb2b7b7ae16" name="Loop Start1" type="LoopEnd">
+    <subsheetid>034240d9-c3f5-4373-b237-3af341c80bf3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="90" />
+    <onsuccess>8796249b-e940-48e9-9aa3-3eed96d0b4ba</onsuccess>
+    <groupid>7fac67bb-b3af-483c-bc53-3d608e200cc5</groupid>
+  </stage>
+  <stage stageid="7ad315f3-5bea-4f01-ab52-10563f69b687" name="PAUSE" type="Action">
+    <subsheetid>034240d9-c3f5-4373-b237-3af341c80bf3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="120" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="10" />
+    </inputs>
+    <onsuccess>ce87e19c-4bd0-47c3-88cb-bbb2b7b7ae16</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="20c18669-7551-4e02-8e90-95c71e96c367" name="Ternimate_WithTracking_ID " type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="225" w="150" h="30" />
+    <onsuccess>ce1f89ea-c78a-4a80-86fb-e3613643cf87</onsuccess>
+    <processid>034240d9-c3f5-4373-b237-3af341c80bf3</processid>
+  </stage>
+  <stage stageid="83694f64-8cb8-4f4f-a789-2a29e4de07c8" name="TerminateDetachedBrowsers" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="330" w="150" h="30" />
+    <inputs>
+      <input type="text" name="Browser Type" friendlyname="Browser Type" narrative="Browser Type" expr="[BrowserTypeToTerminate]" />
+    </inputs>
+    <onsuccess>78158846-4077-4f50-80b2-0bd333e31d9e</onsuccess>
+    <resource object="Chrome App Model" action="Terminate_All_Instances of Same_BrowserType" />
+  </stage>
+  <stage stageid="3c894d8c-6418-405f-b391-e155fa091e92" name="BrowserTypeToTerminate" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-495" y="240" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">chrome</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="cf4ca948-b16d-4f50-8aa7-f489fe67d3c3" name="Input Variable" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-600" y="210" w="210" h="75" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+</process>

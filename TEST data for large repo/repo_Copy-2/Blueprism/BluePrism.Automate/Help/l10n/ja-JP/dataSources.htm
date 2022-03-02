@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<title>ダッシュボードデータソース</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+		dl.import-rules dd>ul>li { margin-bottom: 1em; }
+		dl.import-rules dd>ul { padding-left: 1em; }
+	</style>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">ダッシュボード</h1>
+		<h2>データソース</h2>
+	</div>
+
+  <h3>データソース</h3>
+  <p>SQLストアドプロシージャはタイルで使用されるデータを提供します。</p>
+  <ul>
+    <li>タイルコンフィギュレーターで検出されるようにするため、ストアドプロシージャには適切な名前を付ける必要があります。BPDS_I：BPDS_Iという命名プレフィックスのデータソースは、ソフトウェアに組み込まれている内部データソースを表すために予約されています。</li>
+    <li>BPDS：BPDSという命名プレフィックスのデータソースは、ソフトウェアに付属のSQL Serverストアドプロシージャを表すために予約されています。カスタムストアドプロシージャには、このプレフィックスを付けて命名しないでください。</li>
+      <ul>
+        <li>また、既存のストアドプロシージャは、Blue Prismの指示がある場合を除き変更しないでください。</li>
+        <li>Blue Prismが作成したストアドプロシージャでない場合、Blue PrismはBPDSというプレフィックスが付いたストアドプロシージャを認識しません。</li>
+        <li>これらのプロシージャに対する手動の変更は、今後の更新プログラムによって上書きされる可能性があります。これらのストアドプロシージャにカスタムの変更が必要な場合は、カスタムデータソースに適切なプレフィックスを付けてプロシージャのコピーを作成します。</li>
+      </ul>
+    <li>DS：DSというプレフィックスは、ダッシュボードタイル用に作成されたすべてのカスタムストアドプロシージャに必須のプレフィックスです。</li>
+  </ul>
+  
+  <p>これらのプロシージャをパラメーター化することで、これらに複数のチャートタイルを関連付け、それぞれに異なるパラメーターセットを指定できます。たとえば、異なるキューのグループに同じビューを提供できます。</p>
+
+  <h3>カスタムデータソースを作成する</h3>
+  <p>データベースに新しいストアドプロシージャを手動で作成する場合は、Blue Prismユーザーが使用できるようにする必要があります。これを行うには、bpa_ExecuteSP_DataSource_customという名前のBlue Prism SQLセキュリティの役割を拡張します。</p>
+
+  <p><code>GRANT EXECUTE ON OBJECT::[ストアドプロシージャ名] TO bpa_ExecuteSP_DataSource_custom;</code></p>
+  <p>例：</p>
+  <p><code>GRANT EXECUTE ON OBJECT::dbo.DS_DailyProductivity TO bpa_ExecuteSP_DataSource_custom;</code></p>
+
+  <p>あるいは、あるBlue Prism環境からタイルをエクスポートして別のBlue Prism環境にインポートすると、インポート先の環境でセキュリティの役割が自動的に拡張されます。</p>
+
+  <h3 id="DataFormat">タイルデータ形式</h3>
+  <p>タイルで使用されるデータは、Blue Prismデータベースに必ず存在するストアドプロシージャから派生します。このストアドプロシージャは、テーブル内のデータを返すためにチャートタイルに使用したデータテーブルを返す必要があります。返されるデータの最初の列はチャートのラベルを表し、それ以降の列は1～nの一連のデータを表します。</p>
+  
+  <p>たとえば、ステータス別のキューボリュームを返すプロシージャは、次のように作成できます。</p>
+  <img src="Graphics\datasource-sql.png" alt="データソースSQLの例"/>
+  <p>Blue Prismで実行されると、これは以下を返します。</p>
+  <img src="Graphics\datasource-output.png" alt="データソース出力の例"/>
+  <p>新しいストアドプロシージャを本番環境で使用する前に、システムパフォーマンスの問題を回避するため、実際のデータセットでクエリのパフォーマンスをテストする必要があります。</p>
+
+</body>
+</html>

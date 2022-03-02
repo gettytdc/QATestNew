@@ -1,0 +1,827 @@
+﻿<process name="Calculation Tree Updates When Data Item Deleted" version="1.0" bpversion="6.8.0.22361" narrative="" byrefcollection="true" preferredid="3b0b709d-ccc0-4a7d-a6ce-bff32ceb342c">
+  <view>
+    <camerax>0</camerax>
+    <cameray>90</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="83520ca3-aacf-49b5-8707-8e2bcaf12c74" type="Normal" published="False">
+    <name>Set Up</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>138</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="29126ca7-0140-4fbb-95bd-cd85853de368" type="Normal" published="False">
+    <name>Data Item present in tree</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>205</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="bba18b5a-dd53-4cd7-b262-ae151baa6fc4" type="Normal" published="False">
+    <name>Delete Data Item </name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="3adcc170-308d-44df-aa2f-41fe0529b81d" type="Normal" published="False">
+    <name>Check Data item is NOT in tree</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>265</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="b1658ffd-48f6-4fd2-b2f2-3244ebd75638" type="Normal" published="False">
+    <name>Clean Up</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>315</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="bcc12e68-16b5-4a0e-a1de-e88a38cd25b8" name="Start" type="Start">
+    <display x="15" y="-135" />
+    <onsuccess>631695b8-f78e-45b8-89fe-956993a27130</onsuccess>
+  </stage>
+  <stage stageid="fedc515c-f04c-4e86-a968-ce9a93b981e6" name="End" type="End">
+    <display x="15" y="270" />
+  </stage>
+  <stage stageid="ecaa3aaa-8561-4a10-bb2c-e1850b480214" name="Stage1" type="ProcessInfo">
+    <display x="-225" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="d5d68147-51c0-4c0b-beeb-a5cbef54dddf" name="Set Up" type="SubSheetInfo">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="29e3400a-38eb-420c-ac6d-7f852a2ddc89" name="Start" type="Start">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <display x="15" y="-150" />
+    <onsuccess>bdcc5e3b-e3ac-4c85-9a69-7d41fadcae54</onsuccess>
+  </stage>
+  <stage stageid="41ede1b9-f8ef-421f-bd6c-67b2f0e38732" name="End" type="End">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <display x="15" y="270" />
+  </stage>
+  <stage stageid="bdcc5e3b-e3ac-4c85-9a69-7d41fadcae54" name="Launch BluePrism and Get PID" type="Action">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-105" w="120" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>fbf99eff-9344-4caa-b9c3-20b827129fc3</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="1ee88eaa-f1b7-4a06-994c-70af80bdb33a" name="Sign In to Blue Prism" type="Action">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+      <input type="flag" name="Sign in Active Directorry" friendlyname="Sign in Active Directorry" narrative="Do you want sign in using Active Directory" expr="" />
+      <input type="flag" name="Sign in" friendlyname="Sign in" narrative="Do you want sign in using legacy sso environment" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="Error message received while Login" stage="" />
+    </outputs>
+    <onsuccess>bf7a6f64-41e5-4d14-91bb-8845a438ae49</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="bf7a6f64-41e5-4d14-91bb-8845a438ae49" name="Navigate to Tab" type="Action">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="[Tab]" />
+    </inputs>
+    <onsuccess>71d8e7aa-18c9-44ec-9046-7c566c4b1b6c</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="fbf99eff-9344-4caa-b9c3-20b827129fc3" name="Attach to Pid for Studio" type="Action">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="120" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>1ee88eaa-f1b7-4a06-994c-70af80bdb33a</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="69a1a4d1-3021-44a6-9e0e-82147286cba2" name="pid" type="Data">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <display x="-210" y="0" w="90" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="32588668-7e55-4769-ad48-a46b50d11604" name="Tab" type="Data">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="30" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Studio</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5838ffd3-4d2f-4fd9-bebb-ad2f018517c8" name="Process Name" type="Data">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="60" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">BG-6398 Process</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="631695b8-f78e-45b8-89fe-956993a27130" name="Note1" type="Note">
+    <narrative>Given you have a Process within Blue Prism that has a Calculation stage...</narrative>
+    <display x="15" y="-90" w="210" h="30" />
+    <onsuccess>43519a29-fe10-44c5-b1c4-aa5842289da9</onsuccess>
+  </stage>
+  <stage stageid="43519a29-fe10-44c5-b1c4-aa5842289da9" name="Set Up" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="120" h="30" />
+    <onsuccess>854bf187-f962-4a55-9824-7ccd1f86801a</onsuccess>
+    <processid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</processid>
+  </stage>
+  <stage stageid="854bf187-f962-4a55-9824-7ccd1f86801a" name="Note2" type="Note">
+    <narrative>WHEN you have an POPULATED data item...THEN the Data item will be present in the 'Data Type'  and 'Page tree within the calculation stage.</narrative>
+    <display x="15" y="0" w="270" h="30" />
+    <onsuccess>8011a4c8-414b-44e7-9457-e54ec673ee2f</onsuccess>
+  </stage>
+  <stage stageid="71d8e7aa-18c9-44ec-9046-7c566c4b1b6c" name="Open Process" type="Action">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" friendlyname="Process Name" expr="[Process Name]" />
+      <input type="text" name="Folder to Select" friendlyname="Folder to Select" expr="" />
+      <input type="number" name="MatchIndex" friendlyname="MatchIndex" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Access Warning" friendlyname="Access Warning" narrative="Access warning when opening member" stage="" />
+    </outputs>
+    <onsuccess>0ac67454-adb0-4ac5-b7ad-5dc941031110</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Process" />
+  </stage>
+  <stage stageid="12ed6e08-27cd-49c6-9087-712bac79c23e" name="Data Item present in tree" type="SubSheetInfo">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="06572bf6-9320-4bf6-8d4b-9b286b3e8911" name="Start" type="Start">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>c45111dc-8bf1-4e48-9ee5-1c9f0d6ba930</onsuccess>
+  </stage>
+  <stage stageid="c8665ff8-f88a-44cc-afb7-24150cb9576b" name="End" type="End">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <display x="15" y="330" />
+  </stage>
+  <stage stageid="0ac67454-adb0-4ac5-b7ad-5dc941031110" name="Get Start Bounds" type="Action">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <loginhibit />
+    <display x="15" y="120" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Page Name" narrative="Name of the page in which the element resides." expr="&quot;Main Page&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Bounds" narrative="Bounds of the Start stage on screen." stage="Start Bounds" />
+    </outputs>
+    <onsuccess>f86bdbc6-284f-41a6-a0ed-6a619ba35a83</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Get Start Stage Bounds" />
+  </stage>
+  <stage stageid="f86bdbc6-284f-41a6-a0ed-6a619ba35a83" name="Find Y" type="Calculation">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <onsuccess>d1a73d39-a532-4466-9356-40438f38c4de</onsuccess>
+    <calculation expression="[Start Bounds.Bottom] + 80" stage="Y" />
+  </stage>
+  <stage stageid="e0f49ce3-8399-4b53-b3a7-0f40215a559f" name="Start Bounds" type="Collection">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <display x="-210" y="150" w="90" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+  </stage>
+  <stage stageid="fed710d8-acff-452b-9d51-f99d9b8eaa6a" name="Y" type="Data">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <display x="-210" y="180" w="90" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fcd4919a-9040-4f9f-bc1c-c166b9da7df4" name="Global Variables" type="Block">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-30" w="120" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f69c3327-51fe-4bcf-b4a0-e01dc9ffc648" name="Coordinate inputs" type="Block">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="120" w="120" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d1a73d39-a532-4466-9356-40438f38c4de" name="Find X" type="Calculation">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="90" h="30" />
+    <onsuccess>41ede1b9-f8ef-421f-bd6c-67b2f0e38732</onsuccess>
+    <calculation expression="([Start Bounds.Left]+([Start Bounds.Width]/2))" stage="X" />
+  </stage>
+  <stage stageid="7941009b-ee18-4927-9153-b93948eba554" name="X" type="Data">
+    <subsheetid>83520ca3-aacf-49b5-8707-8e2bcaf12c74</subsheetid>
+    <display x="-210" y="210" w="90" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="16d7d72b-6d78-48eb-a6d9-a6cd90a59a3a" name="Note3" type="Note">
+    <narrative>WHEN you delete the data item...THEN the data item will NOT be present in the 'Data Type' or 'Page' tree within the calculation stage.</narrative>
+    <display x="15" y="90" w="270" h="30" />
+    <onsuccess>406d0f1c-9b18-4c77-9dc3-bb36dd1d18d7</onsuccess>
+  </stage>
+  <stage stageid="8011a4c8-414b-44e7-9457-e54ec673ee2f" name="Data Item present in tree" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="120" h="30" />
+    <onsuccess>16d7d72b-6d78-48eb-a6d9-a6cd90a59a3a</onsuccess>
+    <processid>29126ca7-0140-4fbb-95bd-cd85853de368</processid>
+  </stage>
+  <stage stageid="bb7fb258-6d90-4bf5-a835-0ae8aa0993e8" name="Delete Data Item " type="SubSheetInfo">
+    <subsheetid>bba18b5a-dd53-4cd7-b262-ae151baa6fc4</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="a3e401b1-0d8f-41ac-b9e8-b852265bf2d8" name="Start" type="Start">
+    <subsheetid>bba18b5a-dd53-4cd7-b262-ae151baa6fc4</subsheetid>
+    <display x="15" y="-135" />
+    <onsuccess>b79f8ae3-adc7-4290-a222-fe7bf66c3861</onsuccess>
+  </stage>
+  <stage stageid="89250913-76de-4657-b4b9-7a1f127af641" name="End" type="End">
+    <subsheetid>bba18b5a-dd53-4cd7-b262-ae151baa6fc4</subsheetid>
+    <display x="15" y="105" />
+  </stage>
+  <stage stageid="406d0f1c-9b18-4c77-9dc3-bb36dd1d18d7" name="Delete Data Item " type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" w="120" h="30" />
+    <onsuccess>3d7613f2-9708-475b-82f7-126b1c9919bf</onsuccess>
+    <processid>bba18b5a-dd53-4cd7-b262-ae151baa6fc4</processid>
+  </stage>
+  <stage stageid="c45111dc-8bf1-4e48-9ee5-1c9f0d6ba930" name="Global Click By Coordinates" type="Action">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="number" name="X" friendlyname="X" narrative="X Coordinate" expr="[X]" />
+      <input type="number" name="Y" friendlyname="Y" narrative="Y Coordinate" expr="[Y]" />
+    </inputs>
+    <onsuccess>f94bc828-b56d-47ee-92ca-f76e7bd084a0</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Global Click By Coordinates" />
+  </stage>
+  <stage stageid="f94bc828-b56d-47ee-92ca-f76e7bd084a0" name="Open Properties For Calculation Stage" type="Action">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>3e010587-0506-4eee-aa6d-fa21dcb1c670</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Open Properties For Selected Stage" />
+  </stage>
+  <stage stageid="3e010587-0506-4eee-aa6d-fa21dcb1c670" name="Properties Read Data Item from Tree" type="Action">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Read child of Node" friendlyname="Read child of Node" expr="[Data Type Tree Node]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Data Item present" friendlyname="Data Item present" stage="Data Item present" />
+    </outputs>
+    <onsuccess>f0987760-1815-4d57-9e5f-d09360852c8b</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Properties Read Data Item Tree" />
+  </stage>
+  <stage stageid="f44c7d88-85c0-4bf6-92c1-1fd95d75ee51" name="Data Item present" type="Collection">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <display x="-195" y="-15" w="90" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f0987760-1815-4d57-9e5f-d09360852c8b" name="Data Item present?" type="Decision">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <display x="15" y="90" w="90" h="30" />
+    <decision expression="[Data Item present.Node Text] = &quot;Data1&quot;" />
+    <ontrue>62cacca4-c8d3-49a8-a5cf-d30c9494400f</ontrue>
+    <onfalse>ce2bb7c9-9d43-461d-b5c1-d6860ad1c591</onfalse>
+  </stage>
+  <stage stageid="ce2bb7c9-9d43-461d-b5c1-d6860ad1c591" name="Exception" type="Exception">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <display x="135" y="90" />
+    <exception localized="yes" type="Bad Results" detail="&quot;Data Item Not Present&quot;" />
+  </stage>
+  <stage stageid="5ea0dcdf-7106-4ee6-a8d4-c177c4f943ce" name="Read from properties tree" type="Block">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="-45" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c092da26-ad87-4334-bf3b-dc23a0d6bd96" name="Click Data Item" type="Action">
+    <subsheetid>bba18b5a-dd53-4cd7-b262-ae151baa6fc4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="number" name="X" friendlyname="X" narrative="X Coordinate" expr="[X for Data Item]" />
+      <input type="number" name="Y" friendlyname="Y" narrative="Y Coordinate" expr="[Y]" />
+    </inputs>
+    <onsuccess>81bb7cf4-887b-4541-9434-ecb4bc5f9b1f</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Global Click By Coordinates" />
+  </stage>
+  <stage stageid="81bb7cf4-887b-4541-9434-ecb4bc5f9b1f" name=" Delete Selected Stage" type="Action">
+    <subsheetid>bba18b5a-dd53-4cd7-b262-ae151baa6fc4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="90" h="30" />
+    <onsuccess>89250913-76de-4657-b4b9-7a1f127af641</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Delete Selected Stage" />
+  </stage>
+  <stage stageid="f5f4c49a-335e-4ef7-a65e-e6a1727ab2fb" name="X for Data Item" type="Data">
+    <subsheetid>bba18b5a-dd53-4cd7-b262-ae151baa6fc4</subsheetid>
+    <display x="-195" y="-15" w="90" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b79f8ae3-adc7-4290-a222-fe7bf66c3861" name="Find X" type="Calculation">
+    <subsheetid>bba18b5a-dd53-4cd7-b262-ae151baa6fc4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-75" w="90" h="30" />
+    <onsuccess>c092da26-ad87-4334-bf3b-dc23a0d6bd96</onsuccess>
+    <calculation expression="([Start Bounds.Left]+([Start Bounds.Width]/2)) + 140" stage="X for Data Item" />
+  </stage>
+  <stage stageid="2100a30a-8e90-44ff-9d54-08ea9aaa24b1" name="Co-ordinate for Data Item" type="Block">
+    <subsheetid>bba18b5a-dd53-4cd7-b262-ae151baa6fc4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="-45" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4ad1f201-9ab3-4247-8bc2-9b1b8d3a2dd4" name="Check Data item is NOT in tree" type="SubSheetInfo">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="1e8b4751-20a0-4a6a-894f-048e7736d8ad" name="Start" type="Start">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>0943cb8c-bb8c-4a9e-9332-6aca39a31217</onsuccess>
+  </stage>
+  <stage stageid="5d178dbe-4c88-4252-aedb-7da6f530cd92" name="End" type="End">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <display x="15" y="405" />
+  </stage>
+  <stage stageid="0943cb8c-bb8c-4a9e-9332-6aca39a31217" name="Global Click By Coordinates" type="Action">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="number" name="X" friendlyname="X" narrative="X Coordinate" expr="[X]" />
+      <input type="number" name="Y" friendlyname="Y" narrative="Y Coordinate" expr="[Y]" />
+    </inputs>
+    <onsuccess>4476368c-fa4b-4a8f-bd95-363c7d9f319c</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Global Click By Coordinates" />
+  </stage>
+  <stage stageid="4476368c-fa4b-4a8f-bd95-363c7d9f319c" name="Open Properties For Calculation Stage" type="Action">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>f6db8e9f-9775-4265-b53f-52ae622a0737</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Open Properties For Selected Stage" />
+  </stage>
+  <stage stageid="f6db8e9f-9775-4265-b53f-52ae622a0737" name="Properties Read Data Item from Tree" type="Action">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Read child of Node" friendlyname="Read child of Node" expr="[Page Tree Node]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Data Item present" friendlyname="Data Item present" stage="Data Item present" />
+    </outputs>
+    <onsuccess>5c461d39-0321-4aba-abb2-82e423dd8543</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Properties Read Data Item Tree" />
+  </stage>
+  <stage stageid="5eda5af7-a91a-4310-b2ca-05f085188000" name="Data Item NOT present?" type="Decision">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <display x="15" y="120" w="90" h="30" />
+    <decision expression="[Exists] = False" />
+    <ontrue>f876b058-dbff-43df-b552-63d56f8e2114</ontrue>
+    <onfalse>81cf6ce4-141b-4052-907f-d96e7886818d</onfalse>
+  </stage>
+  <stage stageid="81cf6ce4-141b-4052-907f-d96e7886818d" name="Exception" type="Exception">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <display x="120" y="120" />
+    <exception localized="yes" type="Bad Results" detail="&quot;Data Item Present&quot;" />
+  </stage>
+  <stage stageid="e7c9e8d2-ede1-4205-ab5e-372682517dcb" name="Data Item present" type="Collection">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <display x="-195" y="0" w="90" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f2a30419-bbf6-40f1-a8a8-6e32e02957bf" name="Read from properties tree" type="Block">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="-30" w="120" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3d7613f2-9708-475b-82f7-126b1c9919bf" name="Check Data item is NOT in tree" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="180" w="120" h="30" />
+    <onsuccess>069dfbd4-00db-4fda-86bf-a32c06d9dfc1</onsuccess>
+    <processid>3adcc170-308d-44df-aa2f-41fe0529b81d</processid>
+  </stage>
+  <stage stageid="5c461d39-0321-4aba-abb2-82e423dd8543" name="Data Item exists in collection?" type="Action">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="Input Collection" friendlyname="Input Collection" narrative="The collection to check." expr="[Data Item present]" />
+      <input type="text" name="Field" friendlyname="Field" narrative="The field to check for." expr="&quot;Node Text&quot;" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Exists" friendlyname="Exists" narrative="True if the collection contains the field." stage="Exists" />
+    </outputs>
+    <onsuccess>5eda5af7-a91a-4310-b2ca-05f085188000</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Field Exists" />
+  </stage>
+  <stage stageid="683bfa19-6f78-4701-96a6-c704e51cf1b0" name="Exists" type="Data">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <display x="-195" y="30" w="90" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="86356f68-fb71-41e5-b9e7-37a3a96f6a10" name="Clean Up" type="SubSheetInfo">
+    <subsheetid>b1658ffd-48f6-4fd2-b2f2-3244ebd75638</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="8b473713-8e2b-40fd-984c-72fd06864225" name="Start" type="Start">
+    <subsheetid>b1658ffd-48f6-4fd2-b2f2-3244ebd75638</subsheetid>
+    <display x="15" y="-135" />
+    <onsuccess>2937bea9-9bc1-41b4-a770-d23168f4e414</onsuccess>
+  </stage>
+  <stage stageid="52977e45-b3c2-437e-a80d-16996286e8a7" name="End" type="End">
+    <subsheetid>b1658ffd-48f6-4fd2-b2f2-3244ebd75638</subsheetid>
+    <display x="15" y="360" />
+  </stage>
+  <stage stageid="2937bea9-9bc1-41b4-a770-d23168f4e414" name=" Add Data Item Stage back into Process" type="Action">
+    <subsheetid>b1658ffd-48f6-4fd2-b2f2-3244ebd75638</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Stage Type" friendlyname="Stage Type" narrative="Type of Stage to add." expr="&quot;Data Item&quot;" />
+      <input type="number" name="X Coordinate" friendlyname="X Coordinate" narrative="Coordinates of X axis. Positive values are to the right, and negative values are to the left. Default to 0." expr="[X for Data Item]" />
+      <input type="number" name="Y Coordinate" friendlyname="Y Coordinate" narrative="Coordinates of Y axis. Positive values are further down, and negative values are further up. Default to 0." expr="[Y]" />
+      <input type="text" name="New Page Name" friendlyname="New Page Name" narrative="If you are creating a page stage this is the name you want to set." expr="" />
+    </inputs>
+    <onsuccess>099ad503-dc56-4e4a-9564-4ef3374d5a7b</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Add Stage to Development Area" />
+  </stage>
+  <stage stageid="07185e69-2d54-424f-98c1-c271665f6fc0" name=" Open Properties For Selected  Data Item " type="Action">
+    <subsheetid>b1658ffd-48f6-4fd2-b2f2-3244ebd75638</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="0" w="90" h="30" />
+    <onsuccess>7623b96d-620b-4774-a90a-13590a783d29</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Open Properties For Selected Stage" />
+  </stage>
+  <stage stageid="099ad503-dc56-4e4a-9564-4ef3374d5a7b" name="Global Click By Coordinates" type="Action">
+    <subsheetid>b1658ffd-48f6-4fd2-b2f2-3244ebd75638</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="number" name="X" friendlyname="X" narrative="X Coordinate" expr="[X for Data Item]" />
+      <input type="number" name="Y" friendlyname="Y" narrative="Y Coordinate" expr="[Y]" />
+    </inputs>
+    <onsuccess>07185e69-2d54-424f-98c1-c271665f6fc0</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Global Click By Coordinates" />
+  </stage>
+  <stage stageid="069dfbd4-00db-4fda-86bf-a32c06d9dfc1" name="Clean Up" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="225" w="120" h="30" />
+    <onsuccess>fedc515c-f04c-4e86-a968-ce9a93b981e6</onsuccess>
+    <processid>b1658ffd-48f6-4fd2-b2f2-3244ebd75638</processid>
+  </stage>
+  <stage stageid="92a98306-9fd1-4adf-b417-3feb2f072179" name=" Press OK" type="Action">
+    <subsheetid>b1658ffd-48f6-4fd2-b2f2-3244ebd75638</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="90" w="90" h="30" />
+    <onsuccess>5e59a6cf-d385-42ed-aa53-373d770ed742</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Properties Press OK" />
+  </stage>
+  <stage stageid="7623b96d-620b-4774-a90a-13590a783d29" name="Set Data Item Data Type" type="Action">
+    <subsheetid>b1658ffd-48f6-4fd2-b2f2-3244ebd75638</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="90" h="30" />
+    <onsuccess>92a98306-9fd1-4adf-b417-3feb2f072179</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Properties Set Data Item Data Type" />
+  </stage>
+  <stage stageid="9e3409d2-e012-4d6d-954a-b20708867c6f" name=" Press OK" type="Action">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="360" w="90" h="30" />
+    <onsuccess>5d178dbe-4c88-4252-aedb-7da6f530cd92</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Properties Press OK" />
+  </stage>
+  <stage stageid="5e59a6cf-d385-42ed-aa53-373d770ed742" name="Save Process" type="Action">
+    <subsheetid>b1658ffd-48f6-4fd2-b2f2-3244ebd75638</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Edit Summary" friendlyname="Edit Summary" narrative="The summary to add to the audit trail for the process" expr="&quot;Saved&quot;" />
+      <input type="flag" name="Already Waiting" friendlyname="Already Waiting" narrative="True if it's already waiting (i.e. don't press 'Save')" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Warning on Save" friendlyname="Warning on Save" narrative="Warning given when not possible to save due to inaccessible linked process or object" stage="" />
+    </outputs>
+    <onsuccess>f6f00689-1649-4e0a-beec-7e3d36bd7e48</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Save Open Process" />
+  </stage>
+  <stage stageid="f6f00689-1649-4e0a-beec-7e3d36bd7e48" name="Close All Child Windows" type="Action">
+    <subsheetid>b1658ffd-48f6-4fd2-b2f2-3244ebd75638</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="180" w="90" h="30" />
+    <onsuccess>a2a55e36-be6e-4666-a096-66dac7a35582</onsuccess>
+    <resource object="Blue Prism" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="a2a55e36-be6e-4666-a096-66dac7a35582" name="Sign Out" type="Action">
+    <subsheetid>b1658ffd-48f6-4fd2-b2f2-3244ebd75638</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="225" w="90" h="30" />
+    <onsuccess>aa785265-0b5a-4a8c-8af5-98d78d6adc75</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="7f0681f6-580f-4ed5-9439-a71d8929b9b4" name="Detach" type="Action">
+    <subsheetid>b1658ffd-48f6-4fd2-b2f2-3244ebd75638</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="315" w="90" h="30" />
+    <onsuccess>52977e45-b3c2-437e-a80d-16996286e8a7</onsuccess>
+    <resource object="Blue Prism" action="Detach" />
+  </stage>
+  <stage stageid="62cacca4-c8d3-49a8-a5cf-d30c9494400f" name="Switch Tree View to Page" type="Action">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="150" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="Page Treeview" friendlyname="Page Treeview" expr="[Page Tree View]" />
+      <input type="flag" name="DataType Treeview" friendlyname="DataType Treeview" expr="[Data Type TreeView]" />
+      <input type="flag" name="View All Item Treeview" friendlyname="View All Item Treeview" expr="[View All Items Tree View]" />
+    </inputs>
+    <onsuccess>601a595d-3e85-4484-aeb0-a1ef48e3bc6a</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Properties Set Data Item Group" />
+  </stage>
+  <stage stageid="f687109a-ec37-4168-89cb-ba8448c7b31d" name="Page Tree View" type="Data">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="165" w="90" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1cef28de-a899-47ce-879a-3433009df057" name="Data Type TreeView" type="Data">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="195" w="90" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ae4f4c2b-bb3f-4925-ae5d-3c5ce958aee2" name="View All Items Tree View" type="Data">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="225" w="90" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e55eb87a-6f69-41fd-8b9f-ce983dc97da6" name="Tree Views in Calculation Stage" type="Block">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="135" w="120" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="601a595d-3e85-4484-aeb0-a1ef48e3bc6a" name="Properties Read Data Item from Tree" type="Action">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Read child of Node" friendlyname="Read child of Node" expr="[Page Tree Node]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Data Item present" friendlyname="Data Item present" stage="Switched Tree View Data Item present " />
+    </outputs>
+    <onsuccess>850f2da4-920c-433b-9ac6-37f6b9ebb0e0</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Properties Read Data Item Tree" />
+  </stage>
+  <stage stageid="850f2da4-920c-433b-9ac6-37f6b9ebb0e0" name="Data Item present?" type="Decision">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <display x="15" y="240" w="90" h="30" />
+    <decision expression="[Switched Tree View Data Item present .Node Text]= &quot;Data1&quot;" />
+    <ontrue>62cc0d6b-cd50-4b29-bc98-c644ada54bc0</ontrue>
+    <onfalse>f4f328d6-c9f2-4136-8207-cbf0f70a2876</onfalse>
+  </stage>
+  <stage stageid="f4f328d6-c9f2-4136-8207-cbf0f70a2876" name="Exception" type="Exception">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <display x="135" y="240" />
+    <exception localized="yes" type="Bad Results" detail="&quot;Data Item Not Present in switched tree view&quot;" />
+  </stage>
+  <stage stageid="4371bb84-7d1d-4d0a-8a6e-8128130ff2f9" name="Switched Tree View Data Item present " type="Collection">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <display x="-195" y="300" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5ec188e1-5037-46e1-b9bf-756f09fbdeb2" name="Read from Switched View tree" type="Block">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="270" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e57a74f5-1c6e-4906-9854-465c155083af" name="Tree Node to read" type="Block">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="30" w="120" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b1f67540-8c45-463f-a0e1-ceab950e3b33" name="Data Type Tree Node" type="Data">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="60" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Numbers</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="21bf2fea-9b9e-47b4-8a42-dcf735ef832b" name="Page Tree Node" type="Data">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Main Page</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8f44a9ee-df0d-4b6a-b032-28a94cee8170" name="Page Tree View" type="Data">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="105" w="90" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d66910ab-4cbd-4d4e-b4c7-34f95e7d0e52" name="Data Type TreeView" type="Data">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="135" w="90" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="62b79f15-f900-44ae-8ecc-1924bd77be97" name="View All Items Tree View" type="Data">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="165" w="90" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="24e3da6d-875f-4e7d-b40a-134d062a2e9e" name="Tree Views in Calculation Stage" type="Block">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="75" w="120" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="795390da-c6f3-4631-aab8-707d27d7ace1" name="Tree Node to read" type="Block">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="210" w="120" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d4da5ba2-a042-42d6-9723-d85c910a9611" name="Data Type Tree Node" type="Data">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="240" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Numbers</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4e0b28dd-8186-45af-a68d-bbcc4c647390" name="Page Tree Node" type="Data">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="270" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Main Page</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f876b058-dbff-43df-b552-63d56f8e2114" name="Switch Tree View to Data Type" type="Action">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="Page Treeview" friendlyname="Page Treeview" expr="[Page Tree View]" />
+      <input type="flag" name="DataType Treeview" friendlyname="DataType Treeview" expr="[Data Type TreeView]" />
+      <input type="flag" name="View All Item Treeview" friendlyname="View All Item Treeview" expr="[View All Items Tree View]" />
+    </inputs>
+    <onsuccess>cbf7eb5f-1c8b-44f7-8c99-3ae71b475c44</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Properties Set Data Item Group" />
+  </stage>
+  <stage stageid="cbf7eb5f-1c8b-44f7-8c99-3ae71b475c44" name="Properties Read Data Item from Tree" type="Action">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Read child of Node" friendlyname="Read child of Node" expr="[Data Type Tree Node]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Data Item present" friendlyname="Data Item present" stage="Switched Tree View Data Item present " />
+    </outputs>
+    <onsuccess>7d9d8b4a-9bd3-4077-862d-42701aef168b</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Properties Read Data Item Tree" />
+  </stage>
+  <stage stageid="940cfea2-97d7-4af0-aed4-be3b3d6e93ca" name="Switched Tree View Data Item present " type="Collection">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <display x="-195" y="345" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e5bb9885-5df9-4281-bf9b-d55b08543ea1" name="Read from Switched View tree" type="Block">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="315" w="120" h="75" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="7d9d8b4a-9bd3-4077-862d-42701aef168b" name="Data Item exists in collection?" type="Action">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="Input Collection" friendlyname="Input Collection" narrative="The collection to check." expr="[Switched Tree View Data Item present ]" />
+      <input type="text" name="Field" friendlyname="Field" narrative="The field to check for." expr="&quot;Node Text&quot;" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Exists" friendlyname="Exists" narrative="True if the collection contains the field." stage="Exists in switched tree?" />
+    </outputs>
+    <onsuccess>ab70b63b-261f-404f-916b-a82aa097853f</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Field Exists" />
+  </stage>
+  <stage stageid="c02cee11-d8a8-4e66-970b-8c3c67501ee5" name="Exists in switched tree?" type="Data">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <display x="-195" y="375" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ab70b63b-261f-404f-916b-a82aa097853f" name="Data Item NOT present?" type="Decision">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <display x="15" y="300" w="90" h="30" />
+    <decision expression="[Exists in switched tree?] = False" />
+    <ontrue>9e3409d2-e012-4d6d-954a-b20708867c6f</ontrue>
+    <onfalse>1b07c827-8d63-4041-9b65-b079362503f9</onfalse>
+  </stage>
+  <stage stageid="1b07c827-8d63-4041-9b65-b079362503f9" name="Exception" type="Exception">
+    <subsheetid>3adcc170-308d-44df-aa2f-41fe0529b81d</subsheetid>
+    <display x="120" y="300" />
+    <exception localized="yes" type="Bad Results" detail="&quot;Data Item Present in switched tree view&quot;" />
+  </stage>
+  <stage stageid="aa785265-0b5a-4a8c-8af5-98d78d6adc75" name="Exit Application" type="Action">
+    <subsheetid>b1658ffd-48f6-4fd2-b2f2-3244ebd75638</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="270" w="90" h="30" />
+    <onsuccess>7f0681f6-580f-4ed5-9439-a71d8929b9b4</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="62cc0d6b-cd50-4b29-bc98-c644ada54bc0" name=" Press OK" type="Action">
+    <subsheetid>29126ca7-0140-4fbb-95bd-cd85853de368</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="285" w="90" h="30" />
+    <onsuccess>c8665ff8-f88a-44cc-afb7-24150cb9576b</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Properties Press OK" />
+  </stage>
+</process>

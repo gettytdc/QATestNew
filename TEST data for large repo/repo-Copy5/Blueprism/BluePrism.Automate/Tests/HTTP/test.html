@@ -1,0 +1,138 @@
+<html>  
+	<head>
+		<style>	
+		body, textarea, input {font-family:arial; font-size:8pt}
+		</style>
+
+		<script language="javascript">
+
+			// Sneak in support for standard XMLHttpRequest	creation in IE6...
+			/*@cc_on @if (@_win32 && @_jscript_version >= 5) if (!window.XMLHttpRequest)
+			window.XMLHttpRequest = function() { return new ActiveXObject('Microsoft.XMLHTTP') }
+			@end @*/
+	
+			var btnStart
+			var txtProcessName
+			var txtUserName
+			var txtParams
+			var txtMessages
+			var msStatus = ""
+
+			// Define a String.startsWith function...
+			String.prototype.startsWith = function(s) { return this.indexOf(s)==0; }
+
+			function log(message) {
+				txtMessages.value+=GetTime()+":"+message+"\n"
+			}
+
+			function Load() {
+				btnStart = document.getElementById("btnStart")
+				txtProcessName = document.getElementById("txtProcessName")
+				txtUserName = document.getElementById("txtUserName")
+				txtParams = document.getElementById("txtParams")
+				txtMessages = document.getElementById("txtMessages")
+				txtMessages.value=""
+				log("Ready")
+
+			}
+
+			var http
+
+			function StartProcess() {
+
+				try {
+					btnStart.disabled = true
+					log("Pressed button")
+
+					// Create our http object...
+					http=new XMLHttpRequest()
+					// Notify if we failed to create it...
+					if(!http) {
+						log("Failed to create http object")
+						return
+					}
+					http.open("GET", "http://localhost:8181/user%20name%20"+escape(txtUserName.value)+"&create%20name%20"+escape(txtProcessName.value), true)
+					http.onreadystatechange=StartProcess2
+					log("Sending create request")
+					http.send(null)
+				}
+				catch(e) {
+					log("Failed: "+e.name+":"+e.message)
+				}
+			}
+
+			function StartProcess2() {
+				if(http.readyState==4) {
+					if(http.status==200) {
+						response=http.responseText.split(/\r\n|\r|\n/);
+						if(!response[0].startsWith("USER SET")) {
+							log("Failed to set user - "+response[0])
+							return
+						}
+						if(!response[1].startsWith("SESSION CREATED")) {
+							log("Did not create session - "+response[1])
+							return
+						}
+						sessionid=response[1].substring(18)
+						log("Session ID:"+sessionid)
+						http.open("GET", "http://localhost:8181/user%20name%20"+escape(txtUserName.value)+"&start%20"+sessionid, true)
+						http.onreadystatechange=StartProcess3
+						log("Sending start request")
+						http.send(null)
+					} else {
+						log("Start request failed:"+http.status)
+					}
+				}
+			}
+
+			function StartProcess3() {
+				if(http.readyState==4) {
+					if(http.status==200) {
+						response=http.responseText.split(/\r\n|\r|\n/);
+						if(!response[0].startsWith("USER SET")) {
+							log("Failed to set user - "+response[0])
+							return
+						}
+						if(!response[1].startsWith("STARTED")) {
+							log("Did not start - "+response[1])
+							return
+						}
+						http.close
+						log("SUCCESS - Process started")
+					} else {
+						log("Start request failed:"+http.status)
+					}
+				}
+			}
+
+
+			function GetTime() {
+
+				var dDate = new Date
+				var sDate = dDate.toString()
+				var iColon = sDate.indexOf(":")
+				return sDate.substr(iColon-2,8)
+
+			}
+		</script>
+
+
+	</head>	
+
+  <body onload="Load()">	 
+    Process<br/><INPUT type="text" id="txtProcessName" style="width:300px" value="CalcEventTest">
+		<BR>
+    User<BR><INPUT type="text" id="txtUserName" style="width:300px" value="admin">	
+		<BR>
+    Params<BR><INPUT type="text" id="txtParams" style="width:300px" value="<inputs><input name='loops' type='number' value='2000' /></inputs>">	
+    <INPUT type=button id="btnStart" style="width:100px" value="Start" onClick="StartProcess()">
+    <BR>
+		Javascript Messages
+		<br>
+		<TEXTAREA id="txtMessages" style="width:400px; height:150px"></TEXTAREA> 
+    <BR>
+		Process Messages
+		<br>
+		<TEXTAREA id="txtProcessMessages" style="width:400px; height:150px"></TEXTAREA> 
+	</body>
+</html>

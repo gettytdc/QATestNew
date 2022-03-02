@@ -1,0 +1,199 @@
+<process name="Test Web Service Advanced" version="1.0" narrative="Tests the Fidelity mockup web service" preferredid="410e0efb-3182-4b55-bb2f-02b201133eb9">
+  <view>
+    <camerax>0</camerax>
+    <cameray>0</cameray>
+    <zoom>1</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="a67c351d-4005-4f1f-aaa2-1e4a08cbd170" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e00624ee-773e-4dde-830f-5f2b46921682</onsuccess>
+  </stage>
+  <stage stageid="54aab535-df23-4651-b181-dda04a9e02f0" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="64ee1a6c-7c1f-4817-91da-eb938d542209" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="e00624ee-773e-4dde-830f-5f2b46921682" name="Call service" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="context" expr="[Context]" />
+      <input type="text" name="instructionReferenceNumber" expr="&quot;test-iref&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="context" stage="Context" />
+      <output type="number" name="success" stage="success" />
+      <output type="collection" name="instruction" stage="instruction" />
+    </outputs>
+    <onsuccess>fdd18c45-7e57-4840-bf0f-ed842f4f2533</onsuccess>
+    <resource object="QAWebService" action="TestComplexData" />
+  </stage>
+  <stage stageid="10d25d56-db38-4371-8b88-981603f6850d" name="Context" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>255</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <singlerow />
+      <field name="transactionID" type="text" />
+      <field name="callerReference" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <singlerow />
+      <row>
+        <field name="transactionID" type="text" value="test-trid" />
+        <field name="callerReference" type="text" value="test-cref" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="7505cb9d-abca-4aee-ac94-d8d284a8efe0" name="instruction" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="579ed3c2-0ad5-407c-9f7e-2097ef76f1e0" name="success" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fdd18c45-7e57-4840-bf0f-ed842f4f2533" name="Check payment amount" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[instruction.instruction.instructionDetails.paymentDetails.amount] = 4434" />
+    <ontrue>e88dd94a-6b59-41ba-8949-c2c171ca368d</ontrue>
+    <onfalse>deae5b9e-16d8-4024-9553-3da29fcbb281</onfalse>
+  </stage>
+  <stage stageid="deae5b9e-16d8-4024-9553-3da29fcbb281" name="Wrong amount" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;The payment amount was wrong&quot;" />
+  </stage>
+  <stage stageid="e88dd94a-6b59-41ba-8949-c2c171ca368d" name="Check caller reference" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Context.callerReference] = &quot;test-cref&quot;" />
+    <ontrue>901378d4-6931-4be3-bd4e-681587db13b4</ontrue>
+    <onfalse>614e8f5b-897c-4265-b506-14202069d643</onfalse>
+  </stage>
+  <stage stageid="614e8f5b-897c-4265-b506-14202069d643" name="Wrong caller ref" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Wrong caller reference&quot;" />
+  </stage>
+  <stage stageid="901378d4-6931-4be3-bd4e-681587db13b4" name="Crash service" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="context" expr="[Context]" />
+      <input type="text" name="instructionReferenceNumber" expr="&quot;55&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="context" stage="Context" />
+      <output type="number" name="success" stage="success" />
+      <output type="collection" name="instruction" stage="instruction" />
+    </outputs>
+    <onsuccess>63e20716-ee37-4eed-8fb4-efe858bdbcd8</onsuccess>
+    <resource object="QAWebService" action="TestComplexData" />
+  </stage>
+  <stage stageid="63e20716-ee37-4eed-8fb4-efe858bdbcd8" name="Shoudlacrashed" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;The service should have crashed at that point&quot;" />
+  </stage>
+  <stage stageid="b1d6e8a0-dd32-45c7-9b32-4e2452b2c155" name="Block1" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-90</displayx>
+    <displayy>45</displayy>
+    <displaywidth>240</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f0c8a40f-1d9c-4b4c-b1e9-4f31ed940d5e" name="Recover1" type="Recover">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>54aab535-df23-4651-b181-dda04a9e02f0</onsuccess>
+  </stage>
+</process>

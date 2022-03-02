@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Blue Prism 调度程序</title>
+    <script type="text/javascript" src="script/imagezoom.js"></script>
+</head>
+
+<body class="slick scheduler">
+    <div class="header">
+        <h1 class="pagetitle">Blue Prism 调度程序</h1>
+        <h2>简介</h2>
+    </div>
+
+    <div class="captioned-image overview-screenshot nozoom">
+        <a href="Graphics/schedule-diagram.png" title="示例计划—点击查看大图"><img alt="示例计划—点击查看大图" src="Graphics/schedule-diagram.png"/></a>
+        <p>示例计划及其任务</p>
+    </div>
+
+    <h3 id="overview">概述</h3>
+    <p>Blue Prism 包含一个系统，可用于在特定时间执行相关流程，并且在不同时间间隔内重复执行。调度程序作为配置的 <a href="helpBPServer.htm">Blue Prism 服务器</a>服务的一部分运行，可以访问 Blue Prism 环境以及其中保存的流程。</p>
+    <p>计划可配置为运行一次，也可以为每分钟、每小时、每日、每周、每月或每年重复一次。可利用<a href="helpCalendar.htm">日历</a>将计划设置为仅在工作日运行，跳过特定周末和/或公共节假日。</p>
+
+
+    <h3 id="schedule">计划</h3>
+    <p>计划指的是一组任务的执行点。每个计划都是独立的，包含各种不同的数据：—名称和说明、时间数据以及要执行的一组<a href="#task">任务</a>。</p>
+    <p>执行计划时，将首先执行其“初始化任务”，而要执行的后续任务则根据该任务的结果来确定。因此，计划中的任务是串行执行的，即，一个接一个。</p>
+    <p>计划不能与自身同时执行。例如，假设某个计划从 12:00 开始，并安排在 13:00 再次运行。如果在 13:00，该计划仍在运行，它将不会再次执行。</p>
+    <p>计划是在控制室的<a href="helpSchedulerUI.htm">调度程序</a>选项卡中使用<a href="helpSchedulesUI.htm">计划</a>组件创建的。</p>
+
+    <h3 id="task">任务</h3>
+    <p>任务指的是计划的组件。它定义了要同时执行的一组会话，并提供了这些会话的合并状态结果，以便调度程序可以确定下一步要执行的任务。</p>
+    <p>会话是在资源 PC 上运行的顶层流程。每个任务可以包含任意数量的会话。执行任务时，首先创建每个会话，在所有会话都在主机资源上注册并挂起之后，就会执行这些会话。</p>
+    <p>默认情况下，任务被设置为“快速失败”，也就是说，如果无法创建任何会话，所有会话都将被终止，任务也将被终止。同样，如果任何会话的执行导致错误，所有其他会话都将被终止，任务也将被终止。请注意，这意味着如果任何会话失败，任务将被标记为终止。</p>
+    <p>如果任务设置为不快速失败，则会记录任何会话创建失败，但不会导致任务失败。同样，会记录任何导致错误的单独会话执行，但任何其他正在运行的会话都会继续。请注意，如果不快速失败，任务只有当<em>所有</em>会话都失败时才会被标记为终止。</p>
+    <p>每个任务都有一个“成功时”和一个“异常时”值，这两个值决定了当前任务执行后要执行的下一个任务，分别是成功完成时要执行的任务，以及由于创建/执行会话时的异常而终止时要执行的任务。</p>
+    <p>任务是使用<a href="helpTasksUI.htm">任务</a>组件在“调度程序”选项卡中配置的。</p>
+
+    <h3 id="scheduler">调度程序</h3>
+    <p>调度程序在 Blue Prism 服务器服务中运行。它为后台流程，它会等待下一次计划的激活时间，然后在该时间激活应运行的任何计划。</p>
+
+    <p>调度程序使用服务器上配置的时区解释计划激活时间，因此在配置计划时应考虑这一点。<br/>此外，如果有多个启用了调度程序的 Blue Prism 服务器，则有必要将所有服务器配置为使用常用时区。</p>
+
+    <p>调度器程序是为<a href="helpSystemManagerScheduler.htm">系统管理器</a>中的特定连接而配置的。</p>
+    <p>它可以配置为在启动时检查是否错过了任何计划。</p>
+    <p>它每 30 秒检查一次数据库，查看是否需要刷新当前的计划数据，因此计划时间的任何更改最多需要 30 秒才能被调度程序服务本身识别。</p>
+    <p>如果调度程序停止或关闭时，某个计划正在运行，它们将尝试完全终止任何活动会话，并在任何计划或会话日志中将它们标记为终止。</p>
+
+</body>
+</html>

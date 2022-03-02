@@ -1,0 +1,30 @@
+namespace BluePrism.Api.Models
+{
+    public enum WorkQueueSortBy
+    {
+        NameAsc,
+        NameDesc,
+        StatusAsc,
+        StatusDesc,
+        KeyFieldAsc,
+        KeyFieldDesc,
+        MaxAttemptsAsc,
+        MaxAttemptsDesc,
+        IsEncryptedAsc,
+        IsEncryptedDesc,
+        TotalItemCountAsc,
+        TotalItemCountDesc,
+        CompletedItemCountAsc,
+        CompletedItemCountDesc,
+        LockedItemCountAsc,
+        LockedItemCountDesc,
+        PendingItemCountAsc,
+        PendingItemCountDesc,
+        ExceptionedItemCountAsc,
+        ExceptionedItemCountDesc,
+        TotalCaseDurationAsc,
+        TotalCaseDurationDesc,
+        AverageWorkTimeAsc,
+        AverageWorkTimeDesc
+    }
+}

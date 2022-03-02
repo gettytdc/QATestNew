@@ -1,0 +1,185 @@
+﻿<process name="Test Chrome Long Run" version="1.0" bpversion="6.7.0.15813" narrative="" byrefcollection="true" preferredid="7088a968-e6c4-4f1d-b6d0-e3b11e01a05a" published="true">
+  <view>
+    <camerax>27</camerax>
+    <cameray>-53</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="bbece294-84a0-4569-b4e9-5c8f645c99d4" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="ab1e71d1-1997-4845-9b6f-8c331f96a4f4" type="Normal" published="False">
+    <name>Pause</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="2eac82f8-f817-4698-83ed-490d0bf8c649" name="Start" type="Start">
+    <display x="15" y="-210" />
+    <onsuccess>e5c59d6f-c192-435c-9aa7-422a381a7f4b</onsuccess>
+  </stage>
+  <stage stageid="df0ccfee-7442-48d0-8de1-f4ce328058fc" name="End" type="End">
+    <display x="15" y="90" />
+  </stage>
+  <stage stageid="bee3127a-5a55-4957-affd-a8caaad575d4" name="Stage1" type="ProcessInfo">
+    <display x="-210" y="-180" w="150" h="90" />
+  </stage>
+  <stage stageid="bc0dd58d-7072-43a2-8675-3677c23cb882" name="Terminate" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="270" h="30" />
+    <onsuccess>df0ccfee-7442-48d0-8de1-f4ce328058fc</onsuccess>
+    <resource object="Chrome App Model" action="terminate" />
+  </stage>
+  <stage stageid="e5c59d6f-c192-435c-9aa7-422a381a7f4b" name="Note1" type="Note">
+    <narrative>GIVEN I have a valid Chrome model connected</narrative>
+    <display x="15" y="-165" w="270" h="30" />
+    <font family="Segoe UI" size="11" style="Bold" color="3DB87A" />
+    <onsuccess>c2d97dd6-c9d4-4197-8d0d-2cfb3a364d75</onsuccess>
+  </stage>
+  <stage stageid="6649dfdd-50fa-4add-bf0e-8fad7da2c197" name="Note1" type="Note">
+    <narrative>WHEN I wait for a substantial period of time
+
+THEN the object model is still attached and able to insteract with Chrome</narrative>
+    <display x="15" y="-60" w="270" h="60" />
+    <font family="Segoe UI" size="11" style="Bold" color="3DB87A" />
+    <onsuccess>81dd3fa0-0f2b-4251-b648-3ad9bfb0ca1b</onsuccess>
+  </stage>
+  <stage stageid="fed21a24-4dcf-4a2e-a403-8f5a328b3183" name="Setup" type="SubSheetInfo">
+    <subsheetid>bbece294-84a0-4569-b4e9-5c8f645c99d4</subsheetid>
+    <display x="-120" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="55910c0f-b14a-40b4-b7d7-df0a69f0a53e" name="Start" type="Start">
+    <subsheetid>bbece294-84a0-4569-b4e9-5c8f645c99d4</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>83db22f8-8b9d-495a-9bcf-26b5dab328b2</onsuccess>
+  </stage>
+  <stage stageid="7310d044-ce1c-450f-89b6-4a03b0b2f005" name="End" type="End">
+    <subsheetid>bbece294-84a0-4569-b4e9-5c8f645c99d4</subsheetid>
+    <display x="15" y="75" />
+  </stage>
+  <stage stageid="83db22f8-8b9d-495a-9bcf-26b5dab328b2" name="Launch" type="Action">
+    <subsheetid>bbece294-84a0-4569-b4e9-5c8f645c99d4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="FireFox" friendlyname="FireFox" expr="" />
+    </inputs>
+    <onsuccess>4c5b589d-a903-4696-81df-35b321698530</onsuccess>
+    <resource object="Chrome App Model" action="Launch" />
+  </stage>
+  <stage stageid="4c5b589d-a903-4696-81df-35b321698530" name="Get label" type="Action">
+    <subsheetid>bbece294-84a0-4569-b4e9-5c8f645c99d4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <outputs>
+      <output type="text" name="get label output" friendlyname="get label output" stage="Label" />
+    </outputs>
+    <onsuccess>7ab639eb-5a13-42ff-84da-da7e4d464945</onsuccess>
+    <resource object="Chrome controls-text_hyper" action="Get label" />
+  </stage>
+  <stage stageid="7ab639eb-5a13-42ff-84da-da7e4d464945" name="Label Read Correctly (1)" type="Decision">
+    <subsheetid>bbece294-84a0-4569-b4e9-5c8f645c99d4</subsheetid>
+    <display x="15" y="30" w="90" h="30" />
+    <decision expression="[Label]=&quot;Textbox label &quot;" />
+    <ontrue>7310d044-ce1c-450f-89b6-4a03b0b2f005</ontrue>
+    <onfalse>19f692d8-0015-421f-a5d7-ab9ef964dcc3</onfalse>
+  </stage>
+  <stage stageid="19f692d8-0015-421f-a5d7-ab9ef964dcc3" name="FAIL" type="Exception">
+    <subsheetid>bbece294-84a0-4569-b4e9-5c8f645c99d4</subsheetid>
+    <display x="90" y="30" w="30" h="30" />
+    <exception localized="yes" type="Test Fail" detail="&quot;The label was read incorectly.&quot;" />
+  </stage>
+  <stage stageid="c2d97dd6-c9d4-4197-8d0d-2cfb3a364d75" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-120" w="270" h="30" />
+    <onsuccess>6649dfdd-50fa-4add-bf0e-8fad7da2c197</onsuccess>
+    <processid>bbece294-84a0-4569-b4e9-5c8f645c99d4</processid>
+  </stage>
+  <stage stageid="e349fe95-98a7-499a-ac55-0e2f46ca5e40" name="Pause" type="SubSheetInfo">
+    <subsheetid>ab1e71d1-1997-4845-9b6f-8c331f96a4f4</subsheetid>
+    <display x="-120" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="2feadfaa-ac10-45a0-aacf-f28b8d5f30b9" name="Start" type="Start">
+    <subsheetid>ab1e71d1-1997-4845-9b6f-8c331f96a4f4</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>0785950c-5122-4e5d-9d5b-671b033f78c7</onsuccess>
+  </stage>
+  <stage stageid="ffeed857-e1ee-4d51-ad23-9b8d2c311eb3" name="End" type="End">
+    <subsheetid>ab1e71d1-1997-4845-9b6f-8c331f96a4f4</subsheetid>
+    <display x="15" y="75" />
+  </stage>
+  <stage stageid="0785950c-5122-4e5d-9d5b-671b033f78c7" name="Sleep (12.5 Minutes)" type="Action">
+    <subsheetid>ab1e71d1-1997-4845-9b6f-8c331f96a4f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="750" />
+    </inputs>
+    <onsuccess>bbd9bceb-eb63-4b5b-bf0a-a24a57dec1b7</onsuccess>
+    <resource object="Chrome App Model" action="Sleep" />
+  </stage>
+  <stage stageid="bbd9bceb-eb63-4b5b-bf0a-a24a57dec1b7" name="Get label" type="Action">
+    <subsheetid>ab1e71d1-1997-4845-9b6f-8c331f96a4f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <outputs>
+      <output type="text" name="get label output" friendlyname="get label output" stage="Label" />
+    </outputs>
+    <onsuccess>da7c0bb7-e681-4a68-8e1b-941ce12aba00</onsuccess>
+    <resource object="Chrome controls-text_hyper" action="Get label" />
+  </stage>
+  <stage stageid="da7c0bb7-e681-4a68-8e1b-941ce12aba00" name="Label Read Correctly (1)" type="Decision">
+    <subsheetid>ab1e71d1-1997-4845-9b6f-8c331f96a4f4</subsheetid>
+    <display x="15" y="30" w="90" h="30" />
+    <decision expression="[Label]=&quot;Textbox label &quot;" />
+    <ontrue>ffeed857-e1ee-4d51-ad23-9b8d2c311eb3</ontrue>
+    <onfalse>e889843d-39d5-43eb-9e2c-858507f674d4</onfalse>
+  </stage>
+  <stage stageid="e889843d-39d5-43eb-9e2c-858507f674d4" name="FAIL" type="Exception">
+    <subsheetid>ab1e71d1-1997-4845-9b6f-8c331f96a4f4</subsheetid>
+    <display x="90" y="30" w="30" h="30" />
+    <exception localized="yes" type="Test Fail" detail="&quot;The label was read incorectly.&quot;" />
+  </stage>
+  <stage stageid="81dd3fa0-0f2b-4251-b648-3ad9bfb0ca1b" name="Pause" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="0" w="270" h="30" />
+    <onsuccess>bc0dd58d-7072-43a2-8675-3677c23cb882</onsuccess>
+    <processid>ab1e71d1-1997-4845-9b6f-8c331f96a4f4</processid>
+  </stage>
+  <stage stageid="7d3b1fa6-cf53-42da-945d-b73c9b48affd" name="Label" type="Data">
+    <subsheetid>bbece294-84a0-4569-b4e9-5c8f645c99d4</subsheetid>
+    <display x="-120" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f6755ca4-62af-45af-9f0e-1dbd984dfb8a" name="Local Variable" type="Block">
+    <subsheetid>bbece294-84a0-4569-b4e9-5c8f645c99d4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-15" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="7243c7a1-99bf-441f-9c59-18a6f43a3d84" name="Label" type="Data">
+    <subsheetid>ab1e71d1-1997-4845-9b6f-8c331f96a4f4</subsheetid>
+    <display x="-120" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2523aa0d-e69b-4d6b-9856-d7e3e121f48b" name="Local Variable" type="Block">
+    <subsheetid>ab1e71d1-1997-4845-9b6f-8c331f96a4f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-15" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+</process>

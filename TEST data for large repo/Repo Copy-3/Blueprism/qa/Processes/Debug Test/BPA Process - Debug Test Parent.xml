@@ -1,0 +1,125 @@
+﻿<process name="Debug Test Parent" version="1.0" bpversion="6.3.0.5030" narrative="Parent process for debug testing" byrefcollection="true" preferredid="cc00b8d6-0ffc-47ab-ad33-0456d4ceaccd">
+  <view>
+    <camerax>0</camerax>
+    <cameray>0</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="e9e6673a-d368-4093-92d3-a7b7ef696946" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>42b907f1-0604-424d-87e0-e3049cdb6f12</onsuccess>
+  </stage>
+  <stage stageid="a116f40d-50d6-4e5b-bf5d-0cbe6da5d7e3" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="d6506f03-327d-42a8-90b5-f46c401a3dbb" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="42b907f1-0604-424d-87e0-e3049cdb6f12" name="Call child" type="Process">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Test" expr="7" />
+    </inputs>
+    <onsuccess>98d2580c-06b9-4e88-9b8c-ec8665b0deed</onsuccess>
+    <processid>ad0c1af7-f898-4a3d-962b-c1faf1b0293f</processid>
+  </stage>
+  <stage stageid="98d2580c-06b9-4e88-9b8c-ec8665b0deed" name="Call action" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>1ea66454-7b7a-4192-b868-d31a8943e75a</onsuccess>
+    <resource object="Debug test object" action="Test" />
+  </stage>
+  <stage stageid="1ea66454-7b7a-4192-b868-d31a8943e75a" name="Call Child 2" type="Process">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Test" narrative="Test" expr="7" />
+    </inputs>
+    <onsuccess>5c8c1847-1210-4952-85d2-7ba1d05e0339</onsuccess>
+    <processid>9d954d7b-7a12-4c4c-988e-04009c93cce6</processid>
+  </stage>
+  <stage stageid="5a1da859-f226-4668-8a4e-635b3b56e565" name="Check Call Count" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Call Count] = 1" />
+    <ontrue>a116f40d-50d6-4e5b-bf5d-0cbe6da5d7e3</ontrue>
+    <onfalse>12b11c6e-989f-4079-a24b-1aa121a6d0cc</onfalse>
+  </stage>
+  <stage stageid="5c8c1847-1210-4952-85d2-7ba1d05e0339" name="Get Call Count" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="number" name="Call Count" narrative="Number of times test action was called so far" stage="Call Count" />
+    </outputs>
+    <onsuccess>5a1da859-f226-4668-8a4e-635b3b56e565</onsuccess>
+    <resource object="Debug test object" action="Get Call Count" />
+  </stage>
+  <stage stageid="28aaa34b-ac4e-4fa1-b9f2-52c293186954" name="Call Count" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>225</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="12b11c6e-989f-4079-a24b-1aa121a6d0cc" name="Bad Call Count" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="TestFailure" detail="&quot;Test action should have been called once - actual count: &quot; &amp; [Call Count]" />
+  </stage>
+</process>

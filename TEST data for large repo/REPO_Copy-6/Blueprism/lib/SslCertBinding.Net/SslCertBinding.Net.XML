@@ -1,0 +1,266 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SslCertBinding.Net</name>
+    </assembly>
+    <members>
+        <member name="T:SslCertBinding.Net.BindingEndPoint">
+            <summary>
+            Represents a binding endpoint combining either an IP address or hostname with a port
+            </summary>
+            <remarks>Could be replaced with IPEndPoint and DnsEndPoint if we upgrade to .Net 4.0+</remarks>
+        </member>
+        <member name="M:SslCertBinding.Net.BindingEndPoint.Parse(System.String)">
+            <summary>
+            Creates BindingEndPoint from a string representing a host name / IP address
+            followed by a colon and then a port number. Note that host names are restricted
+            to the alphanumeric characters, hyphens and periods but are not validated in terms
+            of any internet address specification.
+            </summary>
+            <param name="value"></param>
+            <returns>A BindingEndPoint initialise with the address and port supplied</returns>
+        </member>
+        <member name="M:SslCertBinding.Net.BindingEndPoint.TryParse(System.String,SslCertBinding.Net.BindingEndPoint@)">
+            <summary>
+            Determines whether a string contains a valid BindingEndPoint address (a string 
+            representing a host name / IP address followed by a colon and then a port number).
+            Note that host names are restricted to the alphanumeric characters, hyphens and 
+            periods but are not validated in terms of any internet address specification.
+            </summary>
+            <param name="value"></param>
+            <param name="endPoint">The BindingEndPoint initialised from the value supplied</param>
+            <returns>A value indicating whether the value was parsed successfully</returns>
+        </member>
+        <member name="M:SslCertBinding.Net.BindingEndPoint.#ctor(System.Net.IPAddress,System.Int32)">
+            <summary>
+            Creates a BindingEndPoint from an IPAddress and port
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="port"></param>
+        </member>
+        <member name="M:SslCertBinding.Net.BindingEndPoint.#ctor(System.Net.IPEndPoint)">
+            <summary>
+            Creates a BindingEndPoint from an IPEndPoint
+            </summary>
+            <param name="ipEndPoint"></param>
+        </member>
+        <member name="M:SslCertBinding.Net.BindingEndPoint.#ctor(System.String,System.Int32)">
+            <summary>
+            Creates a BindingEndPoint from a host name and port
+            </summary>
+            <param name="hostName"></param>
+            <param name="port"></param>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingEndPoint.IpAddress">
+            <summary>
+            Gets the IPAddress used for this binding - this will be 
+            IPAddress.Any if a host name is specified. If the <see cref="P:System.Net.IPEndPoint.Address"/> 
+            property is set to 0.0.0.0, the certificate is applicable to all IPv4 and IPv6 addresses.
+            If the <see cref="P:System.Net.IPEndPoint.Address"/> property is set to [::], the certificate is applicable 
+            to all IPv6 addresses.
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingEndPoint.HostName">
+            <summary>
+            The host name used for this binding
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingEndPoint.Port">
+            <summary>
+            The port used for this binding
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingEndPoint.EndPointType">
+            <summary>
+            The type of endpoint
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingEndPoint.IpEndPoint">
+            <summary>
+            Gets an IPEndPoint for the IP address and port. The IP address will be
+            based on IPAddress.Any if a host name is used
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingEndPoint.AddressAndPort">
+            <summary>
+            Gets a string combining the IP address or host name followed by the
+            port separated by a colon character
+            </summary>
+        </member>
+        <member name="T:SslCertBinding.Net.BindingEndPointType">
+            <summary>
+            The types of binding endpoint
+            </summary>
+        </member>
+        <member name="F:SslCertBinding.Net.BindingEndPointType.IpAddress">
+            <summary>
+            Binding is based on IP address
+            </summary>
+        </member>
+        <member name="F:SslCertBinding.Net.BindingEndPointType.HostName">
+            <summary>
+            Binding is based on host name
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingOptions.RevocationFreshnessTime">
+            <summary>
+            The time interval after which to check for an updated certificate revocation list (CRL). If this value is zero, the new CRL is updated only when the previous one expires.
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingOptions.RevocationUrlRetrievalTimeout">
+            <summary>
+            The timeout interval for an attempt to retrieve a certificate revocation list from the remote URL.
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingOptions.SslCtlIdentifier">
+            <summary>
+            A SSL control identifier, which cpecifies the list of the certificate issuers that can be trusted. 
+            This list can be a subset of the certificate issuers that are trusted by the computer.
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingOptions.SslCtlStoreName">
+            <summary>
+            The name of the store under the Local Machine store location where the control identifier pointed to by <see cref="P:SslCertBinding.Net.BindingOptions.SslCtlIdentifier"/> is stored.
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingOptions.UseDsMappers">
+            <summary>
+            If true, client certificates are mapped where possible to corresponding operating-system user accounts based on the certificate mapping rules stored in Active Directory.
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingOptions.NegotiateCertificate">
+            <summary>
+            Enables a client certificate to be cached locally for subsequent use.
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingOptions.DoNotPassRequestsToRawFilters">
+            <summary>
+            Prevents SSL requests from being passed to low-level ISAPI filters.
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingOptions.DoNotVerifyCertificateRevocation">
+            <summary>
+            Client certificate is not to be verified for revocation. 
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingOptions.VerifyRevocationWithCachedCertificateOnly">
+            <summary>
+            Only cached certificate is to be used the revocation check. 
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingOptions.EnableRevocationFreshnessTime">
+            <summary>
+            The RevocationFreshnessTime setting is enabled.
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.BindingOptions.NoUsageCheck">
+            <summary>
+            No usage check is to be performed.
+            </summary>
+        </member>
+        <member name="T:SslCertBinding.Net.CertificateBinding">
+            <summary>
+            Defines a record in the SSL configuration store
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.CertificateBinding.Thumbprint">
+            <summary>
+            A string representation the SSL certificate hash. 
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.CertificateBinding.StoreName">
+            <summary>
+            The name of the store from which the server certificate is to be read. If set to NULL, "MY" is assumed as the default name. 
+            The specified certificate store name must be present in the Local Machine store location.
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.CertificateBinding.EndPoint">
+            <summary>
+            The binding with which this SSL certificate is associated. This will combine either an IP address
+            and port or a host name and port for bindings in the SSL Server Name Indication (SNI) store 
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.CertificateBinding.AppId">
+            <summary>
+            A unique identifier of the application setting this record.
+            </summary>
+        </member>
+        <member name="P:SslCertBinding.Net.CertificateBinding.Options">
+            <summary>
+            Additional options.
+            </summary>
+        </member>
+        <member name="M:SslCertBinding.Net.CertificateBindingConfiguration.SupportsSslSniBindings">
+            <summary>
+            Indicates whether the current machine supports SSL SNI bindings
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SslCertBinding.Net.CertificateBindingConfiguration.QuerySingle``1(SslCertBinding.Net.HttpApi.HTTP_SERVICE_CONFIG_ID,System.Object,SslCertBinding.Net.CertificateBindingConfiguration.MapBinding{``0},SslCertBinding.Net.CertificateBindingConfiguration.Action)">
+            <summary>
+            Generic method that allows for variation according to whether we are querying
+            by hostname or just IP address
+            </summary>
+        </member>
+        <member name="T:SslCertBinding.Net.HttpApi.CertCheckModes">
+            <summary>
+            Determines how client certificates are checked. 
+            </summary>
+        </member>
+        <member name="F:SslCertBinding.Net.HttpApi.CertCheckModes.None">
+            <summary>
+            Enables the client certificate revocation check.
+            </summary>
+        </member>
+        <member name="F:SslCertBinding.Net.HttpApi.CertCheckModes.DoNotVerifyCertificateRevocation">
+            <summary>
+            Client certificate is not to be verified for revocation. 
+            </summary>
+        </member>
+        <member name="F:SslCertBinding.Net.HttpApi.CertCheckModes.VerifyRevocationWithCachedCertificateOnly">
+            <summary>
+            Only cached certificate is to be used the revocation check. 
+            </summary>
+        </member>
+        <member name="F:SslCertBinding.Net.HttpApi.CertCheckModes.EnableRevocationFreshnessTime">
+            <summary>
+            The RevocationFreshnessTime setting is enabled.
+            </summary>
+        </member>
+        <member name="F:SslCertBinding.Net.HttpApi.CertCheckModes.NoUsageCheck">
+            <summary>
+            No usage check is to be performed.
+            </summary>
+        </member>
+        <member name="F:SslCertBinding.Net.HttpApi.HTTP_SERVICE_CONFIG_SSL_FLAG.USE_DS_MAPPER">
+            <summary>
+            Client certificates are mapped where possible to corresponding operating-system user accounts based on the certificate mapping rules stored in Active Directory.
+            </summary>
+        </member>
+        <member name="F:SslCertBinding.Net.HttpApi.HTTP_SERVICE_CONFIG_SSL_FLAG.NEGOTIATE_CLIENT_CERT">
+            <summary>
+            Enables a client certificate to be cached locally for subsequent use.
+            </summary>
+        </member>
+        <member name="F:SslCertBinding.Net.HttpApi.HTTP_SERVICE_CONFIG_SSL_FLAG.NO_RAW_FILTER">
+            <summary>
+            Prevents SSL requests from being passed to low-level ISAPI filters.
+            </summary>
+        </member>
+        <member name="M:SslCertBinding.Net.SockaddrInterop.CreateSockaddrStructure(System.Net.IPEndPoint)">
+            <summary>
+            Creates an unmanaged sockaddr structure to pass to a WinAPI function.
+            </summary>
+            <param name="ipEndPoint">IP address and port number</param>
+            <returns>a handle for the structure. Use the AddrOfPinnedObject Method to get a stable pointer to the object. </returns>
+            <remarks>When the handle goes out of scope you must explicitly release it by calling the Free method; otherwise, memory leaks may occur. </remarks>
+        </member>
+        <member name="M:SslCertBinding.Net.SockaddrInterop.ReadSockaddrStructure(System.IntPtr)">
+            <summary>
+            Reads the unmanaged sockaddr structure returned by a WinAPI function
+            </summary>
+            <param name="pSockaddrStructure">pointer to the unmanaged sockaddr structure</param>
+            <returns>IP address and port number</returns>
+        </member>
+    </members>
+</doc>

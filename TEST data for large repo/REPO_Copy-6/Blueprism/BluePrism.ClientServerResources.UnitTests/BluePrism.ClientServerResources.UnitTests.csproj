@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3D904701-EB32-4234-9C31-9BC6787A6BF1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BluePrism.ClientServerResources.UnitTests</RootNamespace>
+    <AssemblyName>BluePrism.ClientServerResources.UnitTests</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BluePrism.ClientServerResources.Grpc.Proto">
+      <HintPath>..\lib\gRpc\BluePrism.ClientServerResources.Grpc.Proto.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\BaseResourceEventArgsTests.cs" />
+    <Compile Include="Core\ClientCertificateValidatorTests.cs" />
+    <Compile Include="Core\Config\ConfigLoaderTests.cs" />
+    <Compile Include="Grpc\MessageConverterClassTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Moq">
+      <Version>4.14.5</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit">
+      <Version>3.12.0</Version>
+    </PackageReference>
+    <PackageReference Include="Autofac">
+      <Version>5.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Google.Protobuf">
+      <Version>3.14.0</Version>
+    </PackageReference>
+    <PackageReference Include="Grpc">
+      <Version>2.33.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Wcf\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BluePrism.ClientServerResources.Core\BluePrism.ClientServerResources.Core.csproj">
+      <Project>{E5FCCFBF-B256-483A-97EC-F0B31D92FDB5}</Project>
+      <Name>BluePrism.ClientServerResources.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BluePrism.ClientServerResources.Grpc\BluePrism.ClientServerResources.Grpc.csproj">
+      <Project>{2E92C881-868C-49B0-9971-7909261176BF}</Project>
+      <Name>BluePrism.ClientServerResources.Grpc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BluePrism.Core\BluePrism.Core.csproj">
+      <Project>{5E6D62F4-EE6E-46C2-A7B9-3DB35CB21F90}</Project>
+      <Name>BluePrism.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

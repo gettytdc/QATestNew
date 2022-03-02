@@ -1,0 +1,431 @@
+﻿<process name="Treeview Create Delete Work Queue" version="1.0" bpversion="6.10.0.27791" narrative="" byrefcollection="true" preferredid="96c61ed0-4a96-4fc8-93d0-90f34c30bbaa" published="true">
+  <view>
+    <camerax>30</camerax>
+    <cameray>122</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="5e7205b3-c009-4b82-b8b7-162c02d221d7" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="c1e5eea6-7023-46a5-8c7f-1fba98e3ded9" type="Normal" published="False">
+    <name>Create Work Queue </name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>114</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="f30b3e7e-560f-4ef8-bc4e-deabacfbb39d" type="Normal" published="False">
+    <name>Delete Work Queue </name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>42</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="c3f534f3-b231-485a-8172-8e771272247d" name="Stage1" type="ProcessInfo">
+    <display x="-210" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="9bc5011d-5fa5-4c02-983f-ad3f48f744f5" name="Start" type="Start">
+    <display x="45" y="-135" />
+    <onsuccess>01070ee0-f0b3-47bd-add8-6ebbd41edf27</onsuccess>
+  </stage>
+  <stage stageid="c9e5e704-5e10-4f64-9678-a1a8ad8734fd" name="End" type="End">
+    <display x="45" y="300" />
+  </stage>
+  <stage stageid="01070ee0-f0b3-47bd-add8-6ebbd41edf27" name="Note1" type="Note">
+    <narrative>GIVEN I am a BP user and have signed in</narrative>
+    <display x="45" y="-90" w="300" h="30" />
+    <onsuccess>da97017f-33d6-47eb-8f17-ad97f8f47f1d</onsuccess>
+  </stage>
+  <stage stageid="3353974e-7ca0-4766-8472-d3d882a1048c" name="Note3" type="Note">
+    <narrative>WHEN I create a Work Queue from the New button
+THEN the queue is successfully created and available in the tree view</narrative>
+    <display x="45" y="15" w="300" h="30" />
+    <onsuccess>65785aa1-dba7-4be5-841d-35d86f778920</onsuccess>
+  </stage>
+  <stage stageid="be01b882-846e-403f-9e1d-8aacf6272e89" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="240" y="30" />
+    <onsuccess>a1f4120d-2559-4c5f-acdb-cb4b69842431</onsuccess>
+  </stage>
+  <stage stageid="a1f4120d-2559-4c5f-acdb-cb4b69842431" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="240" y="75" w="90" h="30" />
+    <onsuccess>e595992f-05f0-4a3f-9349-9c935dfff3b7</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="e595992f-05f0-4a3f-9349-9c935dfff3b7" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="240" y="120" />
+    <onsuccess>61f896b5-f7bf-4c22-9730-6c5255299020</onsuccess>
+  </stage>
+  <stage stageid="da97017f-33d6-47eb-8f17-ad97f8f47f1d" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="-45" w="300" h="30" />
+    <onsuccess>3353974e-7ca0-4766-8472-d3d882a1048c</onsuccess>
+    <processid>5e7205b3-c009-4b82-b8b7-162c02d221d7</processid>
+  </stage>
+  <stage stageid="6d46d8ec-5eff-4f96-9a2f-c0c37ec15a01" name="Failed?" type="Decision">
+    <display x="45" y="255" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>e77d4c89-7d5c-45e2-a7da-fca5d7494318</ontrue>
+    <onfalse>c9e5e704-5e10-4f64-9678-a1a8ad8734fd</onfalse>
+  </stage>
+  <stage stageid="e77d4c89-7d5c-45e2-a7da-fca5d7494318" name="Re-Throw" type="Exception">
+    <display x="150" y="255" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="61f896b5-f7bf-4c22-9730-6c5255299020" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="240" y="210" w="10" h="10" />
+    <onsuccess>855a367d-a640-4bbd-bb29-3bf71e5dbd18</onsuccess>
+  </stage>
+  <stage stageid="b574bc5e-196f-4949-803d-cfc4586ff641" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5d648996-1440-405d-8ca9-bf045dfdc39c" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1b188cf5-4101-4484-8b3d-655ecb315d94" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="-15" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="76f6aa6a-0e23-49ae-ba3f-df43067e4ddc" name="pid" type="Data">
+    <display x="-210" y="120" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e09a6306-0fba-4c7a-9a38-3cea5977dcf9" name="Global Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="90" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="47cb0931-b43d-4f91-9a23-94bef9e4df88" name="Setup" type="SubSheetInfo">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="9c02ae22-4581-489f-9491-8b835e4604ed" name="Start" type="Start">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-60" y="-135" />
+    <onsuccess>707a6425-0b70-474d-a8ef-b7d0da86bb27</onsuccess>
+  </stage>
+  <stage stageid="6ac44d64-b413-4c29-9697-7b888b6e8df4" name="End" type="End">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-60" y="45" />
+  </stage>
+  <stage stageid="707a6425-0b70-474d-a8ef-b7d0da86bb27" name="Launch" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-90" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>e483b55f-303e-43f0-a597-817ad582e9be</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="ad7204cf-b3c5-4b27-8bed-7ae7f1141450" name="Sign In" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Locale" friendlyname="Locale" narrative="Blue Prism Locale setting" stage="" />
+    </outputs>
+    <onsuccess>6ac44d64-b413-4c29-9697-7b888b6e8df4</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="e483b55f-303e-43f0-a597-817ad582e9be" name="Attach (System)" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>ad7204cf-b3c5-4b27-8bed-7ae7f1141450</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="98c6285d-0b03-402c-a458-bce1a4dc8730" name="Create Work Queue " type="SubSheetInfo">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="65785aa1-dba7-4be5-841d-35d86f778920" name="Create Work Queue " type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="60" w="300" h="30" />
+    <onsuccess>72f81a7b-8d44-4da1-beb1-2572a6d06893</onsuccess>
+    <processid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</processid>
+  </stage>
+  <stage stageid="72f81a7b-8d44-4da1-beb1-2572a6d06893" name="Note3" type="Note">
+    <narrative>WHEN I delete a Work Queue from the Delete button
+THEN the queue is successfully deleted and removed from the tree view</narrative>
+    <display x="45" y="105" w="300" h="30" />
+    <onsuccess>11061300-0b58-4b2f-98bc-c971feb86fe4</onsuccess>
+  </stage>
+  <stage stageid="11061300-0b58-4b2f-98bc-c971feb86fe4" name="Delete Work Queue " type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="150" w="300" h="30" />
+    <onsuccess>855a367d-a640-4bbd-bb29-3bf71e5dbd18</onsuccess>
+    <processid>f30b3e7e-560f-4ef8-bc4e-deabacfbb39d</processid>
+  </stage>
+  <stage stageid="199c1406-160f-41af-b524-73540abcbac9" name="Scenarios" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-15" w="405" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b52ee30f-5fca-4227-8809-6378965b4efb" name="Start" type="Start">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>2ead55e5-96b9-4d11-8ff9-65ce8fc0b0bd</onsuccess>
+  </stage>
+  <stage stageid="aec79319-02d1-4800-a6d1-183f5c0079c5" name="Create Work Queue" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name" friendlyname="Name" narrative="The name of the work queue" expr="[Work Queue 1]" />
+      <input type="text" name="Key Field" friendlyname="Key Field" narrative="The key field for the work queue" expr="" />
+      <input type="flag" name="Active" friendlyname="Active" narrative="Flag indicating if the work queue should be made active or not - default is True, ie. Active" expr="" />
+      <input type="number" name="Max Attempts" friendlyname="Max Attempts" narrative="The maximum number of attempts to allow on this queue" expr="5" />
+      <input type="flag" name="Set Encryption?" friendlyname="Set Encryption?" narrative="This is a flag to tick the encryption tickbox for a queue." expr="" />
+      <input type="text" name="Scheme Name" friendlyname="Scheme Name" narrative="This is the name of the scheme in which you wish to encrypt the queue with." expr="" />
+      <input type="flag" name="Set Active Queue" friendlyname="Set Active Queue" narrative="True or False, do you want to make this an active queue." expr="" />
+      <input type="text" name="Assigned Process" friendlyname="Assigned Process" narrative="The name of the proccess you wish to assign to the active queue." expr="" />
+      <input type="text" name="Assigned Resource Group" friendlyname="Assigned Resource Group" narrative="The name of the resoruce group you want to assign to the active queue." expr="" />
+    </inputs>
+    <onsuccess>60ce34f6-2dcd-4e01-8155-4e6a2dc2f387</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Create Work Queue" />
+  </stage>
+  <stage stageid="dcd7023d-3a7f-409d-8759-676a4aa4f544" name="Local variables" type="Block">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="71f9a474-e622-41ef-8d1f-f36d2ff6a6de" name="End" type="End">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="210" />
+  </stage>
+  <stage stageid="855a367d-a640-4bbd-bb29-3bf71e5dbd18" name="Terminate" type="Action">
+    <display x="45" y="210" w="90" h="30" />
+    <onsuccess>6d46d8ec-5eff-4f96-9a2f-c0c37ec15a01</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="60ce34f6-2dcd-4e01-8155-4e6a2dc2f387" name="Check Queue available" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="60" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Match Index" friendlyname="Match Index" narrative="Default to 1" expr="1" />
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="Queue Name" expr="[Work Queue 1]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Queue Exists?" friendlyname="Queue Exists?" narrative="False if Queue does not exist." stage="Queue Exists?" />
+    </outputs>
+    <onsuccess>907f68a7-a435-4122-a057-c27e0688a09e</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Work Queue Exists?" />
+  </stage>
+  <stage stageid="907f68a7-a435-4122-a057-c27e0688a09e" name="Queue added?" type="Decision">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="105" w="90" h="30" />
+    <decision expression="[Queue Exists?]" />
+    <ontrue>3f466b0f-def0-4a61-87cd-a08f04f66e6b</ontrue>
+    <onfalse>08f2842d-3b0e-41dd-bd1c-79a9d49b467e</onfalse>
+  </stage>
+  <stage stageid="08f2842d-3b0e-41dd-bd1c-79a9d49b467e" name="Exception" type="Exception">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="30" y="105" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;The queue is missing&quot;" />
+  </stage>
+  <stage stageid="3f466b0f-def0-4a61-87cd-a08f04f66e6b" name="Go To Home" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>71f9a474-e622-41ef-8d1f-f36d2ff6a6de</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="08359e4f-e615-4c27-b7d4-38d1c1a90901" name="Ensure queue available" type="Block">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="30" w="180" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="16b70cf3-3634-49fa-8d9c-c9727367bd53" name="Delete Work Queue " type="SubSheetInfo">
+    <subsheetid>f30b3e7e-560f-4ef8-bc4e-deabacfbb39d</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="af7499d9-6ac0-4314-8f90-af5cafc5d32d" name="Work Queue 1" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="150" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Q1 TFM163</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="01ea666e-ad79-4c21-9228-7899a838429b" name="Queue Exists?" type="Data">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7b955662-2393-48fd-9c08-2067a19cabc2" name="Start" type="Start">
+    <subsheetid>f30b3e7e-560f-4ef8-bc4e-deabacfbb39d</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>a8e4c860-e85a-4833-83f6-80e35e0ccd86</onsuccess>
+  </stage>
+  <stage stageid="54433675-afa3-4eb0-a8e9-c23c5fefa4e9" name="Delete Work Queue" type="Action">
+    <subsheetid>f30b3e7e-560f-4ef8-bc4e-deabacfbb39d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to delete" expr="[Work Queue 1]" />
+      <input type="flag" name="Delete option on trend data warning message" friendlyname="Delete option on trend data warning message" narrative="To select 'Yes' or 'No' to confirm whether or not to delete a work queue if it has trend data associated to it" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Trend data warning message when deleting a queue" friendlyname="Trend data warning message when deleting a queue" narrative="The warning message given when trying to delete a queue that has been enabled to a snapshot configuration" stage="" />
+    </outputs>
+    <onsuccess>076897fd-c16a-47b5-a505-4326156521de</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Delete Work Queue" />
+  </stage>
+  <stage stageid="12767b89-35f6-4ec5-bfa9-717bef27a09f" name="End" type="End">
+    <subsheetid>f30b3e7e-560f-4ef8-bc4e-deabacfbb39d</subsheetid>
+    <display x="-45" y="210" />
+  </stage>
+  <stage stageid="076897fd-c16a-47b5-a505-4326156521de" name="Check Queue available" type="Action">
+    <subsheetid>f30b3e7e-560f-4ef8-bc4e-deabacfbb39d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="60" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Match Index" friendlyname="Match Index" narrative="Default to 1" expr="1" />
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="Queue Name" expr="[Work Queue 1]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Queue Exists?" friendlyname="Queue Exists?" narrative="False if Queue does not exist." stage="Queue Exists?" />
+    </outputs>
+    <onsuccess>aed2d9fb-9acd-4602-a002-20315c901060</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Work Queue Exists?" />
+  </stage>
+  <stage stageid="aed2d9fb-9acd-4602-a002-20315c901060" name="Queue deleted?" type="Decision">
+    <subsheetid>f30b3e7e-560f-4ef8-bc4e-deabacfbb39d</subsheetid>
+    <display x="-45" y="105" w="90" h="30" />
+    <decision expression="[Queue Exists?]=False" />
+    <ontrue>dd127503-6d4f-448a-a1f1-e96898e3a204</ontrue>
+    <onfalse>e91cb8c7-dd75-4259-b11f-07cde141a594</onfalse>
+  </stage>
+  <stage stageid="e91cb8c7-dd75-4259-b11f-07cde141a594" name="Exception" type="Exception">
+    <subsheetid>f30b3e7e-560f-4ef8-bc4e-deabacfbb39d</subsheetid>
+    <display x="30" y="105" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;The queue has not been deleted&quot;" />
+  </stage>
+  <stage stageid="dd127503-6d4f-448a-a1f1-e96898e3a204" name="Go To Home" type="Action">
+    <subsheetid>f30b3e7e-560f-4ef8-bc4e-deabacfbb39d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>12767b89-35f6-4ec5-bfa9-717bef27a09f</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="e81fb5d8-1b44-4bcd-9571-8cfd2db733c6" name="Ensure queue deleted" type="Block">
+    <subsheetid>f30b3e7e-560f-4ef8-bc4e-deabacfbb39d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="30" w="180" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c18502ae-dc1b-4e4a-92d8-0f8bd97cd9f7" name="Local variables" type="Block">
+    <subsheetid>f30b3e7e-560f-4ef8-bc4e-deabacfbb39d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c380ad16-fb77-465b-ad7e-a362dc095f66" name="Queue Exists?" type="Data">
+    <subsheetid>f30b3e7e-560f-4ef8-bc4e-deabacfbb39d</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2ead55e5-96b9-4d11-8ff9-65ce8fc0b0bd" name="Browse to System" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>d9be648e-be51-4bae-92e8-16383ee00fe1</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="d9be648e-be51-4bae-92e8-16383ee00fe1" name="Browse to Work Queues" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Workflow&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Work Queues&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>aec79319-02d1-4800-a6d1-183f5c0079c5</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="a8e4c860-e85a-4833-83f6-80e35e0ccd86" name="Browse to System" type="Action">
+    <subsheetid>f30b3e7e-560f-4ef8-bc4e-deabacfbb39d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>dbb63cb7-041c-486d-ae6f-0fbdbe39f338</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="dbb63cb7-041c-486d-ae6f-0fbdbe39f338" name="Browse to Work Queues" type="Action">
+    <subsheetid>f30b3e7e-560f-4ef8-bc4e-deabacfbb39d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Workflow&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Work Queues&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>54433675-afa3-4eb0-a8e9-c23c5fefa4e9</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+</process>

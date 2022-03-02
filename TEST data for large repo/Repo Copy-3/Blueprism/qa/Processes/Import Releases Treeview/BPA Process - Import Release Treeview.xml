@@ -1,0 +1,869 @@
+﻿<process name="Import Release Treeview" version="1.0" bpversion="6.8.0.22089" narrative="Automation process to ensure that when the user is on the Releases tab and a Release is imported, the Releases tree view is immediately refreshed and the imported release is displayed." byrefcollection="true" preferredid="67b64ac9-0e55-404f-acfe-483963264782" published="true">
+  <view>
+    <camerax>-225</camerax>
+    <cameray>-105</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="52a2d468-6587-4f70-b7e7-2cfe5e48f687" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="1da000b8-9590-4a13-a5bc-96ac030c57e5" type="Normal" published="False">
+    <name>Import Release from File &gt; Import</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>465</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="ca602260-42c7-428f-b681-b5a6cc5137d8" type="Normal" published="False">
+    <name>Import Release from Releases</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>540</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="b1744278-a9d6-4bb6-82ea-2bc405c1998a" type="Normal" published="False">
+    <name>Add to CleanUp</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="e63bf5cb-9d63-468c-896b-55413f92edee" type="Normal" published="False">
+    <name>CleanUp</name>
+    <view>
+      <camerax>117</camerax>
+      <cameray>235</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="dbe980e2-b365-49d2-a9ee-de2e1904c171" name="Stage1" type="ProcessInfo">
+    <display x="-330" y="-120" w="210" h="90" />
+  </stage>
+  <stage stageid="59ba03f5-0d06-4984-ae66-7c390bdbbd0e" name="Start" type="Start">
+    <display x="15" y="-75" />
+    <onsuccess>812097ce-4662-4d26-b1b7-7214f49f8d57</onsuccess>
+  </stage>
+  <stage stageid="812097ce-4662-4d26-b1b7-7214f49f8d57" name="Note1" type="Note">
+    <narrative>
+GIVEN I am a BP user
+AND I navigate to the Releases tab
+
+</narrative>
+    <display x="15" y="0" w="210" h="60" />
+    <onsuccess>56456539-c5ad-461b-9320-9f8c0aaa7779</onsuccess>
+  </stage>
+  <stage stageid="da15566e-5bbf-43a0-a9c8-c63006c8420a" name="Note3" type="Note">
+    <narrative>
+WHEN I go to File &gt; Import &gt; Import Release / Skill
+AND I import a Release 
+
+THEN the Releases tree view is refreshed and the imported Release is displayed
+</narrative>
+    <display x="15" y="135" w="210" h="90" />
+    <onsuccess>4a3bf143-7a14-454f-9213-597c22a60abe</onsuccess>
+  </stage>
+  <stage stageid="cf40a8c0-f70e-4bdd-954b-98f0ccf4054a" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="180" y="60" />
+    <onsuccess>d43bbbc0-6c79-4b9b-b39d-f53c14d3009d</onsuccess>
+  </stage>
+  <stage stageid="d43bbbc0-6c79-4b9b-b39d-f53c14d3009d" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="180" y="105" w="90" h="30" />
+    <onsuccess>f46f180c-1eab-4040-bbe7-036fcfbe7620</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="f46f180c-1eab-4040-bbe7-036fcfbe7620" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="180" y="150" />
+    <onsuccess>08288a96-4fac-4a41-b470-b9434b323468</onsuccess>
+  </stage>
+  <stage stageid="56456539-c5ad-461b-9320-9f8c0aaa7779" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="60" w="150" h="30" />
+    <onsuccess>da15566e-5bbf-43a0-a9c8-c63006c8420a</onsuccess>
+    <processid>52a2d468-6587-4f70-b7e7-2cfe5e48f687</processid>
+  </stage>
+  <stage stageid="1315fbba-70b0-4ade-a1d1-04faed3eafcb" name="Note3" type="Note">
+    <narrative>
+WHEN I right-click on Package Overview and select Import Release
+AND I import a Release
+
+THEN the Releases tree view is refreshed and the imported Release is displayed</narrative>
+    <display x="15" y="285" w="210" h="90" />
+    <onsuccess>df6897d3-eb3b-451a-a32b-3b89e4a59794</onsuccess>
+  </stage>
+  <stage stageid="e9bbfca7-c2c9-4c05-8e2f-c3cfd90cb91f" name="End" type="End">
+    <display x="15" y="510" />
+  </stage>
+  <stage stageid="d3e3add6-d17e-4d4c-83fd-f4ae74de5144" name="Failed?" type="Decision">
+    <display x="15" y="465" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>719153ed-504a-499b-ba4b-b4a184a79bf2</ontrue>
+    <onfalse>e9bbfca7-c2c9-4c05-8e2f-c3cfd90cb91f</onfalse>
+  </stage>
+  <stage stageid="719153ed-504a-499b-ba4b-b4a184a79bf2" name="Re-Throw" type="Exception">
+    <display x="120" y="465" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="45b55fdf-989f-4da4-a76f-07df871c09dc" name="CleanUp" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="420" w="90" h="30" />
+    <onsuccess>d3e3add6-d17e-4d4c-83fd-f4ae74de5144</onsuccess>
+    <processid>e63bf5cb-9d63-468c-896b-55413f92edee</processid>
+  </stage>
+  <stage stageid="4a3bf143-7a14-454f-9213-597c22a60abe" name="Import Release from File &gt; Import" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="150" h="30" />
+    <onsuccess>1315fbba-70b0-4ade-a1d1-04faed3eafcb</onsuccess>
+    <processid>1da000b8-9590-4a13-a5bc-96ac030c57e5</processid>
+  </stage>
+  <stage stageid="df6897d3-eb3b-451a-a32b-3b89e4a59794" name="Import Release from Releases" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="360" w="150" h="30" />
+    <onsuccess>45b55fdf-989f-4da4-a76f-07df871c09dc</onsuccess>
+    <processid>ca602260-42c7-428f-b681-b5a6cc5137d8</processid>
+  </stage>
+  <stage stageid="08288a96-4fac-4a41-b470-b9434b323468" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="180" y="420" w="10" h="10" />
+    <onsuccess>45b55fdf-989f-4da4-a76f-07df871c09dc</onsuccess>
+  </stage>
+  <stage stageid="1e4ce0b2-c1e5-4bc5-a472-e86053b253cc" name="CleanUp Block" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-45" w="360" h="435" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="65aa48b8-df4f-45d3-bb60-fbd7eb52f519" name="Setup" type="SubSheetInfo">
+    <subsheetid>52a2d468-6587-4f70-b7e7-2cfe5e48f687</subsheetid>
+    <display x="-285" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="b3bac964-52e9-4434-a556-4ff64e7fa49f" name="Import Release from File &gt; Import" type="SubSheetInfo">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <display x="-330" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="3f2eff06-30ea-4de5-a7a9-b518d7253fcc" name="Import Release from Releases" type="SubSheetInfo">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <display x="-225" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="07742112-c538-4201-a131-257477b7652c" name="Start" type="Start">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <display x="15" y="-150" />
+    <onsuccess>4769c903-4939-448f-96c4-8c3235a73f36</onsuccess>
+  </stage>
+  <stage stageid="7c73945f-13e8-4da3-978b-f0b5613a9146" name="Add to CleanUp" type="SubSheetInfo">
+    <subsheetid>b1744278-a9d6-4bb6-82ea-2bc405c1998a</subsheetid>
+    <display x="-255" y="-120" w="150" h="90" />
+  </stage>
+  <stage stageid="afc2141d-b18b-4418-84e2-fec1fde32f2d" name="Start" type="Start">
+    <subsheetid>b1744278-a9d6-4bb6-82ea-2bc405c1998a</subsheetid>
+    <display x="15" y="-60" />
+    <inputs>
+      <input type="text" name="Item Name" narrative="The name of the item you want to clean up" stage="Item Name" />
+    </inputs>
+    <onsuccess>ad8f2d64-da4b-4599-a0d5-881770853ced</onsuccess>
+  </stage>
+  <stage stageid="517d4242-30d5-43c6-b213-8da7923aab28" name="End" type="End">
+    <subsheetid>b1744278-a9d6-4bb6-82ea-2bc405c1998a</subsheetid>
+    <display x="15" y="75" />
+  </stage>
+  <stage stageid="ad8f2d64-da4b-4599-a0d5-881770853ced" name="Add Row" type="Action">
+    <subsheetid>b1744278-a9d6-4bb6-82ea-2bc405c1998a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;CleanUp Collection&quot;" />
+    </inputs>
+    <onsuccess>3e2ea072-a544-4b9a-a206-c908f51c8df6</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="3e2ea072-a544-4b9a-a206-c908f51c8df6" name="Add to Row" type="Calculation">
+    <subsheetid>b1744278-a9d6-4bb6-82ea-2bc405c1998a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <onsuccess>517d4242-30d5-43c6-b213-8da7923aab28</onsuccess>
+    <calculation expression="[Item Name]" stage="CleanUp Collection.Item Name" />
+  </stage>
+  <stage stageid="337db767-3a6f-4699-b5b1-4761e3d4e455" name="Item Name" type="Data">
+    <subsheetid>b1744278-a9d6-4bb6-82ea-2bc405c1998a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-135" y="-30" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="08e7d808-611b-4172-83a3-5efe86c688ec" name="CleanUp Collection" type="Collection">
+    <subsheetid>b1744278-a9d6-4bb6-82ea-2bc405c1998a</subsheetid>
+    <display x="-135" y="60" w="150" h="30" />
+    <datatype>collection</datatype>
+    <collectioninfo>
+      <field name="Item Name" type="text" description="The name of the item that needs cleaning up" />
+    </collectioninfo>
+    <noalwaysinit />
+  </stage>
+  <stage stageid="5a6e35a7-4c17-4db4-9a84-f8be61fad675" name="Input Variables" type="Block">
+    <subsheetid>b1744278-a9d6-4bb6-82ea-2bc405c1998a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-60" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="374a0b00-4d85-45ed-b650-bcb57564f633" name="Local Variables" type="Block">
+    <subsheetid>b1744278-a9d6-4bb6-82ea-2bc405c1998a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="30" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="52615b5f-d33b-4c70-8ddc-6e94c972f893" name="CleanUp" type="SubSheetInfo">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="-300" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="aa2c3643-3f9b-4981-bc58-215edb6dc413" name="Start" type="Start">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="15" y="-90" />
+    <onsuccess>a8494867-4485-4c35-b778-e9c0e23891dc</onsuccess>
+  </stage>
+  <stage stageid="523b1e44-6b94-4c2b-8a97-f99f765479a9" name="To Clean" type="LoopStart">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="15" y="0" w="90" h="30" />
+    <onsuccess>236c3469-3bbb-42fd-a8e8-f62eb8f8a759</onsuccess>
+    <groupid>49b3dd94-5f90-45b1-a17a-106e1d21ebb8</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Reversed CleanUp</loopdata>
+  </stage>
+  <stage stageid="64ade0df-8e5e-4c72-9f97-b4c6bcff4350" name="To Clean" type="LoopEnd">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="15" y="285" w="90" h="30" />
+    <onsuccess>34a4b5fe-851b-4767-acf6-964ff8dce020</onsuccess>
+    <groupid>49b3dd94-5f90-45b1-a17a-106e1d21ebb8</groupid>
+  </stage>
+  <stage stageid="a8494867-4485-4c35-b778-e9c0e23891dc" name="Reverse Collection" type="Action">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="15" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="Collection" narrative="The collection to be reversed." expr="[CleanUp Collection]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Reversed Collection" narrative="The reversed collection." stage="Reversed CleanUp" />
+    </outputs>
+    <onsuccess>523b1e44-6b94-4c2b-8a97-f99f765479a9</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Reverse Collection" />
+  </stage>
+  <stage stageid="37fe3b98-2e3c-4ce6-934c-c952e9a3ec1c" name="Reversed CleanUp" type="Collection">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="-150" y="15" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="236c3469-3bbb-42fd-a8e8-f62eb8f8a759" name="Which Clean Up" type="ChoiceStart">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="15" y="45" w="90" h="30" />
+    <groupid>f843876c-3c4b-44bc-997d-a5eeb4585694</groupid>
+    <choices>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Blue Prism&quot;">
+        <name>Blue Prism</name>
+        <distance>60</distance>
+        <ontrue>77b699d7-a536-4465-b18f-730709e8fd10</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Release 1&quot;">
+        <name>Release 1</name>
+        <distance>105</distance>
+        <ontrue>b228f7a4-0230-4501-824e-ebb3fb94de9e</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Release 2&quot;">
+        <name>Release 2</name>
+        <distance>150</distance>
+        <ontrue>7113f34a-6d3e-4560-99b3-3fa9c9384573</ontrue>
+      </choice>
+    </choices>
+  </stage>
+  <stage stageid="7eed838b-1eb9-44e7-b490-4b62421a79e7" name="Otherwise" type="ChoiceEnd">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="15" y="240" w="90" h="30" />
+    <onsuccess>29874736-e743-46f9-9bb5-4496421d12fc</onsuccess>
+    <groupid>f843876c-3c4b-44bc-997d-a5eeb4585694</groupid>
+  </stage>
+  <stage stageid="9f161bc1-ec96-4f52-bf43-a7bd31868e98" name="Anchor2" type="Anchor">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="435" y="105" w="10" h="10" />
+    <onsuccess>c5ecb169-00a6-4a43-ab0b-3cd8382d9935</onsuccess>
+  </stage>
+  <stage stageid="ab921e31-6c33-4525-8a42-4e549b14c111" name="Anchor4" type="Anchor">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="435" y="285" w="10" h="10" />
+    <onsuccess>64ade0df-8e5e-4c72-9f97-b4c6bcff4350</onsuccess>
+  </stage>
+  <stage stageid="29874736-e743-46f9-9bb5-4496421d12fc" name="FAIL" type="Exception">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="90" y="240" w="30" h="30" />
+    <exception type="" detail="&quot;You have entered a clean up item the choice doesn't recognise.&quot;" />
+  </stage>
+  <stage stageid="c5ecb169-00a6-4a43-ab0b-3cd8382d9935" name="Anchor3" type="Anchor">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="435" y="150" w="10" h="10" />
+    <onsuccess>f50d6339-7535-4fe9-b25e-82773f0ada58</onsuccess>
+  </stage>
+  <stage stageid="34a4b5fe-851b-4767-acf6-964ff8dce020" name="End1" type="End">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="15" y="330" />
+  </stage>
+  <stage stageid="f50d6339-7535-4fe9-b25e-82773f0ada58" name="Anchor13" type="Anchor">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="435" y="195" w="10" h="10" />
+    <onsuccess>ab921e31-6c33-4525-8a42-4e549b14c111</onsuccess>
+  </stage>
+  <stage stageid="6e37b738-bc32-4111-9fbc-076149c750e1" name="Cleaup Recover" type="Recover">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <loginhibit />
+    <display x="-75" y="270" />
+    <onsuccess>7e04062f-043d-43d9-8d4c-e0dfa22f78b9</onsuccess>
+  </stage>
+  <stage stageid="7e04062f-043d-43d9-8d4c-e0dfa22f78b9" name="Cleanup Resume" type="Resume">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <loginhibit />
+    <display x="-75" y="330" />
+    <onsuccess>34a4b5fe-851b-4767-acf6-964ff8dce020</onsuccess>
+  </stage>
+  <stage stageid="77b699d7-a536-4465-b18f-730709e8fd10" name="Terminate" type="Action">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="360" y="105" w="90" h="30" />
+    <onsuccess>9f161bc1-ec96-4f52-bf43-a7bd31868e98</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="7113f34a-6d3e-4560-99b3-3fa9c9384573" name="Browse Home" type="Action">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="150" y="195" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>437fce3d-3dcf-4c4a-b04d-788536680af4</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="437fce3d-3dcf-4c4a-b04d-788536680af4" name="Browse to Releases" type="Action">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="255" y="195" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Releases&quot;" />
+    </inputs>
+    <onsuccess>e3d631cb-b342-44a7-83c4-7986a77d74c2</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="e3d631cb-b342-44a7-83c4-7986a77d74c2" name="Delete Package" type="Action">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="360" y="195" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Package Name" friendlyname="Package Name" narrative="The name of the pack you wish to delete." expr="&quot;Package 1&quot;" />
+    </inputs>
+    <onsuccess>f50d6339-7535-4fe9-b25e-82773f0ada58</onsuccess>
+    <resource object="Blue Prism - Releases" action="Delete Package" />
+  </stage>
+  <stage stageid="b228f7a4-0230-4501-824e-ebb3fb94de9e" name="Browse Home" type="Action">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="150" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>3cedacc8-3e92-449d-bde0-1ae71185dfe4</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="3cedacc8-3e92-449d-bde0-1ae71185dfe4" name="Browse to Releases" type="Action">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <display x="255" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Releases&quot;" />
+    </inputs>
+    <onsuccess>5640e055-0083-4c97-a6e9-f4a0ecf93f99</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="5640e055-0083-4c97-a6e9-f4a0ecf93f99" name="Delete Package" type="Action">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="360" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Package Name" friendlyname="Package Name" narrative="The name of the pack you wish to delete." expr="&quot;&lt;Adhoc Package&gt;&quot;" />
+    </inputs>
+    <onsuccess>c5ecb169-00a6-4a43-ab0b-3cd8382d9935</onsuccess>
+    <resource object="Blue Prism - Releases" action="Delete Package" />
+  </stage>
+  <stage stageid="1c68a0c7-1be5-4de4-9b74-eaeef2e482e3" name="Start" type="Start">
+    <subsheetid>52a2d468-6587-4f70-b7e7-2cfe5e48f687</subsheetid>
+    <display x="15" y="-150" />
+    <onsuccess>0a828271-f723-4db7-8650-376f175194b9</onsuccess>
+  </stage>
+  <stage stageid="0a828271-f723-4db7-8650-376f175194b9" name="Launch" type="Action">
+    <subsheetid>52a2d468-6587-4f70-b7e7-2cfe5e48f687</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-105" w="120" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>c697d8ac-2a4e-4d62-af29-9129fd99316b</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="b4e58697-5fb8-4224-a4cd-7f2feb55be36" name="Attach (Releases)" type="Action">
+    <subsheetid>52a2d468-6587-4f70-b7e7-2cfe5e48f687</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="120" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>f3f7f79a-a084-46f6-938b-698196f6ac04</onsuccess>
+    <resource object="Blue Prism - Releases (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="27b51567-4975-4e27-a093-6d9552cceb45" name="Sign In" type="Action">
+    <subsheetid>52a2d468-6587-4f70-b7e7-2cfe5e48f687</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Locale" friendlyname="Locale" narrative="Blue Prism Locale setting" stage="" />
+    </outputs>
+    <onsuccess>d68f059c-d808-4d55-831a-d235e0373ac4</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="d68f059c-d808-4d55-831a-d235e0373ac4" name="Browse to Releases" type="Action">
+    <subsheetid>52a2d468-6587-4f70-b7e7-2cfe5e48f687</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Releases&quot;" />
+    </inputs>
+    <onsuccess>23b53794-402f-48f0-b65f-15d7590e0ae6</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="c697d8ac-2a4e-4d62-af29-9129fd99316b" name="Add to CleanUp" type="SubSheet">
+    <subsheetid>52a2d468-6587-4f70-b7e7-2cfe5e48f687</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up" expr="&quot;Blue Prism&quot;" />
+    </inputs>
+    <onsuccess>b4e58697-5fb8-4224-a4cd-7f2feb55be36</onsuccess>
+    <processid>b1744278-a9d6-4bb6-82ea-2bc405c1998a</processid>
+  </stage>
+  <stage stageid="74cb8dc0-8923-4506-9a5d-b0f483acf807" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-330" y="-15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="687bc85e-ec73-4d93-beb0-85cc9d0486e0" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-330" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1ac86edc-741c-4fb5-8434-e245a56c7eef" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-405" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="6760fd47-d2a6-440a-a7d3-52256239c0ea" name="pid" type="Data">
+    <display x="-330" y="120" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="caa19ff4-fcaa-4bb2-8640-57a3afed9c2b" name="Global Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-405" y="90" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4784945e-b6f8-4f6c-9ef9-a722507f87de" name="QA Root" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-330" y="150" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <alwaysinit />
+  </stage>
+  <stage stageid="a3fc9e5c-601e-477f-80af-19f9f8557b02" name="Start" type="Start">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <display x="-90" y="-165" />
+    <onsuccess>f82956b8-0cfa-49cc-9688-274031e2e9f2</onsuccess>
+  </stage>
+  <stage stageid="f82956b8-0cfa-49cc-9688-274031e2e9f2" name="File Import " type="Action">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-105" w="120" h="30" />
+    <onsuccess>7fa8f70c-5db7-4fdb-92f8-2689ebfa8713</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="File - Import" />
+  </stage>
+  <stage stageid="7fa8f70c-5db7-4fdb-92f8-2689ebfa8713" name="Import Release" type="Action">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-60" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Import Option" friendlyname="Import Option" narrative="Import process / object or release / skill?" expr="&quot;Release / Skill&quot;" />
+    </inputs>
+    <onsuccess>3a057af5-c9ea-4676-be6d-7f22a56d4cbf</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Import Option" />
+  </stage>
+  <stage stageid="3a057af5-c9ea-4676-be6d-7f22a56d4cbf" name="Add File Path" type="Action">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-15" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Add File Path" friendlyname="Add File Path" expr="[QA Root]&amp;&quot;\Processes\Import Releases Treeview\Release BG-4924-1.bprelease&quot;" />
+    </inputs>
+    <onsuccess>4203ea53-c30b-4f05-8692-b21257043ca1</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Import File Input" />
+  </stage>
+  <stage stageid="2b621196-a8bf-4dd3-8d7b-29de99d5b764" name="Import Wizard -  Press Next " type="Action">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="75" w="120" h="30" />
+    <onsuccess>f53c2f68-d5d6-4e80-afc5-6a3d6eb8b2d1</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Import Wizard - Next Button" />
+  </stage>
+  <stage stageid="8497607d-83ca-45f2-ac02-945636c9c5c5" name="Import Wizard - Press Next" type="Action">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="165" w="120" h="30" />
+    <onsuccess>25acc1ef-ce11-4008-9b56-bf2fdef24d0f</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Import Wizard - Next Button" />
+  </stage>
+  <stage stageid="fc39c512-e0cb-43db-ad28-c9df96db692f" name="Import Wizard - Press Finish" type="Action">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="255" w="120" h="30" />
+    <onsuccess>4671a423-ddca-4451-9b6d-76f76d3897ec</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Import File - Finish Button" />
+  </stage>
+  <stage stageid="f53c2f68-d5d6-4e80-afc5-6a3d6eb8b2d1" name="Pause" type="Action">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="120" w="120" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="&quot;10&quot;" />
+    </inputs>
+    <onsuccess>8497607d-83ca-45f2-ac02-945636c9c5c5</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="25acc1ef-ce11-4008-9b56-bf2fdef24d0f" name="Pause" type="Action">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="210" w="120" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="&quot;5&quot;" />
+    </inputs>
+    <onsuccess>fc39c512-e0cb-43db-ad28-c9df96db692f</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="23b53794-402f-48f0-b65f-15d7590e0ae6" name="End2" type="End">
+    <subsheetid>52a2d468-6587-4f70-b7e7-2cfe5e48f687</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" />
+  </stage>
+  <stage stageid="0adb7c54-7e07-4337-b2bc-b27b63156a8c" name="File &gt; Import &gt; Release" type="Block">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="-135" w="210" h="420" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ed91c73f-dafa-429b-807d-5c3fa9501041" name="Is the Imported Release displayed?" type="Decision">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <display x="-90" y="465" w="120" h="30" />
+    <decision expression="[Child Tree Item.Node Text]=&quot;Release BG-4924 [1]&quot;" />
+    <ontrue>0766cdcd-4204-46ce-8eb2-09fbe6417a3f</ontrue>
+    <onfalse>853598ad-be39-4399-94f7-9bacd0588ca2</onfalse>
+  </stage>
+  <stage stageid="b9f54739-ad79-4ffc-93a7-8dddb0d31c27" name="Exception" type="Exception">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <display x="0" y="510" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;Imported Release is not displayed&quot;" />
+  </stage>
+  <stage stageid="98cb1531-9dbe-4a3b-b1a6-f5c6236069ee" name="Read Tree Items" type="Action">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="375" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tree Item" friendlyname="Tree Item" narrative="The name of the tree item you want to get the children for." expr="&quot;&lt;Adhoc Package&gt;&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Child Tree Item" friendlyname="Child Tree Item" narrative="A collection containing a list child tree items." stage="Child Tree Item" />
+    </outputs>
+    <onsuccess>fe00c927-5356-4b4e-9069-61b286bad88f</onsuccess>
+    <resource object="Blue Prism - Releases" action="Read Tree Items" />
+  </stage>
+  <stage stageid="f3f7f79a-a084-46f6-938b-698196f6ac04" name="Attach (Studio)" type="Action">
+    <subsheetid>52a2d468-6587-4f70-b7e7-2cfe5e48f687</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="120" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>27b51567-4975-4e27-a093-6d9552cceb45</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="79d2e91f-bceb-4484-ad43-e51670507b8e" name="Child Tree Item" type="Collection">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <display x="-330" y="30" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Node Text" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="54a10247-1cf7-4605-afb1-1f999f0ce029" name="Imported Release Displays?" type="Block">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="345" w="210" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4203ea53-c30b-4f05-8692-b21257043ca1" name="Pause" type="Action">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="30" w="120" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="&quot;10&quot;" />
+    </inputs>
+    <onsuccess>2b621196-a8bf-4dd3-8d7b-29de99d5b764</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="4671a423-ddca-4451-9b6d-76f76d3897ec" name="Add to CleanUp" type="SubSheet">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="315" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up" expr="&quot;Release 1&quot;" />
+    </inputs>
+    <onsuccess>98cb1531-9dbe-4a3b-b1a6-f5c6236069ee</onsuccess>
+    <processid>b1744278-a9d6-4bb6-82ea-2bc405c1998a</processid>
+  </stage>
+  <stage stageid="fe00c927-5356-4b4e-9069-61b286bad88f" name="Search Release" type="LoopStart">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="420" w="120" h="30" />
+    <onsuccess>ed91c73f-dafa-429b-807d-5c3fa9501041</onsuccess>
+    <groupid>9129e34a-8823-4dec-9a45-a5b8c1034f81</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Child Tree Item</loopdata>
+  </stage>
+  <stage stageid="853598ad-be39-4399-94f7-9bacd0588ca2" name="Search Release" type="LoopEnd">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="510" w="120" h="30" />
+    <onsuccess>b9f54739-ad79-4ffc-93a7-8dddb0d31c27</onsuccess>
+    <groupid>9129e34a-8823-4dec-9a45-a5b8c1034f81</groupid>
+  </stage>
+  <stage stageid="05e44503-cd4f-4891-894c-6bcaeffde64c" name="Local variable" type="Block">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-405" y="0" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4769c903-4939-448f-96c4-8c3235a73f36" name="Import Release" type="Action">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-90" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Menu Item" friendlyname="Menu Item" narrative="The menu item you want to select." expr="&quot;Import Release&quot;" />
+    </inputs>
+    <onsuccess>9719ab20-d5f8-41b4-8586-3fc781ada241</onsuccess>
+    <resource object="Blue Prism - Releases" action="Release Context Menu" />
+  </stage>
+  <stage stageid="9719ab20-d5f8-41b4-8586-3fc781ada241" name="Write File Location" type="Action">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="120" h="30" />
+    <inputs>
+      <input type="text" name="File Path" friendlyname="File Path" narrative="The file path to the bprelease file you want to import." expr="[QA Root]&amp;&quot;\Processes\Import Releases Treeview\Release BG-4924-2.bprelease&quot;" />
+    </inputs>
+    <onsuccess>b3ed992b-5801-49e3-a59b-df829facb0cf</onsuccess>
+    <resource object="Blue Prism - Releases" action="Release Wizard - Write File Location" />
+  </stage>
+  <stage stageid="c7b2dd7e-6ee3-4f1e-b74e-3dc465409bbf" name="Release Wizard - Press Next" type="Action">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="120" h="30" />
+    <onsuccess>ee2d9318-7437-43eb-ae0a-9d3bbdaad2f8</onsuccess>
+    <resource object="Blue Prism - Releases" action="Release Wizard - Press Next" />
+  </stage>
+  <stage stageid="76edae43-149f-445a-840e-52c8d65fbfc8" name="Release Wizard - Press Next" type="Action">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" w="120" h="30" />
+    <onsuccess>1f40ed1e-f964-4825-b5e6-82fde542bdd8</onsuccess>
+    <resource object="Blue Prism - Releases" action="Release Wizard - Press Next" />
+  </stage>
+  <stage stageid="a568354c-7220-4d44-bb06-386f7d1d4185" name="Release Wizard - Press Finish" type="Action">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="225" w="120" h="30" />
+    <onsuccess>0169c9fc-fa21-4063-97de-e593d8e5ce62</onsuccess>
+    <resource object="Blue Prism - Releases" action="Release Wizard - Press Finish" />
+  </stage>
+  <stage stageid="d51d93cb-5ac8-43d4-8315-6feaa4951f5a" name="Is the Imported Release displayed?" type="Decision">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <display x="15" y="435" w="120" h="30" />
+    <decision expression="[Child Tree Item.Node Text]=&quot;Release BG-4924 - 2 [1]&quot;" />
+    <ontrue>0eeaa064-8d12-4c7f-b7f0-7b0a4562e29a</ontrue>
+    <onfalse>fefa2d98-b177-45e1-b9b8-d2845bedd5e6</onfalse>
+  </stage>
+  <stage stageid="cdaae993-2c30-4592-bb4b-97992cf8dc93" name="Exception" type="Exception">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <display x="105" y="480" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;Imported Release is not displayed&quot;" />
+  </stage>
+  <stage stageid="2cd04b4c-6ab7-4e95-a023-114dcfa850ab" name="Read Tree Items" type="Action">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="345" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tree Item" friendlyname="Tree Item" narrative="The name of the tree item you want to get the children for." expr="&quot;Package 1&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Child Tree Item" friendlyname="Child Tree Item" narrative="A collection containing a list child tree items." stage="Child Tree Item" />
+    </outputs>
+    <onsuccess>0e873977-c3fd-4a67-9a4c-41bddaf46732</onsuccess>
+    <resource object="Blue Prism - Releases" action="Read Tree Items" />
+  </stage>
+  <stage stageid="8d893967-464d-48ec-9f42-f57c6cd3dd95" name="Imported Release Displays?" type="Block">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-75" y="315" w="210" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0169c9fc-fa21-4063-97de-e593d8e5ce62" name="Add to CleanUp" type="SubSheet">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="285" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up" expr="&quot;Release 2&quot;" />
+    </inputs>
+    <onsuccess>2cd04b4c-6ab7-4e95-a023-114dcfa850ab</onsuccess>
+    <processid>b1744278-a9d6-4bb6-82ea-2bc405c1998a</processid>
+  </stage>
+  <stage stageid="0e873977-c3fd-4a67-9a4c-41bddaf46732" name="Search Release" type="LoopStart">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="390" w="120" h="30" />
+    <onsuccess>d51d93cb-5ac8-43d4-8315-6feaa4951f5a</onsuccess>
+    <groupid>88a68a63-a6f6-40ba-8706-e3054867df3e</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Child Tree Item</loopdata>
+  </stage>
+  <stage stageid="fefa2d98-b177-45e1-b9b8-d2845bedd5e6" name="Search Release" type="LoopEnd">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="480" w="120" h="30" />
+    <onsuccess>cdaae993-2c30-4592-bb4b-97992cf8dc93</onsuccess>
+    <groupid>88a68a63-a6f6-40ba-8706-e3054867df3e</groupid>
+  </stage>
+  <stage stageid="db039c2a-24a6-4f7e-8a8c-158e57485e95" name="Import Release from Releases" type="Block">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-75" y="-120" w="210" h="375" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3564534e-cae8-49a5-95bd-ef54d90e1078" name="Child Tree Item" type="Collection">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <display x="-225" y="45" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="98248aec-dbc3-4dc5-a84c-61a3acc63599" name="End3" type="End">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="570" />
+  </stage>
+  <stage stageid="3594db67-0034-479f-9acb-4fbc3792b215" name="Local variable" type="Block">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-300" y="15" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b3ed992b-5801-49e3-a59b-df829facb0cf" name="Pause" type="Action">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="0" w="120" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="&quot;10&quot;" />
+    </inputs>
+    <onsuccess>c7b2dd7e-6ee3-4f1e-b74e-3dc465409bbf</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="ee2d9318-7437-43eb-ae0a-9d3bbdaad2f8" name="Pause" type="Action">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="90" w="120" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="&quot;10&quot;" />
+    </inputs>
+    <onsuccess>76edae43-149f-445a-840e-52c8d65fbfc8</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="1f40ed1e-f964-4825-b5e6-82fde542bdd8" name="Pause" type="Action">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="180" w="120" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="&quot;10&quot;" />
+    </inputs>
+    <onsuccess>a568354c-7220-4d44-bb06-386f7d1d4185</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="ef7d1928-45f4-42fd-9ffe-8afb7b4f141e" name="End4" type="End">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="540" />
+  </stage>
+  <stage stageid="eb005b1f-7506-449b-bcf0-ba0a65cb36a7" name="Local variables" type="Block">
+    <subsheetid>e63bf5cb-9d63-468c-896b-55413f92edee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-225" y="-15" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0766cdcd-4204-46ce-8eb2-09fbe6417a3f" name="Anchor5" type="Anchor">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="45" y="465" w="10" h="10" />
+    <onsuccess>3571f645-e00f-4a5c-886e-6f9cea05637e</onsuccess>
+  </stage>
+  <stage stageid="3571f645-e00f-4a5c-886e-6f9cea05637e" name="Anchor6" type="Anchor">
+    <subsheetid>1da000b8-9590-4a13-a5bc-96ac030c57e5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="45" y="570" w="10" h="10" />
+    <onsuccess>98248aec-dbc3-4dc5-a84c-61a3acc63599</onsuccess>
+  </stage>
+  <stage stageid="0eeaa064-8d12-4c7f-b7f0-7b0a4562e29a" name="Anchor7" type="Anchor">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="150" y="435" w="10" h="10" />
+    <onsuccess>f9c5c35e-63ee-4206-9bd4-561ff2ed39ed</onsuccess>
+  </stage>
+  <stage stageid="f9c5c35e-63ee-4206-9bd4-561ff2ed39ed" name="Anchor8" type="Anchor">
+    <subsheetid>ca602260-42c7-428f-b681-b5a6cc5137d8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="150" y="540" w="10" h="10" />
+    <onsuccess>ef7d1928-45f4-42fd-9ffe-8afb7b4f141e</onsuccess>
+  </stage>
+</process>

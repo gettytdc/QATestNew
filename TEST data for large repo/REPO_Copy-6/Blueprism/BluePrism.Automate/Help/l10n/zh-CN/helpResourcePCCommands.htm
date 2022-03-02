@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>资源 PC 命令</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="pagetitle">帮助—Blue Prism 资源 PC 命令</h1>
+    </div>
+
+   <h2>概述</h2>
+   <p>本文档包含与 Blue Prism 资源 PC 监听器通信时可用的命令列表。这些命令由 Blue Prism 用于其网络通信，并可通过 HTTP 接口提供给第三方客户端。</p>
+
+   <h2>推荐使用</h2>
+   <p>在学习这些命令时，一边阅读本文档，一边尝试这些命令会增强学习效果。您可以按如下方式执行此操作：</p>
+   <ul>
+     <li>使用以下命令启动 Blue Prism 资源 PC 监听器：</li>
+     <pre class="indented"> automate.exe /public /resourcepc</pre>
+     <li>使用 telnet 连接到监听器：</li>
+     <pre class="indented"> telnet localhost 8181</pre>
+     <li>（提示：如果由于任何原因，使用（默认）监听器端口 8181 不方便，您可以使用命令行 switch "/port" 在不同的端口上启动监听器。在这种情况下，您应该相应地修改 telnet 连接的端口）。</li>
+     <li>键入命令“quit”，以关闭连接。</li>
+   </ul>
+<!-- BEGIN AUTO-GENERATED DOCUMENTATION -->
+<h2>命令参考</h2><h4 id="createas">createas</h4><p><strong>授权：</strong>Authed</p><p>使用令牌身份验证创建具有给定流程 ID 的挂起会话：“createas &lt;token&gt; &lt;procid&gt;”，为指定流程 ID 的指定队列创建挂起的会话：“createas &lt;token&gt; &lt;procid&gt; &lt;queueident&gt;”，或使用流程名称创建挂起的会话：“createas name &lt;token&gt; &lt;name&gt;”。响应是“SESSION CREATED :&lt;sessionid&gt; 或错误代码。</p><h4 id="deleteas">deleteas</h4><p><strong>授权：</strong>Authed</p><p>使用令牌身份验证删除挂起的会话：“deleteas &lt;token&gt; &lt;sessionid&gt;”。响应是“SESSION DELETED”或错误代码。</p><h4 id="startas">startas</h4><p><strong>授权：</strong>Authed</p><p>使用令牌身份验证启动会话的运行：“startas &lt;token&gt; &lt;sessionid&gt;”，或启动在此连接上创建的上一个会话：“startas last &lt;token&gt;”。响应是“STARTED”或错误代码。</p><h4 id="getauthtoken">getauthtoken</h4><p><strong>授权：</strong>任何</p><p>使用提供的凭据获取授权令牌。使用“getauthtoken &lt;userid&gt; &lt;password&gt;”此方法适用于为安全网络设计的自定义解决方案。Blue Prism 在一般操作中不使用该方式。</p><h4 id="action">action</h4><p><strong>授权：</strong>Authed</p><p>通过“action &lt;sessionid&gt; &lt;actionname&gt;”在指定会话上运行操作，或通过“action last &lt;actionname&gt;”在此连接上创建的上一个会话上运行操作。响应是“STARTED”或错误代码。</p><h4 id="availability">availability</h4><p><strong>授权：</strong>AuthedOrLocal</p><p>报告此资源 PC 当前是否可供运行更多流程。响应是“AVAILABLITY:level”，其中“level”是以下四个值之一：</p><p>None—表示此时不能运行任何流程，因为独占流程已在运行（或挂起）。</p><p>Background—表示只能运行一个后台流程，因为前台流程已在运行（或挂起）。</p><p>Foreground—表示可以运行后台流程或前台流程，因为没有前台或独占流程正在运行（或挂起）。</p><p>Exclusive—表示可以运行任何类型的流程（包括独占流程），因为没有流程正在运行（或挂起）。</p><h4 id="busy">busy</h4><p><strong>授权：</strong>AuthedOrLocal</p><p>检查是否有任何挂起/正在运行的会话。响应为 yes 或 no。</p><h4 id="caps">caps</h4><p><strong>授权：</strong>Authed</p><p>获取资源功能</p><h4 id="connections">connections</h4><p><strong>授权：</strong>AuthedOrLocal</p><p>获取有关此资源 PC 的活动连接列表。列表分为两部分，标记为“INBOUND”（入站）和“OUTBOUND”（出站）。入站列表显示进入此资源的连接（显示为远程地址和通过身份验证的用户名），出站列表显示此资源对其他资源开放的连接（除非资源是池控制器，否则将无此类连接）。</p><h4 id="controller">controller</h4><p><strong>授权：</strong>Authed</p><p>表示这是来自池控制器的连接。此命令仅在资源 PC 之间作为内部命令使用。</p><h4 id="create">create</h4><p><strong>授权：</strong>Authed</p><p>通过“create &lt;procid&gt;”创建具有给定流程 ID 的挂起会话，通过“create &lt;procid&gt; &lt;queueident&gt;”为给定队列创建具有给定流程 ID 的挂起会话，或通过“create name &lt;name&gt;”使用流程名称创建挂起会话。响应是“SESSION CREATED ：&lt;sessionid&gt; 或错误代码。当启用“会话管理强制执行用户控制权限”设置时，改为使用 createas</p><h4 id="delete">delete</h4><p><strong>授权：</strong>Authed</p><p>删除挂起的会话—“delete &lt;sessionid&gt;”。当启用“会话管理强制执行用户控制权限”设置时，改为使用 deleteas</p><h4 id="getparams">getparams</h4><p><strong>授权：</strong>Authed</p><p>使用“getparams &lt;sessionid&gt;”获取用于启动流程的启动参数。该流程必须已经启动，但不一定必须位于发出请求的资源上。响应是“PARAMS:”（后跟 XML 格式的参数）、“NONE”（如果没有参数）或错误描述。</p><h4 id="internalauth">internalauth</h4><p><strong>授权：</strong>任何</p><p>使用“internalauth &lt;token&gt;”执行基于令牌的身份验证。这使用在数据库中生成并注册的一次性令牌来确认连接用户的身份，以缓解嗅探和重播攻击，并允许在 AD 环境中直接连接。Blue Prism 软件只使用这种方法。非 Blue Prism 软件可以使用 AutomateC 生成令牌。</p><h4 id="members">members</h4><p><strong>授权：</strong>AuthedOrLocal</p><p>列出此资源 PC 作为其控制器的池的成员。示例响应：</p><pre>
+MEMBERS - 2
+9efb8f78-0777-4d28-aaa3-6fbd5da70f36 PC1
+21e960d0-140a-488c-b09d-d3d7257bae54 PC2
+</pre><p>报告的值是资源的 ID 和名称。</p><h4 id="outputs">outputs</h4><p><strong>授权：</strong>Authed</p><p>使用“outputs &lt;sessionid&gt;”（或“outputs last”）从已成功完成的流程或操作中获取输出参数，或从失败的流程或操作中获取失败原因。运行业务对象操作时，这也会将对象设置回空闲状态，并且必须在开始另一个操作之前使用。响应是“OUTPUTS:”，后跟完成的会话的输出参数，格式为 XML。</p><h4 id="password">password</h4><p><strong>授权：</strong>任何</p><p>使用“password &lt;pwd&gt;”在“user”命令后完成身份验证。请参阅有关“user”的文档内容，了解详细信息。</p><h4 id="ping">ping</h4><p><strong>授权：</strong>AuthedOrLocal</p><p>返回消息“pong”。用于诊断。</p><h4 id="pool">pool</h4><p><strong>授权：</strong>Authed</p><p>确定此资源是哪个池的成员/控制器。响应将为“不在池中”、“&lt;池名&gt; 控制器”或“&lt;池名&gt; 成员”。</p><h4 id="proclist">proclist</h4><p><strong>授权：</strong>Authed</p><p>提供可运行的流程的列表。输出采用每行一个流程的形式，格式如下：</p><pre>
+xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx - Process One
+xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx - Process Two
+</pre><p>第一个字段中的值是流程的唯一标识符。它与“create”命令结合使用，为流程创建挂起的会话。</p><h4 id="proxyfor">proxyfor</h4><p><strong>授权：</strong>Authed</p><p>设置供池成员用于运行会话的 userid</p><h4 id="quit">quit</h4><p><strong>授权：</strong>任何</p><p>终止此会话。客户端断开连接。服务器继续运行。</p><h4 id="setvar">setvar</h4><p><strong>授权：</strong>Authed</p><p>setvar &lt;sessionid&gt; [&lt;varname&gt;] type "&lt;value&gt;" "&lt;description&gt;"</p><p>设置会话中会话变量的值。如果操作成功，则响应为“SET”，否则为错误代码。</p><h4 id="shutdown">shutdown</h4><p><strong>授权：</strong>AuthedOrLocal</p><p>关闭资源 PC。在关闭之前使用可选参数“waitforsessions”等待任何当前正在运行的会话完成。如果登录代理未使用资源 PC，请使用“loginagent”参数忽略关闭请求。</p><h4 id="start">start</h4><p><strong>授权：</strong>Authed</p><p>使用“start &lt;sessionid&gt;”启动会话的运行，或使用“start last”启动在此连接上创建的上一个会话。响应是“STARTED”或错误代码。当启用“会话管理强制执行用户控制权限”设置时，改为使用 startas</p><h4 id="startp">startp</h4><p><strong>授权：</strong>Authed</p><p>设置用于在此连接上创建的下一个会话的启动参数。参数以 XML 格式提供。响应是“PARAMETERS SET”。</p><h4 id="status">status</h4><p><strong>授权：</strong>AuthedOrLocal</p><p>获取资源 PC 上挂起和正在运行的会话的列表。输出采用每行一个会话的形式，格式如下：</p><pre>
+RESOURCE UNIT
+- PENDING 9efb8f78-0777-4d28-aaa3-6fbd5da70f36
+- PENDING 21e960d0-140a-488c-b09d-d3d7257bae54
+Total running: 2
+</pre><p>最后一个字段中的值是会话的唯一标识符。</p><h4 id="stop">stop</h4><p><strong>授权：</strong>Authed</p><p>使用“stop &lt;sessionid&gt;”停止流程的运行。如果要针对会话记录此信息，则可以将可选的额外参数“&lt;userid&gt; &lt;resourceid&gt;”指定为一对。resourceid 可以替换为“name &lt;resource name&gt;”。响应是“STOPPING”或错误代码。</p><h4 id="user">用户</h4><p><strong>授权：</strong>任何</p><p>启动基于用户名/密码的身份验证。使用“user &lt;userid&gt;”设置用户 ID，或使用“user name &lt;name&gt;”通过用户名设置用户。然后必须使用“password”命令来完成身份验证序列。此身份验证方法可用于为安全网络设计的诊断和自定义解决方案。Blue Prism 在一般操作中不使用该方式。</p><h4 id="userlist">userlist</h4><p><strong>授权：</strong>Authed</p><p>列出所有用户。用户每行显示一个，格式如下：</p><pre>
+xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx - User One
+xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx - User Two
+</pre><p>第一个字段中的值是用户的唯一标识符。</p><h4 id="vars">vars</h4><p><strong>授权：</strong>Authed</p><p>获取给定会话 ID 的所有当前会话变量及其值。响应示例：VARIABLES:2</p><pre>
+[CasesWorked] number 212
+[Exceptions] number 4
+</pre><h4 id="varupdates">varupdates</h4><p><strong>授权：</strong>Authed</p><p>启用或禁用会话变量更新。指定“on”或“off”。响应为“SET”或错误代码。</p><h4 id="version">version</h4><p><strong>授权：</strong>任何</p><p>获取版本信息—响应是内部协议版本号。</p>
+<!-- END AUTO-GENERATED DOCUMENTATION -->
+
+</body>
+</html>

@@ -1,0 +1,1083 @@
+﻿<process name="Control Room UI Tests" version="1.0" bpversion="6.5.0.11085" narrative="Verifies the UI functionality in the Blue Prism control room." byrefcollection="true" preferredid="3d7b330c-b977-4764-a73a-f3c16e361344">
+  <view>
+    <camerax>68</camerax>
+    <cameray>-125</cameray>
+    <zoom version="2">1.5625</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="04cf370a-1264-4df2-b210-890536c6761c" type="Normal" published="False">
+    <name>Test Log Export</name>
+    <view>
+      <camerax>-145</camerax>
+      <cameray>225</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="a794d76a-8917-4201-b2ce-d8385ff872ed" type="Normal" published="False">
+    <name>Wait n seconds</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="8a88a283-29eb-45e3-881b-ffe5aa093652" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-750</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>27bbf593-b03f-4dc0-9369-950e46b34ad7</onsuccess>
+  </stage>
+  <stage stageid="0db2955c-7004-4d0b-87b9-fdc73e6cd65c" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>480</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="fa22b281-cfbc-4a1b-ae78-d468b539bcd9" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-150</displayx>
+    <displayy>-720</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="5cd40d02-0446-46b4-89ae-792251e49604" name="Sign In" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" expr="&quot;admin&quot;" />
+      <input type="password" name="Password" expr="&quot;admin&quot;" />
+    </inputs>
+    <onsuccess>2a9371d8-74a3-490d-b958-0decca60e841</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="09a97cfa-dbfa-468e-a946-74d597cb175a" name="Create Session" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Process Name" narrative="The name of the process of interest - if it is not found, the 'Ungrouped Processes' group will be opened and checked" expr="[Process Name]" />
+      <input type="text" name="Resource Name" narrative="The name of the Resource PC on which to create the session" expr="[Resource Name]" />
+      <input type="text" name="Group to Expand" narrative="Default value is 'Default'." expr="" />
+      <input type="flag" name="Negative Test" narrative="Check for negative testing " expr="" />
+      <input type="text" name="Resource Group to Expand" narrative="Default value is 'Default'" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Position of Pending Session" narrative="The 1-based index of the newly created session in the Environment list in Control Room" stage="Position of Pending Session" />
+      <output type="text" name="Error Message (expected)" narrative="Error message returned (negative testing)" stage="" />
+    </outputs>
+    <onsuccess>499f299b-ab79-4da2-8756-3233b0522806</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Create Session" />
+  </stage>
+  <stage stageid="291b5a0e-4e23-4bfe-8368-7641925c9d6e" name="Position of Pending Session" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ce0d4c1f-ed1a-4d10-9cc5-0ba7fdf23c14" name="Sleep" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" expr="5" />
+    </inputs>
+    <onsuccess>a5d79fbc-df84-44ee-a550-ede63d1065a8</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="a5d79fbc-df84-44ee-a550-ede63d1065a8" name="Stop Session" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>baacc4e9-1106-472a-ad7d-cb19ba601017</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Control Room - Stop Selected Sessions" />
+  </stage>
+  <stage stageid="18d57ece-7e58-412a-a3aa-f5fc0fcc04bf" name="Process Name" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-150</displayx>
+    <displayy>-630</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Do Nothing</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="ca24b498-9941-44f5-91f1-11cc1c55155c" name="Wait for Resource" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Resource Name" narrative="The name of the Resource PC of interest" expr="[Resource Name]" />
+      <input type="timespan" name="Timeout" narrative="The maximum length of time to wait for the Resource of interest to become available. Default is immediate timeout of resource is not available, ie. zero" expr="MakeTimeSpan(0,0,2,0,0)" />
+      <input type="text" name="Resource Group to Expand" narrative="Group set to Default" expr="" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Resource Available" narrative="Indicates whether the resource is available. This will be false if a timeout occurs." stage="Resource Available" />
+    </outputs>
+    <onsuccess>10118457-22c7-4ceb-917d-68574d7fcece</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Control Room - Wait for Resource to Come Online" />
+  </stage>
+  <stage stageid="a1bb3dd0-4cd7-4b79-8822-e5c8690c0467" name="Resource Available" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-120</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="10118457-22c7-4ceb-917d-68574d7fcece" name="Resource Available?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Resource Available]" />
+    <ontrue>4407e62f-de7d-4875-b5bc-ff9ffd338fcf</ontrue>
+    <onfalse>aaeed316-8fc8-4afa-afc6-2be94b5f2e48</onfalse>
+  </stage>
+  <stage stageid="1afccffd-06c5-4939-a791-9a24df8fdba1" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>255</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Fail" detail="&quot;Resource PC is not available&quot;" />
+  </stage>
+  <stage stageid="59c04420-bf73-482d-bc44-bb3690efe000" name="Test Log Export" type="SubSheetInfo">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-255</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="00fe7b30-5096-48f9-b310-aac18508d20f" name="Start" type="Start">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>bdc2193d-8d2c-43bf-a8f4-d63a8361d23a</onsuccess>
+  </stage>
+  <stage stageid="93c54954-baa9-4e3a-abe4-893b12edf630" name="End" type="End">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>420</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="2dac6e0e-0ccd-4ffd-a441-1340435c18cb" name="Test Log Export" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>345</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>717f707e-deb4-4ac7-967f-22e7eb9e9990</onsuccess>
+    <processid>04cf370a-1264-4df2-b210-890536c6761c</processid>
+  </stage>
+  <stage stageid="da447234-550a-45ff-b164-ad97bd434c53" name="Export Log" type="Action">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>0</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="File Location" narrative="The path to the output file" expr="[File location]" />
+    </inputs>
+    <onsuccess>028de236-cece-4f6b-8d60-bc530c17784f</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Export Session Log" />
+  </stage>
+  <stage stageid="028de236-cece-4f6b-8d60-bc530c17784f" name="Check File Exists" type="Action">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="File Name" expr="[File location]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Exists" stage="Exists" />
+    </outputs>
+    <onsuccess>6ad63ac6-7db1-449c-9d98-fe0b06d1a4c6</onsuccess>
+    <resource object="QAFileUtil" action="File Exists" />
+  </stage>
+  <stage stageid="12e426b7-8377-4cc8-acf2-1a36421b4014" name="File location" type="Data">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">\processes\MS Office\testlog.csv</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="24c73aad-6ae8-4384-85cc-eeffd91a959b" name="Exists" type="Data">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-285</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6ad63ac6-7db1-449c-9d98-fe0b06d1a4c6" name="Exists?" type="Decision">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Exists]" />
+    <ontrue>ab578a22-8e4f-4232-8f0a-548cbae71c75</ontrue>
+    <onfalse>c983a60a-3ced-422e-9bae-930089033ee3</onfalse>
+  </stage>
+  <stage stageid="c983a60a-3ced-422e-9bae-930089033ee3" name="Log Not Exported" type="Exception">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="ExportSessionLogException" detail="&quot;Exported log file '&quot; &amp; [File location] &amp; &quot;' was not created&quot;" />
+  </stage>
+  <stage stageid="ab578a22-8e4f-4232-8f0a-548cbae71c75" name="Check File Size" type="Action">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="File Path" expr="[File location]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Size" stage="Size" />
+    </outputs>
+    <onsuccess>4ab89842-8e4b-4409-8cd6-8619f4d5556a</onsuccess>
+    <resource object="QAFileUtil" action="Get File Size" />
+  </stage>
+  <stage stageid="85241740-e9a3-4794-a4fa-eb20516c0ac9" name="Size" type="Data">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4ab89842-8e4b-4409-8cd6-8619f4d5556a" name="Something there?" type="Decision">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Size] &gt; 0" />
+    <ontrue>11ec8481-889f-43c9-a3b6-e9391bbae2a3</ontrue>
+    <onfalse>28473f9a-ce64-47e6-9311-e7a2c431ab68</onfalse>
+  </stage>
+  <stage stageid="28473f9a-ce64-47e6-9311-e7a2c431ab68" name="Log Not Exported" type="Exception">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>180</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="ExportSessionLogException" detail="&quot;Exported log file '&quot; &amp; [File location] &amp; &quot;' was empty&quot;" />
+  </stage>
+  <stage stageid="11ec8481-889f-43c9-a3b6-e9391bbae2a3" name="Read the top 5 lines" type="Action">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>225</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="File Name" narrative="The file from which the head should be read" expr="[File location]" />
+      <input type="number" name="Lines" narrative="The lines to read from the head of the file - Either this or 'Characters' should be set, but not both" expr="5" />
+      <input type="number" name="Characters" narrative="The characters to read from the head of the file - Either this or 'Lines' should be set, but not both" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Output Text" narrative="The output from the 'head' command" stage="Output Text" />
+    </outputs>
+    <onsuccess>f7ea4551-07c2-47c2-b8b9-278f8a13a28f</onsuccess>
+    <resource object="QAFileUtil" action="Read Head of File" />
+  </stage>
+  <stage stageid="dc0dc73b-8317-4888-9aba-85248c8c4883" name="Output Text" type="Data">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-255</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b28369a2-1a66-421b-a9cd-bed155737420" name="Expected Header Line" type="Data">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-255</displayx>
+    <displayy>30</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">"StageName","StageType","Result","Resource Start","Direction","Name","Type","Value"</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f7ea4551-07c2-47c2-b8b9-278f8a13a28f" name="Starts with the expected header?" type="Decision">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>270</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="InStr([Output Text], [Expected Header Line]) = 1" />
+    <ontrue>02e09dbd-a4be-4175-8720-b4f0c5630abe</ontrue>
+    <onfalse>0e9335e6-ee91-409f-a549-a4da4a98cf20</onfalse>
+  </stage>
+  <stage stageid="0e9335e6-ee91-409f-a549-a4da4a98cf20" name="Log Not Exported" type="Exception">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>270</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="ExportSessionLogException" detail="&quot;Top of exported log file didn't match expected header - it read :- &quot; &amp; Chr(13) &amp; Chr(10) &amp; [Output Text]" />
+  </stage>
+  <stage stageid="02e09dbd-a4be-4175-8720-b4f0c5630abe" name="More after that?" type="Decision">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>The '2' is the vbCrLf string following the line... but really it should be 100+, so 2 should be fine.</narrative>
+    <displayx>15</displayx>
+    <displayy>315</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="Len( Mid([Output Text], 1+Len([Expected Header Line]), Len([Output Text]) - Len([Expected Header Line])) ) &gt; 2" />
+    <ontrue>b7913e92-bafa-419a-aa0c-18e84a67bbc6</ontrue>
+    <onfalse>dee905a6-42b1-460d-a41b-54ba51a858e8</onfalse>
+  </stage>
+  <stage stageid="dee905a6-42b1-460d-a41b-54ba51a858e8" name="Log Not Exported" type="Exception">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>315</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="ExportSessionLogException" detail="&quot;Exported log file '&quot; &amp; [File location] &amp; &quot;' was not full enough : top of log was :- &quot; &amp; Chr(13) &amp; Chr(10) &amp; [Output Text]" />
+  </stage>
+  <stage stageid="b7913e92-bafa-419a-aa0c-18e84a67bbc6" name="Delete File" type="Action">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="File Name" expr="[File location]" />
+    </inputs>
+    <onsuccess>93c54954-baa9-4e3a-abe4-893b12edf630</onsuccess>
+    <resource object="QAFileUtil" action="Delete File" />
+  </stage>
+  <stage stageid="7ecd040e-ca30-41ba-a945-336ac0275462" name="View Log" type="Action">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>da447234-550a-45ff-b164-ad97bd434c53</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Control Room - View Log For Selected Session" />
+  </stage>
+  <stage stageid="44902a8c-35ee-4315-8d11-361c0c4332ff" name="WinXP or above?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>300</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="GetOSVersionMajor() &gt; 5 OR (GetOSVersionMajor() = 5 AND GetOSVersionMinor() &gt; 0)" />
+    <ontrue>2dac6e0e-0ccd-4ffd-a441-1340435c18cb</ontrue>
+    <onfalse>0344ca28-d377-4a80-b4b9-e32c5a60e4bb</onfalse>
+  </stage>
+  <stage stageid="0344ca28-d377-4a80-b4b9-e32c5a60e4bb" name="Note1" type="Note">
+    <narrative>Win2K and previous doesn't handle AA menus very well.</narrative>
+    <displayx>120</displayx>
+    <displayy>300</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>59075f96-e97a-48ca-9452-88591699d1fb</onsuccess>
+  </stage>
+  <stage stageid="59075f96-e97a-48ca-9452-88591699d1fb" name="anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>390</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>717f707e-deb4-4ac7-967f-22e7eb9e9990</onsuccess>
+  </stage>
+  <stage stageid="baacc4e9-1106-472a-ad7d-cb19ba601017" name="Wait" type="Action">
+    <narrative>Wait 5 seconds, to ensure the process has fully stopped and the environment list has settled down. This is in response to bug #5692. If it doesn't solve the problem, I guess it can be removed.</narrative>
+    <displayx>15</displayx>
+    <displayy>255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" expr="5" />
+    </inputs>
+    <onsuccess>44902a8c-35ee-4315-8d11-361c0c4332ff</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="717f707e-deb4-4ac7-967f-22e7eb9e9990" name="Exit" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>390</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>cb98d1cf-42ea-4bd0-b367-64444bfea7a8</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="44089478-91d4-4838-8d0b-02b310ea3264" name="QA Root" type="Data">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-300</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">C:\temp\testlog.csv</initialvalue>
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="23d69820-4775-4343-81f1-479e6a3de12a" name="Make File Path" type="Calculation">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>13cc364d-ab59-421e-b5bc-015a7ae2d073</onsuccess>
+    <calculation expression="[QA Root]&amp;[File location]" stage="File location" />
+  </stage>
+  <stage stageid="cb98d1cf-42ea-4bd0-b367-64444bfea7a8" name="Stop Resource" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>435</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Port" narrative="The port number whose resource should be stopped" expr="7100" />
+    </inputs>
+    <onsuccess>0db2955c-7004-4d0b-87b9-fdc73e6cd65c</onsuccess>
+    <resource object="Resource Manager" action="Stop Resource" />
+  </stage>
+  <stage stageid="4407e62f-de7d-4875-b5bc-ff9ffd338fcf" name="Open Control Tab" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>09a97cfa-dbfa-468e-a946-74d597cb175a</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="499f299b-ab79-4da2-8756-3233b0522806" name="Select Session" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Session Position" narrative="The 1-based index of the session of interest, in the Environment list" expr="[Position of Pending Session]" />
+      <input type="text" name="Process Name" narrative="The expected process name of the session of interest. This will be double checked before starting the session at the specified position." expr="[Process Name]" />
+      <input type="text" name="Resource Name" narrative="The expected resource name of the pending session of interset. This will be double checked before starting the session" expr="[Resource Name]" />
+      <input type="text" name="Session Status" narrative="The expected status of the session. This will be double checked." expr="&quot;Pending&quot;" />
+    </inputs>
+    <onsuccess>7e7b4c1a-215b-4891-abd0-0775e2666040</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Select Session" />
+  </stage>
+  <stage stageid="7e7b4c1a-215b-4891-abd0-0775e2666040" name="Start Session" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="flag" name="Set Parameter Flag?" expr="" />
+      <input type="flag" name="Parameter Flag Value" expr="" />
+      <input type="number" name="Flag's Match Index" expr="" />
+      <input type="flag" name="Use ClickLink" expr="True" />
+    </inputs>
+    <onsuccess>ce0d4c1f-ed1a-4d10-9cc5-0ba7fdf23c14</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Start Session" />
+  </stage>
+  <stage stageid="bdc2193d-8d2c-43bf-a8f4-d63a8361d23a" name="Go to Control" type="Action">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>23d69820-4775-4343-81f1-479e6a3de12a</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="13cc364d-ab59-421e-b5bc-015a7ae2d073" name="Select Session" type="Action">
+    <subsheetid>04cf370a-1264-4df2-b210-890536c6761c</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Process Name" narrative="The name of the process to select" expr="[Process Name]" />
+      <input type="text" name="Resource Name" narrative="The name of the resource to select" expr="" />
+      <input type="text" name="Status" narrative="The status to select" expr="&quot;Stopped&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Item Position" narrative="The position of the ultimately selected item" stage="" />
+    </outputs>
+    <onsuccess>7ecd040e-ca30-41ba-a945-336ac0275462</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Control Room - Select Arbitrary Session" />
+  </stage>
+  <stage stageid="78ac76fe-53f3-4c0d-a6a0-309991ee1a37" name="Open Control Tab" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>ca24b498-9941-44f5-91f1-11cc1c55155c</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="2a9371d8-74a3-490d-b958-0decca60e841" name="Open Home Tab" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>78ac76fe-53f3-4c0d-a6a0-309991ee1a37</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="1a710832-5393-43fe-a053-c697e02a9dd2" name="Launch Blue Prism" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-495</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>ad458fdb-6871-43d2-8da0-fda9fb5fffe3</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="ad458fdb-6871-43d2-8da0-fda9fb5fffe3" name="Attach Control" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-435</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>461e5fb7-1ddf-4136-a293-d9acffca87db</onsuccess>
+    <resource object="Blue Prism - Control Room (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="461e5fb7-1ddf-4136-a293-d9acffca87db" name="Attach Studio" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-375</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>2a1b4c6a-0231-4fe5-b4a8-7ee232b5c200</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="2a1b4c6a-0231-4fe5-b4a8-7ee232b5c200" name="Attach System" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-315</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>5cd40d02-0446-46b4-89ae-792251e49604</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="e75783fe-30db-445e-892b-6aa2a5f238c2" name="pid" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-150</displayx>
+    <displayy>-600</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="27bbf593-b03f-4dc0-9369-950e46b34ad7" name="Read Machine Name" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-705</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e665dfaa-4fea-4987-854b-0b4d2554917a</onsuccess>
+    <calculation expression="GetResourceName()" stage="This Machine Name" />
+  </stage>
+  <stage stageid="6d19bad4-eac4-40bb-8aaa-b4f404849d05" name="This Machine Name" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>225</displayx>
+    <displayy>-660</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e665dfaa-4fea-4987-854b-0b4d2554917a" name="Debug?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-660</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="EndsWith([This Machine Name], &quot;_debug&quot;)" />
+    <ontrue>58c8fe52-2577-4722-8432-94e33508f17a</ontrue>
+    <onfalse>b80948e5-0e55-4b09-8c8c-a1ad85fc8cd6</onfalse>
+  </stage>
+  <stage stageid="58c8fe52-2577-4722-8432-94e33508f17a" name="Remove Debug Suffix" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>-660</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>1995cbf1-a13b-437a-b958-921feae3c9e3</onsuccess>
+    <calculation expression="Left([This Machine Name], Len([This Machine Name]) - Len(&quot;_debug&quot;))" stage="This Machine Name" />
+  </stage>
+  <stage stageid="1995cbf1-a13b-437a-b958-921feae3c9e3" name="anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>-615</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>b80948e5-0e55-4b09-8c8c-a1ad85fc8cd6</onsuccess>
+  </stage>
+  <stage stageid="1d4c281e-67fe-442c-a718-e175c4095b3c" name="Start Resource" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-570</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Port" narrative="The port number on which the resource PC should listen" expr="7100" />
+      <input type="flag" name="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="" />
+      <input type="text" name="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="" />
+      <input type="password" name="Password" narrative="The password to use for the resource. Only used if Username is given" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" narrative="The PID of the newly created process" stage="" />
+    </outputs>
+    <onsuccess>1a710832-5393-43fe-a053-c697e02a9dd2</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+  <stage stageid="b80948e5-0e55-4b09-8c8c-a1ad85fc8cd6" name="Make Resoruce Name" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-615</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>1d4c281e-67fe-442c-a718-e175c4095b3c</onsuccess>
+    <calculation expression="[This Machine Name]&amp;&quot;:7100&quot;" stage="Resource Name" />
+  </stage>
+  <stage stageid="53d0d5d5-0292-4cf0-b01d-fd5dfd3a547d" name="Resource Name" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>225</displayx>
+    <displayy>-615</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="aaeed316-8fc8-4afa-afc6-2be94b5f2e48" name="Increment" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>ff1ad08f-8a7b-4309-8823-97476321665b</onsuccess>
+    <calculation expression="[Inc Count]+1" stage="Count to" />
+  </stage>
+  <stage stageid="ed67b62a-6bea-45f0-8ebf-c7736d05ac11" name="Inc Count" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-120</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a4323c7a-9a40-4d19-ac77-eb4c7a1272b0" name="Count to" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-120</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>2</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ff1ad08f-8a7b-4309-8823-97476321665b" name="Retry Done?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Count to]=[Inc Count]" />
+    <ontrue>1afccffd-06c5-4939-a791-9a24df8fdba1</ontrue>
+    <onfalse>8cdf1511-fe90-4893-833c-8a29e423b817</onfalse>
+  </stage>
+  <stage stageid="10021fca-7cd8-4a48-876c-55ac321190d6" name="Wait n seconds" type="SubSheetInfo">
+    <subsheetid>a794d76a-8917-4201-b2ce-d8385ff872ed</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="a94ae01f-e7f5-459f-bc1a-96b175f4b4eb" name="Start" type="Start">
+    <subsheetid>a794d76a-8917-4201-b2ce-d8385ff872ed</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" stage="Seconds to Wait" />
+    </inputs>
+    <onsuccess>2ee14b6e-2340-45ef-b2f0-d261ae423f31</onsuccess>
+  </stage>
+  <stage stageid="2ee14b6e-2340-45ef-b2f0-d261ae423f31" name="Get Now" type="Calculation">
+    <subsheetid>a794d76a-8917-4201-b2ce-d8385ff872ed</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>92d90d20-44af-4207-b76e-958e4c3fb654</onsuccess>
+    <calculation expression="Now()" stage="Current Time" />
+  </stage>
+  <stage stageid="0c3aa8fb-db96-45a9-9bbf-0dce757d593b" name="Current Time" type="Data">
+    <subsheetid>a794d76a-8917-4201-b2ce-d8385ff872ed</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>datetime</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c501d307-d24a-4570-b893-3bc560b844ec" name="Time Passed?" type="Decision">
+    <subsheetid>a794d76a-8917-4201-b2ce-d8385ff872ed</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="Now () &gt; [Current Time] + MakeTimeSpan(0, 0, 0, [Seconds to Wait])" />
+    <ontrue>00ed6166-a56d-433a-b86a-ee4604f8e458</ontrue>
+    <onfalse>108abf53-5566-4440-998d-3cf235e803b3</onfalse>
+  </stage>
+  <stage stageid="92d90d20-44af-4207-b76e-958e4c3fb654" name="Anchor6" type="Anchor">
+    <subsheetid>a794d76a-8917-4201-b2ce-d8385ff872ed</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>0</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>c501d307-d24a-4570-b893-3bc560b844ec</onsuccess>
+  </stage>
+  <stage stageid="108abf53-5566-4440-998d-3cf235e803b3" name="Anchor7" type="Anchor">
+    <subsheetid>a794d76a-8917-4201-b2ce-d8385ff872ed</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>45</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>f1ff4fc2-b071-4c30-bfa3-b0233cde88a5</onsuccess>
+  </stage>
+  <stage stageid="f1ff4fc2-b071-4c30-bfa3-b0233cde88a5" name="Anchor8" type="Anchor">
+    <subsheetid>a794d76a-8917-4201-b2ce-d8385ff872ed</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>0</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>92d90d20-44af-4207-b76e-958e4c3fb654</onsuccess>
+  </stage>
+  <stage stageid="7363f567-115e-4333-bc6d-25616560edbf" name="Seconds to Wait" type="Data">
+    <subsheetid>a794d76a-8917-4201-b2ce-d8385ff872ed</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>20</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="00ed6166-a56d-433a-b86a-ee4604f8e458" name="End29" type="End">
+    <subsheetid>a794d76a-8917-4201-b2ce-d8385ff872ed</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="1baac100-2fe6-42eb-92e2-6eebbdee5374" name="Input Variables" type="Block">
+    <subsheetid>a794d76a-8917-4201-b2ce-d8385ff872ed</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="86ee0e94-4468-4e4e-b21f-53587c28fd70" name="Local Variables" type="Block">
+    <subsheetid>a794d76a-8917-4201-b2ce-d8385ff872ed</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>60</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="8cdf1511-fe90-4893-833c-8a29e423b817" name="Wait n seconds" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="60" />
+    </inputs>
+    <onsuccess>ca24b498-9941-44f5-91f1-11cc1c55155c</onsuccess>
+    <processid>a794d76a-8917-4201-b2ce-d8385ff872ed</processid>
+  </stage>
+</process>

@@ -1,0 +1,216 @@
+﻿<process name="Test Session Headers Sorting" version="1.0" bpversion="6.3.0.5799" narrative="" byrefcollection="true" preferredid="0285009e-851d-4c80-80aa-26afab3bc91c">
+  <view>
+    <camerax>0</camerax>
+    <cameray>105</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="bc5aa525-871a-4c86-a900-2803adf4972e" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>8c84d20e-2726-491d-8991-a78351d85ab0</onsuccess>
+  </stage>
+  <stage stageid="2655ddc7-415c-4e31-a1d8-b524f4682e01" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>300</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="1ae7dddf-e7d3-46f6-80a2-195e494623a5" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-120</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="8c84d20e-2726-491d-8991-a78351d85ab0" name="Launch" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>8606a619-7cfe-4532-ba2d-df04b1a93a28</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="8606a619-7cfe-4532-ba2d-df04b1a93a28" name="Attach to Control" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>87e4f2fb-950f-4594-98b0-39938db1e19e</onsuccess>
+    <resource object="Blue Prism - Control Room (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="87e4f2fb-950f-4594-98b0-39938db1e19e" name="Sign In" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" expr="" />
+      <input type="password" name="Password" expr="" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>9d720e97-3ab2-44ae-b0d0-24d3fd720d9a</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="461bb428-f68f-488c-ad71-0f08ac3f6acc" name="pid" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-120</displayx>
+    <displayy>90</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="87a3cfba-4428-40f2-90a6-e4ffb6b87518" name="Local Variable" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>60</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="9d720e97-3ab2-44ae-b0d0-24d3fd720d9a" name="Go To Control" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>1062fc95-e431-4bd2-a341-6ed423918e10</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="1062fc95-e431-4bd2-a341-6ed423918e10" name="Headers" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e6edaab5-8674-4f82-bada-1479c70e55cb</onsuccess>
+    <groupid>deea2098-b4d8-492d-9383-11fa4cff2c94</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Session Headers</loopdata>
+  </stage>
+  <stage stageid="8fe95092-8f54-4ee0-a145-e4bcbf2ecec4" name="Headers" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>6aa59f10-0090-4914-9c3d-5d03497f50ca</onsuccess>
+    <groupid>deea2098-b4d8-492d-9383-11fa4cff2c94</groupid>
+  </stage>
+  <stage stageid="e6edaab5-8674-4f82-bada-1479c70e55cb" name="Sort by Header" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Header" narrative="The name of the header that you want to sort by." expr="[Session Headers.Header]" />
+    </inputs>
+    <onsuccess>8fe95092-8f54-4ee0-a145-e4bcbf2ecec4</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Sort Sessions (Dynamic)" />
+  </stage>
+  <stage stageid="b3157f28-f3ed-44b4-b82c-2a96c0dd40ba" name="Session Headers" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-120</displayx>
+    <displayy>15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Header" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Header" type="text" value="ID" />
+      </row>
+      <row>
+        <field name="Header" type="text" value="Process" />
+      </row>
+      <row>
+        <field name="Header" type="text" value="Resource" />
+      </row>
+      <row>
+        <field name="Header" type="text" value="User" />
+      </row>
+      <row>
+        <field name="Header" type="text" value="Status" />
+      </row>
+      <row>
+        <field name="Header" type="text" value="Start Time" />
+      </row>
+      <row>
+        <field name="Header" type="text" value="End Time" />
+      </row>
+      <row>
+        <field name="Header" type="text" value="Latest Stage" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="feca3493-a45f-4378-8383-b8336c64179f" name="Input Variable" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="6aa59f10-0090-4914-9c3d-5d03497f50ca" name="Terminate" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>2655ddc7-415c-4e31-a1d8-b524f4682e01</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+</process>

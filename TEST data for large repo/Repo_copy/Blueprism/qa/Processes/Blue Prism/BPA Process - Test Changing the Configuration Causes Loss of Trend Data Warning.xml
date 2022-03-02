@@ -1,0 +1,1275 @@
+﻿<process name="Test Changing the Configuration Causes Loss of Trend Data Warning" version="1.0" bpversion="6.8.0.21720" narrative="" byrefcollection="true" preferredid="58ad39a3-6e53-4d81-9e2a-b97ec451607d">
+  <view>
+    <camerax>17</camerax>
+    <cameray>200</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="db271fdb-c1e8-4def-97a0-1299a3ac536c" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="4553d47d-dace-4a4d-8ad1-9d3e39707447" type="Normal" published="False">
+    <name>Loss of trend data warning: Changing a config</name>
+    <view>
+      <camerax>-282</camerax>
+      <cameray>465</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="0066f13d-9c34-4736-8308-ee119fbf7f9b" type="Normal" published="False">
+    <name>No trend data warning after changing config</name>
+    <view>
+      <camerax>-192</camerax>
+      <cameray>-120</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="9e1ddfdc-3df2-4850-b713-a020dd8da2ae" type="Normal" published="False">
+    <name>Add to Cleanup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-3</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="faf45e7d-c031-4ec7-9faa-af2b72fc345e" type="Normal" published="False">
+    <name>Cleanup</name>
+    <view>
+      <camerax>15</camerax>
+      <cameray>147</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="e168ca5e-edd7-47ed-97ce-e306b260dabc" name="Start" type="Start">
+    <display x="60" y="-30" />
+    <onsuccess>502b1e87-fcd2-4ebe-a44a-4e173be80671</onsuccess>
+  </stage>
+  <stage stageid="fc696bd6-9912-46bd-9ed4-6939b653e5d7" name="End" type="End">
+    <display x="60" y="540" />
+  </stage>
+  <stage stageid="183c832c-fd45-4e30-91dd-36e8c99ef28b" name="Stage1" type="ProcessInfo">
+    <display x="-210" y="0" w="150" h="90" />
+  </stage>
+  <stage stageid="23550706-e60c-4edd-99d8-41d220388a5e" name="Setup" type="SubSheetInfo">
+    <subsheetid>db271fdb-c1e8-4def-97a0-1299a3ac536c</subsheetid>
+    <display x="-165" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="03668c44-71c7-44b3-bc51-154acf54da29" name="Start" type="Start">
+    <subsheetid>db271fdb-c1e8-4def-97a0-1299a3ac536c</subsheetid>
+    <display x="-15" y="-135" />
+    <onsuccess>85b78261-cc3b-4214-a5ec-a34d1e4b1210</onsuccess>
+  </stage>
+  <stage stageid="85b78261-cc3b-4214-a5ec-a34d1e4b1210" name="Launch BP" type="Action">
+    <subsheetid>db271fdb-c1e8-4def-97a0-1299a3ac536c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="-90" w="120" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>d17572f8-34d4-4f64-a30b-5d2cfb43ae32</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="d17572f8-34d4-4f64-a30b-5d2cfb43ae32" name="Sign in" type="Action">
+    <subsheetid>db271fdb-c1e8-4def-97a0-1299a3ac536c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="-45" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="Error message received while Login" stage="" />
+    </outputs>
+    <onsuccess>3cdbc35f-7381-4f9c-8fde-fe8f1d6702df</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="3cdbc35f-7381-4f9c-8fde-fe8f1d6702df" name="Attach to System" type="Action">
+    <subsheetid>db271fdb-c1e8-4def-97a0-1299a3ac536c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="0" w="120" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>400014dc-e816-4db6-b7ba-46084ca9b7f9</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="8d555f06-930d-4378-b913-6b1b1863ed14" name="pid" type="Data">
+    <subsheetid>db271fdb-c1e8-4def-97a0-1299a3ac536c</subsheetid>
+    <display x="-165" y="-15" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="400014dc-e816-4db6-b7ba-46084ca9b7f9" name="Go to System" type="Action">
+    <subsheetid>db271fdb-c1e8-4def-97a0-1299a3ac536c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="45" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>4c4428e6-c037-499a-b476-5cfd60dad05f</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="c92e980c-6177-452a-b495-d2a48b89fce0" name="Loss of trend data warning: Changing a config" type="SubSheetInfo">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <narrative>This process should confirm that the trend data warning message is generated when:
+"Configuration enabled" is checked &amp;
+Take snapshot every is changed</narrative>
+    <display x="-345" y="-360" w="150" h="90" />
+  </stage>
+  <stage stageid="a4c16de5-a730-4afd-994b-41ac0c6f5af3" name="Start" type="Start">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <display x="-180" y="-435" />
+    <onsuccess>9627c7d1-1893-4cd8-8743-85bf52083451</onsuccess>
+  </stage>
+  <stage stageid="4f951320-9920-487e-a442-fdd652b54a55" name="End" type="End">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <display x="-180" y="465" />
+  </stage>
+  <stage stageid="9627c7d1-1893-4cd8-8743-85bf52083451" name="Click work queues from tree" type="Action">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="-375" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Workflow&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Work Queues&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>07182bc7-2cdd-4087-9c1a-681024c16a58</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="07182bc7-2cdd-4087-9c1a-681024c16a58" name="Create Work Queue" type="Action">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="-330" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Name" friendlyname="Name" narrative="The name of the work queue" expr="[Queue (1)]" />
+      <input type="text" name="Key Field" friendlyname="Key Field" narrative="The key field for the work queue" expr="" />
+      <input type="flag" name="Active" friendlyname="Active" narrative="Flag indicating if the work queue should be made active or not - default is True, ie. Active" expr="" />
+      <input type="number" name="Max Attempts" friendlyname="Max Attempts" narrative="The maximum number of attempts to allow on this queue" expr="" />
+      <input type="flag" name="Set Encryption?" friendlyname="Set Encryption?" narrative="This is a flag to tick the encryption tickbox for a queue." expr="" />
+      <input type="text" name="Scheme Name" friendlyname="Scheme Name" narrative="This is the name of the scheme in which you wish to encrypt the queue with." expr="" />
+      <input type="flag" name="Set Active Queue" friendlyname="Set Active Queue" narrative="True or False, do you want to make this an active queue." expr="" />
+      <input type="text" name="Assigned Process" friendlyname="Assigned Process" narrative="The name of the proccess you wish to assign to the active queue." expr="" />
+      <input type="text" name="Assigned Resource Group" friendlyname="Assigned Resource Group" narrative="The name of the resoruce group you want to assign to the active queue." expr="" />
+    </inputs>
+    <onsuccess>19594e36-7c12-4455-b669-627c6733caeb</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Create Work Queue" />
+  </stage>
+  <stage stageid="ca5800b5-d8a3-4a89-a8b1-44a78e81469f" name="Press Apply Button (For Work Queue)" type="Action">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="-240" w="120" h="30" />
+    <onsuccess>4b439222-c39d-49a2-9d97-111a91ed42ba</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Press Apply Button (For Work Queue)" />
+  </stage>
+  <stage stageid="4b439222-c39d-49a2-9d97-111a91ed42ba" name="Go to Reporting - Work Queue Snapshots" type="Action">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="-165" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;System&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Reporting&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="&quot;Work Queue Snapshots&quot;" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>ab033c65-37ff-448d-b2a2-5c36753e2eee</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="ab033c65-37ff-448d-b2a2-5c36753e2eee" name="Add configuration" type="Action">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="-120" w="120" h="30" />
+    <onsuccess>7193666f-8ad2-4e5d-b791-2b5fa47dfee4</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Press Add Configuration" />
+  </stage>
+  <stage stageid="7193666f-8ad2-4e5d-b791-2b5fa47dfee4" name="Enter configuration name" type="Action">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="-75" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Configuration name" friendlyname="Configuration name" narrative="This is the configuration name that is to be entered for the snapshot" expr="[Configuration (1)]" />
+    </inputs>
+    <onsuccess>2bf8429c-f990-47ff-b969-ed331515aba0</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Set Configuration Name" />
+  </stage>
+  <stage stageid="2bf8429c-f990-47ff-b969-ed331515aba0" name="Toggle queue to configure with this snapshot" type="Action">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="-30" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="This is the name of the queue which you wish to be enabled to the snapshot configuration" expr="[Queue (1)]" />
+    </inputs>
+    <onsuccess>b3cec6f2-bee4-4b46-9898-d372cadee963</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Toggle Snapshot Queue Selection" />
+  </stage>
+  <stage stageid="c5a0a53d-7167-431e-9e83-e9e4ab75836a" name="Click ok to save snapshot configuration" type="Action">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="60" w="120" h="30" />
+    <inputs>
+      <input type="flag" name="Duplicate error expected?" friendlyname="Duplicate error expected?" narrative="Do you expect an error message when pressing ok button from the snapshot configuration form" expr="False" />
+      <input type="flag" name="Edit config warning expected?" friendlyname="Edit config warning expected?" narrative="Do you expect a warning message to be shown when editing an existing snapshot configuration to alter some values and clicking ok? (This would only happen if the existing config had 'configuration enabled' enabled" expr="False" />
+      <input type="text" name="Editing config - trend data warning option" friendlyname="Editing config - trend data warning option" narrative="Select 'yes' or 'no' to continue editing config once trend data warning has been displayed" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="This is the error message content that is displayed when clicking ok on a snapshot configuration that has a duplicate name of an existing one" stage="" />
+      <output type="text" name="Trend data warning message" friendlyname="Trend data warning message" narrative="This is the warning message content that is displayed when clicking ok on a snapshot configuration that has been edited and it was previously enabled to a queue and had its configuration enabled set to true" stage="" />
+    </outputs>
+    <onsuccess>928326cf-e910-4695-8d1a-a29877fc21c6</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Press OK" />
+  </stage>
+  <stage stageid="7177f061-db3b-46d0-a5fe-2ec2b8ff77c6" name="Select snapshot to edit" type="Action">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="225" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Snapshot Name" friendlyname="Snapshot Name" narrative="The name of the snapshot you want to select." expr="[Configuration (1)]" />
+    </inputs>
+    <onsuccess>f180031b-2aa5-41b6-b3e6-473a0e8c1350</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Select Configuration" />
+  </stage>
+  <stage stageid="f180031b-2aa5-41b6-b3e6-473a0e8c1350" name="Click edit configuration" type="Action">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="270" w="120" h="30" />
+    <onsuccess>34af8eef-7e08-4d1c-bea5-da8ca3d3dcab</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Press Edit" />
+  </stage>
+  <stage stageid="daacaa44-fa09-495b-82f6-eddfd1b6177d" name="Create queue" type="Block">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="-405" w="150" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="CCFFFF" />
+  </stage>
+  <stage stageid="8d1d3891-e8b2-417e-8f31-c60cdb69c107" name="Create snapshot config" type="Block">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="-195" w="150" h="375" />
+    <font family="Segoe UI" size="10" style="Regular" color="CCFFCC" />
+  </stage>
+  <stage stageid="903a5635-d8e6-4646-97d2-8dbc64a14131" name="Change config" type="Block">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="195" w="150" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FF0000" />
+  </stage>
+  <stage stageid="34af8eef-7e08-4d1c-bea5-da8ca3d3dcab" name="Change snapshot interval" type="Action">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="315" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Set snapshot interval" friendlyname="Set snapshot interval" narrative="This is the interval when each snapshot will be taken at" expr="&quot;12 Hours&quot;" />
+    </inputs>
+    <onsuccess>f8100ad8-e48c-40df-b818-a2474454972b</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Set Snapshot Interval" />
+  </stage>
+  <stage stageid="b3cec6f2-bee4-4b46-9898-d372cadee963" name="Enable configuration" type="Action">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="15" w="120" h="30" />
+    <inputs>
+      <input type="flag" name="Configuration enabled?" friendlyname="Configuration enabled?" narrative="This is the flag to set whether user wants to enable the snapshot configuration or not. It is set to false by default" expr="True" />
+    </inputs>
+    <onsuccess>c5a0a53d-7167-431e-9e83-e9e4ab75836a</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Set Configuration Enabled State" />
+  </stage>
+  <stage stageid="f8100ad8-e48c-40df-b818-a2474454972b" name="Click OK" type="Action">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="360" w="120" h="30" />
+    <inputs>
+      <input type="flag" name="Duplicate error expected?" friendlyname="Duplicate error expected?" narrative="Do you expect an error message when pressing ok button from the snapshot configuration form" expr="False" />
+      <input type="flag" name="Edit config warning expected?" friendlyname="Edit config warning expected?" narrative="Do you expect a warning message to be shown when editing an existing snapshot configuration to alter some values and clicking ok? (This would only happen if the existing config had 'configuration enabled' enabled" expr="True" />
+      <input type="text" name="Editing config - trend data warning option" friendlyname="Editing config - trend data warning option" narrative="Select 'yes' or 'no' to continue editing config once trend data warning has been displayed" expr="&quot;Yes&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="This is the error message content that is displayed when clicking ok on a snapshot configuration that has a duplicate name of an existing one" stage="" />
+      <output type="text" name="Trend data warning message" friendlyname="Trend data warning message" narrative="This is the warning message content that is displayed when clicking ok on a snapshot configuration that has been edited and it was previously enabled to a queue and had its configuration enabled set to true" stage="Read value for trend data warning" />
+    </outputs>
+    <onsuccess>fbc7bf69-d28e-4db5-8eed-619ba6e20648</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Press OK" />
+  </stage>
+  <stage stageid="fbc7bf69-d28e-4db5-8eed-619ba6e20648" name="Trend data warning message displayed?" type="Decision">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <display x="-180" y="420" w="120" h="30" />
+    <decision expression="StartsWith([Read value for trend data warning], &quot;Applying these configuration changes will cause trend data associated with any updated queues to be deleted.&quot;)&#xA;AND&#xA;EndsWith([Read value for trend data warning], &quot;Do you want to continue?&quot;)" />
+    <ontrue>4f951320-9920-487e-a442-fdd652b54a55</ontrue>
+    <onfalse>33e0431b-4e2d-44da-9e5d-8d7aab3eeb86</onfalse>
+  </stage>
+  <stage stageid="33e0431b-4e2d-44da-9e5d-8d7aab3eeb86" name="Exception" type="Exception">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <display x="-75" y="420" />
+    <exception localized="yes" type="Missing Element" detail="&quot;Trend data warning message did not display&quot;" />
+  </stage>
+  <stage stageid="502b1e87-fcd2-4ebe-a44a-4e173be80671" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="30" w="330" h="30" />
+    <onsuccess>a39e4850-a943-47f2-8fb1-a22f9c9aec62</onsuccess>
+    <processid>db271fdb-c1e8-4def-97a0-1299a3ac536c</processid>
+  </stage>
+  <stage stageid="cca34fe5-cdf5-4867-9770-4153950fd1ca" name="Loss of trend data warning: Changing a config" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="150" w="330" h="30" />
+    <onsuccess>db2dabc4-ad4c-4f5f-b0fe-f2a11008c838</onsuccess>
+    <processid>4553d47d-dace-4a4d-8ad1-9d3e39707447</processid>
+  </stage>
+  <stage stageid="b8d1bf91-7df4-4c39-8bad-aa87301d2be5" name="Read value for trend data warning" type="Data">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <display x="-345" y="-270" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="912256b6-180a-46de-8315-0640af2f6a7b" name="Read outputs" type="Block">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-420" y="-300" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="acd2f001-a1fe-4913-8b41-217d12c12176" name="No trend data warning after changing config" type="SubSheetInfo">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <display x="-255" y="-450" w="150" h="90" />
+  </stage>
+  <stage stageid="cd1f46b8-e439-4616-bbd4-2eb097577933" name="Start" type="Start">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <display x="-90" y="-480" />
+    <onsuccess>277d9122-3489-4359-b95d-c0e143ee2e03</onsuccess>
+  </stage>
+  <stage stageid="4280b73c-67d3-4ec4-b9b9-b8357efb4c6e" name="End" type="End">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <display x="-90" y="375" />
+  </stage>
+  <stage stageid="277d9122-3489-4359-b95d-c0e143ee2e03" name="Click work queues from tree" type="Action">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-420" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Workflow&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Work Queues&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>30369525-cb84-450f-9871-6f09aec11180</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="30369525-cb84-450f-9871-6f09aec11180" name="Create Work Queue" type="Action">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-375" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Name" friendlyname="Name" narrative="The name of the work queue" expr="[Queue (2)]" />
+      <input type="text" name="Key Field" friendlyname="Key Field" narrative="The key field for the work queue" expr="" />
+      <input type="flag" name="Active" friendlyname="Active" narrative="Flag indicating if the work queue should be made active or not - default is True, ie. Active" expr="" />
+      <input type="number" name="Max Attempts" friendlyname="Max Attempts" narrative="The maximum number of attempts to allow on this queue" expr="" />
+      <input type="flag" name="Set Encryption?" friendlyname="Set Encryption?" narrative="This is a flag to tick the encryption tickbox for a queue." expr="" />
+      <input type="text" name="Scheme Name" friendlyname="Scheme Name" narrative="This is the name of the scheme in which you wish to encrypt the queue with." expr="" />
+      <input type="flag" name="Set Active Queue" friendlyname="Set Active Queue" narrative="True or False, do you want to make this an active queue." expr="" />
+      <input type="text" name="Assigned Process" friendlyname="Assigned Process" narrative="The name of the proccess you wish to assign to the active queue." expr="" />
+      <input type="text" name="Assigned Resource Group" friendlyname="Assigned Resource Group" narrative="The name of the resoruce group you want to assign to the active queue." expr="" />
+    </inputs>
+    <onsuccess>c815a6d9-db7d-4d9e-8d9d-c1c504839e39</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Create Work Queue" />
+  </stage>
+  <stage stageid="0858d6f8-551e-48eb-8217-fcedac4261bb" name="Press Apply Button (For Work Queue)" type="Action">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-285" w="120" h="30" />
+    <onsuccess>4e7f4c7e-86b3-4e37-b0cc-b73eaf280229</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Press Apply Button (For Work Queue)" />
+  </stage>
+  <stage stageid="4e7f4c7e-86b3-4e37-b0cc-b73eaf280229" name="Go to Reporting - Work Queue Snapshots" type="Action">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-210" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;System&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Reporting&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="&quot;Work Queue Snapshots&quot;" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>4d5da903-1266-4b43-9994-6242ad827b04</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="4d5da903-1266-4b43-9994-6242ad827b04" name="Add configuration" type="Action">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-165" w="120" h="30" />
+    <onsuccess>c6d4ac6b-4194-4121-8b67-868d32c5a4c3</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Press Add Configuration" />
+  </stage>
+  <stage stageid="c6d4ac6b-4194-4121-8b67-868d32c5a4c3" name="Enter configuration name" type="Action">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-120" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Configuration name" friendlyname="Configuration name" narrative="This is the configuration name that is to be entered for the snapshot" expr="[Configuration (2)]" />
+    </inputs>
+    <onsuccess>ccc5fbce-0f64-4745-8a80-d0513959181c</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Set Configuration Name" />
+  </stage>
+  <stage stageid="ccc5fbce-0f64-4745-8a80-d0513959181c" name="Toggle queue to configure with this snapshot" type="Action">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-75" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="This is the name of the queue which you wish to be enabled to the snapshot configuration" expr="[Queue (2)]" />
+    </inputs>
+    <onsuccess>47de23db-ea7e-49d1-8ecf-a0020aba5903</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Toggle Snapshot Queue Selection" />
+  </stage>
+  <stage stageid="d6dc70a7-91ce-40e6-9683-9736356cdfbe" name="Click ok to save snapshot configuration" type="Action">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="15" w="120" h="30" />
+    <inputs>
+      <input type="flag" name="Duplicate error expected?" friendlyname="Duplicate error expected?" narrative="Do you expect an error message when pressing ok button from the snapshot configuration form" expr="False" />
+      <input type="flag" name="Edit config warning expected?" friendlyname="Edit config warning expected?" narrative="Do you expect a warning message to be shown when editing an existing snapshot configuration to alter some values and clicking ok? (This would only happen if the existing config had 'configuration enabled' enabled" expr="False" />
+      <input type="text" name="Editing config - trend data warning option" friendlyname="Editing config - trend data warning option" narrative="Select 'yes' or 'no' to continue editing config once trend data warning has been displayed" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="This is the error message content that is displayed when clicking ok on a snapshot configuration that has a duplicate name of an existing one" stage="" />
+    </outputs>
+    <onsuccess>eb2e4f62-d71a-431d-afbe-5e5c0e51c8d7</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Press OK" />
+  </stage>
+  <stage stageid="812cc777-0816-430e-85ae-98416d604d20" name="Select snapshot to edit" type="Action">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="180" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Snapshot Name" friendlyname="Snapshot Name" narrative="The name of the snapshot you want to select." expr="[Configuration (2)]" />
+    </inputs>
+    <onsuccess>1364ebd9-4a15-45bb-8559-9f11668aa900</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Select Configuration" />
+  </stage>
+  <stage stageid="1364ebd9-4a15-45bb-8559-9f11668aa900" name="Click edit configuration" type="Action">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="225" w="120" h="30" />
+    <onsuccess>afc9aac8-e62d-4d06-86df-b713291cd313</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Press Edit" />
+  </stage>
+  <stage stageid="5b6a599d-8730-4fb1-a00b-68f75e803231" name="Create queue" type="Block">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-165" y="-450" w="150" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="CCFFFF" />
+  </stage>
+  <stage stageid="a61f1293-fbb0-482e-a10f-b5cc326dc04f" name="Create snapshot config" type="Block">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-165" y="-240" w="150" h="375" />
+    <font family="Segoe UI" size="10" style="Regular" color="CCFFCC" />
+  </stage>
+  <stage stageid="b0040d8d-70f7-4d2c-8c9c-214ec0590e42" name="Change config" type="Block">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-165" y="150" w="150" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FF0000" />
+  </stage>
+  <stage stageid="afc9aac8-e62d-4d06-86df-b713291cd313" name="Change snapshot interval" type="Action">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="270" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Set snapshot interval" friendlyname="Set snapshot interval" narrative="This is the interval when each snapshot will be taken at" expr="&quot;6 Hours&quot;" />
+    </inputs>
+    <onsuccess>e4bd3b00-48fb-4684-94fd-ffcbd7520c79</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Set Snapshot Interval" />
+  </stage>
+  <stage stageid="47de23db-ea7e-49d1-8ecf-a0020aba5903" name="Enable configuration?" type="Action">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-30" w="120" h="30" />
+    <inputs>
+      <input type="flag" name="Configuration enabled?" friendlyname="Configuration enabled?" narrative="This is the flag to set whether user wants to enable the snapshot configuration or not. It is set to false by default" expr="False" />
+    </inputs>
+    <onsuccess>d6dc70a7-91ce-40e6-9683-9736356cdfbe</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Set Configuration Enabled State" />
+  </stage>
+  <stage stageid="e4bd3b00-48fb-4684-94fd-ffcbd7520c79" name="Click OK" type="Action">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="315" w="120" h="30" />
+    <inputs>
+      <input type="flag" name="Duplicate error expected?" friendlyname="Duplicate error expected?" narrative="Do you expect an error message when pressing ok button from the snapshot configuration form" expr="False" />
+      <input type="flag" name="Edit config warning expected?" friendlyname="Edit config warning expected?" narrative="Do you expect a warning message to be shown when editing an existing snapshot configuration to alter some values and clicking ok? (This would only happen if the existing config had 'configuration enabled' enabled" expr="False" />
+      <input type="text" name="Editing config - trend data warning option" friendlyname="Editing config - trend data warning option" narrative="Select 'yes' or 'no' to continue editing config once trend data warning has been displayed" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="This is the error message content that is displayed when clicking ok on a snapshot configuration that has a duplicate name of an existing one" stage="" />
+      <output type="text" name="Trend data warning message" friendlyname="Trend data warning message" narrative="This is the warning message content that is displayed when clicking ok on a snapshot configuration that has been edited and it was previously enabled to a queue and had its configuration enabled set to true" stage="" />
+    </outputs>
+    <onsuccess>4280b73c-67d3-4ec4-b9b9-b8357efb4c6e</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Press OK" />
+  </stage>
+  <stage stageid="196797f5-add7-4b85-b786-2b581ec76972" name="No trend data warning after changing config" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="270" w="330" h="30" />
+    <onsuccess>9e8e2c33-f7c5-4b8f-b35d-bf5616a227df</onsuccess>
+    <processid>0066f13d-9c34-4736-8308-ee119fbf7f9b</processid>
+  </stage>
+  <stage stageid="53984b78-75dc-42f3-908d-61a19918e4d2" name="Failed?" type="Data">
+    <display x="-210" y="285" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6850ce0b-22c9-465f-beda-b8a3a260f3b1" name="Exception" type="Data">
+    <display x="-210" y="315" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e9b73c26-0aff-4eb5-9488-dba9cb1798eb" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="255" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c59ed969-9e2f-4eba-a6b8-925c72d0f36b" name="End1" type="End">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="420" />
+  </stage>
+  <stage stageid="bac9f56a-55b6-4a89-af0a-93a262038f54" name="Cleanup Block" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="0" w="435" h="300" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="cf04a2e5-a097-478e-b72c-228b1587fb00" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="270" y="120" />
+    <onsuccess>c0b7180f-fd1a-490f-929c-4832f22669de</onsuccess>
+  </stage>
+  <stage stageid="e50171cd-60d6-49f1-adc9-66542079f9b8" name="Exception calc" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="270" y="75" />
+    <onsuccess>cf04a2e5-a097-478e-b72c-228b1587fb00</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="9d182525-e7a3-44a9-ae53-12e72e8d940f" name="Failed?" type="Decision">
+    <display x="60" y="375" w="120" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>c040b36d-3fda-4d5a-adc9-9037f3da9347</ontrue>
+    <onfalse>c59ed969-9e2f-4eba-a6b8-925c72d0f36b</onfalse>
+  </stage>
+  <stage stageid="c040b36d-3fda-4d5a-adc9-9037f3da9347" name="RETHROW" type="Exception">
+    <display x="165" y="375" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="c0b7180f-fd1a-490f-929c-4832f22669de" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="270" y="330" w="10" h="10" />
+    <onsuccess>9e8e2c33-f7c5-4b8f-b35d-bf5616a227df</onsuccess>
+  </stage>
+  <stage stageid="9e8e2c33-f7c5-4b8f-b35d-bf5616a227df" name="Cleanup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="330" w="330" h="30" />
+    <onsuccess>9d182525-e7a3-44a9-ae53-12e72e8d940f</onsuccess>
+    <processid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</processid>
+  </stage>
+  <stage stageid="ae7fa82f-9cf2-49a2-8392-055044567c7b" name="Local Variables" type="Block">
+    <subsheetid>db271fdb-c1e8-4def-97a0-1299a3ac536c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-240" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4c4428e6-c037-499a-b476-5cfd60dad05f" name="End2" type="End">
+    <subsheetid>db271fdb-c1e8-4def-97a0-1299a3ac536c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="90" />
+  </stage>
+  <stage stageid="45bd1abb-cf61-4cea-b8a1-16d80e999b23" name="Add to Cleanup" type="SubSheetInfo">
+    <subsheetid>9e1ddfdc-3df2-4850-b713-a020dd8da2ae</subsheetid>
+    <display x="-120" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="8ec94749-26bb-4890-a53e-d75c61247baa" name="Start" type="Start">
+    <subsheetid>9e1ddfdc-3df2-4850-b713-a020dd8da2ae</subsheetid>
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="Item Name" narrative="The name of the item you want to clean up." stage="Item Name" />
+    </inputs>
+    <onsuccess>e5d23e90-ffe0-495e-ac13-9b2a4aba4f7c</onsuccess>
+  </stage>
+  <stage stageid="06b5166b-7615-49d6-9843-29c5a68626d3" name="End" type="End">
+    <subsheetid>9e1ddfdc-3df2-4850-b713-a020dd8da2ae</subsheetid>
+    <display x="15" y="30" />
+  </stage>
+  <stage stageid="3d6808ec-72e2-4dc1-b2c8-a16ee0de5fd1" name="Item Name" type="Data">
+    <subsheetid>9e1ddfdc-3df2-4850-b713-a020dd8da2ae</subsheetid>
+    <display x="-120" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1ab6f8a5-4f15-4f5a-b38f-0bc6a11ab6be" name="Input Variables" type="Block">
+    <subsheetid>9e1ddfdc-3df2-4850-b713-a020dd8da2ae</subsheetid>
+    <display x="-195" y="-15" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e5d23e90-ffe0-495e-ac13-9b2a4aba4f7c" name="Add Row" type="Action">
+    <subsheetid>9e1ddfdc-3df2-4850-b713-a020dd8da2ae</subsheetid>
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to act upon" expr="&quot;CleanUp Collection&quot;" />
+    </inputs>
+    <onsuccess>6129ad16-a7bb-426e-a6d9-b39644fc1a81</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="6129ad16-a7bb-426e-a6d9-b39644fc1a81" name="Add To Row" type="Calculation">
+    <subsheetid>9e1ddfdc-3df2-4850-b713-a020dd8da2ae</subsheetid>
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>06b5166b-7615-49d6-9843-29c5a68626d3</onsuccess>
+    <calculation expression="[Item Name]" stage="CleanUp Collection.Item Name" />
+  </stage>
+  <stage stageid="620d4b4c-d8b7-4e4b-93b2-3a4d8f8b2d8c" name="Cleanup" type="SubSheetInfo">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="-120" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="e5e8e9ff-68bc-4b4a-8a5b-c9da3a6ca15d" name="Start" type="Start">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>eae5b79c-a5cd-43d2-b6b7-f995263ec4ea</onsuccess>
+  </stage>
+  <stage stageid="b8c09f5b-80a4-43e2-849c-cd65a976aa82" name="To Clean" type="LoopStart">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>50f76e8b-0e0f-46d7-b40d-0605c0dc4018</onsuccess>
+    <groupid>05905588-81c2-4a1e-82b7-e899dd2901df</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Reversed CleanUp</loopdata>
+  </stage>
+  <stage stageid="636c575b-0c98-43a6-87c8-740ea8d67da8" name="To Clean" type="LoopEnd">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="15" y="315" w="90" h="30" />
+    <onsuccess>acb1851b-e22f-4fa5-bd1a-f9e581876af3</onsuccess>
+    <groupid>05905588-81c2-4a1e-82b7-e899dd2901df</groupid>
+  </stage>
+  <stage stageid="50f76e8b-0e0f-46d7-b40d-0605c0dc4018" name="Which Clean Up" type="ChoiceStart">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="15" y="30" w="90" h="30" />
+    <groupid>582620f3-94cc-4efd-8520-844700d36196</groupid>
+    <choices>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Blue Prism&quot;">
+        <name>Blue Prism</name>
+        <distance>30</distance>
+        <ontrue>15f66ce0-5bdf-4e0f-80fd-dd6f26b14857</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Q1&quot;">
+        <name>Q1</name>
+        <distance>60</distance>
+        <ontrue>a847b9ac-893a-4466-af52-2438a3bebbaf</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Q2&quot;">
+        <name>Q2</name>
+        <distance>90</distance>
+        <ontrue>5f970add-0cd6-4952-a7cf-3b24976e2b10</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;WQA Config 1&quot;">
+        <name>WQA Config 1</name>
+        <distance>120</distance>
+        <ontrue>bcec4e1a-cdd4-4d89-89ef-d48acf5a8530</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;WQA Config 2&quot;">
+        <name>WQA Config 2</name>
+        <distance>150</distance>
+        <ontrue>8ebfdb82-f931-40f7-9133-c8fe42594558</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Q on Config 1&quot;">
+        <name>Q on Config 1</name>
+        <distance>180</distance>
+        <ontrue>c9eba5f4-1fa5-4ca7-8c46-63f9b938b31a</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Q on Config 2&quot;">
+        <name>Q on Config 2</name>
+        <distance>210</distance>
+        <ontrue>bfee2d31-f487-4b08-98c8-36ed8eaeac9c</ontrue>
+      </choice>
+    </choices>
+  </stage>
+  <stage stageid="ce02fdc2-2c8c-4c16-bf6a-96bb1652ab40" name="Otherwise" type="ChoiceEnd">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="15" y="270" w="90" h="30" />
+    <onsuccess>65233dd9-4cc4-4aaa-9255-7c0aa7555d8c</onsuccess>
+    <groupid>582620f3-94cc-4efd-8520-844700d36196</groupid>
+  </stage>
+  <stage stageid="65233dd9-4cc4-4aaa-9255-7c0aa7555d8c" name="FAIL" type="Exception">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="90" y="270" w="30" h="30" />
+    <exception type="" detail="&quot;You have entered a clean up item the choice doesn't recognise.&quot;" />
+  </stage>
+  <stage stageid="eae5b79c-a5cd-43d2-b6b7-f995263ec4ea" name="Reverse Collection" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="Collection" narrative="The collection to be reversed." expr="[CleanUp Collection]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Reversed Collection" narrative="The reversed collection." stage="Reversed CleanUp" />
+    </outputs>
+    <onsuccess>b8c09f5b-80a4-43e2-849c-cd65a976aa82</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Reverse Collection" />
+  </stage>
+  <stage stageid="93eca5d5-4bfb-43fa-9692-4172f26adc02" name="Reversed CleanUp" type="Collection">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="-120" y="15" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7f09af1d-3bc6-465f-bfcd-a7347fff7bcb" name="Local Variables" type="Block">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="-195" y="-15" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b074f8bc-ed10-4cca-8969-c0b9ef224610" name="Browse to System" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="480" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>13f44de6-139f-4ac5-9548-aa478d81639a</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="13f44de6-139f-4ac5-9548-aa478d81639a" name="Browse to WQA Snapshots" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="585" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;System&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Reporting&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="&quot;Work Queue Snapshots&quot;" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>e4cc41e8-2e35-43d4-bae2-75ac9881e274</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="256fc448-ac65-4bd2-b964-9301e15bca77" name="Anchor4" type="Anchor">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="855" y="150" w="10" h="10" />
+    <onsuccess>343b2ef3-6ce3-4d31-8a07-7f5021ea565a</onsuccess>
+  </stage>
+  <stage stageid="b0709c09-d85f-4854-a477-b1ff582e5e12" name="Anchor5" type="Anchor">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="855" y="315" w="10" h="10" />
+    <onsuccess>636c575b-0c98-43a6-87c8-740ea8d67da8</onsuccess>
+  </stage>
+  <stage stageid="6313bd73-070f-49a9-ad62-c50a93f70753" name="Browse to System" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="585" y="90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>c9cec5b0-71d7-4162-a64e-2eea97f0f7c8</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="c9cec5b0-71d7-4162-a64e-2eea97f0f7c8" name="Browse to Work Queues" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="690" y="90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Workflow&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Work Queues&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>44faff27-e0dc-4e6c-b491-51c2d8cb378a</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="c35cf487-c6d8-441e-bb3b-e4043501208b" name="Anchor4" type="Anchor">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="855" y="90" w="10" h="10" />
+    <onsuccess>d33e7983-810f-4b34-87c4-ca30219dca1d</onsuccess>
+  </stage>
+  <stage stageid="cd9e5014-1ad1-4088-854f-7698c77a7a68" name="Browse to System" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="585" y="120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>93cf6700-d763-430c-8a6b-faac7f260603</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="d33e7983-810f-4b34-87c4-ca30219dca1d" name="Anchor4" type="Anchor">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="855" y="120" w="10" h="10" />
+    <onsuccess>256fc448-ac65-4bd2-b964-9301e15bca77</onsuccess>
+  </stage>
+  <stage stageid="07122dd7-dedd-4ba6-859e-9290ee5a65b0" name="Terminate" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="795" y="60" w="90" h="30" />
+    <onsuccess>29e84531-4ae9-4c06-b54d-3ad10f1619b8</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="15f66ce0-5bdf-4e0f-80fd-dd6f26b14857" name="Close all child windows" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="690" y="60" w="90" h="30" />
+    <onsuccess>07122dd7-dedd-4ba6-859e-9290ee5a65b0</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="29e84531-4ae9-4c06-b54d-3ad10f1619b8" name="Anchor9" type="Anchor">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="855" y="60" w="10" h="10" />
+    <onsuccess>c35cf487-c6d8-441e-bb3b-e4043501208b</onsuccess>
+  </stage>
+  <stage stageid="acb1851b-e22f-4fa5-bd1a-f9e581876af3" name="End1" type="End">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="15" y="360" />
+  </stage>
+  <stage stageid="a847b9ac-893a-4466-af52-2438a3bebbaf" name="Close all child windows" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="480" y="90" w="90" h="30" />
+    <onsuccess>6313bd73-070f-49a9-ad62-c50a93f70753</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="5f970add-0cd6-4952-a7cf-3b24976e2b10" name="Close all child windows" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="480" y="120" w="90" h="30" />
+    <onsuccess>cd9e5014-1ad1-4088-854f-7698c77a7a68</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="bcec4e1a-cdd4-4d89-89ef-d48acf5a8530" name="Close all child windows" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="375" y="150" w="90" h="30" />
+    <onsuccess>b074f8bc-ed10-4cca-8969-c0b9ef224610</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="93cf6700-d763-430c-8a6b-faac7f260603" name="Browse to Work Queues" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="690" y="120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Workflow&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Work Queues&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>c96525f7-43cd-44fd-a31f-dac05f5519b1</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="44faff27-e0dc-4e6c-b491-51c2d8cb378a" name="Delete Queue" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="795" y="90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to delete" expr="[Queue (1)]" />
+      <input type="text" name="Delete option on trend data warning message" friendlyname="Delete option on trend data warning message" narrative="To select 'Yes' or 'No' to confirm whether or not to delete a work queue if it has trend data associated to it" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Trend data warning message when deleting a queue" friendlyname="Trend data warning message when deleting a queue" narrative="The warning message given when trying to delete a queue that has been enabled to a snapshot configuration" stage="" />
+    </outputs>
+    <onsuccess>c35cf487-c6d8-441e-bb3b-e4043501208b</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Delete Work Queue" />
+  </stage>
+  <stage stageid="c96525f7-43cd-44fd-a31f-dac05f5519b1" name="Delete Queue" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="795" y="120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to delete" expr="[Queue (2)]" />
+      <input type="text" name="Delete option on trend data warning message" friendlyname="Delete option on trend data warning message" narrative="To select 'Yes' or 'No' to confirm whether or not to delete a work queue if it has trend data associated to it" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Trend data warning message when deleting a queue" friendlyname="Trend data warning message when deleting a queue" narrative="The warning message given when trying to delete a queue that has been enabled to a snapshot configuration" stage="" />
+    </outputs>
+    <onsuccess>d33e7983-810f-4b34-87c4-ca30219dca1d</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Delete Work Queue" />
+  </stage>
+  <stage stageid="e4cc41e8-2e35-43d4-bae2-75ac9881e274" name="Select snapshot to delete" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="690" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Snapshot Name" friendlyname="Snapshot Name" narrative="The name of the snapshot you want to select." expr="[Configuration (1)]" />
+    </inputs>
+    <onsuccess>1a4176cd-84f3-4305-bc73-6c4312b17656</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Select Configuration" />
+  </stage>
+  <stage stageid="1a4176cd-84f3-4305-bc73-6c4312b17656" name="Delete configuration" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="795" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Delete configuration confirmation option" friendlyname="Delete configuration confirmation option" narrative="This is the window that pops up to ask user to confirm if they want to delete the snapshot" expr="&quot;Yes&quot;" />
+      <input type="flag" name="Error message" friendlyname="Error message" narrative="This is the error message received if trying to delete a snapshot that is already enabled to a work queue" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Delete error message displayed" friendlyname="Delete error message displayed" narrative="This is the error message received if trying to delete a snapshot that is already enabled to a work queue" stage="" />
+      <output type="text" name="Delete confirmation message displayed" friendlyname="Delete confirmation message displayed" narrative="This is the confirmation message displayed when user tries to delete a snapshot that is not currently enabled to any work queues" stage="" />
+    </outputs>
+    <onsuccess>256fc448-ac65-4bd2-b964-9301e15bca77</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Press Delete" />
+  </stage>
+  <stage stageid="d183049c-9a57-40bc-87bf-ca16649979d5" name="Queue (1)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Q1 (US-4524)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="93210f47-d9a6-4e9d-a1d6-3dc4ded557cf" name="Global Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="60" w="150" h="180" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ded6dd8f-f505-464a-98cc-197ee610d64a" name="Queue (2)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Q2 (US-4524)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="50d4cb06-92ef-4495-b774-20fa2be4b32e" name="Configuration (1)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="150" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">WQA Config (1) (US-4524)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="da4d764e-b9bd-46ee-8992-6b7aeaa61cd8" name="CleanUp Collection" type="Collection">
+    <display x="-210" y="210" w="120" h="30" />
+    <datatype>collection</datatype>
+    <collectioninfo>
+      <field name="Item Name" type="text" description="The name of the item that needs cleaning up." />
+    </collectioninfo>
+    <noalwaysinit />
+  </stage>
+  <stage stageid="7a5992aa-306e-400f-b720-e2454919dd08" name="Configuration (2)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="180" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">WQA Config (2) (US-4524)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="19594e36-7c12-4455-b669-627c6733caeb" name="Add to Cleanup (Q1)" type="SubSheet">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="-285" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;Q1&quot;" />
+    </inputs>
+    <onsuccess>ca5800b5-d8a3-4a89-a8b1-44a78e81469f</onsuccess>
+    <processid>9e1ddfdc-3df2-4850-b713-a020dd8da2ae</processid>
+  </stage>
+  <stage stageid="c815a6d9-db7d-4d9e-8d9d-c1c504839e39" name="Add to Cleanup (Q2)" type="SubSheet">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-330" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;Q2&quot;" />
+    </inputs>
+    <onsuccess>0858d6f8-551e-48eb-8217-fcedac4261bb</onsuccess>
+    <processid>9e1ddfdc-3df2-4850-b713-a020dd8da2ae</processid>
+  </stage>
+  <stage stageid="928326cf-e910-4695-8d1a-a29877fc21c6" name="Add to Cleanup (WQA Config 1)" type="SubSheet">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="105" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;WQA Config 1&quot;" />
+    </inputs>
+    <onsuccess>23914c0b-ca7e-4dee-9e53-8271b6a171c1</onsuccess>
+    <processid>9e1ddfdc-3df2-4850-b713-a020dd8da2ae</processid>
+  </stage>
+  <stage stageid="eb2e4f62-d71a-431d-afbe-5e5c0e51c8d7" name="Add to Cleanup (WQA Config 2)" type="SubSheet">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="60" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;WQA Config 2&quot;" />
+    </inputs>
+    <onsuccess>1aecaf88-fca3-4ed7-93b1-f3af05ad9645</onsuccess>
+    <processid>9e1ddfdc-3df2-4850-b713-a020dd8da2ae</processid>
+  </stage>
+  <stage stageid="fa93a247-b3a8-451f-a319-1f14f3cb1a59" name="Browse to System" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="480" y="180" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>3a1aa3a5-72e4-4f57-9015-7dcc582da56c</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="3a1aa3a5-72e4-4f57-9015-7dcc582da56c" name="Browse to WQA Snapshots" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="585" y="180" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;System&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Reporting&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="&quot;Work Queue Snapshots&quot;" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>b8ec0915-e26c-4b05-b3e9-332a21d50881</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="343b2ef3-6ce3-4d31-8a07-7f5021ea565a" name="Anchor4" type="Anchor">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="855" y="180" w="10" h="10" />
+    <onsuccess>18d76f62-2298-4bdc-bd42-738b68011929</onsuccess>
+  </stage>
+  <stage stageid="8ebfdb82-f931-40f7-9133-c8fe42594558" name="Close all child windows" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="375" y="180" w="90" h="30" />
+    <onsuccess>fa93a247-b3a8-451f-a319-1f14f3cb1a59</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="b8ec0915-e26c-4b05-b3e9-332a21d50881" name="Select snapshot to delete" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="690" y="180" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Snapshot Name" friendlyname="Snapshot Name" narrative="The name of the snapshot you want to select." expr="[Configuration (2)]" />
+    </inputs>
+    <onsuccess>96c21960-e4a0-43a7-ab15-38f8f83cef02</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Select Configuration" />
+  </stage>
+  <stage stageid="96c21960-e4a0-43a7-ab15-38f8f83cef02" name="Delete configuration" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="795" y="180" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Delete configuration confirmation option" friendlyname="Delete configuration confirmation option" narrative="This is the window that pops up to ask user to confirm if they want to delete the snapshot" expr="&quot;Yes&quot;" />
+      <input type="flag" name="Error message" friendlyname="Error message" narrative="This is the error message received if trying to delete a snapshot that is already enabled to a work queue" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Delete error message displayed" friendlyname="Delete error message displayed" narrative="This is the error message received if trying to delete a snapshot that is already enabled to a work queue" stage="" />
+      <output type="text" name="Delete confirmation message displayed" friendlyname="Delete confirmation message displayed" narrative="This is the confirmation message displayed when user tries to delete a snapshot that is not currently enabled to any work queues" stage="" />
+    </outputs>
+    <onsuccess>343b2ef3-6ce3-4d31-8a07-7f5021ea565a</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Press Delete" />
+  </stage>
+  <stage stageid="a39e4850-a943-47f2-8fb1-a22f9c9aec62" name="Note2" type="Note">
+    <narrative>GIVEN a queue can been created
+AND that queue has been assigned to an ENABLED configuration
+WHEN the configuration is edited
+THEN a trend warning is displayed</narrative>
+    <display x="60" y="90" w="330" h="60" />
+    <font family="Segoe UI" size="11" style="Bold" color="339966" />
+    <onsuccess>cca34fe5-cdf5-4867-9770-4153950fd1ca</onsuccess>
+  </stage>
+  <stage stageid="db2dabc4-ad4c-4f5f-b0fe-f2a11008c838" name="Note2" type="Note">
+    <narrative>GIVEN a queue can been created
+AND that queue HAS been assigned to a DISABLED configuration
+WHEN the configuration is edited
+THEN no trend warning is displayed</narrative>
+    <display x="60" y="210" w="330" h="60" />
+    <font family="Segoe UI" size="11" style="Bold" color="339966" />
+    <onsuccess>196797f5-add7-4b85-b786-2b581ec76972</onsuccess>
+  </stage>
+  <stage stageid="1aecaf88-fca3-4ed7-93b1-f3af05ad9645" name="Add to Cleanup (Q on Config 2)" type="SubSheet">
+    <subsheetid>0066f13d-9c34-4736-8308-ee119fbf7f9b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="105" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;Q on Config 2&quot;" />
+    </inputs>
+    <onsuccess>812cc777-0816-430e-85ae-98416d604d20</onsuccess>
+    <processid>9e1ddfdc-3df2-4850-b713-a020dd8da2ae</processid>
+  </stage>
+  <stage stageid="23914c0b-ca7e-4dee-9e53-8271b6a171c1" name="Add to Cleanup (Q on Config 1)" type="SubSheet">
+    <subsheetid>4553d47d-dace-4a4d-8ad1-9d3e39707447</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="150" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;Q on Config 1&quot;" />
+    </inputs>
+    <onsuccess>7177f061-db3b-46d0-a5fe-2ec2b8ff77c6</onsuccess>
+    <processid>9e1ddfdc-3df2-4850-b713-a020dd8da2ae</processid>
+  </stage>
+  <stage stageid="ee518882-3117-4baa-aae5-db9824428b0d" name="Browse to System" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="270" y="210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>cb0c1629-cfbc-411a-b620-4224e9009232</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="cb0c1629-cfbc-411a-b620-4224e9009232" name="Browse to WQA Snapshots" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="375" y="210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;System&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Reporting&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="&quot;Work Queue Snapshots&quot;" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>ecc08359-63df-4bae-a117-7dde360ec051</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="c9eba5f4-1fa5-4ca7-8c46-63f9b938b31a" name="Close all child windows" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="165" y="210" w="90" h="30" />
+    <onsuccess>ee518882-3117-4baa-aae5-db9824428b0d</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="ecc08359-63df-4bae-a117-7dde360ec051" name="Select snapshot to edit" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="480" y="210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Snapshot Name" friendlyname="Snapshot Name" narrative="The name of the snapshot you want to select." expr="[Configuration (1)]" />
+    </inputs>
+    <onsuccess>5fe8d4a7-a08a-49f6-b0a4-2457e86e25f4</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Select Configuration" />
+  </stage>
+  <stage stageid="aad81816-6fed-4a61-9d7d-61caaaf22df7" name="Browse to System" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="270" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>4c00ddc4-786a-4509-a838-ed9e4aaa93e0</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="4c00ddc4-786a-4509-a838-ed9e4aaa93e0" name="Browse to WQA Snapshots" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="375" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;System&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Reporting&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="&quot;Work Queue Snapshots&quot;" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>42668469-69ed-400c-b23d-98980afbe9da</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="bfee2d31-f487-4b08-98c8-36ed8eaeac9c" name="Close all child windows" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="165" y="240" w="90" h="30" />
+    <onsuccess>aad81816-6fed-4a61-9d7d-61caaaf22df7</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="42668469-69ed-400c-b23d-98980afbe9da" name="Select snapshot to edit" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="480" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Snapshot Name" friendlyname="Snapshot Name" narrative="The name of the snapshot you want to select." expr="[Configuration (2)]" />
+    </inputs>
+    <onsuccess>058c1b6a-e391-4568-9f71-c754297b1e2d</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Select Configuration" />
+  </stage>
+  <stage stageid="84820e1c-3c64-4b18-a11b-86ac006d87d8" name="Toggle queue" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="690" y="210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="This is the name of the queue which you wish to be enabled to the snapshot configuration" expr="[Queue (1)]" />
+    </inputs>
+    <onsuccess>8f31781f-519c-4005-aec7-e3640a91f58a</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Toggle Snapshot Queue Selection" />
+  </stage>
+  <stage stageid="c4dc3981-5a7f-443c-9981-ceed19f8b276" name="Toggle queue" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="690" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="This is the name of the queue which you wish to be enabled to the snapshot configuration" expr="[Queue (2)]" />
+    </inputs>
+    <onsuccess>f3e52069-8c3e-419f-a5f8-b8fb9f4207ed</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Toggle Snapshot Queue Selection" />
+  </stage>
+  <stage stageid="18d76f62-2298-4bdc-bd42-738b68011929" name="Anchor4" type="Anchor">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="855" y="210" w="10" h="10" />
+    <onsuccess>5e1c787b-c9f2-4253-988e-b8ea7b3b39a8</onsuccess>
+  </stage>
+  <stage stageid="5e1c787b-c9f2-4253-988e-b8ea7b3b39a8" name="Anchor4" type="Anchor">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <display x="855" y="240" w="10" h="10" />
+    <onsuccess>b0709c09-d85f-4854-a477-b1ff582e5e12</onsuccess>
+  </stage>
+  <stage stageid="5fe8d4a7-a08a-49f6-b0a4-2457e86e25f4" name="Click edit configuration" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="585" y="210" w="90" h="30" />
+    <onsuccess>84820e1c-3c64-4b18-a11b-86ac006d87d8</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Press Edit" />
+  </stage>
+  <stage stageid="058c1b6a-e391-4568-9f71-c754297b1e2d" name="Click edit configuration" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="585" y="240" w="90" h="30" />
+    <onsuccess>c4dc3981-5a7f-443c-9981-ceed19f8b276</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Press Edit" />
+  </stage>
+  <stage stageid="8f31781f-519c-4005-aec7-e3640a91f58a" name="Click OK" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="795" y="210" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="Duplicate error expected?" friendlyname="Duplicate error expected?" narrative="Do you expect an error message when pressing ok button from the snapshot configuration form" expr="False" />
+      <input type="flag" name="Edit config warning expected?" friendlyname="Edit config warning expected?" narrative="Do you expect a warning message to be shown when editing an existing snapshot configuration to alter some values and clicking ok? (This would only happen if the existing config had 'configuration enabled' enabled" expr="True" />
+      <input type="text" name="Editing config - trend data warning option" friendlyname="Editing config - trend data warning option" narrative="Select 'yes' or 'no' to continue editing config once trend data warning has been displayed" expr="&quot;Yes&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="This is the error message content that is displayed when clicking ok on a snapshot configuration that has a duplicate name of an existing one" stage="" />
+      <output type="text" name="Trend data warning message" friendlyname="Trend data warning message" narrative="This is the warning message content that is displayed when clicking ok on a snapshot configuration that has been edited and it was previously enabled to a queue and had its configuration enabled set to true" stage="" />
+    </outputs>
+    <onsuccess>18d76f62-2298-4bdc-bd42-738b68011929</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Press OK" />
+  </stage>
+  <stage stageid="f3e52069-8c3e-419f-a5f8-b8fb9f4207ed" name="Click OK" type="Action">
+    <subsheetid>faf45e7d-c031-4ec7-9faa-af2b72fc345e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="795" y="240" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="Duplicate error expected?" friendlyname="Duplicate error expected?" narrative="Do you expect an error message when pressing ok button from the snapshot configuration form" expr="False" />
+      <input type="flag" name="Edit config warning expected?" friendlyname="Edit config warning expected?" narrative="Do you expect a warning message to be shown when editing an existing snapshot configuration to alter some values and clicking ok? (This would only happen if the existing config had 'configuration enabled' enabled" expr="False" />
+      <input type="text" name="Editing config - trend data warning option" friendlyname="Editing config - trend data warning option" narrative="Select 'yes' or 'no' to continue editing config once trend data warning has been displayed" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="This is the error message content that is displayed when clicking ok on a snapshot configuration that has a duplicate name of an existing one" stage="" />
+      <output type="text" name="Trend data warning message" friendlyname="Trend data warning message" narrative="This is the warning message content that is displayed when clicking ok on a snapshot configuration that has been edited and it was previously enabled to a queue and had its configuration enabled set to true" stage="" />
+    </outputs>
+    <onsuccess>5e1c787b-c9f2-4253-988e-b8ea7b3b39a8</onsuccess>
+    <resource object="Blue Prism - System - Reporting" action="Queue Snapshots - Press OK" />
+  </stage>
+  <stage stageid="7077f523-34fd-4f01-b195-3417d655e86c" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="270" y="30" />
+    <onsuccess>e50171cd-60d6-49f1-adc9-66542079f9b8</onsuccess>
+  </stage>
+</process>

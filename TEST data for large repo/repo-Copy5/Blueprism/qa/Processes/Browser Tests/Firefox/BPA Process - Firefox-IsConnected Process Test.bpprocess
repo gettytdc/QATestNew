@@ -1,0 +1,512 @@
+﻿<process name="Firefox-IsConnected Process Test" version="1.0" bpversion="6.11.0.36029" narrative="Firefox-IsConnected Process Test" byrefcollection="true" preferredid="4de3dac8-6a4a-4084-9c50-0d67c4b6d6e8" published="true">
+  <view>
+    <camerax>0</camerax>
+    <cameray>276</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="24032288-9118-4714-8b62-1fd9fcedf83b" type="Normal" published="False">
+    <name>Launch-IsConnected-Detach</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>420</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="e5b96cab-f992-4a26-85f2-f348746c5a00" type="Normal" published="False">
+    <name>Attach-Isconnected-Detach</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>147</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="2450b4b4-8867-48f5-9e72-3a82973d104d" name="Start" type="Start">
+    <display x="30" y="-240" />
+    <onsuccess>b35dbf67-3e96-47b1-af0e-47fa8d935c9f</onsuccess>
+  </stage>
+  <stage stageid="28a324af-b2fb-437a-bde0-c9b9cd833e01" name="Stage1" type="ProcessInfo">
+    <display x="-360" y="-45" w="150" h="90" />
+  </stage>
+  <stage stageid="7f61e1a5-08c0-4dd2-90e5-5105ddb133bb" name="Launch-IsConnected-Detach" type="SubSheetInfo">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <display x="-300" y="-180" w="150" h="90" />
+  </stage>
+  <stage stageid="09d222d5-2808-4052-9b90-2a2aeafa943d" name="Start" type="Start">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <display x="-30" y="-210" />
+    <onsuccess>6fe7edad-e72f-4cd4-8416-060bfda0d567</onsuccess>
+  </stage>
+  <stage stageid="e2cd3de1-7859-4ee8-9f67-6074ff7e955a" name="End" type="End">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <display x="-30" y="690" />
+  </stage>
+  <stage stageid="6fe7edad-e72f-4cd4-8416-060bfda0d567" name="Launch" type="Action">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="-150" w="120" h="30" />
+    <inputs>
+      <input type="flag" name="FireFox" friendlyname="FireFox" expr="True" />
+      <input type="flag" name="Edge" friendlyname="Edge" expr="False" />
+      <input type="flag" name="Tracking Id" friendlyname="Tracking Id" narrative="Enable tracking id where multiple browser instances and new port range enabled" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Tracking_id" friendlyname="Tracking_id" narrative="Launched browser tracking id" stage="Trackingid" />
+    </outputs>
+    <onsuccess>9230bebd-2293-4fcc-bd64-622f7a6070c2</onsuccess>
+    <resource object="Chrome App Model" action="Launch" />
+  </stage>
+  <stage stageid="9230bebd-2293-4fcc-bd64-622f7a6070c2" name="IsConnected Without Trackingid" type="Action">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="-90" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tracking id" friendlyname="Tracking id" expr="" />
+      <input type="flag" name="[Tracking ID required?]" friendlyname="[Tracking ID required?]" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="connected?" friendlyname="connected?" stage="IsConnected" />
+    </outputs>
+    <onsuccess>140752b2-70d6-4ade-b450-375cbfdf5a13</onsuccess>
+    <resource object="Chrome App Model" action="IsConnected" />
+  </stage>
+  <stage stageid="11fc1b5a-8d06-4477-a343-2fee0a26cc90" name="IsConnected With Trackingid" type="Action">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="60" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tracking id" friendlyname="Tracking id" expr="[Trackingid]" />
+      <input type="flag" name="[Tracking ID required?]" friendlyname="[Tracking ID required?]" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="connected?" friendlyname="connected?" stage="IsConnected" />
+    </outputs>
+    <onsuccess>79db13f1-da75-429d-92d5-ed0d44fb8956</onsuccess>
+    <resource object="Chrome App Model" action="IsConnected" />
+  </stage>
+  <stage stageid="b7e2eab6-c814-4fc5-8932-fe706885a2c2" name="IsConnected With Wrong Trackingid" type="Action">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="225" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tracking id" friendlyname="Tracking id" expr="[Wrong trackingid]" />
+      <input type="flag" name="[Tracking ID required?]" friendlyname="[Tracking ID required?]" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="connected?" friendlyname="connected?" stage="IsConnected" />
+    </outputs>
+    <onsuccess>e7e7b83b-4f9a-4d8f-b819-05f9b09ed544</onsuccess>
+    <resource object="Chrome App Model" action="IsConnected" />
+  </stage>
+  <stage stageid="bab544e9-00d7-45be-ad36-bc0d0c17a732" name="Detach with Trackingid" type="Action">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="375" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Browser Tracking id" friendlyname="Browser Tracking id" narrative="Browser Tracking id" expr="[Trackingid]" />
+      <input type="flag" name="Tracking ID required?" friendlyname="Tracking ID required?" expr="True" />
+    </inputs>
+    <onsuccess>ce57caf7-cbb3-4383-be5a-08e570f7c468</onsuccess>
+    <resource object="Chrome App Model" action="Detach" />
+  </stage>
+  <stage stageid="140752b2-70d6-4ade-b450-375cbfdf5a13" name="&quot;Is connected without tracking id is failed&quot; ?" type="Decision">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <loginhibit />
+    <display x="-30" y="-15" w="90" h="60" />
+    <decision expression="[IsConnected]" />
+    <ontrue>11fc1b5a-8d06-4477-a343-2fee0a26cc90</ontrue>
+    <onfalse>542fc1d2-e995-4d06-b125-6dbaeef8a74d</onfalse>
+  </stage>
+  <stage stageid="542fc1d2-e995-4d06-b125-6dbaeef8a74d" name="FAIL" type="Exception">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <display x="90" y="-15" />
+    <exception localized="yes" type="Bug" detail="&quot;Is connected without tracking id is failed-should be True&quot;" />
+  </stage>
+  <stage stageid="79db13f1-da75-429d-92d5-ed0d44fb8956" name="&quot;Is connected with tracking id is failed&quot; ?" type="Decision">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <loginhibit />
+    <display x="-30" y="135" w="90" h="60" />
+    <decision expression="[IsConnected]" />
+    <ontrue>b7e2eab6-c814-4fc5-8932-fe706885a2c2</ontrue>
+    <onfalse>821cb2e7-82c1-4f0e-8fe8-74bfd2a830d3</onfalse>
+  </stage>
+  <stage stageid="821cb2e7-82c1-4f0e-8fe8-74bfd2a830d3" name="FAIL" type="Exception">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <display x="105" y="135" />
+    <exception localized="yes" type="Bug" detail="&quot;Is connected without tracking id is failed-should be True&quot;" />
+  </stage>
+  <stage stageid="e7e7b83b-4f9a-4d8f-b819-05f9b09ed544" name="IsConnected with wrong tracking id?" type="Decision">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <loginhibit />
+    <display x="-30" y="300" w="90" h="60" />
+    <decision expression="[IsConnected]" />
+    <ontrue>be1f9589-5d1a-4eb4-87aa-17c19b92142a</ontrue>
+    <onfalse>bab544e9-00d7-45be-ad36-bc0d0c17a732</onfalse>
+  </stage>
+  <stage stageid="be1f9589-5d1a-4eb4-87aa-17c19b92142a" name="FAIL" type="Exception">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <display x="105" y="300" />
+    <exception localized="yes" type="Bug" detail="&quot;IsConnected with wrong tracking id is failed-should be False&quot;" />
+  </stage>
+  <stage stageid="ce57caf7-cbb3-4383-be5a-08e570f7c468" name="IsConnected with tracking id after detach" type="Action">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="420" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tracking id" friendlyname="Tracking id" expr="[Trackingid]" />
+      <input type="flag" name="[Tracking ID required?]" friendlyname="[Tracking ID required?]" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="connected?" friendlyname="connected?" stage="" />
+    </outputs>
+    <onsuccess>bc058c2c-864c-4aa8-a693-925ec5e3d5ce</onsuccess>
+    <resource object="Chrome App Model" action="IsConnected" />
+  </stage>
+  <stage stageid="bc058c2c-864c-4aa8-a693-925ec5e3d5ce" name="&quot;Is connected with tracking id after detach&quot; ?" type="Decision">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <loginhibit />
+    <display x="-30" y="480" w="90" h="60" />
+    <decision expression="[IsConnected]" />
+    <ontrue>d7c729f8-3534-4d0e-bc16-b4a617f5bc35</ontrue>
+    <onfalse>43abc813-1aa3-4c6e-8c0a-a8c292e53b45</onfalse>
+  </stage>
+  <stage stageid="d7c729f8-3534-4d0e-bc16-b4a617f5bc35" name="FAIL" type="Exception">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <display x="105" y="480" />
+    <exception localized="yes" type="Bug" detail="&quot;Is connected without tracking id is failed-should be True&quot;" />
+  </stage>
+  <stage stageid="43abc813-1aa3-4c6e-8c0a-a8c292e53b45" name="IsConnected without tracking id after detach" type="Action">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="540" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tracking id" friendlyname="Tracking id" expr="" />
+      <input type="flag" name="[Tracking ID required?]" friendlyname="[Tracking ID required?]" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="connected?" friendlyname="connected?" stage="IsConnected" />
+    </outputs>
+    <onsuccess>9416f552-c969-4be7-abda-f5404d22fff6</onsuccess>
+    <resource object="Chrome App Model" action="IsConnected" />
+  </stage>
+  <stage stageid="9416f552-c969-4be7-abda-f5404d22fff6" name="&quot;Is connected with tracking id after detach&quot; ?" type="Decision">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <loginhibit />
+    <display x="-30" y="600" w="90" h="60" />
+    <decision expression="[IsConnected]" />
+    <ontrue>6425f9d7-973b-4ee3-832f-1ad449848170</ontrue>
+    <onfalse>e2cd3de1-7859-4ee8-9f67-6074ff7e955a</onfalse>
+  </stage>
+  <stage stageid="b672c156-b839-43ea-890a-3c551f8bd6b4" name="Attach-Isconnected-Detach" type="SubSheetInfo">
+    <subsheetid>e5b96cab-f992-4a26-85f2-f348746c5a00</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="8f3e3941-9d13-4af5-b524-38d69eee8d5f" name="Start" type="Start">
+    <subsheetid>e5b96cab-f992-4a26-85f2-f348746c5a00</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>0db58fe6-f590-48d6-bca3-40681bed3d90</onsuccess>
+  </stage>
+  <stage stageid="0f1cb053-132c-40e2-adbe-759ca70fc750" name="End" type="End">
+    <subsheetid>e5b96cab-f992-4a26-85f2-f348746c5a00</subsheetid>
+    <display x="15" y="360" />
+  </stage>
+  <stage stageid="0db58fe6-f590-48d6-bca3-40681bed3d90" name="Attach" type="Action">
+    <subsheetid>e5b96cab-f992-4a26-85f2-f348746c5a00</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" />
+    <inputs>
+      <input type="text" name="Title" friendlyname="Title" expr="[Title]" />
+      <input type="text" name="Process name" friendlyname="Process name" expr="[Process name]" />
+    </inputs>
+    <onsuccess>4710afa7-1e5a-41f0-9563-c73eb986b0d8</onsuccess>
+    <resource object="Chrome App Model" action="Attach" />
+  </stage>
+  <stage stageid="4710afa7-1e5a-41f0-9563-c73eb986b0d8" name="IsConnected Without Trackingid after attach" type="Action">
+    <subsheetid>e5b96cab-f992-4a26-85f2-f348746c5a00</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="0" w="150" h="30" />
+    <inputs>
+      <input type="text" name="Tracking id" friendlyname="Tracking id" expr="" />
+      <input type="flag" name="[Tracking ID required?]" friendlyname="[Tracking ID required?]" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="connected?" friendlyname="connected?" stage="IsConnected" />
+    </outputs>
+    <onsuccess>3d26031e-1fc8-49af-9596-36d42fd0577f</onsuccess>
+    <resource object="Chrome App Model" action="IsConnected" />
+  </stage>
+  <stage stageid="3d26031e-1fc8-49af-9596-36d42fd0577f" name="&quot;Is connected without trackingid after attach&quot; ?" type="Decision">
+    <subsheetid>e5b96cab-f992-4a26-85f2-f348746c5a00</subsheetid>
+    <loginhibit />
+    <display x="15" y="60" w="90" h="60" />
+    <decision expression="[IsConnected]" />
+    <ontrue>fd1c201d-a211-4061-8e3d-f579c8a3e84a</ontrue>
+    <onfalse>c650e5c8-5de8-42f1-aa96-62ef42dc0040</onfalse>
+  </stage>
+  <stage stageid="c650e5c8-5de8-42f1-aa96-62ef42dc0040" name="FAIL" type="Exception">
+    <subsheetid>e5b96cab-f992-4a26-85f2-f348746c5a00</subsheetid>
+    <display x="135" y="60" />
+    <exception localized="yes" type="Bug" detail="&quot;IsConnected Without Trackingid after attach-should be False&quot;" />
+  </stage>
+  <stage stageid="fd1c201d-a211-4061-8e3d-f579c8a3e84a" name="Detach with Trackingid" type="Action">
+    <subsheetid>e5b96cab-f992-4a26-85f2-f348746c5a00</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Browser Tracking id" friendlyname="Browser Tracking id" narrative="Browser Tracking id" expr="" />
+      <input type="flag" name="Tracking ID required?" friendlyname="Tracking ID required?" expr="False" />
+    </inputs>
+    <onsuccess>ddb8e690-87b1-474e-bd51-0da454b73c46</onsuccess>
+    <resource object="Chrome App Model" action="Detach" />
+  </stage>
+  <stage stageid="ddb8e690-87b1-474e-bd51-0da454b73c46" name="IsConnected without tracking id after detach" type="Action">
+    <subsheetid>e5b96cab-f992-4a26-85f2-f348746c5a00</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tracking id" friendlyname="Tracking id" expr="" />
+      <input type="flag" name="[Tracking ID required?]" friendlyname="[Tracking ID required?]" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="connected?" friendlyname="connected?" stage="IsConnected" />
+    </outputs>
+    <onsuccess>5163ff5e-4f0e-4b24-923b-023192b4254f</onsuccess>
+    <resource object="Chrome App Model" action="IsConnected" />
+  </stage>
+  <stage stageid="5163ff5e-4f0e-4b24-923b-023192b4254f" name="&quot;Is connected without tracking id after detach&quot; ?" type="Decision">
+    <subsheetid>e5b96cab-f992-4a26-85f2-f348746c5a00</subsheetid>
+    <loginhibit />
+    <display x="15" y="225" w="90" h="60" />
+    <decision expression="[IsConnected]" />
+    <ontrue>f6b2118d-d2f1-4a1d-b629-ef8fbf90fa7f</ontrue>
+    <onfalse>076b7407-1c65-4bdc-ab5b-4497924a29e0</onfalse>
+  </stage>
+  <stage stageid="f6b2118d-d2f1-4a1d-b629-ef8fbf90fa7f" name="FAIL" type="Exception">
+    <subsheetid>e5b96cab-f992-4a26-85f2-f348746c5a00</subsheetid>
+    <display x="150" y="225" />
+    <exception localized="yes" type="Bug" detail="&quot;Is connected without tracking id after detach is failed-should be false&quot;" />
+  </stage>
+  <stage stageid="8f7b5338-9555-4929-95b9-dcb4d12953f0" name="Terminate" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="285" w="150" h="30" />
+    <inputs>
+      <input type="text" name="Browser Tracking Id" friendlyname="Browser Tracking Id" narrative="Browser Tracking Id" expr="" />
+      <input type="flag" name="Tracking Id" friendlyname="Tracking Id" narrative="Enable Tracking Id if required" expr="False" />
+    </inputs>
+    <onsuccess>def9e4d5-13b3-42f4-95cf-fb0d9088eb7b</onsuccess>
+    <resource object="Chrome App Model" action="terminate" />
+  </stage>
+  <stage stageid="c4cdbaad-da39-4b60-9af8-13ee96feeda1" name="Launch-IsConnected-Detach" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="-60" w="150" h="30" />
+    <onsuccess>9d709d7b-70db-4d38-a6a9-9d16f2916afe</onsuccess>
+    <processid>24032288-9118-4714-8b62-1fd9fcedf83b</processid>
+  </stage>
+  <stage stageid="ca8ae6c8-3fe7-402f-b57b-967ae2b65f85" name="Attach-Isconnected-Detach" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="135" w="150" h="30" />
+    <onsuccess>e92809b0-dda5-4b62-b050-a242ddeee2c3</onsuccess>
+    <processid>e5b96cab-f992-4a26-85f2-f348746c5a00</processid>
+  </stage>
+  <stage stageid="d9fec760-ded6-4cf3-94d6-766901659b70" name="End1" type="End">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="510" />
+  </stage>
+  <stage stageid="076b7407-1c65-4bdc-ab5b-4497924a29e0" name="Attach" type="Action">
+    <subsheetid>e5b96cab-f992-4a26-85f2-f348746c5a00</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="285" />
+    <inputs>
+      <input type="text" name="Title" friendlyname="Title" expr="[Title]" />
+      <input type="text" name="Process name" friendlyname="Process name" expr="[Process name]" />
+    </inputs>
+    <onsuccess>0f1cb053-132c-40e2-adbe-759ca70fc750</onsuccess>
+    <resource object="Chrome App Model" action="Attach" />
+  </stage>
+  <stage stageid="b35dbf67-3e96-47b1-af0e-47fa8d935c9f" name="Note1" type="Note">
+    <narrative>Given a launch with any of the browser with/withpot/wrong trackingid 
+when using IsConnected action in Read stage
+Then can able to get the connection status True/False</narrative>
+    <display x="30" y="-165" w="300" h="60" />
+    <font family="Segoe UI" size="10" style="Bold" color="000000" />
+    <onsuccess>c4cdbaad-da39-4b60-9af8-13ee96feeda1</onsuccess>
+  </stage>
+  <stage stageid="d5870f0a-6aa5-4c76-9714-a286dddcf623" name="Note1" type="Note">
+    <narrative>Given a Attach/Detach with any of the browser with/withpot/wrong trackingid 
+when using IsConnected action in Read stage
+Then can able to get the connection status True/False</narrative>
+    <display x="30" y="60" w="300" h="60" />
+    <font family="Segoe UI" size="10" style="Bold" color="000000" />
+    <onsuccess>ca8ae6c8-3fe7-402f-b57b-967ae2b65f85</onsuccess>
+  </stage>
+  <stage stageid="2c40bab8-5927-4835-a673-0447030af3b6" name="Trackingid" type="Data">
+    <display x="-360" y="45" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="413d4b65-13a1-437a-bd17-19d2b0299260" name="Wrong trackingid" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="90" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">wrong trackingid</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="7b6e93c1-7a49-4ca1-bd9e-9c8277112547" name="IsConnected" type="Data">
+    <display x="-360" y="135" w="90" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3fe4023f-adc8-443f-a673-318b453d5b62" name="Input variable" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-450" y="15" w="195" h="315" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="eddc1dca-f94b-458d-aeda-078729849bdc" name="Terminate" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="255" w="345" h="135" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f41f2270-0d65-49c4-be3b-2ab15fe09c71" name="Recover1" type="Recover">
+    <loginhibit />
+    <display x="165" y="270" />
+    <onsuccess>05ba12dc-3bc9-42f7-84cf-2a35746317e7</onsuccess>
+  </stage>
+  <stage stageid="05ba12dc-3bc9-42f7-84cf-2a35746317e7" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="165" y="315" />
+    <onsuccess>d233d846-c39d-461a-b306-0cfadfc0fa32</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="[Exception] &amp; &quot;------ &quot; &amp; ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="d233d846-c39d-461a-b306-0cfadfc0fa32" name="Resume1" type="Resume">
+    <loginhibit />
+    <display x="165" y="360" />
+    <onsuccess>def9e4d5-13b3-42f4-95cf-fb0d9088eb7b</onsuccess>
+  </stage>
+  <stage stageid="eb3e591c-1355-442d-b82c-35667da343d2" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="405" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a642df78-be36-46fd-8b17-a87457bce155" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="450" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e7e36eea-3acb-438e-ae08-ac4d1b5b4ae3" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-450" y="345" w="195" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="16fd91f6-77a5-4573-9dcc-59655496ad69" name="Failed" type="Decision">
+    <display x="30" y="435" w="120" h="60" />
+    <decision expression="[Failed?]" />
+    <ontrue>4317eb14-0f5c-45f6-9604-95d7327e4e10</ontrue>
+    <onfalse>d9fec760-ded6-4cf3-94d6-766901659b70</onfalse>
+  </stage>
+  <stage stageid="4317eb14-0f5c-45f6-9604-95d7327e4e10" name="RETHROW" type="Exception">
+    <display x="165" y="435" w="90" h="30" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="def9e4d5-13b3-42f4-95cf-fb0d9088eb7b" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="360" w="10" h="10" />
+    <onsuccess>16fd91f6-77a5-4573-9dcc-59655496ad69</onsuccess>
+  </stage>
+  <stage stageid="0538842b-25a1-4411-b0ae-b07438c06769" name="Title" type="Data">
+    <loginhibit />
+    <narrative>t</narrative>
+    <display x="-360" y="180" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">*QATestSite*</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="8f6ef037-2184-4a07-bccb-e8f30ff8c0f2" name="Process name" type="Data">
+    <loginhibit />
+    <display x="-360" y="225" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">firefox</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="e0983ddc-59da-4a92-9ba6-46ebaed9eecc" name="Note2" type="Note">
+    <narrative>Process name for
+EDGE -  msedge
+Firefox -  firefox</narrative>
+    <display x="-360" y="285" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Bold" color="FF0000" />
+  </stage>
+  <stage stageid="0d187eda-1067-4e69-884f-9964081fd402" name="Terminate" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-120" w="345" h="135" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="6618c13a-a08d-4930-a611-d09d3f96e769" name="Recover1" type="Recover">
+    <loginhibit />
+    <display x="180" y="-105" />
+    <onsuccess>a1c24078-1684-4999-b87f-f5d56d140a38</onsuccess>
+  </stage>
+  <stage stageid="a1c24078-1684-4999-b87f-f5d56d140a38" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="180" y="-60" />
+    <onsuccess>7b76abc0-b499-4f26-aa72-29ffed26771b</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="[Exception] &amp; &quot;------ &quot; &amp; ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="7b76abc0-b499-4f26-aa72-29ffed26771b" name="Resume1" type="Resume">
+    <loginhibit />
+    <display x="180" y="-15" />
+    <onsuccess>9d709d7b-70db-4d38-a6a9-9d16f2916afe</onsuccess>
+  </stage>
+  <stage stageid="9d709d7b-70db-4d38-a6a9-9d16f2916afe" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="-15" w="10" h="10" />
+    <onsuccess>d5870f0a-6aa5-4c76-9714-a286dddcf623</onsuccess>
+  </stage>
+  <stage stageid="57cfe096-21f1-4a7e-9bf6-54b17d938f5a" name="Terminate" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="105" w="345" h="135" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="7fabb531-255a-4ccc-8e60-c216da18cc9b" name="Recover1" type="Recover">
+    <loginhibit />
+    <display x="180" y="120" />
+    <onsuccess>610c8a6d-b659-4045-bb4a-c93b5fb65ac6</onsuccess>
+  </stage>
+  <stage stageid="610c8a6d-b659-4045-bb4a-c93b5fb65ac6" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="180" y="165" />
+    <onsuccess>e9282600-87fe-471f-ba56-f100ef0641ec</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="[Exception] &amp; &quot;------ &quot; &amp; ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="e9282600-87fe-471f-ba56-f100ef0641ec" name="Resume1" type="Resume">
+    <loginhibit />
+    <display x="180" y="210" />
+    <onsuccess>e92809b0-dda5-4b62-b050-a242ddeee2c3</onsuccess>
+  </stage>
+  <stage stageid="e92809b0-dda5-4b62-b050-a242ddeee2c3" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="210" w="10" h="10" />
+    <onsuccess>8f7b5338-9555-4929-95b9-dcb4d12953f0</onsuccess>
+  </stage>
+  <stage stageid="6425f9d7-973b-4ee3-832f-1ad449848170" name="FAIL" type="Exception">
+    <subsheetid>24032288-9118-4714-8b62-1fd9fcedf83b</subsheetid>
+    <display x="105" y="600" />
+    <exception localized="yes" type="Bug" detail="&quot;Is connected without tracking id after detach is failed-should be False&quot;" />
+  </stage>
+</process>

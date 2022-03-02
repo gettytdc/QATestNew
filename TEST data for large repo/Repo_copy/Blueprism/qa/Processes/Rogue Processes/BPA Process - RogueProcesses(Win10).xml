@@ -1,0 +1,221 @@
+﻿<process name="RogueProcesses(Win10)" version="1.0" bpversion="6.3.0.2923" narrative="A process to through a list of specificed processes and validate if they are open, and if they are close them. This is an attempt to ensure there are no rogue application still open before a test process commences. SO that the machine is in a known state" preferredid="7e02d20c-9445-45b7-beaf-f1dbaad4be33">
+  <view>
+    <camerax>0</camerax>
+    <cameray>-31</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="a860e7e9-79c2-415f-97c1-85285514e88b" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Process Name" narrative="The name of the process to search for in memory" stage="Process to seach for.Process Name" />
+      <input type="number" name="PID" narrative="WHat will be the PID of the process you are searching for, by default set to a value of -1" stage="Process to seach for.PID" />
+    </inputs>
+    <onsuccess>e4763202-aed2-458f-ad17-1d8a49059ced</onsuccess>
+  </stage>
+  <stage stageid="2b26c65e-e8fb-4e63-86c3-97737b8c8744" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>180</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="f866da68-01f9-460b-9cf5-5f2555a0ada2" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>120</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="e4763202-aed2-458f-ad17-1d8a49059ced" name="Obtain list of processes running" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Process Names" narrative="The names of the processes to get memory statistics for" expr="[Process to seach for]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Process Statistics" narrative="A collection of process statistics including the working set and the virtual memory size" stage="Process Statistics" />
+    </outputs>
+    <onsuccess>727cb5ff-6503-445e-9b48-174f92b9d8c0</onsuccess>
+    <resource object="Utility - Environment" action="Read Memory Stats" />
+  </stage>
+  <stage stageid="7628847a-1553-4e71-8a4c-adb9c8a657b4" name="Process Statistics" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Process Name" type="text" namespace="" />
+      <field name="PID" type="number" namespace="" />
+      <field name="Working Set" type="number" namespace="" />
+      <field name="Virtual Memory" type="number" namespace="" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="eb78c88a-d06b-436c-80d2-205dd035940d" name="Process to seach for" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <singlerow />
+      <field name="Process Name" type="text" namespace="" />
+      <field name="PID" type="number" namespace="" />
+    </collectioninfo>
+    <initialvalue>
+      <singlerow />
+      <row>
+        <field name="Process Name" type="text" value="" />
+        <field name="PID" type="number" value="" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="c1a22371-8c5b-4b34-9da8-e7fccf362a41" name="KIll Process by PID" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="ID" narrative="The ID of the process to kill" expr="[Process Statistics.PID]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" narrative="Error Message if fails." stage="Error Message" />
+      <output type="flag" name="Success" narrative="True if Successful, False by default." stage="Success" />
+    </outputs>
+    <onsuccess>005f7cfa-93b2-4485-9dc1-2106dff5c501</onsuccess>
+    <resource object="Kill Process By ID" action="Kill Process By PID" />
+  </stage>
+  <stage stageid="06b50004-3cdb-4af3-a1cd-10d7567a2ebc" name="Error Message" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ae51cb49-8612-4d47-af59-522e384dbde5" name="Success" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="005f7cfa-93b2-4485-9dc1-2106dff5c501" name="Was the Kill successful?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Success]=True" />
+    <ontrue>8931a421-a7d8-45fa-8a0c-f377bdb3930b</ontrue>
+    <onfalse>ce9baa6e-5c54-4aaf-a041-dc14f7a6cf98</onfalse>
+  </stage>
+  <stage stageid="ce9baa6e-5c54-4aaf-a041-dc14f7a6cf98" name="failed to kill process" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="&quot;The process Rouge Processes, failed to kill the process '&quot; &amp; [Process Statistics.Process Name] &amp;&quot;'&quot;" />
+  </stage>
+  <stage stageid="727cb5ff-6503-445e-9b48-174f92b9d8c0" name="Loop Start1" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>a0242113-76b3-4a8e-ad31-c26884f12d35</onsuccess>
+    <groupid>91af35af-2ea6-44b2-b99c-9546f597f3fc</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Process Statistics</loopdata>
+  </stage>
+  <stage stageid="8931a421-a7d8-45fa-8a0c-f377bdb3930b" name="Loop End1" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>2b26c65e-e8fb-4e63-86c3-97737b8c8744</onsuccess>
+    <groupid>91af35af-2ea6-44b2-b99c-9546f597f3fc</groupid>
+  </stage>
+  <stage stageid="a0242113-76b3-4a8e-ad31-c26884f12d35" name="idle?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="Trim(Upper([Process Statistics.Process Name])) = &quot;IDLE&quot;" />
+    <ontrue>e0142046-3748-4716-9cfd-5c40b9474dae</ontrue>
+    <onfalse>c1a22371-8c5b-4b34-9da8-e7fccf362a41</onfalse>
+  </stage>
+  <stage stageid="e0142046-3748-4716-9cfd-5c40b9474dae" name="Note1" type="Note">
+    <narrative>Skip termination of idle, do not have access to kill idle.</narrative>
+    <displayx>-90</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>95b6ff55-0519-4fa0-a709-9c5bbde2b8ba</onsuccess>
+  </stage>
+  <stage stageid="95b6ff55-0519-4fa0-a709-9c5bbde2b8ba" name="Anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-90</displayx>
+    <displayy>120</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>8931a421-a7d8-45fa-8a0c-f377bdb3930b</onsuccess>
+  </stage>
+</process>

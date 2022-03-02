@@ -1,0 +1,893 @@
+﻿<process name="Permissions and Access Rights - Users" version="1.0" bpversion="6.7.0.16662" narrative="Creationg of Users, Deletion of Users, Creation of duplicate users." byrefcollection="true" preferredid="aed54815-a7f4-4caf-bd2b-d77e5b3d6f5e">
+  <view>
+    <camerax>43.666687</camerax>
+    <cameray>1161</cameray>
+    <zoom version="2">0.9375</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="0ef9fbb2-079a-4207-a229-95be1e9aa75c" type="Normal" published="False">
+    <name>Create New Users</name>
+    <view>
+      <camerax>43.666687</camerax>
+      <cameray>-256</cameray>
+      <zoom version="2">0.9375</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="e4f5d137-4680-4cd0-abd2-1d24618adcd8" type="Normal" published="False">
+    <name>Create Duplicate User</name>
+    <view>
+      <camerax>-32</camerax>
+      <cameray>135</cameray>
+      <zoom version="2">0.9375</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="f429cf46-c4d6-4c97-bde4-6a8c92dc401d" type="Normal" published="False">
+    <name>Delete Users</name>
+    <view>
+      <camerax>43.666687</camerax>
+      <cameray>675</cameray>
+      <zoom version="2">0.9375</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="047ddb07-756a-4f92-a572-96f7fb56d090" name="Start" type="Start">
+    <display x="15" y="-165" w="90" h="30" />
+    <onsuccess>f9fcdfca-c3fa-4802-ba9b-878f278fb59e</onsuccess>
+  </stage>
+  <stage stageid="dc5ce69c-85d4-462f-893e-6862788b9205" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-135" w="150" h="90" />
+  </stage>
+  <stage stageid="f9fcdfca-c3fa-4802-ba9b-878f278fb59e" name="Launch Blue Prism" type="Action">
+    <display x="15" y="-105" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="parent PID" />
+    </outputs>
+    <onsuccess>56ebfc78-e14e-4e95-ae53-5f1f1a3406cf</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="e0ec33fb-611e-4fd4-ac66-33af6b0feba1" name="Sign Into Blue Prism" type="Action">
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="[Blue Prism User]" />
+      <input type="password" name="Password" expr="[Blue Prism Pass]" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>235debde-fb4c-45a5-b620-bea4f72eedc4</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="cfffeafa-ef83-4c51-a26c-a431ac798e06" name="Note1" type="Note">
+    <narrative>Task 1: Create Users</narrative>
+    <display x="15" y="375" w="150" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>6b3206b7-7268-419c-928c-97fa8a8885b1</onsuccess>
+  </stage>
+  <stage stageid="6fa4bfee-78d4-41ec-93b7-3db13d88dddc" name="Go to System" type="Action">
+    <loginhibit />
+    <display x="15" y="135" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>cf1499ef-7a7b-4f09-86c0-b50b4b25521e</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="7b68bd53-a0ba-497d-9eab-8da09d9d1797" name="Go to Users" type="Action">
+    <loginhibit />
+    <display x="15" y="315" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Users&quot;" />
+    </inputs>
+    <onsuccess>cfffeafa-ef83-4c51-a26c-a431ac798e06</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="cf1499ef-7a7b-4f09-86c0-b50b4b25521e" name="Collaps All System Trees" type="Action">
+    <loginhibit />
+    <display x="15" y="195" w="90" h="30" />
+    <onsuccess>5b5ebc02-a3ed-4e5e-823f-b35d1e4db6a2</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Collapse All System Trees" />
+  </stage>
+  <stage stageid="5b5ebc02-a3ed-4e5e-823f-b35d1e4db6a2" name="Expand Security" type="Action">
+    <loginhibit />
+    <display x="15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+    </inputs>
+    <onsuccess>7b68bd53-a0ba-497d-9eab-8da09d9d1797</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Expand Tree" />
+  </stage>
+  <stage stageid="235debde-fb4c-45a5-b620-bea4f72eedc4" name="Note1" type="Note">
+    <narrative>Go To Users</narrative>
+    <display x="15" y="75" w="150" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>6fa4bfee-78d4-41ec-93b7-3db13d88dddc</onsuccess>
+  </stage>
+  <stage stageid="2dabc74e-e2b6-490e-adff-e20cb0e3ffc6" name="Create New Users" type="SubSheetInfo">
+    <subsheetid>0ef9fbb2-079a-4207-a229-95be1e9aa75c</subsheetid>
+    <narrative>Creates Users and assigns roles to them.</narrative>
+    <display x="-180" y="-450" w="150" h="90" />
+  </stage>
+  <stage stageid="eaf582be-259f-4103-b8aa-2adf60fae9fd" name="End" type="End">
+    <subsheetid>0ef9fbb2-079a-4207-a229-95be1e9aa75c</subsheetid>
+    <loginhibit />
+    <display x="15" y="-240" w="90" h="30" />
+  </stage>
+  <stage stageid="1d767946-6703-4e93-96b7-e10767b0dd1c" name="Create New User" type="Action">
+    <subsheetid>0ef9fbb2-079a-4207-a229-95be1e9aa75c</subsheetid>
+    <loginhibit />
+    <display x="15" y="-360" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" narrative="The username of the user you wish to create." expr="[New User Details.Username]" />
+      <input type="password" name="Password" narrative="The password in which you want to assign to the user." expr="[New User Details.Password]" />
+      <input type="date" name="User Expiry Date" narrative="The date in which the user account will expire." expr="[New User Details.User Expiry Date]" />
+      <input type="date" name="Password Expiry Date" narrative="The date in which the password will expire. " expr="[New User Details.Password Expiry Date]" />
+      <input type="collection" name="Roles" narrative="The roles you wish to give to your user." expr="[New User Details.Roles]" />
+      <input type="text" name="Password Duration" narrative="The duration, in weeks you wish the password to last before expiring." expr="[New User Details.Password Duration]" />
+    </inputs>
+    <onsuccess>f6d9df83-44b1-4c63-b71a-1e4b13af6f46</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Create New Username" />
+  </stage>
+  <stage stageid="53d49d7d-4b2e-40d0-af7d-6b0dbffd0324" name="New User Details" type="LoopStart">
+    <subsheetid>0ef9fbb2-079a-4207-a229-95be1e9aa75c</subsheetid>
+    <loginhibit />
+    <display x="15" y="-420" w="90" h="30" />
+    <onsuccess>1d767946-6703-4e93-96b7-e10767b0dd1c</onsuccess>
+    <groupid>dbae5ed9-6867-4f1f-8b15-ec0ab06898f0</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>New User Details</loopdata>
+  </stage>
+  <stage stageid="f6d9df83-44b1-4c63-b71a-1e4b13af6f46" name="New User Details" type="LoopEnd">
+    <subsheetid>0ef9fbb2-079a-4207-a229-95be1e9aa75c</subsheetid>
+    <loginhibit />
+    <display x="15" y="-300" w="90" h="30" />
+    <onsuccess>eaf582be-259f-4103-b8aa-2adf60fae9fd</onsuccess>
+    <groupid>dbae5ed9-6867-4f1f-8b15-ec0ab06898f0</groupid>
+  </stage>
+  <stage stageid="6b3206b7-7268-419c-928c-97fa8a8885b1" name="Create New Users" type="SubSheet">
+    <display x="15" y="450" w="90" h="60" />
+    <inputs>
+      <input type="collection" name="User Details" narrative="The User Details that require to be created." expr="[New User Detail]" />
+    </inputs>
+    <onsuccess>abc813ff-e98e-47fa-b7ed-9cb8df2b420d</onsuccess>
+    <processid>0ef9fbb2-079a-4207-a229-95be1e9aa75c</processid>
+  </stage>
+  <stage stageid="abc813ff-e98e-47fa-b7ed-9cb8df2b420d" name="Note1" type="Note">
+    <narrative>Task 1.1: Create Duplicate User</narrative>
+    <display x="15" y="525" w="150" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>bc119ca9-ec4f-417a-8380-7ace793c324e</onsuccess>
+  </stage>
+  <stage stageid="bc119ca9-ec4f-417a-8380-7ace793c324e" name="Create Duplicate User" type="SubSheet">
+    <display x="15" y="600" w="90" h="60" />
+    <onsuccess>1066ad15-40a5-48e9-98bd-e3f087effde8</onsuccess>
+    <processid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</processid>
+  </stage>
+  <stage stageid="8d67446d-4dc8-4b2c-89c8-ca01f8b796de" name="Create Duplicate User" type="SubSheetInfo">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <narrative>Blue Prism Attempts to create Developer (which already exists) as well as DEVELOPER.</narrative>
+    <display x="-180" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="8f2063f5-12c3-46c4-87c6-08a41e05f230" name="Start" type="Start">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <display x="15" y="-105" />
+    <onsuccess>7a6b44fe-29a0-4995-91af-648602d76691</onsuccess>
+  </stage>
+  <stage stageid="45e65703-c010-4ddd-b85f-2a3d2031251b" name="Recreate Developer" type="SubSheet">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <display x="15" y="30" w="90" h="60" />
+    <inputs>
+      <input type="collection" name="User Details" narrative="The User Details that require to be created." expr="[Duplicate User]" />
+    </inputs>
+    <onsuccess>f069861c-c649-485d-b2c8-cac274b535f1</onsuccess>
+    <processid>0ef9fbb2-079a-4207-a229-95be1e9aa75c</processid>
+  </stage>
+  <stage stageid="7a6b44fe-29a0-4995-91af-648602d76691" name="Note1" type="Note">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <narrative>Task 1.1: Create Duplicate User</narrative>
+    <display x="15" y="-45" w="90" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>45e65703-c010-4ddd-b85f-2a3d2031251b</onsuccess>
+  </stage>
+  <stage stageid="19ef1489-2a42-48d2-b11c-f86131a9d5ab" name="Catch" type="Block">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <display x="-165" y="-15" w="240" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f069861c-c649-485d-b2c8-cac274b535f1" name="Duplicate User Passed" type="Exception">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <display x="15" y="105" w="90" h="30" />
+    <exception type="Business Exception" detail="&quot;Blue Prism should not be able to create the same username twice, however no error was generated.&quot;" />
+  </stage>
+  <stage stageid="13a4b756-f0d5-4f2d-b2a9-bf94802f27d8" name="Recover1" type="Recover">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <display x="-105" y="45" w="90" h="30" />
+    <onsuccess>c2e4b767-d8b4-4b8c-a86c-4865c3086cc1</onsuccess>
+  </stage>
+  <stage stageid="c2e4b767-d8b4-4b8c-a86c-4865c3086cc1" name="User Already Used?" type="Decision">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <display x="-105" y="105" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(), &quot;The name 'Developer1' has already been used&quot;) &gt; 0" />
+    <ontrue>6e7d17d5-5508-4fe0-b92c-731bf7485c56</ontrue>
+    <onfalse>d17f1a51-ecfe-4046-9207-74fd33bd5f09</onfalse>
+  </stage>
+  <stage stageid="6e7d17d5-5508-4fe0-b92c-731bf7485c56" name="Resume1" type="Resume">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <display x="-105" y="180" w="90" h="30" />
+    <onsuccess>3bd5f9fa-1c83-4326-b1ff-f7ed0076d5ec</onsuccess>
+  </stage>
+  <stage stageid="d17f1a51-ecfe-4046-9207-74fd33bd5f09" name="Bubble Up Error" type="Exception">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <display x="-225" y="105" w="90" h="30" />
+    <exception localized="yes" type="" detail="" usecurrent="yes" />
+  </stage>
+  <stage stageid="3bd5f9fa-1c83-4326-b1ff-f7ed0076d5ec" name="Note1" type="Note">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <narrative>Task 1.2: Create Duplicate Upper Cased User</narrative>
+    <display x="15" y="180" w="90" h="60" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>83e64e60-d94b-4a71-8960-3c9e4f66032c</onsuccess>
+  </stage>
+  <stage stageid="da7ce357-c094-4062-849f-e3a97241789d" name="Recreate DEVELOPER" type="SubSheet">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <display x="15" y="330" w="90" h="60" />
+    <inputs>
+      <input type="collection" name="User Details" narrative="The User Details that require to be created." expr="[Duplicate User]" />
+    </inputs>
+    <onsuccess>5e57e2a4-f9a3-423e-957d-da3cba43355b</onsuccess>
+    <processid>0ef9fbb2-079a-4207-a229-95be1e9aa75c</processid>
+  </stage>
+  <stage stageid="e38f2360-1cf5-48c0-9ce9-1411c3da858f" name="Catch" type="Block">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <display x="-165" y="285" w="240" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d921fb82-b8e2-4ddc-8f8b-a64e38b74bf6" name="Recover1" type="Recover">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <display x="-105" y="345" w="90" h="30" />
+    <onsuccess>8b1e2a5c-fa47-4254-a0e0-f9bf12130f7f</onsuccess>
+  </stage>
+  <stage stageid="8b1e2a5c-fa47-4254-a0e0-f9bf12130f7f" name="User Already Used?" type="Decision">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <display x="-105" y="405" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(), &quot;The name 'DEVELOPER1' has already been used&quot;) &gt; 0" />
+    <ontrue>ba09bd9d-5d27-488a-8bed-06ef05e74d32</ontrue>
+    <onfalse>b11179d8-13b2-43e4-aecc-899202b5ca34</onfalse>
+  </stage>
+  <stage stageid="ba09bd9d-5d27-488a-8bed-06ef05e74d32" name="Resume1" type="Resume">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <display x="-105" y="465" w="90" h="30" />
+    <onsuccess>077b5391-422e-410b-9e42-0bf4eab5ef46</onsuccess>
+  </stage>
+  <stage stageid="b11179d8-13b2-43e4-aecc-899202b5ca34" name="Bubble Up Error" type="Exception">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <display x="-225" y="405" w="90" h="30" />
+    <exception localized="yes" type="" detail="" usecurrent="yes" />
+  </stage>
+  <stage stageid="83e64e60-d94b-4a71-8960-3c9e4f66032c" name="Upper User" type="Calculation">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <display x="15" y="255" w="90" h="30" />
+    <onsuccess>da7ce357-c094-4062-849f-e3a97241789d</onsuccess>
+    <calculation expression="Upper([Duplicate User.Username])" stage="Duplicate User.Username" />
+  </stage>
+  <stage stageid="5e57e2a4-f9a3-423e-957d-da3cba43355b" name="Duplicate User Passed" type="Exception">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <display x="15" y="405" w="90" h="30" />
+    <exception type="Business Exception" detail="&quot;Blue Prism should not be able to create the same username in upper case again, however no error was generated.&quot;" />
+  </stage>
+  <stage stageid="077b5391-422e-410b-9e42-0bf4eab5ef46" name="End1" type="End">
+    <subsheetid>e4f5d137-4680-4cd0-abd2-1d24618adcd8</subsheetid>
+    <display x="15" y="465" w="90" h="30" />
+  </stage>
+  <stage stageid="40bf34c0-040c-4868-97a7-f80824cdaee5" name="parent PID" type="Data">
+    <display x="-195" y="-45" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+  </stage>
+  <stage stageid="02a95804-9309-407e-aa8d-2c27e34090da" name="Blue Prism User" type="Data">
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">admin</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="594d4933-8657-4b70-ad59-28610f0503d4" name="Blue Prism Pass" type="Data">
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>password</datatype>
+    <initialvalueenc>32,17,25,89,3</initialvalueenc>
+    <alwaysinit />
+  </stage>
+  <stage stageid="7d3173e5-4f49-4423-ab87-c27af2f55108" name="New User Detail" type="Collection">
+    <loginhibit />
+    <narrative>myAdmin</narrative>
+    <display x="-195" y="45" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Username" type="text" />
+      <field name="Password" type="password" />
+      <field name="User Expiry Date" type="date" />
+      <field name="Password Expiry Date" type="date" />
+      <field name="Password Duration" type="text" />
+      <field name="Roles" type="collection">
+        <field name="Role" type="text" />
+      </field>
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Username" type="text" value="Developer1" />
+        <field name="Password" type="password" encvalue="aCpGKl8qTyp6KlgqQypZKkcqBCppKkUqRypHKkUqRCoEKnkqTypJKl8qWCpDKl4qUyoEKnkqQypHKloqRipPKmUqSCpMKl8qWSpJKksqXipFKlgq:RypTKmsqTipHKkMqRCo=" />
+        <field name="User Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Duration" type="text" value="1 Week" />
+        <field name="Roles" type="collection">
+          <row>
+            <field name="Role" type="text" value="Developers" />
+          </row>
+        </field>
+      </row>
+      <row>
+        <field name="Username" type="text" value="AlertSubscribers1" />
+        <field name="Password" type="password" encvalue="aCpGKl8qTyp6KlgqQypZKkcqBCppKkUqRypHKkUqRCoEKnkqTypJKl8qWCpDKl4qUyoEKnkqQypHKloqRipPKmUqSCpMKl8qWSpJKksqXipFKlgq:RypTKmsqTipHKkMqRCo=" />
+        <field name="User Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Duration" type="text" value="5 Weeks" />
+        <field name="Roles" type="collection">
+          <row>
+            <field name="Role" type="text" value="Alert Subscribers" />
+          </row>
+        </field>
+      </row>
+      <row>
+        <field name="Username" type="text" value="RuntimeResources1" />
+        <field name="Password" type="password" encvalue="aCpGKl8qTyp6KlgqQypZKkcqBCppKkUqRypHKkUqRCoEKnkqTypJKl8qWCpDKl4qUyoEKnkqQypHKloqRipPKmUqSCpMKl8qWSpJKksqXipFKlgq:RypTKmsqTipHKkMqRCo=" />
+        <field name="User Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Duration" type="text" value="7 Weeks" />
+        <field name="Roles" type="collection">
+          <row>
+            <field name="Role" type="text" value="Runtime Resources" />
+          </row>
+        </field>
+      </row>
+      <row>
+        <field name="Username" type="text" value="ScheduleManagers1" />
+        <field name="Password" type="password" encvalue="aCpGKl8qTyp6KlgqQypZKkcqBCppKkUqRypHKkUqRCoEKnkqTypJKl8qWCpDKl4qUyoEKnkqQypHKloqRipPKmUqSCpMKl8qWSpJKksqXipFKlgq:RypTKmsqTipHKkMqRCo=" />
+        <field name="User Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Duration" type="text" value="9 Weeks" />
+        <field name="Roles" type="collection">
+          <row>
+            <field name="Role" type="text" value="Schedule Managers" />
+          </row>
+        </field>
+      </row>
+      <row>
+        <field name="Username" type="text" value="SystemAdmin1" />
+        <field name="Password" type="password" encvalue="aCpGKl8qTyp6KlgqQypZKkcqBCppKkUqRypHKkUqRCoEKnkqTypJKl8qWCpDKl4qUyoEKnkqQypHKloqRipPKmUqSCpMKl8qWSpJKksqXipFKlgq:RypTKmsqTipHKkMqRCo=" />
+        <field name="User Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Duration" type="text" value="10 Weeks" />
+        <field name="Roles" type="collection">
+          <row>
+            <field name="Role" type="text" value="System Administrators" />
+          </row>
+        </field>
+      </row>
+      <row>
+        <field name="Username" type="text" value="Testers1" />
+        <field name="Password" type="password" encvalue="aCpGKl8qTyp6KlgqQypZKkcqBCppKkUqRypHKkUqRCoEKnkqTypJKl8qWCpDKl4qUyoEKnkqQypHKloqRipPKmUqSCpMKl8qWSpJKksqXipFKlgq:RypTKmsqTipHKkMqRCo=" />
+        <field name="User Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Duration" type="text" value="7 Weeks" />
+        <field name="Roles" type="collection">
+          <row>
+            <field name="Role" type="text" value="Testers" />
+          </row>
+        </field>
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="4165efb2-0f40-4341-bd24-81462e1c413a" name="Duplicate User" type="Collection">
+    <loginhibit />
+    <narrative>myAdmin</narrative>
+    <display x="-195" y="75" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Username" type="text" />
+      <field name="Password" type="password" />
+      <field name="User Expiry Date" type="date" />
+      <field name="Password Expiry Date" type="date" />
+      <field name="Password Duration" type="text" />
+      <field name="Roles" type="collection">
+        <field name="Role" type="text" />
+      </field>
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Username" type="text" value="Developer1" />
+        <field name="Password" type="password" encvalue="aCpGKl8qTyp6KlgqQypZKkcqBCppKkUqRypHKkUqRCoEKnkqTypJKl8qWCpDKl4qUyoEKnkqQypHKloqRipPKmUqSCpMKl8qWSpJKksqXipFKlgq:RypTKmsqTipHKkMqRCo=" />
+        <field name="User Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Duration" type="text" value="1 Week" />
+        <field name="Roles" type="collection">
+          <row>
+            <field name="Role" type="text" value="Developers" />
+          </row>
+        </field>
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="0b950b8c-144f-48aa-b0f3-aa64bd01ef22" name="Local Variables" type="Block">
+    <display x="-270" y="-75" w="150" h="180" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ae0e6633-d028-4810-930a-b97c1857a768" name="Delete Users" type="SubSheetInfo">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <narrative>Deletes pre-existing users that: a) Some are never logged ito, b) one username is logged into once and c) one username is currently logged in.</narrative>
+    <display x="-180" y="-135" w="150" h="90" />
+  </stage>
+  <stage stageid="2baafd18-3826-4f8d-bfc6-b6f2df958bf7" name="Start" type="Start">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <display x="15" y="-165" w="90" h="30" />
+    <onsuccess>fd2500bb-32fd-495f-90a8-2d88ffbcb3de</onsuccess>
+  </stage>
+  <stage stageid="fd2500bb-32fd-495f-90a8-2d88ffbcb3de" name="Sign Out Blue Prism" type="Action">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="15" y="-105" w="90" h="30" />
+    <onsuccess>ea7e5eb1-04e9-43f2-a91b-ce56c42855ad</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="ea7e5eb1-04e9-43f2-a91b-ce56c42855ad" name="Note1" type="Note">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <narrative>Sign Into Developer</narrative>
+    <display x="15" y="-45" w="90" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>dce3422c-91d9-4077-a011-f487711a5a5a</onsuccess>
+  </stage>
+  <stage stageid="dce3422c-91d9-4077-a011-f487711a5a5a" name="Sign Into Developer" type="Action">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="&quot;Developer1&quot;" />
+      <input type="password" name="Password" expr="&quot;myAdmin&quot;" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>45c6386a-6e88-417f-8901-e0ce96763a72</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="399b67a1-5037-4e1c-b40d-55454c457208" name="Sign Out Blue Prism" type="Action">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="15" y="135" w="90" h="30" />
+    <onsuccess>9f91ac18-69bf-4cc1-97d1-a7bf0657367b</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="9f91ac18-69bf-4cc1-97d1-a7bf0657367b" name="Note1" type="Note">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <narrative>Sign into admin</narrative>
+    <display x="15" y="195" w="90" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>99f6c6ad-f196-45c3-832d-583c07fe8fbb</onsuccess>
+  </stage>
+  <stage stageid="99f6c6ad-f196-45c3-832d-583c07fe8fbb" name="Sign Into Admin" type="Action">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="[Blue Prism User]" />
+      <input type="password" name="Password" expr="[Blue Prism Pass]" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>a65effd5-9bbb-4048-a834-074d9ab8afff</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="c4e1b0be-0c15-4f0d-a469-31962b311291" name="Note1" type="Note">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <narrative>Sign into Alert Subscribers</narrative>
+    <display x="165" y="300" w="90" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="FF0000" />
+    <onsuccess>126c7738-35ee-4f31-b31f-ea2116dca2e4</onsuccess>
+  </stage>
+  <stage stageid="260a1f5a-9581-48be-9ff1-cf40e075ab80" name="End2" type="End">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="15" y="1095" w="90" h="30" />
+  </stage>
+  <stage stageid="9a6a1886-fa6a-41b1-ad3d-cba6abbdac65" name="Launch Blue Prism" type="Action">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="165" y="420" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="child PID" />
+    </outputs>
+    <onsuccess>5c6b73cc-0bfc-4325-b853-c626d9e99bf7</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="5c6b73cc-0bfc-4325-b853-c626d9e99bf7" name="Sign Into Blue Prism" type="Action">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="165" y="480" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="[Username]" />
+      <input type="password" name="Password" expr="[Password]" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="[New Password]" />
+    </inputs>
+    <onsuccess>7aef1aed-ebe6-4fbb-b944-3d21e48c927d</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="126c7738-35ee-4f31-b31f-ea2116dca2e4" name="Detach Parent BP" type="Action">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="165" y="360" w="90" h="30" />
+    <onsuccess>9a6a1886-fa6a-41b1-ad3d-cba6abbdac65</onsuccess>
+    <resource object="Blue Prism" action="Detach" />
+  </stage>
+  <stage stageid="ca5c55c0-db14-4735-bd70-846448c16b05" name="child PID" type="Data">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="-180" y="90" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7aef1aed-ebe6-4fbb-b944-3d21e48c927d" name="Detach Child" type="Action">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="165" y="540" w="90" h="30" />
+    <onsuccess>5ce7d482-f5a8-4503-b4c8-ba5e54b10ecb</onsuccess>
+    <resource object="Blue Prism" action="Detach" />
+  </stage>
+  <stage stageid="5ce7d482-f5a8-4503-b4c8-ba5e54b10ecb" name="Attach Parent BP" type="Action">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="165" y="600" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[parent PID]" />
+    </inputs>
+    <onsuccess>a65effd5-9bbb-4048-a834-074d9ab8afff</onsuccess>
+    <resource object="Blue Prism" action="Attach to Pid" />
+  </stage>
+  <stage stageid="9c473c4f-a6bc-43db-bb22-618f303708ac" name="Username" type="Data">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="-180" y="0" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Alert Subscribers</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2ee138e2-0291-4ed5-b19d-64017e578d92" name="Password" type="Data">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="-180" y="30" w="120" h="30" />
+    <datatype>password</datatype>
+    <initialvalueenc>44,12,53,84,0,93,26</initialvalueenc>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="76745498-72ce-45d0-a0d9-690672b913cd" name="New Password" type="Data">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="-180" y="60" w="120" h="30" />
+    <datatype>password</datatype>
+    <initialvalueenc>32,17,25,89,3</initialvalueenc>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8fcf6db1-e414-4102-9fe5-c205a6693ac7" name="Delete Username " type="Action">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <loginhibit />
+    <display x="15" y="975" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" narrative="The name of the user you wish to delete." expr="[Delete Users.Username]" />
+    </inputs>
+    <onsuccess>e900e6b3-92e5-490c-a5ee-c8f34fecffb2</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Delete Username" />
+  </stage>
+  <stage stageid="38767ada-e30b-4877-a704-259192078318" name="Delete Users" type="LoopStart">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="15" y="915" w="90" h="30" />
+    <onsuccess>8fcf6db1-e414-4102-9fe5-c205a6693ac7</onsuccess>
+    <groupid>9d996e6b-b642-4277-940c-4851939df11e</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Delete Users</loopdata>
+  </stage>
+  <stage stageid="e900e6b3-92e5-490c-a5ee-c8f34fecffb2" name="Delete Users" type="LoopEnd">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="15" y="1035" w="90" h="30" />
+    <onsuccess>260a1f5a-9581-48be-9ff1-cf40e075ab80</onsuccess>
+    <groupid>9d996e6b-b642-4277-940c-4851939df11e</groupid>
+  </stage>
+  <stage stageid="0048a2a6-bd1d-4195-a095-f4c699502707" name="Go to Users" type="Action">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <loginhibit />
+    <display x="15" y="855" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Users&quot;" />
+    </inputs>
+    <onsuccess>38767ada-e30b-4877-a704-259192078318</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="c047447c-17d5-4466-8797-8b9af9baeff5" name="Collaps All System Trees" type="Action">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <loginhibit />
+    <display x="15" y="735" w="90" h="30" />
+    <onsuccess>c959b92b-7693-40de-93c5-4dea40b42a10</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Collapse All System Trees" />
+  </stage>
+  <stage stageid="c959b92b-7693-40de-93c5-4dea40b42a10" name="Expand Security" type="Action">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <loginhibit />
+    <display x="15" y="795" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+    </inputs>
+    <onsuccess>0048a2a6-bd1d-4195-a095-f4c699502707</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Expand Tree" />
+  </stage>
+  <stage stageid="63a01ef7-cdc5-4473-b9c5-449372d738d7" name="Delete Users" type="Collection">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <loginhibit />
+    <narrative>myAdmin</narrative>
+    <display x="-180" y="-30" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Username" type="text" />
+      <field name="Password" type="password" />
+      <field name="User Expiry Date" type="date" />
+      <field name="Password Expiry Date" type="date" />
+      <field name="Password Duration" type="text" />
+      <field name="Roles" type="collection">
+        <field name="Role" type="text" />
+      </field>
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Username" type="text" value="Developer1" />
+        <field name="Password" type="password" encvalue="aCpGKl8qTyp6KlgqQypZKkcqBCppKkUqRypHKkUqRCoEKnkqTypJKl8qWCpDKl4qUyoEKnkqQypHKloqRipPKmUqSCpMKl8qWSpJKksqXipFKlgq:RypTKmsqTipHKkMqRCo=" />
+        <field name="User Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Duration" type="text" value="1 Week" />
+        <field name="Roles" type="collection">
+          <row>
+            <field name="Role" type="text" value="Developers" />
+          </row>
+        </field>
+      </row>
+      <row>
+        <field name="Username" type="text" value="AlertSubscribers1" />
+        <field name="Password" type="password" encvalue="aCpGKl8qTyp6KlgqQypZKkcqBCppKkUqRypHKkUqRCoEKnkqTypJKl8qWCpDKl4qUyoEKnkqQypHKloqRipPKmUqSCpMKl8qWSpJKksqXipFKlgq:RypTKmsqTipHKkMqRCo=" />
+        <field name="User Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Duration" type="text" value="5 Weeks" />
+        <field name="Roles" type="collection">
+          <row>
+            <field name="Role" type="text" value="Alert Subscribers" />
+          </row>
+        </field>
+      </row>
+      <row>
+        <field name="Username" type="text" value="RuntimeResources1" />
+        <field name="Password" type="password" encvalue="aCpGKl8qTyp6KlgqQypZKkcqBCppKkUqRypHKkUqRCoEKnkqTypJKl8qWCpDKl4qUyoEKnkqQypHKloqRipPKmUqSCpMKl8qWSpJKksqXipFKlgq:RypTKmsqTipHKkMqRCo=" />
+        <field name="User Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Duration" type="text" value="7 Weeks" />
+        <field name="Roles" type="collection">
+          <row>
+            <field name="Role" type="text" value="Runtime Resources" />
+          </row>
+        </field>
+      </row>
+      <row>
+        <field name="Username" type="text" value="ScheduleManagers1" />
+        <field name="Password" type="password" encvalue="aCpGKl8qTyp6KlgqQypZKkcqBCppKkUqRypHKkUqRCoEKnkqTypJKl8qWCpDKl4qUyoEKnkqQypHKloqRipPKmUqSCpMKl8qWSpJKksqXipFKlgq:RypTKmsqTipHKkMqRCo=" />
+        <field name="User Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Duration" type="text" value="9 Weeks" />
+        <field name="Roles" type="collection">
+          <row>
+            <field name="Role" type="text" value="Schedule Managers" />
+          </row>
+        </field>
+      </row>
+      <row>
+        <field name="Username" type="text" value="SystemAdmin1" />
+        <field name="Password" type="password" encvalue="aCpGKl8qTyp6KlgqQypZKkcqBCppKkUqRypHKkUqRCoEKnkqTypJKl8qWCpDKl4qUyoEKnkqQypHKloqRipPKmUqSCpMKl8qWSpJKksqXipFKlgq:RypTKmsqTipHKkMqRCo=" />
+        <field name="User Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Expiry Date" type="date" value="2030/01/01" />
+        <field name="Password Duration" type="text" value="10 Weeks" />
+        <field name="Roles" type="collection">
+          <row>
+            <field name="Role" type="text" value="System Administrators" />
+          </row>
+        </field>
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="1066ad15-40a5-48e9-98bd-e3f087effde8" name="Delete Users" type="SubSheet">
+    <display x="15" y="690" w="90" h="60" />
+    <onsuccess>18d82ab7-8b90-4f6b-8cdd-20138303560e</onsuccess>
+    <processid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</processid>
+  </stage>
+  <stage stageid="f44613b6-eafc-4bed-8b05-be65963a8ac0" name="End3" type="End">
+    <display x="15" y="1605" w="90" h="30" />
+  </stage>
+  <stage stageid="8258cfa9-fa22-41fd-a35b-816faaf927ad" name="Start" type="Start">
+    <subsheetid>0ef9fbb2-079a-4207-a229-95be1e9aa75c</subsheetid>
+    <loginhibit />
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <display x="15" y="-480" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="User Details" narrative="The User Details that require to be created." stage="New User Details" />
+    </inputs>
+    <onsuccess>53d49d7d-4b2e-40d0-af7d-6b0dbffd0324</onsuccess>
+  </stage>
+  <stage stageid="a51585ce-4642-4e86-9aac-c06bf17f7d8b" name="New User Details" type="Collection">
+    <subsheetid>0ef9fbb2-079a-4207-a229-95be1e9aa75c</subsheetid>
+    <loginhibit />
+    <narrative>myAdmin</narrative>
+    <display x="-180" y="-360" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Username" type="text" />
+      <field name="Password" type="password" />
+      <field name="User Expiry Date" type="date" />
+      <field name="Password Expiry Date" type="date" />
+      <field name="Password Duration" type="text" />
+      <field name="Roles" type="collection">
+        <field name="Role" type="text" />
+      </field>
+    </collectioninfo>
+  </stage>
+  <stage stageid="0a57a89d-27a1-4032-b653-5a59852ff5f1" name="Input Variables" type="Block">
+    <subsheetid>0ef9fbb2-079a-4207-a229-95be1e9aa75c</subsheetid>
+    <display x="-255" y="-390" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="45c6386a-6e88-417f-8901-e0ce96763a72" name="Go to Studio" type="Action">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>399b67a1-5037-4e1c-b40d-55454c457208</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="42ef6b47-255f-4016-bca0-26eb415e5dab" name="Local Variables" type="Block">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="-255" y="-75" w="150" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="18d82ab7-8b90-4f6b-8cdd-20138303560e" name="Note1" type="Note">
+    <narrative>Task 3: Create User Group</narrative>
+    <display x="15" y="765" w="150" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>a79dead6-0ce7-4391-aae8-2e3f6242cf52</onsuccess>
+  </stage>
+  <stage stageid="a79dead6-0ce7-4391-aae8-2e3f6242cf52" name="Create User Group" type="Action">
+    <loginhibit />
+    <display x="15" y="825" w="90" h="30" />
+    <inputs>
+      <input type="text" name="User Group Name" narrative="The name you want to give the group you are making." expr="&quot;myUserGroup&quot;" />
+      <input type="text" name="Target Group" friendlyname="Target Group" narrative="The group you want to create the new group inside. This will default to &quot;Users&quot;" expr="&quot;Users&quot;" />
+      <input type="number" name="Target Group Match Index" friendlyname="Target Group Match Index" narrative="If the target group exists more than once this way you can target specific ones." expr="2" />
+    </inputs>
+    <onsuccess>6ff16bb5-942a-4a28-a07f-15a4e671f9db</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Group - Create" />
+  </stage>
+  <stage stageid="cf38f166-cad6-4587-95de-7ff716ef74c4" name="Rename User Group" type="Action">
+    <loginhibit />
+    <display x="15" y="945" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Existing User Group" narrative="Exising User Group to Rename" expr="&quot;myUserGroup&quot;" />
+      <input type="text" name="New Name" narrative="User Group name to rename to." expr="&quot;DeleteMe&quot;" />
+    </inputs>
+    <onsuccess>5d6e93b8-fe40-4a77-9c96-54ae43630ab2</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Group - Rename" />
+  </stage>
+  <stage stageid="6ff16bb5-942a-4a28-a07f-15a4e671f9db" name="Note1" type="Note">
+    <narrative>Task 4: Rename User Group</narrative>
+    <display x="15" y="885" w="150" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>cf38f166-cad6-4587-95de-7ff716ef74c4</onsuccess>
+  </stage>
+  <stage stageid="151253bc-5d89-482f-88ce-a8480405a5c4" name="Delete User Group" type="Action">
+    <loginhibit />
+    <display x="15" y="1065" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Group Name" narrative="The name of the user group you wish to delete." expr="&quot;DeleteMe&quot;" />
+    </inputs>
+    <onsuccess>dee75de8-b0d6-4891-af7e-09dd305d2b19</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Group - Delete" />
+  </stage>
+  <stage stageid="5d6e93b8-fe40-4a77-9c96-54ae43630ab2" name="Note1" type="Note">
+    <narrative>Task  5: Delete User Group</narrative>
+    <display x="15" y="1005" w="150" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>151253bc-5d89-482f-88ce-a8480405a5c4</onsuccess>
+  </stage>
+  <stage stageid="dee75de8-b0d6-4891-af7e-09dd305d2b19" name="Note1" type="Note">
+    <narrative>Create New User Group</narrative>
+    <display x="15" y="1125" w="150" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>4cff095b-ae31-4cc1-8f59-4af8c41dda3f</onsuccess>
+  </stage>
+  <stage stageid="4cff095b-ae31-4cc1-8f59-4af8c41dda3f" name="Create User Group" type="Action">
+    <loginhibit />
+    <display x="15" y="1185" w="90" h="30" />
+    <inputs>
+      <input type="text" name="User Group Name" narrative="The name you want to give the group you are making." expr="&quot;myTestUserGroup&quot;" />
+      <input type="text" name="Target Group" friendlyname="Target Group" narrative="The group you want to create the new group inside. This will default to &quot;Users&quot;" expr="&quot;Users&quot;" />
+      <input type="number" name="Target Group Match Index" friendlyname="Target Group Match Index" narrative="If the target group exists more than once this way you can target specific ones." expr="2" />
+    </inputs>
+    <onsuccess>ae5e9465-1d00-46ce-b4db-bd2f5a240bd6</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Group - Create" />
+  </stage>
+  <stage stageid="ae5e9465-1d00-46ce-b4db-bd2f5a240bd6" name="Note1" type="Note">
+    <narrative>Clean Up - Delete Testers User</narrative>
+    <display x="15" y="1245" w="150" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>307e1fca-b48c-4d97-9fa4-f33f6d23fed4</onsuccess>
+  </stage>
+  <stage stageid="307e1fca-b48c-4d97-9fa4-f33f6d23fed4" name="Delete Username " type="Action">
+    <loginhibit />
+    <display x="15" y="1305" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" narrative="The name of the user you wish to delete." expr="&quot;Testers1&quot;" />
+    </inputs>
+    <onsuccess>c24996d4-6530-47f8-8bc3-0716a3f9a534</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Delete Username" />
+  </stage>
+  <stage stageid="8a75d5cf-d81b-41b4-8a3a-9909350f70af" name="Delete User Group" type="Action">
+    <loginhibit />
+    <display x="15" y="1425" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Group Name" narrative="The name of the user group you wish to delete." expr="&quot;myTestUserGroup&quot;" />
+    </inputs>
+    <onsuccess>354067c9-2489-4e82-b5e8-29898946ee92</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Group - Delete" />
+  </stage>
+  <stage stageid="c24996d4-6530-47f8-8bc3-0716a3f9a534" name="Note1" type="Note">
+    <narrative>Clean Up - Delete User Group</narrative>
+    <display x="15" y="1365" w="150" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>8a75d5cf-d81b-41b4-8a3a-9909350f70af</onsuccess>
+  </stage>
+  <stage stageid="354067c9-2489-4e82-b5e8-29898946ee92" name="Note1" type="Note">
+    <narrative>Clean Up - Sign Out</narrative>
+    <display x="15" y="1485" w="150" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>49d9b993-5716-40a4-bb43-8619c0d1254c</onsuccess>
+  </stage>
+  <stage stageid="49d9b993-5716-40a4-bb43-8619c0d1254c" name="Sign Out Blue Prism" type="Action">
+    <display x="15" y="1545" w="90" h="30" />
+    <onsuccess>f44613b6-eafc-4bed-8b05-be65963a8ac0</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="a65effd5-9bbb-4048-a834-074d9ab8afff" name="Go to System" type="Action">
+    <subsheetid>f429cf46-c4d6-4c97-bde4-6a8c92dc401d</subsheetid>
+    <display x="15" y="675" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>c047447c-17d5-4466-8797-8b9af9baeff5</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="56ebfc78-e14e-4e95-ae53-5f1f1a3406cf" name="Attach to System" type="Action">
+    <display x="15" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[parent PID]" />
+    </inputs>
+    <onsuccess>e0ec33fb-611e-4fd4-ac66-33af6b0feba1</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+</process>

@@ -1,0 +1,450 @@
+﻿<process name="Scheduler GUI Many" version="1.0" bpversion="6.3.0.5030" narrative="As Scheduler GUI, but runs on many resources" byrefcollection="true" preferredid="ad80bc6b-fdae-4cb7-ad69-db712e6116ee">
+  <view>
+    <camerax>0</camerax>
+    <cameray>-117</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="e6c60318-ccdc-4d76-a648-e77f69c90ea8" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>-285</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>c7739df7-8a26-476e-930f-9a96ab485134</onsuccess>
+  </stage>
+  <stage stageid="b947f674-ebc8-4e0c-8986-84f02bfcb5c9" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="4b2351a0-575f-41a4-b044-07dcf6d09218" name="Log in" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" expr="&quot;admin&quot;" />
+      <input type="password" name="Password" expr="&quot;admin&quot;" />
+    </inputs>
+    <onsuccess>d08ae2a1-070c-480a-a817-dd3851802f83</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="2137636f-f14a-4c3a-a507-af8b032d647b" name="Schedule task" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>480</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="date" name="Start Date" narrative="The start date for the schedule" expr="Today()" />
+      <input type="time" name="Start Time" narrative="The start time for the schedule" expr="LocalTime()+MakeTimeSpan(0, 0, 2, 0, 0)" />
+      <input type="text" name="Name" narrative="The name of the schedule to create" expr="&quot;Schedule of Many&quot;" />
+      <input type="collection" name="Tasks" narrative="The tasks to run" expr="[Tasks]" />
+      <input type="text" name="Group To Expand" narrative="Group contianing Process" expr="" />
+      <input type="text" name="Resource Group To Expand" narrative="Group containing resources in schedule" expr="" />
+    </inputs>
+    <onsuccess>a29ff8d6-d6b3-4fcc-bff9-5b270cc34615</onsuccess>
+    <breakpoint type="0">
+      <condition>
+      </condition>
+    </breakpoint>
+    <resource object="Blue Prism - Control - Scheduler" action="Create Schedule" />
+  </stage>
+  <stage stageid="4114e73d-fe8a-4696-9abe-3ff63e6b5748" name="Resource Name" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d08ae2a1-070c-480a-a817-dd3851802f83" name="Get Resource Name" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>58c7c829-85c4-4258-a31c-021556ebaa1c</onsuccess>
+    <calculation expression="GetResourceName()" stage="Resource Name" />
+  </stage>
+  <stage stageid="58c7c829-85c4-4258-a31c-021556ebaa1c" name="Debug?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="EndsWith([Resource Name], &quot;_debug&quot;)" />
+    <ontrue>0e15eb91-362b-4a9b-8dfc-211352c40d2f</ontrue>
+    <onfalse>0f196b98-29a2-47c3-b71a-fb29835368de</onfalse>
+  </stage>
+  <stage stageid="0e15eb91-362b-4a9b-8dfc-211352c40d2f" name="Strip Debug from ResourceName" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>0f196b98-29a2-47c3-b71a-fb29835368de</onsuccess>
+    <calculation expression="Left([Resource Name], Len([Resource Name]) - Len(&quot;_debug&quot;))" stage="Resource Name" />
+  </stage>
+  <stage stageid="0bbf6d3a-864d-4ef1-a85e-a68eb9e0935c" name="Sessions" type="Collection">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>0</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Process Group" type="text" description="The group within which the process can be found, leave empty for no group" />
+      <field name="Process Name" type="text" description="The name of the process to create in the session" />
+      <field name="Resource Name" type="text" description="The name of the resource to run the process on" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="6a4e6533-86b8-46ea-865f-f9c00167188f" name="Base Port" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>8181</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="255f068f-f54e-456c-9eaa-a91015f73e40" name="Sessions To Create" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>3</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7f58db94-14b2-4038-b88d-018a12000b47" name="Port Suffix" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="feaf4ac4-ebd5-4673-bd95-70fcbe0798c7" name="Sessions Created &gt;= Sessions To Create?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>300</displayy>
+    <displaywidth>210</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Sessions Created] &gt;= [Sessions To Create]" />
+    <ontrue>43612bbe-9727-4d43-9f91-0042e319e95a</ontrue>
+    <onfalse>f864998a-53bf-4d23-983d-72c77d0351ed</onfalse>
+  </stage>
+  <stage stageid="f8bee4e4-6343-426b-af24-1a9db74346b5" name="Sessions Created" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="53c601c0-62d9-4a05-9282-b3ade17c9667" name="Sessions Created++" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>255</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>feaf4ac4-ebd5-4673-bd95-70fcbe0798c7</onsuccess>
+    <calculation expression="[Sessions Created] + 1" stage="Sessions Created" />
+  </stage>
+  <stage stageid="1be42af6-581e-4045-af7a-3abc0b1f4549" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>615</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="49e6ed71-013e-4cf9-be35-2db23b8190e9" name="Exit" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>570</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>1be42af6-581e-4045-af7a-3abc0b1f4549</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="f864998a-53bf-4d23-983d-72c77d0351ed" name="Set Port Suffix" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>300</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>bae1a3b7-77dd-470a-8611-2b974537515c</onsuccess>
+    <calculation expression="&quot;:&quot; &amp; ([Base Port] + [Sessions Created])" stage="Port Suffix" />
+  </stage>
+  <stage stageid="0f196b98-29a2-47c3-b71a-fb29835368de" name="Tasks.AddRow()" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to be modified" expr="&quot;Tasks&quot;" />
+    </inputs>
+    <onsuccess>9139a4e9-5a51-46ef-9713-1b338b1820d1</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="9139a4e9-5a51-46ef-9713-1b338b1820d1" name="Set Task Name" type="Calculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>1c97f3ba-748b-4146-bd62-c337d7f9b0fe</onsuccess>
+    <calculation expression="&quot;Schedule of Many - New Task&quot;" stage="Tasks.Task Name" />
+  </stage>
+  <stage stageid="1c97f3ba-748b-4146-bd62-c337d7f9b0fe" name="Sessions.AddRow()" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>165</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to be modified" expr="&quot;Sessions&quot;" />
+    </inputs>
+    <onsuccess>a11ce51d-2d59-4e32-97ea-9a9c132338ff</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="a11ce51d-2d59-4e32-97ea-9a9c132338ff" name="Set Session Details" type="MultipleCalculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>210</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>53c601c0-62d9-4a05-9282-b3ade17c9667</onsuccess>
+    <steps>
+      <calculation expression="&quot;Do Nothing&quot;" stage="Sessions.Process Name" />
+      <calculation expression="[Resource Name] &amp; [Port Suffix]" stage="Sessions.Resource Name" />
+    </steps>
+  </stage>
+  <stage stageid="bae1a3b7-77dd-470a-8611-2b974537515c" name="anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>165</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>1c97f3ba-748b-4146-bd62-c337d7f9b0fe</onsuccess>
+  </stage>
+  <stage stageid="43612bbe-9727-4d43-9f91-0042e319e95a" name="Task.Sessions := Sessions" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>345</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>44715a17-25d8-402e-8bdc-5cdb04f94328</onsuccess>
+    <calculation expression="[Sessions]" stage="Tasks.Sessions" />
+  </stage>
+  <stage stageid="911f6f53-eee2-445a-a51f-426a368c5f5e" name="Tasks" type="Collection">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Task Name" type="text" description="The name of the task to create" />
+      <field name="On Success" type="text" description="The task to perform on successful completion of the task, leave blank for default (Stop)" />
+      <field name="On Failure" type="text" description="The task to perform on failure of the task, leave blank for default (Abort)" />
+      <field name="Sessions" type="collection" description="The sessions to create on the task">
+        <field name="Process Group" type="text" description="The group within which the process can be found, leave empty for no group" />
+        <field name="Process Name" type="text" description="The name of the process to create in the session" />
+        <field name="Resource Name" type="text" description="The name of the resource to run the process on" />
+      </field>
+      <field name="Fail Fast" type="flag" description="True to fail the task immediately on any errors; False to let other sessions run - Defaults to True" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="163c3552-5c2c-48a9-b1d8-64823093ab65" name="Open Control Tab" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>435</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>2137636f-f14a-4c3a-a507-af8b032d647b</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="44715a17-25d8-402e-8bdc-5cdb04f94328" name="Go Home Tab" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>390</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>163c3552-5c2c-48a9-b1d8-64823093ab65</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="c7739df7-8a26-476e-930f-9a96ab485134" name="Launch Blue Prism" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>-240</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>dc59216a-64c3-48de-af86-fc42d399cf96</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="dc59216a-64c3-48de-af86-fc42d399cf96" name="Attach Control" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>dbb56d80-9d2d-41e6-a73d-c9f4d1796535</onsuccess>
+    <resource object="Blue Prism - Control Room (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="af897119-adeb-412f-991e-cba876c44e1a" name="pid" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="248ed6c6-8b46-4163-beb1-56b253b09d9a" name="Publish Do Nothing" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the process to publish" expr="&quot;Do Nothing&quot;" />
+    </inputs>
+    <onsuccess>4b2351a0-575f-41a4-b044-07dcf6d09218</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Publish Process" />
+  </stage>
+  <stage stageid="dbb56d80-9d2d-41e6-a73d-c9f4d1796535" name="Attach Studio" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>248ed6c6-8b46-4163-beb1-56b253b09d9a</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="a29ff8d6-d6b3-4fcc-bff9-5b270cc34615" name="Unpublish Do Nothing" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>525</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the process to publish" expr="&quot;Do Nothing&quot;" />
+    </inputs>
+    <onsuccess>49e6ed71-013e-4cf9-be35-2db23b8190e9</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Unpublish Process" />
+  </stage>
+</process>

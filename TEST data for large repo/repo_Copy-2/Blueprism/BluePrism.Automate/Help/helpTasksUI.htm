@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>Blue Prism Scheduler Configuration - Tasks</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+	#process-params { clear:left; }
+	</style>
+</head>
+
+<body class="task-ui">
+	<div class="header">
+		<h1 class="pagetitle">Scheduler Configuration</h1>
+		<h2>Tasks</h2>
+	</div>
+	<div class="captioned-image overview-screenshot nozoom">
+		<a href="Graphics/schedule-task-config.png"
+			title="Task Configuration - Click for a larger image"><img
+			alt="Task Configuration - Click for a larger image"
+			src="Graphics/schedule-task-config.png"/></a>
+		<p>Task Configuration</p>
+	</div>
+	<h3>Overview</h3>
+	<p>When a task is selected in the schedule manager tree, its details
+	are displayed in the right hand pane of the Blue Prism client.</p>
+	<p>From here, a task can be configured to run a number of different
+	processes on resources, and specify subsequent tasks to pass control
+	to depending on the outcome of those processes when executed.</p>
+	<div class="clearer"></div>
+	
+	<h3 id="create-task">Creating a task</h3>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-new.png"
+			alt="Creating a task"/>
+	</div>
+	<p>A task is created by right-clicking on the appropriate schedule
+	element in the schedule	manager tree and selecting "New Task".</p>
+	<p>A new task, populated with default values, will be created and
+	automatically selected in the schedule manager tree.</p>
+	<p>When a schedule is first created, an initial task will be created
+	at the same time.</p>
+	<div class="clearer"></div>
+	
+	<h3 id="configure-task">Configuring a task</h3>
+	<h4 id="initial-task">Setting the task execution order</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-next.png"
+			alt="Configuring a task"/>
+	</div>
+	<p>See <a href="helpSchedulesUI.htm#initial-task">Setting the
+	schedule's initial task</a> for specifying which task should be
+	executed first when a schedule is activated.</p>
+	<p>The task to be executed after this task has completed
+	successfully can be specified by selecting the appropriate task from
+	the "On Complete" drop down. A value of "Stop" indicates that the
+	schedule should complete after this task has completed.</p>
+	<p>The task to be executed after this task has been terminated can
+	be specified by selecting the appropriate task from the "On
+	Exception" drop down. A value of "Abort" indicates that the schedule
+	should terminate after this has terminated.</p>
+
+	<h4 id="task-sessions">Session Failure Detection</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-failfast.png"
+			alt="Fast-failing a task"/>
+	</div>
+	<p>By default, a task is configured to 'fail fast', ie. to
+	immediately terminate the task if any sessions fail to start or
+	terminate due to an exception. This can be overridden by unticking
+	the <code>Fail fast on any errors</code> checkbox.</p>
+	<p>Note that detecting a task failure works differently when fail
+	fast is enabled compared to when it is not.</p>
+	<ul class="image-inlined">
+	<li>If a task is set to fail fast, a task is terminated when any
+	errors in any of the sessions occur - eg. if a resource couldn't be
+	contacted or was too busy to create a session, or if a session
+	raised an exception and terminated abnormally.</li>
+	<li>If a task is set <em>not</em> to fail fast, a task is only
+	terminated if an error occurs in <em>all</em> of its sessions - and
+	that task termination only takes place when the last running session
+	is detected to have failed.</li>
+	</ul>
+	
+	<h4 id="task-sessions">Maintaining scheduled sessions</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-dragging.png"
+			alt="Creating a session"/>
+	</div>
+	<p>When a task is executed, all sessions defined within it will be
+	run concurrently.</p>
+	
+	<p>There are no restrictions on sessions within a task. For example,
+	multiple processes can be specified to run on the same resource. If
+	such processes are exclusive, the task will be terminated due to the
+	fact that the resource is too busy to run anything other than the
+	first process.</p>	
+	
+	<h5 id="create-session">Creating a session</h5>
+	<p>A scheduled session is created when a published process is
+	dragged onto a resource, or vice versa.</p>
+	<p>Once a session has been created, it will be listed in the
+	'Scheduled Sessions' list.</p>
+	
+	<div class="captioned-image screenshot">
+		<img src="Graphics/schedule-startparams.png"
+			alt="Setting start parameters"/>
+	</div>
+	<h5 id="process-params">Setting process parameters</h5>
+	<p>If a process in a session requires startup parameters, they can
+	be configured by right clicking the appropriate session and
+	selecting "Startup Parameters" from the context menu.</p>
+	<p>See the <a href="frmStartParams.htm">Start parameters help topic
+	</a> for further information on configuring start parameters.</p>
+	
+	<h5 id="Post Completion Delay">Post Completion Delay</h5>
+	<p>Adds a delay of between 0 and 1500 seconds to the end of a
+	scheduled task before allowing the next task in the schedule to commence.</p>
+	
+	<h5 id="delete-session">Deleting a session</h5>
+	<p>Right-clicking the session and selecting "Delete" will cause the
+	session to be removed from the task.</p>
+	
+	
+	<h3 id="save-task">Saving a task</h3>
+	<p>A task cannot be saved directly - changes to a task implicitly
+	cause changes in its parent schedule, so in order to save a task,
+	its schedule must be saved.</p>
+	<p>See the <a href="helpSchedulesUI.htm#save-schedule">Saving a
+	schedule</a> help topic for further help in saving a schedule.</p>
+	
+	<h3 id="copy-paste-task">Copying and pasting a task</h3>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-copy.png"
+			alt="Copying a task"/>
+	</div>
+	<p>A task can copied and pasted either to its parent schedule
+	(cloning the task), or to a different schedule altogether.</p>
+	<p>Due to the way this is implemented, copying and pasting can only
+	be performed within a single instance of the Blue Prism application
+	- ie. it cannot be copied from one running application and pasted
+	into another.</p>
+	<p>A task is copied by right-clicking it and selecting 'Copy'</p>
+	<div class="captioned-image screenshot" style="width:100px">
+		<img src="Graphics/schedule-task-paste.png" alt="Pasting a task"/>
+	</div>
+	<p>Once copied, it can be pasted into a schedule by right-clicking
+	the target schedule in the schedule manager tree and selecting
+	'Paste'.</p>
+	<p>Note that this does not use the system clipboard and, as such, is
+	unaffected by other cutting / copying operations. This also means
+	that the copied task does not exist outside of the currently
+	executing schedule manager.</p>
+	<div class="clearer"></div>
+	
+	<h3 id="delete-task">Deleting a task</h3>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-delete.png"
+			alt="Deleting a task"/>
+	</div>
+	<p>A task can be deleted by right-clicking it in the schedule
+	manager tree and selecting 'Delete'.</p>
+	<p>Note that any references to the task by another task (as its next
+	task in an "On Complete" or "On Exception" drop down) or by the
+	schedule (as its "Initial Task") will be reset to defaults when the
+	task is deleted.</p>
+	
+	<h3 id="see-also">Related Topics</h3>
+	<ul class="relatedtopics">
+		<li><a href="helpSchedulerUI.htm">Blue Prism Scheduler</a></li>
+		<li><a href="helpSchedulesUI.htm">Configuring Schedules</a></li>
+	</ul>
+
+</body>
+</html>

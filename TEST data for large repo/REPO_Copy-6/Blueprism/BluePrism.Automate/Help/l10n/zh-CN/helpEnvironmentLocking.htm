@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>环境锁定</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+		h3, h4 { clear:left !important; }
+	</style>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">流程功能</h1>
+		<h2>环境锁定</h2>
+	</div>
+	<div class="captioned-image overview-screenshot nozoom">
+		<a href="Graphics/env-locking.png" title="环境锁定—点击查看大图"><img src="Graphics/env-locking.png" alt="环境锁定—点击查看大图"/></a>
+		<p>环境锁定</p>
+	</div>
+	
+	<h3 id="overview">概述</h3>
+	<p>使用环境锁功能，Blue Prism 会话可以“锁定”对特定资源或流程关键部分的访问，确保任何其他会话在锁被释放之前处于等待状态。</p>
+	
+	<p>环境锁常被用于暂时控制运行会话的资源 PC，或用于确保一次只会有一个会话尝试更新网络上的某个文件。</p>
+	
+	<h3 id="businessobject">内部业务对象</h3>
+	<p>Blue Prism 中的锁定功能会在名为“环境锁定”的内部业务对象中实现。
+ 该对象共包含 3 个操作，即：</p>
+	<ul>
+		<li>获取锁</li>
+		<li>释放锁</li>
+		<li>查询锁</li>
+	</ul>
+	
+	<p>请参阅该业务对象的文档，以进一步详细了解相关的操作特性。您可以通过以下方法来查看这些信息：创建一个操作环节，选择该业务对象，然后按信息图标；一个页面会随即出现，以显示这些操作的所有输入、输出和详细信息。</p>
+	
+	<h3 id="particulars">相关细节</h3>
+	<p>环境锁会在被获取时自动创建（如果尚不存在）。它们只能通过系统管理器中的<a href="helpSystemManagerLocking.htm">“锁定”</a>面板来删除。</p>
+	
+	<p>每个被持有的锁都会与获取它的会话绑定。
+ 如果某个会话已结束（正常结束或因出现异常而结束），那么该会话仍持有的所有锁都会被释放，所管理的资源也将可供尝试获取这类锁的其他资源使用。</p>
+	
+	<p>如果某个资源在其会话结束后无法连接到数据库（例如，资源会导致操作系统崩溃，或是硬盘会出现故障），则锁将成为孤立锁（即，保持锁定状态且不会自动释放）。
+	<br/>
+ 您可以在系统管理器的“工作流程”部分中使用“<a href="helpSystemManagerLocking.htm">锁定</a>”面板来释放孤立锁。</p>
+	
+</body>
+</html>

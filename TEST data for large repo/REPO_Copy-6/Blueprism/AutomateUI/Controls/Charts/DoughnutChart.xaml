@@ -1,0 +1,89 @@
+<UserControl x:Class="Controls.Charts.DoughnutChart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:local="clr-namespace:AutomateControls.Converters.LiveCharts;assembly=AutomateControls"
+             xmlns:lctrl="clr-namespace:AutomateUI.Controls.Charts.Resources"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/LiveChartStyleResources.xaml" />
+                <ResourceDictionary Source="Resources/SharedStylesResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:DataAvailableVisibilityConverter x:Key="DataAvailableVisibility" />
+            <local:NoDataAvailableVisibilityConverter x:Key="NoDataAvailableVisibility" />
+            <local:CollectionContainsDataConverter x:Key="CollectionContainsData" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <StackPanel Orientation="Vertical"
+                    Margin="15,15,0,15"
+                    Grid.Row="0" >
+            <TextBlock 
+                       Text="{Binding ChartTitle,Mode=OneTime}" Style="{StaticResource BluePrismTextBlockTitle}"
+                       IsEnabled="{Binding SeriesCollection, Converter={StaticResource CollectionContainsData},Mode=OneTime}"
+                       />
+            <TextBlock
+                       Text="{Binding ChartSubTitle,Mode=OneTime}" Style="{StaticResource BluePrismTextBlockSubTitle}"
+                       IsEnabled="{Binding SeriesCollection, Converter={StaticResource CollectionContainsData},Mode=OneTime}"
+                       />
+        </StackPanel>
+
+        <Grid Grid.Row="2" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <lvc:PieChart 
+                Grid.Row="0"  
+                Grid.Column="0"
+                InnerRadius="100"
+                Hoverable="True"
+                LegendLocation="None"
+                Series="{Binding SeriesCollection,Mode=OneTime}"
+                Style="{StaticResource ChartPieStyle}"
+                Visibility="{Binding SeriesCollection, Converter={StaticResource DataAvailableVisibility},Mode=OneTime}">
+                
+                <lvc:PieChart.DataTooltip>
+                    <lvc:DefaultTooltip 
+                    Style="{StaticResource DataTooltipStyle}">
+                    </lvc:DefaultTooltip>
+                </lvc:PieChart.DataTooltip>
+            </lvc:PieChart>
+
+            <lctrl:LegendControl
+                Grid.Row="0"
+                Grid.Column="1"
+                Visibility="{Binding SeriesCollection, Converter={StaticResource DataAvailableVisibility},Mode=OneTime}">
+            </lctrl:LegendControl>
+        </Grid>
+
+        <Image Style="{StaticResource NoDataStyle}"
+               Visibility="{Binding SeriesCollection, Converter={StaticResource NoDataAvailableVisibility},Mode=OneTime}">
+            <Image.Source>
+                <BitmapImage UriSource="pack://application:,,,/AutomateUI;component/Resources/doughnut-nodata.png" CacheOption="OnLoad"/>
+            </Image.Source>
+        </Image>
+    </Grid>
+</UserControl>
+ 

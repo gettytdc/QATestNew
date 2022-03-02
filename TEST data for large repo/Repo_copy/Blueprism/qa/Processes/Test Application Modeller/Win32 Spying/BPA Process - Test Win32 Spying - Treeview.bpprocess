@@ -1,0 +1,601 @@
+﻿<process name="Test Win32 Spying - Treeview" version="1.0" bpversion="6.11.0.34038" narrative="" byrefcollection="true" preferredid="0560cdba-3d7c-4340-a910-920d28c00e74">
+  <view>
+    <camerax>15</camerax>
+    <cameray>675</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="930e632a-fa1d-4779-80e3-f9974ccbadfd" name="Start" type="Start">
+    <display x="15" y="-495" w="90" h="30" />
+    <onsuccess>3b078e29-5c0e-44cb-9212-03f38e13888d</onsuccess>
+  </stage>
+  <stage stageid="76f67eaa-32e4-438a-9bcf-a3cf074f2649" name="End" type="End">
+    <display x="15" y="615" w="90" h="30" />
+  </stage>
+  <stage stageid="1aaa1541-391d-460d-8760-b3533fb5f1df" name="Stage1" type="ProcessInfo">
+    <display x="-210" y="-465" w="150" h="90" />
+  </stage>
+  <stage stageid="7c18605f-6532-4bf5-ae4b-1da56864584b" name="Sign In" type="Action">
+    <display x="15" y="-345" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="" />
+      <input type="password" name="Password" expr="" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>641bedd8-155e-42b7-9395-eacd07c5d62f</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="88bb1b58-42bc-4e0e-b2ed-1e81721ee7c0" name="Open Object" type="Action">
+    <display x="15" y="-210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Object Name" narrative="The name of the object you wish to open." expr="&quot;Test App&quot;" />
+      <input type="text" name="Folder to Select" narrative="Name of folder the object you wish to select is contained within" expr="" />
+      <input type="number" name="MatchIndex" expr="" />
+    </inputs>
+    <onsuccess>9d2fb92b-8cfc-46a1-8def-f67800f177fe</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Object" />
+  </stage>
+  <stage stageid="9d2fb92b-8cfc-46a1-8def-f67800f177fe" name="Open Application Modeller" type="Action">
+    <display x="15" y="-165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process / Object Name" narrative="Name of the Process or Object" expr="&quot;Test App&quot;" />
+    </inputs>
+    <onsuccess>39785ec5-9953-43bb-951e-d5f5bd367442</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Open Application Modeller" />
+  </stage>
+  <stage stageid="c43c4eaf-d823-4d6a-9178-d3de357d18d3" name="Create Element Node" type="Action">
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name that you want to give the new element." expr="[New Elements.Element Name]" />
+      <input type="text" name="Parent Element" narrative="The name of the element you want the new element to be a child of. If left blank it will default to the model root," expr="[New Elements.Parent]" />
+    </inputs>
+    <onsuccess>1e7e3dea-248a-41e9-9915-afddbfa64215</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Create New Element" />
+  </stage>
+  <stage stageid="1e7e3dea-248a-41e9-9915-afddbfa64215" name="Identify Element" type="Action">
+    <display x="15" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Element Name" narrative="The name of the element you want to identify." expr="[New Elements.Element Name]" />
+      <input type="text" name="Spy Mode" narrative="The name of the spy mode you want to use." expr="[New Elements.Spy Mode]" />
+      <input type="text" name="Control Type" narrative="The control type you want to select." expr="[New Elements.Control Type]" />
+    </inputs>
+    <onsuccess>b22bdf27-f292-4912-8ad9-4913a49b5d55</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Identify Element" />
+  </stage>
+  <stage stageid="ea76c07e-96aa-41c2-b72f-e9716f7cfdd9" name="Launch Application" type="Action">
+    <display x="15" y="-75" w="90" h="30" />
+    <onsuccess>8fe61811-038b-4f97-a0b9-0a8e01539ea3</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Press Launch" />
+  </stage>
+  <stage stageid="8fe61811-038b-4f97-a0b9-0a8e01539ea3" name="For Each Element" type="LoopStart">
+    <display x="15" y="-30" w="90" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="3366FF" />
+    <onsuccess>c43c4eaf-d823-4d6a-9178-d3de357d18d3</onsuccess>
+    <groupid>03df0c6f-79a0-4623-bc29-5814874a1ddb</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>New Elements</loopdata>
+  </stage>
+  <stage stageid="2b2360df-8b5e-4ea4-8087-cc60fdc09694" name="For Each Element" type="LoopEnd">
+    <display x="15" y="465" w="90" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="3366FF" />
+    <onsuccess>61014551-5100-44a5-8ae4-02d908d0d15e</onsuccess>
+    <groupid>03df0c6f-79a0-4623-bc29-5814874a1ddb</groupid>
+  </stage>
+  <stage stageid="26d5a1e9-370c-463c-8bc8-440d2dd04e93" name="New Elements" type="Collection">
+    <display x="-210" y="-270" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Element Name" type="text" description="The name of your new element." />
+      <field name="Parent" type="text" description="The name of the element that you want the new element to be a child of. If left blank it will be a child of the root of the model." />
+      <field name="Control Type" type="text" />
+      <field name="Spy Mode" type="text" />
+      <field name="Element Type" type="text" />
+      <field name="Data Type" type="text" />
+      <field name="Attributes" type="collection">
+        <field name="Attribute Name" type="text" />
+        <field name="Match?" type="flag" />
+        <field name="Match Type" type="text" />
+        <field name="Value" type="text" />
+      </field>
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Element Name" type="text" value="New Treeview" />
+        <field name="Parent" type="text" value="Treeview (UIA)" />
+        <field name="Control Type" type="text" value="Treeview" />
+        <field name="Spy Mode" type="text" value="Win32" />
+        <field name="Element Type" type="text" value="Tree View" />
+        <field name="Data Type" type="text" value="" />
+        <field name="Attributes" type="collection">
+          <row>
+            <field name="Attribute Name" type="text" value="Active" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="False" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Ancestor Count" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="3" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Ancestors Text" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value=" Simple Automation App &lt;UNKNOWN&gt; " />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Child Count" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="0" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Class Name" />
+            <field name="Match?" type="flag" value="True" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="WindowsForms10.SysTreeView32" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Control ID" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="0" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Enabled" />
+            <field name="Match?" type="flag" value="True" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="True" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Height" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="92" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Match Index" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="1" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Match Reverse" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="True" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Ordinal" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="3" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Parent Active" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="False" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Parent Child Count" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="3" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Parent Class Name" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="WindowsForms10.Window" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Parent Control ID" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="0" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Parent Enabled" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="True" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Parent Height" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="123" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Parent Ordinal" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="3" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Parent Screen Visible" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="True" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Parent Style" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="1442906119" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Parent Visible" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="True" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Parent Width" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="257" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Parent Window Text" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Parent X" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="274" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Parent Y" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="163" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Screen Bounds" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="RECT:1598,372,459,1746" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Screen Visible" />
+            <field name="Match?" type="flag" value="True" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="True" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Style" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="1442906119" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Type Name" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="System.Windows.Forms.TreeView" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Visible" />
+            <field name="Match?" type="flag" value="True" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="True" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Width" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="153" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Window Text" />
+            <field name="Match?" type="flag" value="True" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="X" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="6" />
+          </row>
+          <row>
+            <field name="Attribute Name" type="text" value="Y" />
+            <field name="Match?" type="flag" value="False" />
+            <field name="Match Type" type="text" value="=  (Equal)" />
+            <field name="Value" type="text" value="27" />
+          </row>
+        </field>
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="61014551-5100-44a5-8ae4-02d908d0d15e" name="Terminate" type="Action">
+    <display x="15" y="525" w="90" h="30" />
+    <onsuccess>26c3b4df-0e94-4fe4-814e-4795a813425e</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="ea95b701-e393-4915-8f3b-f2e221f5a7b1" name="Process to seach for" type="Collection">
+    <display x="-210" y="-300" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Process Name" type="text" />
+      <field name="PID" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Process Name" type="text" value="WindowsFormsApp2" />
+        <field name="PID" type="number" value="" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="6338c003-c135-4cb3-87c3-ba83098ab1bc" name="Local Variables" type="Block">
+    <display x="-285" y="-330" w="150" h="330" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3b078e29-5c0e-44cb-9212-03f38e13888d" name="Launch Blue Prism" type="Action">
+    <display x="15" y="-435" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>2685cf10-49dc-48cd-964d-18d918744fca</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="2685cf10-49dc-48cd-964d-18d918744fca" name="Attach Studio" type="Action">
+    <display x="15" y="-390" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>7c18605f-6532-4bf5-ae4b-1da56864584b</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="887e45ef-5b53-4776-9753-a092e23baf79" name="pid" type="Data">
+    <display x="-210" y="-240" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="641bedd8-155e-42b7-9395-eacd07c5d62f" name="Go To Home" type="Action">
+    <loginhibit />
+    <display x="15" y="-300" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>f8548085-43f7-47d1-8243-399f92e32298</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="f8548085-43f7-47d1-8243-399f92e32298" name="Go To Studio" type="Action">
+    <loginhibit />
+    <display x="15" y="-255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>88bb1b58-42bc-4e0e-b2ed-1e81721ee7c0</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="3b0b7bd2-7fd4-43b3-808a-71422a16a1ff" name="QA Root" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-375" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b0ceadfc-bfbf-4ac8-b311-3e800a65c4ca" name="Environment Variables" type="Block">
+    <display x="-285" y="-405" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="39785ec5-9953-43bb-951e-d5f5bd367442" name="Write Executable Path" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Executable Path" friendlyname="Executable Path" narrative="The executable path you want to change the application model to." expr="[QA Root]&amp;&quot;\Code\Simple Automation App\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\WindowsFormsApp2.exe&quot;" />
+    </inputs>
+    <onsuccess>ea76c07e-96aa-41c2-b72f-e9716f7cfdd9</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Application Modeller - Write Executable Path" />
+  </stage>
+  <stage stageid="b22bdf27-f292-4912-8ad9-4913a49b5d55" name="Read Element Details" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="105" w="90" h="30" />
+    <outputs>
+      <output type="collection" name="Element Attributes" friendlyname="Element Attributes" stage="Element Attributes" />
+      <output type="text" name="Element Name" friendlyname="Element Name" stage="Element Name" />
+      <output type="text" name="Description" friendlyname="Description" stage="Description" />
+      <output type="text" name="Element Type" friendlyname="Element Type" stage="Element Type" />
+      <output type="text" name="Data Tyoe" friendlyname="Data Tyoe" stage="Data Type" />
+    </outputs>
+    <onsuccess>8c39c47a-aefa-4720-a32b-4aa15f392d02</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Read Selected Element Details" />
+  </stage>
+  <stage stageid="cd6a8e8d-9c24-43e7-9085-ba9da220e8cc" name="Element Attributes" type="Collection">
+    <display x="-210" y="-90" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Name" type="text" />
+      <field name="Match?" type="flag" />
+      <field name="Match Type" type="text" />
+      <field name="Value" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="b8af8ec1-624a-4be3-b2bb-6755787e3c65" name="Element Name" type="Data">
+    <display x="-210" y="-210" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a8361be0-0826-4b3e-8644-318a63ebe1e4" name="Description" type="Data">
+    <display x="-210" y="-180" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="77242efc-c354-465d-bb83-49eec45b7d55" name="Element Type" type="Data">
+    <display x="-210" y="-150" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2a77389c-7c01-4eee-830c-017bb0da61a1" name="Data Type" type="Data">
+    <display x="-210" y="-120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8c39c47a-aefa-4720-a32b-4aa15f392d02" name="Element Details Correct?" type="Decision">
+    <display x="15" y="150" w="90" h="30" />
+    <decision expression="[Element Name]=[New Elements.Element Name]&#xA;AND&#xA;[Description]=&quot;&quot;&#xA;AND&#xA;[Element Type]=[New Elements.Element Type]&#xA;AND&#xA;[Data Type]=[New Elements.Data Type]" />
+    <ontrue>38562c02-5067-453e-a9a2-cfb855ae551e</ontrue>
+    <onfalse>3fda5bce-20f3-4df0-8542-edb3a20be580</onfalse>
+  </stage>
+  <stage stageid="38562c02-5067-453e-a9a2-cfb855ae551e" name="Expected Attributes" type="LoopStart">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" w="90" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="FF6600" />
+    <onsuccess>b463cd2b-b3ed-4800-bde3-49c454e355ce</onsuccess>
+    <groupid>d98caa28-315e-4dc4-97f9-c1af046a02b2</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>New Elements.Attributes</loopdata>
+  </stage>
+  <stage stageid="45afc81f-4d39-45b7-9cfc-d9bbd6cdc0bc" name="Expected Attributes" type="LoopEnd">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="420" w="90" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="FF6600" />
+    <onsuccess>2b2360df-8b5e-4ea4-8087-cc60fdc09694</onsuccess>
+    <groupid>d98caa28-315e-4dc4-97f9-c1af046a02b2</groupid>
+  </stage>
+  <stage stageid="b463cd2b-b3ed-4800-bde3-49c454e355ce" name="Actual Attributes" type="LoopStart">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="240" w="90" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="339966" />
+    <onsuccess>c2292995-36ee-4fa1-8ef1-a81fbbb36a69</onsuccess>
+    <groupid>188af49c-022e-48e1-a1bf-6addb493d69a</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Element Attributes</loopdata>
+  </stage>
+  <stage stageid="033559be-09e9-403f-b6c8-d23da7063427" name="Actual Attributes" type="LoopEnd">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="375" w="90" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="339966" />
+    <onsuccess>0bb4a606-30d4-4b50-970c-df6bb44df30e</onsuccess>
+    <groupid>188af49c-022e-48e1-a1bf-6addb493d69a</groupid>
+  </stage>
+  <stage stageid="81fa8cc0-5b5e-42d1-891b-b5a8317fe4cc" name="Anchor2" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="120" y="420" w="10" h="10" />
+    <onsuccess>45afc81f-4d39-45b7-9cfc-d9bbd6cdc0bc</onsuccess>
+  </stage>
+  <stage stageid="7608debf-f75e-4dec-8724-fead24e7ef73" name="Attribute Found? (Screen Bounds)" type="Decision">
+    <display x="60" y="330" w="90" h="30" />
+    <decision expression="[Element Attributes.Name]=[New Elements.Attributes.Attribute Name]&#xA;AND&#xA;[Element Attributes.Match?]=[New Elements.Attributes.Match?]&#xA;AND&#xA;[Element Attributes.Match Type]=[New Elements.Attributes.Match Type]" />
+    <ontrue>9e91c46f-491e-4097-b543-c85ecf90ef84</ontrue>
+    <onfalse>033559be-09e9-403f-b6c8-d23da7063427</onfalse>
+  </stage>
+  <stage stageid="db36b887-fb59-45d3-bea4-41fa89ebcfd7" name="Attribute Found?" type="Decision">
+    <display x="-30" y="330" w="90" h="30" />
+    <decision expression="[Element Attributes.Name]=[New Elements.Attributes.Attribute Name]&#xA;AND&#xA;[Element Attributes.Match?]=[New Elements.Attributes.Match?]&#xA;AND&#xA;[Element Attributes.Match Type]=[New Elements.Attributes.Match Type]&#xA;AND&#xA;[Element Attributes.Value]=[New Elements.Attributes.Value]" />
+    <ontrue>58c767a8-76c6-43f8-ae27-1418c16ef7b6</ontrue>
+    <onfalse>033559be-09e9-403f-b6c8-d23da7063427</onfalse>
+  </stage>
+  <stage stageid="3fda5bce-20f3-4df0-8542-edb3a20be580" name="FAIL" type="Exception">
+    <display x="90" y="150" w="30" h="30" />
+    <exception localized="yes" type="ElementException" detail="&quot;The element details were wrong.&quot;" />
+  </stage>
+  <stage stageid="c2292995-36ee-4fa1-8ef1-a81fbbb36a69" name="Screen Bounds?" type="Decision">
+    <display x="15" y="285" w="90" h="30" />
+    <decision expression="[New Elements.Attributes.Attribute Name]=&quot;Screen Bounds&quot;" />
+    <ontrue>7608debf-f75e-4dec-8724-fead24e7ef73</ontrue>
+    <onfalse>db36b887-fb59-45d3-bea4-41fa89ebcfd7</onfalse>
+  </stage>
+  <stage stageid="b5c7fbdb-6e16-4988-90c8-c7405a47e684" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="420" w="10" h="10" />
+    <onsuccess>45afc81f-4d39-45b7-9cfc-d9bbd6cdc0bc</onsuccess>
+  </stage>
+  <stage stageid="9e91c46f-491e-4097-b543-c85ecf90ef84" name="Anchor3" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="120" y="330" w="10" h="10" />
+    <onsuccess>81fa8cc0-5b5e-42d1-891b-b5a8317fe4cc</onsuccess>
+  </stage>
+  <stage stageid="58c767a8-76c6-43f8-ae27-1418c16ef7b6" name="Anchor4" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="330" w="10" h="10" />
+    <onsuccess>b5c7fbdb-6e16-4988-90c8-c7405a47e684</onsuccess>
+  </stage>
+  <stage stageid="0bb4a606-30d4-4b50-970c-df6bb44df30e" name="FAIL" type="Exception">
+    <display x="90" y="375" w="30" h="30" />
+    <exception localized="yes" type="ElementAttributeWrong" detail="&quot;One of the element attributes wasn't as expected.&quot;" />
+  </stage>
+  <stage stageid="e9c7620b-567c-4139-ae1b-34a2829d0e20" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="180" y="375" />
+    <onsuccess>4b71efdc-19fd-4554-947f-ce7441ba675f</onsuccess>
+  </stage>
+  <stage stageid="4b71efdc-19fd-4554-947f-ce7441ba675f" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="180" y="420" w="90" h="30" />
+    <onsuccess>71a4d007-d1b3-46d1-8d1c-95d7473cfcc0</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="71a4d007-d1b3-46d1-8d1c-95d7473cfcc0" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="180" y="465" />
+    <onsuccess>ebc27968-9438-4085-860b-082f4cc9a581</onsuccess>
+  </stage>
+  <stage stageid="ebc27968-9438-4085-860b-082f4cc9a581" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="180" y="525" w="10" h="10" />
+    <onsuccess>61014551-5100-44a5-8ae4-02d908d0d15e</onsuccess>
+  </stage>
+  <stage stageid="1ff674cd-e229-41fe-9e15-94653e86740c" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-60" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b273f59e-304a-4d72-a777-77bfef913664" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-30" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1a188370-d24f-4887-be1d-fff96499eb57" name="CleanUp Block" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-465" w="345" h="960" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="26c3b4df-0e94-4fe4-814e-4795a813425e" name="Failed?" type="Decision">
+    <display x="15" y="570" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>733c645d-e3b8-4d5d-9910-594050d61343</ontrue>
+    <onfalse>76f67eaa-32e4-438a-9bcf-a3cf074f2649</onfalse>
+  </stage>
+  <stage stageid="733c645d-e3b8-4d5d-9910-594050d61343" name="RETHROW" type="Exception">
+    <display x="120" y="570" />
+    <exception type="RETHROW" detail="[Exception]" />
+  </stage>
+</process>

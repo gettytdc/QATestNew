@@ -1,0 +1,1321 @@
+﻿<process name="Google Sheets" version="6.7.0.0" bpversion="6.0.0.0" narrative="Common actions to interact with Google Sheets. Requires a Google API Client ID and Secret for operation - these must be created as Environment Variables called &quot;Google Sheets API Client ID&quot; and &quot;Google Sheets API Client Secret&quot; respectively" byrefcollection="true" type="object" runmode="Background" preferredid="8d364ed0-afcd-4fa9-96f6-d51eec328c43">
+  <appdef>
+    <element name="Application Root">
+      <id>4830b7b9-239c-4eb3-9641-2aedb0a6a111</id>
+      <type>Application</type>
+      <basetype>Application</basetype>
+      <datatype>unknown</datatype>
+      <diagnose>False</diagnose>
+    </element>
+  </appdef>
+  <view>
+    <camerax>0</camerax>
+    <cameray>0</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="35ffcfa5-a5aa-423a-b7c3-decf8e80a924" type="CleanUp" published="True">
+    <name>Clean Up</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="ba7b3bed-1e26-41ed-9b0a-e16127a8a82f" type="Normal" published="True">
+    <name>Get Range Values</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>27</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="6c7b4fc9-2505-45dd-82fd-d938efb3776a" type="Normal" published="True">
+    <name>Set Range Values</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="0e35d793-2c08-4d95-9f81-6013e1ae0487" type="Normal" published="True">
+    <name>Append Data</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>84</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="7058171b-bc51-49d5-8a21-05afd7144b58" type="Normal" published="True">
+    <name>Clear Range</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="731e266a-881b-44e9-a0dd-e131788e3f62" type="Normal" published="True">
+    <name>Create Workbook</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-21</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="cfac1cb7-dae8-47ff-8a2f-ef5663396f77" type="Normal" published="False">
+    <name>Get API Tokens</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="94d15efb-9890-4cd7-b9e1-2d9c039cb66c" name="Start" type="Start">
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>96ddabf9-b71f-437d-89d2-7041aa691bca</onsuccess>
+  </stage>
+  <stage stageid="96ddabf9-b71f-437d-89d2-7041aa691bca" name="End" type="End">
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="23af3fd9-8eae-4ea0-ac92-5998a8611be3" name="Stage1" type="ProcessInfo">
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>120</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <references>
+      <reference>System.dll</reference>
+      <reference>System.Data.dll</reference>
+      <reference>System.Xml.dll</reference>
+      <reference>System.Drawing.dll</reference>
+      <reference>Google.Apis.Auth.dll</reference>
+      <reference>Google.Apis.Core.dll</reference>
+      <reference>Google.Apis.dll</reference>
+      <reference>Google.Apis.Sheets.v4.dll</reference>
+      <reference>System.Linq.dll</reference>
+    </references>
+    <imports>
+      <import>System</import>
+      <import>System.Drawing</import>
+      <import>System.Data</import>
+      <import>Google.Apis.Auth.OAuth2</import>
+      <import>Google.Apis.Services</import>
+      <import>Google.Apis.Sheets.v4</import>
+      <import>Google.Apis.Sheets.v4.Data</import>
+      <import>System.Linq</import>
+      <import>System.IO</import>
+      <import>System.Threading</import>
+      <import>System.Collections.Generic</import>
+    </imports>
+    <language>csharp</language>
+    <globalcode><![CDATA[]]></globalcode>
+    <code><![CDATA[public SheetsService GetSheetsService(string clientId, string clientSecret)
+{
+	var clientSecrets = new ClientSecrets
+	{
+		ClientId = clientId,
+		ClientSecret = clientSecret
+	};
+
+	return
+		new SheetsService(
+			new BaseClientService.Initializer
+			{
+				HttpClientInitializer = 
+					GoogleWebAuthorizationBroker.AuthorizeAsync(
+						clientSecrets,
+						new[] { SheetsService.Scope.Spreadsheets },
+						"user",
+						CancellationToken.None)
+					.Result
+			});
+}]]></code>
+  </stage>
+  <stage stageid="0c0ad39a-220e-4799-b202-3e99b79a6de1" name="Clean Up" type="SubSheetInfo">
+    <subsheetid>35ffcfa5-a5aa-423a-b7c3-decf8e80a924</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="086e66e0-7211-461b-80b0-0442f8ca12b4" name="Start" type="Start">
+    <subsheetid>35ffcfa5-a5aa-423a-b7c3-decf8e80a924</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>f9d59825-14d3-4344-8117-d14a81ef9109</onsuccess>
+  </stage>
+  <stage stageid="f9d59825-14d3-4344-8117-d14a81ef9109" name="End" type="End">
+    <subsheetid>35ffcfa5-a5aa-423a-b7c3-decf8e80a924</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="a4862ee6-6827-4306-82bf-a2066fadb7ce" name="Get Range Values" type="SubSheetInfo">
+    <subsheetid>ba7b3bed-1e26-41ed-9b0a-e16127a8a82f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Gets a collection of values from a range in a Google Sheets document.</narrative>
+    <displayx>-105</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="523ff1ca-3458-4638-b811-7765be8e7692" name="Start" type="Start">
+    <subsheetid>ba7b3bed-1e26-41ed-9b0a-e16127a8a82f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Sheet ID" narrative="The ID of the Sheet to retrieve values from. The Sheet ID can be found in the URL of the workbook." stage="Sheet ID" />
+      <input type="text" name="Range" narrative="The range to get values for (e.g. &quot;Sheet1!A1:C4&quot;)." stage="Range" />
+      <input type="flag" name="Return Formula" narrative="True if the formula of a cell should be returned; otherwise, False" stage="Return Formula" />
+    </inputs>
+    <onsuccess>8301950d-ee5d-4d15-9353-eff7cdce3516</onsuccess>
+  </stage>
+  <stage stageid="039ab5f0-7e1e-4855-a0e8-b747925068af" name="End" type="End">
+    <subsheetid>ba7b3bed-1e26-41ed-9b0a-e16127a8a82f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="collection" name="Values" narrative="The values retrieved from the given range." stage="Values" />
+    </outputs>
+  </stage>
+  <stage stageid="29976b32-7e3e-454e-9e8a-acded4baa67a" name="Get Values" type="Code">
+    <subsheetid>ba7b3bed-1e26-41ed-9b0a-e16127a8a82f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Range" expr="[Range]" />
+      <input type="text" name="SheetId" expr="[Sheet ID]" />
+      <input type="flag" name="ReturnFormula" expr="[Return Formula]" />
+      <input type="text" name="ClientId" expr="[Client ID]" />
+      <input type="text" name="ClientSecret" expr="[Client Secret]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Values" stage="Values" />
+    </outputs>
+    <onsuccess>039ab5f0-7e1e-4855-a0e8-b747925068af</onsuccess>
+    <code><![CDATA[var sheetsService = GetSheetsService(ClientId, ClientSecret);
+
+var request = 
+	sheetsService.Spreadsheets.Values.Get(SheetId, Range);
+	
+request.ValueRenderOption = 
+	ReturnFormula
+	? SpreadsheetsResource.ValuesResource.GetRequest.ValueRenderOptionEnum.FORMULA
+	: SpreadsheetsResource.ValuesResource.GetRequest.ValueRenderOptionEnum.FORMATTEDVALUE;
+
+var cellValues = request.Execute().Values;
+	
+var table = new System.Data.DataTable();
+
+if(cellValues == null)
+{
+	Values = table;
+	return;
+}
+
+var columns = 0;
+foreach(var row in cellValues)
+{
+	if(row.Count > columns)
+		columns = row.Count;
+}
+for(var i = 1; i <= columns; ++i)
+{
+	table.Columns.Add(i.ToString());
+}
+foreach(var row in cellValues)
+{
+	var i = 1;
+	var dataRow = table.NewRow();
+	foreach(var cell in row)
+	{
+		dataRow[i++.ToString()] = cell.ToString();
+	}
+	table.Rows.Add(dataRow);
+}
+
+Values = table;]]></code>
+  </stage>
+  <stage stageid="bb33e98d-f67f-43c7-9001-b1d17d228c80" name="Range" type="Data">
+    <subsheetid>ba7b3bed-1e26-41ed-9b0a-e16127a8a82f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ea26df17-df2c-4e04-b1a3-ab8f013bf5d9" name="Values" type="Collection">
+    <subsheetid>ba7b3bed-1e26-41ed-9b0a-e16127a8a82f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>150</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c5016b9e-3008-43eb-b536-b0f2513043d5" name="Sheet ID" type="Data">
+    <subsheetid>ba7b3bed-1e26-41ed-9b0a-e16127a8a82f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>45</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3b1681cd-ea1d-42bb-8962-e9a1c3450e19" name="Set Range Values" type="SubSheetInfo">
+    <subsheetid>6c7b4fc9-2505-45dd-82fd-d938efb3776a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Sets a range of values in a Google Sheets document.</narrative>
+    <displayx>-105</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="748ee915-ab31-47b4-8141-b970d0ec50dd" name="Start" type="Start">
+    <subsheetid>6c7b4fc9-2505-45dd-82fd-d938efb3776a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Sheet ID" narrative="The ID of the Sheet to set values in. The Sheet ID can be found in the URL of the workbook." stage="Sheet ID" />
+      <input type="text" name="Range" narrative="The range to set values for (e.g. &quot;Sheet1!A1:C4&quot;)." stage="Range" />
+      <input type="collection" name="Values" narrative="The values which should be inserted into the range." stage="Values" />
+      <input type="flag" name="As User Entered" narrative="True if the data should be entered as if typed by the user; False if the data should be entered exactly as is. For example, if attempting to set the value to be a formula, set this value to True. Defaults to True." stage="As User Entered" />
+    </inputs>
+    <onsuccess>30332a01-88a8-4f2f-b7ba-02f0e8d994c9</onsuccess>
+  </stage>
+  <stage stageid="3a14ad7a-3f67-4b58-a06d-49e159ad1c13" name="End" type="End">
+    <subsheetid>6c7b4fc9-2505-45dd-82fd-d938efb3776a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="cf5a7dba-86bb-49d7-8f29-78c2d1f18c37" name="Set Values" type="Code">
+    <subsheetid>6c7b4fc9-2505-45dd-82fd-d938efb3776a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Range" expr="[Range]" />
+      <input type="text" name="SheetId" expr="[Sheet ID]" />
+      <input type="collection" name="Values" expr="[Values]" />
+      <input type="flag" name="AsUserEntered" expr="[As User Entered]" />
+      <input type="text" name="ClientId" expr="[Client ID]" />
+      <input type="text" name="ClientSecret" expr="[Client Secret]" />
+    </inputs>
+    <onsuccess>3a14ad7a-3f67-4b58-a06d-49e159ad1c13</onsuccess>
+    <code><![CDATA[var sheetsService = GetSheetsService(ClientId, ClientSecret);
+
+var cells = new List<IList<object>>();
+
+foreach(DataRow row in Values.Rows)
+{
+	cells.Add(new List<object>(row.ItemArray));
+}
+
+var valueRange = new ValueRange { Values = (IList<IList<object>>)cells };
+var request = sheetsService.Spreadsheets.Values.Update(valueRange, SheetId, Range);
+
+request.ValueInputOption = 
+	AsUserEntered
+	? SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED
+	: SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.RAW;
+request.Execute();
+]]></code>
+  </stage>
+  <stage stageid="da525194-fe09-4449-8958-761190ca941c" name="Range" type="Data">
+    <subsheetid>6c7b4fc9-2505-45dd-82fd-d938efb3776a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>45</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d95543b4-db27-4c29-b033-6f2996b2ce18" name="Values" type="Collection">
+    <subsheetid>6c7b4fc9-2505-45dd-82fd-d938efb3776a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8922b564-7062-433c-9fed-63aa267eb78a" name="Sheet ID" type="Data">
+    <subsheetid>6c7b4fc9-2505-45dd-82fd-d938efb3776a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b9ae1944-3bbd-4132-9912-265a67c694c7" name="Clear Range" type="SubSheetInfo">
+    <subsheetid>7058171b-bc51-49d5-8a21-05afd7144b58</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Clears all values in the given range.</narrative>
+    <displayx>-105</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="897e37e8-181e-4e9d-baae-5dc701e7e89b" name="Start" type="Start">
+    <subsheetid>7058171b-bc51-49d5-8a21-05afd7144b58</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Sheet ID" narrative="The ID of the Sheet to clear values from. The Sheet ID can be found in the URL of the workbook." stage="Sheet ID" />
+      <input type="text" name="Range" narrative="The range to get values for (e.g. &quot;Sheet1!A1:C4&quot;)." stage="Range" />
+    </inputs>
+    <onsuccess>c199b9ef-32dc-4769-be73-7a6dece694c4</onsuccess>
+  </stage>
+  <stage stageid="8611e42e-83d3-4d86-a91a-bbb85549fd27" name="End" type="End">
+    <subsheetid>7058171b-bc51-49d5-8a21-05afd7144b58</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="7822c7b7-fce6-4177-9e68-7ba8f322bea6" name="Clear Values" type="Code">
+    <subsheetid>7058171b-bc51-49d5-8a21-05afd7144b58</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Range" expr="[Range]" />
+      <input type="text" name="SheetId" expr="[Sheet ID]" />
+      <input type="text" name="ClientId" expr="[Client ID]" />
+      <input type="text" name="ClientSecret" expr="[Client Secret]" />
+    </inputs>
+    <onsuccess>8611e42e-83d3-4d86-a91a-bbb85549fd27</onsuccess>
+    <code><![CDATA[var sheetsService = GetSheetsService(ClientId, ClientSecret);
+
+sheetsService.Spreadsheets.Values.Clear(new ClearValuesRequest(), SheetId, Range).Execute();
+]]></code>
+  </stage>
+  <stage stageid="e25780b9-afd2-4372-812b-f981e2138c77" name="Range" type="Data">
+    <subsheetid>7058171b-bc51-49d5-8a21-05afd7144b58</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6b174957-1668-4e45-92a1-b014ce5947c4" name="Sheet ID" type="Data">
+    <subsheetid>7058171b-bc51-49d5-8a21-05afd7144b58</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>45</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="52982153-af93-407e-bb38-0c7dd750a44b" name="Append Data" type="SubSheetInfo">
+    <subsheetid>0e35d793-2c08-4d95-9f81-6013e1ae0487</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Appends the given data to a table found in a sheet. Tables are discovered programatically based on the given range and the data is added at the end of the table.</narrative>
+    <displayx>-105</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="736125fc-8115-4a7f-a391-d272230aa930" name="Start" type="Start">
+    <subsheetid>0e35d793-2c08-4d95-9f81-6013e1ae0487</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Sheet ID" narrative="The ID of the Sheet to append values to. The Sheet ID can be found in the URL of the workbook." stage="Sheet ID" />
+      <input type="text" name="Range" narrative="The range to search for a table (e.g. &quot;Sheet1!A1:C4&quot;)." stage="Range" />
+      <input type="collection" name="Values" narrative="The values which should be appended to the end of the table found at the range." stage="Values" />
+      <input type="flag" name="As User Entered" narrative="True if the data should be entered as if typed by the user; False if the data should be entered exactly as is. Defaults to True." stage="As User Entered" />
+    </inputs>
+    <onsuccess>ad7ffb28-6df0-44cc-95b9-db7e4f226bef</onsuccess>
+  </stage>
+  <stage stageid="4f66045a-efa0-4fa7-b068-e2705c7be0be" name="End" type="End">
+    <subsheetid>0e35d793-2c08-4d95-9f81-6013e1ae0487</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="eb3401c3-434c-4056-a358-4241d48ed45f" name="Append Values" type="Code">
+    <subsheetid>0e35d793-2c08-4d95-9f81-6013e1ae0487</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Range" expr="[Range]" />
+      <input type="text" name="SheetId" expr="[Sheet ID]" />
+      <input type="collection" name="Values" expr="[Values]" />
+      <input type="flag" name="AsUserEntered" expr="[As User Entered]" />
+      <input type="text" name="ClientId" expr="[Client ID]" />
+      <input type="text" name="ClientSecret" expr="[Client Secret]" />
+    </inputs>
+    <onsuccess>4f66045a-efa0-4fa7-b068-e2705c7be0be</onsuccess>
+    <code><![CDATA[var sheetsService = GetSheetsService(ClientId, ClientSecret);
+
+var cells = new List<IList<object>>();
+
+foreach(DataRow row in Values.Rows)
+{
+	cells.Add(new List<object>(row.ItemArray));
+}
+
+var valueRange = new ValueRange { Values = (IList<IList<object>>)cells };
+var request = sheetsService.Spreadsheets.Values.Append(valueRange, SheetId, Range);
+request.ValueInputOption = 
+	AsUserEntered
+	? SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED
+	: SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.RAW;
+request.Execute();
+]]></code>
+  </stage>
+  <stage stageid="62ced62c-c18e-46e3-825f-8b1304ac8e56" name="Create Workbook" type="SubSheetInfo">
+    <subsheetid>731e266a-881b-44e9-a0dd-e131788e3f62</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Creates a new Google Sheets document and returns its ID.</narrative>
+    <displayx>-105</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="661d71c9-01bd-46c4-bf2c-f0b144d0d2c0" name="Start" type="Start">
+    <subsheetid>731e266a-881b-44e9-a0dd-e131788e3f62</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Title" narrative="The name of the Sheet file to create." stage="Title" />
+    </inputs>
+    <onsuccess>9d83efc0-f89d-4b32-9c5b-91d1e57cb6b5</onsuccess>
+  </stage>
+  <stage stageid="fe41f416-fa00-4003-96a8-f7795c00ea59" name="End" type="End">
+    <subsheetid>731e266a-881b-44e9-a0dd-e131788e3f62</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="text" name="Sheet ID" narrative="The ID of the newly created document." stage="Sheet ID" />
+    </outputs>
+  </stage>
+  <stage stageid="59306020-4c92-4784-b1fb-acf1998c3d38" name="Create Sheet" type="Code">
+    <subsheetid>731e266a-881b-44e9-a0dd-e131788e3f62</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Title" expr="[Title]" />
+      <input type="text" name="ClientId" expr="[Client ID]" />
+      <input type="text" name="ClientSecret" expr="[Client Secret]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="SheetId" stage="Sheet ID" />
+    </outputs>
+    <onsuccess>fe41f416-fa00-4003-96a8-f7795c00ea59</onsuccess>
+    <code><![CDATA[var sheetsService = GetSheetsService(ClientId, ClientSecret);
+
+SheetId =
+	sheetsService.Spreadsheets.Create(
+		new Spreadsheet 
+		{
+			Properties = new SpreadsheetProperties
+			{
+				Title = Title
+			}
+		})
+		.Execute().SpreadsheetId;
+]]></code>
+  </stage>
+  <stage stageid="60ac2aa6-6c3e-4ccd-a417-8a9677b38f2c" name="Sheet ID" type="Data">
+    <subsheetid>731e266a-881b-44e9-a0dd-e131788e3f62</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>90</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="81f8e32d-ef56-44d0-9e71-8529fde8ab8f" name="Title" type="Data">
+    <subsheetid>731e266a-881b-44e9-a0dd-e131788e3f62</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3af2255c-c1a4-44f2-a252-127cef99ddd9" name="As User Entered" type="Data">
+    <subsheetid>6c7b4fc9-2505-45dd-82fd-d938efb3776a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d5603c08-7e65-4db4-86e6-0e0e831b07d9" name="Inputs" type="Block">
+    <subsheetid>6c7b4fc9-2505-45dd-82fd-d938efb3776a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>150</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e85c3c2f-2e47-4788-b8fe-dc9e4a5b5340" name="Inputs" type="Block">
+    <subsheetid>ba7b3bed-1e26-41ed-9b0a-e16127a8a82f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>120</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="67e54db0-0d82-4b5a-95ed-2952c760b638" name="Outputs" type="Block">
+    <subsheetid>ba7b3bed-1e26-41ed-9b0a-e16127a8a82f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>120</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0c3df123-9026-4bb8-aca2-44cf4844e0b1" name="Inputs" type="Block">
+    <subsheetid>731e266a-881b-44e9-a0dd-e131788e3f62</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="fa1d5a65-e690-4ea1-9ae3-ae9d34af92ed" name="Outputs" type="Block">
+    <subsheetid>731e266a-881b-44e9-a0dd-e131788e3f62</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>60</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="1125e9f4-8c28-4047-a113-bd6a9e7233b1" name="Inputs" type="Block">
+    <subsheetid>7058171b-bc51-49d5-8a21-05afd7144b58</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="37f2ab19-be5c-4f8f-9334-a9ff54f6e9a4" name="Range" type="Data">
+    <subsheetid>0e35d793-2c08-4d95-9f81-6013e1ae0487</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>45</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3298f7a6-4bd8-40b0-84e3-60fe9f48407e" name="Values" type="Collection">
+    <subsheetid>0e35d793-2c08-4d95-9f81-6013e1ae0487</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2197341b-3427-4792-9895-37e6cc8d12e7" name="Sheet ID" type="Data">
+    <subsheetid>0e35d793-2c08-4d95-9f81-6013e1ae0487</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1824cb9a-ed28-4aea-9b88-b65229630acb" name="As User Entered" type="Data">
+    <subsheetid>0e35d793-2c08-4d95-9f81-6013e1ae0487</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="88b9c265-3b5c-425e-a93d-5175d99c51a4" name="Inputs" type="Block">
+    <subsheetid>0e35d793-2c08-4d95-9f81-6013e1ae0487</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>150</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ed357660-9911-4264-bcad-f3578beb9332" name="Return Formula" type="Data">
+    <subsheetid>ba7b3bed-1e26-41ed-9b0a-e16127a8a82f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6d9bd089-75f1-426d-9e77-a1af64089dfc" name="Get API Tokens" type="SubSheetInfo">
+    <subsheetid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="a79ce144-43b7-4549-a789-0a7d4f60136d" name="Start" type="Start">
+    <subsheetid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>45</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>93be0572-5881-4495-b2db-9350a6a6a0fa</onsuccess>
+  </stage>
+  <stage stageid="6bbf8b3e-d2af-4665-8149-7c41f0d71ad9" name="End" type="End">
+    <subsheetid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>45</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="text" name="Client ID" stage="Google Sheets API Client ID" />
+      <output type="text" name="Client Secret" stage="Google Sheets API Client Secret" />
+    </outputs>
+  </stage>
+  <stage stageid="93be0572-5881-4495-b2db-9350a6a6a0fa" name="Environment Variables Valid?" type="Decision">
+    <subsheetid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>45</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Google Sheets API Client ID]&lt;&gt;&quot;&quot; AND [Google Sheets API Client Secret]&lt;&gt;&quot;&quot;" />
+    <ontrue>6bbf8b3e-d2af-4665-8149-7c41f0d71ad9</ontrue>
+    <onfalse>4b77aba5-9351-47fb-b563-670886ee4da4</onfalse>
+  </stage>
+  <stage stageid="4b77aba5-9351-47fb-b563-670886ee4da4" name="Throw Exception" type="Exception">
+    <subsheetid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="API Tokens Not Found" detail="&quot;The environment variables 'Google Sheets API Client ID' and 'Google Sheets API Client Secret' are either blank or cannot be found. Please check their values before trying again.&quot;" />
+  </stage>
+  <stage stageid="9857e47d-9c65-4eba-9ee4-e12b8422f2e7" name="Verify Tokens" type="Block">
+    <subsheetid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>165</displaywidth>
+    <displayheight>135</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="9c671cac-f28d-416a-9733-10fb7013a9d7" name="Recover" type="Recover">
+    <subsheetid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>b4ff837f-c6c4-4957-9a44-a45315df42ed</onsuccess>
+  </stage>
+  <stage stageid="4568d613-2504-49ec-afef-acc35664626b" name="Anchor1" type="Anchor">
+    <subsheetid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>30</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>4b77aba5-9351-47fb-b563-670886ee4da4</onsuccess>
+  </stage>
+  <stage stageid="b4ff837f-c6c4-4957-9a44-a45315df42ed" name="Resume" type="Resume">
+    <subsheetid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>4568d613-2504-49ec-afef-acc35664626b</onsuccess>
+  </stage>
+  <stage stageid="a044533c-d65e-4f96-9d14-391d9a932a94" name="Google Sheets API Client ID" type="Data">
+    <subsheetid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e5db6a86-daed-4f29-b3dd-8b1b34d03cc7" name="Google Sheets API Client Secret" type="Data">
+    <subsheetid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>45</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5aa1c83d-1037-4fe1-b08f-1ac9f1fb5346" name="Environment Variables" type="Block">
+    <subsheetid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="8301950d-ee5d-4d15-9353-eff7cdce3516" name="Get API Tokens" type="SubSheet">
+    <subsheetid>ba7b3bed-1e26-41ed-9b0a-e16127a8a82f</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="text" name="Client ID" stage="Client ID" />
+      <output type="text" name="Client Secret" stage="Client Secret" />
+    </outputs>
+    <onsuccess>29976b32-7e3e-454e-9e8a-acded4baa67a</onsuccess>
+    <processid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</processid>
+  </stage>
+  <stage stageid="e2642c1a-4ad5-4d25-a882-64a79dbbe447" name="Client ID" type="Data">
+    <subsheetid>ba7b3bed-1e26-41ed-9b0a-e16127a8a82f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>225</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="97696dda-7f80-4b55-9aad-51b06a7e351d" name="Client Secret" type="Data">
+    <subsheetid>ba7b3bed-1e26-41ed-9b0a-e16127a8a82f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>255</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="19b890c1-a9d5-4bbf-b399-866212527fd5" name="Data" type="Block">
+    <subsheetid>ba7b3bed-1e26-41ed-9b0a-e16127a8a82f</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>195</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b5a3de76-52ad-4cf1-8981-03864811decc" name="Client ID" type="Data">
+    <subsheetid>6c7b4fc9-2505-45dd-82fd-d938efb3776a</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>180</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c0d55e95-54e4-4aba-8f10-30dc15c481aa" name="Client Secret" type="Data">
+    <subsheetid>6c7b4fc9-2505-45dd-82fd-d938efb3776a</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>210</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="eded8684-4e0b-460f-baed-59c71705a192" name="Data" type="Block">
+    <subsheetid>6c7b4fc9-2505-45dd-82fd-d938efb3776a</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>150</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="6ba1ec83-ecf1-4cf7-850d-80cd20f051d8" name="Client ID" type="Data">
+    <subsheetid>0e35d793-2c08-4d95-9f81-6013e1ae0487</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>180</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="410a8b26-48ef-484d-80cb-4f4f73951108" name="Client Secret" type="Data">
+    <subsheetid>0e35d793-2c08-4d95-9f81-6013e1ae0487</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>210</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b884ecb0-9f5e-457d-85e1-1b72e595e7bd" name="Data" type="Block">
+    <subsheetid>0e35d793-2c08-4d95-9f81-6013e1ae0487</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>150</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="1d8fc2ca-b267-4cc6-916f-02feeef07db0" name="Client ID" type="Data">
+    <subsheetid>7058171b-bc51-49d5-8a21-05afd7144b58</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>120</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7a151787-bdbc-4fba-b68e-d629f4ec75c0" name="Client Secret" type="Data">
+    <subsheetid>7058171b-bc51-49d5-8a21-05afd7144b58</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>150</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c1471b3e-3ede-4777-b16f-7fbbbb2d456d" name="Data" type="Block">
+    <subsheetid>7058171b-bc51-49d5-8a21-05afd7144b58</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>90</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3cb2ac04-c3e0-4f18-8545-bbf7d27404ca" name="Client ID" type="Data">
+    <subsheetid>731e266a-881b-44e9-a0dd-e131788e3f62</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>165</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3e3b8fa4-68f3-4584-a884-cac988c182d4" name="Client Secret" type="Data">
+    <subsheetid>731e266a-881b-44e9-a0dd-e131788e3f62</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>195</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="841036c4-3ad9-48fa-bedf-1b421e23fe38" name="Data" type="Block">
+    <subsheetid>731e266a-881b-44e9-a0dd-e131788e3f62</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>135</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="30332a01-88a8-4f2f-b7ba-02f0e8d994c9" name="Get API Tokens" type="SubSheet">
+    <subsheetid>6c7b4fc9-2505-45dd-82fd-d938efb3776a</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="text" name="Client ID" stage="Client ID" />
+      <output type="text" name="Client Secret" stage="Client Secret" />
+    </outputs>
+    <onsuccess>cf5a7dba-86bb-49d7-8f29-78c2d1f18c37</onsuccess>
+    <processid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</processid>
+  </stage>
+  <stage stageid="ad7ffb28-6df0-44cc-95b9-db7e4f226bef" name="Get API Tokens" type="SubSheet">
+    <subsheetid>0e35d793-2c08-4d95-9f81-6013e1ae0487</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="text" name="Client ID" stage="Client ID" />
+      <output type="text" name="Client Secret" stage="Client Secret" />
+    </outputs>
+    <onsuccess>eb3401c3-434c-4056-a358-4241d48ed45f</onsuccess>
+    <processid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</processid>
+  </stage>
+  <stage stageid="c199b9ef-32dc-4769-be73-7a6dece694c4" name="Get API Tokens" type="SubSheet">
+    <subsheetid>7058171b-bc51-49d5-8a21-05afd7144b58</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="text" name="Client ID" stage="Client ID" />
+      <output type="text" name="Client Secret" stage="Client Secret" />
+    </outputs>
+    <onsuccess>7822c7b7-fce6-4177-9e68-7ba8f322bea6</onsuccess>
+    <processid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</processid>
+  </stage>
+  <stage stageid="9d83efc0-f89d-4b32-9c5b-91d1e57cb6b5" name="Get API Tokens" type="SubSheet">
+    <subsheetid>731e266a-881b-44e9-a0dd-e131788e3f62</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="text" name="Client ID" stage="Client ID" />
+      <output type="text" name="Client Secret" stage="Client Secret" />
+    </outputs>
+    <onsuccess>59306020-4c92-4784-b1fb-acf1998c3d38</onsuccess>
+    <processid>cfac1cb7-dae8-47ff-8a2f-ef5663396f77</processid>
+  </stage>
+</process>

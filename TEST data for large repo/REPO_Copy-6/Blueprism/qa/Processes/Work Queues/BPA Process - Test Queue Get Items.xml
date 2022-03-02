@@ -1,0 +1,2022 @@
+﻿<process name="Test Queue Get Items" version="1.0" narrative="Tests the getting of work items on which various actions have been performed" preferredid="d4911061-0ddd-45f6-9193-cfeb134feda1">
+  <view>
+    <camerax>0</camerax>
+    <cameray>0</cameray>
+    <zoom>1</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="5bfccf1a-5107-4a3d-870d-412f7ffdb3a0" type="Normal" published="False">
+    <name>Check Count</name>
+    <view>
+      <camerax>185</camerax>
+      <cameray>126</cameray>
+      <zoom>1</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="9aecab5e-43b6-4f47-9ef2-02a4be38c49d" type="Normal" published="False">
+    <name>Work Items</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>126</cameray>
+      <zoom>1</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="136e9ee9-7c77-4c2a-a3ec-f68b6edca0c8" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>4c411ee6-ec6a-4ddd-9414-441a2180e0c7</onsuccess>
+  </stage>
+  <stage stageid="3171df5b-3ab7-4c2b-88fd-69e01f269b2b" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="4c411ee6-ec6a-4ddd-9414-441a2180e0c7" name="Create Queue" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to be created" expr="[Queue Name]" />
+      <input type="text" name="Key Field" narrative="The key column to use in the collection which makes up a queue item" expr="&quot;Name&quot;" />
+      <input type="number" name="Max Attempts" narrative="The maximum number of retry attempts for the queue. Default: 5" expr="5" />
+    </inputs>
+    <onsuccess>71a46ec5-6b49-44b6-b4f5-cc6f55e6a13f</onsuccess>
+    <resource object="Queue Utils" action="Create Queue" />
+  </stage>
+  <stage stageid="f751bd24-4285-4896-9611-1e7a46b71a1f" name="Queue Name" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">queuegetitems</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="0d0259bf-e7c2-498b-a22f-944a6f5940ee" name="Light Side" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Name" type="text" />
+      <field name="Midichlorian Count" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Name" type="text" value="Luke Skywalker" />
+        <field name="Midichlorian Count" type="number" value="224" />
+      </row>
+      <row>
+        <field name="Name" type="text" value="Han Solo" />
+        <field name="Midichlorian Count" type="number" value="2" />
+      </row>
+      <row>
+        <field name="Name" type="text" value="Obi Wan Kenobi" />
+        <field name="Midichlorian Count" type="number" value="145" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="71a46ec5-6b49-44b6-b4f5-cc6f55e6a13f" name="Add Light Side" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Light Side]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="[Light Tag]" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>f78b7d70-098d-466d-9b7b-7258b021a0a6</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="f448434a-663a-4f1d-bae2-159b89032c88" name="Add Dark Side" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Dark Side]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="[Dark Tag]" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>531ad98e-bff3-4532-91fb-238a92a9d15d</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="40d2437e-415e-442f-94b8-0106bc8dae73" name="Light - Completed" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>210</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d0d97f37-b361-44db-acc4-a2e968f3d0a4" name="Light - Exceptioned" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>240</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="531ad98e-bff3-4532-91fb-238a92a9d15d" name="Work the dark" type="SubSheet">
+    <narrative>(Not a euphemism)</narrative>
+    <displayx>15</displayx>
+    <displayy>135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tags" narrative="The tags to work" expr="[Dark Tag]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Completed Item Count" stage="Dark - Completed" />
+      <output type="number" name="Exception Item Count" stage="Dark - Exceptioned" />
+    </outputs>
+    <onsuccess>5a220c1f-59dc-4554-909f-686e22651bf5</onsuccess>
+    <processid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</processid>
+  </stage>
+  <stage stageid="ea23eae3-792b-490b-ada1-af524ba8258d" name="Dark - Exceptioned" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>300</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8fc2b635-e20e-4fec-ab1b-1dbb4b2b0fe7" name="Dark - Completed" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>270</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ff9242f7-d9d0-4abe-8469-e236afdd28dc" name="Light Tag" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Light Side</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e40c7f84-144d-4344-8d17-65a15e5c042c" name="Dark Tag" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Dark Side</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5ef7bc46-0bb1-44bc-8719-7bf8e11bddf7" name="Dark Side" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Name" type="text" />
+      <field name="Midichlorian Count" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Name" type="text" value="Emperor Palpatine" />
+        <field name="Midichlorian Count" type="number" value="183" />
+      </row>
+      <row>
+        <field name="Name" type="text" value="Darth Maul" />
+        <field name="Midichlorian Count" type="number" value="146" />
+      </row>
+      <row>
+        <field name="Name" type="text" value="Boba Fett" />
+        <field name="Midichlorian Count" type="number" value="29" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="6248cdc2-2ae0-4730-83ed-1e3f7c2436f3" name="Er" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>150</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <singlerow />
+      <field name="Name" type="text" />
+      <field name="Midichlorian Count" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <singlerow />
+      <row>
+        <field name="Name" type="text" value="Anakin Skywalker" />
+        <field name="Midichlorian Count" type="number" value="227" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="4d2f9091-ee20-470c-b745-e159c3a51095" name="Work Items" type="SubSheetInfo">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="f2aabc76-d39f-4cb1-a313-7feba2b8844b" name="Start" type="Start">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tags" narrative="The tags to work" stage="Tags" />
+    </inputs>
+    <onsuccess>a4b9b5a5-b5f5-47d0-a623-affd23a979c7</onsuccess>
+  </stage>
+  <stage stageid="a4b9b5a5-b5f5-47d0-a623-affd23a979c7" name="Get Next Item" type="Action">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="[Tags]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Data" />
+      <output type="text" name="Status" narrative="The status of the item." stage="Status" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>99e10151-1e1e-4d68-a9bc-2304f9452512</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="34176cf9-36ab-43b2-b6c4-27c1bcd1ff3a" name="Get Random (1,100)" type="Action">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>135</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Value" expr="1" />
+      <input type="number" name="Max Value" expr="100" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Output" stage="Success Random" />
+    </outputs>
+    <onsuccess>48ab7654-341b-4236-8c8d-6b79c91d9f49</onsuccess>
+    <resource object="Queue Utils" action="Get Random Number" />
+  </stage>
+  <stage stageid="aa4a17eb-e62f-43c2-b144-cace9e01adfe" name="Success Random" type="Data">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4d159ef5-ab60-40f1-964e-b54f1927f10e" name="Exception" type="Action">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>300</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;Because life's tough&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="False" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>b5348e56-7848-4d67-b329-227057fdcff1</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="ca9f25be-41f3-4244-9f22-b57ee0ce35c9" name="Completed" type="Action">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>360</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+    </inputs>
+    <onsuccess>2d74aa11-1466-4c89-a783-5c7848aa804e</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="48ab7654-341b-4236-8c8d-6b79c91d9f49" name="Outcome?" type="ChoiceStart">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>240</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <groupid>f3f6e50e-1bce-4c49-a95e-5cb80df95222</groupid>
+    <choices>
+      <choice expression="[Success Random] &lt;= 50">
+        <name>Exception</name>
+        <distance>60</distance>
+        <ontrue>4d159ef5-ab60-40f1-964e-b54f1927f10e</ontrue>
+      </choice>
+      <choice expression="True">
+        <name>Success</name>
+        <distance>120</distance>
+        <ontrue>ca9f25be-41f3-4244-9f22-b57ee0ce35c9</ontrue>
+      </choice>
+    </choices>
+  </stage>
+  <stage stageid="aca1b0be-bfe4-4ba9-ba5c-e5547b4e028d" name="Otherwise1" type="ChoiceEnd">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>420</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>bc6965bf-a680-4ce1-9400-4b8af00ca461</onsuccess>
+    <groupid>f3f6e50e-1bce-4c49-a95e-5cb80df95222</groupid>
+  </stage>
+  <stage stageid="99e10151-1e1e-4d68-a9bc-2304f9452512" name="Item Found?" type="Decision">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID] &lt;&gt; &quot;&quot;" />
+    <ontrue>34176cf9-36ab-43b2-b6c4-27c1bcd1ff3a</ontrue>
+    <onfalse>61201be8-cda2-4bd4-9460-60348f6d9f6c</onfalse>
+  </stage>
+  <stage stageid="7d839d52-4443-4e53-ab95-205f95e095c5" name="anchor1" type="Anchor">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>360</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e3648fe6-dc81-4196-b6a3-0cc524fe2804</onsuccess>
+  </stage>
+  <stage stageid="e3648fe6-dc81-4196-b6a3-0cc524fe2804" name="anchor2" type="Anchor">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>300</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>0619c901-9525-45b1-8b2d-214ebb4326bf</onsuccess>
+  </stage>
+  <stage stageid="faeb0a9e-1baf-4947-87c6-5f1abaeadb90" name="anchor3" type="Anchor">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>a4b9b5a5-b5f5-47d0-a623-affd23a979c7</onsuccess>
+  </stage>
+  <stage stageid="0619c901-9525-45b1-8b2d-214ebb4326bf" name="anchor4" type="Anchor">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>225</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>faeb0a9e-1baf-4947-87c6-5f1abaeadb90</onsuccess>
+  </stage>
+  <stage stageid="f3cd63a2-8796-4f46-afe3-5fd26065dd34" name="End1" type="End">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="number" name="Completed Item Count" stage="Completed Items" />
+      <output type="number" name="Exception Item Count" stage="Exception Items" />
+    </outputs>
+  </stage>
+  <stage stageid="01d01d3c-e249-41ad-8f90-699a214f96d4" name="Item ID" type="Data">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-90</displayx>
+    <displayy>135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a4193a6c-52d0-48a4-9721-2b715e3ba374" name="Data" type="Collection">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3fc87916-6297-4c8a-9b14-34a2ca552468" name="Status" type="Data">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fa6cfaa3-ee03-49d5-834e-5910b83f788b" name="Attempts" type="Data">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="61201be8-cda2-4bd4-9460-60348f6d9f6c" name="No More Items" type="Note">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>No More Items</narrative>
+    <displayx>-75</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>f3cd63a2-8796-4f46-afe3-5fd26065dd34</onsuccess>
+  </stage>
+  <stage stageid="b5348e56-7848-4d67-b329-227057fdcff1" name="Increment Exception Items" type="Calculation">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>300</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e3648fe6-dc81-4196-b6a3-0cc524fe2804</onsuccess>
+    <calculation expression="1+[Exception Items]" stage="Exception Items" />
+  </stage>
+  <stage stageid="8f0109d0-2a09-4f89-9fe9-8b82b23c5fed" name="Completed Items" type="Data">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>300</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2d74aa11-1466-4c89-a783-5c7848aa804e" name="Increment Completed Items" type="Calculation">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>7d839d52-4443-4e53-ab95-205f95e095c5</onsuccess>
+    <calculation expression="1+[Completed Items]" stage="Completed Items" />
+  </stage>
+  <stage stageid="69d7e049-5bd3-4e83-9ff8-471b2ae1d770" name="Exception Items" type="Data">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>360</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="bc6965bf-a680-4ce1-9400-4b8af00ca461" name="Nuh-uh" type="Exception">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>420</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="NeverException" detail="&quot;It can never happen, really, unless something's *really* b0rked&quot;" />
+  </stage>
+  <stage stageid="cbd6949a-bead-48d0-ad1a-7a9a447c027f" name="Tags" type="Data">
+    <subsheetid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3ce383d9-dbc4-4978-9f14-ce8ac03dbf0e" name="Light Side" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>105</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2d28a1a4-5adc-41d6-a322-e9de8fba7374" name="Dark Side" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>60</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>105</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="550037" />
+  </stage>
+  <stage stageid="5a220c1f-59dc-4554-909f-686e22651bf5" name="Add Er.." type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Er]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>5bddb32d-d80a-46a3-af8c-55874ef0246f</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="6a6d77c5-98b8-432f-9d1a-d84a6b88bca3" name="Er" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>180</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>105</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="999999" />
+  </stage>
+  <stage stageid="f78b7d70-098d-466d-9b7b-7258b021a0a6" name="Work the light" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tags" narrative="The tags to work" expr="[Light Tag]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Completed Item Count" stage="Light - Completed" />
+      <output type="number" name="Exception Item Count" stage="Light - Exceptioned" />
+    </outputs>
+    <onsuccess>f448434a-663a-4f1d-bae2-159b89032c88</onsuccess>
+    <processid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</processid>
+  </stage>
+  <stage stageid="5bddb32d-d80a-46a3-af8c-55874ef0246f" name="Work er..." type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tags" narrative="The tags to work" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Completed Item Count" stage="Er - Completed" />
+      <output type="number" name="Exception Item Count" stage="Er - Exceptioned" />
+    </outputs>
+    <onsuccess>cd91a6dc-0367-4e4d-9af5-372a49c386bc</onsuccess>
+    <processid>9aecab5e-43b6-4f47-9ef2-02a4be38c49d</processid>
+  </stage>
+  <stage stageid="7a0610e1-c5fa-448d-bc24-6d0d8204f89f" name="Er - Exceptioned" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>360</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="99523c60-bda5-40ba-ae11-c8839c828114" name="Er - Completed" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>330</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d25b6587-3b52-4d14-89e6-de52e6127424" name="Check Count" type="SubSheetInfo">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="5ac098fb-d857-4d42-a240-d6297a2f9b26" name="Start" type="Start">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-75</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the check" stage="Name" />
+      <input type="text" name="Key" narrative="The key value to filter on" stage="Key" />
+      <input type="text" name="Tags" narrative="The tags to search" stage="Tags" />
+      <input type="number" name="Expected Completion Count" narrative="The expected number of completions" stage="Expected Completion Count" />
+      <input type="number" name="Expected Exception Count" narrative="The expected number of exceptions" stage="Expected Exception Count" />
+      <input type="number" name="Expected Pending Count" narrative="The expected number of pending items" stage="Expected Pending Count" />
+      <input type="number" name="Expected Locked Count" narrative="The expected number of locked items" stage="Expected Locked Count" />
+    </inputs>
+    <onsuccess>1d3b9610-abff-496b-9dfd-907cde53d15c</onsuccess>
+  </stage>
+  <stage stageid="16f1f3a2-cfd2-4a53-ab52-7b8ac71c8a54" name="End" type="End">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>405</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="d2ff5d54-95b9-42e1-9851-e3065c9e2db6" name="Name" type="Data">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="773b70cb-ca99-496c-814f-20a926fd8895" name="Tags" type="Data">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="25477510-d71f-48cc-aa58-bc6af965b6c2" name="Expected Completion Count" type="Data">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>60</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5cdd2208-1c3e-4d75-af09-d9ed3c6da30b" name="Expected Exception Count" type="Data">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1d3b9610-abff-496b-9dfd-907cde53d15c" name="Get Completed" type="Action">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to retrieve the completed items from" expr="[Queue Name]" />
+      <input type="datetime" name="Start Date" narrative="The start date from which any items marked as complete should be returned. Optional - No date indicates no start date threshold" expr="" />
+      <input type="datetime" name="End Date" narrative="The end date up to which any items marked as complete should be returned. Optional - No date indicates no end date threshold" expr="" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="[Key]" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="[Tags]" />
+      <input type="number" name="Maximum Rows" narrative="The maximum number of rows to return. Optional - No value indicates that all rows should be returned" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Completed Items" narrative="The items which were marked as complete within the given date range, up to the maximum count if one was given" stage="Completions" />
+    </outputs>
+    <onsuccess>b6ce662c-d425-45e5-8ed1-1b98181fd844</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Completed Items" />
+  </stage>
+  <stage stageid="faf358bf-ae17-4d87-a9ee-634000e31844" name="Completion Count" type="Data">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>360</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="da29ab2a-9d9e-4865-8061-f6951285991c" name="Exception Count" type="Data">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>390</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="27066ab5-85d1-4ba8-9302-e9701b0cb11f" name="Completions" type="Collection">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>240</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="60031fb6-fe3a-4772-961a-10969f6d3c44" name="Exceptions" type="Collection">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>270</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="bcd2abfa-8b5f-43d1-b8fb-414df69a6f48" name="Input Fields" type="Block">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>240</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e7822e08-a77b-40b4-be51-72f3c534ce03" name="Instance Fields" type="Block">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>210</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>270</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b6ce662c-d425-45e5-8ed1-1b98181fd844" name="Get Exceptioned" type="Action">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to retrieve the exception items from" expr="[Queue Name]" />
+      <input type="datetime" name="Start Date" narrative="Optionally, the start threshold date. Any items returned will have been marked as an exception after this date. If no value is given, there will be no start threshold." expr="" />
+      <input type="datetime" name="End Date" narrative="Optionally, the end threshold date. Any items returned will have been marked as an exception before this date. If no value is given, there will be no end threshold." expr="" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="[Key]" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="[Tags]" />
+      <input type="number" name="Maximum Rows" narrative="Optionally, the maximum number of rows to return. No value indicates that all rows should be returned" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Exception Items" narrative="The items which were marked with an exception within the given date range, up to the maximum count if one was given" stage="Exceptions" />
+    </outputs>
+    <onsuccess>bdc1a05c-2de3-44f0-85a5-81073aada319</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Exception Items" />
+  </stage>
+  <stage stageid="d475f205-c81a-4674-961a-c37991af41b1" name="Completed Match?" type="Decision">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Completion Count] = [Expected Completion Count]" />
+    <ontrue>1932b63f-717f-4fac-83c7-b876eac6c95e</ontrue>
+    <onfalse>b11e2ee3-f6e3-4fd0-b8c3-205c41e3e263</onfalse>
+  </stage>
+  <stage stageid="1932b63f-717f-4fac-83c7-b876eac6c95e" name="Exceptioned Match?" type="Decision">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Exception Count] = [Expected Exception Count]" />
+    <ontrue>9a4caf05-c948-4892-8379-087c13b0ff81</ontrue>
+    <onfalse>9bacb901-2263-4156-b55e-0dba32af0bdf</onfalse>
+  </stage>
+  <stage stageid="2310c69a-38e4-4a39-a401-601b685c351c" name="Count Completed" type="Action">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Completions&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Completion Count" />
+    </outputs>
+    <onsuccess>d6cc952b-1ad5-4521-88fd-a44f47f184b3</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="d6cc952b-1ad5-4521-88fd-a44f47f184b3" name="Count Exceptioned" type="Action">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Exceptions&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Exception Count" />
+    </outputs>
+    <onsuccess>651251ec-b47f-4411-98bf-91161167bcdf</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="9bacb901-2263-4156-b55e-0dba32af0bdf" name="FAIL" type="Exception">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>120</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failed" detail="&quot;The exception count for &quot; &amp; [Name] &amp; &quot; (using key: &quot;&quot;'&quot; &amp; [Key] &amp; &quot;'&quot;&quot; &amp; tags: &quot;&quot;&quot; &amp; [Tags] &amp; &quot;&quot;&quot;) was supposed to be: &quot; &amp; [Expected Exception Count] &amp; &quot;, but it was actually: &quot; &amp; [Exception Count]" />
+  </stage>
+  <stage stageid="b11e2ee3-f6e3-4fd0-b8c3-205c41e3e263" name="FAIL" type="Exception">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>120</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failed" detail="&quot;The completed count for &quot; &amp; [Name] &amp; &quot; (using key: &quot;&quot;'&quot; &amp; [Key] &amp; &quot;'&quot;&quot; &amp; tags: &quot;&quot;&quot; &amp; [Tags] &amp; &quot;&quot;&quot;) was supposed to be: &quot; &amp; [Expected Completion Count] &amp; &quot;, but it was actually: &quot; &amp; [Completion Count]" />
+  </stage>
+  <stage stageid="71004440-af21-4bc6-82f3-6641e185aeac" name="Check the light" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the check" expr="&quot;Light Side&quot;" />
+      <input type="text" name="Tags" narrative="The tags to search" expr="[Light Tag]" />
+      <input type="number" name="Expected Completion Count" narrative="The expected number of completions" expr="[Light - Completed]" />
+      <input type="number" name="Expected Exception Count" narrative="The expected number of exceptions" expr="[Light - Exceptioned]" />
+      <input type="text" name="Key" narrative="The key value to filter on" expr="" />
+      <input type="number" name="Expected Pending Count" narrative="The expected number of pending items" expr="0" />
+      <input type="number" name="Expected Locked Count" narrative="The expected number of locked items" expr="0" />
+    </inputs>
+    <onsuccess>5dbfb0d3-619b-4bd1-a7b8-7148ebfbc3c3</onsuccess>
+    <processid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</processid>
+  </stage>
+  <stage stageid="5dbfb0d3-619b-4bd1-a7b8-7148ebfbc3c3" name="Check the dark" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the check" expr="&quot;Dark Side&quot;" />
+      <input type="text" name="Tags" narrative="The tags to search" expr="[Dark Tag]" />
+      <input type="number" name="Expected Completion Count" narrative="The expected number of completions" expr="[Dark - Completed]" />
+      <input type="number" name="Expected Exception Count" narrative="The expected number of exceptions" expr="[Dark - Exceptioned]" />
+      <input type="text" name="Key" narrative="The key value to filter on" expr="" />
+      <input type="number" name="Expected Pending Count" narrative="The expected number of pending items" expr="0" />
+      <input type="number" name="Expected Locked Count" narrative="The expected number of locked items" expr="0" />
+    </inputs>
+    <onsuccess>d5e76d06-106c-4271-b524-a1a5f233dd10</onsuccess>
+    <processid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</processid>
+  </stage>
+  <stage stageid="d5e76d06-106c-4271-b524-a1a5f233dd10" name="Check the er..." type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the check" expr="&quot;Er...&quot;" />
+      <input type="text" name="Tags" narrative="The tags to search" expr="&quot;-&quot; &amp; [Light Tag] &amp; &quot;;-&quot; &amp; [Dark Tag]" />
+      <input type="number" name="Expected Completion Count" narrative="The expected number of completions" expr="[Er - Completed]" />
+      <input type="number" name="Expected Exception Count" narrative="The expected number of exceptions" expr="[Er - Exceptioned]" />
+      <input type="text" name="Key" narrative="The key value to filter on" expr="" />
+      <input type="number" name="Expected Pending Count" narrative="The expected number of pending items" expr="0" />
+      <input type="number" name="Expected Locked Count" narrative="The expected number of locked items" expr="0" />
+    </inputs>
+    <onsuccess>f593c3e3-8a16-4ed9-85af-43049a809e64</onsuccess>
+    <processid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</processid>
+  </stage>
+  <stage stageid="cd91a6dc-0367-4e4d-9af5-372a49c386bc" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>255</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>1c6a6532-e741-4c18-8305-530dcd20049a</onsuccess>
+  </stage>
+  <stage stageid="1c6a6532-e741-4c18-8305-530dcd20049a" name="anchor6" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>71004440-af21-4bc6-82f3-6641e185aeac</onsuccess>
+  </stage>
+  <stage stageid="bfdc0850-efbc-4387-9144-c46d35d7675f" name="Light Side" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3ed8ec89-a0ae-40bb-83f7-94146de2d4b2" name="Dark Side" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="550037" />
+  </stage>
+  <stage stageid="ea45c6e7-42aa-470d-9d13-a2a91c21dc44" name="Er" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="999999" />
+  </stage>
+  <stage stageid="f593c3e3-8a16-4ed9-85af-43049a809e64" name="Check 'em all and let the force sort them out" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>225</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the check" expr="&quot;ALL THE THINGS&quot;" />
+      <input type="text" name="Tags" narrative="The tags to search" expr="" />
+      <input type="number" name="Expected Completion Count" narrative="The expected number of completions" expr="[Light - Completed] + [Dark - Completed] + [Er - Completed]" />
+      <input type="number" name="Expected Exception Count" narrative="The expected number of exceptions" expr="[Light - Exceptioned] + [Dark - Exceptioned] + [Er - Exceptioned]" />
+      <input type="text" name="Key" narrative="The key value to filter on" expr="" />
+      <input type="number" name="Expected Pending Count" narrative="The expected number of pending items" expr="0" />
+      <input type="number" name="Expected Locked Count" narrative="The expected number of locked items" expr="0" />
+    </inputs>
+    <onsuccess>bcf7d7f3-5f9b-452b-829e-dfbfc1cdaea7</onsuccess>
+    <processid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</processid>
+  </stage>
+  <stage stageid="b198c9e8-6459-4ac7-8aa2-11f79328d34f" name="ALL" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>120</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="FFFFFF" />
+  </stage>
+  <stage stageid="d66f0b2b-a7ff-4ba3-a130-4815ec86db67" name="Key" type="Data">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>0</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="bcf7d7f3-5f9b-452b-829e-dfbfc1cdaea7" name="Check Er... by key" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>330</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the check" expr="&quot;Anakin&quot;" />
+      <input type="text" name="Key" narrative="The key value to filter on" expr="[Er.Name]" />
+      <input type="text" name="Tags" narrative="The tags to search" />
+      <input type="number" name="Expected Completion Count" narrative="The expected number of completions" expr="[Er - Completed]" />
+      <input type="number" name="Expected Exception Count" narrative="The expected number of exceptions" expr="[Er - Exceptioned]" />
+      <input type="number" name="Expected Pending Count" narrative="The expected number of pending items" expr="0" />
+      <input type="number" name="Expected Locked Count" narrative="The expected number of locked items" expr="0" />
+    </inputs>
+    <onsuccess>6d9c7c0e-4123-42af-a625-b50a57f8208e</onsuccess>
+    <processid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</processid>
+  </stage>
+  <stage stageid="efa8b2d6-8199-4614-8cc9-8cc57025da45" name="Er" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>300</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="999999" />
+  </stage>
+  <stage stageid="6d9c7c0e-4123-42af-a625-b50a57f8208e" name="Delete Them All" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>330</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete items from" expr="[Queue Name]" />
+      <input type="datetime" name="Date Threshold" narrative="The threshold date. Items completed or marked with an exception before this date will be deleted from the queue - if not given, all processed items in the specified queue will be deleted." expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Deletion Count" narrative="Indicates the number of items which were deleted (which may legitimately be zero)." stage="Deletion Count" />
+    </outputs>
+    <onsuccess>94a09102-6e4a-4762-84da-c4e0c08361f6</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Delete Processed Items" />
+  </stage>
+  <stage stageid="dd894b14-f26d-42e2-a867-a806a09fcf4c" name="Deletion Count" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>405</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="94a09102-6e4a-4762-84da-c4e0c08361f6" name="Add Light Side" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>405</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Light Side]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="[Light Tag]" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>bf06bd4a-e0ab-441b-b2e0-873ec9da9ff6</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="bf06bd4a-e0ab-441b-b2e0-873ec9da9ff6" name="Add Dark Side" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>480</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Dark Side]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="[Dark Tag]" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>c243c159-f51f-4808-8fba-047b4935f811</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="c243c159-f51f-4808-8fba-047b4935f811" name="Add Er.." type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>555</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Er]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>e5046564-e3f0-449f-a516-1fa9e28fa4c6</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="bdc1a05c-2de3-44f0-85a5-81073aada319" name="Get Pending" type="Action">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="[Key]" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="[Tags]" />
+      <input type="number" name="Maximum" narrative="Optionally, the maximum number of items to return. Default is to return all items" expr="" />
+      <input type="number" name="Skip" narrative="Optionally, the number of items to skip before returning. Default is zero, ie. return all items from the head of the queue" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Pending Items" narrative="The currently pending items in the queue, referenced by ID. The single column is 'Item ID' : text. The elements in the collection will be in the order in which they will be loaded by the 'Get Next Item' action." stage="Pending Items" />
+    </outputs>
+    <onsuccess>34149083-0294-4a50-a420-913a987d1848</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Pending Items" />
+  </stage>
+  <stage stageid="513c0457-3eb9-458e-be9e-b1b2e6ad380b" name="Pending Items" type="Collection">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>300</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="34149083-0294-4a50-a420-913a987d1848" name="Get Locked" type="Action">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>300</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="[Key]" />
+      <input type="text" name="Tags" narrative="Optionally, the semi-colon separated tags to filter the locked items with. Empty implies that all locked items in the queue should be returned" expr="[Tags]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Locked Items" narrative="The currently locked items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Locked Items" />
+    </outputs>
+    <onsuccess>2310c69a-38e4-4a39-a401-601b685c351c</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Locked Items" />
+  </stage>
+  <stage stageid="651251ec-b47f-4411-98bf-91161167bcdf" name="Count Pending" type="Action">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Pending Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Pending Count" />
+    </outputs>
+    <onsuccess>6537d96c-2eb9-4d4b-9926-0414ba10cf42</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="6537d96c-2eb9-4d4b-9926-0414ba10cf42" name="Count Locked" type="Action">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>300</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Locked Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Locked Count" />
+    </outputs>
+    <onsuccess>d475f205-c81a-4674-961a-c37991af41b1</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="654af9b2-89d2-4c71-8015-a6ae2a5bec85" name="Locked Items" type="Collection">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>330</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+      <field name="Locked" type="datetime" description="The date/time when the item was locked" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="2b697e10-e9a0-4699-baad-14c3b59373da" name="Pending Count" type="Data">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>420</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5f0c8ee3-efbb-4585-b6f1-f99abb5b34a8" name="Locked Count" type="Data">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>450</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4212020b-bf75-421b-a0a1-f67b41b78486" name="Expected Pending Count" type="Data">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a97da987-0965-489b-8762-56afa82e320a" name="Expected Locked Count" type="Data">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>150</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9a4caf05-c948-4892-8379-087c13b0ff81" name="Pending Match?" type="Decision">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Pending Count] = [Expected Pending Count]" />
+    <ontrue>a94bd65d-f40a-4cf8-ba5e-a633886dd121</ontrue>
+    <onfalse>a561b489-3d88-4287-b106-1b49ab74c2fc</onfalse>
+  </stage>
+  <stage stageid="a94bd65d-f40a-4cf8-ba5e-a633886dd121" name="Locked Match?" type="Decision">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>300</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Locked Count] = [Expected Locked Count]" />
+    <ontrue>16f1f3a2-cfd2-4a53-ab52-7b8ac71c8a54</ontrue>
+    <onfalse>0ebec939-4097-48da-b9dd-24199620c370</onfalse>
+  </stage>
+  <stage stageid="a561b489-3d88-4287-b106-1b49ab74c2fc" name="FAIL" type="Exception">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>120</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failed" detail="&quot;The pending count for &quot; &amp; [Name] &amp; &quot; (using key: &quot;&quot;'&quot; &amp; [Key] &amp; &quot;'&quot;&quot; &amp; tags: &quot;&quot;&quot; &amp; [Tags] &amp; &quot;&quot;&quot;) was supposed to be: &quot; &amp; [Expected Pending Count] &amp; &quot;, but it was actually: &quot; &amp; [Pending Count]" />
+  </stage>
+  <stage stageid="0ebec939-4097-48da-b9dd-24199620c370" name="FAIL" type="Exception">
+    <subsheetid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>300</displayx>
+    <displayy>120</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failed" detail="&quot;The locked count for &quot; &amp; [Name] &amp; &quot; (using key: &quot;&quot;'&quot; &amp; [Key] &amp; &quot;'&quot;&quot; &amp; tags: &quot;&quot;&quot; &amp; [Tags] &amp; &quot;&quot;&quot;) was supposed to be: &quot; &amp; [Expected Locked Count] &amp; &quot;, but it was actually: &quot; &amp; [Locked Count]" />
+  </stage>
+  <stage stageid="e5046564-e3f0-449f-a516-1fa9e28fa4c6" name="Lock A Light Side one" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>630</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="[Light Tag]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Working Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Working Item" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>72b459da-4353-4a99-a00a-b265064fbb38</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="2465a59a-e991-4d1a-b7e1-e381c940815a" name="Working Item ID" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>450</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="56198dbe-e8de-48ea-9871-b1f5fbc06888" name="Working Item" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>495</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="72b459da-4353-4a99-a00a-b265064fbb38" name="Mark Exception (With Retry)" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>675</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Working Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;Just kidding ya&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="True" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>8c2348be-b503-4f96-8541-ae6b064f6b40</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="8c2348be-b503-4f96-8541-ae6b064f6b40" name="Lock the same one again" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>720</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="[Working Item.Name]" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Working Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Working Item" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>6c5d6985-ffe4-49ed-a7a5-0e900402e953</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="d0b9e246-39fd-4808-857a-81b71f6da82a" name="Check the light" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>405</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the check" expr="&quot;Light Side&quot;" />
+      <input type="text" name="Tags" narrative="The tags to search" expr="[Light Tag]" />
+      <input type="number" name="Expected Completion Count" narrative="The expected number of completions" expr="0" />
+      <input type="number" name="Expected Exception Count" narrative="The expected number of exceptions" expr="0" />
+      <input type="text" name="Key" narrative="The key value to filter on" expr="" />
+      <input type="number" name="Expected Pending Count" narrative="The expected number of pending items" expr="2" />
+      <input type="number" name="Expected Locked Count" narrative="The expected number of locked items" expr="1" />
+    </inputs>
+    <onsuccess>0ceb308a-641d-42c2-b7a0-e6fecfda81b9</onsuccess>
+    <processid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</processid>
+  </stage>
+  <stage stageid="0ceb308a-641d-42c2-b7a0-e6fecfda81b9" name="Check the dark" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>480</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the check" expr="&quot;Dark Side&quot;" />
+      <input type="text" name="Tags" narrative="The tags to search" expr="[Dark Tag]" />
+      <input type="number" name="Expected Completion Count" narrative="The expected number of completions" expr="0" />
+      <input type="number" name="Expected Exception Count" narrative="The expected number of exceptions" expr="0" />
+      <input type="text" name="Key" narrative="The key value to filter on" expr="" />
+      <input type="number" name="Expected Pending Count" narrative="The expected number of pending items" expr="3" />
+      <input type="number" name="Expected Locked Count" narrative="The expected number of locked items" expr="0" />
+    </inputs>
+    <onsuccess>3390eca2-d95b-4c72-9a5d-7ab1efee3e3e</onsuccess>
+    <processid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</processid>
+  </stage>
+  <stage stageid="3390eca2-d95b-4c72-9a5d-7ab1efee3e3e" name="Check the er..." type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>555</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the check" expr="&quot;Er...&quot;" />
+      <input type="text" name="Tags" narrative="The tags to search" expr="&quot;-&quot; &amp; [Light Tag] &amp; &quot;;-&quot; &amp; [Dark Tag]" />
+      <input type="number" name="Expected Completion Count" narrative="The expected number of completions" expr="0" />
+      <input type="number" name="Expected Exception Count" narrative="The expected number of exceptions" expr="0" />
+      <input type="text" name="Key" narrative="The key value to filter on" expr="" />
+      <input type="number" name="Expected Pending Count" narrative="The expected number of pending items" expr="1" />
+      <input type="number" name="Expected Locked Count" narrative="The expected number of locked items" expr="0" />
+    </inputs>
+    <onsuccess>4eb01bed-4e65-436c-820b-2a3ad446ed9d</onsuccess>
+    <processid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</processid>
+  </stage>
+  <stage stageid="9167b91a-4901-4069-87b7-aec764c399a8" name="Light Side" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>375</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="cc3b2177-ed45-4e21-9353-85fbbee6bbb6" name="Dark Side" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>450</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="550037" />
+  </stage>
+  <stage stageid="85455eaf-ca1f-4857-9e70-d832c0df008e" name="Er" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>525</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="999999" />
+  </stage>
+  <stage stageid="8abf1713-4eba-4ceb-a585-652b56add682" name="Check Er... by key" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>795</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the check" expr="&quot;Anakin&quot;" />
+      <input type="text" name="Key" narrative="The key value to filter on" expr="[Er.Name]" />
+      <input type="text" name="Tags" narrative="The tags to search" />
+      <input type="number" name="Expected Completion Count" narrative="The expected number of completions" expr="0" />
+      <input type="number" name="Expected Exception Count" narrative="The expected number of exceptions" expr="0" />
+      <input type="number" name="Expected Pending Count" narrative="The expected number of pending items" expr="1" />
+      <input type="number" name="Expected Locked Count" narrative="The expected number of locked items" expr="0" />
+    </inputs>
+    <onsuccess>1cd0fea5-1994-48d0-8ab4-de08e59d540d</onsuccess>
+    <processid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</processid>
+  </stage>
+  <stage stageid="1257a742-51ec-4d8c-9ae5-cda439dcd53b" name="Er" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>765</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="999999" />
+  </stage>
+  <stage stageid="4eb01bed-4e65-436c-820b-2a3ad446ed9d" name="Check 'em all and let the force sort them out" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>675</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the check" expr="&quot;ALL THE THINGS&quot;" />
+      <input type="text" name="Tags" narrative="The tags to search" expr="" />
+      <input type="number" name="Expected Completion Count" narrative="The expected number of completions" expr="0" />
+      <input type="number" name="Expected Exception Count" narrative="The expected number of exceptions" expr="0" />
+      <input type="text" name="Key" narrative="The key value to filter on" expr="" />
+      <input type="number" name="Expected Pending Count" narrative="The expected number of pending items" expr="6" />
+      <input type="number" name="Expected Locked Count" narrative="The expected number of locked items" expr="1" />
+    </inputs>
+    <onsuccess>8abf1713-4eba-4ceb-a585-652b56add682</onsuccess>
+    <processid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</processid>
+  </stage>
+  <stage stageid="e395456b-0da7-431b-9b44-2692a0fbd389" name="ALL" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>600</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>150</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="FFFFFF" />
+  </stage>
+  <stage stageid="6c5d6985-ffe4-49ed-a7a5-0e900402e953" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>720</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>1894a449-9ae6-4a0b-9274-01b07e0a348e</onsuccess>
+  </stage>
+  <stage stageid="1894a449-9ae6-4a0b-9274-01b07e0a348e" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>405</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>d0b9e246-39fd-4808-857a-81b71f6da82a</onsuccess>
+  </stage>
+  <stage stageid="1cd0fea5-1994-48d0-8ab4-de08e59d540d" name="Mark Exception (No Retry)" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>795</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Working Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;This time I mean it&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="False" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>aff93003-59fe-403b-a497-4e9934e6f608</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="aff93003-59fe-403b-a497-4e9934e6f608" name="Lock &quot;Er...&quot; by key" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>870</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="[Er.Name]" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Working Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Working Item" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>1ab799f6-1b6c-406c-addd-965223c3054b</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="1ab799f6-1b6c-406c-addd-965223c3054b" name="Check Er... by key" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>930</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the check" expr="&quot;Anakin&quot;" />
+      <input type="text" name="Key" narrative="The key value to filter on" expr="[Er.Name]" />
+      <input type="text" name="Tags" narrative="The tags to search" />
+      <input type="number" name="Expected Completion Count" narrative="The expected number of completions" expr="0" />
+      <input type="number" name="Expected Exception Count" narrative="The expected number of exceptions" expr="0" />
+      <input type="number" name="Expected Pending Count" narrative="The expected number of pending items" expr="0" />
+      <input type="number" name="Expected Locked Count" narrative="The expected number of locked items" expr="1" />
+    </inputs>
+    <onsuccess>f13fbc72-f19e-4bb1-adfc-f71e54e6deac</onsuccess>
+    <processid>5bfccf1a-5107-4a3d-870d-412f7ffdb3a0</processid>
+  </stage>
+  <stage stageid="3829b423-8d53-423e-9887-4122e3b9e838" name="Er" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>840</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>135</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="999999" />
+  </stage>
+  <stage stageid="00e6cea5-32fb-48fd-a450-c7e7a05880e9" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>1080</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="f13fbc72-f19e-4bb1-adfc-f71e54e6deac" name="Destroy Queue" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>1020</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete" expr="[Queue Name]" />
+    </inputs>
+    <onsuccess>00e6cea5-32fb-48fd-a450-c7e7a05880e9</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+  <stage stageid="25cf9742-ee71-4cc8-8760-ae47ea34b773" name="Light Side" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>375</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a5f65347-f30a-4801-a271-d161343efabc" name="Dark Side" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>450</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="550037" />
+  </stage>
+  <stage stageid="4d63b5bc-e600-425c-8fb5-8e846754b117" name="Er" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>525</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="999999" />
+  </stage>
+  <stage stageid="f609c27e-da39-4b48-88c5-868b2a2ed2b9" name="Light Side" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>600</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>150</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="8a0ba018-a91d-49c6-b17c-77114ac1498b" name="Light Side" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>765</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ea5ab903-2b47-46d0-badf-2b7b2c2e2e21" name="ALL" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>300</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="FFFFFF" />
+  </stage>
+  <stage stageid="3c0cab93-98d7-4451-be7b-b3937367b15e" name="ALL" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="FFFFFF" />
+  </stage>
+  <stage stageid="87c0f114-6d69-482c-9120-cbc65bd0ac73" name="." type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>990</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+</process>

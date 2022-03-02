@@ -1,0 +1,750 @@
+﻿<process name="Export Process and Object" version="1.0" bpversion="6.3.0.4170" narrative="Exports the specified Process or Object to the defined directory." byrefcollection="true" preferredid="9235e269-fc9e-4f31-aeb7-d7cf5f64059c">
+  <view>
+    <camerax>44</camerax>
+    <cameray>654</cameray>
+    <zoom version="2">0.9375</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="c6825586-ea66-456e-9023-c3fb662cffd2" type="Normal" published="False">
+    <name>Found Item?</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>135</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="c514deb8-04b8-4041-bb80-3e7c91e74a8b" type="Normal" published="False">
+    <name>Delete Item</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b" type="Normal" published="False">
+    <name>Global Variables</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>42</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="676be238-135f-4823-9a95-7b06221e9caf" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>1ce0bba8-1732-4b07-a564-309a08fe75e8</onsuccess>
+  </stage>
+  <stage stageid="fc0080c4-5214-4031-817c-695b4e850e2d" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>675</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="a057604a-e338-49e1-a1f2-abe808aa2ae5" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="eccdf04e-c05d-4f25-a652-a1141f23071f" name="Export Process" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="AutomateC Path" narrative="Path" expr="[AutomateC Path]" />
+      <input type="text" name="BP Username" narrative="username" expr="[BP Username]" />
+      <input type="text" name="PB Password" narrative="password" expr="[BP Password]" />
+      <input type="text" name="Process/Object Name" narrative="command" expr="[Item Name]" />
+      <input type="text" name="Working DIR" narrative="directory path to export the process or object" expr="[Export Directory]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="PID" narrative="PID" stage="PID 1" />
+    </outputs>
+    <onsuccess>6fad947f-922b-4639-afe6-b2fe1d52503c</onsuccess>
+    <resource object="Blue Prism - Commands" action="Export Process/Object" />
+  </stage>
+  <stage stageid="08662f7a-612a-4e84-b9fb-53c95fe291b1" name="Get Username" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="text" name="User Name" narrative="The name of the logged in user in the current system" stage="OS Username" />
+    </outputs>
+    <onsuccess>8d84bbc8-25ea-4fa2-97dc-7a503982f0e1</onsuccess>
+    <resource object="Utility - Environment" action="Get User Name" />
+  </stage>
+  <stage stageid="8d84bbc8-25ea-4fa2-97dc-7a503982f0e1" name="Set Variables" type="MultipleCalculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>eccdf04e-c05d-4f25-a652-a1141f23071f</onsuccess>
+    <steps>
+      <calculation expression="&quot;Export Process and Object&quot;" stage="Item Name" />
+      <calculation expression="&quot;C:\Users\&quot; &amp; [OS Username]" stage="Export Directory" />
+    </steps>
+  </stage>
+  <stage stageid="aaa50ba1-1340-459c-b873-feccb38e79d8" name="Found Item?" type="SubSheetInfo">
+    <subsheetid>c6825586-ea66-456e-9023-c3fb662cffd2</subsheetid>
+    <narrative>Searches for the XML file in the target directory and compares the process name with the files found in the directory.</narrative>
+    <displayx>-165</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="6d72660a-9fc7-4019-9366-dda1e15d78d1" name="Start" type="Start">
+    <subsheetid>c6825586-ea66-456e-9023-c3fb662cffd2</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e1a8bce9-7586-4ca9-9577-01a3fac11c8d</onsuccess>
+  </stage>
+  <stage stageid="e1a8bce9-7586-4ca9-9577-01a3fac11c8d" name="Now" type="Calculation">
+    <subsheetid>c6825586-ea66-456e-9023-c3fb662cffd2</subsheetid>
+    <narrative>Now() + MakeTimeSpan(0, 0, 1, 0)</narrative>
+    <displayx>15</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>623ef0f0-3871-4a8c-89d5-fd7221ba43aa</onsuccess>
+    <calculation expression="Now()" stage="Now Datetime" />
+  </stage>
+  <stage stageid="623ef0f0-3871-4a8c-89d5-fd7221ba43aa" name="1 Min Passed?" type="Decision">
+    <subsheetid>c6825586-ea66-456e-9023-c3fb662cffd2</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="Now() &gt; [Now Datetime] + MakeTimeSpan(0, 0, 1, 0)" />
+    <ontrue>abcee4ec-0305-4627-b191-4fe5b6626174</ontrue>
+    <onfalse>41e044c1-5d1f-4af8-ab08-cc51837e2c25</onfalse>
+  </stage>
+  <stage stageid="41e044c1-5d1f-4af8-ab08-cc51837e2c25" name="Get Files" type="Action">
+    <subsheetid>c6825586-ea66-456e-9023-c3fb662cffd2</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Folder" narrative="The folder in which to look for files" expr="[Export Directory]" />
+      <input type="text" name="Patterns CSV" narrative="The comma seperated list of wildcard patterns" expr="&quot;*.xml&quot;" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" narrative="True if successful" stage="Success" />
+      <output type="text" name="Message" narrative="A message if unsuccessful" stage="Message" />
+      <output type="collection" name="Files" narrative="The collection of files found" stage="Files" />
+    </outputs>
+    <onsuccess>f7a48553-846c-4a83-8734-98e019fed454</onsuccess>
+    <resource object="Utility - File Management" action="Get Files" />
+  </stage>
+  <stage stageid="abcee4ec-0305-4627-b191-4fe5b6626174" name="Export Failed" type="Exception">
+    <subsheetid>c6825586-ea66-456e-9023-c3fb662cffd2</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="&quot;Export of item '&quot; &amp; [Item Name] &amp; &quot;' failed. Ensure the item exists, and/or the target directory does not require admin rights for exporting.&quot;" />
+  </stage>
+  <stage stageid="f7a48553-846c-4a83-8734-98e019fed454" name="Files" type="LoopStart">
+    <subsheetid>c6825586-ea66-456e-9023-c3fb662cffd2</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>7025b3ac-9bfe-4ceb-92a1-4af9c664e572</onsuccess>
+    <groupid>99195e7c-ee7b-4e8f-8b92-b88c2b4d7893</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Files</loopdata>
+  </stage>
+  <stage stageid="ee30f370-88fe-4425-8c06-9a9d3391971d" name="Files" type="LoopEnd">
+    <subsheetid>c6825586-ea66-456e-9023-c3fb662cffd2</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>b63192c9-28aa-40ef-bc16-c2fdea7f58c8</onsuccess>
+    <groupid>99195e7c-ee7b-4e8f-8b92-b88c2b4d7893</groupid>
+  </stage>
+  <stage stageid="7025b3ac-9bfe-4ceb-92a1-4af9c664e572" name="Found Item?" type="Decision">
+    <subsheetid>c6825586-ea66-456e-9023-c3fb662cffd2</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>195</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="InStr([Files.Name], [Item Name]) &gt; 0" />
+    <ontrue>f8659e5e-e72f-40aa-be26-1a4fb4701056</ontrue>
+    <onfalse>ee30f370-88fe-4425-8c06-9a9d3391971d</onfalse>
+  </stage>
+  <stage stageid="b63192c9-28aa-40ef-bc16-c2fdea7f58c8" name="Anchor4" type="Anchor">
+    <subsheetid>c6825586-ea66-456e-9023-c3fb662cffd2</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>255</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>7d6e7a5c-c870-48d5-9073-a44f8126dc12</onsuccess>
+  </stage>
+  <stage stageid="7d6e7a5c-c870-48d5-9073-a44f8126dc12" name="Anchor5" type="Anchor">
+    <subsheetid>c6825586-ea66-456e-9023-c3fb662cffd2</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>15</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>623ef0f0-3871-4a8c-89d5-fd7221ba43aa</onsuccess>
+  </stage>
+  <stage stageid="996c3112-365d-40cf-a2fc-097cfb5614e2" name="Global Variables" type="SubSheetInfo">
+    <subsheetid>bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b</subsheetid>
+    <narrative>Global Variables</narrative>
+    <displayx>-210</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="8b582f12-3737-4d95-a095-8f1814dfd2d1" name="Start" type="Start">
+    <subsheetid>bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>1d8711d5-e892-408e-855f-7fe9f3d7bd1e</onsuccess>
+  </stage>
+  <stage stageid="1d8711d5-e892-408e-855f-7fe9f3d7bd1e" name="End" type="End">
+    <subsheetid>bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="b2d27d09-abb8-4059-8d03-651cb27a1aaf" name="AutomateC Path" type="Data">
+    <subsheetid>bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">C:\Program Files\Blue Prism Limited\Blue Prism Automate\AutomateC.exe</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="e94d7eec-f166-48a6-9019-86989c8beb2c" name="BP Username" type="Data">
+    <subsheetid>bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">admin</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="7e786786-2313-4199-9e82-1adc8f63ab42" name="BP Password" type="Data">
+    <subsheetid>bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>password</datatype>
+    <initialvalueenc>32,17,25,89,3</initialvalueenc>
+    <alwaysinit />
+  </stage>
+  <stage stageid="9a31cca0-d6c9-4b11-963a-572372fbc592" name="Item Name" type="Data">
+    <subsheetid>bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>0</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="09fb03cb-aa72-4056-99f3-4370374eed01" name="OS Username" type="Data">
+    <subsheetid>bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="58808562-f2b4-4678-8b7d-2f58e0f4ef0f" name="Global Variables" type="Block">
+    <subsheetid>bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>360</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="05c8438a-a739-4515-aee0-7c2d64e65607" name="Now Datetime" type="Data">
+    <subsheetid>bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>datetime</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9a61dd1b-6ade-4219-b8c5-785957f265d6" name="Export Directory" type="Data">
+    <subsheetid>bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>60</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e03db0c7-3e3a-42a9-a4b2-49fb21776745" name="Success" type="Data">
+    <subsheetid>bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>180</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ab3f41c0-e8c7-45e6-9bd3-e9a3dee209c1" name="Message" type="Data">
+    <subsheetid>bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>150</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="17e42d71-7757-401a-8e08-10277aa0a2f2" name="Files" type="Collection">
+    <subsheetid>bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+  </stage>
+  <stage stageid="6dc072c1-6e64-4f0e-bc93-4f2c6bbbf563" name="End1" type="End">
+    <subsheetid>c6825586-ea66-456e-9023-c3fb662cffd2</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>255</displayx>
+    <displayy>195</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="6fad947f-922b-4639-afe6-b2fe1d52503c" name="Found Item?" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>98153880-2c54-43a7-8a57-5bff78307d39</onsuccess>
+    <processid>c6825586-ea66-456e-9023-c3fb662cffd2</processid>
+  </stage>
+  <stage stageid="256d026f-4a24-43d0-9f43-da6ad6142153" name="Export Object" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>375</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="AutomateC Path" narrative="Path" expr="[AutomateC Path]" />
+      <input type="text" name="BP Username" narrative="username" expr="[BP Username]" />
+      <input type="text" name="PB Password" narrative="password" expr="[BP Password]" />
+      <input type="text" name="Process/Object Name" narrative="command" expr="[Item Name]" />
+      <input type="text" name="Working DIR" narrative="directory path to export the process or object" expr="[Export Directory]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="PID" narrative="PID" stage="PID 2" />
+    </outputs>
+    <onsuccess>8f1993a1-b4ba-4ecc-bbed-18cacdb6e703</onsuccess>
+    <resource object="Blue Prism - Commands" action="Export Process/Object" />
+  </stage>
+  <stage stageid="6a6fe2a9-5d71-41cf-945e-6257d1b46b68" name="Set Item Name" type="MultipleCalculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>315</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>256d026f-4a24-43d0-9f43-da6ad6142153</onsuccess>
+    <steps>
+      <calculation expression="&quot;Blue Prism - Commands&quot;" stage="Item Name" />
+    </steps>
+  </stage>
+  <stage stageid="8f1993a1-b4ba-4ecc-bbed-18cacdb6e703" name="Found Item?" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>450</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>409ccdad-c959-4f4c-a4a1-90cc1c278a65</onsuccess>
+    <processid>c6825586-ea66-456e-9023-c3fb662cffd2</processid>
+  </stage>
+  <stage stageid="faca5bd6-c801-4e36-bb5b-b3295d49a666" name="Local Variables" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-255</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>120</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="597ea5d4-755a-4c29-92a8-b63d2912299e" name="Kill Process" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="ID" narrative="The ID of the process to kill" expr="[PID 1]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" narrative="Error Message if fails." stage="Error Message" />
+      <output type="flag" name="Success" narrative="True if Successful, False by default." stage="Success" />
+    </outputs>
+    <onsuccess>6a6fe2a9-5d71-41cf-945e-6257d1b46b68</onsuccess>
+    <resource object="Kill Process By ID" action="Kill Process By PID" />
+  </stage>
+  <stage stageid="dbec95aa-f037-463e-a13b-7dcfe7105d81" name="Error Message" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="222367e4-06c8-4cda-be6a-b229547a8e1c" name="Kill Process" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>615</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="ID" narrative="The ID of the process to kill" expr="[PID 2]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" narrative="Error Message if fails." stage="Error Message" />
+      <output type="flag" name="Success" narrative="True if Successful, False by default." stage="Success" />
+    </outputs>
+    <onsuccess>fc0080c4-5214-4031-817c-695b4e850e2d</onsuccess>
+    <resource object="Kill Process By ID" action="Kill Process By PID" />
+  </stage>
+  <stage stageid="7e15372d-d5ed-41d8-b7b3-7f1aa1451a67" name="Delete Item" type="SubSheetInfo">
+    <subsheetid>c514deb8-04b8-4041-bb80-3e7c91e74a8b</subsheetid>
+    <narrative>Attempts to delete an Item for as long as one minute,</narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="9c82b1b2-8a1a-46be-87c3-7724c42aa5a3" name="Start" type="Start">
+    <subsheetid>c514deb8-04b8-4041-bb80-3e7c91e74a8b</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>ddd5e264-af5a-43e5-87c2-c4e7744d7055</onsuccess>
+  </stage>
+  <stage stageid="ddd5e264-af5a-43e5-87c2-c4e7744d7055" name="Now" type="Calculation">
+    <subsheetid>c514deb8-04b8-4041-bb80-3e7c91e74a8b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>27f8fabd-e70c-440b-bd31-6029d67fcdda</onsuccess>
+    <calculation expression="Now()" stage="Now Datetime" />
+  </stage>
+  <stage stageid="27f8fabd-e70c-440b-bd31-6029d67fcdda" name="1 Min Passed?" type="Decision">
+    <subsheetid>c514deb8-04b8-4041-bb80-3e7c91e74a8b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="Now() &gt; [Now Datetime] + MakeTimeSpan(0, 0, 1, 0)" />
+    <ontrue>d34b52a5-3d65-4869-a689-efa764d80196</ontrue>
+    <onfalse>bd230818-8f2b-4180-8ff3-7ec97084c01a</onfalse>
+  </stage>
+  <stage stageid="bd230818-8f2b-4180-8ff3-7ec97084c01a" name="Delete File" type="Action">
+    <subsheetid>c514deb8-04b8-4041-bb80-3e7c91e74a8b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="File Name" narrative="The full path to the file to delete" expr="[File Path]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" narrative="True if successful" stage="Success" />
+      <output type="text" name="Message" narrative="An error message if unsuccessful" stage="Message" />
+    </outputs>
+    <onsuccess>63a429a1-3d44-4cc7-b6f4-9bbbd7c6569d</onsuccess>
+    <resource object="Utility - File Management" action="Delete File" />
+  </stage>
+  <stage stageid="d34b52a5-3d65-4869-a689-efa764d80196" name="Command Failed" type="Exception">
+    <subsheetid>c514deb8-04b8-4041-bb80-3e7c91e74a8b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="&quot;Failed to delete '&quot; &amp; [Item Name] &amp; &quot;'. Recorded Exception: &quot; &amp; [Message]" />
+  </stage>
+  <stage stageid="478ed47d-f1e5-4e80-ba21-6c50879f91c7" name="Anchor4" type="Anchor">
+    <subsheetid>c514deb8-04b8-4041-bb80-3e7c91e74a8b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-90</displayx>
+    <displayy>105</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>df12af08-260d-49b2-9509-00289e863850</onsuccess>
+  </stage>
+  <stage stageid="df12af08-260d-49b2-9509-00289e863850" name="Anchor5" type="Anchor">
+    <subsheetid>c514deb8-04b8-4041-bb80-3e7c91e74a8b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-90</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>27f8fabd-e70c-440b-bd31-6029d67fcdda</onsuccess>
+  </stage>
+  <stage stageid="d59b6bae-e8d0-4232-b97d-cae05667b071" name="End1" type="End">
+    <subsheetid>c514deb8-04b8-4041-bb80-3e7c91e74a8b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="63a429a1-3d44-4cc7-b6f4-9bbbd7c6569d" name="Deleted?" type="Decision">
+    <subsheetid>c514deb8-04b8-4041-bb80-3e7c91e74a8b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Success]" />
+    <ontrue>d59b6bae-e8d0-4232-b97d-cae05667b071</ontrue>
+    <onfalse>478ed47d-f1e5-4e80-ba21-6c50879f91c7</onfalse>
+  </stage>
+  <stage stageid="409ccdad-c959-4f4c-a4a1-90cc1c278a65" name="Delete Item" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>540</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>222367e4-06c8-4cda-be6a-b229547a8e1c</onsuccess>
+    <processid>c514deb8-04b8-4041-bb80-3e7c91e74a8b</processid>
+  </stage>
+  <stage stageid="f8659e5e-e72f-40aa-be26-1a4fb4701056" name="Store Path" type="Calculation">
+    <subsheetid>c6825586-ea66-456e-9023-c3fb662cffd2</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>195</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>6dc072c1-6e64-4f0e-bc93-4f2c6bbbf563</onsuccess>
+    <calculation expression="[Files.Path]" stage="File Path" />
+  </stage>
+  <stage stageid="756a6a6b-0fd0-42d7-8896-8de6d9024ac4" name="File Path" type="Data">
+    <subsheetid>bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>210</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1ce0bba8-1732-4b07-a564-309a08fe75e8" name="Global Variables" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>08662f7a-612a-4e84-b9fb-53c95fe291b1</onsuccess>
+    <processid>bd04ae09-4498-4ff9-aa7d-8792ac9b3a1b</processid>
+  </stage>
+  <stage stageid="868ebc8e-ac2c-40fa-b157-659f6c5374f8" name="PID 1" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9bae93ab-fb6a-4b51-9a0e-7a694f7ee468" name="PID 2" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="98153880-2c54-43a7-8a57-5bff78307d39" name="Delete Item" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>597ea5d4-755a-4c29-92a8-b63d2912299e</onsuccess>
+    <processid>c514deb8-04b8-4041-bb80-3e7c91e74a8b</processid>
+  </stage>
+</process>

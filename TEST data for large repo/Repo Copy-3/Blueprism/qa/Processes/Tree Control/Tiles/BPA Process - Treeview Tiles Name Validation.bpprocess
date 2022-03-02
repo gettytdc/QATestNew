@@ -1,0 +1,631 @@
+﻿<process name="Treeview Tiles Name Validation" version="1.0" bpversion="6.10.0.27320" narrative="Automated process to ensure that new tiles cannot be created when a tile name already in use is chosen." byrefcollection="true" preferredid="dfa865b4-020e-48e2-baf9-377595c8132c" published="true">
+  <view>
+    <camerax>30</camerax>
+    <cameray>94</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="5e7205b3-c009-4b82-b8b7-162c02d221d7" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="c1e5eea6-7023-46a5-8c7f-1fba98e3ded9" type="Normal" published="False">
+    <name>Create Tile from Tiles</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>555</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="74ef15fa-3a6a-40d6-8860-58879c6dcc0a" type="Normal" published="False">
+    <name>Create Tile from Tiles tree item</name>
+    <view>
+      <camerax>62</camerax>
+      <cameray>450</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="c3f534f3-b231-485a-8172-8e771272247d" name="Stage1" type="ProcessInfo">
+    <display x="-225" y="-105" w="180" h="90" />
+  </stage>
+  <stage stageid="9bc5011d-5fa5-4c02-983f-ad3f48f744f5" name="Start" type="Start">
+    <display x="45" y="-135" />
+    <onsuccess>01070ee0-f0b3-47bd-add8-6ebbd41edf27</onsuccess>
+  </stage>
+  <stage stageid="c9e5e704-5e10-4f64-9678-a1a8ad8734fd" name="End" type="End">
+    <display x="45" y="360" />
+  </stage>
+  <stage stageid="01070ee0-f0b3-47bd-add8-6ebbd41edf27" name="Note1" type="Note">
+    <narrative>GIVEN I am a BP user and have signed in</narrative>
+    <display x="45" y="-90" w="300" h="30" />
+    <onsuccess>da97017f-33d6-47eb-8f17-ad97f8f47f1d</onsuccess>
+  </stage>
+  <stage stageid="3353974e-7ca0-4766-8472-d3d882a1048c" name="Note3" type="Note">
+    <narrative>WHEN I attempt to create a tile from Tiles and add a tile name already in use
+THEN the expected message is displayed and the tile is only created when a unique name is used</narrative>
+    <display x="45" y="30" w="300" h="60" />
+    <onsuccess>65785aa1-dba7-4be5-841d-35d86f778920</onsuccess>
+  </stage>
+  <stage stageid="be01b882-846e-403f-9e1d-8aacf6272e89" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="240" y="75" />
+    <onsuccess>a1f4120d-2559-4c5f-acdb-cb4b69842431</onsuccess>
+  </stage>
+  <stage stageid="a1f4120d-2559-4c5f-acdb-cb4b69842431" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="240" y="120" w="90" h="30" />
+    <onsuccess>e595992f-05f0-4a3f-9349-9c935dfff3b7</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="e595992f-05f0-4a3f-9349-9c935dfff3b7" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="240" y="165" />
+    <onsuccess>61f896b5-f7bf-4c22-9730-6c5255299020</onsuccess>
+  </stage>
+  <stage stageid="da97017f-33d6-47eb-8f17-ad97f8f47f1d" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="-45" w="300" h="30" />
+    <onsuccess>3353974e-7ca0-4766-8472-d3d882a1048c</onsuccess>
+    <processid>5e7205b3-c009-4b82-b8b7-162c02d221d7</processid>
+  </stage>
+  <stage stageid="6d46d8ec-5eff-4f96-9a2f-c0c37ec15a01" name="Failed?" type="Decision">
+    <display x="45" y="315" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>e77d4c89-7d5c-45e2-a7da-fca5d7494318</ontrue>
+    <onfalse>c9e5e704-5e10-4f64-9678-a1a8ad8734fd</onfalse>
+  </stage>
+  <stage stageid="e77d4c89-7d5c-45e2-a7da-fca5d7494318" name="Re-Throw" type="Exception">
+    <display x="150" y="315" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="61f896b5-f7bf-4c22-9730-6c5255299020" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="240" y="270" w="10" h="10" />
+    <onsuccess>9f84c67c-fc7c-4283-986f-282c83433fc1</onsuccess>
+  </stage>
+  <stage stageid="b574bc5e-196f-4949-803d-cfc4586ff641" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5d648996-1440-405d-8ca9-bf045dfdc39c" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1b188cf5-4101-4484-8b3d-655ecb315d94" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="76f6aa6a-0e23-49ae-ba3f-df43067e4ddc" name="pid" type="Data">
+    <display x="-210" y="90" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e09a6306-0fba-4c7a-9a38-3cea5977dcf9" name="Global Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="60" w="150" h="210" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="47cb0931-b43d-4f91-9a23-94bef9e4df88" name="Setup" type="SubSheetInfo">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="9c02ae22-4581-489f-9491-8b835e4604ed" name="Start" type="Start">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-60" y="-135" />
+    <onsuccess>707a6425-0b70-474d-a8ef-b7d0da86bb27</onsuccess>
+  </stage>
+  <stage stageid="6ac44d64-b413-4c29-9697-7b888b6e8df4" name="End" type="End">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-60" y="45" />
+  </stage>
+  <stage stageid="707a6425-0b70-474d-a8ef-b7d0da86bb27" name="Launch" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-90" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>e483b55f-303e-43f0-a597-817ad582e9be</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="ad7204cf-b3c5-4b27-8bed-7ae7f1141450" name="Sign In" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Locale" friendlyname="Locale" narrative="Blue Prism Locale setting" stage="" />
+    </outputs>
+    <onsuccess>6ac44d64-b413-4c29-9697-7b888b6e8df4</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="e483b55f-303e-43f0-a597-817ad582e9be" name="Attach (Analytics)" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>ad7204cf-b3c5-4b27-8bed-7ae7f1141450</onsuccess>
+    <resource object="Blue Prism - Analytics (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="98c6285d-0b03-402c-a458-bce1a4dc8730" name="Create Tile from Tiles" type="SubSheetInfo">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="65785aa1-dba7-4be5-841d-35d86f778920" name="Create Tile from Tiles" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="90" w="300" h="30" />
+    <onsuccess>72f81a7b-8d44-4da1-beb1-2572a6d06893</onsuccess>
+    <processid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</processid>
+  </stage>
+  <stage stageid="72f81a7b-8d44-4da1-beb1-2572a6d06893" name="Note3" type="Note">
+    <narrative>WHEN I attempt to create a tile from tiles tree item and add a tile name already in use
+THEN the expected message is displayed and the tile is only created when a unique name is used</narrative>
+    <display x="45" y="150" w="300" h="60" />
+    <onsuccess>11061300-0b58-4b2f-98bc-c971feb86fe4</onsuccess>
+  </stage>
+  <stage stageid="11061300-0b58-4b2f-98bc-c971feb86fe4" name="Create Tile from Tiles tree item" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="210" w="300" h="30" />
+    <onsuccess>9f84c67c-fc7c-4283-986f-282c83433fc1</onsuccess>
+    <processid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</processid>
+  </stage>
+  <stage stageid="199c1406-160f-41af-b524-73540abcbac9" name="Scenarios" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-15" w="405" h="255" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b52ee30f-5fca-4227-8809-6378965b4efb" name="Start" type="Start">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>be476b9f-5c51-47d0-9dbc-974309244eb2</onsuccess>
+  </stage>
+  <stage stageid="dcd7023d-3a7f-409d-8759-676a4aa4f544" name="Local variables" type="Block">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3aeb032c-241e-4a65-9c04-5289abde7b81" name="Create Tile from Tiles tree item" type="SubSheetInfo">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="10fed782-599d-40af-ada8-bf0013e3a35d" name="Tiles Group" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">G5 TFM36</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="6cf9777d-adc2-41bf-8a48-cc0956185ce2" name="Tile 1" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="150" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">T5 TFM36</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="18d4b53a-328c-4ce3-9269-840be48be3fa" name="Select Group" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tile Name" friendlyname="Tile Name" narrative="Name of the Tile to right click on" expr="&quot;Tiles&quot;" />
+    </inputs>
+    <onsuccess>d3fe4078-228f-4ba3-b280-56959b295ebc</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Right Click on Tile" />
+  </stage>
+  <stage stageid="d3fe4078-228f-4ba3-b280-56959b295ebc" name="Select 'Create tile' option from submenu" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Menu Option" friendlyname="Menu Option" narrative="Option from Dashboard's Right Click Menu. Case Sensitive." expr="&quot;Create Tile&quot;" />
+    </inputs>
+    <onsuccess>f4e4ce45-625c-4e30-af5f-8047aa31d9f2</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Select Option from Tile's Right Click Menu" />
+  </stage>
+  <stage stageid="f4e4ce45-625c-4e30-af5f-8047aa31d9f2" name="Add Tile name" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tile Name" friendlyname="Tile Name" narrative="Name of the new tile" expr="[Tile 1]" />
+    </inputs>
+    <onsuccess>a8fe5bd1-8800-47dc-9f2c-81ff6b9ba2f7</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Edit Tile - Populate Tile Name" />
+  </stage>
+  <stage stageid="be476b9f-5c51-47d0-9dbc-974309244eb2" name="Browse to Analytics" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Analytics&quot;" />
+    </inputs>
+    <onsuccess>c54233ce-322a-4486-a8a7-e10109c83610</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="c54233ce-322a-4486-a8a7-e10109c83610" name="Click Tile Library SubPage" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="90" h="30" />
+    <onsuccess>18d4b53a-328c-4ce3-9269-840be48be3fa</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Click Tile Library SubPage" />
+  </stage>
+  <stage stageid="09af14da-b011-4472-b131-a0dc430791ff" name="Group Tree Items" type="Collection">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7a3bccbc-c18e-49ff-b231-2b32e8c98212" name="Local variables" type="Block">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3ae33bdd-fc62-481a-ac17-21e660859751" name="Group Tree Items" type="Collection">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9f84c67c-fc7c-4283-986f-282c83433fc1" name="Terminate" type="Action">
+    <display x="45" y="270" w="90" h="30" />
+    <onsuccess>6d46d8ec-5eff-4f96-9a2f-c0c37ec15a01</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="3790f552-b77b-4eab-aa76-ba3e7712bc5e" name="Tile 2" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="180" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">T5 TFM36-1</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="fb1e34a9-4a0e-4f1f-871f-2836646b9870" name="Tile 1 Valid " type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="210" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">T5 TFM36 Valid</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="8aed364b-e8a8-4b1d-8a23-1a33863e08bd" name="Tile 2 Valid" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="240" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">T5 TFM36-1 Valid</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="ab825b31-c68d-4209-b07e-6e29c34ceb3e" name="End" type="End">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="600" />
+  </stage>
+  <stage stageid="ead4df52-234f-4bfd-9db7-dd251f540e24" name="Get Group Tree Items" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="360" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tiles Group name" friendlyname="Tiles Group name" expr="&quot;Tiles&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Group Tree Items" friendlyname="Group Tree Items" stage="Group Tree Items" />
+    </outputs>
+    <onsuccess>a9f59ab8-a73c-443a-9654-38fd587280f7</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="f293daab-3b5f-4231-b014-c803e5fb36ad" name="Tile created?" type="Decision">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="450" w="120" h="30" />
+    <decision expression="[Group Tree Items.Node Text]=[Tile 1 Valid ]" />
+    <ontrue>bec2b6da-421e-4070-a2ac-f9a57660315d</ontrue>
+    <onfalse>6a806fdf-3f9a-4734-9e39-0e076383d160</onfalse>
+  </stage>
+  <stage stageid="c5efa15a-65a9-4c13-9061-0b6c51ef081a" name="Exception" type="Exception">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="30" y="495" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;The tile is missing&quot;" />
+  </stage>
+  <stage stageid="3200a4f5-0825-4117-80e8-51ad19dd333c" name="Go To Home" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="555" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>ab825b31-c68d-4209-b07e-6e29c34ceb3e</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="8b2cdfda-cd83-4c66-a5ca-28b10219695c" name="Ensure tile available" type="Block">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="330" w="180" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a9f59ab8-a73c-443a-9654-38fd587280f7" name="Is tile in tree?" type="LoopStart">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="405" w="90" h="30" />
+    <onsuccess>f293daab-3b5f-4231-b014-c803e5fb36ad</onsuccess>
+    <groupid>999e3f67-5d51-448a-81bf-04faab9f427d</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Group Tree Items</loopdata>
+  </stage>
+  <stage stageid="6a806fdf-3f9a-4734-9e39-0e076383d160" name="Is tile in tree?" type="LoopEnd">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="495" w="90" h="30" />
+    <onsuccess>c5efa15a-65a9-4c13-9061-0b6c51ef081a</onsuccess>
+    <groupid>999e3f67-5d51-448a-81bf-04faab9f427d</groupid>
+  </stage>
+  <stage stageid="bec2b6da-421e-4070-a2ac-f9a57660315d" name="Anchor3" type="Anchor">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="60" y="450" w="10" h="10" />
+    <onsuccess>984a1b46-82b1-4f3a-b8c0-47ad015fa3b8</onsuccess>
+  </stage>
+  <stage stageid="984a1b46-82b1-4f3a-b8c0-47ad015fa3b8" name="Anchor5" type="Anchor">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="60" y="555" w="10" h="10" />
+    <onsuccess>3200a4f5-0825-4117-80e8-51ad19dd333c</onsuccess>
+  </stage>
+  <stage stageid="a8fe5bd1-8800-47dc-9f2c-81ff6b9ba2f7" name="Press Enter" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="150" w="90" h="30" />
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" stage="Error message" />
+    </outputs>
+    <onsuccess>105ce54e-29c9-41b0-a8f5-1da37e6572ef</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Edit Tile - Press Enter" />
+  </stage>
+  <stage stageid="2d30b58c-5a10-4c97-a8b4-45d616c4fd18" name="Invalid Tile name - Tile NOT created" type="Block">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="-15" w="195" h="240" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC99" />
+  </stage>
+  <stage stageid="105ce54e-29c9-41b0-a8f5-1da37e6572ef" name="Error message correct?" type="Decision">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="195" w="90" h="30" />
+    <decision expression="[Error message]=&quot;A Tile with name: T5 TFM36 already exists&quot;" />
+    <ontrue>cd6a8bef-53be-43a2-aed5-4f21721f8378</ontrue>
+    <onfalse>ad416258-4d5c-4019-a3ab-9b35b7b73f34</onfalse>
+  </stage>
+  <stage stageid="ad416258-4d5c-4019-a3ab-9b35b7b73f34" name="Exception" type="Exception">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="30" y="195" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;Duplicate tile error message is incorrect&quot;" />
+  </stage>
+  <stage stageid="cd6a8bef-53be-43a2-aed5-4f21721f8378" name="Add Tile name" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tile Name" friendlyname="Tile Name" narrative="Name of the new tile" expr="[Tile 1 Valid ]" />
+    </inputs>
+    <onsuccess>91b3e96b-0b6f-47cb-b035-9e2574598b1b</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Edit Tile - Populate Tile Name" />
+  </stage>
+  <stage stageid="91b3e96b-0b6f-47cb-b035-9e2574598b1b" name="Click OK" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="300" w="90" h="30" />
+    <onsuccess>ead4df52-234f-4bfd-9db7-dd251f540e24</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Edit Tile - Click OK Dashboard Tile Window" />
+  </stage>
+  <stage stageid="24659165-8529-411a-8d9c-e006905525c6" name="Start" type="Start">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>e58642b5-e107-4808-abe2-1af054744fa0</onsuccess>
+  </stage>
+  <stage stageid="72ae4a11-68d3-4844-b5ef-65b9bc19dcd8" name="Select Group" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tile Name" friendlyname="Tile Name" narrative="Name of the Tile to right click on" expr="[Tiles Group]" />
+    </inputs>
+    <onsuccess>96e55838-a6d9-41a6-abb3-05e1224e21d1</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Right Click on Tile" />
+  </stage>
+  <stage stageid="96e55838-a6d9-41a6-abb3-05e1224e21d1" name="Select 'Create tile' option from submenu" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Menu Option" friendlyname="Menu Option" narrative="Option from Dashboard's Right Click Menu. Case Sensitive." expr="&quot;Create Tile&quot;" />
+    </inputs>
+    <onsuccess>7738189b-75bd-4339-98fd-2f570baa2ce4</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Select Option from Tile's Right Click Menu" />
+  </stage>
+  <stage stageid="7738189b-75bd-4339-98fd-2f570baa2ce4" name="Add Tile name" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tile Name" friendlyname="Tile Name" narrative="Name of the new tile" expr="[Tile 2]" />
+    </inputs>
+    <onsuccess>d4f143f3-d70b-4aa6-9d30-ff72c1376f56</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Edit Tile - Populate Tile Name" />
+  </stage>
+  <stage stageid="e58642b5-e107-4808-abe2-1af054744fa0" name="Browse to Analytics" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Analytics&quot;" />
+    </inputs>
+    <onsuccess>c59bceec-c888-48a3-9df7-d049e9ec5764</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="c59bceec-c888-48a3-9df7-d049e9ec5764" name="Click Tile Library SubPage" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="90" h="30" />
+    <onsuccess>72ae4a11-68d3-4844-b5ef-65b9bc19dcd8</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Click Tile Library SubPage" />
+  </stage>
+  <stage stageid="f9c96ac8-35a1-499d-81c9-9eb81d42a77f" name="End" type="End">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-45" y="600" />
+  </stage>
+  <stage stageid="fd9ed6c5-77e3-457b-8c44-14f1ea122be2" name="Get Group Tree Items" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="360" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tiles Group name" friendlyname="Tiles Group name" expr="[Tiles Group]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Group Tree Items" friendlyname="Group Tree Items" stage="Group Tree Items" />
+    </outputs>
+    <onsuccess>2dc914e6-b5f1-4f9c-8ea7-be074ba271cd</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="fb99b40f-a811-48fb-8eec-229c913a9ca1" name="Tile created?" type="Decision">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-45" y="450" w="120" h="30" />
+    <decision expression="[Group Tree Items.Node Text]=[Tile 2 Valid]" />
+    <ontrue>ba3f0411-46fe-49e9-a2f7-2d0c1ca89800</ontrue>
+    <onfalse>e6f8f6ef-efe7-4a79-9173-d4ee96891bad</onfalse>
+  </stage>
+  <stage stageid="a2c4f3b8-66ce-4cd9-8220-804ff3c88e04" name="Exception" type="Exception">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="30" y="480" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;The tile is missing&quot;" />
+  </stage>
+  <stage stageid="87d8461f-2ad4-40be-9439-6fe0bf5fd22e" name="Go To Home" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="555" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>f9c96ac8-35a1-499d-81c9-9eb81d42a77f</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="f0f09216-2a45-4db6-9c82-d1dc56bf78a2" name="Ensure tile available" type="Block">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="330" w="180" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2dc914e6-b5f1-4f9c-8ea7-be074ba271cd" name="Is tile in tree?" type="LoopStart">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="405" w="90" h="30" />
+    <onsuccess>fb99b40f-a811-48fb-8eec-229c913a9ca1</onsuccess>
+    <groupid>0db767ab-077a-4833-869a-5654322d7ac5</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Group Tree Items</loopdata>
+  </stage>
+  <stage stageid="e6f8f6ef-efe7-4a79-9173-d4ee96891bad" name="Is tile in tree?" type="LoopEnd">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="495" w="90" h="30" />
+    <onsuccess>a2c4f3b8-66ce-4cd9-8220-804ff3c88e04</onsuccess>
+    <groupid>0db767ab-077a-4833-869a-5654322d7ac5</groupid>
+  </stage>
+  <stage stageid="ba3f0411-46fe-49e9-a2f7-2d0c1ca89800" name="Anchor3" type="Anchor">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="60" y="450" w="10" h="10" />
+    <onsuccess>0d89812b-a6c4-46ff-a7b8-1c46018fb3f1</onsuccess>
+  </stage>
+  <stage stageid="0d89812b-a6c4-46ff-a7b8-1c46018fb3f1" name="Anchor5" type="Anchor">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="60" y="555" w="10" h="10" />
+    <onsuccess>87d8461f-2ad4-40be-9439-6fe0bf5fd22e</onsuccess>
+  </stage>
+  <stage stageid="d622f6fd-a129-4be8-ba83-068da28f7cf4" name="Invalid Tile name - Tile NOT created" type="Block">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="-15" w="195" h="240" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC99" />
+  </stage>
+  <stage stageid="93e02f00-8523-4bef-ad4b-bc19fd3f8b53" name="Add Tile name" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tile Name" friendlyname="Tile Name" narrative="Name of the new tile" expr="[Tile 2 Valid]" />
+    </inputs>
+    <onsuccess>b8f8b08f-1f95-4c0b-ab8e-c5a33d960cac</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Edit Tile - Populate Tile Name" />
+  </stage>
+  <stage stageid="b8f8b08f-1f95-4c0b-ab8e-c5a33d960cac" name="Click OK" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="300" w="90" h="30" />
+    <onsuccess>fd9ed6c5-77e3-457b-8c44-14f1ea122be2</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Edit Tile - Click OK Dashboard Tile Window" />
+  </stage>
+  <stage stageid="d4f143f3-d70b-4aa6-9d30-ff72c1376f56" name="Press Enter" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="150" w="90" h="30" />
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" stage="Error message" />
+    </outputs>
+    <onsuccess>28075fae-083e-4570-8131-a865738db3d3</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Edit Tile - Press Enter" />
+  </stage>
+  <stage stageid="28075fae-083e-4570-8131-a865738db3d3" name="Error message correct?" type="Decision">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-45" y="195" w="90" h="30" />
+    <decision expression="[Error message]=&quot;A Tile with name: T5 TFM36-1 already exists&quot;" />
+    <ontrue>93e02f00-8523-4bef-ad4b-bc19fd3f8b53</ontrue>
+    <onfalse>f080d80f-585c-40be-9645-9f6ab5114d2c</onfalse>
+  </stage>
+  <stage stageid="f080d80f-585c-40be-9645-9f6ab5114d2c" name="Exception" type="Exception">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="30" y="195" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;Duplicate tile error message is incorrect&quot;" />
+  </stage>
+  <stage stageid="84ecf7d7-82f1-4a5e-bbbb-bf1de01f299c" name="Error message" type="Data">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="be42ed5d-9c98-4717-ac9b-72098d40d3b9" name="Error message" type="Data">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+</process>

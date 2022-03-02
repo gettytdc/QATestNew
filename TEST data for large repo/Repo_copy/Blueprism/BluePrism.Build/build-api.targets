@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="BuildApiMsi" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="common.targets" />
+
+  <PropertyGroup>
+    <BuildApi Condition="$(BuildApi) == ''">True</BuildApi>
+    <BuildApiStandalone Condition="$(BuildApiStandalone) == ''">False</BuildApiStandalone>
+
+    <BluePrismSlnDirectory>$(RootDirectory)</BluePrismSlnDirectory>
+    <BluePrismSlnFullPath>$(BluePrismSlnDirectory)\BluePrism.sln</BluePrismSlnFullPath>
+    <ApiSlnDirectory>$(RootDirectory)\BluePrism.Api</ApiSlnDirectory>
+    <ApiSlnFullPath>$(ApiSlnDirectory)\BluePrism.Api.sln</ApiSlnFullPath>
+    <ApiMsiSlnDirectory>$(ApiSlnDirectory)\Setup</ApiMsiSlnDirectory>
+    <ApiMsiSlnFullPath>$(ApiMsiSlnDirectory)\BluePrism.Api.Setup.sln</ApiMsiSlnFullPath>
+    <ApiOutputDirectory>$(ApiSlnDirectory)\BluePrism.Api\bin</ApiOutputDirectory>
+    <ApiPublishDirectory>$(ApiOutputDirectory)\app.publish</ApiPublishDirectory>
+    <SharedBinDirectory>$(RootDirectory)\bin</SharedBinDirectory>
+    <SigningCertificateHash></SigningCertificateHash>
+    <SigningEnabled>True</SigningEnabled>
+	<SignToolFullPath>$(WindowsKitsRootDirectory)bin\$(SDKVersionDirectoryName)\x86\signtool.exe</SignToolFullPath>	
+  </PropertyGroup>
+
+  <UsingTask TaskName="TransformXml" AssemblyFile="$(VSToolsPath)\Web\Microsoft.Web.Publishing.Tasks.dll"/>
+
+  <Target Name="RestoreApi">
+    <Message Text="-------------------------------------------------------------" />
+    <Message Text="RestoreApi" />
+    <Message Text="-------------------------------------------------------------" />
+    <Exec Command="&quot;$(NuGetExeFullPath)&quot; restore &quot;$(ApiSlnFullPath)&quot;" Condition="$(BuildApi) == 'True'" />
+    <Exec Command="&quot;$(NuGetExeFullPath)&quot; restore &quot;$(ApiMsiSlnFullPath)&quot;" Condition="$(BuildApi) == 'True'" />
+    <Exec Command="&quot;$(NuGetExeFullPath)&quot; restore &quot;$(BluePrismSlnFullPath)&quot;" Condition="$(BuildApiStandalone) == 'True'" />
+    <Message Text="-------------------------------------------------------------" />
+  </Target>
+
+  <Target Name="BuildApiDependencies" DependsOnTargets="InitVersionNumbers;RestoreApi">
+    <Message Text="-------------------------------------------------------------" />
+    <Message Text="BuildApiDependencies" />
+    <Message Text="-------------------------------------------------------------" />
+    <MSBuild
+      Projects="$(BluePrismSlnFullPath)"
+      Properties="Configuration=$(Configuration);SemanticVersion=$(SemanticVersion);Version=$(AssemblyVersion);PackageVersion=$(SemanticVersion);ObfuscationEnabled=$(ObfuscationEnabled);SigningEnabled=$(SigningEnabled);SignToolFullPath=$(SignToolFullPath);SigningCertificateHash=$(SigningCertificateHash);SigningCertificateFingerprint=$(SigningCertificateHash);RestorePackages=false"
+      Condition="'$(SkipBuild)' != 'True' AND $(BuildApi) == 'True' AND $(BuildApiStandalone) == 'True'" />
+    <Message Text="-------------------------------------------------------------" />
+  </Target>
+
+  <Target Name="BuildApi" DependsOnTargets="BuildApiDependencies">
+    <Message Text="-------------------------------------------------------------" />
+    <Message Text="BuildApi" />
+    <Message Text="-------------------------------------------------------------" />
+    <MSBuild 
+      Projects="$(ApiSlnFullPath)"
+      Properties="Configuration=$(Configuration);SemanticVersion=$(SemanticVersion);Version=$(AssemblyVersion);PackageVersion=$(SemanticVersion);ObfuscationEnabled=$(ObfuscationEnabled);SigningEnabled=$(SigningEnabled);SignToolFullPath=$(SignToolFullPath);SigningCertificateHash=$(SigningCertificateHash);SigningCertificateFingerprint=$(SigningCertificateHash);RestorePackages=false"
+      Condition="'$(SkipBuild)' != 'True' AND $(BuildApi) == 'True'" />
+    <Message Text="-------------------------------------------------------------" />
+  </Target>
+
+  <Target Name="TestApi" DependsOnTargets="BuildApi">
+    <Message Text="-------------------------------------------------------------" />
+    <Message Text="TestApi" />
+    <Message Text="-------------------------------------------------------------" />
+    <Error Condition="!Exists('$(DynamicNUnitRunnerToolsDirectory)')" Text="NUnit.Runners not found at $(DynamicNUnitRunnerToolsDirectory)" />
+
+    <PropertyGroup>
+      <ResultsXmlFilePath>$(BuildDirectory)\unit-test-results-api.xml</ResultsXmlFilePath>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <TestAssembly Include="$(ApiSlnDirectory)\**\bin\$(Configuration)\*Tests.dll" />
+    </ItemGroup>
+
+    <MSBuild.ExtensionPack.CodeQuality.NUnit3 ToolPath="$(DynamicNUnitRunnerToolsDirectory)" OutputXmlFile="$(ResultsXmlFilePath)" Assemblies="@(TestAssembly)">
+      <Output TaskParameter="Total" PropertyName="UnitTestTotal"/>
+      <Output TaskParameter="NotRun" PropertyName="UnitTestNotRun"/>
+      <Output TaskParameter="Failures" PropertyName="UnitTestFailures"/>
+      <Output TaskParameter="Errors" PropertyName="UnitTestErrors"/>
+      <Output TaskParameter="Inconclusive" PropertyName="UnitTestInconclusive"/>
+      <Output TaskParameter="Ignored" PropertyName="UnitTestIgnored"/>
+      <Output TaskParameter="Skipped" PropertyName="UnitTestSkipped"/>
+      <Output TaskParameter="Invalid" PropertyName="UnitTestInvalid"/>
+    </MSBuild.ExtensionPack.CodeQuality.NUnit3>
+
+    <Error Condition="$(UnitTestErrors) > 0 Or $(UnitTestFailures) > 0" Text="Unit tests failed - $(UnitTestErrors) error(s), $(UnitTestFailures) failure(s)" />
+    <Message Text="-------------------------------------------------------------" />
+  </Target>
+
+  <Target Name="CreateDocumentationPackage" DependsOnTargets="TestApi">
+    <Message Text="-------------------------------------------------------------" />
+    <Message Text="CreateDocumentationPackage" />
+    <Message Text="-------------------------------------------------------------" />
+    <Exec Command="powershell &quot;Compress-Archive -Force \&quot;$(ApiSlnDirectory)\BluePrism.Api.Specification\bin\$(Configuration)\net47\win10-x64\*\&quot; \&quot;$(OutputDirectory)\ApiDocumentation.zip\&quot;&quot;" />
+    <!-- To be used should we ever upgrade the build tools on the CI server
+    <ZipDirectory 
+      SourceDirectory="$(ApiSlnDirectory)\BluePrism.Api.Specification\bin\$(Configuration)\netcoreapp2.1\" 
+      DestinationFile="$(OutputDirectory)\ApiDocumentation.zip" /> -->
+  </Target>
+
+  <Target Name="PublishApi" DependsOnTargets="CreateDocumentationPackage">
+    <Message Text="-------------------------------------------------------------" />
+    <Message Text="PublishApi" />
+    <Message Text="-------------------------------------------------------------" />
+    <ItemGroup>
+      <BinFiles
+        Include="$(ApiOutputDirectory)\*.dll;"/>
+      <ConfigFiles
+        Include="$(ApiOutputDirectory)\*.config"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(BinFiles)" DestinationFolder="$(ApiPublishDirectory)\bin" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(ApiPublishDirectory)\bin\roslyn" />
+    <Copy SourceFiles="@(ConfigFiles)" DestinationFolder="$(ApiPublishDirectory)\bin" />
+    <Copy SourceFiles="$(ApiSlnDirectory)\BluePrism.Api\favicon.ico" DestinationFolder="$(ApiPublishDirectory)" />
+    <TransformXml Source="$(ApiSlnDirectory)\BluePrism.Api\Web.config" Transform="$(ApiSlnDirectory)\BluePrism.Api\Web.$(Configuration).config" Destination="$(ApiPublishDirectory)\bin\Web.config" Condition="Exists('$(ApiSlnDirectory)\BluePrism.Api\Web.$(Configuration).config')" />
+    <Copy SourceFiles="$(ApiSlnDirectory)\BluePrism.Api\Web.config" DestinationFolder="$(ApiPublishDirectory)\bin" Condition="!Exists('$(ApiSlnDirectory)\BluePrism.Api\Web.$(Configuration).config')" /> <!-- Copy web.config if it hasn't already been transformed -->
+    <Copy SourceFiles="$(ApiPublishDirectory)\bin\Web.config;$(ApiPublishDirectory)\bin\NLog.config" DestinationFolder="$(ApiPublishDirectory)" />
+    <Message Text="-------------------------------------------------------------" />
+  </Target>
+
+  <Target Name="BuildApiMsi" DependsOnTargets="PublishApi">
+    <Message Text="-------------------------------------------------------------" />
+    <Message Text="BuildApiMsi" />
+    <Message Text="-------------------------------------------------------------" />
+    <MSBuild 
+      Projects="$(ApiMsiSlnFullPath)"
+      Properties="Configuration=$(Configuration);SemanticVersion=$(SemanticVersion);Version=$(AssemblyVersion);PackageVersion=$(SemanticVersion);SigningEnabled=$(SigningEnabled);SignToolFullPath=$(SignToolFullPath);SigningCertificateHash=$(SigningCertificateHash);SigningCertificateFingerprint=$(SigningCertificateHash);RestorePackages=false"
+      Condition="'$(SkipBuild)' != 'True' AND $(BuildApi) == 'True'" />
+  	<Copy SourceFiles="$(ApiMsiSlnDirectory)\BluePrism.Api.Setup\Blue Prism API.msi" DestinationFiles="$(SharedBinDirectory)\BluePrismAPI-$(SemanticVersion).msi" />
+    <Message Text="-------------------------------------------------------------" />
+  </Target>
+</Project>

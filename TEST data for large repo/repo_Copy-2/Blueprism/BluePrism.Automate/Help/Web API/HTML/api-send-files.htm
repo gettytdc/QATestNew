@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-gb" xml:lang="en-gb" data-mc-search-type="Stem" data-mc-help-system-file-name="Blue Prism Help.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Sending files</title>
+        <link type="text/css" href="../../AutomateHelp.css" rel="stylesheet" />
+		<link href="../../TableStyles/bp_footer_tablestyle.css" rel="stylesheet" />
+		<link href="../../TableStyles/bp-table-column-header.css" rel="stylesheet" />
+        <link href="../../TableStyles/bp-table-row-header.css" rel="stylesheet" />
+    </head>
+    <body>
+        <h1 class="pagebreak">Sending files</h1>
+        <p>The following examples demonstrate how to send single or multiple files as part of an HTTP&#160;request.</p>
+        <h2>Send a single file</h2>
+        <p>This sends a single file as a binary stream. The Content-Type HTTP Header is set to application/octet-stream when using this content type unless a different Content-Type header value has been specified in the Web API action definition.</p>
+        <h3>Web API&#160;definition</h3>
+        <p>An action  in an API&#160;definition uses the <b>POST</b> method and <b>Single File</b> for the body content. The File Parameter Name creates an input parameter named <i>Release Notes</i> in processes that use this action.</p>
+        <p><a href="../Images/api-file-eg-single.png"><img class="MCPopupThumbnail img imglargeimage75pc" data-mc-width="682" data-mc-height="186" src="../Images/api-file-eg-single_thumb_0_128.png" tabindex="" /></a>
+        </p>
+        <h3>Process</h3>
+        <p><a href="../Images/api-file-single.png"><img class="MCPopupThumbnail img imglargeimage75pc" data-mc-width="525" data-mc-height="187" src="../Images/api-file-single_thumb_0_128.png" tabindex="" /></a>
+        </p>
+        <p>In Process Studio, a process contains a data item called <i>Notes</i> with a Data Type of Binary into which a file has been imported.</p>
+        <p><a href="../Images/api-file-eg-data.png"><img class="MCPopupThumbnail img imglargeimage75pc" data-mc-width="597" data-mc-height="337" src="../Images/api-file-eg-data_thumb_0_128.png" tabindex="" /></a>
+        </p>
+        <p class="pagebreak">An action stage in the process uses the API&#160;definition  and references the <i>Notes</i> data item as the value for the input parameter.</p>
+        <p><a href="../Images/api-file-eg-action.png"><img class="MCPopupThumbnail img imglargeimage75pc" data-mc-width="601" data-mc-height="191" src="../Images/api-file-eg-action_thumb_0_128.png" tabindex="" /></a>
+        </p>
+        <p>When the API is called, the file imported into the data item is sent as part of the HTTP&#160;request.</p>
+        <h2 class="pagebreak">Send multiple files</h2>
+        <p>Multiple files are sent in a single request using the multipart/form-data content-type.</p>
+        <h3>Web API&#160;definition</h3>
+        <p>An action  in an API&#160;definition uses the <b>POST</b> method and <b>Multiple Files</b> for the body content. The File Parameter Name creates an input parameter named <i>Documents</i> in processes that use this action.</p>
+        <p><a href="../Images/api-files-eg-def.png"><img class="MCPopupThumbnail img imglargeimage75pc" data-mc-width="682" data-mc-height="187" src="../Images/api-files-eg-def_thumb_0_128.png" tabindex="" /></a>
+        </p>
+        <h3>Process</h3>
+        <p>A process contains a collection item called <i>Files</i> into which a number of files have been imported. </p>
+        <p><a href="../Images/api-file-multiple.png"><img class="MCPopupThumbnail img imglargeimage75pc" data-mc-width="525" data-mc-height="187" src="../Images/api-file-multiple_thumb_0_128.png" tabindex="" /></a>
+        </p>
+        <p><a href="../Images/api-files-eg-collection.png"><img class="MCPopupThumbnail img imglargeimage75pc" data-mc-width="611" data-mc-height="253" src="../Images/api-files-eg-collection_thumb_0_128.png" tabindex="" /></a>
+        </p>
+        <p class="pagebreak">Collections passed into input parameters are expected to use the following specified schema:</p>
+        <table style="mc-table-style: url('../../TableStyles/bp-table-column-header.css');margin-left: 0;margin-right: auto;" class="TableStyle-bp-table-column-header" cellspacing="0">
+            <col class="TableStyle-bp-table-column-header-Column-Column1" />
+            <col class="TableStyle-bp-table-column-header-Column-Column2" />
+            <col class="TableStyle-bp-table-column-header-Column-Column2" />
+            <col class="TableStyle-bp-table-column-header-Column-Column2" />
+            <thead>
+                <tr class="TableStyle-bp-table-column-header-Head-Header1">
+                    <th class="TableStyle-bp-table-column-header-HeadE-Column1-Header1">
+                        <p>Name</p>
+                    </th>
+                    <th class="TableStyle-bp-table-column-header-HeadF-Column2-Header1">
+                        <p>Data Type</p>
+                    </th>
+                    <th class="TableStyle-bp-table-column-header-HeadF-Column2-Header1">
+                        <p>Is Required</p>
+                    </th>
+                    <th class="TableStyle-bp-table-column-header-HeadD-Column2-Header1">
+                        <p>Description</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-bp-table-column-header-Body-Body1">
+                    <td class="TableStyle-bp-table-column-header-BodyE-Column1-Body1">
+                        <p>File</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyF-Column2-Body1">
+                        <p>Binary</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyF-Column2-Body1">
+                        <p>True</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyD-Column2-Body1">
+                        <p>The file to be sent.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-column-header-Body-Body1">
+                    <td class="TableStyle-bp-table-column-header-BodyE-Column1-Body1">
+                        <p>File Name </p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyF-Column2-Body1">
+                        <p>Text</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyF-Column2-Body1">
+                        <p>False</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyD-Column2-Body1">
+                        <p>Used to populate the filename header for this file's section in the multi-part form body</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-column-header-Body-Body1">
+                    <td class="TableStyle-bp-table-column-header-BodyE-Column1-Body1">
+                        <p>Field Name</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyF-Column2-Body1">
+                        <p>Text</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyF-Column2-Body1">
+                        <p>False</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyD-Column2-Body1">
+                        <p>Used to populate the name header for this file's section in the multi-part form body</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-column-header-Body-Body1">
+                    <td class="TableStyle-bp-table-column-header-BodyB-Column1-Body1">
+                        <p>Content Type</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyC-Column2-Body1">
+                        <p>Text</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyC-Column2-Body1">
+                        <p>False</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyA-Column2-Body1">
+                        <p>Used to populate the Content-Type header for this file's section in the multi-part form body. If a value is not specified, <i>application/octet-stream</i> is used by default.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>When creating a collection, the required schema can be imported by clicking <b>Import Fields</b> from the Collection Properties and selecting a parameter from required web API&#160;action.</p>
+        <p><a href="../Images/api-import-fields.png"><img class="MCPopupThumbnail img imglargeimage100pc" data-mc-width="1000" data-mc-height="855" src="../Images/api-import-fields_thumb_0_128.png" tabindex="" /></a>
+        </p>
+        <p class="pagebreak">An action stage in the process uses the API&#160;definition  and references the <i>Files</i> data item as the value for the input parameter.</p>
+        <p><a href="../Images/api-files-eg-action.png"><img class="MCPopupThumbnail img imglargeimage75pc" data-mc-width="601" data-mc-height="193" src="../Images/api-files-eg-action_thumb_0_128.png" tabindex="" /></a>
+        </p>
+        <p>When the API is called, the file is sent as part of the HTTP&#160;request.</p>
+        <p>&#160;</p>
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../TableStyles/bp_footer_tablestyle.css');" class="TableStyle-bp_footer_tablestyle" cellspacing="0">
+            <col class="TableStyle-bp_footer_tablestyle-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-bp_footer_tablestyle-Body-Body1">
+                    <td class="TableStyle-bp_footer_tablestyle-BodyD-Column1-Body1">&#160;</td>
+                </tr>
+                <tr class="TableStyle-bp_footer_tablestyle-Body-Body1">
+                    <td style="text-align: center;" class="TableStyle-bp_footer_tablestyle-BodyD-Column1-Body1">Commercial in Confidence</td>
+                </tr>
+                <tr class="TableStyle-bp_footer_tablestyle-Body-Body1">
+                    <td style="text-align: center;" class="TableStyle-bp_footer_tablestyle-BodyA-Column1-Body1">®Blue Prism is a Registered Trademark of Blue Prism Limited</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>Dashboard Data Sources</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+		dl.import-rules dd>ul>li { margin-bottom: 1em; }
+		dl.import-rules dd>ul { padding-left: 1em; }
+	</style>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">Dashboard</h1>
+		<h2>Data Sources</h2>
+	</div>
+
+  <h3>Data Sources</h3>
+  <p>SQL Stored Procedures provide the data used by a tile, and in order for them to be
+  detected by the tile configurator, the stored procedures must be named appropriately:</p>
+  <ul>
+    <li>BPDS_I: Data sources with a naming prefix of BPDS_I are reserved to represent
+    internal data sources that are built-in to the software.</li>
+    <li>BPDS: Data sources with a naming prefix of BPDS are reserved to represent
+    SQL Server stored procedures provided with the software.</li>
+      <ul>
+        <li>Custom stored procedures must not be named with this prefix and the existing
+        stored procedures must not be modified in anyway except if advised by Blue Prism.</li>
+        <li>Blue Prism will not recognise stored procedures that are prefixed BPDS unless they
+        have been created by Blue Prism.</li>
+        <li>Any manual changes to these procedures may be subsequently overwritten by a
+        future product update.  If any custom changes are required to these stored procedures,
+        create a copy of the procedure with the appropriate prefix for a custom data source.</li>
+      </ul>
+    <li>DS: The prefix of DS is the required prefix for any custom stored procedures that are
+    created for dashboard tiles.</li>
+  </ul>
+  
+  <p>It is possible to parameterise these procedures, enabling them to be associated with multiple
+  chart tiles, each specifying a different set of parameters – for example to provide the same view
+  for different groups of queues.</p>
+
+  <h3>Creating a Custom Data Source</h3>
+  <p>Where a new stored procedure is manually created in the database, it is necessary to ensure
+  that Blue Prism users can use it. This can be achieved by extending the Blue Prism SQL Security
+  Role named bpa_ExecuteSP_DataSource_custom.</p>
+
+  <p><code>GRANT EXECUTE ON OBJECT::[Stored Procedure Name] TO bpa_ExecuteSP_DataSource_custom;</code></p>
+  <p>e.g.</p>
+  <p><code>GRANT EXECUTE ON OBJECT::dbo.DS_DailyProductivity TO bpa_ExecuteSP_DataSource_custom;</code></p>
+
+  <p>Alternatively exporting the Tile from one Blue Prism environment and importing it into another,
+  as this will extend the security role in the target environment automatically.</p>
+
+  <h3 id="DataFormat">Tile Data Format</h3>
+  <p>The data used by tiles is derived from a stored procedure which must exist in the Blue
+  Prism database. The stored procedure must return a data table the stored procedure used for
+  a chart tile to return data in a table. The first column in the returned data represents the
+  chart labels and subsequent columns represent 1 – n series of data.</p>
+  
+  <p>For example a procedure to return queue volumes by status might be created as:</p>
+  <img src="Graphics\datasource-sql.png" alt="Example datasource SQL"/>
+  <p>When executed by Blue Prism, this would return the following:</p>
+  <img src="Graphics\datasource-output.png" alt="Example datasource output" />
+  <p>Before any new stored procedure is used within a Production environment the performance
+  of the query should be tested on a realistic data set to avoid any system performance problems.</p>
+
+</body>
+</html>

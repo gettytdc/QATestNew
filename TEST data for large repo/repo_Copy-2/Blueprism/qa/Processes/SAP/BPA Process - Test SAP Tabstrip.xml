@@ -1,0 +1,381 @@
+﻿<process name="Test SAP Tabstrip" version="1.0" bpversion="6.8.0.20441" narrative="" byrefcollection="true" preferredid="b2e78016-d130-4f3f-90e2-7c65a8f04283" published="true">
+  <view>
+    <camerax>0</camerax>
+    <cameray>-63</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="352e077d-4417-40d3-9e9c-f8e6d81fbb01" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>159</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="bc1d1e82-a683-448a-b1c7-934da5fab458" type="Normal" published="False">
+    <name>Tabs</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>390</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="2e3d2c32-afd0-43d5-a816-05d4512cb539" name="Start" type="Start">
+    <display x="15" y="-240" />
+    <onsuccess>9df162aa-6851-4ef3-bdd2-21fb0f7a8e11</onsuccess>
+  </stage>
+  <stage stageid="f71168dd-bf5e-4b1c-bd41-57bb66a1b155" name="End" type="End">
+    <display x="30" y="585" />
+  </stage>
+  <stage stageid="2ed223a0-cdce-4f27-8d1b-03d58a7e1c7c" name="Stage1" type="ProcessInfo">
+    <display x="-210" y="-210" w="150" h="90" />
+  </stage>
+  <stage stageid="d670d8d0-8d5b-47a2-a696-a68d8c085023" name="Terminate" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="540" w="90" h="30" />
+    <onsuccess>f71168dd-bf5e-4b1c-bd41-57bb66a1b155</onsuccess>
+    <resource object="SAP" action="Terminate" />
+  </stage>
+  <stage stageid="cf86e6a3-1b7a-4d91-bf67-ab3d91998ef0" name="Setup" type="SubSheetInfo">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="-120" y="-30" w="150" h="90" />
+  </stage>
+  <stage stageid="57e916ba-5b34-46d1-8d8d-adbcfada0ee4" name="Start" type="Start">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="15" y="-60" />
+    <onsuccess>f149e43b-4b63-4913-b5f0-0c023cc3236d</onsuccess>
+  </stage>
+  <stage stageid="087e49f9-b4e2-4493-96cf-3786e669e216" name="End" type="End">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="15" y="330" />
+  </stage>
+  <stage stageid="f149e43b-4b63-4913-b5f0-0c023cc3236d" name="Launch" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>a777fb1e-8c51-4eca-bb51-9436ad607421</onsuccess>
+    <resource object="SAP" action="Launch" />
+  </stage>
+  <stage stageid="8b256fbd-ddfe-4b9a-acd7-a2c11dc2af12" name="Log On (740)" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="The username for the account you want to access." expr="&quot;qa74&quot;" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the user you want to access." expr="&quot;BpPa55word1&quot;" />
+    </inputs>
+    <onsuccess>8de2edc4-24ad-457e-b3bc-1bae3d3cfcc5</onsuccess>
+    <resource object="SAP" action="Log On" />
+  </stage>
+  <stage stageid="a777fb1e-8c51-4eca-bb51-9436ad607421" name="Get SAP Version" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <outputs>
+      <output type="text" name="SAP Version" friendlyname="SAP Version" stage="SAP Version" />
+    </outputs>
+    <onsuccess>4ebca774-e797-4bff-b31b-6b4118eb4ab5</onsuccess>
+    <resource object="SAP" action="Get SAP Version" />
+  </stage>
+  <stage stageid="4ebca774-e797-4bff-b31b-6b4118eb4ab5" name="SAP Version?" type="ChoiceStart">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="15" y="75" w="90" h="30" />
+    <groupid>d2b6df8a-a63d-4e7b-a35e-e02131de0cfc</groupid>
+    <choices>
+      <choice expression="[SAP Version]=&quot;740&quot;">
+        <name>740</name>
+        <distance>30</distance>
+        <ontrue>8b256fbd-ddfe-4b9a-acd7-a2c11dc2af12</ontrue>
+      </choice>
+      <choice expression="[SAP Version]=&quot;760&quot;">
+        <name>760</name>
+        <distance>75</distance>
+        <ontrue>9b57921f-d70d-4395-8161-290136880e9d</ontrue>
+      </choice>
+    </choices>
+  </stage>
+  <stage stageid="5d8e1687-288a-4cf8-8da2-225b220cb422" name="Otherwise" type="ChoiceEnd">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="15" y="195" w="90" h="30" />
+    <onsuccess>17f32e1c-4456-4f86-800a-5399351a4e75</onsuccess>
+    <groupid>d2b6df8a-a63d-4e7b-a35e-e02131de0cfc</groupid>
+  </stage>
+  <stage stageid="3ffcf1c7-df4b-44be-98ef-01798fb6b08b" name="SAP Version" type="Data">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="-120" y="60" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="17f32e1c-4456-4f86-800a-5399351a4e75" name="SAP Version FAIL" type="Exception">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="120" y="195" w="90" h="30" />
+    <exception localized="yes" type="SAP Version" detail="&quot;You are using a SAP client with an unrecogised version.&quot;" />
+  </stage>
+  <stage stageid="9b57921f-d70d-4395-8161-290136880e9d" name="Log On (760)" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="The username for the account you want to access." expr="&quot;qa76&quot;" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the user you want to access." expr="&quot;BpPa55word1&quot;" />
+    </inputs>
+    <onsuccess>f3d0d6c2-ecbe-49b0-bedb-f38d4919e4f9</onsuccess>
+    <resource object="SAP" action="Log On" />
+  </stage>
+  <stage stageid="8de2edc4-24ad-457e-b3bc-1bae3d3cfcc5" name="Anchor1" type="Anchor">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="180" y="105" w="10" h="10" />
+    <onsuccess>f3d0d6c2-ecbe-49b0-bedb-f38d4919e4f9</onsuccess>
+  </stage>
+  <stage stageid="f3d0d6c2-ecbe-49b0-bedb-f38d4919e4f9" name="Anchor2" type="Anchor">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="180" y="150" w="10" h="10" />
+    <onsuccess>eb77cf2e-c353-4ea3-9d92-ef6a86ea7deb</onsuccess>
+  </stage>
+  <stage stageid="eb77cf2e-c353-4ea3-9d92-ef6a86ea7deb" name="Anchor3" type="Anchor">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="180" y="240" w="10" h="10" />
+    <onsuccess>a9471d63-3707-4760-aae6-04ac225e9625</onsuccess>
+  </stage>
+  <stage stageid="948bcdd1-3e62-4ab2-ab45-0e61cf9af658" name="Local Variable" type="Block">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="30" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="7ae9fb2c-c678-49ff-bfe8-cf9ab3b9e471" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-120" w="240" h="30" />
+    <onsuccess>e3e04a07-4819-4323-b27f-2d93865c4c1c</onsuccess>
+    <processid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</processid>
+  </stage>
+  <stage stageid="69a11b95-fd07-4aff-b4e6-02f2dec92573" name="Tabs" type="SubSheetInfo">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="-120" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="6916aebc-1ca9-4861-ab60-d1800b988abd" name="Start" type="Start">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>d677bad3-f980-4552-8b7b-e7864b7c15c1</onsuccess>
+  </stage>
+  <stage stageid="d8305e98-e6e3-4fa2-9905-9d2c7de3bc3b" name="Tabs" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="240" h="30" />
+    <onsuccess>ae65b51a-89fc-431e-b5b4-c92969babb92</onsuccess>
+    <processid>bc1d1e82-a683-448a-b1c7-934da5fab458</processid>
+  </stage>
+  <stage stageid="a9471d63-3707-4760-aae6-04ac225e9625" name="Search BIBS" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Transaction" friendlyname="Transaction" narrative="The transaction code you want to search." expr="&quot;BIBS&quot;" />
+    </inputs>
+    <onsuccess>99b83a6e-4670-4b00-983b-609511efc508</onsuccess>
+    <resource object="SAP" action="Search Transaction" />
+  </stage>
+  <stage stageid="99b83a6e-4670-4b00-983b-609511efc508" name="Select Tabstrip" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="285" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Control Type" friendlyname="Control Type" narrative="The name of the control type you want to select (Eg. Radio Buttons)" expr="&quot;Tabstrip&quot;" />
+    </inputs>
+    <onsuccess>087e49f9-b4e2-4493-96cf-3786e669e216</onsuccess>
+    <resource object="SAP" action="Select Control Type (BIBS)" />
+  </stage>
+  <stage stageid="8a70e0ef-0dc2-4206-9936-04967cb3ec9c" name="Failed?" type="Decision">
+    <display x="15" y="135" w="240" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>8d212e94-45de-4df4-b8a7-4b70f276ab37</ontrue>
+    <onfalse>bff4cf5c-a0cf-4b35-902d-dd1a1a347d5c</onfalse>
+  </stage>
+  <stage stageid="ae65b51a-89fc-431e-b5b4-c92969babb92" name="Terminate" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="90" w="240" h="30" />
+    <onsuccess>8a70e0ef-0dc2-4206-9936-04967cb3ec9c</onsuccess>
+    <resource object="SAP" action="Terminate" />
+  </stage>
+  <stage stageid="9df162aa-6851-4ef3-bdd2-21fb0f7a8e11" name="Note1" type="Note">
+    <narrative>GIVEN SAP is launched
+AND the tabs style guide is open</narrative>
+    <display x="15" y="-180" w="240" h="60" />
+    <font family="Segoe UI" size="11" style="Bold" color="339966" />
+    <onsuccess>7ae9fb2c-c678-49ff-bfe8-cf9ab3b9e471</onsuccess>
+  </stage>
+  <stage stageid="e3e04a07-4819-4323-b27f-2d93865c4c1c" name="Note1" type="Note">
+    <narrative>WHEN selecting a tab
+THEN that tab should be selected</narrative>
+    <display x="15" y="-45" w="240" h="60" />
+    <font family="Segoe UI" size="11" style="Bold" color="339966" />
+    <onsuccess>d8305e98-e6e3-4fa2-9905-9d2c7de3bc3b</onsuccess>
+  </stage>
+  <stage stageid="6acfa0a3-eb3c-462b-9542-48fd36fa2efd" name="Cleanup Block" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-90" w="345" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="93c6a6a7-575f-418d-a2a2-ae08fe006ec9" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="180" y="30" />
+    <onsuccess>a3bf0060-15d9-41fc-a154-139287c6dafc</onsuccess>
+  </stage>
+  <stage stageid="c3f4fd17-3634-4080-b807-4b410add3a56" name="Mark Failure" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="180" y="-15" />
+    <onsuccess>93c6a6a7-575f-418d-a2a2-ae08fe006ec9</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="a3bf0060-15d9-41fc-a154-139287c6dafc" name="Anchor4" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="180" y="90" w="10" h="10" />
+    <onsuccess>ae65b51a-89fc-431e-b5b4-c92969babb92</onsuccess>
+  </stage>
+  <stage stageid="8d212e94-45de-4df4-b8a7-4b70f276ab37" name="Rethrow" type="Exception">
+    <display x="180" y="135" />
+    <exception localized="yes" type="" detail="[Exception]" />
+  </stage>
+  <stage stageid="375a218a-2bab-4130-ba0e-740e25d69867" name="Failed?" type="Data">
+    <display x="-210" y="-120" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="abdf7776-b16c-466f-a10f-60398a0f3368" name="Exception" type="Data">
+    <display x="-210" y="-90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d10a56fd-81f0-4092-8810-e8bdc3b3fcd2" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="-150" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="bff4cf5c-a0cf-4b35-902d-dd1a1a347d5c" name="End1" type="End">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="180" />
+  </stage>
+  <stage stageid="d677bad3-f980-4552-8b7b-e7864b7c15c1" name="Select Tab (2)" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Tab ID" friendlyname="Tab ID" narrative="The ID of the tab you want to select, 1 - 5" expr="2" />
+    </inputs>
+    <onsuccess>62391501-fc80-4933-a628-6a1f62e93c68</onsuccess>
+    <resource object="SAP" action="Select Tab" />
+  </stage>
+  <stage stageid="854ce9bb-2dd0-4c3e-a074-b734f3e4894f" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="180" y="-60" />
+    <onsuccess>c3f4fd17-3634-4080-b807-4b410add3a56</onsuccess>
+  </stage>
+  <stage stageid="62391501-fc80-4933-a628-6a1f62e93c68" name="Check Tab Selection (2)" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Tab ID" friendlyname="Tab ID" narrative="The ID of the tab you want to check is selected, 1 - 5" expr="2" />
+    </inputs>
+    <onsuccess>64ef73cb-ff8c-405e-8638-f570761ac4a2</onsuccess>
+    <resource object="SAP" action="Check Tab Selection" />
+  </stage>
+  <stage stageid="b677cf60-0fd8-4d2c-af39-e187d4e8ff32" name="Select Tab (4)" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Tab ID" friendlyname="Tab ID" narrative="The ID of the tab you want to select, 1 - 5" expr="4" />
+    </inputs>
+    <onsuccess>e97221b2-af9d-414c-bcd3-b7fd77f1a483</onsuccess>
+    <resource object="SAP" action="Select Tab" />
+  </stage>
+  <stage stageid="e97221b2-af9d-414c-bcd3-b7fd77f1a483" name="Check Tab Selection (4)" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Tab ID" friendlyname="Tab ID" narrative="The ID of the tab you want to check is selected, 1 - 5" expr="4" />
+    </inputs>
+    <onsuccess>b3010114-d10c-4b3a-9a11-c8be89d441e2</onsuccess>
+    <resource object="SAP" action="Check Tab Selection" />
+  </stage>
+  <stage stageid="64ef73cb-ff8c-405e-8638-f570761ac4a2" name="Select Tab (3)" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Tab ID" friendlyname="Tab ID" narrative="The ID of the tab you want to select, 1 - 5" expr="3" />
+    </inputs>
+    <onsuccess>dc7eb3ba-fd11-49c2-a3fb-aab430324667</onsuccess>
+    <resource object="SAP" action="Select Tab" />
+  </stage>
+  <stage stageid="dc7eb3ba-fd11-49c2-a3fb-aab430324667" name="Check Tab Selection (3)" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Tab ID" friendlyname="Tab ID" narrative="The ID of the tab you want to check is selected, 1 - 5" expr="3" />
+    </inputs>
+    <onsuccess>b677cf60-0fd8-4d2c-af39-e187d4e8ff32</onsuccess>
+    <resource object="SAP" action="Check Tab Selection" />
+  </stage>
+  <stage stageid="b3010114-d10c-4b3a-9a11-c8be89d441e2" name="Select Tab (5)" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Tab ID" friendlyname="Tab ID" narrative="The ID of the tab you want to select, 1 - 5" expr="5" />
+    </inputs>
+    <onsuccess>ebd61a0f-a2c4-4610-875c-86424e1b2c8a</onsuccess>
+    <resource object="SAP" action="Select Tab" />
+  </stage>
+  <stage stageid="ebd61a0f-a2c4-4610-875c-86424e1b2c8a" name="Check Tab Selection (5)" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Tab ID" friendlyname="Tab ID" narrative="The ID of the tab you want to check is selected, 1 - 5" expr="5" />
+    </inputs>
+    <onsuccess>85769499-3d18-4b6a-8771-ea779c87239c</onsuccess>
+    <resource object="SAP" action="Check Tab Selection" />
+  </stage>
+  <stage stageid="85769499-3d18-4b6a-8771-ea779c87239c" name="Select Tab (1)" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="300" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Tab ID" friendlyname="Tab ID" narrative="The ID of the tab you want to select, 1 - 5" expr="1" />
+    </inputs>
+    <onsuccess>e5fd7637-38ab-4e35-8135-cbb899056d4d</onsuccess>
+    <resource object="SAP" action="Select Tab" />
+  </stage>
+  <stage stageid="e5fd7637-38ab-4e35-8135-cbb899056d4d" name="Check Tab Selection (1)" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="345" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Tab ID" friendlyname="Tab ID" narrative="The ID of the tab you want to check is selected, 1 - 5" expr="1" />
+    </inputs>
+    <onsuccess>e547a18c-3366-4ddf-aca9-afcc9f1f0357</onsuccess>
+    <resource object="SAP" action="Check Tab Selection" />
+  </stage>
+  <stage stageid="e547a18c-3366-4ddf-aca9-afcc9f1f0357" name="End2" type="End">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="390" />
+  </stage>
+</process>

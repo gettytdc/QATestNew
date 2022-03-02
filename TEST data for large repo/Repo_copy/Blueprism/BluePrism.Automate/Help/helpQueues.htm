@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Work Queues</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+		h3, h4 { clear:left !important; }
+		span.filter { color: #666; font-weight: bold}
+	</style>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">Process Features</h1>
+		<h2>Work Queues</h2>
+	</div>
+	<div class="captioned-image overview-screenshot nozoom">
+		<a href="Graphics/queue-concept.png" 
+			title="Work Queues - Click for a larger image"><img 
+			src="Graphics/queue-concept.png"
+			alt="Work Queues - Click for a larger image"/></a>
+		<p>Work Queues</p>
+	</div>
+	
+	<h3 id="overview">Overview</h3>
+	<p><a href="helpQueues.htm">Work Queues</a>
+	provide a mechanism for modelling the queueing, locking and
+	reporting of work items within a Blue Prism environment.</p>
+	
+	<h3 id="items">Items</h3>
+	<p>A work item contains a text key value to identify it amongst
+	other items in the queue, a numeric priority, a text state value
+	which can give some indication of the current state of the item, a
+	set of text tags which can give more fine-grained information about
+	the nature of the item and arbitrary data in the form of a
+	collection.</p>
+	
+	<p>When first created on a queue, an item has a workflow status of
+	<code>Pending</code>. When selected to be worked by a process, it is
+	<code>Locked</code>, following which the process can elect to set
+	the workflow status of the item to <code>Completed</code> (to
+	indicate that the item has been processed successfully), <code>
+	Exceptioned</code> (to indicate that the item has failed in some way
+	while attempting to process it) or <code>Deferred</code> (to defer
+	processing of the item until a later date).</p>
+	
+	<p>An item contains various metadata which be modified while it is
+	being processed. The (text) status can be modified to indicate a
+	simple status of the item. Tags can be added or removed to an item,
+	allowing for categorisation of work items within a queue. Note that
+	the key value cannot be changed once the item has been created.</p>
+	
+	<h3 id="queues">Queues</h3>	
+	<p>A queue contains any number of work items which are passed out to
+	consuming processes in order of priority, then in the order that
+	they were added to the queue.</p>
+	
+	<p>The queue which contains the work items is configured in <a
+	href="sysman-queues.html">System Manager - Workflow</a>.
+	The key field for the queue indicates which field in a new item's
+	data collection should be co-opted to use as the key value for the
+	item. This can be left blank to indicate that no items should have
+	key values in this queue.</p>
+	
+	<p>A queue can be configured to automatically requeue items which
+	were marked with an exception a specified number of times. By
+	default, items are not set to retry at all - ie. an exception is
+	considered to be the end of processing for that item.</p>
+	
+	<p>A queue can be configured to automatically encrypt its contents
+	using a predefined <a href="helpEncryption.htm">encryption scheme</a>.
+	</p>
+	
+	<h3 id="howto">Using queues within processes</h3>
+	<p>A work item can be created on the queue within a process by
+	calling the <code>Add to Queue</code> action on the <code>Internal -
+	Work Queues</code> business object.</p>
+	
+	<p>Only one process / visual business object within a session can
+	work a queue item at any given time - that item is locked for use by
+	that process/VBO within its session by calling the <code>Get Next
+	</code> action on the <code>Internal - Work Queues</code> business
+	object. Only a process/VBO with such a lock can update the workflow
+	status of the item.</p>
+	
+	<p>You can filter the items to retrieve by key or by the presence or
+	absence of a specific tag, by giving the appropriate arguments to
+	the <code>Get Next</code> action.</p>
+	
+	<p>Full documentation for the work queues business object actions
+	can be found by clicking on the information icon : <img
+	src="Graphics/icon-info.png" title="Info" /> in the action
+	properties dialog within Process Studio</p>
+	
+	<h3>Monitoring work queues</h3>
+	<p>The queues and their items can be monitored and, to a certain
+	extent, altered using the <a href="control-queues.html">
+	Queue Management</a> tab of Control Room.</p>
+	
+</body>
+</html>

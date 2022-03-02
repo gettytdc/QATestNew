@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>Connection Configuration</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">Blue Prism Configuration</h1>
+		<h2>Connection Configuration</h2>
+	</div>
+
+	<div class="captioned-image overview-screenshot nozoom">
+		<a href="Graphics/connection-manager.png" 
+			title="Connection Manager - Click for a larger image"><img 
+			alt="Connection Manager - Click for a larger image"
+			src="Graphics/connection-manager.png"/></a>
+		<p>Connection Configuration</p>
+	</div>
+
+	<h3>Overview</h3>
+	<p>The Connection Configuration form, reachable from the login page,
+		provides the interface with which multiple connections can be
+		configured to Blue Prism databases and servers.</p>
+
+	<p>The software can connect to SQL Servers 2005 and above, using
+		SQL Server or Windows authentication. Alternatively, the
+		software can connect via a Blue Prism Server running on a
+		server in the available network.<p>
+
+	<p>The connections are configured, by default, per-machine -
+		<i>ie.</i> the list of connections is available to all users on
+		the current machine and any change by any user will be visible
+		to the next user to use Blue Prism on the same machine.
+		This can be changed to make the connections list per-user by
+		starting Blue Prism with the <a 
+		href="helpCommandLine.htm#Useropts">/useropts</a> switch.</p>
+
+	<h3>Configuring an existing connection</h3>
+	<p>A connection can be configured by selecting it in the list on the
+		left of the form, and then editing the details in the fields
+		shown on the right.</p>
+
+	<h4>Connection Name</h4>
+	<p>This name is used to describe the connection within the product -
+		either on the login screen or in the BP Server configuration to
+		indicate the connection that Blue Prism should use.</p>
+
+	<h4>Connection Type</h4>
+	<p>Several connection (and authentication) types are supported
+		within Blue Prism :-<p>
+	<dl class="listplease">
+		<dt>SQL Server (SQL Authentication)</dt>
+		<dd>Direct connection to a SQL Server instance, authenticated
+			using a SQL Login - ie. a user name and password set up on
+			the database.</dd>
+
+		<dt>SQL Server (Windows Authentication)</dt>
+		<dd>Direct connection to a SQL Server instance, authenticated
+			through a Windows user account.</dd>
+
+		<dt>Blue Prism Server</dt>
+		<dd>Connection to an existing Blue Prism Server - the server
+			maintains the connections to the database itself.</dd>
+
+		<dt>Availability Group (SQL Authentication)</dt>
+		<dd>Direct connection to a SQL Server Availability Group, authenticated
+			using a SQL Login - ie. a user name and password set up on
+			the database.</dd>
+
+		<dt>Availability Group (Windows Authentication)</dt>
+		<dd>Direct connection to a SQL Server Availability Group, authenticated
+			through a Windows user account.</dd>
+	</dl>
+	<p>See the <a href="helpBPServer.htm">Blue Prism Server</a> help
+		topic for more detailed discussion of the differences between
+		the connection types.</p>
+		
+	<h4>Database Server (SQL Server only)</h4>
+	<p>The database instance which Blue Prism should connect to - 
+		<i>eg.</i> <code>localhost\SQLExpress</code> will connect to
+		the instance named <code>SQLExpress</code> running on the local
+		machine.</p>
+
+	<h4>Database Name (SQL Server only)</h4>
+	<p>The name of the database on the specified instance in which Blue
+		Prism stores its data.</p>
+
+	<h4>User ID (SQL Server - SQL Authentication only)</h4>
+	<p>The ID of the SQL User that Blue Prism should use to authenticate
+		to SQL Server</p>
+
+	<h4>Password (SQL Server - SQL Authentication only)</h4>
+	<p>The password that Blue Prism should use to authenticate to SQL
+		Server.</p>
+
+	<h4>Additional SQL Connection Parameters (non-BP Server only)</h4>
+	<p>Any further semicolon-separated parameters which should be appended
+		to the query string created to access the database. <i>eg.</i>
+		<code>Encrypt=true;TrustServerCertificate=true</code>.</p>
+
+
+<h4>Multi Subnet Failover</h4>
+	<p>Allows multi subnet failover to be enabled on the connection. Refer
+	to Microsoft's documentation on this for more information.</p>
+	<h4>Blue Prism Server (BP Server only)</h4>
+	<p>The network address of the Blue Prism server that the client
+		should connect to.</p>
+    	
+	<h4>Connection Mode (BP Server only)</h4>
+    <p>The following connection modes can be used for
+        connections between a Blue Prism client and the Blue Prism server. Note that
+        this setting must match the <a href="helpBPServer.htm#connection-mode">corresponding value</a>
+		set in the Blue Prism Server configuration.
+    </p>
+    <dl class="listplease">
+        <dt>WCF: SOAP with Message Encryption & Windows Authentication</dt>
+        <dd><ul>
+                <li>Requires trust relationship between devices: Yes</li>
+                <li>Blue Prism Authentication Modes: Blue Prism Native / Single Sign-on</li>
+                <li>Requires server-side certificate: No</li>
+                <li>Transport: SOAP over HTTP</li>
+            </ul>
+            <p> Only the message content is encrypted.  The SOAP and HTTP headers remain
+            unencrypted which assists complex routing, load balancers, proxies etc. 
+            Client and server identity is validated via Windows / Active Directory.</p>
+        </dd>
+        <dt>WCF: SOAP with Transport Encryption & Windows Authentication</dt>
+        <dd>
+            <ul>
+                <li>Requires trust relationship between devices: Yes</li>
+                <li>Blue Prism Authentication Modes: Blue Prism Native / Single Sign-on</li>
+                <li>Requires server-side certificate: Yes</li>
+                <li>Transport: SOAP over HTTPS</li>
+            </ul>
+            <p>The transport including SOAP headers are encrypted using certificate-based
+                encryption.	Client and server identity is validated via
+                Windows / Active Directory.
+            </p>
+        </dd>
+        <dt>WCF: SOAP with Transport Encryption</dt>
+        <dd>
+            <ul>
+                <li>Requires trust relationship between devices: No</li>
+                <li>Blue Prism Authentication Modes: Blue Prism Native</li>
+                <li>Requires server-side certificate: Yes</li>
+                <li>Transport: SOAP over HTTPS</li>
+            </ul>
+            <p>The transport including SOAP headers are encrypted using certificate-based
+                encryption. Server identity is validated using certificates.
+            </p>
+        </dd>
+        <dt>.NET Remoting: Secure</dt>
+        <dd>
+            <ul>
+                <li>Requires trust relationship between devices: Yes</li>
+                <li>Blue Prism Authentication Modes: Blue Prism Native / Single Sign-on</li>
+                <li>Requires server-side certificate: Yes</li>
+                <li>Transport: TcpChannel over SChannel</li>
+            </ul>
+            <p>
+                Provided for backwards compatibility. Encryption is negotiated 
+                between the client and server. Client and server identity is 
+                validated via Windows / Active Directory.
+            </p>
+        </dd>
+        <dt>.NET Remoting: Insecure</dt>
+        <dd>
+            <ul>
+                <li>Requires trust relationship between devices: No</li>
+                <li>Blue Prism Authentication Modes: Blue Prism Native</li>
+                <li>Requires server-side certificate: No</li>
+                <li>Transport: TcpChannel</li>
+            </ul>
+            <p>Not recommended - provided for backwards compatibility.
+                Connection security will need to be provided entirely by third-party
+                solutions.
+            </p>
+        </dd>
+        <dt>WCF: Insecure</dt>
+        <dd>
+            <ul>
+                <li>Requires trust relationship between devices: Yes</li>
+                <li>Blue Prism Authentication Modes: Blue Prism Native / Single Sign-on</li>
+                <li>Requires server-side certificate: Yes</li>
+                <li>Transport: SOAP over HTTP</li>
+            </ul>
+            <p>Not recommended. Connection security will need to be provided 
+                entirely by third-party solutions.
+            </p>
+        </dd>
+    </dl>
+    
+    <h4>Server Port (BP Server only)</h4>
+    <p>
+        The port on which the specified Blue Prism Server is listening
+        for connections.
+    </p>
+ 	
+    <h4>Callback Port (BP Server with .NET Remoting only)</h4>
+    <p>
+        When connecting to a Blue Prism Server with a .NET Remoting connection
+        mode, the client allows it to 'call back' to it - enabling two way
+        communication to occur means that some server operations can give
+        more timely feedback on progress. Leaving this value at the default
+        (zero) means that an arbitrary callback port will be assigned when
+        the connection to the server is made. If a specific port must be used
+        (in order to open the port on the firewall, for instance), it should be
+        set here.
+    </p>
+    <p>
+        Note that if a specific port is configured, only one instance of
+        Blue Prism on this machine can use this connection at any one
+        time - any further attempts to connect to the server from the
+        current machine will fail due to the specified callback port
+        being in use.
+    </p>
+
+	<h4>Test Connection</h4>
+	<p>The connection currently being displayed in the right hand
+		<code>Current Connection</code> details pane can be tested by
+		clicking on the <code>Test Connection</code> button.</p>
+
+	<p>An attempt will be made to connect to the configured Blue Prism
+		database, and a message box will display containing the results
+		of that attempt.</p>
+
+	<h3>Creating a new connection</h3>
+	<p>A new connection can be created by clicking on the <code>New
+		Connection</code> button in the lower left of the form.<p>
+	<p>An arbitrarily named connection will be created with blank
+		details and displayed in the details pane.</p>
+
+	<h3>Deleting a connection</h3>
+	<p>A connection can be deleted by selecting it in the selection pane
+		and pressing the <code>Delete Connection</code> button.</p>
+	<p><strong>Note: </strong> There is no confirmation prompt for this
+		action.</p>
+
+	<h3>Saving changes</h3>
+	<p>When the connections have been configured correctly, they can be
+		saved by pressing the <code>OK</code> button.</p>
+	<p>This will save the connection configuration for all users on this
+		machine (unless Blue Prism was started with the
+		<a href="helpCommandLine.htm#Useropts">/useropts</a> command
+		line switch) and it will set the currently selected connection
+		as the current connection in the Blue Prism client.</p>
+
+	<h3>Discarding changes</h3>
+	<p>If any mistakes are made, changes can be discarded by pressing
+		the <code>Cancel</code> button - the form is closed without
+		saving any changes.</p>
+	
+	<h3>User Account Control on Windows Vista / Windows 7</h3>
+	<p>Note that when saving the connection configuration on Windows
+		Vista and beyond, elevation of privileges may be required. See
+		the <a href="uac.html">User Account Control</a> help page for
+		more information.</p>
+</body>
+</html>

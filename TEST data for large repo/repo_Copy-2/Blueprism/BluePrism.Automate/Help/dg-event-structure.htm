@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_HTML5___Top_Navigation" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../../" data-mc-has-content-body="True" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Advanced setup">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../Skins/Favicons/apple-touch-icon.png" />
+        <link rel="shortcut icon" href="../../Skins/Favicons/favicon-32x32.png" />
+        <link rel="icon" sizes="96x96" href="../../Skins/Favicons/favicon-96x96.png" />
+        <link rel="icon" sizes="32x32" href="../../Skins/Favicons/favicon-32x32.png" />
+        <link rel="icon" sizes="2263x2263" href="../../Skins/Favicons/BP_Prism_RGB.png" />
+        <meta charset="utf-8" />
+        <meta name="description" content="" />
+        <meta name="author" content="" /><title>Event structure</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/stylesheets/foundation.6.2.3.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/stylesheets/styles.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/stylesheets/tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/stylesheets/mobile.css" rel="stylesheet" />
+        <style>/*&lt;meta /&gt;*/
+
+.button.select-language-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/select-language.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.button.feedback-button
+{
+	-pie-background: linear-gradient(#ffffff, #ececec);
+}
+
+.button.print-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/printer.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.button.previous-topic-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/navigate-previous.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.button.next-topic-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/navigate-next.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.needs-pie
+{
+	behavior: url('../../Resources/Scripts/PIE-no-motw.htc');
+}
+
+</style>
+        <link href="./AutomateHelp.css" rel="stylesheet" />
+    </head>
+    <body>
+                                            <div>
+                                                <h1 class="pagebreak">Event structure</h1>
+                                                <p>This section details the structure of events in Logstash after they are received from Blue Prism. This information can be used to construct conditional statements in the Logstash configuration to divert events to outputs based on their content, or for creating custom message formats for your outputs.</p>
+                                                <p>The event (either session log or published dashboard) is stored in the Blue Prism database as a JSON string. In order to turn this JSON string into a set of fields which can be used in Logstash the JSON filter is added to the configuration:</p>
+                                                <p class="code_sample">filter{</p>
+                                                <p class="code_sample">json{source =&gt; "eventdata"</p>
+                                                <p class="code_sample">target =&gt; "event"}</p>
+                                                <p class="code_sample">}</p>
+                                                <p>This adds the session log / published dashboard as fields nested under the “event” field.</p>
+                                                <p>For example:</p>
+                                                <p><span class="code_sample">[event][eventType]</span> contains the type of event (session log, published dashboard or custom object data).</p>
+                                                <p><span class="code_sample">[event][EventData]</span> contains the data for the event as nested fields.</p>
+                                                <p><span class="code_sample">[event][EventData][SessionNumber]</span> contains the Session number if this is a session log event.</p>
+                                                <p>To send only session logs from a process named “ProcessA” to a text file you a conditional statement around your output can be used:</p>
+                                                <p class="code_sample">output{</p>
+                                                <p class="code_sample">If [event][eventType] == 1 and [event][EventData][ProcessName] == “ProcessA” {</p>
+                                                <p class="code_sample">file {</p>
+                                                <p class="code_sample">path   =&gt; “C:\log.txt”</p>
+                                                <p class="code_sample">}</p>
+                                                <p class="code_sample">}</p>
+                                                <p class="code_sample">}</p>
+                                                <p>For a full listing of the available fields see the following tables.</p>
+                                                <h2>General</h2>
+                                                <table style="mc-table-style: url('../../resources/tablestyles/bp-table-row-header.css');margin-left: 0;margin-right: auto;" class="TableStyle-bp-table-row-header" cellspacing="0">
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;" />
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;" />
+                                                    <thead>
+                                                        <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                                                            <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                                                                <p>Event</p>
+                                                            </th>
+                                                            <th class="TableStyle-bp-table-row-header-HeadD-Column1-Header1">
+                                                                <p>Description</p>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p class="code_sample">[event][eventType]
+                        </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>The number that represents the event type:</p>
+                                                                <p>1 = Session Log</p>
+                                                                <p>2 = Published Dashboard</p>
+                                                                <p>3 = Custom</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1">
+                                                                <p class="code_sample">[event][EventData]</p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyA-Column1-Body1">
+                                                                <p>The data for the event. The structure of this data will differ depending on the event type.</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <h2 class="pagebreak">Event type - session logs</h2>
+                                                <table style="mc-table-style: url('../../resources/tablestyles/bp-table-row-header.css');margin-left: 0;margin-right: auto;" class="TableStyle-bp-table-row-header" cellspacing="0">
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;" />
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;" />
+                                                    <thead>
+                                                        <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                                                            <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                                                                <p>Event</p>
+                                                            </th>
+                                                            <th class="TableStyle-bp-table-row-header-HeadD-Column1-Header1">
+                                                                <p>Description</p>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][StartDate]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>	The start date of the process stage formatted in ISO 8601 notation. For example: "2019-02-11T07:59:54.829674+00:00"</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][SessionNumber]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>	The session number for the session this session log belongs to.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ResultType]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>The result type of the process stage.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][Result]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>	The result of the process stage.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][AttributeXML]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>	The input and output parameters of the stage serialized to XML.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ProcessName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>	The name of the process this stage belongs to. This will be empty if the session log is logged from a business object.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ObjectName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>	The name of the business object this stage belongs to. This will be empty if the session log is logged from a process.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ActionName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>	If this log is from an Action stage, this is the name of the Action. Otherwise it will be empty.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][PageName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>	The name of the page this stage which created this session log belongs to.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][StageType]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>The type of stage which created this session log.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][StageId]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyA-Column1-Body1">
+                                                                <p>The ID of the stage which created this session log.</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <h2>	Event type - published dashboards</h2>
+                                                <table style="mc-table-style: url('../../resources/tablestyles/bp-table-row-header.css');margin-left: 0;margin-right: auto;" class="TableStyle-bp-table-row-header" cellspacing="0">
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;" />
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;" />
+                                                    <thead>
+                                                        <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                                                            <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                                                                <p>Event</p>
+                                                            </th>
+                                                            <th class="TableStyle-bp-table-row-header-HeadD-Column1-Header1">
+                                                                <p>Description</p>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][Source]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>	The name of the published dashboard.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][Subject]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">The name of the dashboard tile which generated the data.</td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1"><span class="code_sample">[event][EventData][Values]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyA-Column1-Body1">
+                                                                <p>	The data from the dashboard tile.</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <h2 class="pagebreak">	Event type - custom object data</h2>
+                                                <table style="mc-table-style: url('../../resources/tablestyles/bp-table-row-header.css');margin-left: 0;margin-right: auto;" class="TableStyle-bp-table-row-header" cellspacing="0">
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;" />
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;" />
+                                                    <thead>
+                                                        <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                                                            <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                                                                <p>Event</p>
+                                                            </th>
+                                                            <th class="TableStyle-bp-table-row-header-HeadD-Column1-Header1">
+                                                                <p>Description</p>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][CustomDataCollection]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>	The custom data from the process that will be sent.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][SessionNumber]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">The session number of the process the data is coming from.</td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][StageID]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">The ID of the stage that this action is called from.</td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][StageName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>	Name of the Send Custom Data action stage.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][StageType]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>	The type of the Send Custom Data action stage.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][StartDate]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>The start date of the session that the Send Custom Data action is running on.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ProcessName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>	The name of the process that the action is being called from.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][PageName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>	The name of the page of the process the custom data action is on.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ObjectName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>The object that the data is coming from - will always be "Data gateways". </p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][actionName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyA-Column1-Body1">
+                                                                <p>The action that the data is coming from - 	will always be "Send Custom Data". </p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section><a data-close="true"></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

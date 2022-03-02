@@ -1,0 +1,462 @@
+﻿<process name="Treeview Resources Create Delete Subgroup" version="1.0" bpversion="6.10.0.27791" narrative="Automated process to ensure that the treeview updates as expected when a resource subgroup is created and deleted" byrefcollection="true" preferredid="2cce35dc-7a17-40a1-915a-b817c48a0b6a">
+  <view>
+    <camerax>30</camerax>
+    <cameray>122</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="5e7205b3-c009-4b82-b8b7-162c02d221d7" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="c1e5eea6-7023-46a5-8c7f-1fba98e3ded9" type="Normal" published="False">
+    <name>Create Resources Subgroup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>114</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="74ef15fa-3a6a-40d6-8860-58879c6dcc0a" type="Normal" published="False">
+    <name>Delete Resources Subgroup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>140</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="c3f534f3-b231-485a-8172-8e771272247d" name="Stage1" type="ProcessInfo">
+    <display x="-225" y="-105" w="180" h="90" />
+  </stage>
+  <stage stageid="9bc5011d-5fa5-4c02-983f-ad3f48f744f5" name="Start" type="Start">
+    <display x="45" y="-135" />
+    <onsuccess>01070ee0-f0b3-47bd-add8-6ebbd41edf27</onsuccess>
+  </stage>
+  <stage stageid="c9e5e704-5e10-4f64-9678-a1a8ad8734fd" name="End" type="End">
+    <display x="45" y="300" />
+  </stage>
+  <stage stageid="01070ee0-f0b3-47bd-add8-6ebbd41edf27" name="Note1" type="Note">
+    <narrative>GIVEN I am a BP user and have signed in</narrative>
+    <display x="45" y="-90" w="300" h="30" />
+    <onsuccess>da97017f-33d6-47eb-8f17-ad97f8f47f1d</onsuccess>
+  </stage>
+  <stage stageid="3353974e-7ca0-4766-8472-d3d882a1048c" name="Note3" type="Note">
+    <narrative>WHEN I create a subgroup in resources management
+THEN the subgroup is successfully created and available in the tree view</narrative>
+    <display x="45" y="15" w="300" h="30" />
+    <onsuccess>65785aa1-dba7-4be5-841d-35d86f778920</onsuccess>
+  </stage>
+  <stage stageid="be01b882-846e-403f-9e1d-8aacf6272e89" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="240" y="30" />
+    <onsuccess>a1f4120d-2559-4c5f-acdb-cb4b69842431</onsuccess>
+  </stage>
+  <stage stageid="a1f4120d-2559-4c5f-acdb-cb4b69842431" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="240" y="75" w="90" h="30" />
+    <onsuccess>e595992f-05f0-4a3f-9349-9c935dfff3b7</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="e595992f-05f0-4a3f-9349-9c935dfff3b7" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="240" y="120" />
+    <onsuccess>61f896b5-f7bf-4c22-9730-6c5255299020</onsuccess>
+  </stage>
+  <stage stageid="da97017f-33d6-47eb-8f17-ad97f8f47f1d" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="-45" w="300" h="30" />
+    <onsuccess>3353974e-7ca0-4766-8472-d3d882a1048c</onsuccess>
+    <processid>5e7205b3-c009-4b82-b8b7-162c02d221d7</processid>
+  </stage>
+  <stage stageid="6d46d8ec-5eff-4f96-9a2f-c0c37ec15a01" name="Failed?" type="Decision">
+    <display x="45" y="255" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>e77d4c89-7d5c-45e2-a7da-fca5d7494318</ontrue>
+    <onfalse>c9e5e704-5e10-4f64-9678-a1a8ad8734fd</onfalse>
+  </stage>
+  <stage stageid="e77d4c89-7d5c-45e2-a7da-fca5d7494318" name="Re-Throw" type="Exception">
+    <display x="150" y="255" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="61f896b5-f7bf-4c22-9730-6c5255299020" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="240" y="210" w="10" h="10" />
+    <onsuccess>855a367d-a640-4bbd-bb29-3bf71e5dbd18</onsuccess>
+  </stage>
+  <stage stageid="b574bc5e-196f-4949-803d-cfc4586ff641" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5d648996-1440-405d-8ca9-bf045dfdc39c" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1b188cf5-4101-4484-8b3d-655ecb315d94" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="-15" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="76f6aa6a-0e23-49ae-ba3f-df43067e4ddc" name="pid" type="Data">
+    <display x="-210" y="120" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e09a6306-0fba-4c7a-9a38-3cea5977dcf9" name="Global Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="90" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="47cb0931-b43d-4f91-9a23-94bef9e4df88" name="Setup" type="SubSheetInfo">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="9c02ae22-4581-489f-9491-8b835e4604ed" name="Start" type="Start">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-60" y="-135" />
+    <onsuccess>707a6425-0b70-474d-a8ef-b7d0da86bb27</onsuccess>
+  </stage>
+  <stage stageid="6ac44d64-b413-4c29-9697-7b888b6e8df4" name="End" type="End">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-60" y="90" />
+  </stage>
+  <stage stageid="707a6425-0b70-474d-a8ef-b7d0da86bb27" name="Launch" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-90" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>e483b55f-303e-43f0-a597-817ad582e9be</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="ad7204cf-b3c5-4b27-8bed-7ae7f1141450" name="Sign In" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Locale" friendlyname="Locale" narrative="Blue Prism Locale setting" stage="" />
+    </outputs>
+    <onsuccess>2ead55e5-96b9-4d11-8ff9-65ce8fc0b0bd</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="e483b55f-303e-43f0-a597-817ad582e9be" name="Attach (System)" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>ad7204cf-b3c5-4b27-8bed-7ae7f1141450</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="98c6285d-0b03-402c-a458-bce1a4dc8730" name="Create Resources Subgroup" type="SubSheetInfo">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="65785aa1-dba7-4be5-841d-35d86f778920" name="Create Resources Subgroup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="60" w="300" h="30" />
+    <onsuccess>72f81a7b-8d44-4da1-beb1-2572a6d06893</onsuccess>
+    <processid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</processid>
+  </stage>
+  <stage stageid="72f81a7b-8d44-4da1-beb1-2572a6d06893" name="Note3" type="Note">
+    <narrative>WHEN I delete the subgroup from resources management
+THEN the subgroup is successfully deleted and removed from the tree view</narrative>
+    <display x="45" y="105" w="300" h="30" />
+    <onsuccess>11061300-0b58-4b2f-98bc-c971feb86fe4</onsuccess>
+  </stage>
+  <stage stageid="11061300-0b58-4b2f-98bc-c971feb86fe4" name="Delete Resources Subgroup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="150" w="300" h="30" />
+    <onsuccess>855a367d-a640-4bbd-bb29-3bf71e5dbd18</onsuccess>
+    <processid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</processid>
+  </stage>
+  <stage stageid="199c1406-160f-41af-b524-73540abcbac9" name="Scenarios" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-15" w="405" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b52ee30f-5fca-4227-8809-6378965b4efb" name="Start" type="Start">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>aec79319-02d1-4800-a6d1-183f5c0079c5</onsuccess>
+  </stage>
+  <stage stageid="aec79319-02d1-4800-a6d1-183f5c0079c5" name="Browse to Resources Management" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Resources&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Management&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>8ba81a08-fbf5-4740-b243-024a4a05d3e1</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="dcd7023d-3a7f-409d-8759-676a4aa4f544" name="Local variables" type="Block">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="71f9a474-e622-41ef-8d1f-f36d2ff6a6de" name="End" type="End">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="255" />
+  </stage>
+  <stage stageid="2ead55e5-96b9-4d11-8ff9-65ce8fc0b0bd" name="Browse to System" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>6ac44d64-b413-4c29-9697-7b888b6e8df4</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="3eaf182c-3066-460c-9ba3-ebe052b40122" name="Resources Subgroup" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="150" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">S TFM162</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="3aeb032c-241e-4a65-9c04-5289abde7b81" name="Delete Resources Subgroup" type="SubSheetInfo">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="8ba81a08-fbf5-4740-b243-024a4a05d3e1" name="Create Subgroup" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Folder Name" friendlyname="Folder Name" narrative="Name of the folder to be created" expr="[Resources Subgroup]" />
+      <input type="text" name="Target Group" friendlyname="Target Group" narrative="The name of the group you want to create the new group under." expr="&quot;Default&quot;" />
+      <input type="number" name="Target Group Match Index" friendlyname="Target Group Match Index" narrative="Incase the target group exists more than once, you can target it with match index." expr="" />
+    </inputs>
+    <onsuccess>60ce34f6-2dcd-4e01-8155-4e6a2dc2f387</onsuccess>
+    <resource object="Blue Prism - System - Resources" action="Create Group in Active Resources" />
+  </stage>
+  <stage stageid="855a367d-a640-4bbd-bb29-3bf71e5dbd18" name="Terminate" type="Action">
+    <display x="45" y="210" w="90" h="30" />
+    <onsuccess>6d46d8ec-5eff-4f96-9a2f-c0c37ec15a01</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="5c4fb823-af2d-4843-a565-f89fd8e047fd" name="Group Tree Items" type="Collection">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="60ce34f6-2dcd-4e01-8155-4e6a2dc2f387" name="Get Group Tree Items" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Resources Group name" friendlyname="Resources Group name" expr="&quot;Default&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Group Tree Items" friendlyname="Group Tree Items" stage="Group Tree Items" />
+    </outputs>
+    <onsuccess>96a8285b-9b91-43d4-b3e5-864f500fb2d6</onsuccess>
+    <resource object="Blue Prism - System - Resources" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="907f68a7-a435-4122-a057-c27e0688a09e" name="Is the Subgroup available?" type="Decision">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="105" w="120" h="30" />
+    <decision expression="[Group Tree Items.Node Text]=[Resources Subgroup]" />
+    <ontrue>d56e16bf-dce5-4a58-8a30-d95c02589da2</ontrue>
+    <onfalse>3075bcc9-663b-4d19-925b-43a3fcb1da37</onfalse>
+  </stage>
+  <stage stageid="08f2842d-3b0e-41dd-bd1c-79a9d49b467e" name="Exception" type="Exception">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="30" y="150" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;The subgroup is missing&quot;" />
+  </stage>
+  <stage stageid="3f466b0f-def0-4a61-87cd-a08f04f66e6b" name="Go To Home" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>71f9a474-e622-41ef-8d1f-f36d2ff6a6de</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="08359e4f-e615-4c27-b7d4-38d1c1a90901" name="Ensure subgroup available" type="Block">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="-15" w="180" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="96a8285b-9b91-43d4-b3e5-864f500fb2d6" name="Is Subgroup in tree?" type="LoopStart">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="60" w="90" h="30" />
+    <onsuccess>907f68a7-a435-4122-a057-c27e0688a09e</onsuccess>
+    <groupid>903cd6a8-65a9-4590-978a-a9300b5fff11</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Group Tree Items</loopdata>
+  </stage>
+  <stage stageid="3075bcc9-663b-4d19-925b-43a3fcb1da37" name="Is Subgroup in tree?" type="LoopEnd">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="150" w="90" h="30" />
+    <onsuccess>08f2842d-3b0e-41dd-bd1c-79a9d49b467e</onsuccess>
+    <groupid>903cd6a8-65a9-4590-978a-a9300b5fff11</groupid>
+  </stage>
+  <stage stageid="d56e16bf-dce5-4a58-8a30-d95c02589da2" name="Anchor3" type="Anchor">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="60" y="105" w="10" h="10" />
+    <onsuccess>7845b16b-951b-41fd-930c-f6c6f1b3899b</onsuccess>
+  </stage>
+  <stage stageid="7845b16b-951b-41fd-930c-f6c6f1b3899b" name="Anchor5" type="Anchor">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="60" y="210" w="10" h="10" />
+    <onsuccess>3f466b0f-def0-4a61-87cd-a08f04f66e6b</onsuccess>
+  </stage>
+  <stage stageid="3988ea8b-9044-41f8-9d9d-fbe481d7d2ca" name="Start" type="Start">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>a50d4c8a-c8d3-4342-b747-12d59bbabcf4</onsuccess>
+  </stage>
+  <stage stageid="629e320f-3995-45a4-9db6-02bceccfa201" name="Browse to Resources Management" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Resources&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Management&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>5be888a8-5524-4902-8bfb-c21a977a2555</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="8f1177e0-365c-44c8-86fc-d9bdfa7d3834" name="End" type="End">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-45" y="300" />
+  </stage>
+  <stage stageid="5be888a8-5524-4902-8bfb-c21a977a2555" name="Delete Subgroup" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Target Group" friendlyname="Target Group" narrative="The name of the group you want to create the new group under." expr="[Resources Subgroup]" />
+      <input type="number" name="Target Group Match Index" friendlyname="Target Group Match Index" narrative="Incase the target group exists more than once, you can target it with match index." expr="1" />
+    </inputs>
+    <onsuccess>39498480-7cdc-446e-9c1f-cb433c088d5d</onsuccess>
+    <resource object="Blue Prism - System - Resources" action="Delete Group in Active Resources" />
+  </stage>
+  <stage stageid="39498480-7cdc-446e-9c1f-cb433c088d5d" name="Get Group Tree Items" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Resources Group name" friendlyname="Resources Group name" expr="&quot;Default&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Group Tree Items" friendlyname="Group Tree Items" stage="Group Tree Items" />
+    </outputs>
+    <onsuccess>4119c760-959f-4fe6-96da-fb5b379cfdf4</onsuccess>
+    <resource object="Blue Prism - System - Resources" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="1b4d7556-9587-413d-9d29-afba6f9cb784" name="Is the Subgroup available?" type="Decision">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-45" y="150" w="120" h="30" />
+    <decision expression="[Group Tree Items.Node Text]=[Resources Subgroup]" />
+    <ontrue>087bd751-485d-4568-9f44-aa5893b496bd</ontrue>
+    <onfalse>b53fa436-dce8-459f-8a1a-c1f490d38afc</onfalse>
+  </stage>
+  <stage stageid="087bd751-485d-4568-9f44-aa5893b496bd" name="Exception" type="Exception">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="45" y="150" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;The subgroup is missing&quot;" />
+  </stage>
+  <stage stageid="cbb47357-9450-40d5-be04-1cc1a7f41866" name="Go To Home" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>8f1177e0-365c-44c8-86fc-d9bdfa7d3834</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="15dedf2c-20d4-495c-9223-11f67611822e" name="Ensure subgroup available" type="Block">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="30" w="180" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4119c760-959f-4fe6-96da-fb5b379cfdf4" name="Is Subgroup in tree?" type="LoopStart">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="105" w="90" h="30" />
+    <onsuccess>1b4d7556-9587-413d-9d29-afba6f9cb784</onsuccess>
+    <groupid>a0c5a05d-5390-4e06-901f-8561da667dfb</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Group Tree Items</loopdata>
+  </stage>
+  <stage stageid="b53fa436-dce8-459f-8a1a-c1f490d38afc" name="Is Subgroup in tree?" type="LoopEnd">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="195" w="90" h="30" />
+    <onsuccess>cbb47357-9450-40d5-be04-1cc1a7f41866</onsuccess>
+    <groupid>a0c5a05d-5390-4e06-901f-8561da667dfb</groupid>
+  </stage>
+  <stage stageid="06444b99-aa0b-446b-8907-f5e84b9bfecb" name="Local variables" type="Block">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="de1616d8-85fd-440b-b190-7c8e016659e1" name="Group Tree Items" type="Collection">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a50d4c8a-c8d3-4342-b747-12d59bbabcf4" name="Browse to System" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>629e320f-3995-45a4-9db6-02bceccfa201</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+</process>

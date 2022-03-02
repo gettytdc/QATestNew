@@ -1,0 +1,100 @@
+﻿<process name="Attach Tests - BBC News" version="1.0" bpversion="6.7.0.15673" narrative="o" byrefcollection="true" preferredid="f4941d61-8e52-4c81-a8ae-4713e1a85426">
+  <view>
+    <camerax>-20</camerax>
+    <cameray>42</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="5b17df81-c9ff-4115-8566-b090de5f1cac" name="Start" type="Start">
+    <display x="15" y="-75" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>b2446a87-d230-421e-a6a8-da9dbd99ab67</onsuccess>
+  </stage>
+  <stage stageid="1ecc4728-beac-4ac1-86cf-121c13c83717" name="End" type="End">
+    <display x="15" y="195" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="1cf9df26-6953-4590-8e15-30e948f321c5" name="Stage1" type="ProcessInfo">
+    <display x="-120" y="-45" w="150" h="90" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="b2446a87-d230-421e-a6a8-da9dbd99ab67" name="Launch" type="Action">
+    <display x="15" y="-30" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e2ed6c8b-b2e7-466d-9efc-fcd1e4ac840a</onsuccess>
+    <resource object="AttachTests - BBC News" action="Launch" />
+  </stage>
+  <stage stageid="e2ed6c8b-b2e7-466d-9efc-fcd1e4ac840a" name="Do Tests" type="Action">
+    <display x="15" y="15" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>64d1999d-c8cc-4669-88b0-aa7648c57c31</onsuccess>
+    <resource object="AttachTests - BBC News" action="Mess About with Save As" />
+  </stage>
+  <stage stageid="63589d19-d21d-40df-adc3-3b950237d8e0" name="Detach" type="Action">
+    <display x="120" y="105" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>1c5bdc85-c831-4696-8094-93dcfec1b42c</onsuccess>
+    <resource object="AttachTests - BBC News" action="Detach" />
+  </stage>
+  <stage stageid="a832f63b-42ed-445e-9b62-69830e797ce5" name="Count" type="Data">
+    <display x="105" y="-75" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="dc456562-8b3a-4264-bd1c-5666e9be7ae6" name="Increment Count" type="Calculation">
+    <display x="120" y="15" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e2ed6c8b-b2e7-466d-9efc-fcd1e4ac840a</onsuccess>
+    <calculation expression="[Count] + 1" stage="Count" />
+  </stage>
+  <stage stageid="9e381277-d38f-4c56-8b72-b1848bb79049" name="Time To End?" type="Decision">
+    <display x="15" y="105" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] &gt; 4" />
+    <ontrue>f435543f-a971-4f3f-bc77-f074e1e2379c</ontrue>
+    <onfalse>63589d19-d21d-40df-adc3-3b950237d8e0</onfalse>
+  </stage>
+  <stage stageid="1c5bdc85-c831-4696-8094-93dcfec1b42c" name="Attach" type="Action">
+    <display x="120" y="60" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>dc456562-8b3a-4264-bd1c-5666e9be7ae6</onsuccess>
+    <resource object="AttachTests - BBC News" action="Attach" />
+  </stage>
+  <stage stageid="14976359-4008-4c7a-993f-6c9d3ceb8ec4" name="Note1" type="Note">
+    <narrative>This test includes launching, attaching, detaching, and terminating (done in the cleanup page - notice that the application is not explicitly closed anywhere else).</narrative>
+    <display x="-150" y="105" w="210" h="180" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="f435543f-a971-4f3f-bc77-f074e1e2379c" name="Terminate" type="Action">
+    <display x="15" y="150" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>1ecc4728-beac-4ac1-86cf-121c13c83717</onsuccess>
+    <resource object="AttachTests - BBC News" action="Terminate" />
+  </stage>
+  <stage stageid="64d1999d-c8cc-4669-88b0-aa7648c57c31" name="And More Tests" type="Action">
+    <display x="15" y="60" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>9e381277-d38f-4c56-8b72-b1848bb79049</onsuccess>
+    <resource object="AttachTests - BBC News" action="Mess About with Search Box" />
+  </stage>
+  <stage stageid="49c9319f-2f0c-4016-a140-2da3821ef664" name="Recover" type="Recover">
+    <display x="225" y="15" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>ef5c39ce-de4d-4d2c-a00a-d0c4a6cb16d4</onsuccess>
+  </stage>
+  <stage stageid="ef5c39ce-de4d-4d2c-a00a-d0c4a6cb16d4" name="Terminate" type="Action">
+    <display x="225" y="60" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>723fe143-4293-453f-846e-f08bbd2ec822</onsuccess>
+    <resource object="AttachTests - BBC News" action="Terminate" />
+  </stage>
+  <stage stageid="723fe143-4293-453f-846e-f08bbd2ec822" name="FAIL" type="Exception">
+    <display x="300" y="60" w="30" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception localized="yes" type="" detail="" usecurrent="yes" />
+  </stage>
+</process>

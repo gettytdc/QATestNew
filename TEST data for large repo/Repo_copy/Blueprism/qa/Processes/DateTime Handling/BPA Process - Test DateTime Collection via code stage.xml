@@ -1,0 +1,469 @@
+﻿<process name="Test DateTime Collection via code stage" version="1.0" bpversion="6.7.0.16843" narrative="Ammending of 'Collection Filter Test' to have a go at creating automated test for BG-239 where we ensure that the passing of Date/ DateTime/Time inputs pass through a code stage and are not incorrectly adjusted on output." byrefcollection="true" preferredid="8d2eb482-ee46-4602-ad51-fcddc79e2b67">
+  <view>
+    <camerax>-42.666687</camerax>
+    <cameray>-54</cameray>
+    <zoom version="2">0.9375</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="6475adee-d41b-4d66-98a2-a8df74e798cf" type="Normal" published="False">
+    <name>Date pass through code stage</name>
+    <view>
+      <camerax>-130</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="38cd3cfe-99f1-4583-8da0-99871ac225cf" type="Normal" published="False">
+    <name>DateTime pass through code stage</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="e28ddc33-3f90-4baa-8dc9-82fa986f5f64" type="Normal" published="False">
+    <name>Time pass through code stage</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="b62a2b3b-c1bb-468e-a21d-c0f7e499ce67" name="Start" type="Start">
+    <display x="30" y="-390" />
+    <onsuccess>5f31e207-2660-4c1e-9286-1b0f7680c97c</onsuccess>
+  </stage>
+  <stage stageid="977c4ab3-15e3-4d4c-ab29-b72605c33cba" name="Stage1" type="ProcessInfo">
+    <display x="-375" y="-225" w="360" h="150" />
+  </stage>
+  <stage stageid="5f31e207-2660-4c1e-9286-1b0f7680c97c" name="GIVEN" type="Note">
+    <narrative>Given the collection has specified dates/ dateTime/ Times...</narrative>
+    <display x="30" y="-300" w="180" h="60" />
+    <onsuccess>1965ec55-a00a-4bae-a4e7-479423ac88f2</onsuccess>
+  </stage>
+  <stage stageid="a1245b17-3379-443c-98dc-6b3683b6416a" name="Date pass through code stage" type="SubSheetInfo">
+    <subsheetid>6475adee-d41b-4d66-98a2-a8df74e798cf</subsheetid>
+    <narrative>Pass Date through code stage 'Remove Empty Rows' then are passed out and remain the same date</narrative>
+    <display x="-255" y="-135" w="150" h="90" />
+  </stage>
+  <stage stageid="c74c2fe4-2815-44a9-8855-4c29e443afd8" name="Start" type="Start">
+    <subsheetid>6475adee-d41b-4d66-98a2-a8df74e798cf</subsheetid>
+    <display x="15" y="-210" />
+    <onsuccess>a46e688a-4008-4875-a856-eda3bf4960ef</onsuccess>
+  </stage>
+  <stage stageid="ebcb2a0c-ab7b-4673-b95b-2d5e0e80ff31" name="End" type="End">
+    <subsheetid>6475adee-d41b-4d66-98a2-a8df74e798cf</subsheetid>
+    <display x="15" y="60" />
+  </stage>
+  <stage stageid="a46e688a-4008-4875-a856-eda3bf4960ef" name="Remove Empty Rows" type="Action">
+    <subsheetid>6475adee-d41b-4d66-98a2-a8df74e798cf</subsheetid>
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="collection" name="Collection In" narrative="The collection to remove empty rows from" expr="[Date In]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Collection Out" narrative="The collection with the empty rows removed" stage="Date Out" />
+    </outputs>
+    <onsuccess>87b4046a-9318-4107-8b4c-aef6253d0f99</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Remove Empty Rows" />
+  </stage>
+  <stage stageid="e57ea25f-d332-488a-8758-add0d8502045" name="Date Compare" type="Collection">
+    <subsheetid>6475adee-d41b-4d66-98a2-a8df74e798cf</subsheetid>
+    <display x="-225" y="120" w="150" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Date" type="date" description="Test Dates" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Date" type="date" value="2017/01/22" />
+      </row>
+      <row>
+        <field name="Date" type="date" value="2017/02/22" />
+      </row>
+      <row>
+        <field name="Date" type="date" value="2017/03/22" />
+      </row>
+      <row>
+        <field name="Date" type="date" value="2017/05/22" />
+      </row>
+      <row>
+        <field name="Date" type="date" value="2017/09/22" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="139f5e5c-7209-4356-bec7-a1b9d3c87756" name="Date Out" type="Collection">
+    <subsheetid>6475adee-d41b-4d66-98a2-a8df74e798cf</subsheetid>
+    <display x="-225" y="45" w="150" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Date" type="date" description="Test Dates" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Date" type="date" value="" />
+      </row>
+      <row>
+        <field name="Date" type="date" value="" />
+      </row>
+      <row>
+        <field name="Date" type="date" value="" />
+      </row>
+      <row>
+        <field name="Date" type="date" value="" />
+      </row>
+      <row>
+        <field name="Date" type="date" value="" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="87b4046a-9318-4107-8b4c-aef6253d0f99" name="Decision1" type="Decision">
+    <subsheetid>6475adee-d41b-4d66-98a2-a8df74e798cf</subsheetid>
+    <display x="15" y="-30" />
+    <decision expression="[Date Out] = [Date Compare]" />
+    <ontrue>ebcb2a0c-ab7b-4673-b95b-2d5e0e80ff31</ontrue>
+    <onfalse>2b6804af-3deb-47d1-b96b-f18d6bdaff0b</onfalse>
+  </stage>
+  <stage stageid="2b6804af-3deb-47d1-b96b-f18d6bdaff0b" name="Exception2" type="Exception">
+    <subsheetid>6475adee-d41b-4d66-98a2-a8df74e798cf</subsheetid>
+    <display x="120" y="-30" />
+    <exception localized="yes" type="Test Fail" detail="&quot;Date In does not match Date Out&quot;" />
+  </stage>
+  <stage stageid="bfc3f941-fb07-49fc-9b32-b782696ba9cc" name="DateTime pass through code stage" type="SubSheetInfo">
+    <subsheetid>38cd3cfe-99f1-4583-8da0-99871ac225cf</subsheetid>
+    <narrative>DateTime are passed IN to the code stage 'Remove Empty Rows', then are passed out and have remained the same dateTime.</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="173e5d92-b1f5-42ef-9820-d67f42d3be58" name="Start" type="Start">
+    <subsheetid>38cd3cfe-99f1-4583-8da0-99871ac225cf</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>d0efba3b-5fe9-4b3f-8ecf-d71d2988293a</onsuccess>
+  </stage>
+  <stage stageid="8fb5ee16-28ea-47df-b5d4-3b83a304e3ae" name="End" type="End">
+    <subsheetid>38cd3cfe-99f1-4583-8da0-99871ac225cf</subsheetid>
+    <display x="15" y="120" />
+  </stage>
+  <stage stageid="e175df5d-7368-4b0d-a739-b26fbe2f93e1" name="Scenario 1" type="Note">
+    <subsheetid>6475adee-d41b-4d66-98a2-a8df74e798cf</subsheetid>
+    <narrative>Dates are passed IN to the code stage 'Remove Empty Rows', then are passed out and have remained the same date.</narrative>
+    <display x="-495" y="0" w="180" h="120" />
+  </stage>
+  <stage stageid="c53c8166-ca51-4b66-8c87-ad3837b2f94b" name="DateTime Out" type="Collection">
+    <subsheetid>38cd3cfe-99f1-4583-8da0-99871ac225cf</subsheetid>
+    <display x="-210" y="15" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="DateTime" type="datetime" description="Test DateTime" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="DateTime" type="datetime" value="" />
+      </row>
+      <row>
+        <field name="DateTime" type="datetime" value="" />
+      </row>
+      <row>
+        <field name="DateTime" type="datetime" value="" />
+      </row>
+      <row>
+        <field name="DateTime" type="datetime" value="" />
+      </row>
+      <row>
+        <field name="DateTime" type="datetime" value="" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="cc94d2c6-62b7-42b5-9a3b-53b384805195" name="Time pass through code stage" type="SubSheetInfo">
+    <subsheetid>e28ddc33-3f90-4baa-8dc9-82fa986f5f64</subsheetid>
+    <narrative>Time is passed IN to the code stage 'Remove Empty Rows', then is passed out and has remained the same Time.</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="891dd6ee-2a74-4b37-a281-12c2e0adad4e" name="Start" type="Start">
+    <subsheetid>e28ddc33-3f90-4baa-8dc9-82fa986f5f64</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>7728fedb-388b-48c7-8822-e1897291ac64</onsuccess>
+  </stage>
+  <stage stageid="1277a964-50b3-4e4e-a944-450178861693" name="End" type="End">
+    <subsheetid>e28ddc33-3f90-4baa-8dc9-82fa986f5f64</subsheetid>
+    <display x="15" y="120" />
+  </stage>
+  <stage stageid="066ef39b-1e07-48d6-9746-ec5f3cbbd9c4" name="Time Out" type="Collection">
+    <subsheetid>e28ddc33-3f90-4baa-8dc9-82fa986f5f64</subsheetid>
+    <display x="-195" y="45" w="150" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Time" type="time" description="Time" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Time" type="time" value="" />
+      </row>
+      <row>
+        <field name="Time" type="time" value="" />
+      </row>
+      <row>
+        <field name="Time" type="time" value="" />
+      </row>
+      <row>
+        <field name="Time" type="time" value="" />
+      </row>
+      <row>
+        <field name="Time" type="time" value="" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="cad5131c-691e-40bd-96b7-b937a0473057" name="Time Compare" type="Collection">
+    <subsheetid>e28ddc33-3f90-4baa-8dc9-82fa986f5f64</subsheetid>
+    <display x="-195" y="105" w="150" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Time" type="time" description="Test Time" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Time" type="time" value="06:20:07" />
+      </row>
+      <row>
+        <field name="Time" type="time" value="00:00:00" />
+      </row>
+      <row>
+        <field name="Time" type="time" value="12:00:00" />
+      </row>
+      <row>
+        <field name="Time" type="time" value="03:30:06" />
+      </row>
+      <row>
+        <field name="Time" type="time" value="00:00:00" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="ffc804e4-f9eb-485b-b5e9-ad0b93fb9555" name="DateTimes Compare" type="Collection">
+    <subsheetid>38cd3cfe-99f1-4583-8da0-99871ac225cf</subsheetid>
+    <display x="-210" y="75" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="DateTime" type="datetime" description="Test Date Time" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="DateTime" type="datetime" value="2017-01-22 00:00:00Z" />
+      </row>
+      <row>
+        <field name="DateTime" type="datetime" value="2017-02-22 00:00:00Z" />
+      </row>
+      <row>
+        <field name="DateTime" type="datetime" value="2017-03-22 00:00:00Z" />
+      </row>
+      <row>
+        <field name="DateTime" type="datetime" value="2017-05-22 00:00:00Z" />
+      </row>
+      <row>
+        <field name="DateTime" type="datetime" value="2017-09-22 00:00:00Z" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="d0efba3b-5fe9-4b3f-8ecf-d71d2988293a" name="Remove Empty Rows" type="Action">
+    <subsheetid>38cd3cfe-99f1-4583-8da0-99871ac225cf</subsheetid>
+    <display x="15" y="-45" />
+    <inputs>
+      <input type="collection" name="Collection In" narrative="The collection to remove empty rows from" expr="[DateTimes In]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Collection Out" narrative="The collection with the empty rows removed" stage="DateTime Out" />
+    </outputs>
+    <onsuccess>0ea70ff5-a293-4bec-8792-063fdec726d6</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Remove Empty Rows" />
+  </stage>
+  <stage stageid="0ea70ff5-a293-4bec-8792-063fdec726d6" name="Decision1" type="Decision">
+    <subsheetid>38cd3cfe-99f1-4583-8da0-99871ac225cf</subsheetid>
+    <display x="15" y="30" />
+    <decision expression="[DateTime Out]= [DateTimes Compare]" />
+    <ontrue>8fb5ee16-28ea-47df-b5d4-3b83a304e3ae</ontrue>
+    <onfalse>a0ef3249-bde3-4ce1-8801-e40e32745dd2</onfalse>
+  </stage>
+  <stage stageid="a0ef3249-bde3-4ce1-8801-e40e32745dd2" name="Exception2" type="Exception">
+    <subsheetid>38cd3cfe-99f1-4583-8da0-99871ac225cf</subsheetid>
+    <display x="120" y="30" />
+    <exception localized="yes" type="Test Fail" detail="&quot;DateTime In does not match DateTime Out&quot;" />
+  </stage>
+  <stage stageid="7728fedb-388b-48c7-8822-e1897291ac64" name="Remove Empty Rows" type="Action">
+    <subsheetid>e28ddc33-3f90-4baa-8dc9-82fa986f5f64</subsheetid>
+    <display x="15" y="-45" />
+    <inputs>
+      <input type="collection" name="Collection In" narrative="The collection to remove empty rows from" expr="[Time In]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Collection Out" narrative="The collection with the empty rows removed" stage="Time Out" />
+    </outputs>
+    <onsuccess>4c68cd4f-295e-4e9c-b0cb-af5743c28f70</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Remove Empty Rows" />
+  </stage>
+  <stage stageid="4c68cd4f-295e-4e9c-b0cb-af5743c28f70" name="Decision1" type="Decision">
+    <subsheetid>e28ddc33-3f90-4baa-8dc9-82fa986f5f64</subsheetid>
+    <display x="15" y="30" />
+    <decision expression="[Time Out]=[Time Compare]" />
+    <ontrue>1277a964-50b3-4e4e-a944-450178861693</ontrue>
+    <onfalse>a16e1dc2-a824-4258-9e93-68d1540e8e64</onfalse>
+  </stage>
+  <stage stageid="a16e1dc2-a824-4258-9e93-68d1540e8e64" name="Exception2" type="Exception">
+    <subsheetid>e28ddc33-3f90-4baa-8dc9-82fa986f5f64</subsheetid>
+    <display x="120" y="30" />
+    <exception localized="yes" type="Test Fail" detail="&quot;Time In does not match Time Out&quot;" />
+  </stage>
+  <stage stageid="deaf2aef-4825-4bdd-8acf-e6298376f4d3" name="Scenario 1" type="Note">
+    <subsheetid>38cd3cfe-99f1-4583-8da0-99871ac225cf</subsheetid>
+    <narrative>DateTime are passed IN to the code stage 'Remove Empty Rows', then are passed out and have remained the same dateTime.</narrative>
+    <display x="-450" y="45" w="180" h="120" />
+  </stage>
+  <stage stageid="78649601-077f-4442-bc6b-9127914fa2d1" name="Scenario 1" type="Note">
+    <subsheetid>e28ddc33-3f90-4baa-8dc9-82fa986f5f64</subsheetid>
+    <narrative>Time is passed IN to the code stage 'Remove Empty Rows', then is passed out and has remained the same Time.</narrative>
+    <display x="-435" y="-15" w="180" h="120" />
+  </stage>
+  <stage stageid="ff9003fc-7ba8-4bb7-bb8f-24f5252b5ead" name="Inputs " type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-495" y="-120" w="270" h="345" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e33dc198-4bb3-4e32-aecb-23eb85758524" name="Date pass through code stage" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="-135" w="180" h="30" />
+    <onsuccess>da6d0cf9-ee92-4a88-a253-d0aacc7f2845</onsuccess>
+    <processid>6475adee-d41b-4d66-98a2-a8df74e798cf</processid>
+  </stage>
+  <stage stageid="d04d0269-28b5-4574-956c-f5b3e92926d2" name="DateTime pass through code stage" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="15" w="150" h="30" />
+    <onsuccess>0d6e0b41-a60f-4365-8ee4-8bba08fb052b</onsuccess>
+    <processid>38cd3cfe-99f1-4583-8da0-99871ac225cf</processid>
+  </stage>
+  <stage stageid="070a9aad-e415-4a62-b658-3f85370a4be4" name="Time pass through code stage" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="165" w="150" h="30" />
+    <onsuccess>fc714d05-92a1-4399-afa9-38a656aff4c9</onsuccess>
+    <processid>e28ddc33-3f90-4baa-8dc9-82fa986f5f64</processid>
+  </stage>
+  <stage stageid="fc714d05-92a1-4399-afa9-38a656aff4c9" name="End1" type="End">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="255" />
+  </stage>
+  <stage stageid="505d88ce-4a58-44f4-aff3-d1a4be3f3d2f" name="Time Outputs" type="Block">
+    <subsheetid>e28ddc33-3f90-4baa-8dc9-82fa986f5f64</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-15" w="150" h="165" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2b0695aa-79ff-4b44-a753-36b9943b6116" name="DateTime Outputs" type="Block">
+    <subsheetid>38cd3cfe-99f1-4583-8da0-99871ac225cf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="-30" w="165" h="165" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ff30398c-f51e-47aa-a35d-ad5517526799" name="Date Outputs" type="Block">
+    <subsheetid>6475adee-d41b-4d66-98a2-a8df74e798cf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-315" y="-30" w="165" h="210" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="1965ec55-a00a-4bae-a4e7-479423ac88f2" name="Date - Scenario 1" type="Note">
+    <narrative>When Date is passed through code stage THEN Date output is the same after passing through code stage.</narrative>
+    <display x="30" y="-195" w="360" h="60" />
+    <onsuccess>e33dc198-4bb3-4e32-aecb-23eb85758524</onsuccess>
+  </stage>
+  <stage stageid="da6d0cf9-ee92-4a88-a253-d0aacc7f2845" name="DateTime - Scenario 2" type="Note">
+    <narrative>When DateTime is passed through code stage THEN DateTime output is the same after passing through code stage.
+</narrative>
+    <display x="30" y="-60" w="360" h="60" />
+    <onsuccess>d04d0269-28b5-4574-956c-f5b3e92926d2</onsuccess>
+  </stage>
+  <stage stageid="0d6e0b41-a60f-4365-8ee4-8bba08fb052b" name="Time - Scenario 3" type="Note">
+    <narrative>When Time is passed through code stage THEN time output is the same after passing through code stage.
+</narrative>
+    <display x="30" y="90" w="360" h="60" />
+    <onsuccess>070a9aad-e415-4a62-b658-3f85370a4be4</onsuccess>
+  </stage>
+  <stage stageid="72746a2b-d8c6-4987-9c38-ce5ef3c18eb0" name="Date In" type="Collection">
+    <display x="-375" y="-30" w="150" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Date" type="date" description="Test Dates" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Date" type="date" value="2017/01/22" />
+      </row>
+      <row>
+        <field name="Date" type="date" value="2017/02/22" />
+      </row>
+      <row>
+        <field name="Date" type="date" value="2017/03/22" />
+      </row>
+      <row>
+        <field name="Date" type="date" value="2017/05/22" />
+      </row>
+      <row>
+        <field name="Date" type="date" value="2017/09/22" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="4a611c72-63a4-445a-b600-095a59117fb2" name="DateTimes In" type="Collection">
+    <display x="-375" y="30" w="150" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="DateTime" type="datetime" description="Test Date Time" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="DateTime" type="datetime" value="2017-01-22 00:00:00Z" />
+      </row>
+      <row>
+        <field name="DateTime" type="datetime" value="2017-02-22 00:00:00Z" />
+      </row>
+      <row>
+        <field name="DateTime" type="datetime" value="2017-03-22 00:00:00Z" />
+      </row>
+      <row>
+        <field name="DateTime" type="datetime" value="2017-05-22 00:00:00Z" />
+      </row>
+      <row>
+        <field name="DateTime" type="datetime" value="2017-09-22 00:00:00Z" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="5535be53-62a1-4690-86aa-a06aaac380b8" name="Time In" type="Collection">
+    <display x="-375" y="105" w="150" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Time" type="time" description="Time" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Time" type="time" value="06:20:07" />
+      </row>
+      <row>
+        <field name="Time" type="time" value="00:00:00" />
+      </row>
+      <row>
+        <field name="Time" type="time" value="12:00:00" />
+      </row>
+      <row>
+        <field name="Time" type="time" value="03:30:06" />
+      </row>
+      <row>
+        <field name="Time" type="time" value="00:00:00" />
+      </row>
+    </initialvalue>
+  </stage>
+</process>

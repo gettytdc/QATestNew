@@ -1,0 +1,552 @@
+﻿<process name="Test Queue Priority" version="1.0" narrative="Tests the retrieval and altering of the item priority within a work queue" preferredid="44ab6605-6b4b-48d2-b8e5-a5692569087c">
+  <view>
+    <camerax>0</camerax>
+    <cameray>-15</cameray>
+    <zoom>1</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="b2ba173c-0383-4ee9-9457-2a1ac3cf3cff" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>b3ee2e62-f8af-477d-ae93-a8d4e64ed54e</onsuccess>
+  </stage>
+  <stage stageid="92c3c5ee-fb4b-448a-a145-d52366f9b36d" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>705</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="cf1875a5-d668-4a45-a357-78693f56f19e" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="3516c41a-3c0a-4d6c-846d-ce4052de902a" name="Get Data" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to get data from. An error will be raised if this item does not exist." expr="[Pending Items.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Key" narrative="The key value of the item." stage="Key" />
+      <output type="number" name="Priority" narrative="The priority of the item" stage="Priority" />
+      <output type="text" name="Status" narrative="The status of the item." stage="Status" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+      <output type="timespan" name="Worktime" narrative="The total time spent on this item (including previous attempts)" stage="" />
+      <output type="timespan" name="Attempt Worktime" narrative="The amount of time spent on this particular attempt of the item" stage="" />
+      <output type="datetime" name="Loaded DateTime" narrative="The date and time at which this item was first loaded into the queue." stage="" />
+      <output type="datetime" name="Deferred DateTime" narrative="The date and time at which this item has been deferred to. Empty if this item has not been deferred." stage="" />
+      <output type="datetime" name="Completed DateTime" narrative="The date and time at which this item was marked as complete. Empty if this item has not been marked as complete" stage="" />
+      <output type="datetime" name="Exception DateTime" narrative="The date and time at which this item was marked as an exception. Empty if there has never been an exception on this item." stage="" />
+      <output type="text" name="Exception Reason" narrative="The exception reason recorded against this item." stage="" />
+      <output type="text" name="Tags" narrative="The semi-colon separated set of tags which apply to the item. " stage="" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Item Data" />
+    </outputs>
+    <onsuccess>d50b1804-235d-4dd7-b0d0-b07fecb90bfa</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Item Data" />
+  </stage>
+  <stage stageid="cc966290-6732-4883-a363-f892e649d607" name="Get Pending" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>0</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the pending items are required" expr="[Queue 1 Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;. Wildcards can be used in the form of '*' or '?' for 'any chars' and 'any single char' respectively" expr="" />
+      <input type="number" name="Maximum" narrative="Optionally, the maximum number of items to return. Default is to return all items" expr="" />
+      <input type="number" name="Skip" narrative="Optionally, the number of items to skip before returning. Default is zero, ie. return all items from the head of the queue" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Pending Items" narrative="The currently pending items in the queue, referenced by ID. The single column is 'Item ID' : text. The elements in the collection will be in the order in which they will be loaded by the 'Get Next Item' action." stage="Pending Items" />
+    </outputs>
+    <onsuccess>5cdb0336-4445-4118-b15d-9716aa591c31</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Pending Items" />
+  </stage>
+  <stage stageid="5cdb0336-4445-4118-b15d-9716aa591c31" name="For Each Pending Item" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="008000" />
+    <onsuccess>3516c41a-3c0a-4d6c-846d-ce4052de902a</onsuccess>
+    <groupid>8cbfb89b-e363-465a-86b2-84f3843ef6d0</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Pending Items</loopdata>
+  </stage>
+  <stage stageid="d30b7f51-5528-4218-b1dc-8454850eeb84" name="Next Pending Item" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>315</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="008000" />
+    <onsuccess>13da19e1-aa63-4da5-b2d5-9d1e880d2cd2</onsuccess>
+    <groupid>8cbfb89b-e363-465a-86b2-84f3843ef6d0</groupid>
+  </stage>
+  <stage stageid="4f237d8f-00f9-4be1-81fa-baf829f6b164" name="Key" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="51a75e84-9237-45b7-a471-1a065bc67187" name="Priority" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>240</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="58871afc-5fa8-4b00-99ec-1654aebf2f75" name="Status" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="dbacd951-17d9-41e7-adab-8d5f05601d0f" name="Attempts" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>270</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4b6b2500-3d4b-4ad5-ba68-1a1e6ff523e7" name="Set Priority" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>180</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to set the priority in" expr="[Pending Items.Item ID]" />
+      <input type="number" name="Priority" narrative="The new priority to set within the work queue item. " expr="[Item Data.Expected Priority]" />
+    </inputs>
+    <onsuccess>f7bf211e-2115-4156-9ad0-7441c1162af8</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Set Priority" />
+  </stage>
+  <stage stageid="f7bf211e-2115-4156-9ad0-7441c1162af8" name="Get Data" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>225</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to get data from. An error will be raised if this item does not exist." expr="[Pending Items.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Key" narrative="The key value of the item." stage="Key" />
+      <output type="number" name="Priority" narrative="The priority of the item" stage="Priority" />
+      <output type="text" name="Status" narrative="The status of the item." stage="Status" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+      <output type="timespan" name="Worktime" narrative="The total time spent on this item (including previous attempts)" stage="" />
+      <output type="timespan" name="Attempt Worktime" narrative="The amount of time spent on this particular attempt of the item" stage="" />
+      <output type="datetime" name="Loaded DateTime" narrative="The date and time at which this item was first loaded into the queue." stage="" />
+      <output type="datetime" name="Deferred DateTime" narrative="The date and time at which this item has been deferred to. Empty if this item has not been deferred." stage="" />
+      <output type="datetime" name="Completed DateTime" narrative="The date and time at which this item was marked as complete. Empty if this item has not been marked as complete" stage="" />
+      <output type="datetime" name="Exception DateTime" narrative="The date and time at which this item was marked as an exception. Empty if there has never been an exception on this item." stage="" />
+      <output type="text" name="Exception Reason" narrative="The exception reason recorded against this item." stage="" />
+      <output type="text" name="Tags" narrative="The semi-colon separated set of tags which apply to the item. " stage="" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+    </outputs>
+    <onsuccess>e0492356-0a63-44ff-9863-df4064ddf84f</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Item Data" />
+  </stage>
+  <stage stageid="b3ee2e62-f8af-477d-ae93-a8d4e64ed54e" name="Create Queue 1" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to be created" expr="[Queue 1 Name]" />
+      <input type="text" name="Key Field" narrative="The key column to use in the collection which makes up a queue item" expr="&quot;Account Number&quot;" />
+      <input type="number" name="Max Attempts" narrative="The maximum number of retry attempts for the queue. Default: 5" expr="5" />
+    </inputs>
+    <onsuccess>63d491fb-420a-4117-ae98-79aaf593ea82</onsuccess>
+    <resource object="Queue Utils" action="Create Queue" />
+  </stage>
+  <stage stageid="c54eb756-c3aa-4f2f-b766-70c3d199732c" name="Queue 1 Name" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">queuepriority Q1</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="63d491fb-420a-4117-ae98-79aaf593ea82" name="Load data" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue 1 Name]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Data]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="[Default Priority]" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>cc966290-6732-4883-a363-f892e649d607</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="c57a3166-cd28-482f-91fd-81669ba0f757" name="Data" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Account Number" type="text" />
+      <field name="Name" type="text" />
+      <field name="Balance" type="number" />
+      <field name="Expected Priority" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Account Number" type="text" value="41987664" />
+        <field name="Name" type="text" value="Mr Smith" />
+        <field name="Balance" type="number" value="54.12" />
+        <field name="Expected Priority" type="number" value="5" />
+      </row>
+      <row>
+        <field name="Account Number" type="text" value="48498888" />
+        <field name="Name" type="text" value="Mr Jones" />
+        <field name="Balance" type="number" value="411.23" />
+        <field name="Expected Priority" type="number" value="2" />
+      </row>
+      <row>
+        <field name="Account Number" type="text" value="5123'441" />
+        <field name="Name" type="text" value="Mrs Humperdink" />
+        <field name="Balance" type="number" value="-1203.22" />
+        <field name="Expected Priority" type="number" value="9" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="d50b1804-235d-4dd7-b0d0-b07fecb90bfa" name="Priority = Default?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Priority] = [Default Priority]" />
+    <ontrue>4b6b2500-3d4b-4ad5-ba68-1a1e6ff523e7</ontrue>
+    <onfalse>f87d2392-a60d-437b-b4de-f3e5ec4cf055</onfalse>
+  </stage>
+  <stage stageid="8e08b0b3-08b3-4245-b06a-b67b6adef7c6" name="Item Data" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>135</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="83cb50af-34ac-4137-8aca-741fa28d8248" name="Default Priority" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>60</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>99</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e0492356-0a63-44ff-9863-df4064ddf84f" name="Priority = New Value?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>270</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Priority] = [Item Data.Expected Priority]" />
+    <ontrue>d30b7f51-5528-4218-b1dc-8454850eeb84</ontrue>
+    <onfalse>5417e962-30b9-49cb-ad38-f44cd0d0bf78</onfalse>
+  </stage>
+  <stage stageid="f87d2392-a60d-437b-b4de-f3e5ec4cf055" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>135</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="TestFailedException" detail="&quot;Expected Priority of &quot; &amp; [Default Priority] &amp; &quot;; Found priority of &quot; &amp; [Priority]" />
+  </stage>
+  <stage stageid="5417e962-30b9-49cb-ad38-f44cd0d0bf78" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>270</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="TestFailedException" detail="&quot;Expected Priority of &quot; &amp; [Item Data.Expected Priority] &amp; &quot;; Found priority of &quot; &amp; [Priority]" />
+  </stage>
+  <stage stageid="3fbd56dd-56d3-40a7-be64-5597c7f7f7b4" name="Clear Queue 1" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>615</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should all be cleared" expr="[Queue 1 Name]" />
+      <input type="text" name="Exception Message" narrative="The message which should be used as the exception for the unworked items" expr="" />
+      <input type="flag" name="Delete Items" narrative="True to delete the items after they have been marked with an exception" expr="True" />
+    </inputs>
+    <onsuccess>f07e411f-7d3f-4860-9398-b5ad97f45a63</onsuccess>
+    <resource object="Queue Utils" action="Clear Queue" />
+  </stage>
+  <stage stageid="6ae0d410-0ce7-4187-abd0-95bff65e98f3" name="Pending Items" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f07e411f-7d3f-4860-9398-b5ad97f45a63" name="Delete Queue 1" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>660</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete" expr="[Queue 1 Name]" />
+    </inputs>
+    <onsuccess>92c3c5ee-fb4b-448a-a145-d52366f9b36d</onsuccess>
+    <resource object="Queue Utils" action="Delete Queue" />
+  </stage>
+  <stage stageid="13da19e1-aa63-4da5-b2d5-9d1e880d2cd2" name="Get Next" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue 1 Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;. Wildcards can be used in the form of '*' or '?' for 'any chars' and 'any single char' respectively" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Item Data" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>d24e1ba5-c329-40bd-9fd1-4c247f5ef0a6</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="d24e1ba5-c329-40bd-9fd1-4c247f5ef0a6" name="Any Left?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>405</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID] &lt;&gt; &quot;&quot;" />
+    <ontrue>7c9f9733-0a43-4911-90b9-00083916c8e0</ontrue>
+    <onfalse>9adc14ac-5df9-428c-ae95-f8d06c7cf6bd</onfalse>
+  </stage>
+  <stage stageid="cbb88951-689d-4b52-af8f-97a8aecf8a50" name="Item ID" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>300</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="36ff2a2a-e23b-4729-bbd8-194dd82c04e0" name="Last Priority" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>330</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>-9999</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="7c9f9733-0a43-4911-90b9-00083916c8e0" name="Lower Priority Than Last Priority?" type="Decision">
+    <narrative>Of course, a lower priority means a higher number, just to be a bit more confusing...</narrative>
+    <displayx>15</displayx>
+    <displayy>450</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Priority] &gt;= [Last Priority]" />
+    <ontrue>eb5ffd3a-9190-4633-8622-71e4f81e4157</ontrue>
+    <onfalse>9808a436-c9fd-4301-92a6-aee1de03cc9a</onfalse>
+  </stage>
+  <stage stageid="9808a436-c9fd-4301-92a6-aee1de03cc9a" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>450</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="TestFailedException" detail="&quot;Get Next returned incorrect order - last priority: &quot; &amp; [Last Priority] &amp; &quot;; this priority: &quot; &amp; [Item Data.Expected Priority]" />
+  </stage>
+  <stage stageid="eb5ffd3a-9190-4633-8622-71e4f81e4157" name="Mark Complete" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>495</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+    </inputs>
+    <onsuccess>addefc6b-da13-429f-aaa8-c51429935916</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="addefc6b-da13-429f-aaa8-c51429935916" name="Set Last Priority" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>540</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>a7aa517a-872c-454c-b5d4-6f3858a24f15</onsuccess>
+    <calculation expression="[Item Data.Expected Priority]" stage="Last Priority" />
+  </stage>
+  <stage stageid="a7aa517a-872c-454c-b5d4-6f3858a24f15" name="anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>540</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>86419a59-b4c1-4464-83a4-331b8ea76f6e</onsuccess>
+  </stage>
+  <stage stageid="86419a59-b4c1-4464-83a4-331b8ea76f6e" name="anchor2" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>360</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>13da19e1-aa63-4da5-b2d5-9d1e880d2cd2</onsuccess>
+  </stage>
+  <stage stageid="9adc14ac-5df9-428c-ae95-f8d06c7cf6bd" name="anchor2" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>405</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>789fa3bd-0512-4e4c-a7fb-f60d1377a374</onsuccess>
+  </stage>
+  <stage stageid="789fa3bd-0512-4e4c-a7fb-f60d1377a374" name="anchor2" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>615</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>3fbd56dd-56d3-40a7-be64-5597c7f7f7b4</onsuccess>
+  </stage>
+</process>

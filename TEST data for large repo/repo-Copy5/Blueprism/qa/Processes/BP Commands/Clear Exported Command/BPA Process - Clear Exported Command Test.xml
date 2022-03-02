@@ -1,0 +1,1788 @@
+﻿<process name="Clear Exported Command Test" version="1.0" bpversion="6.3.0.4170" narrative="Tests Clear Exported Command." byrefcollection="true" preferredid="7c0fc035-ac77-483d-88d1-f82f5dde09a5">
+  <view>
+    <camerax>-157</camerax>
+    <cameray>-327</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="33e3570e-6700-402c-a7b9-8b3375d79181" type="Normal" published="False">
+    <name>Global Variables</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="71cf9b48-8b87-4d8c-88fc-d79f96a75c70" type="Normal" published="False">
+    <name>Found Item?</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>57</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="c6e99005-38dc-4159-86eb-ea2575fb1aa4" type="Normal" published="False">
+    <name>Wait N Seconds</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="0c758249-9d63-43ec-b238-51003f572674" type="Normal" published="False">
+    <name>Delete Item</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>105</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="5df1c971-2fef-40d1-ba6b-c0354ae7a40d" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-1140</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>34527edd-74cc-4b6a-8131-c10189d03c8c</onsuccess>
+  </stage>
+  <stage stageid="cb7e971a-fb7d-4654-9fb5-e87f8e60d076" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-1050</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="db3251de-c2f7-4685-9a00-39b8bd75e300" name="Local Variables" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-345</displayx>
+    <displayy>-990</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>600</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="66f3cf84-82fd-4ef2-a5e1-bfc37df86aa5" name="BP Username" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-930</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">admin</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="213e9f91-abe1-42ac-a394-8c151606d2b0" name="BP Password" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-900</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>password</datatype>
+    <initialvalueenc>32,17,25,89,3</initialvalueenc>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e8c8c924-9ec0-438c-868d-004fc1ac7fe0" name="Add to Queue" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-300</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Queue Data]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="Item IDs" />
+    </outputs>
+    <onsuccess>c6c4e35f-ceb1-4b87-adf7-ae6e2908ef30</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="d78f38aa-26a0-414a-86f4-f5b1b6ab37a3" name="Queue Data" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-870</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Queue Field" type="text" />
+      <field name="Name" type="text" />
+      <field name="Age" type="number" />
+      <field name="Role" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Queue Field" type="text" value="User 1234" />
+        <field name="Name" type="text" value="Big Mac" />
+        <field name="Age" type="number" value="120" />
+        <field name="Role" type="text" value="Food" />
+      </row>
+      <row>
+        <field name="Queue Field" type="text" value="User 2345" />
+        <field name="Name" type="text" value="Pepsi" />
+        <field name="Age" type="number" value="318" />
+        <field name="Role" type="text" value="Drinks" />
+      </row>
+      <row>
+        <field name="Queue Field" type="text" value="User 3456" />
+        <field name="Name" type="text" value="Coca Cola" />
+        <field name="Age" type="number" value="131" />
+        <field name="Role" type="text" value="Drinks" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="cedf947f-cb54-4d25-a862-473af7505143" name="Item IDs" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-840</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="cfb36c41-2535-4e76-b43a-553514556c93" name="Global Variables" type="SubSheetInfo">
+    <subsheetid>33e3570e-6700-402c-a7b9-8b3375d79181</subsheetid>
+    <narrative>Global variables can be accessed from any page within the process.</narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="5e1a5c4a-6a9e-4bd9-8041-09eeefa8b946" name="Start" type="Start">
+    <subsheetid>33e3570e-6700-402c-a7b9-8b3375d79181</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>7834cc96-0ac4-435d-a3d7-eb0a3503c0e4</onsuccess>
+  </stage>
+  <stage stageid="7834cc96-0ac4-435d-a3d7-eb0a3503c0e4" name="End" type="End">
+    <subsheetid>33e3570e-6700-402c-a7b9-8b3375d79181</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="009a1fe4-2013-4068-a8a5-975d3d6a8b74" name="Queue Name" type="Data">
+    <subsheetid>33e3570e-6700-402c-a7b9-8b3375d79181</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Clear Exported Queue Test</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="3f5efd4c-384f-4bfa-adee-8183f9185216" name="Global Variables" type="Block">
+    <subsheetid>33e3570e-6700-402c-a7b9-8b3375d79181</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>150</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c6c4e35f-ceb1-4b87-adf7-ae6e2908ef30" name="Get Next Item" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-240</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Data" />
+      <output type="text" name="Status" narrative="The status of the item." stage="Status" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>07a58387-636e-443f-b4f8-4bde336773a7</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="d04faca2-344d-4955-a023-68aff9312d89" name="Item ID" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-630</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="86f4a1e2-3d97-456a-8d05-b84a3b473bbf" name="Data" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-570</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4270a3b8-06af-4212-b23f-29b01d4bd094" name="Status" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-660</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="465365e3-dfd6-4025-9708-ba1e3bb7f41d" name="Attempts" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-600</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="07a58387-636e-443f-b4f8-4bde336773a7" name="Have Item?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="Trim([Item ID]) &lt;&gt; &quot;&quot;" />
+    <ontrue>fbc3c6b4-cb44-4797-bae9-b5105d84d849</ontrue>
+    <onfalse>7e85f03a-dcd1-4cf3-bb09-d1aef48b5600</onfalse>
+  </stage>
+  <stage stageid="fbc3c6b4-cb44-4797-bae9-b5105d84d849" name="Mark Completed" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+    </inputs>
+    <onsuccess>e1390b72-f312-4028-a3ea-b79ec62fb811</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="e1390b72-f312-4028-a3ea-b79ec62fb811" name="Anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>3e10e69f-c6b8-4e8b-9a7c-b5cfff6eeb33</onsuccess>
+  </stage>
+  <stage stageid="3e10e69f-c6b8-4e8b-9a7c-b5cfff6eeb33" name="Anchor2" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>-240</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>c6c4e35f-ceb1-4b87-adf7-ae6e2908ef30</onsuccess>
+  </stage>
+  <stage stageid="ef834a2b-e29a-4661-93db-0df6aee54c2f" name="Clear Exported" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>150</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" narrative="username" expr="[BP Username]" />
+      <input type="text" name="Password" narrative="password" expr="[BP Password]" />
+      <input type="text" name="Command" narrative="command" expr="&quot;/exportqueue &quot; &amp; [Report Path] &amp; &quot; /queuename &quot; &amp; [Queue Name] &amp; &quot; /clearexported&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="PID" narrative="PID of the process" stage="PID 1" />
+    </outputs>
+    <onsuccess>b7cc985b-4001-4c39-a670-d9c95d2221dd</onsuccess>
+    <resource object="Blue Prism - Commands" action="Send Command" />
+  </stage>
+  <stage stageid="7e85f03a-dcd1-4cf3-bb09-d1aef48b5600" name="Anchor3" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9a99a9cb-0176-47e2-a252-dee5b53dcb8f</onsuccess>
+  </stage>
+  <stage stageid="9a99a9cb-0176-47e2-a252-dee5b53dcb8f" name="Anchor4" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>1b55db43-da0f-4577-8430-3b8ca446b5e7</onsuccess>
+  </stage>
+  <stage stageid="d2a8ac49-4354-40d1-936d-97373796c5d8" name="Queue with Space?" type="Decision">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="InStr([Queue Name], &quot; &quot;) &gt; 0" />
+    <ontrue>6f311825-2ae8-4e24-8adf-d302b64d7684</ontrue>
+    <onfalse>b906b949-0512-4986-8992-2773eb75a068</onfalse>
+  </stage>
+  <stage stageid="fa5f99a4-b471-44bb-bf39-56859f015af3" name="Remove Quotes" type="MultipleCalculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-75</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e20a9d46-01d4-4143-911a-17fc7649e055</onsuccess>
+    <steps>
+      <calculation expression="Replace([Queue Name], &quot;&quot;&quot;&quot;, &quot;&quot;)" stage="Queue Name" />
+    </steps>
+  </stage>
+  <stage stageid="b906b949-0512-4986-8992-2773eb75a068" name="Anchor1" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-75</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>fa5f99a4-b471-44bb-bf39-56859f015af3</onsuccess>
+  </stage>
+  <stage stageid="6f311825-2ae8-4e24-8adf-d302b64d7684" name="Anchor2" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>6d5191af-1fcb-4568-a819-173d264cc573</onsuccess>
+  </stage>
+  <stage stageid="e20a9d46-01d4-4143-911a-17fc7649e055" name="Anchor3" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>15</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>8bf44c8f-c383-4ae4-98b9-0d138432b72b</onsuccess>
+  </stage>
+  <stage stageid="6d5191af-1fcb-4568-a819-173d264cc573" name="Add Quotes" type="MultipleCalculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e20a9d46-01d4-4143-911a-17fc7649e055</onsuccess>
+    <steps>
+      <calculation expression="Replace([Queue Name], &quot;&quot;&quot;&quot;, &quot;&quot;)" stage="Queue Name" />
+      <calculation expression="&quot;&quot;&quot;&quot; &amp; [Queue Name] &amp; &quot;&quot;&quot;&quot;" stage="Queue Name" />
+    </steps>
+  </stage>
+  <stage stageid="1b55db43-da0f-4577-8430-3b8ca446b5e7" name="Anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>d2a8ac49-4354-40d1-936d-97373796c5d8</onsuccess>
+  </stage>
+  <stage stageid="cb263226-77bd-4a51-a711-b88f45adb611" name="Wait N Seconds" type="SubSheetInfo">
+    <subsheetid>c6e99005-38dc-4159-86eb-ea2575fb1aa4</subsheetid>
+    <narrative>Waits N number of seconds.</narrative>
+    <displayx>-150</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="126b89bc-0fc2-417b-b11b-224a2f695fba" name="Start" type="Start">
+    <subsheetid>c6e99005-38dc-4159-86eb-ea2575fb1aa4</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Seconds to Wait" narrative="Number of Seconds toWait." stage="Seconds to Wait" />
+    </inputs>
+    <onsuccess>016a3d2f-8ab0-4423-a386-0151663bf10f</onsuccess>
+  </stage>
+  <stage stageid="31356826-0d9a-4d92-90b1-534d127ceb67" name="End" type="End">
+    <subsheetid>c6e99005-38dc-4159-86eb-ea2575fb1aa4</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="016a3d2f-8ab0-4423-a386-0151663bf10f" name="Get Now" type="Calculation">
+    <subsheetid>c6e99005-38dc-4159-86eb-ea2575fb1aa4</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>d20a482d-ddca-462d-abc8-a6c21c987b7b</onsuccess>
+    <calculation expression="Now()" stage="Current Time" />
+  </stage>
+  <stage stageid="c1f003e7-653c-4192-b9ff-310dc338c362" name="Current Time" type="Data">
+    <subsheetid>c6e99005-38dc-4159-86eb-ea2575fb1aa4</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-150</displayx>
+    <displayy>105</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>datetime</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c1aa355a-b665-4d66-8174-eb22f8dcbc3b" name="Time Passed?" type="Decision">
+    <subsheetid>c6e99005-38dc-4159-86eb-ea2575fb1aa4</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="Now () &gt; [Current Time] + MakeTimeSpan(0, 0, 0, [Seconds to Wait])" />
+    <ontrue>31356826-0d9a-4d92-90b1-534d127ceb67</ontrue>
+    <onfalse>5a802db8-6668-434a-9159-3d93416bfdcf</onfalse>
+  </stage>
+  <stage stageid="d20a482d-ddca-462d-abc8-a6c21c987b7b" name="Anchor6" type="Anchor">
+    <subsheetid>c6e99005-38dc-4159-86eb-ea2575fb1aa4</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>15</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>c1aa355a-b665-4d66-8174-eb22f8dcbc3b</onsuccess>
+  </stage>
+  <stage stageid="5a802db8-6668-434a-9159-3d93416bfdcf" name="Anchor7" type="Anchor">
+    <subsheetid>c6e99005-38dc-4159-86eb-ea2575fb1aa4</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>60</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>6c8ecfed-59b2-4467-86d0-5352aa0f556b</onsuccess>
+  </stage>
+  <stage stageid="6c8ecfed-59b2-4467-86d0-5352aa0f556b" name="Anchor8" type="Anchor">
+    <subsheetid>c6e99005-38dc-4159-86eb-ea2575fb1aa4</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>15</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>d20a482d-ddca-462d-abc8-a6c21c987b7b</onsuccess>
+  </stage>
+  <stage stageid="19a735b2-9749-430a-99bf-435bfb68c499" name="Local Variables" type="Block">
+    <subsheetid>c6e99005-38dc-4159-86eb-ea2575fb1aa4</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="82ea1833-7681-4305-ad40-cf302edc7f43" name="Seconds to Wait" type="Data">
+    <subsheetid>c6e99005-38dc-4159-86eb-ea2575fb1aa4</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-150</displayx>
+    <displayy>30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>20</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="403c7497-363d-45dd-a98d-48576e6b1c8e" name="Input Variables" type="Block">
+    <subsheetid>c6e99005-38dc-4159-86eb-ea2575fb1aa4</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>0</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="17de4f49-9f79-49d1-9d35-c04cf9923f3b" name="Get Completed" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>450</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to retrieve the completed items from" expr="Replace([Queue Name], &quot;&quot;&quot;&quot;, &quot;&quot;)" />
+      <input type="datetime" name="Start Date" narrative="The start date from which any items marked as complete should be returned. Optional - No date indicates no start date threshold" expr="" />
+      <input type="datetime" name="End Date" narrative="The end date up to which any items marked as complete should be returned. Optional - No date indicates no end date threshold" expr="" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+      <input type="number" name="Maximum Rows" narrative="The maximum number of rows to return. Optional - No value indicates that all rows should be returned" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Completed Items" narrative="The items which were marked as complete within the given date range, up to the maximum count if one was given" stage="Completed Items" />
+    </outputs>
+    <onsuccess>cb84c08e-044e-439c-8238-a0d645df94b2</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Completed Items" />
+  </stage>
+  <stage stageid="2f1fbd8e-529f-49bc-913a-4bcd3549834d" name="Completed Items" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-810</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="cb84c08e-044e-439c-8238-a0d645df94b2" name="Get Pending" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>510</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the pending items are required" expr="Replace([Queue Name], &quot;&quot;&quot;&quot;, &quot;&quot;)" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+      <input type="number" name="Maximum" narrative="Optionally, the maximum number of items to return. Default is to return all items" expr="" />
+      <input type="number" name="Skip" narrative="Optionally, the number of items to skip before returning. Default is zero, ie. return all items from the head of the queue" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Pending Items" narrative="The currently pending items in the queue, referenced by ID. The single column is 'Item ID' : text. The elements in the collection will be in the order in which they will be loaded by the 'Get Next Item' action." stage="Pending Items" />
+    </outputs>
+    <onsuccess>f440faad-1318-4e53-89e1-6667d9cbbec7</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Pending Items" />
+  </stage>
+  <stage stageid="acbe8f53-d885-49be-81e3-b69cb23738b9" name="Pending Items" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-780</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="f440faad-1318-4e53-89e1-6667d9cbbec7" name="Get Locked" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>570</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="Replace([Queue Name], &quot;&quot;&quot;&quot;, &quot;&quot;)" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Locked Items" narrative="The currently locked items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Locked Items" />
+    </outputs>
+    <onsuccess>417610b5-f5d1-4b30-b0b1-af03ecb18722</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Locked Items" />
+  </stage>
+  <stage stageid="5b8e404d-e59f-4a78-9ae3-c6edf761877b" name="Locked Items" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-750</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+      <field name="Locked" type="datetime" description="The date/time when the item was locked" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="417610b5-f5d1-4b30-b0b1-af03ecb18722" name="Get Exception" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>630</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to retrieve the exception items from" expr="Replace([Queue Name], &quot;&quot;&quot;&quot;, &quot;&quot;)" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="datetime" name="Start Date" narrative="Optionally, the start threshold date. Any items returned will have been marked as an exception after this date. If no value is given, there will be no start threshold." expr="" />
+      <input type="datetime" name="End Date" narrative="Optionally, the end threshold date. Any items returned will have been marked as an exception before this date. If no value is given, there will be no end threshold." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+      <input type="number" name="Maximum Rows" narrative="Optionally, the maximum number of rows to return. No value indicates that all rows should be returned" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Exception Items" narrative="The items which were marked with an exception within the given date range, up to the maximum count if one was given" stage="Exception Items" />
+    </outputs>
+    <onsuccess>3d5b9f18-ede3-4874-ab15-359d219e1757</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Exception Items" />
+  </stage>
+  <stage stageid="f4ca067d-bb99-45a2-b530-9fe22ffcc4e9" name="Exception Items" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-720</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="46f424d1-f7c4-4fe3-bb11-63d7d1c0c2a5" name="Collection Names" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-690</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Collection Name" type="text" />
+      <field name="Number of Rows" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Collection Name" type="text" value="Completed Items" />
+        <field name="Number of Rows" type="number" value="" />
+      </row>
+      <row>
+        <field name="Collection Name" type="text" value="Pending Items" />
+        <field name="Number of Rows" type="number" value="" />
+      </row>
+      <row>
+        <field name="Collection Name" type="text" value="Locked Items" />
+        <field name="Number of Rows" type="number" value="" />
+      </row>
+      <row>
+        <field name="Collection Name" type="text" value="Exception Items" />
+        <field name="Number of Rows" type="number" value="" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="3d5b9f18-ede3-4874-ab15-359d219e1757" name="Collection Names" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>690</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>f6e85404-b55f-4895-8343-de4d1f2e60ef</onsuccess>
+    <groupid>2c8cf9a9-9d7d-47e3-9ec0-801ff75d58c4</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Collection Names</loopdata>
+  </stage>
+  <stage stageid="ce4fed2f-aaf0-46bb-b02e-b80d141024d6" name="Collection Names" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>870</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>d705196c-233f-40b4-987f-871dfddc0da9</onsuccess>
+    <groupid>2c8cf9a9-9d7d-47e3-9ec0-801ff75d58c4</groupid>
+  </stage>
+  <stage stageid="f6e85404-b55f-4895-8343-de4d1f2e60ef" name="Count Rows" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>750</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to act upon" expr="[Collection Names.Collection Name]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Collection Names.Number of Rows" />
+    </outputs>
+    <onsuccess>b6a60e05-7f2d-4247-923a-ffdc5a2a37dc</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="b6a60e05-7f2d-4247-923a-ffdc5a2a37dc" name="Have Rows?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>810</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Collection Names.Number of Rows] &gt; 0" />
+    <ontrue>e72ff51d-455b-47ce-bacf-ab129aed6926</ontrue>
+    <onfalse>ce4fed2f-aaf0-46bb-b02e-b80d141024d6</onfalse>
+  </stage>
+  <stage stageid="e72ff51d-455b-47ce-bacf-ab129aed6926" name="Queue Has Items" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>810</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="&quot;Queue Clear Worked Failed. There was &quot; &amp; [Collection Names.Number of Rows] &amp; &quot; items available in &quot; &amp; [Collection Names.Collection Name] &amp; &quot; collection.&quot;" />
+  </stage>
+  <stage stageid="d705196c-233f-40b4-987f-871dfddc0da9" name="End1" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>930</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="b56f79ce-4fc6-471c-bdcc-3e445d8aa316" name="CSV File Name" type="Data">
+    <subsheetid>33e3570e-6700-402c-a7b9-8b3375d79181</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Clear Exported Queue.csv</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="21956d61-10f6-4913-812d-755a77814192" name="OS Username" type="Data">
+    <subsheetid>33e3570e-6700-402c-a7b9-8b3375d79181</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2eea72d0-2358-4ae8-9093-e8bcc2f2f75b" name="Get Username" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-660</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="text" name="User Name" narrative="The name of the logged in user in the current system" stage="OS Username" />
+    </outputs>
+    <onsuccess>a77fdc5d-5e78-4d88-bc32-961836414cba</onsuccess>
+    <resource object="Utility - Environment" action="Get User Name" />
+  </stage>
+  <stage stageid="a77fdc5d-5e78-4d88-bc32-961836414cba" name="Set Variables" type="MultipleCalculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-600</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>bf6084c0-fa83-47e3-8940-65086a1f20d5</onsuccess>
+    <steps>
+      <calculation expression="&quot;C:\Users\&quot; &amp; [OS Username] &amp; &quot;\&quot; &amp; [CSV File Name]" stage="Report Path" />
+    </steps>
+  </stage>
+  <stage stageid="bf6084c0-fa83-47e3-8940-65086a1f20d5" name="Report Exists?" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-540</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="File Name" narrative="The name of the file to check" expr="[Report Path]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Exists" narrative="True if the file exists" stage="Exists" />
+    </outputs>
+    <onsuccess>ae9a3115-e3ff-487e-8ee3-a534e2f79d2a</onsuccess>
+    <resource object="Utility - File Management" action="File Exists" />
+  </stage>
+  <stage stageid="ae9a3115-e3ff-487e-8ee3-a534e2f79d2a" name="File Exists?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-480</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Exists]" />
+    <ontrue>a0fc8501-1e5d-498c-a8e5-dc313a355385</ontrue>
+    <onfalse>0dedb1f2-3b74-4555-b67f-108e4e192ad3</onfalse>
+  </stage>
+  <stage stageid="a0fc8501-1e5d-498c-a8e5-dc313a355385" name="Delete Report" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-420</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="File Name" narrative="The full path to the file to delete" expr="[Report Path]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" narrative="True if successful" stage="Success" />
+      <output type="text" name="Message" narrative="An error message if unsuccessful" stage="Message" />
+    </outputs>
+    <onsuccess>cc2c7494-5231-487b-8435-49367dffca25</onsuccess>
+    <resource object="Utility - File Management" action="Delete File" />
+  </stage>
+  <stage stageid="cc2c7494-5231-487b-8435-49367dffca25" name="File Deleted?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Success]" />
+    <ontrue>e8c8c924-9ec0-438c-868d-004fc1ac7fe0</ontrue>
+    <onfalse>a8d43465-5706-4b1c-8d3e-d012e98d92c9</onfalse>
+  </stage>
+  <stage stageid="a8d43465-5706-4b1c-8d3e-d012e98d92c9" name="Deletion Failed" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>-360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="&quot;Failed to delete '&quot; &amp; [CSV File Name] &amp; &quot;'. Recorded Exception: &quot; &amp; [Message]" />
+  </stage>
+  <stage stageid="0dedb1f2-3b74-4555-b67f-108e4e192ad3" name="Anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>-480</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>8cb6776d-c362-4e26-9944-599fea07a481</onsuccess>
+  </stage>
+  <stage stageid="8cb6776d-c362-4e26-9944-599fea07a481" name="Anchor9" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>-300</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e8c8c924-9ec0-438c-868d-004fc1ac7fe0</onsuccess>
+  </stage>
+  <stage stageid="dc851ded-bb68-41b3-8f27-ff63b57487c1" name="Report Path" type="Data">
+    <subsheetid>33e3570e-6700-402c-a7b9-8b3375d79181</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6c303bf9-f322-4607-b215-5a860f33cf3d" name="Exists" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-540</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8c65cf5a-95d0-417d-9e04-0575082d79f8" name="Success" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-510</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9438f934-915a-4992-ad0f-08c7733d7bc2" name="Message" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-480</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8bf44c8f-c383-4ae4-98b9-0d138432b72b" name="Path with Space?" type="Decision">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="InStr([Report Path], &quot; &quot;) &gt; 0" />
+    <ontrue>b1497678-57ac-4637-807e-a5f9519a458f</ontrue>
+    <onfalse>fbdde8f6-2f28-4f54-b459-ce77e37efb55</onfalse>
+  </stage>
+  <stage stageid="77a00ad7-f416-41f2-b222-f1757d5b7afd" name="Remove Quotes" type="MultipleCalculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-75</displayx>
+    <displayy>105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>79c804ba-0e4e-441b-9eec-3ce789b2160b</onsuccess>
+    <steps>
+      <calculation expression="Replace([Report Path], &quot;&quot;&quot;&quot;, &quot;&quot;)" stage="Report Path" />
+    </steps>
+  </stage>
+  <stage stageid="fbdde8f6-2f28-4f54-b459-ce77e37efb55" name="Anchor1" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-75</displayx>
+    <displayy>60</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>77a00ad7-f416-41f2-b222-f1757d5b7afd</onsuccess>
+  </stage>
+  <stage stageid="b1497678-57ac-4637-807e-a5f9519a458f" name="Anchor2" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>60</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>68c5c4be-f0b9-477a-9a8c-a6e4289e1e4c</onsuccess>
+  </stage>
+  <stage stageid="79c804ba-0e4e-441b-9eec-3ce789b2160b" name="Anchor3" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>105</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>ef834a2b-e29a-4661-93db-0df6aee54c2f</onsuccess>
+  </stage>
+  <stage stageid="68c5c4be-f0b9-477a-9a8c-a6e4289e1e4c" name="Add Quotes" type="MultipleCalculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>79c804ba-0e4e-441b-9eec-3ce789b2160b</onsuccess>
+    <steps>
+      <calculation expression="Replace([Report Path], &quot;&quot;&quot;&quot;, &quot;&quot;)" stage="Report Path" />
+      <calculation expression="&quot;&quot;&quot;&quot; &amp; [Report Path] &amp; &quot;&quot;&quot;&quot;" stage="Report Path" />
+    </steps>
+  </stage>
+  <stage stageid="c352bde6-3e94-435d-9615-6bb58e62e9e3" name="Found Item?" type="SubSheetInfo">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>Searches for the XML file in the target directory and compares the process name with the files found in the directory.</narrative>
+    <displayx>-165</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="54417bfb-a5ce-4d24-95f7-7afd18423ed5" name="Start" type="Start">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e191f31c-3f82-4ad0-89d2-6452152b3de1</onsuccess>
+  </stage>
+  <stage stageid="e191f31c-3f82-4ad0-89d2-6452152b3de1" name="Now" type="Calculation">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>Now() + MakeTimeSpan(0, 0, 1, 0)</narrative>
+    <displayx>15</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>4515d323-301a-4421-9e3e-72534c936205</onsuccess>
+    <calculation expression="Now()" stage="Now Datetime" />
+  </stage>
+  <stage stageid="4515d323-301a-4421-9e3e-72534c936205" name="1 Min Passed?" type="Decision">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="Now() &gt; [Now Datetime] + MakeTimeSpan(0, 0, 1, 0)" />
+    <ontrue>16bdf0c7-7278-468d-87b7-580bbccac4df</ontrue>
+    <onfalse>f01a8333-19a4-44f6-9af6-3b0a81cf0b57</onfalse>
+  </stage>
+  <stage stageid="f01a8333-19a4-44f6-9af6-3b0a81cf0b57" name="Get Files" type="Action">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Folder" narrative="The folder in which to look for files" expr="&quot;C:\Users\&quot; &amp; [OS Username]" />
+      <input type="text" name="Patterns CSV" narrative="The comma seperated list of wildcard patterns" expr="&quot;*.csv&quot;" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" narrative="True if successful" stage="Success" />
+      <output type="text" name="Message" narrative="A message if unsuccessful" stage="Message" />
+      <output type="collection" name="Files" narrative="The collection of files found" stage="Files" />
+    </outputs>
+    <onsuccess>c3786b4d-a927-46ed-82fd-9fa65eb413cd</onsuccess>
+    <resource object="Utility - File Management" action="Get Files" />
+  </stage>
+  <stage stageid="16bdf0c7-7278-468d-87b7-580bbccac4df" name="Command Failed" type="Exception">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="&quot;Blue Prism System Report Was Not Found After 1 Minute of Wait.&quot;" />
+  </stage>
+  <stage stageid="c3786b4d-a927-46ed-82fd-9fa65eb413cd" name="Files" type="LoopStart">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9310474b-562e-464c-9dfa-4270d4a51b2e</onsuccess>
+    <groupid>7d5e2fbf-d61c-4f47-8a1e-cd7e8ecaf9d1</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Files</loopdata>
+  </stage>
+  <stage stageid="bcfe9585-6101-47b6-acae-2f9d0ba59317" name="Files" type="LoopEnd">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>32d4c9ac-e2e2-4b7d-aecd-dcd23eddb43b</onsuccess>
+    <groupid>7d5e2fbf-d61c-4f47-8a1e-cd7e8ecaf9d1</groupid>
+  </stage>
+  <stage stageid="9310474b-562e-464c-9dfa-4270d4a51b2e" name="Found Item?" type="Decision">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>195</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="InStr([Files.Name], [CSV File Name]) &gt; 0" />
+    <ontrue>3f54ef00-d0c5-4375-af3b-2c428506cfd3</ontrue>
+    <onfalse>bcfe9585-6101-47b6-acae-2f9d0ba59317</onfalse>
+  </stage>
+  <stage stageid="32d4c9ac-e2e2-4b7d-aecd-dcd23eddb43b" name="Anchor4" type="Anchor">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>255</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>ea9caeb0-5d92-4038-b555-8b2d0304abc9</onsuccess>
+  </stage>
+  <stage stageid="ea9caeb0-5d92-4038-b555-8b2d0304abc9" name="Anchor5" type="Anchor">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>15</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>4515d323-301a-4421-9e3e-72534c936205</onsuccess>
+  </stage>
+  <stage stageid="3f54ef00-d0c5-4375-af3b-2c428506cfd3" name="End1" type="End">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>195</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="6bb22a26-d625-42f4-9fb4-f19bd393a25b" name="Now Datetime" type="Data">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>datetime</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9be89438-5d34-4515-8e01-d145448b6688" name="Files" type="Collection">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8dabb92f-514d-4570-8695-fc20dbb96a20" name="Success" type="Data">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e53f95c6-4d59-46e2-827b-8ec9cecae076" name="Message" type="Data">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>105</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8a8f7a99-574c-46c5-94bd-64ab5d17f682" name="Local Variables" type="Block">
+    <subsheetid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>150</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b7cc985b-4001-4c39-a670-d9c95d2221dd" name="Found Item?" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>225</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>c6aeabe7-3644-4bd5-9f1f-5e5afa77abc1</onsuccess>
+    <processid>71cf9b48-8b87-4d8c-88fc-d79f96a75c70</processid>
+  </stage>
+  <stage stageid="cf241aa3-3567-4743-a7ea-f002de8d1aa6" name="Delete Item" type="SubSheetInfo">
+    <subsheetid>0c758249-9d63-43ec-b238-51003f572674</subsheetid>
+    <narrative>Attempts to delete an Item for as long as one minute,</narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="29238582-fd14-4f65-94f5-e19649abb43d" name="Start" type="Start">
+    <subsheetid>0c758249-9d63-43ec-b238-51003f572674</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>d875411b-4637-4912-a99e-0355e2f1800b</onsuccess>
+  </stage>
+  <stage stageid="d875411b-4637-4912-a99e-0355e2f1800b" name="Now" type="Calculation">
+    <subsheetid>0c758249-9d63-43ec-b238-51003f572674</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>a4a05fd8-f82e-498d-a128-9c0c39782cf4</onsuccess>
+    <calculation expression="Now()" stage="Now Datetime" />
+  </stage>
+  <stage stageid="a4a05fd8-f82e-498d-a128-9c0c39782cf4" name="1 Min Passed?" type="Decision">
+    <subsheetid>0c758249-9d63-43ec-b238-51003f572674</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="Now() &gt; [Now Datetime] + MakeTimeSpan(0, 0, 1, 0)" />
+    <ontrue>487534f2-1444-45d4-8700-75a8e9d16df5</ontrue>
+    <onfalse>bd8f1a78-11b2-494d-848e-ae4521155abc</onfalse>
+  </stage>
+  <stage stageid="bd8f1a78-11b2-494d-848e-ae4521155abc" name="Delete File" type="Action">
+    <subsheetid>0c758249-9d63-43ec-b238-51003f572674</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="File Name" narrative="The full path to the file to delete" expr="Replace([Report Path], &quot;&quot;&quot;&quot;, &quot;&quot;)" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" narrative="True if successful" stage="Success" />
+      <output type="text" name="Message" narrative="An error message if unsuccessful" stage="Message" />
+    </outputs>
+    <onsuccess>1325b184-083a-42a8-88cd-51d796de9451</onsuccess>
+    <resource object="Utility - File Management" action="Delete File" />
+  </stage>
+  <stage stageid="487534f2-1444-45d4-8700-75a8e9d16df5" name="Command Failed" type="Exception">
+    <subsheetid>0c758249-9d63-43ec-b238-51003f572674</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="&quot;Failed to delete '&quot; &amp; [CSV File Name] &amp; &quot;'. Recorded Exception: &quot; &amp; [Message]" />
+  </stage>
+  <stage stageid="7497f2e2-61d6-403c-8b97-3ac6d1f6fddc" name="Anchor4" type="Anchor">
+    <subsheetid>0c758249-9d63-43ec-b238-51003f572674</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-90</displayx>
+    <displayy>105</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>d67176cd-c291-40b7-a54a-4dae8b458cd1</onsuccess>
+  </stage>
+  <stage stageid="d67176cd-c291-40b7-a54a-4dae8b458cd1" name="Anchor5" type="Anchor">
+    <subsheetid>0c758249-9d63-43ec-b238-51003f572674</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-90</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>a4a05fd8-f82e-498d-a128-9c0c39782cf4</onsuccess>
+  </stage>
+  <stage stageid="580cd7e2-67c7-4952-9877-05af198cc166" name="End1" type="End">
+    <subsheetid>0c758249-9d63-43ec-b238-51003f572674</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="c01bef4a-c279-4367-b78d-2729cfce4345" name="Now Datetime" type="Data">
+    <subsheetid>0c758249-9d63-43ec-b238-51003f572674</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>datetime</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7d2c6ab3-dff7-4794-8777-073a793e691c" name="Files" type="Collection">
+    <subsheetid>0c758249-9d63-43ec-b238-51003f572674</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c293baa6-7dc9-4865-b7b7-c0a39edf1d73" name="Success" type="Data">
+    <subsheetid>0c758249-9d63-43ec-b238-51003f572674</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="bf58282b-4bcd-44a6-aeaf-068ab99165b1" name="Message" type="Data">
+    <subsheetid>0c758249-9d63-43ec-b238-51003f572674</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5f982e14-8e90-4993-bf1a-e84d2a49b401" name="Local Variables" type="Block">
+    <subsheetid>0c758249-9d63-43ec-b238-51003f572674</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>150</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="1325b184-083a-42a8-88cd-51d796de9451" name="Deleted?" type="Decision">
+    <subsheetid>0c758249-9d63-43ec-b238-51003f572674</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Success]" />
+    <ontrue>580cd7e2-67c7-4952-9877-05af198cc166</ontrue>
+    <onfalse>7497f2e2-61d6-403c-8b97-3ac6d1f6fddc</onfalse>
+  </stage>
+  <stage stageid="c6aeabe7-3644-4bd5-9f1f-5e5afa77abc1" name="Delete Item" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>315</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>35d531de-ba2a-4cd0-9498-1cb96e283edc</onsuccess>
+    <processid>0c758249-9d63-43ec-b238-51003f572674</processid>
+  </stage>
+  <stage stageid="64418f4a-6f8f-4ac8-b1ca-badbbd08289a" name="PID 1" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-450</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="35d531de-ba2a-4cd0-9498-1cb96e283edc" name="Kill Process" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>390</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="ID" narrative="The ID of the process to kill" expr="[PID 1]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" narrative="Error Message if fails." stage="Error Message" />
+      <output type="flag" name="Success" narrative="True if Successful, False by default." stage="Success" />
+    </outputs>
+    <onsuccess>17de4f49-9f79-49d1-9d35-c04cf9923f3b</onsuccess>
+    <resource object="Kill Process By ID" action="Kill Process By PID" />
+  </stage>
+  <stage stageid="df04061d-bb32-4d60-81f8-5f821d1149bf" name="Error Message" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-420</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="bc5ec85f-eb49-4095-b489-6d66718076ec" name="Release Exists?" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-1020</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="FF0000" />
+    <inputs>
+      <input type="text" name="File Name" narrative="The name of the file to check" expr="[Release Path]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Exists" narrative="True if the file exists" stage="Exists" />
+    </outputs>
+    <onsuccess>9d9292b0-7fa6-4def-89ce-207be0d00626</onsuccess>
+    <resource object="Utility - File Management" action="File Exists" />
+  </stage>
+  <stage stageid="9d9292b0-7fa6-4def-89ce-207be0d00626" name="Exists?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-960</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Exists]" />
+    <ontrue>dced29e8-8490-4a82-b6b6-b8319ee1c969</ontrue>
+    <onfalse>d70ca32a-f773-45d5-a64b-52129ed349c0</onfalse>
+  </stage>
+  <stage stageid="d70ca32a-f773-45d5-a64b-52129ed349c0" name="Release Missing" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>-960</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="&quot;Release file containing 'Export Queue Test' workqueue was not found.&quot;" />
+  </stage>
+  <stage stageid="dced29e8-8490-4a82-b6b6-b8319ee1c969" name="Path With Space?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-900</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="InStr([Release Path], &quot; &quot;) &gt; 0" />
+    <ontrue>3c9de37a-8a8d-4b37-896a-9a6843981eef</ontrue>
+    <onfalse>a5364d05-a00c-4a98-9ae6-85506710245a</onfalse>
+  </stage>
+  <stage stageid="a5364d05-a00c-4a98-9ae6-85506710245a" name="Remove Quotes" type="MultipleCalculation">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-900</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>3661a372-6fa3-4dd8-9157-9aa06296f1f6</onsuccess>
+    <steps>
+      <calculation expression="Replace([Release Path], &quot;&quot;&quot;&quot;, &quot;&quot;)" stage="Release Path" />
+    </steps>
+  </stage>
+  <stage stageid="3c9de37a-8a8d-4b37-896a-9a6843981eef" name="Add Quotes" type="MultipleCalculation">
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>-900</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9a14db51-12a3-4560-b22f-3858e938baf4</onsuccess>
+    <steps>
+      <calculation expression="Replace([Release Path], &quot;&quot;&quot;&quot;, &quot;&quot;)" stage="Release Path" />
+      <calculation expression="&quot;&quot;&quot;&quot; &amp; [Release Path] &amp; &quot;&quot;&quot;&quot;" stage="Release Path" />
+    </steps>
+  </stage>
+  <stage stageid="3661a372-6fa3-4dd8-9157-9aa06296f1f6" name="Anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-855</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>b177d960-6e08-4e16-aeca-7992b75b6979</onsuccess>
+  </stage>
+  <stage stageid="9a14db51-12a3-4560-b22f-3858e938baf4" name="Anchor2" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>-855</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>b177d960-6e08-4e16-aeca-7992b75b6979</onsuccess>
+  </stage>
+  <stage stageid="b177d960-6e08-4e16-aeca-7992b75b6979" name="Anchor3" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-855</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>d634d074-8f08-4360-820c-03864ac2c856</onsuccess>
+  </stage>
+  <stage stageid="d634d074-8f08-4360-820c-03864ac2c856" name="Import Release" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-810</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" narrative="username" expr="[BP Username]" />
+      <input type="text" name="Password" narrative="password" expr="[BP Password]" />
+      <input type="text" name="Command" narrative="command" expr="&quot;/importrelease &quot; &amp; [Release Path]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="PID" narrative="PID of the process" stage="PID 1" />
+    </outputs>
+    <onsuccess>085ad285-8c16-4dd3-9c81-c6c3892a6d0f</onsuccess>
+    <resource object="Blue Prism - Commands" action="Send Command" />
+  </stage>
+  <stage stageid="085ad285-8c16-4dd3-9c81-c6c3892a6d0f" name="Wait 30 Seconds" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-735</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Seconds to Wait" narrative="Number of Seconds toWait." expr="30" />
+    </inputs>
+    <onsuccess>2eea72d0-2358-4ae8-9093-e8bcc2f2f75b</onsuccess>
+    <processid>c6e99005-38dc-4159-86eb-ea2575fb1aa4</processid>
+  </stage>
+  <stage stageid="a55a530d-a608-40f4-b4d2-4861d36b6188" name="Release Path" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-960</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">C:\BluePrism\QA\Processes\BP Commands\Clear Exported Command\Clear Expported Work Queue.bprelease</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="26f810bb-8ba1-4aff-80fb-e8166f3105cc" name="QA Root" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-345</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="34527edd-74cc-4b6a-8131-c10189d03c8c" name="Set Release Path" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-1080</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>bc5ec85f-eb49-4095-b489-6d66718076ec</onsuccess>
+    <calculation expression="[QA Root] &amp; &quot;\Processes\BP Commands\Clear Exported Command\Clear Expported Work Queue.bprelease&quot;" stage="Release Path" />
+  </stage>
+  <stage stageid="85c916cf-0686-45df-ac5c-b9d38dff5456" name="Environment Variables" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-345</displayx>
+    <displayy>-375</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+</process>

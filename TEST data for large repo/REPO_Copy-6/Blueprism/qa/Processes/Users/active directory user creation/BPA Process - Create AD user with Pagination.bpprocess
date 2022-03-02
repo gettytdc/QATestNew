@@ -1,0 +1,619 @@
+﻿<process name="Create AD user with Pagination" version="1.0" bpversion="6.11.0.36166" narrative="" byrefcollection="true" preferredid="528acc11-43f8-4c70-950e-94cc964a402b">
+  <view>
+    <camerax>0</camerax>
+    <cameray>150</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="3e594695-6d05-4c20-9382-4c0e313fee8c" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>120</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="3351de75-5735-413b-b136-80f1f2a26daf" type="Normal" published="False">
+    <name>Check Active Directory Auth is Availble</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>165</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="4eacb9d2-c608-4352-9323-d261aa95d843" type="Normal" published="False">
+    <name>Create AD user</name>
+    <view>
+      <camerax>39</camerax>
+      <cameray>192</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="3eb7cccb-14ae-4e10-b8ba-3c4193652ead" type="Normal" published="False">
+    <name>CleanUp</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="cd09b7cb-cd42-4fee-96e9-bb2f4d466153" name="Start" type="Start">
+    <display x="30" y="-135" />
+    <onsuccess>7aa1453a-f628-46d2-8f52-737d80f4bd8f</onsuccess>
+  </stage>
+  <stage stageid="eb79bfa9-914c-4454-98fc-e193be253506" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="01ff46c2-f297-4a72-b787-a5f08d089755" name="Setup" type="SubSheetInfo">
+    <subsheetid>3e594695-6d05-4c20-9382-4c0e313fee8c</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="ca2cd6f1-2dbf-4970-941d-f762cebeb493" name="Start" type="Start">
+    <subsheetid>3e594695-6d05-4c20-9382-4c0e313fee8c</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>ae9df8eb-159e-492e-b95e-fd59a7c9e54d</onsuccess>
+  </stage>
+  <stage stageid="1bb707e6-5ee6-420c-9c73-302576d6227e" name="End" type="End">
+    <subsheetid>3e594695-6d05-4c20-9382-4c0e313fee8c</subsheetid>
+    <display x="-45" y="180" />
+  </stage>
+  <stage stageid="ae9df8eb-159e-492e-b95e-fd59a7c9e54d" name="Launch BP" type="Action">
+    <subsheetid>3e594695-6d05-4c20-9382-4c0e313fee8c</subsheetid>
+    <display x="-45" y="-90" w="120" h="30" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="BluePrism PID" />
+    </outputs>
+    <onsuccess>dd69f5c9-9519-484a-a261-5bb9ec72a280</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="dd69f5c9-9519-484a-a261-5bb9ec72a280" name="Attach System" type="Action">
+    <subsheetid>3e594695-6d05-4c20-9382-4c0e313fee8c</subsheetid>
+    <display x="-45" y="-45" w="120" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[BluePrism PID]" />
+    </inputs>
+    <onsuccess>82d4c58f-06b8-4465-979a-c5f23c5d7a29</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="82d4c58f-06b8-4465-979a-c5f23c5d7a29" name="Sign In" type="Action">
+    <subsheetid>3e594695-6d05-4c20-9382-4c0e313fee8c</subsheetid>
+    <display x="-45" y="0" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="" />
+      <input type="password" name="Password" expr="" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+      <input type="flag" name="Sign in Active Directorry" friendlyname="Sign in Active Directorry" narrative="Do you want sign in using Active Directory" expr="" />
+      <input type="flag" name="Sign in" friendlyname="Sign in" narrative="Do you want sign in using legacy sso environment" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="Error message received while Login" stage="" />
+    </outputs>
+    <onsuccess>e1215934-b735-4225-98de-e5e0f4296185</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="e1215934-b735-4225-98de-e5e0f4296185" name="Go to Tab" type="Action">
+    <subsheetid>3e594695-6d05-4c20-9382-4c0e313fee8c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="45" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>788f069d-b5f9-47ed-8d16-f2bc9478ed3f</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="06194d11-5e91-403a-a5bf-45abae56b2cc" name="Click Item From System Tree" type="Action">
+    <subsheetid>3e594695-6d05-4c20-9382-4c0e313fee8c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <loginhibitparameters />
+    <display x="-45" y="135" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Sign-on Settings&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>1bb707e6-5ee6-420c-9c73-302576d6227e</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="788f069d-b5f9-47ed-8d16-f2bc9478ed3f" name="Blue Prism - System (Parent)::Attach to Pid" type="Action">
+    <subsheetid>3e594695-6d05-4c20-9382-4c0e313fee8c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="90" w="120" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[BluePrism PID]" />
+    </inputs>
+    <onsuccess>06194d11-5e91-403a-a5bf-45abae56b2cc</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="55164bc1-46fc-4bc9-89b0-3604db400e22" name="Check Active Directory Auth is Availble" type="SubSheetInfo">
+    <subsheetid>3351de75-5735-413b-b136-80f1f2a26daf</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="d8dbee4f-5e07-4e37-ac04-cc0568d51f3d" name="Start" type="Start">
+    <subsheetid>3351de75-5735-413b-b136-80f1f2a26daf</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>1967cc9f-2577-45ce-94a6-3351015827ef</onsuccess>
+  </stage>
+  <stage stageid="cac70b98-792b-4c77-a42d-fc84f16246ab" name="End" type="End">
+    <subsheetid>3351de75-5735-413b-b136-80f1f2a26daf</subsheetid>
+    <display x="-45" y="300" />
+  </stage>
+  <stage stageid="7bb6053b-dca5-4d0e-91f3-05d4da4f808f" name="Authentication Type AD" type="Action">
+    <subsheetid>3351de75-5735-413b-b136-80f1f2a26daf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="30" w="120" h="30" />
+    <inputs>
+      <input type="flag" name="Authentication - AD" friendlyname="Authentication - AD" narrative="Authentication Type - AD Authentication" expr="&quot;True&quot;" />
+      <input type="flag" name="Negative Test" friendlyname="Negative Test" narrative="Set Flag if error expected?" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Description" friendlyname="Error Description" stage="" />
+    </outputs>
+    <onsuccess>b1d8f0c2-f438-4b01-836e-14a5ab333490</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Sign-on Settings - Authentication Type AD" />
+  </stage>
+  <stage stageid="b1d8f0c2-f438-4b01-836e-14a5ab333490" name="Press Apply" type="Action">
+    <subsheetid>3351de75-5735-413b-b136-80f1f2a26daf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="75" w="120" h="30" />
+    <onsuccess>77b5c0be-07c2-4fb7-9142-edf0ffc7b6ed</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Sign-on Settings - Press Apply" />
+  </stage>
+  <stage stageid="77b5c0be-07c2-4fb7-9142-edf0ffc7b6ed" name="Browse to Users" type="Action">
+    <subsheetid>3351de75-5735-413b-b136-80f1f2a26daf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="120" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Users&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>d91333e7-65c0-4ef7-a984-67c36cb36374</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="91acc989-2352-4f0e-be56-de4a39e03c5e" name="Select User Type" type="Action">
+    <subsheetid>3351de75-5735-413b-b136-80f1f2a26daf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="210" w="120" h="30" />
+    <inputs>
+      <input type="text" name="User Type" friendlyname="User Type" narrative="Type of the user want to select" expr="&quot;Create one or more Active Directory users&quot;" />
+    </inputs>
+    <onsuccess>b766fa5b-c958-4980-8770-1be44a4d928f</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Select User Type" />
+  </stage>
+  <stage stageid="d91333e7-65c0-4ef7-a984-67c36cb36374" name="Press New" type="Action">
+    <subsheetid>3351de75-5735-413b-b136-80f1f2a26daf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="165" w="120" h="30" />
+    <inputs>
+      <input type="flag" name="Via Burger Menu?" friendlyname="Via Burger Menu?" expr="&quot;True&quot;" />
+    </inputs>
+    <onsuccess>91acc989-2352-4f0e-be56-de4a39e03c5e</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Press New External User" />
+  </stage>
+  <stage stageid="b766fa5b-c958-4980-8770-1be44a4d928f" name="Press Next" type="Action">
+    <subsheetid>3351de75-5735-413b-b136-80f1f2a26daf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="255" w="120" h="30" />
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="The error message read when pressing next." stage="" />
+    </outputs>
+    <onsuccess>cac70b98-792b-4c77-a42d-fc84f16246ab</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Press Next" />
+  </stage>
+  <stage stageid="8d8fb88a-db6b-4d27-8533-eb1a51d8eeef" name="Create AD user" type="SubSheetInfo">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="93e87d87-72fd-4852-9cfa-1a4a5baef14c" name="Start" type="Start">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>e1b38347-3469-4f4b-b1fe-d10c0a277265</onsuccess>
+  </stage>
+  <stage stageid="2382d06f-8c10-4958-bee5-19734b645e87" name="End" type="End">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <display x="-45" y="495" />
+  </stage>
+  <stage stageid="e1b38347-3469-4f4b-b1fe-d10c0a277265" name="Select Roles" type="Action">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="120" h="30" />
+    <inputs>
+      <input type="collection" name="Role" friendlyname="Role" narrative="A collection of roles you want to give the user." expr="[Roles]" />
+    </inputs>
+    <onsuccess>c3847c62-aa1c-4251-8918-564b8db3db73</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Select Roles" />
+  </stage>
+  <stage stageid="474efa12-4512-4238-9fe3-c0f136b83a19" name="Roles" type="Collection">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Role" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Role" type="text" value="Testers" />
+      </row>
+      <row>
+        <field name="Role" type="text" value="Developers" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="c3847c62-aa1c-4251-8918-564b8db3db73" name="Press Next" type="Action">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="120" h="30" />
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="The error message read when pressing next." stage="" />
+    </outputs>
+    <onsuccess>a60318d5-9931-4374-a81a-229d99736b9f</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Press Next" />
+  </stage>
+  <stage stageid="2ff05bbc-d8e8-4097-b30d-097d4e567599" name="AD Apply Filter " type="Action">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="315" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Search" friendlyname="Search" narrative="write the type of the filter that you want to search with " expr="[Select AD User Names.Active Directory Name]" />
+      <input type="text" name="Type of Filter" friendlyname="Type of Filter" narrative="Write the Type of the Filter that you want to set" expr="&quot;UPN=&quot;" />
+    </inputs>
+    <onsuccess>d8c218d8-4948-4512-bdaf-705836705616</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - AD Apply Filter " />
+  </stage>
+  <stage stageid="d8c218d8-4948-4512-bdaf-705836705616" name="Setting Active Directory Name" type="Action">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="360" w="120" h="30" />
+    <inputs>
+      <input type="flag" name="Enable checkbox" friendlyname="Enable checkbox" narrative="select the checkbox" expr="&quot;True&quot;" />
+      <input type="collection" name="Active Directory Name" friendlyname="Active Directory Name" narrative="The UPN that you want to set" expr="[Select AD User Names]" />
+    </inputs>
+    <onsuccess>d6e093a3-3532-4ccb-83c7-35ddf7dbcb99</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Setting Active Directory Name" />
+  </stage>
+  <stage stageid="b2845673-2d04-4528-ac68-6729fa29e872" name="BluePrism PID" type="Data">
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f48180e3-f568-4153-9fb5-3855ba02dbdb" name="Global Variable" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="afade44b-9226-463f-97e9-24d8820d5243" name="Input Variable" type="Block">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="7aa1453a-f628-46d2-8f52-737d80f4bd8f" name="Note1" type="Note">
+    <narrative>GIVEN that Blue Prism is configurated to work with Active Directory.</narrative>
+    <display x="30" y="-75" w="240" h="30" />
+    <onsuccess>d64a9724-a082-4d21-847f-da1955d3efad</onsuccess>
+  </stage>
+  <stage stageid="d64a9724-a082-4d21-847f-da1955d3efad" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="-30" w="240" h="30" />
+    <onsuccess>307a38a4-cc3c-448e-93cf-4551cc334c16</onsuccess>
+    <processid>3e594695-6d05-4c20-9382-4c0e313fee8c</processid>
+  </stage>
+  <stage stageid="307a38a4-cc3c-448e-93cf-4551cc334c16" name="Note2" type="Note">
+    <narrative>WHEN the Active Directory Auth type is Enabled
+THEN Offer the choice of Blue Prism Native, Active Directory as available authentication types</narrative>
+    <display x="30" y="30" w="240" h="60" />
+    <onsuccess>b1f5c4a8-d0d3-4c1a-84de-7add38ca429f</onsuccess>
+  </stage>
+  <stage stageid="b1f5c4a8-d0d3-4c1a-84de-7add38ca429f" name="Check Active Directory Auth is Availble" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="90" w="240" h="30" />
+    <onsuccess>b46b6782-3552-4256-bc5f-54db4f5a1b2e</onsuccess>
+    <processid>3351de75-5735-413b-b136-80f1f2a26daf</processid>
+  </stage>
+  <stage stageid="b46b6782-3552-4256-bc5f-54db4f5a1b2e" name="Note3" type="Note">
+    <narrative>WHEN I create a user using the Active Directory wizard
+THEN an Active Directory user is created</narrative>
+    <display x="30" y="150" w="240" h="60" />
+    <onsuccess>4125e8f1-f172-4a47-b0bd-037476979891</onsuccess>
+  </stage>
+  <stage stageid="4125e8f1-f172-4a47-b0bd-037476979891" name="Create AD user" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="210" w="240" h="30" />
+    <onsuccess>6958959b-ed46-4045-8f43-b27565320608</onsuccess>
+    <processid>4eacb9d2-c608-4352-9323-d261aa95d843</processid>
+  </stage>
+  <stage stageid="8b73a877-1ed6-4c7b-bff4-5b817d64ea06" name="AD Press Next (Pagination)" type="Action">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="225" w="120" h="30" />
+    <onsuccess>baf59961-7191-49dc-b372-44bdfe4f4f57</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - AD Press Next (Pagination)" />
+  </stage>
+  <stage stageid="baf59961-7191-49dc-b372-44bdfe4f4f57" name="AD Press Next (Pagination)" type="Action">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="270" w="120" h="30" />
+    <onsuccess>2ff05bbc-d8e8-4097-b30d-097d4e567599</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - AD Press Next (Pagination)" />
+  </stage>
+  <stage stageid="02a85f6f-a1f6-4c20-b8db-41ae2597da1e" name="AD Apply Filter " type="Action">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="180" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Search" friendlyname="Search" narrative="write the type of the filter that you want to search with " expr="" />
+      <input type="text" name="Type of Filter" friendlyname="Type of Filter" narrative="Write the Type of the Filter that you want to set" expr="&quot;UPN=&quot;" />
+    </inputs>
+    <onsuccess>8b73a877-1ed6-4c7b-bff4-5b817d64ea06</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - AD Apply Filter " />
+  </stage>
+  <stage stageid="d6e093a3-3532-4ccb-83c7-35ddf7dbcb99" name="Press Next" type="Action">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="405" w="120" h="30" />
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="The error message read when pressing next." stage="" />
+    </outputs>
+    <onsuccess>0dfbd6e1-4330-445c-b4df-ed092e061c25</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Press Next" />
+  </stage>
+  <stage stageid="0dfbd6e1-4330-445c-b4df-ed092e061c25" name="Press Create " type="Action">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="450" w="120" h="30" />
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="The error message read when pressing next." stage="Error Message" />
+    </outputs>
+    <onsuccess>2382d06f-8c10-4958-bee5-19734b645e87</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Press Create " />
+  </stage>
+  <stage stageid="a60318d5-9931-4374-a81a-229d99736b9f" name="Search Root " type="Action">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="0" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Search Root" friendlyname="Search Root" narrative="Enter the search root value that you want to search with " expr="&quot;DC=orgdomain,DC=local&quot;" />
+    </inputs>
+    <onsuccess>5144d7b9-fd8b-4432-953d-cf2f4449396c</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Select Search Root " />
+  </stage>
+  <stage stageid="5144d7b9-fd8b-4432-953d-cf2f4449396c" name="Press Search Using Other Credentials" type="Action">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="45" w="120" h="30" />
+    <onsuccess>7250d706-a06b-4d6c-8ed0-82cac8edf54c</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Press Search Using Other Credentials" />
+  </stage>
+  <stage stageid="7250d706-a06b-4d6c-8ed0-82cac8edf54c" name="Select Use Default Credentials (AD)" type="Action">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="90" w="120" h="30" />
+    <inputs>
+      <input type="flag" name="Use Default Credential type" friendlyname="Use Default Credential type" narrative="Select the type of credential that you want to use" expr="True" />
+    </inputs>
+    <onsuccess>bbf53000-53ca-4561-89c1-f0274af7f183</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Select Use Default Credentials (AD)" />
+  </stage>
+  <stage stageid="bbf53000-53ca-4561-89c1-f0274af7f183" name="Press Use Credential (AD)" type="Action">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="135" w="120" h="30" />
+    <onsuccess>02a85f6f-a1f6-4c20-b8db-41ae2597da1e</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Wizard - Press Use Credential (AD)" />
+  </stage>
+  <stage stageid="1967cc9f-2577-45ce-94a6-3351015827ef" name="Read AD Enabled Checkbox" type="Action">
+    <subsheetid>3351de75-5735-413b-b136-80f1f2a26daf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="120" h="30" />
+    <outputs>
+      <output type="flag" name="Enabled checkbox" friendlyname="Enabled checkbox" narrative="Read the checkbox value" stage="Read Enabled Ad Checkbox" />
+    </outputs>
+    <onsuccess>867c8db4-8b7f-45ca-89c9-f924dfb1a80f</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Sign-on Settings -Read AD Enabled Checkbox" />
+  </stage>
+  <stage stageid="867c8db4-8b7f-45ca-89c9-f924dfb1a80f" name="Check Enabled Checkbox?" type="Decision">
+    <subsheetid>3351de75-5735-413b-b136-80f1f2a26daf</subsheetid>
+    <display x="-45" y="-30" w="90" h="60" />
+    <decision expression="[Read Enabled Ad Checkbox]" />
+    <ontrue>71121ef7-a6a0-464b-b4ad-b5e33d068fd7</ontrue>
+    <onfalse>7bb6053b-dca5-4d0e-91f3-05d4da4f808f</onfalse>
+  </stage>
+  <stage stageid="71121ef7-a6a0-464b-b4ad-b5e33d068fd7" name="Anchor1" type="Anchor">
+    <subsheetid>3351de75-5735-413b-b136-80f1f2a26daf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="30" y="-30" w="10" h="10" />
+    <onsuccess>4174fae7-c9ee-48b5-8dc0-b1a0ef4435d7</onsuccess>
+  </stage>
+  <stage stageid="4174fae7-c9ee-48b5-8dc0-b1a0ef4435d7" name="Anchor2" type="Anchor">
+    <subsheetid>3351de75-5735-413b-b136-80f1f2a26daf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="30" y="120" w="10" h="10" />
+    <onsuccess>77b5c0be-07c2-4fb7-9142-edf0ffc7b6ed</onsuccess>
+  </stage>
+  <stage stageid="506cba32-ad1f-461f-b06c-f6fa1c3dae16" name="Read Enabled Ad Checkbox" type="Data">
+    <subsheetid>3351de75-5735-413b-b136-80f1f2a26daf</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a1bc821c-adce-492f-8465-5b207f5f8d80" name="Variable" type="Block">
+    <subsheetid>3351de75-5735-413b-b136-80f1f2a26daf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="5d1059fb-a279-43c8-86a2-c858df030136" name="Error Message" type="Data">
+    <subsheetid>4eacb9d2-c608-4352-9323-d261aa95d843</subsheetid>
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b51b58f7-e1a0-4a40-9c2b-dfe3319f82ed" name="CleanUp Block" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="-105" w="345" h="345" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d378bfec-27b4-46e1-89df-27d2ba4af5ad" name="Select AD User Names" type="Collection">
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Active Directory Name" type="text" description="Select the Active Directory Names" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Active Directory Name" type="text" value="qauserorgdomain160@orgdomain.local" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="c4a48b4a-573c-4857-9d4c-32fe0f7261f8" name="Anchor3" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="195" y="270" w="10" h="10" />
+    <onsuccess>6958959b-ed46-4045-8f43-b27565320608</onsuccess>
+  </stage>
+  <stage stageid="6a71521b-7a7c-4d14-b2d3-ace7eac48370" name="Recover1" type="Recover">
+    <loginhibit />
+    <display x="195" y="120" />
+    <onsuccess>f030f3fb-7a68-41d6-8932-b0cb4a1e0b71</onsuccess>
+  </stage>
+  <stage stageid="f030f3fb-7a68-41d6-8932-b0cb4a1e0b71" name="Exception Calc" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="195" y="165" />
+    <onsuccess>db8b0985-7ee7-475e-aa3f-b72efabd03cb</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="db8b0985-7ee7-475e-aa3f-b72efabd03cb" name="Resume1" type="Resume">
+    <loginhibit />
+    <display x="195" y="210" />
+    <onsuccess>c4a48b4a-573c-4857-9d4c-32fe0f7261f8</onsuccess>
+  </stage>
+  <stage stageid="07309996-3f5e-49b5-9606-1ac041fc66b1" name="End" type="End">
+    <display x="30" y="360" />
+  </stage>
+  <stage stageid="6958959b-ed46-4045-8f43-b27565320608" name="CleanUp" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="270" w="90" h="30" />
+    <onsuccess>b74a88ba-7adc-4962-bc47-57f1d440d55c</onsuccess>
+    <processid>3eb7cccb-14ae-4e10-b8ba-3c4193652ead</processid>
+  </stage>
+  <stage stageid="b74a88ba-7adc-4962-bc47-57f1d440d55c" name="Failed?" type="Decision">
+    <display x="30" y="315" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>4b119d8a-e091-44cc-9631-172d3b508b62</ontrue>
+    <onfalse>07309996-3f5e-49b5-9606-1ac041fc66b1</onfalse>
+  </stage>
+  <stage stageid="4b119d8a-e091-44cc-9631-172d3b508b62" name="RETHROW" type="Exception">
+    <display x="120" y="315" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="e791e258-a92a-400d-9005-3b362fd30aef" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="90" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="281a5937-17cc-4aee-baf9-4b94eec4c59e" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f074bc9c-5cbe-4cfd-996b-56491b526ef6" name="Local variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="60" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3398bfdf-1bf3-442e-84f4-0b0f34aa0112" name="CleanUp" type="SubSheetInfo">
+    <subsheetid>3eb7cccb-14ae-4e10-b8ba-3c4193652ead</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="1523e9e3-2a07-4bf9-83f1-6a42e8eb4b8d" name="Start" type="Start">
+    <subsheetid>3eb7cccb-14ae-4e10-b8ba-3c4193652ead</subsheetid>
+    <display x="-60" y="-135" />
+    <onsuccess>dd7d41cf-e39b-4029-a554-45c32b25ccbe</onsuccess>
+  </stage>
+  <stage stageid="1a33cf98-2035-4266-9d86-55043647eea5" name="End" type="End">
+    <subsheetid>3eb7cccb-14ae-4e10-b8ba-3c4193652ead</subsheetid>
+    <display x="-60" y="180" />
+  </stage>
+  <stage stageid="3874b93f-8550-4aa8-982a-5d259bb4caf4" name="Sign Out" type="Action">
+    <subsheetid>3eb7cccb-14ae-4e10-b8ba-3c4193652ead</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="90" w="90" h="30" />
+    <onsuccess>592524dc-b010-4626-8c1b-07cfbda7b92c</onsuccess>
+    <resource object="Blue Prism" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="592524dc-b010-4626-8c1b-07cfbda7b92c" name="Exit Application" type="Action">
+    <subsheetid>3eb7cccb-14ae-4e10-b8ba-3c4193652ead</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="135" w="90" h="30" />
+    <onsuccess>1a33cf98-2035-4266-9d86-55043647eea5</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="dd7d41cf-e39b-4029-a554-45c32b25ccbe" name="Go to Tab: Home" type="Action">
+    <subsheetid>3eb7cccb-14ae-4e10-b8ba-3c4193652ead</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>b4b12afc-fbf0-499c-b643-03f4b527d652</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="4b22c864-58d3-4cc0-aa60-e398a5bfe23e" name="Click Security then Users" type="Action">
+    <subsheetid>3eb7cccb-14ae-4e10-b8ba-3c4193652ead</subsheetid>
+    <loginhibit onsuccess="true" />
+    <loginhibitparameters />
+    <display x="-60" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Users&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>985f4085-3a16-4bff-8d97-b79776b9fa73</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="b4b12afc-fbf0-499c-b643-03f4b527d652" name="Go to Tab: System" type="Action">
+    <subsheetid>3eb7cccb-14ae-4e10-b8ba-3c4193652ead</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>4b22c864-58d3-4cc0-aa60-e398a5bfe23e</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="985f4085-3a16-4bff-8d97-b79776b9fa73" name="Delete User " type="Action">
+    <subsheetid>3eb7cccb-14ae-4e10-b8ba-3c4193652ead</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="The name of the user you wish to delete." expr="[Select AD User Names.Active Directory Name]" />
+    </inputs>
+    <onsuccess>3874b93f-8550-4aa8-982a-5d259bb4caf4</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Delete Username" />
+  </stage>
+</process>

@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Queue Management</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+		h3, h4 { clear:left !important; }
+		span.filter { color: #666; font-weight: bold}
+		div.section-screenshot, div.screenshot { width: 100px; }
+		ul.nobullets li, dl.nobullets dt { list-style-type:none; }
+	</style>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">Control Room</h1>
+		<h2>Active Queues</h2>
+	</div>
+	<div class="captioned-image overview-screenshot nozoom">
+		<a href="Graphics/activequeue-control.png"
+			title="Active Queues - Click for a larger image"><img
+			src="Graphics/activequeue-control.png"
+			alt="Active Queues - Click for a larger image"/></a>
+		<p>Active Queues</p>
+	</div>
+
+	<h3 id="overview">Overview</h3>
+
+	<p><a href="active-queues.html">Active Queues</a> provide a
+    mechanism for the distribution of work amongst groups of
+    resources and the collation of statistics and feedback to enable
+    dynamic responses to changing workloads and business needs.</p>
+
+    <p>The active queue control page allows the monitoring
+    of the queues and the number of sessions currently working those
+    queues, as well as providing the statistics with which to make
+    decisions about the workload distribution.</p>
+
+    <p>The viewing and manipulation of queue contents uses the same
+    interface as non-active work queues; the details of how to use
+    that interface is covered in the <a href="control-queues.html">
+    Queue Management</a> help page.</p>
+
+
+    <h3 id="display">The Display</h3>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/activequeue-stats.png"
+		 alt="Active Queue Statistics"/>
+	</div>
+
+    <p>The active queues are displayed in the Control tree on the
+    left of the page. By selecting a group or an active queue, the
+    right side of the page is populated with information about the
+    queues in the group.</p>
+
+    <p>Each queue is represented by a line in the top grid, showing
+    statistics about the current state of the queue, namely:</p>
+
+    <dl class="bulleted">
+      <dt>Name</dt>
+      <dd>The name of the active queue</dd>
+
+      <dt>Status</dt>
+      <dd>Whether the queue is running or paused. This is not an
+      indicator of sessions running, but whether the queue is set
+      as <code>Paused</code> in the <a href="sysman-queues.html">
+      queue configuration</a> page.</dd>
+
+      <dt id="target">Target Resources</dt>
+      <dd>The number of resources which are working the active
+      queue that Blue Prism is aiming to reach. This is the
+      setting that is changed by the user in order to add or
+      remove sessions working an active queue.</dd>
+
+      <dt>Active Sessions</dt>
+      <dd>The number of running sessions which are currently
+      working the queue. This represents all sessions that have
+      been successfully created and started on the managed
+      resources, including those for which a stop request has
+      been sent but not yet acted on.</dd>
+
+      <dt>Available Resources</dt>
+      <dd>The number of resources available in the group to
+      run further sessions on.</dd>
+
+      <dt>Time Remaining</dt>
+      <dd>The total amount of time remaining to work all cases
+      in the queue. This is taken as the average work time for
+      a case in the queue multiplied by the number of cases
+      waiting to be worked in the queue.</dd>
+
+      <dt>Elapsed Remaining</dt>
+      <dd>The amount of elapsed time remaining with the current
+      number of active sessions working this queue.</dd>
+
+      <dt>ETA</dt>
+      <dd>The estimated time that all cases in the queue will
+      be worked by, if the average work time for a case stays
+      the same and the active session count stays the same.</dd>
+
+      <dt>Worked</dt>
+      <dd>The number of completed cases in the queue.</dd>
+
+      <dt>Pending</dt>
+      <dd>The number of cases awaiting being worked in the
+      queue.</dd>
+
+      <dt>Referred</dt>
+      <dd>The number of referred cases in the queue.</dd>
+
+      <dt>Total</dt>
+      <dd>The total number of cases in the queue.</dd>
+
+    </dl>
+
+    <p>Selecting a queue will display the queue's contents in the
+    bottom half of the page. See the <a href="control-queues.html">
+    Queue Management</a> page for help in dealing with the contents
+    of the queue.</p>
+
+	<div class="captioned-image screenshot">
+		<img src="Graphics/activequeue-changing.png"
+		 alt="Changing the rarget resources"/>
+	</div>
+    <h3 id="control">Controlling the Active Queue</h3>
+    <p>The <a href="#target">Target Resources</a> cell can be changed
+    for a queue. This will have the effect of creating and starting
+    sessions or sending stop requests to running sessions depending
+    on whether the new target number is higher or lower than the
+    current active session count.</p>
+
+    <p>To select a new target, the <code>Target Resources</code> cell
+    in the row representing the queue to be affected must be double
+    clicked. A control will be presented which will allow the target
+    to be set to between zero and number of available resources.<p>
+
+	<div class="captioned-image screenshot">
+		<img src="Graphics/activequeue-changed.png"
+		 alt="Changed the target resources"/>
+	</div>
+    <p>To effect the change, <code>Tab</code> out of the control or
+    click elsewhere. The number will be committed and the active queue
+    manager will begin creating / stopping sessions on the available
+    resources.</p>
+
+	<div class="captioned-image screenshot">
+		<img src="Graphics/activequeue-refresh.png"
+		 alt="Refreshing the display"/>
+	</div>
+    <p>The number of active sessions and available resources shown in
+    the display is updated as soon as there is a known change. The
+    statistics are updated less regularly, but a full refresh of data
+    can be retrieved by choosing <code>Refresh</code> from the action
+    menu in the top right of the page.</p>
+
+    <p>Note that each active queue can only run one session on each
+    resource, even if those sessions are background sessions. A
+    resource can run multiple sessions on behalf of different active
+    queues if their run mode allows it.</p>
+
+    <h3 id="notes">Notes</h3>
+    <p>There are a few things which may come up when dealing with
+    active queues, regarding how it handles other concepts within
+    the Blue Prism product.</p>
+
+    <h4 id="pools">Resource Pools</h4>
+    <p>Resource Pools act as a single resource within the scope of
+    active queues. See <a href="active-queues.html#pools">Active
+    Queues and Resource Pools</a> for further information.</p>
+
+    <h4 id="errors">Handling Errors</h4>
+    <p>If any errors occur while attempting to create or start new
+    sessions on behalf of an active queue, different resources are
+    retried in order to get the session going.<br/>
+    If a session fails to be created or started 3 times, then  an
+    error is written to the windows event log and the session is
+    abandoned. The target resources number is dropped to indicate
+    that the session will not be attempted automatically again.</p>
+
+    <h4 id="external">External Session Events</h4>
+    <p>If a session terminates or is stopped by a user in Control
+    Room, the target resources number is decremented to indicate
+    that less sessions are running for the active queue.</p>
+
+</body>
+</html>

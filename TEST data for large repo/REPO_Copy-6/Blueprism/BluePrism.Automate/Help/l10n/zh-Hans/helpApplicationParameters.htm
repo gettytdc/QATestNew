@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<title>应用程序参数</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">应用程序建模器</h1>
+		<h2>应用程序参数</h2>
+	</div>
+
+	<h3 id="intro">简介</h3>
+	<p>在创建业务对象时，您需要使用<a href="frmApplicationDefinitionCreate.htm">应用程序定义向导</a>提供目标应用程序的相关信息。日后，则可使用<a href="frmIntegrationAssistant.htm">应用程序建模器</a>来更改这些信息。</p>
+	<p>以下段落将会介绍您需要指定的各项信息，并说明其用途和性质。</p>
+	
+	<h3 id="applications">Windows、Java 和浏览器应用程序</h3>
+	
+	<dl class="listplease bulleted">
+		<dt id="ExecutablePath">可执行文件路径</dt>
+		<dd>需要指定目标应用程序在磁盘上所处的位置，这样 Blue Prism 才能启动目标应用程序的可执行文件。对于 Windows 或浏览器应用程序，应该是一个以 <code>exe</code> 文件扩展名结尾的文件；对于 java 应用程序，应该是一个以 <code>jar</code> 扩展名结尾的文件。</dd>
+			<dd>如果目标应用程序是一个 Windows 10 商店应用，则在输入应用程序名称时应该使用尖括号将它括起来。例如，<code>&lt;Microsoft.WindowsCalculator&gt;</code>。使用 Powershell 命令 <code>Get-AppxPackage -AllUsers | Select Name</code> 可以获取列有已安装的商店应用的名称列表。</dd>
+	
+		<dt id="CommandLineParams">命令行参数</dt>
+		<dd>某些应用程序允许通过命令行提供参数，以影响应用程序的行为。您可以在此指定此类参数，就像在 Windows 命令提示符中键入内容时一样。如果文件路径和 Web 地址包含空格，请务必使用双引号将它们括起来，就像在 Windows 命令提示符中时一样。</dd>
+
+		<dt id="WorkingDirectory">工作目录</dt>
+		<dd>对于某些应用程序，需要为其设置工作目录值。您可以在此指定工作目录，就像在 Windows 命令提示符中键入内容时一样。如果工作目录包含空格，请务必使用双引号将它括起来，就像在 Windows 命令提示符中时一样。</dd>
+		
+		<dt id="NonInvasive">仅使用非侵入式自动化技术</dt>
+		<dd>这可以启用或禁用<a href="helpHooking.htm">挂钩技术</a>—一种用于与目标应用程序进行交互的非侵入式技术。您只应在理由充分的情况下使用此选项；只在普通 Windows 技术被证实无效时使用此选项。请参阅<a href="helpHooking.htm#WhenToUseHooking">挂钩帮助页面</a>，以了解更多信息。</dd>
+		
+		<dt id="WindowTitle">窗口标题</dt>
+		<dd>此参数要与 <a href="#ProcessName">ProcessName</a> 参数结合使用，以附加到应用程序（而不是通过相应的可执行文件直接启动应用程序）。此值可以留空，但必须至少提供 <a href="#ProcessName">ProcessName</a> 和“窗口标题”两者中的一个值。</dd>
+		<dd>在附加到应用程序时，Blue Prism 需要通过一种可靠的方式来识别相应的应用程序。一种策略就是提供窗口标题。Blue Prism 将查找拥有同名窗口的应用程序，然后使用这个应用程序（如果只找到了一个这样的应用程序）。</dd>
+		<dd>提供的值可以包含<a href="helpWildcardsAndRegex.htm">通配符</a>：<code>*</code>、<code>?</code>、<code>#</code>。例如，<code>“Microsoft Word*”</code>或<code>“Accounts Manager plus—Customer ID #####”</code>。</dd>
+		
+		<dt id="ProcessName">进程名称</dt>
+		<dd>此参数要与 <a href="#WindowTitle">WindowTitle</a> 参数结合使用，以附加到应用程序（而不是通过相应的可执行文件直接启动应用程序）。此值可以留空，但必须至少提供 <a href="#WindowTitle">WindowTitle</a> 和“进程名称”两者中的一个值。</dd>
+		<dd>在附加到应用程序时，Blue Prism 需要通过一种可靠的方式来识别相应的应用程序。一种策略就是提供运行应用程序的 Windows 进程的名称。Blue Prism 将查找名称与所提供的名称形式（请参见下方的通配符）匹配的进程，然后使用这个进程中所运行的应用程序（如果只找到了一个这样的进程）。</dd>
+		<dd>提供的值可以包含<a href="helpWildcardsAndRegex.htm">通配符</a>：<code>*</code>、<code>?</code>、<code>#</code>。例如，<code>“Microsoft Word*”</code>或<code>“Accounts Manager plus—Customer ID #####”</code>。</dd>
+	</dl>
+	
+	<h3 id="ProcessMode">应用程序管理器模式</h3>
+	<p>应用程序管理器能以多种不同模式运行，以便将目标接口进程与 Blue Prism 本身区分开。在某些情况下，这非常有用；例如：Blue Prism 作为 32 位进程运行，而目标应用程序作为 64 位进程运行时；反之亦然。</p>
+	<p>可用的模式包括：</p>
+	<dl class="listplease bulleted">
+		<dt>嵌入式（默认）</dt>
+		<dd>这是默认模式，也是早于版本 4.2 的 Blue Prism 唯一可用的运行模式。在该模式下，应用程序管理器与 Blue Prism 本身会在同一个进程中运行。这两者不会区分开。</dd>
+		<dt>外部，32 位模式</dt>
+		<dd>在与目标应用程序进行交互时，应用程序管理器会作为一个独立的进程来运行。应用程序管理器进程始终是 32 位的。</dd>
+		<dt>外部，64 位模式</dt>
+		<dd>在与目标应用程序进行交互时，应用程序管理器会作为一个独立的进程来运行。应用程序管理器进程始终是 64 位的。</dd>
+		<dt>外部，OS 寻址大小</dt>
+		<dd>在与目标应用程序进行交互时，应用程序管理器会作为一个独立的进程来运行。应用程序管理器进程会匹配操作系统的寻址大小。例如，在 64 位 Windows 上，应用程序管理器进程将会是一个 64 位的进程。</dd>
+		<dt>外部，Blue Prism 寻址大小</dt>
+		<dd>在与目标应用程序进行交互时，应用程序管理器会作为一个独立的进程来运行。应用程序管理器进程会匹配 Blue Prism 的寻址大小。例如，如果 Blue Prism 正作为 64 位进程在运行，则应用程序管理器进程也将是 64 位的。</dd>
+	</dl>
+	<h3 id="ExternalProcessTimeout">应用程序超时</h3>
+	<p>此参数用于确定在等待目标应用程序响应时 Blue Prism 会在多久之后抛出异常。这个超时设置会应用于读取、写入和导航环节的所有应用程序管理器操作，并可用来防止 Blue Prism 流程在目标应用程序无响应时被无限期地阻止。</p>
+	<p>如果超时值为 0，则代表不会超时。这是默认值。<p>
+	<p>仅当<a href="#ProcessMode">应用程序管理器模式</a>被设置为某个外部模式时，系统才会引用此参数。</p>
+	<h3 id="options">选项</h3>
+	<p>此参数允许您设置其他选项，以修改与目标应用程序进行交互时的行为或启用特殊功能。通常应将其留空，除非需要使用相关特定功能。要启用功能时，请通过以逗号分隔的列表来添加所需的功能。</p>
+	<p>当前已定义的选项包括：</p>
+	<dl class="listplease bulleted">
+		<dt>descendtree</dt>
+		<dd>对于 Java 应用程序，会对目标应用程序中的元素树进行降序排列，以搜索元素。默认情况下（即未设置此选项时），会针对目标应用程序中的每个 Java 相关窗口直接获取列有可见 Java 元素的列表。对树进行降序排列通常比较缓慢，但如果使用默认方法，一些目标应用程序和 JRE 可能会崩溃。</dd>
+		<dt>ignorenotshowing</dt>
+		<dd>对于 Java 应用程序，在对树进行降序排列时，会忽略树中位于已报告为不显示的元素下方的分支。这会使性能大幅改善。</dd>
+
+    <dt>nodisconnect</dt>
+    <dd>对于终端仿真程序，如果启用此选项，则底层终端仿真程序 API 在从仿真程序断开、终止或分离时不会被关闭。使用此选项可能会导致内存泄漏（Blue Prism 和终端仿真程序软件中）和崩溃等其他相关问题（已知 Attachmate 会出现此类问题），具体则取决于所采用的 API 规范。但是，事实证明所产生的行为是可取的，而且某些仿真程序不会出现明显的问题。您应该谨慎地使用这个选项，并在经过测试后再将其用于产生环境。</dd>
+	</dl>
+		
+	<h3 id="browser">浏览器应用程序</h3>
+	<dl class="listplease bulleted">
+		<dt id="UseJavaInBrowser">启用 Java 集成技术 </dt>
+		<dd>启用此选项后，您可以使用 java 集成技术与 Web 浏览器中的 java 应用程序进行交互。这些技术和在与独立 java 应用程序进行交互时所用的技术相同。</dd>
+		<dd>请注意，此功能存在<a href="licence.html">许可限制</a>。这意味着，您必须购买许可证，才能使用此功能。</dd>
+	</dl>
+
+	<h3 id="mainframe">大型机应用程序</h3>
+	<dl class="listplease bulleted">
+	
+		<dt id="SessionFile">会话文件</dt>
+		<dd>对于使用会话文件的大型机应用程序，您必须在此提供会话文件。会话文件中通常包含与连接（如目标主机名和端口编号）和用户首选项有关的信息。示例包括 Hummingbird HostExplorer&trade; 会话的 <code>hep</code> 文件和 Zephyr Passport&trade; 会话的 <code>zms</code> 文件。</dd>
+			
+		<dt id="SessionID">会话标识符</dt>
+		<dd>不使用会话文件的大型机应用程序通常会使用会话标识符。该标识符由 A 到 Z 之间的字母组成。连接的详细信息会在大型机应用程序中进行配置，这意味着大型机应用程序将根据该标识符来查找连接信息。Blue Prism 会在启动时将该标识符传输至大型机应用程序。</dd>
+		<dd>连接信息的指定机制（如设置会话标识符）因供应商而异。请参阅大型机应用程序文档，以详细了解如何完成此项任务。</dd>
+			
+		<dt id="WaitTimeout">等待超时</dt>
+		<dd>指定大型机等待操作应该使用的超时值（以秒为单位）。一旦超过这个时间间隔，等待操作将会取消。</dd>
+		<dd>这与 Blue Prism <a href="frmStagePropertiesWait.htm">等待环节</a>无关，而是与在大型机仿真程序中针对仿真程序自己的 API 所执行的内部等待操作有关。这类等待发生在 Blue Prism 每次读取或写入之后—Blue Prism 会等待主机再次空闲，然后再继续操作。这样，用户就无需在每个输入/输出操作完成后都使用一次等待环节。</dd>
+		<dd>如果指定的值为零，Blue Prism 将会选择默认值。所以，最小值为 1 秒。</dd>
+		
+		<dt id="WaitSleepTime">等待睡眠时间</dt>
+		<dd>指定 Blue Prism 在等待大型机仿真程序变为空闲状态时应该处于睡眠状态的时长（以毫秒为单位）。在等待仿真程序变为空闲状态时，Blue Prism 会重复检查仿真程序的状态。在两次检查之间，Blue Prism 将在指定的时限内保持睡眠状态。</dd>
+		<dd>如果值较大，大型机仿真程序的负载将会加重，从而导致性能有所下降；如果值较小，Blue Prism 就能更早地执行后续操作（因为 Blue Prism 会更早地检测仿真程序是否已就绪），从而提升性能。您应该先选用较大的值，然后逐步减小，直至继续减小值无法进一步提升性能为止。</dd>
+		<dd>这与 Blue Prism <a href="frmStagePropertiesWait.htm">等待环节</a>无关，而是与在大型机仿真程序中针对仿真程序自己的 API 所执行的内部等待操作有关。这类等待发生在 Blue Prism 每次读取或写入之后—Blue Prism 会等待主机再次空闲，然后再继续操作。这样，用户就无需在每个输入/输出操作完成后都使用一次等待环节。</dd>
+		<dd>如果指定的值为零，Blue Prism 将会选择默认值。所以，最小值为 1 毫秒。</dd>
+			
+		<dt id="AttachmateVariant">Attachmate 仿真程序变体</dt>
+		<dd>可供使用的 Attachmate 仿真程序变体多种多样。请选用与您的特定类型最为匹配的变体。</dd>
+
+		<dt id="DLLName">DLL 名称</dt>
+		<dd>使用通用 HLLAPI 支持时，此选项可指定所用 HLLAPI dll 的名称。要查找终端仿真程序的正确名称，请在 Program Files 目录中找到与终端仿真程序相关的文件夹名称。该文件夹中包含一个 dll 文件，但所需的 DLL 没有标准的名称。名称可能会包含文本“HLL”、“API”，也可能以“32”结尾。例如，“EHLAPI32.DLL”、“PCSHLL32.DLL”、“HLLAPI.DLL”、“HA7EHLL.DLL”、“HLLAPI32.DLL”。</dd>
+
+		<dt id="DLLEntryPoint">DLL 入口点</dt>
+		<dd>使用通用 HLLAPI 支持时，此选项可指定 HLLAPI dll 中的入口点的名称。此选项几乎都要设置为“hllapi”。在极少数不适用的情况下，请尝试设置为“WinHLLAPI”。如果这一信息已知或由 Blueprism 支持团队提供，则也可使用其他入口点名称。</dd>
+	</dl>
+	
+</body>
+</html>

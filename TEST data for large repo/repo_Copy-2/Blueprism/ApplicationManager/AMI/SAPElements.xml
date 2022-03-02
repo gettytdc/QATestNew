@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+	NOTE: If a modified version of this file is used in a production system,
+	please log an edgework. This will ensure changes can be rolled back in,
+	and that modifications will not inadvertently be forgotten and lost when
+	new releases are installed.
+
+	Action IDs used here (as specified within readquery and actionquery
+	elements) must refer to EXISTING actions in the product. They cannot be
+	used to define new ones.
+
+	If there are errors in this file, the product will still load and appear
+	to function normally, but some or all (depending on the severity of the
+	error) of the extra functionality defined here will be unavailable. You
+	can validate this file using UIScript -X-amivalidate (without the X!)
+	from the command prompt.
+-->
+<elements>
+	<element id="SAPStatusBar">
+		<apptype>SAP</apptype>
+		<name>SAP Status Bar</name>
+		<helptext>A SAP Status Bar.</helptext>
+		<sapidentification>GuiStatusbar</sapidentification>
+		<readquery action="GetWindowText">sapgetproperty propname="Text"</readquery>
+	</element>
+
+	<element id="SAPTitleBar">
+		<apptype>SAP</apptype>
+		<name>SAP Title Bar</name>
+		<helptext>A SAP Title Bar.</helptext>
+		<sapidentification>GuiTitlebar</sapidentification>
+		<readquery action="GetWindowText">sapgetproperty propname="Text"</readquery>
+	</element>
+
+	<element id="SAPMainWindow">
+		<apptype>SAP</apptype>
+		<name>SAP Main Window</name>
+		<helptext>A SAP Main Window.</helptext>
+		<sapidentification>GuiMainWindow</sapidentification>
+		<actionquery action="SendKeys">sapinvokemethod methodname=SendVKey arguments="#$newtext$"</actionquery>
+	</element>
+
+	<element id="SAPCalendar">
+		<apptype>SAP</apptype>
+		<name>SAP Calendar</name>
+		<helptext>A SAP Calendar.</helptext>
+		<sapidentification>GuiShell/Calendar</sapidentification>
+		<datatype>date</datatype>
+		<actionquery action="SelectDateRange">sapselectdaterange arguments="@$startdate$,@$enddate$"</actionquery>
+		<readquery action="GetDateRange">sapgetdaterange</readquery>
+	</element>
+
+	<element id="SAPGridView">
+		<apptype>SAP</apptype>
+		<name>SAP GridView</name>
+		<helptext>A SAP grid view.</helptext>
+		<sapidentification>GuiShell/GridView,APOGrid,GuiCtrlGridView</sapidentification>
+		<readquery action="GetAllItems">sapgetallgriditems</readquery>
+		<actionquery action="SelectItemByIndex">@key={sapinvokemethod methodname=GetToolbarButtonId arguments="#$position$"} sapinvokemethod methodname=PressToolbarButton arguments="$key$"</actionquery>
+		<readquery action="GetCellValue">sapinvokemethod methodname=GetCellValue arguments="#$row$,$column$"</readquery>
+	</element>
+
+	<element id="SAPPasswordField">
+		<apptype>SAP</apptype>
+		<name>SAP Password Field</name>
+		<helptext>A SAP password field.</helptext>
+		<sapidentification>GuiPasswordField</sapidentification>
+		<writequery>sapsetproperty propname=text arguments="$newtext$"</writequery>
+	</element>
+
+	<element id="SAPTextBox">
+		<apptype>SAP</apptype>
+		<name>SAP TextBox</name>
+		<helptext>A SAP textbox.</helptext>
+		<sapidentification>GuiCTextField,GuiTextField</sapidentification>
+		<readquery action="GetWindowText">sapgetproperty propname=text</readquery>
+		<writequery>sapsetproperty propname=text arguments="$newtext$"</writequery>
+		<actionquery action="SetFocus">sapinvokemethod methodname=SetFocus</actionquery>
+	</element>
+
+	<element id="SAPComboBox">
+		<apptype>SAP</apptype>
+		<name>SAP ComboBox</name>
+		<helptext>A SAP combobox.</helptext>
+		<sapidentification>GuiComboBox</sapidentification>
+		<actionquery action="SelectItem">sapselectitem</actionquery>
+		<readquery action="GetItemCount">sapgetproperty propname=Entries retproc=colcount</readquery>
+		<readquery action="GetSelectedItemText">sapgetproperty propname=value</readquery>
+		<readquery action="GetAllItems">sapgetalllistitems</readquery>
+		<writequery>sapsetproperty propname=value arguments="$newtext$"</writequery>
+	</element>
+
+	<element id="SAPOkCodeField">
+		<apptype>SAP</apptype>
+		<name>SAP OK Code</name>
+		<helptext>A SAP OK Code Field.</helptext>
+		<sapidentification>GuiOkCodeField</sapidentification>
+		<readquery action="GetWindowText">sapgetproperty propname=text</readquery>
+		<writequery>sapsetproperty propname=text arguments="$newtext$"</writequery>
+	</element>
+
+	<element id="SAPButton">
+		<apptype>SAP</apptype>
+		<name>SAP Button</name>
+		<helptext>A SAP button.</helptext>
+		<sapidentification>GuiButton</sapidentification>
+		<actionquery action="Press">sapinvokemethod methodname=press</actionquery>
+		<readquery action="GetWindowText">sapgetproperty propname=text</readquery>
+	</element>
+
+	<element id="SAPCheckBox">
+		<apptype>SAP</apptype>
+		<name>SAP Check Box</name>
+		<helptext>A SAP checkbox.</helptext>
+		<datatype>flag</datatype>
+		<sapidentification>GuiCheckBox</sapidentification>
+		<readquery action="GetWindowText">sapgetproperty propname=text</readquery>
+		<readquery action="GetChecked">sapgetproperty propname=selected</readquery>
+		<writequery>sapsetproperty propname=selected arguments="$newtext$"</writequery>
+	</element>
+
+	<element id="SAPRadioButton">
+		<apptype>SAP</apptype>
+		<name>SAP Radio Button</name>
+		<helptext>A SAP radio button.</helptext>
+		<sapidentification>GuiRadioButton</sapidentification>
+		<actionquery action="Select">sapinvokemethod methodname=select</actionquery>
+		<readquery action="GetChecked">sapgetproperty propname=selected</readquery>
+		<readquery action="GetWindowText">sapgetproperty propname=text</readquery>
+		<writequery>sapsetproperty propname=selected arguments="$newtext$"</writequery>
+	</element>
+
+	<element id="SAPTabStrip">
+		<apptype>SAP</apptype>
+		<name>SAP Tab Strip</name>
+		<helptext>A SAP Tab Strip</helptext>
+		<sapidentification>GuiTabStrip</sapidentification>
+		<actionquery action="SelectItem">sapselecttab</actionquery>
+		<readquery action="GetWindowText">sapgetproperty propname=text</readquery>
+	</element>
+
+	<element id="SAPTab">
+		<apptype>SAP</apptype>
+		<name>SAP Tab</name>
+		<helptext>A SAP Tab</helptext>
+		<sapidentification>GuiTab</sapidentification>
+		<actionquery action="Select">sapinvokemethod methodname=select</actionquery>
+		<readquery action="GetWindowText">sapgetproperty propname=text</readquery>
+	</element>
+
+	<element id="SAPCtrlTree">
+		<apptype>SAP</apptype>
+		<name>SAP Treeview</name>
+		<helptext>A SAP Treeview</helptext>
+		<sapidentification>GuiCtrlTree,GuiShell/Tree</sapidentification>
+		<readquery action="GetSelectedNodeKey">sapgetproperty propname=selectedNode</readquery>
+		<readquery action="GetNodeText">sapinvokemethod methodname=getNodeTextByKey arguments="$key$"</readquery>
+		<readquery action="GetSelectedItemText">@key={sapgetproperty propname=selectedNode} sapinvokemethod methodname=getNodeTextByKey arguments="$key$"</readquery>
+		<readquery action="GetItemCount">sapinvokemethod methodname=getNodesCol retproc=deepcount/getSubNodesCol</readquery>
+		<actionquery action="SelectItem">@key={sapgetnodekeybytext} sapsetproperty propname=selectedNode arguments="$key$"</actionquery>
+		<actionquery action="ExpandTreeNode">@key={sapgetnodekeybytext} sapinvokemethod methodname=expandNode arguments="$key$"</actionquery>
+		<actionquery action="CollapseTreeNode">@key={sapgetnodekeybytext} sapinvokemethod methodname=collapseNode arguments="$key$"</actionquery>
+    <actionquery action="ChangeCheckbox">sapinvokemethod methodname=changeCheckbox arguments="$key$,$itemname$,!$state$"</actionquery>
+		<actionquery action="DoubleClickNode">@key={sapgetnodekeybytext} sapinvokemethod methodname=doubleClickNode arguments="$key$"</actionquery>
+    <actionquery action="PressButton">sapinvokemethod methodname=pressButton arguments="$key$,$itemName$"</actionquery>
+    <actionquery action="ClickTreeLink">sapinvokemethod methodname=clickLink arguments="$nodeKey$,$itemName$"</actionquery>
+    <actionquery action="DoubleClickItem">sapinvokemethod methodname=doubleClickItem arguments="$nodeKey$,$itemName$"</actionquery>
+	</element>
+
+	<element id="SAPUserArea">
+		<apptype>SAP</apptype>
+		<name>SAP User Area</name>
+		<helptext>A user area - the main area of the application.</helptext>
+		<sapidentification>GuiUserArea</sapidentification>
+	</element>
+
+	<element id="SAPSplitter">
+		<apptype>SAP</apptype>
+		<name>SAP Splitter Shell</name>
+		<helptext>A splitter shell - the child panes should contain useful elements.</helptext>
+		<sapidentification>GuiSplitterShell</sapidentification>
+	</element>
+
+	<element id="SAPGuiContainerShell">
+		<apptype>SAP</apptype>
+		<name>SAP Gui Container Shell</name>
+		<helptext>A shell component.</helptext>
+		<sapidentification>GuiContainerShell</sapidentification>
+	</element>
+
+	<element id="SAPToolbar">
+		<apptype>SAP</apptype>
+		<name>SAP Toolbar</name>
+		<helptext>A toolbar - not useful directly, but should contain usable buttons.</helptext>
+		<sapidentification>GuiToolbar</sapidentification>
+	</element>
+
+	<element id="SAPMenubar">
+		<apptype>SAP</apptype>
+		<name>SAP Menubar</name>
+		<helptext>A menu bar</helptext>
+		<sapidentification>GuiMenubar</sapidentification>
+		<actionquery action="SelectMenuItem">sapselectmenuitem</actionquery>
+	</element>
+
+	<element id="SAPLabel">
+		<apptype>SAP</apptype>
+		<name>SAP Label</name>
+		<helptext>A label</helptext>
+		<sapidentification>GuiLabel</sapidentification>
+		<readquery action="GetWindowText">sapgetproperty propname=text</readquery>
+	</element>
+
+	<element id="SAPTable">
+		<apptype>SAP</apptype>
+		<name>SAP Table</name>
+		<helptext>A table</helptext>
+		<sapidentification>GuiTableControl</sapidentification>
+		<readquery action="GetAllItems">sapgetalltableitems</readquery>
+	</element>
+
+	<element id="SAPScrollbar">
+		<apptype>SAP</apptype>
+		<name>SAP Scrollbar</name>
+		<helptext>A scrollbar</helptext>
+		<sapidentification>GuiScrollbar</sapidentification>
+		<readquery action="GetMinNumericValue">sapgetproperty propname=minimum</readquery>
+		<readquery action="GetMaxNumericValue">sapgetproperty propname=maximum</readquery>
+		<readquery action="GetNumericValue">sapgetproperty propname=position</readquery>
+		<actionquery action="SetNumericValue">sapsetproperty propname=position arguments="#$numericvalue$"</actionquery>
+		<writequery>sapsetproperty propname=position arguments="#$newtext$"</writequery>
+	</element>
+
+	<element id="SAPScrollContainer">
+		<apptype>SAP</apptype>
+		<name>SAP Scroll Container</name>
+		<helptext>A scroll container with (potentially) a horizontal and vertical scrollbar within.</helptext>
+		<sapidentification>GuiScrollContainer</sapidentification>
+		<readquery action="GetHorizontalMin">sapgetproperty targetprop=horizontalScrollbar propname=minimum</readquery>
+		<readquery action="GetHorizontalMax">sapgetproperty targetprop=horizontalScrollbar propname=maximum</readquery>
+		<readquery action="GetHorizontalValue">sapgetproperty targetprop=horizontalScrollbar propname=position</readquery>
+		<actionquery action="SetHorizontalValue">sapsetproperty targetprop=horizontalScrollbar propname=position arguments="#$numericvalue$"</actionquery>
+		<readquery action="GetVerticalMin">sapgetproperty targetprop=verticalScrollbar propname=minimum</readquery>
+		<readquery action="GetVerticalMax">sapgetproperty targetprop=verticalScrollbar propname=maximum</readquery>
+		<readquery action="GetVerticalValue">sapgetproperty targetprop=verticalScrollbar propname=position</readquery>
+		<actionquery action="SetVerticalValue">sapsetproperty targetprop=verticalScrollbar propname=position arguments="#$numericvalue$"</actionquery>
+	</element>
+
+	<element id="SAPHTMLViewer">
+		<apptype>SAP</apptype>
+		<name>SAP HTML Viewer</name>
+		<helptext>An HTML viewer</helptext>
+		<sapidentification>GuiHTMLViewer,GuiShell/HTMLViewer</sapidentification>
+	</element>
+	
+	<element id="SAPComponent">
+		<apptype>SAP</apptype>
+		<name>Generic SAP Component</name>
+		<helptext>A generic SAP component</helptext>
+		<alternate>SAPGridView</alternate>
+		<alternate>SAPButton</alternate>
+		<alternate>SAPTextBox</alternate>
+		<sapidentification>*</sapidentification>
+	</element>
+
+</elements>

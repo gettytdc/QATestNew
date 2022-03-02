@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<title>トラブルシューティング - Java Access Bridge</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+</head>
+
+<body class="slick troubleshooting">
+	<div class="header">
+		<h1 class="pagetitle">トラブルシューティング</h1>
+		<h2>Java Access Bridge</h2>
+	</div>
+
+	<h3>はじめに</h3>
+	<p>このページには、Blue PrismのJava Access Bridge機能を使用する際のいくつかの一般的な問題と推奨される解決方法が記載されています。</p>
+
+
+	<h5>要素をハイライトまたはアクセスすると対象アプリケーションがクラッシュする</h5>
+
+	<p>要素は正常にスパイしますが、それらの要素をハイライトするなどの操作を行おうとすると、対象アプリケーションがクラッシュすることがあります。その原因は、Java Access Bridgeコンポーネントに欠点があり、1つの画面で多数（200個以上）の要素が表示されるときに問題が生じることが考えられます。
+ クラッシュしないようにするには、アプリケーションモデラーで <a href="helpApplicationParameters.htm#Options">'descendtree'</a> 対象アプリケーションオプションを有効にします。このモードを有効にすると、速度が大幅に低下するため、必要な場合にのみ使用してください。</p>
+
+	<h5>JABのバージョン</h5>
+	<p>インストールされているJREには、最新のJABバージョンを使用することをお勧めします。JRE7u6以降、JAB 2.0.3はJavaインストーラーにバンドルされています。Jre7u60以降、JAB 2.0.4はバンドルされています。
+
+	<table>
+	<tr><th>JREのバージョン</th><th>JABのバージョン</th></tr>
+	<tr><td>JRE5以下</td><td>2.0.1または2.0.0</td></tr>
+	<tr><td>JRE5以降</td><td>2.0.2</td></tr>
+	<tr><td>JRE6以降</td><td>2.0.2</td></tr>
+	<tr><td>JRE7以降</td><td>2.0.4</td></tr>
+	</table>
+
+	<p>Blueprismは、JREのバージョンにJABがバンドルされていないJABのさまざまなバージョンをインストールできる<em>BPJabInstaller-1.0.2.exe</em>を提供できます。</p>
+
+	<p>JABがJavaインストーラーにバンドルされている場合は、JABを有効にする必要があります。次のコマンドラインを使用して実行できます。コマンドプロンプトを開き、java binディレクトリ（例：C:\Program Files\Java\Jre7\bin）に変更します。次に、以下のコマンドを実行します。</p>
+
+	<pre>jabswitch.exe /enable</pre>
+
+	<p>JABはWindowsの［簡単操作］コントロールパネル（Windows + Uを押してアクティベート可能）で有効にすることもできます。［簡単操作］コントロールパネルには、［Java Access Bridge］チェックボックスがあります。<p>
+		
+	<h5>スパイツールが要素を認識しない</h5>
+	
+	<p>スパイツールが要素の上に移動したときに要素を認識していないようであれば、まず、a）Java Access Bridgeのインストール後、再起動していない、b）Java Access Bridgeの間違ったバージョンを使用している、といったよくある原因について確認してください。</p>
+
+	<h5 id="TextBoxJRE13">テキストボックスに書き込もうとするとエラーメッセージが表示される</h5>
+	
+	<p>「setTextContentsの呼び出しに失敗しました」などのエラーメッセージ。この方法は、Java Runtime Environmentのバージョン1.3.xに対しては機能しないことがわかっています。Java Runtime EnvironmentはJRE 1.3で実行されているアプリケーションでJavaテキストボックスへの書き込みを試行していることを示しています。
+ Java Access Bridgeコネクターに、そのJREバージョンに対応する実装がないため、この操作は行えません。</p>
+	
+	<p>いずれにせよ回避策はありますが、ユーザー側である程度の工夫が必要となる場合があります。よくある問題への推奨される回避策は以下のとおりです。
+	</p>
+
+	<dl class="bulleted">
+		<dt>よくある回避策 - Java Runtime Environment（JRE）をアップグレードする</dt>
+		<dd>ほとんどの場合、アップグレードしても対象アプリケーションの機能はまったく変わりませんが、その前に潜在的な問題によるリスクを考慮しておく必要があります。Blue Prismは、1.4.0以降のバージョンでは問題なく機能します。</dd>
+
+		<dt>書き込み問題を回避するには</dt>
+		<dd>要素へのデータの書き込みに問題がある場合は、代わりにアプリケーションにキーストロークを送信できます。これには、目的の要素を含む<a href="helpGlossary.htm#Activate">ウィンドウをアクティブにし</a>、<a href="helpGlossary.htm#Focus">要素</a>がキーボード入力を受信する準備ができた状態にして、<a href="frmStagePropertiesNavigate.htm">［ナビゲート］ステージ</a>を使用してキーストロークを送信することが含まれます。要素内の既存のデータを消去するには、キー ストロークに［Backspace］キーや［Delete］キーを含める必要があります。
+		</dd>
+	 </dl>
+	
+	<h5>要素へのアクセスが非常に遅い</h5>
+	
+	<p>Java Access Bridgeには、いくつかの具体的で利用可能な<a href="helpJavaAutomation.htm">パフォーマンスのヒント</a>があります。</p>
+
+</body>
+</html>

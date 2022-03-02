@@ -1,0 +1,20 @@
+
+startapplication path="testapps\vs2005testapp.exe" hook=False
+$AbortIfNot OK
+
+#Wait for the application to appear...
+wait timeout=25000 {checkwindow WindowText="Automated Test Form in VS2005" ClassName="WindowsForms10.Window.8.app.0.378734a" Visible="True" Enabled="True"}="True"
+$AbortIf RESULT:0
+
+#Get text from rich text box using Win32
+getwindowtext role=Text x=18 y=265
+$AbortIfNot RESULT:Random text in a rich text box
+
+#Get text from rich text box using AA
+aagetvalue role=Text x=18 y=265
+$AbortIfNot RESULT:Random text in a rich text box
+
+#Close the app
+#closewindow windowtext="Automated Test Form in VS2005"
+
+#Finished!

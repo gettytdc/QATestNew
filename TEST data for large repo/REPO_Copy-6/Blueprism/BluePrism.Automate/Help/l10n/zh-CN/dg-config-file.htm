@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_HTML5___Top_Navigation" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../../" data-mc-has-content-body="True" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Advanced setup">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="../../Skins/Favicons/apple-touch-icon.png"/>
+        <link rel="shortcut icon" href="../../Skins/Favicons/favicon-32x32.png"/>
+        <link rel="icon" sizes="96x96" href="../../Skins/Favicons/favicon-96x96.png"/>
+        <link rel="icon" sizes="32x32" href="../../Skins/Favicons/favicon-32x32.png"/>
+        <link rel="icon" sizes="2263x2263" href="../../Skins/Favicons/BP_Prism_RGB.png"/>
+        <meta charset="utf-8"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/><title>配置文件结构</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet"/>
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet"/>
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet"/>
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet"/>
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet"/>
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet"/>
+        <link href="../../Skins/Fluid/stylesheets/foundation.6.2.3.css" rel="stylesheet"/>
+        <link href="../../Skins/Fluid/stylesheets/styles.css" rel="stylesheet"/>
+        <link href="../../Skins/Fluid/stylesheets/tablet.css" rel="stylesheet"/>
+        <link href="../../Skins/Fluid/stylesheets/mobile.css" rel="stylesheet"/>
+        <style>/*&lt;meta /&gt;*/
+
+.button.select-language-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/select-language.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.button.feedback-button
+{
+	-pie-background: linear-gradient(#ffffff, #ececec);
+}
+
+.button.print-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/printer.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.button.previous-topic-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/navigate-previous.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.button.next-topic-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/navigate-next.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.needs-pie
+{
+	behavior: url('../../Resources/Scripts/PIE-no-motw.htc');
+}
+
+</style>
+        <link href="./AutomateHelp.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div class="foundation-wrap off-canvas-wrapper">
+                                            <div>
+                                                <h1>配置文件结构</h1>
+                                                <p>配置文件是根据已配置的数据网关设置和输出创建的。如下所述，它们由三个主要部分组成：输入、输出和筛选器。</p>
+                                                <h2>输入</h2>
+                                                <p>此部分由 Blue Prism 根据 Blue Prism 数据库设置自动生成。它决定如何将事件置入数据网关引擎以进行处理。在下面的示例中，从 Blue Prism 数据库的 BPADataPipelineInput 表中获取事件。</p>
+                                                <p class="code_sample">input {</p>
+                                                <p class="code_sample">jdbc {</p>
+                                                <p class="code_sample">jdbc_driver_library =&gt; "..\sqljdbc_4.2\enu\jre8\sqljdbc42.jar"</p>
+                                                <p class="code_sample">jdbc_connection_string =&gt; "jdbc:sqlserver://SQL_SERVER_INSTANCE:1433;databaseName=BP_DATABASE;"</p>
+                                                <p class="code_sample">jdbc_driver_class =&gt; "com.microsoft.sqlserver.jdbc.SQLServerDriver"</p>
+                                                <p class="code_sample">jdbc_user =&gt; "&lt;%Data Gateways BP Database SQL User.username%&gt;"</p>
+                                                <p class="code_sample">jdbc_password =&gt; "&lt;%Data Gateways BP Database SQL User.password%&gt;"</p>
+                                                <p class="code_sample">statement =&gt; "delete top(3000)from BPADataPipelineInput with (rowlock, readpast) output deleted.eventdata"</p>
+                                                <p class="code_sample">schedule =&gt; "*/3* * * * *"</p>
+                                                <p class="code_sample">}</p>
+                                                <p class="code_sample">}</p>
+                                                <p>如果需要，可以对以下输入区域进行编辑，以满足所需首选项的要求。</p>
+                                                <p> </p>
+                                                <p><span class="code_sample">`schedule =&gt; "*/3* * * * *"`</span>
+                                                </p>
+                                                <p>这可决定 SQL 查询从 BPADataPipelineInput 表请求数据的频率。可以更新默认值（每三秒一次），用所需的值来代替 <span class="code_sample">3</span> 即可。</p>
+                                                <p> </p>
+                                                <p class="code_sample">`statement =&gt; "delete top(3000)from BPADataPipelineInput with (rowlock, readpast) output deleted.eventdata"`</p>
+                                                <p>这是针对 Blue Prism 数据库执行的 SQL 语句，用于从 BPADataPipelineInput 表中提取事件。该值用于控制每个时间间隔从 BPADatapipelineInput 表中提取的最大行数。如果需要，可以更改默认值 (3000)。</p>
+                                                <h2 class="pagebreak">筛选器</h2>
+                                                <p>筛选器可用于对事件执行中间处理。这些可以是在将事件的某些字段发送到输出之前对其执行的添加、删除或修改等操作（例如删除会话日志的 AttributeXML 字段）。</p>
+                                                <p>以下网址中列出了所有可用的筛选器插件：<a href="https://www.elastic.co/guide/en/logstash/current/filter-plugins.html">https://www.elastic.co/guide/en/logstash/current/filter-plugins.html</a></p>
+                                                <p>默认情况下，Blue Prism 生成的配置将包含一个筛选器：</p>
+                                                <p class="code_sample">filter{</p>
+                                                <p class="code_sample">json {</p>
+                                                <p class="code_sample">source =&gt; "eventdata"</p>
+                                                <p class="code_sample">target =&gt; "event"</p>
+                                                <p class="code_sample">}</p>
+                                                <p class="code_sample">}</p>
+                                                <p>默认情况下，配置包含单个 JSON 筛选器，用于解析和扩展包含已配置数据类型（会话日志、仪表盘等）的 JSON 字符串，以便可以在配置文件中访问内容。</p>
+                                                <p>可以编辑此部分以添加和删除筛选器，但不应删除或修改默认的 JSON 筛选器。</p>
+                                                <h2>输出：</h2>
+                                                <p>输出决定事件发送到的位置。如果已使用数据网关向导配置了输出，则它们会在此处列出。处理的每个事件都将发送到配置中列出的每个输出。</p>
+                                                <p class="code_sample">output {</p>
+                                                <p class="code_sample">file {</p>
+                                                <p class="code_sample">path =&gt; "C:\data.txt"</p>
+                                                <p class="code_sample">}</p>
+                                                <p class="code_sample"> </p>
+                                                <p class="code_sample">csv {</p>
+                                                <p class="code_sample">path =&gt; "C:\data.csv"</p>
+                                                <p class="code_sample">}</p>
+                                                <p class="code_sample">}</p>
+                                                <p>在上面的示例中，指定了 .txt 文件和 .csv 输出。发送到数据网关系统的每个事件都将写入文本文件 C:\data.txt 和 csv 文件 C:\data.csv</p>
+                                                <p>有关可用输出的列表，请参阅以下网页：<a href="https://www.elastic.co/guide/en/logstash/current/output-plugins.html">https://www.elastic.co/guide/en/logstash/current/output-plugins.html</a></p>
+                                                <p> </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section><a data-close="true"></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

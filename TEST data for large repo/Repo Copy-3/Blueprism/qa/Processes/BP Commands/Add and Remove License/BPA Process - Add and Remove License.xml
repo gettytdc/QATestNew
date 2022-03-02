@@ -1,0 +1,642 @@
+﻿<process name="Add and Remove License" version="1.0" bpversion="6.11.0.37435" narrative="Adds and removes license." byrefcollection="true" preferredid="56154ded-0f11-46c9-8564-ee0ba168543f">
+  <view>
+    <camerax>-45</camerax>
+    <cameray>1095</cameray>
+    <zoom version="2">1.5625</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="cc9eeb2c-964a-4b24-8c83-679cb62190a5" type="Normal" published="False">
+    <name>Wait N Seconds</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="74a0ca93-e023-4785-8cb2-46042f78a389" type="Normal" published="False">
+    <name>Global Variables</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>87</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="edfbdb56-ace8-48fc-a08b-f167fad6cc7a" type="Normal" published="False">
+    <name>Get License Table</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>120</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="79083ca9-94e7-48f1-badd-f1687d75ad24" type="Normal" published="False">
+    <name>Attach Objects</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="dbe17784-f7a7-4059-9e68-f10da830146b" type="Normal" published="False">
+    <name>Detach Objects</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="374c229c-a361-4aed-8ed1-0ccf55fe94e8" name="Start" type="Start">
+    <display x="105" y="-465" w="90" h="30" />
+    <onsuccess>ff2a77ea-8668-4c16-a148-4c055a21a95f</onsuccess>
+  </stage>
+  <stage stageid="bf0a1cb6-f265-4716-b0b0-e39d0c0628d0" name="Stage1" type="ProcessInfo">
+    <display x="-90" y="-435" w="150" h="90" />
+  </stage>
+  <stage stageid="f0192f8a-0472-40aa-82d9-244517aa2b8d" name="Local Variables" type="Block">
+    <display x="-165" y="-375" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="5d4c1452-93df-4ba5-a878-41595bebeb9d" name="Have License?" type="Decision">
+    <display x="105" y="-165" w="90" h="30" />
+    <decision expression="[Number of License] &gt; 0" />
+    <ontrue>7ccecbc7-a6b2-46c7-bbf9-c20eec68862f</ontrue>
+    <onfalse>0046624c-0bcf-4a69-96d8-06aa51790342</onfalse>
+  </stage>
+  <stage stageid="dafd5131-4d76-4d08-9f15-f36328fec528" name="Add License" type="Action">
+    <display x="30" y="75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" narrative="BP Username" expr="[Username]" />
+      <input type="text" name="Password" narrative="BP Password" expr="[Password]" />
+      <input type="text" name="License Path" narrative="Path of the License to add" expr="[License Path]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="PID" narrative="Process ID" stage="Command PID" />
+    </outputs>
+    <onsuccess>9d9111be-c2a8-4df7-8c35-e856fe467c28</onsuccess>
+    <resource object="Blue Prism - Commands" action="Add License" />
+  </stage>
+  <stage stageid="b9967398-1cc7-487c-97ca-d3ebcf8be194" name="License Path" type="Data">
+    <display x="-90" y="-345" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f096447c-c2ff-40b2-b7ba-4d699d8b77c5" name="Sign Out" type="Action">
+    <display x="105" y="-225" w="90" h="30" />
+    <onsuccess>5d4c1452-93df-4ba5-a878-41595bebeb9d</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="d95d7a8d-18b5-4ee8-bf17-c1530b6f0f03" name="Get License Table" type="SubSheetInfo">
+    <subsheetid>edfbdb56-ace8-48fc-a08b-f167fad6cc7a</subsheetid>
+    <narrative>Gets License Table</narrative>
+    <display x="-165" y="-60" w="150" h="90" />
+  </stage>
+  <stage stageid="9f582bec-28e4-451b-9fcb-04beb26f0926" name="Start" type="Start">
+    <subsheetid>edfbdb56-ace8-48fc-a08b-f167fad6cc7a</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <display x="15" y="-90" w="90" h="30" />
+    <onsuccess>bcb3acbb-f3b0-4529-85a7-fe23adfb273c</onsuccess>
+  </stage>
+  <stage stageid="ff282d5f-d4b9-40fc-bbba-01198e0b39e1" name="Sign In" type="Action">
+    <subsheetid>edfbdb56-ace8-48fc-a08b-f167fad6cc7a</subsheetid>
+    <display x="15" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="[Username]" />
+      <input type="password" name="Password" expr="[Password]" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>926e10d3-7c51-4583-ba76-6ad48363590a</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="926e10d3-7c51-4583-ba76-6ad48363590a" name="Go to System" type="Action">
+    <subsheetid>edfbdb56-ace8-48fc-a08b-f167fad6cc7a</subsheetid>
+    <display x="15" y="120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>d53c4fef-838a-453a-8f16-2b6e9820abf3</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="d53c4fef-838a-453a-8f16-2b6e9820abf3" name="Select License" type="Action">
+    <subsheetid>edfbdb56-ace8-48fc-a08b-f167fad6cc7a</subsheetid>
+    <display x="15" y="180" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;System&quot;" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="&quot;License&quot;" />
+      <input type="flag" name="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="True" />
+      <input type="flag" name="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="False" />
+      <input type="flag" name="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="False" />
+    </inputs>
+    <onsuccess>7e29e973-e946-41c9-b6ef-0a48ebc821cb</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="7e29e973-e946-41c9-b6ef-0a48ebc821cb" name="Get License Table" type="Action">
+    <subsheetid>edfbdb56-ace8-48fc-a08b-f167fad6cc7a</subsheetid>
+    <display x="15" y="240" w="90" h="30" />
+    <outputs>
+      <output type="collection" name="License Table" narrative="License Table" stage="License Table" />
+      <output type="number" name="Number of License" narrative="Number of License found." stage="Number of License" />
+    </outputs>
+    <onsuccess>e81778d9-4b10-49f7-b527-caf43ebaecc3</onsuccess>
+    <resource object="Blue Prism - System - System" action="Get License Table" />
+  </stage>
+  <stage stageid="e81778d9-4b10-49f7-b527-caf43ebaecc3" name="End1" type="End">
+    <subsheetid>edfbdb56-ace8-48fc-a08b-f167fad6cc7a</subsheetid>
+    <display x="15" y="300" w="90" h="30" />
+  </stage>
+  <stage stageid="136ac0e3-602d-42d5-adc9-590b6046321c" name="Get License Table" type="SubSheet">
+    <display x="105" y="-285" w="90" h="30" />
+    <onsuccess>f096447c-c2ff-40b2-b7ba-4d699d8b77c5</onsuccess>
+    <processid>edfbdb56-ace8-48fc-a08b-f167fad6cc7a</processid>
+  </stage>
+  <stage stageid="f613f621-9ef3-41b3-a7c7-b4e82a14f64a" name="Global Variables" type="SubSheetInfo">
+    <subsheetid>74a0ca93-e023-4785-8cb2-46042f78a389</subsheetid>
+    <display x="-165" y="-60" w="150" h="90" />
+  </stage>
+  <stage stageid="4094afae-c68f-45dc-bc7f-0dc5827b839a" name="Start" type="Start">
+    <subsheetid>74a0ca93-e023-4785-8cb2-46042f78a389</subsheetid>
+    <display x="0" y="-90" />
+    <onsuccess>04c03b35-832b-459d-9147-73131a9773b6</onsuccess>
+  </stage>
+  <stage stageid="04c03b35-832b-459d-9147-73131a9773b6" name="End" type="End">
+    <subsheetid>74a0ca93-e023-4785-8cb2-46042f78a389</subsheetid>
+    <display x="0" y="45" />
+  </stage>
+  <stage stageid="cac64297-bc91-4cc7-b6a6-7a94428723ab" name="pid" type="Data">
+    <subsheetid>74a0ca93-e023-4785-8cb2-46042f78a389</subsheetid>
+    <display x="-165" y="30" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="88b0e81e-c39b-4212-bfc6-06e26c38382c" name="Username" type="Data">
+    <subsheetid>74a0ca93-e023-4785-8cb2-46042f78a389</subsheetid>
+    <display x="-165" y="60" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">admin</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="bf241fb4-7cf7-416f-bbfa-8986681efe15" name="Password" type="Data">
+    <subsheetid>74a0ca93-e023-4785-8cb2-46042f78a389</subsheetid>
+    <display x="-165" y="90" w="120" h="30" />
+    <datatype>password</datatype>
+    <initialvalueenc>32,17,25,89,3</initialvalueenc>
+    <alwaysinit />
+  </stage>
+  <stage stageid="c8524b23-f745-4ba3-8c36-5f49f561312d" name="License Table" type="Collection">
+    <subsheetid>74a0ca93-e023-4785-8cb2-46042f78a389</subsheetid>
+    <display x="-165" y="120" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Status" type="text" />
+      <field name="Owner" type="text" />
+      <field name="Starts" type="text" />
+      <field name="Expires" type="text" />
+      <field name="Processes" type="text" />
+      <field name="Sessions" type="text" />
+      <field name="Resources" type="text" />
+      <field name="Alerts" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="910ce70a-92fc-4954-b14d-6aab2ebf2120" name="Global Variables" type="Block">
+    <subsheetid>74a0ca93-e023-4785-8cb2-46042f78a389</subsheetid>
+    <display x="-240" y="0" w="150" h="180" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="23a03a3d-ae7b-4d72-a03e-639592d54382" name="Number of License" type="Data">
+    <subsheetid>74a0ca93-e023-4785-8cb2-46042f78a389</subsheetid>
+    <display x="-165" y="150" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9a14aba0-fc03-48f6-a613-920b833a68ff" name="Command PID" type="Data">
+    <display x="-90" y="-285" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="220c9393-7ea9-42cb-ab2f-577bd16bca87" name="Remove License" type="Action">
+    <display x="180" y="75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" narrative="BP Username" expr="[Username]" />
+      <input type="text" name="Password" narrative="BP Password" expr="[Password]" />
+      <input type="text" name="License Path" narrative="Path of the License to Remove" expr="[License Path]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="PID" narrative="Process ID" stage="Command PID" />
+    </outputs>
+    <onsuccess>c8101401-7b2e-4ccc-991a-556cf55cc7ea</onsuccess>
+    <resource object="Blue Prism - Commands" action="Remove License" />
+  </stage>
+  <stage stageid="3e174f8f-c705-4e4d-8a51-5b1d8a620379" name="Sign Out" type="Action">
+    <display x="180" y="255" w="90" h="30" />
+    <onsuccess>4989ded9-25b2-4089-a76d-d34b19fa3614</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="d12b4da0-5a3e-432e-898c-723749c076c7" name="Get License Table" type="SubSheet">
+    <display x="180" y="195" w="90" h="30" />
+    <onsuccess>3e174f8f-c705-4e4d-8a51-5b1d8a620379</onsuccess>
+    <processid>edfbdb56-ace8-48fc-a08b-f167fad6cc7a</processid>
+  </stage>
+  <stage stageid="f2f9a6fb-e180-4f67-a66b-068a0fac692d" name="Sign Out" type="Action">
+    <display x="30" y="255" w="90" h="30" />
+    <onsuccess>3769d8c6-43ee-45c7-a47e-96fa9422d454</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="257f209d-caac-43c3-be34-daf0b52e27ce" name="Get License Table" type="SubSheet">
+    <display x="30" y="195" w="90" h="30" />
+    <onsuccess>f2f9a6fb-e180-4f67-a66b-068a0fac692d</onsuccess>
+    <processid>edfbdb56-ace8-48fc-a08b-f167fad6cc7a</processid>
+  </stage>
+  <stage stageid="a3e97848-2b9c-4f39-b2e4-b8504ba13705" name="Launch Blue Prism" type="Action">
+    <display x="105" y="-345" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>136ac0e3-602d-42d5-adc9-590b6046321c</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="63f36ed7-9623-45a8-bd3f-c447bfa7e403" name="Target License" type="Data">
+    <display x="-90" y="-315" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">future-enterprise</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0046624c-0bcf-4a69-96d8-06aa51790342" name="Anchor3" type="Anchor">
+    <display x="30" y="-165" w="10" h="10" />
+    <font family="Segoe UI" size="10" style="Regular" color="FF0000" />
+    <onsuccess>0e393168-a868-476f-824f-c167c8f9a84a</onsuccess>
+  </stage>
+  <stage stageid="7ccecbc7-a6b2-46c7-bbf9-c20eec68862f" name="License Table" type="LoopStart">
+    <display x="105" y="-105" w="90" h="30" />
+    <onsuccess>996b1b27-8dd5-4683-b906-7c7039c67851</onsuccess>
+    <groupid>7a89c0e1-a731-4109-8bdb-a1ec0bfbadf0</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>License Table</loopdata>
+  </stage>
+  <stage stageid="e830a83b-9d67-4598-b3c7-0250fdd78bfb" name="License Table" type="LoopEnd">
+    <display x="105" y="15" w="90" h="30" />
+    <onsuccess>0e393168-a868-476f-824f-c167c8f9a84a</onsuccess>
+    <groupid>7a89c0e1-a731-4109-8bdb-a1ec0bfbadf0</groupid>
+  </stage>
+  <stage stageid="996b1b27-8dd5-4683-b906-7c7039c67851" name="Found License?" type="Decision">
+    <display x="105" y="-45" w="90" h="30" />
+    <decision expression="[License Table.Owner] = [Target License]" />
+    <ontrue>22166aad-eb72-4bda-885c-66f8233c8c95</ontrue>
+    <onfalse>e830a83b-9d67-4598-b3c7-0250fdd78bfb</onfalse>
+  </stage>
+  <stage stageid="0e393168-a868-476f-824f-c167c8f9a84a" name="Anchor4" type="Anchor">
+    <display x="30" y="15" w="10" h="10" />
+    <onsuccess>dafd5131-4d76-4d08-9f15-f36328fec528</onsuccess>
+  </stage>
+  <stage stageid="22166aad-eb72-4bda-885c-66f8233c8c95" name="Anchor5" type="Anchor">
+    <display x="180" y="-45" w="10" h="10" />
+    <onsuccess>220c9393-7ea9-42cb-ab2f-577bd16bca87</onsuccess>
+  </stage>
+  <stage stageid="4989ded9-25b2-4089-a76d-d34b19fa3614" name="License Table" type="LoopStart">
+    <display x="180" y="315" w="90" h="30" />
+    <onsuccess>a933b33d-81b0-41b6-89a1-26afd84fafee</onsuccess>
+    <groupid>64926a60-10d5-4980-9534-0461840ce2fd</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>License Table</loopdata>
+  </stage>
+  <stage stageid="2602b73f-bb3f-4da3-a8de-90332570eb8b" name="License Table" type="LoopEnd">
+    <display x="180" y="435" w="90" h="30" />
+    <onsuccess>a70c82fb-fe8a-4030-a481-52c102e076a9</onsuccess>
+    <groupid>64926a60-10d5-4980-9534-0461840ce2fd</groupid>
+  </stage>
+  <stage stageid="a933b33d-81b0-41b6-89a1-26afd84fafee" name="Found License?" type="Decision">
+    <display x="180" y="375" w="90" h="30" />
+    <decision expression="[License Table.Owner] = [Target License]" />
+    <ontrue>b313ee8f-ba1e-45d4-837f-5b4be9ac4c7e</ontrue>
+    <onfalse>2602b73f-bb3f-4da3-a8de-90332570eb8b</onfalse>
+  </stage>
+  <stage stageid="b313ee8f-ba1e-45d4-837f-5b4be9ac4c7e" name="License Not Removed" type="Exception">
+    <display x="300" y="375" w="90" h="30" />
+    <exception type="System Exception" detail="&quot;Deletion of '&quot; &amp; [Target License] &amp; &quot;' license was not successful&quot;" />
+  </stage>
+  <stage stageid="1034025f-3559-47ac-b284-90435e73496a" name="Add License" type="Action">
+    <display x="180" y="555" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" narrative="BP Username" expr="[Username]" />
+      <input type="text" name="Password" narrative="BP Password" expr="[Password]" />
+      <input type="text" name="License Path" narrative="Path of the License to add" expr="[License Path]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="PID" narrative="Process ID" stage="Command PID" />
+    </outputs>
+    <onsuccess>39135f32-a318-439c-b093-b87dcc9defb9</onsuccess>
+    <resource object="Blue Prism - Commands" action="Add License" />
+  </stage>
+  <stage stageid="477e5340-aeff-4506-8546-9535b9e22716" name="Sign Out" type="Action">
+    <display x="180" y="735" w="90" h="30" />
+    <onsuccess>55ce3382-1b47-4a64-a26f-e060db547151</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="e3f9586f-36d7-48c2-8588-e26603bb3492" name="Get License Table" type="SubSheet">
+    <display x="180" y="675" w="90" h="30" />
+    <onsuccess>477e5340-aeff-4506-8546-9535b9e22716</onsuccess>
+    <processid>edfbdb56-ace8-48fc-a08b-f167fad6cc7a</processid>
+  </stage>
+  <stage stageid="1c3bc30e-c6dc-4c50-8dc3-fa06756bfdc0" name="License Table" type="LoopStart">
+    <display x="180" y="855" w="90" h="30" />
+    <onsuccess>554c98fb-d6bd-49b6-9efa-7b38057197c5</onsuccess>
+    <groupid>9b4b567f-300f-42e6-9645-617735f32357</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>License Table</loopdata>
+  </stage>
+  <stage stageid="a56a8b15-fa2e-444c-975f-ec72a3cceb15" name="License Table" type="LoopEnd">
+    <display x="180" y="975" w="90" h="30" />
+    <onsuccess>4c414788-73cd-40f3-93a9-c17bd18e63bf</onsuccess>
+    <groupid>9b4b567f-300f-42e6-9645-617735f32357</groupid>
+  </stage>
+  <stage stageid="554c98fb-d6bd-49b6-9efa-7b38057197c5" name="Found License?" type="Decision">
+    <display x="180" y="915" w="90" h="30" />
+    <decision expression="[License Table.Owner] = [Target License]" />
+    <ontrue>cfd93320-3cf3-4a9f-b4b4-70d6562c3dc5</ontrue>
+    <onfalse>a56a8b15-fa2e-444c-975f-ec72a3cceb15</onfalse>
+  </stage>
+  <stage stageid="55ce3382-1b47-4a64-a26f-e060db547151" name="Exit BP" type="Action">
+    <display x="180" y="795" w="90" h="30" />
+    <onsuccess>1c3bc30e-c6dc-4c50-8dc3-fa06756bfdc0</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="4c414788-73cd-40f3-93a9-c17bd18e63bf" name="License Not Added" type="Exception">
+    <display x="180" y="1035" w="90" h="30" />
+    <exception type="System Exception" detail="&quot;Adding '&quot; &amp; [Target License] &amp; &quot;' license was not successful&quot;" />
+  </stage>
+  <stage stageid="cfd93320-3cf3-4a9f-b4b4-70d6562c3dc5" name="End2" type="End">
+    <display x="300" y="915" w="90" h="30" />
+  </stage>
+  <stage stageid="3769d8c6-43ee-45c7-a47e-96fa9422d454" name="License Table" type="LoopStart">
+    <display x="30" y="315" w="90" h="30" />
+    <onsuccess>bdfd73d3-e308-4806-9422-9a653e28a71d</onsuccess>
+    <groupid>c0741a83-9e27-4102-b27f-043a187261d9</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>License Table</loopdata>
+  </stage>
+  <stage stageid="7edc2d35-1500-45a6-bdcb-95260714ba7e" name="License Table" type="LoopEnd">
+    <display x="30" y="435" w="90" h="30" />
+    <onsuccess>e01ae2f8-fc13-49da-bd5f-8c3c9d13b87a</onsuccess>
+    <groupid>c0741a83-9e27-4102-b27f-043a187261d9</groupid>
+  </stage>
+  <stage stageid="bdfd73d3-e308-4806-9422-9a653e28a71d" name="Found License?" type="Decision">
+    <display x="30" y="375" w="90" h="30" />
+    <decision expression="[License Table.Owner] = [Target License]" />
+    <ontrue>b3543834-5036-421b-a24a-9031ac764a64</ontrue>
+    <onfalse>7edc2d35-1500-45a6-bdcb-95260714ba7e</onfalse>
+  </stage>
+  <stage stageid="e01ae2f8-fc13-49da-bd5f-8c3c9d13b87a" name="License Not Added" type="Exception">
+    <display x="30" y="495" w="90" h="30" />
+    <exception type="System Exception" detail="&quot;Adding '&quot; &amp; [Target License] &amp; &quot;' license was not successful&quot;" />
+  </stage>
+  <stage stageid="b3543834-5036-421b-a24a-9031ac764a64" name="Anchor1" type="Anchor">
+    <display x="-45" y="375" w="10" h="10" />
+    <onsuccess>d11ac752-c0b9-407c-8054-839ed3e34b47</onsuccess>
+  </stage>
+  <stage stageid="d11ac752-c0b9-407c-8054-839ed3e34b47" name="Anchor2" type="Anchor">
+    <display x="-45" y="555" w="10" h="10" />
+    <onsuccess>5609a310-1f7b-4e0d-99e3-05d77daa7977</onsuccess>
+  </stage>
+  <stage stageid="e0220e68-757e-42f9-881b-1dee35ef7eb4" name="Remove License" type="Action">
+    <display x="30" y="615" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" narrative="BP Username" expr="[Username]" />
+      <input type="text" name="Password" narrative="BP Password" expr="[Password]" />
+      <input type="text" name="License Path" narrative="Path of the License to Remove" expr="[License Path]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="PID" narrative="Process ID" stage="Command PID" />
+    </outputs>
+    <onsuccess>6023d72e-fd7f-46a8-ba38-fea27218da4c</onsuccess>
+    <resource object="Blue Prism - Commands" action="Remove License" />
+  </stage>
+  <stage stageid="2753746f-4194-4737-95ed-2f526129fea2" name="Sign Out" type="Action">
+    <display x="30" y="795" w="90" h="30" />
+    <onsuccess>49185ed6-88ae-4227-a617-3703bd2b7417</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="8c4f1c42-bab0-4251-a84f-50d89d4c97fd" name="Get License Table" type="SubSheet">
+    <display x="30" y="735" w="90" h="30" />
+    <onsuccess>2753746f-4194-4737-95ed-2f526129fea2</onsuccess>
+    <processid>edfbdb56-ace8-48fc-a08b-f167fad6cc7a</processid>
+  </stage>
+  <stage stageid="3996ecda-ebf1-45f0-99e6-776433da1dd9" name="License Table" type="LoopStart">
+    <display x="30" y="915" w="90" h="30" />
+    <onsuccess>708c3850-2fe9-47df-be8d-342c78b36731</onsuccess>
+    <groupid>8091b5ba-f23c-4b63-bb12-346e697bda98</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>License Table</loopdata>
+  </stage>
+  <stage stageid="497f09ac-d2d6-48c9-b62f-bda87598d6d0" name="License Table" type="LoopEnd">
+    <display x="30" y="1035" w="90" h="30" />
+    <onsuccess>ca4e2422-6ece-4dde-b336-bad95dc92107</onsuccess>
+    <groupid>8091b5ba-f23c-4b63-bb12-346e697bda98</groupid>
+  </stage>
+  <stage stageid="708c3850-2fe9-47df-be8d-342c78b36731" name="Found License?" type="Decision">
+    <display x="30" y="975" w="90" h="30" />
+    <decision expression="[License Table.Owner] = [Target License]" />
+    <ontrue>abe2f7e3-25b5-4298-8672-d5244cbc2339</ontrue>
+    <onfalse>497f09ac-d2d6-48c9-b62f-bda87598d6d0</onfalse>
+  </stage>
+  <stage stageid="abe2f7e3-25b5-4298-8672-d5244cbc2339" name="License Not Removed" type="Exception">
+    <display x="-90" y="975" w="90" h="30" />
+    <exception type="System Exception" detail="&quot;Deletion of '&quot; &amp; [Target License] &amp; &quot;' license was not successful&quot;" />
+  </stage>
+  <stage stageid="ca4e2422-6ece-4dde-b336-bad95dc92107" name="End3" type="End">
+    <display x="30" y="1095" w="90" h="30" />
+  </stage>
+  <stage stageid="0fa8b662-1686-4207-bcb4-14824f8a0d3a" name="Wait N Seconds" type="SubSheetInfo">
+    <subsheetid>cc9eeb2c-964a-4b24-8c83-679cb62190a5</subsheetid>
+    <narrative>Waits N number of seconds.</narrative>
+    <display x="-165" y="-60" w="150" h="90" />
+  </stage>
+  <stage stageid="a79eccd3-20ad-4ece-a93b-0c1b0155b139" name="Start" type="Start">
+    <subsheetid>cc9eeb2c-964a-4b24-8c83-679cb62190a5</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <display x="15" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Seconds to Wait" narrative="Number of Seconds toWait." stage="Seconds to Wait" />
+    </inputs>
+    <onsuccess>816ccd59-23cc-45a8-9d36-99a85d55d763</onsuccess>
+  </stage>
+  <stage stageid="e0357d56-440f-4b9f-a80c-3ee32eeba6eb" name="End" type="End">
+    <subsheetid>cc9eeb2c-964a-4b24-8c83-679cb62190a5</subsheetid>
+    <display x="15" y="120" w="90" h="30" />
+  </stage>
+  <stage stageid="816ccd59-23cc-45a8-9d36-99a85d55d763" name="Get Now" type="Calculation">
+    <subsheetid>cc9eeb2c-964a-4b24-8c83-679cb62190a5</subsheetid>
+    <display x="15" y="-30" w="90" h="30" />
+    <onsuccess>62b694af-24cd-4b0a-8ecc-0eba09f82b68</onsuccess>
+    <calculation expression="Now()" stage="Current Time" />
+  </stage>
+  <stage stageid="1bc3ff7f-3419-45a0-b6e4-ed226ab2aa43" name="Current Time" type="Data">
+    <subsheetid>cc9eeb2c-964a-4b24-8c83-679cb62190a5</subsheetid>
+    <display x="-165" y="105" w="120" h="30" />
+    <datatype>datetime</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="09d15119-67cb-4dd7-a4e8-b4d19a2e7825" name="Time Passed?" type="Decision">
+    <subsheetid>cc9eeb2c-964a-4b24-8c83-679cb62190a5</subsheetid>
+    <display x="15" y="60" w="90" h="30" />
+    <decision expression="Now () &gt; [Current Time] + MakeTimeSpan(0, 0, 0, [Seconds to Wait])" />
+    <ontrue>e0357d56-440f-4b9f-a80c-3ee32eeba6eb</ontrue>
+    <onfalse>65fa862e-e2e6-431b-8329-8df4e66af9ab</onfalse>
+  </stage>
+  <stage stageid="62b694af-24cd-4b0a-8ecc-0eba09f82b68" name="Anchor6" type="Anchor">
+    <subsheetid>cc9eeb2c-964a-4b24-8c83-679cb62190a5</subsheetid>
+    <display x="15" y="15" w="10" h="10" />
+    <onsuccess>09d15119-67cb-4dd7-a4e8-b4d19a2e7825</onsuccess>
+  </stage>
+  <stage stageid="65fa862e-e2e6-431b-8329-8df4e66af9ab" name="Anchor7" type="Anchor">
+    <subsheetid>cc9eeb2c-964a-4b24-8c83-679cb62190a5</subsheetid>
+    <display x="90" y="60" w="10" h="10" />
+    <onsuccess>c22836d1-6e7b-4ba7-8482-3ffceed64e46</onsuccess>
+  </stage>
+  <stage stageid="c22836d1-6e7b-4ba7-8482-3ffceed64e46" name="Anchor8" type="Anchor">
+    <subsheetid>cc9eeb2c-964a-4b24-8c83-679cb62190a5</subsheetid>
+    <display x="90" y="15" w="10" h="10" />
+    <onsuccess>62b694af-24cd-4b0a-8ecc-0eba09f82b68</onsuccess>
+  </stage>
+  <stage stageid="4076e033-b0b8-46e4-bf2f-bfed8618a930" name="Local Variables" type="Block">
+    <subsheetid>cc9eeb2c-964a-4b24-8c83-679cb62190a5</subsheetid>
+    <display x="-240" y="75" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ea1f51e1-15a3-4295-9fa9-b5840300e1d8" name="Seconds to Wait" type="Data">
+    <subsheetid>cc9eeb2c-964a-4b24-8c83-679cb62190a5</subsheetid>
+    <display x="-165" y="30" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>20</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="acda90ee-241e-471a-ba44-5bead59d370f" name="Input Variables" type="Block">
+    <subsheetid>cc9eeb2c-964a-4b24-8c83-679cb62190a5</subsheetid>
+    <display x="-240" y="0" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="9d9111be-c2a8-4df7-8c35-e856fe467c28" name="Wait 20 Sec" type="SubSheet">
+    <display x="30" y="135" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Seconds to Wait" narrative="Number of Seconds toWait." expr="20" />
+    </inputs>
+    <onsuccess>257f209d-caac-43c3-be34-daf0b52e27ce</onsuccess>
+    <processid>cc9eeb2c-964a-4b24-8c83-679cb62190a5</processid>
+  </stage>
+  <stage stageid="c8101401-7b2e-4ccc-991a-556cf55cc7ea" name="Wait 20 Sec" type="SubSheet">
+    <display x="180" y="135" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Seconds to Wait" narrative="Number of Seconds toWait." expr="20" />
+    </inputs>
+    <onsuccess>d12b4da0-5a3e-432e-898c-723749c076c7</onsuccess>
+    <processid>cc9eeb2c-964a-4b24-8c83-679cb62190a5</processid>
+  </stage>
+  <stage stageid="a70c82fb-fe8a-4030-a481-52c102e076a9" name="Get License Table" type="SubSheet">
+    <display x="180" y="495" w="90" h="30" />
+    <onsuccess>1034025f-3559-47ac-b284-90435e73496a</onsuccess>
+    <processid>edfbdb56-ace8-48fc-a08b-f167fad6cc7a</processid>
+  </stage>
+  <stage stageid="5609a310-1f7b-4e0d-99e3-05d77daa7977" name="Get License Table" type="SubSheet">
+    <display x="30" y="555" w="90" h="30" />
+    <onsuccess>e0220e68-757e-42f9-881b-1dee35ef7eb4</onsuccess>
+    <processid>edfbdb56-ace8-48fc-a08b-f167fad6cc7a</processid>
+  </stage>
+  <stage stageid="39135f32-a318-439c-b093-b87dcc9defb9" name="Sign Out" type="Action">
+    <display x="180" y="615" w="90" h="30" />
+    <onsuccess>e3f9586f-36d7-48c2-8588-e26603bb3492</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="6023d72e-fd7f-46a8-ba38-fea27218da4c" name="Sign Out" type="Action">
+    <display x="30" y="675" w="90" h="30" />
+    <onsuccess>8c4f1c42-bab0-4251-a84f-50d89d4c97fd</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="54c2e811-a8ea-418c-a138-6846e4837e1d" name="QA Root" type="Data">
+    <display x="-90" y="-210" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ff2a77ea-8668-4c16-a148-4c055a21a95f" name="Set License Path" type="Calculation">
+    <display x="105" y="-405" w="90" h="30" />
+    <onsuccess>a3e97848-2b9c-4f39-b2e4-b8504ba13705</onsuccess>
+    <calculation expression="[QA Root] &amp; &quot;\future-enterprise.lic&quot;" stage="License Path" />
+  </stage>
+  <stage stageid="86981e49-17f3-4b30-8daa-c640aee5d057" name="Env Variable" type="Block">
+    <display x="-165" y="-240" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e8649ede-0c74-40e6-94a4-5f8d5d9b64bd" name="Attach Objects" type="SubSheetInfo">
+    <subsheetid>79083ca9-94e7-48f1-badd-f1687d75ad24</subsheetid>
+    <display x="-165" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="c7a4500f-e729-4e81-a526-4c860895c7cc" name="Start" type="Start">
+    <subsheetid>79083ca9-94e7-48f1-badd-f1687d75ad24</subsheetid>
+    <display x="15" y="-105" w="90" h="30" />
+    <onsuccess>b009bb0b-3bf6-43cf-a2e9-b09cb53960ea</onsuccess>
+  </stage>
+  <stage stageid="883d9138-2522-4442-8f71-91251b23c354" name="End" type="End">
+    <subsheetid>79083ca9-94e7-48f1-badd-f1687d75ad24</subsheetid>
+    <display x="15" y="15" w="90" h="30" />
+  </stage>
+  <stage stageid="b250b2b1-7477-4f0e-bc2b-e9d84bb84e82" name="Detach Objects" type="SubSheetInfo">
+    <subsheetid>dbe17784-f7a7-4059-9e68-f10da830146b</subsheetid>
+    <display x="-165" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="39919abd-5126-4798-91d8-ff96f0decc2c" name="Start" type="Start">
+    <subsheetid>dbe17784-f7a7-4059-9e68-f10da830146b</subsheetid>
+    <display x="15" y="-105" w="90" h="30" />
+    <onsuccess>134aa081-9231-471c-bbeb-9f15bec05662</onsuccess>
+  </stage>
+  <stage stageid="f4c7062d-d4ff-47d9-a9ce-15c88a7ebfcb" name="End" type="End">
+    <subsheetid>dbe17784-f7a7-4059-9e68-f10da830146b</subsheetid>
+    <display x="15" y="15" w="90" h="30" />
+  </stage>
+  <stage stageid="b009bb0b-3bf6-43cf-a2e9-b09cb53960ea" name="Attach System" type="Action">
+    <subsheetid>79083ca9-94e7-48f1-badd-f1687d75ad24</subsheetid>
+    <display x="15" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>883d9138-2522-4442-8f71-91251b23c354</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="134aa081-9231-471c-bbeb-9f15bec05662" name="Detach System" type="Action">
+    <subsheetid>dbe17784-f7a7-4059-9e68-f10da830146b</subsheetid>
+    <display x="15" y="-45" w="90" h="30" />
+    <onsuccess>f4c7062d-d4ff-47d9-a9ce-15c88a7ebfcb</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Detach" />
+  </stage>
+  <stage stageid="bcb3acbb-f3b0-4529-85a7-fe23adfb273c" name="Attach Objects" type="SubSheet">
+    <subsheetid>edfbdb56-ace8-48fc-a08b-f167fad6cc7a</subsheetid>
+    <display x="15" y="-15" w="90" h="60" />
+    <onsuccess>ff282d5f-d4b9-40fc-bbba-01198e0b39e1</onsuccess>
+    <processid>79083ca9-94e7-48f1-badd-f1687d75ad24</processid>
+  </stage>
+  <stage stageid="49185ed6-88ae-4227-a617-3703bd2b7417" name="Exit BP" type="Action">
+    <display x="30" y="855" w="90" h="30" />
+    <onsuccess>3996ecda-ebf1-45f0-99e6-776433da1dd9</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+</process>

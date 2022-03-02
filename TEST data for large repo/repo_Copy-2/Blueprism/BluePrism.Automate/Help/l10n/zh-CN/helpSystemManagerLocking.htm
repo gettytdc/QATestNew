@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>环境锁定维护</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+		h3, h4 { clear:left !important; }
+	</style>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">系统管理器</h1>
+		<h2>环境锁定维护</h2>
+	</div>
+	<div class="captioned-image overview-screenshot nozoom">
+		<a href="Graphics/locking-sysman.png" title="环境锁定维护—点击查看大图"><img src="Graphics/locking-sysman.png" alt="环境锁定维护—点击查看大图"/></a>
+		<p>环境锁定维护</p>
+	</div>
+	
+	<h3 id="overview">概述</h3>
+	<p>使用<a href="helpEnvironmentLocking.htm">环境锁</a>功能，Blue Prism 会话可以“锁定”对特定资源的访问，确保任何其他会话在释放锁并让其有权访问之前处于等待状态。</p>
+	
+	<p>当会话完成（正常完成或者由于异常而终止）时，在运行时获取的任何锁会被释放（如果它们尚未被释放）。</p>
+	
+	<p>但是，如果资源 PC 在会话结束时丢失了与数据库的通信，或者调试会话在锁打开时使应用程序崩溃，则锁可能最终会“孤立”，这意味着它保护的资源将保持锁定状态，但系统不会尝试自动释放它。
+	</p>
+	
+	<p>使用系统管理器的“工作流程”部分中的“环境锁定维护”面板提供的方法，可以查看锁的当前状态，并且可以强制释放锁并最终删除锁。</p>
+	
+	<h3>锁表格</h3>
+	<p>该表显示了锁的当前状态。
+ 如果某个锁目前被会话持有，则会显示持有它的流程及其持有的资源以及获取锁的时间。
+	<br/>
+ 在任何情况下，都还会显示获取或释放锁时给出的最后一条注释。
+	</p>
+	
+	<div class="captioned-image screenshot" style="width:100px">
+		<img src="Graphics/locking-filter-status.png" alt="筛选状态"/>
+	</div>
+	<h4 id="filters">筛选表</h4>
+	<p>可以使用列表上方的筛选器来筛选表。</p>
+	</p>
+	<dl class="bulleted">
+		<dt>状态</dt>
+		<dd>选择挂锁图标将仅显示被持有的锁；选择省略号只显示自由锁；</dd>
+		<dt>名称、资源、流程、最后一条注释</dt>
+		<dd>输入值—名称/流程/等，以仅显示具有包含指定值的字段的锁。
+ 此操作不区分大小写，例如，在“Process”筛选器中搜索“process 1”，将返回当前在“process 1”、“Process 1”甚至“Previously Known as 'PROCESS 1”中持有的任何锁。
+		</dd>
+		<dt>锁定时间</dt>
+		<dd>输入所需的时间范围—这会接受各种形式的详细时间，例如：—
+			<div class="captioned-image screenshot">
+				<img src="Graphics/locking-filter-locktime.png" alt="筛选锁定时间"/>
+			</div>
+			<ul>
+				<li><code>今天</code></li>
+				<li><code>过去 <i>n</i> 天</code></li>
+				<li><code>昨天和今天</code></li>
+				<li><code>&lt; 24/05/2011</code>—24 日之前</li>
+				<li><code>&gt; 21/05/2011, &lt; 24/05/2011</code>—21 日之后，24 日之前（即，22 日和 23 日）</li>
+				<li><code>24/05/2011</code>—仅 24 日</li>
+				<li><code>2011-05-24</code>—仅 24 日</li>
+			</ul>
+		</dd>
+	</dl>
+	
+	<div class="captioned-image screenshot">
+		<img src="Graphics/locking-release-contextmenu.png" alt="释放锁"/>
+	</div>
+	<h3 id="maintaining">维护锁</h3>
+	<p>使用系统管理器面板，可以释放和删除锁，或查看当前持有锁的会话日志。</p>
+	
+	<p>这可以通过选择锁并按下相应按钮或右键点击并从上下文菜单中选择所需选项来实现。</p>
+	
+	<h4 id="release" class="clearer">释放锁</h4>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/locking-release-button.png" alt="释放锁"/>
+	</div>
+	<p>如果锁已成为孤立锁，即，它在持有它的会话应该完成之后仍然保持持有状态，则可以通过在列表中选择它并点击“释放锁”<code></code>按钮，或通过右键点击并选择“释放锁”<code></code>菜单选项来强制释放它。</p>
+	
+	<p>通过选择列表中的多个项（例如，按住 Ctrl 并点击多行）并点击“释放锁”<code></code>，可以同时释放多个锁。</p>
+	
+	<p>如果选择了某些当前未被持有的锁，则会跳过它们并仅释放当前被持有的锁。</p>
+	
+	<h4 id="delete" class="clearer">删除锁</h4>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/locking-delete-contextmenu.png" alt="删除锁"/>
+	</div>
+	<p>任何当前自由的锁都可以删除，其方法是选择它们并点击“删除锁”<code></code>按钮或右键点击它们并选择“删除锁”<code></code>菜单项。</p>
+	
+	<p>同样，通过选择列表中的多个项（例如，按住 Ctrl 并点击多行）并点击“删除锁”<code></code>，可以同时释放多个锁</p>
+	
+	<p>如果选择了任何被持有的锁，或者在显示锁时以及在按下删除按钮之前获取了任何锁，则不会删除它们。</p>
+	
+	
+	<h4 id="viewlogs" class="clearer">查看日志</h4>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/locking-viewlog-contextmenu.png" alt="查看日志"/>
+	</div>
+	<p>可以查看当前持有锁的会话的日志，其方法是选择它们并点击“查看日志”<code></code>按钮，或右键点击并选择“查看日志”<code></code>菜单项。</p>
+	
+	<p>选择之后，将为每个选定的会话打开一个单独的窗口，并在其中打开日志。</p>
+	
+	<p>如果选择了任何自由锁，或者在此期间已释放所选锁，则其会话将不再可用，因此将不会打开日志。</p>
+	
+
+</body>
+</html>

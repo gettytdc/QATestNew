@@ -1,0 +1,62 @@
+startapplication path="c:\BluePrism\BluePrism.Automate\bin\Automate.exe" hook=False
+
+#Wait for it to appear...
+wait timeout=60000 {aacheckexists windowtext="Blue Prism Automate" name="Blue Prism Automate"}=True
+$AbortIf RESULT:0
+
+#File menu, Connections...
+aadefaction windowtext="Blue Prism Automate" name="File"
+aadefaction windowtext="Blue Prism Automate" name="Connections"
+
+#Wait for the connections window to appear...
+wait timeout=20000 {aacheckexists windowtext="Automate - Database Connection Settings" name="Automate - Database Connection Settings"}=True
+$AbortIf RESULT:0
+
+#Click cancel to close the connections window
+aadefaction windowtext="Automate - Database Connection Settings" name=Cancel role=PushButton
+#And wait for it to go away...
+wait timeout=20000 {aacheckexists windowtext="Automate - Database Connection Settings" name="Automate - Database Connection Settings"}=False
+$AbortIf RESULT:0
+
+#Set username and password, then log in...
+aasetvalue windowtext="Blue Prism Automate" name="Username field" role=Text newtext="admin"
+aasetvalue windowtext="Blue Prism Automate" name="Password field" role=Text newtext="a"
+aadefaction windowtext="Blue Prism Automate" name="3. Continue"
+
+#Go into system manager
+wait timeout=20000 {aacheckexists windowtext="Blue Prism Automate" name="System Manager" role=Link ax=3}=True
+$AbortIf RESULT:0
+aadefaction windowtext="Blue Prism Automate" name="System Manager" role=Link ax=3
+
+#Go to the processes tab
+wait timeout=20000 {aacheckexists windowtext="Blue Prism Automate" name="Processes" role=Link}=True
+$AbortIf RESULT:0
+aadefaction windowtext="Blue Prism Automate" name="Processes" role=Link
+#Wait for it to appear...
+wait timeout=20000 {aacheckexists windowtext="Blue Prism Automate" name="Process Management" role="PageTab"}=True
+$AbortIf RESULT:0
+
+#Back from System Manager to main menu
+aadefaction windowtext="Blue Prism Automate" name="Back" role=PushButton
+
+#Create a new business object
+wait timeout=20000 {aacheckexists windowtext="Blue Prism Automate" name="Object Studio" role=Link ax=3}=True
+$AbortIf RESULT:0
+aadefaction windowtext="Blue Prism Automate" name="Object Studio" role=Link ax=3
+aadefaction windowtext="Blue Prism Automate" name="Create a Business Object" role=Link
+
+#Wait for the New Business Object to appear
+wait timeout=20000 {aacheckexists windowtext="New Business Object" name="New Business Object"}=True
+$AbortIf RESULT:0
+
+#Give it a test name
+aasetvalue windowtext="New Business Object" role=Text newtext="Test Object"
+aadefaction windowtext="New Business Object" name="Next >" role=PushButton
+
+#Give it a test description
+aasetvalue windowtext="New Business Object" role=Text Unavailable=False newtext="A Simple Description"
+aadefaction windowtext="New Business Object" name=Finish role=PushButton
+
+#Terminate...
+wait timeout=1
+$AbortIf RESULT:0

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="BuildDeposit" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Build parameters -->
+  <PropertyGroup>
+    <!-- Version used to label deposit - set via command line. Note that AssemblyVersion and AssemblyFileVersion
+        attributes are not set before exporting the code files -->
+    <VersionLabel>0.0.0.0</VersionLabel>
+  </PropertyGroup>
+  <!-- Directory and file paths. 
+    * Directory properties end with "Directory" and values do not include a final backslash
+    * Absolute file path properties end with "FullPath"    
+    -->
+  <PropertyGroup>
+    <BuildDirectory>$(MSBuildProjectDirectory)</BuildDirectory>
+    <RootDirectory>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..'))</RootDirectory>
+    <NuGetPackagesDirectory>$(UserProfile)\.nuget\packages</NuGetPackagesDirectory>
+    <OutputDir>$(RootDirectory)\Output</OutputDir>
+    <DepositDirectoryName>EscrowDeposit-$(VersionLabel)</DepositDirectoryName>
+    <DepositDirectory>$(OutputDir)\$(DepositDirectoryName)</DepositDirectory>
+    <DepositZipFileFullPath>$(OutputDir)\$(DepositDirectoryName).zip</DepositZipFileFullPath>
+    <DepositSourceFilesDirectory>$(DepositDirectory)\Source Code\BluePrism</DepositSourceFilesDirectory>
+    <DepositBinDirectory>$(DepositSourceFilesDirectory)\bin</DepositBinDirectory>
+    <BluePrismSlnDirectory>$(RootDirectory)</BluePrismSlnDirectory>
+    <NuGetPackagesPath>$(BluePrismSlnDirectory)\packages</NuGetPackagesPath>
+    <BluePrismSlnFullPath>$(BluePrismSlnDirectory)\BluePrism.sln</BluePrismSlnFullPath>
+    <LoginAgentSlnDirectory>$(RootDirectory)\LoginAgent</LoginAgentSlnDirectory>
+    <LoginAgentSlnFullPath>$(LoginAgentSlnDirectory)\LoginAgent.sln</LoginAgentSlnFullPath>
+    <NuGetExeFullPath>$(BluePrismSlnDirectory)\BluePrism.Build\lib\NuGet.exe</NuGetExeFullPath>
+  </PropertyGroup>
+  <!-- Imports -->
+  <Import Project="$(NuGetPackagesDirectory)\MSBuild.Extension.Pack\1.9.1\build\net40\MSBuild.Extension.Pack.targets" />
+  <Target Name="BuildDeposit" DependsOnTargets="Prepare;NugetRestore;ExportSourceCode;ExportBinDirectory;ExportDocumentation;ZipDepositDirectory;" />
+  <Target Name="NugetRestore">
+    <Exec Command="&quot;$(NuGetExeFullPath)&quot; restore &quot;$(BluePrismSlnFullPath)&quot; -NoCache -OutputDirectory $(NuGetPackagesPath)" />
+    <Exec Command="&quot;$(NuGetExeFullPath)&quot; restore &quot;$(LoginAgentSlnFullPath)&quot; -NoCache -OutputDirectory $(NuGetPackagesPath)" />
+  </Target>
+  <Target Name="ExportSourceCode">
+    <ItemGroup>
+      <SourceFiles Include="$(RootDirectory)\**\*.*"
+                   Exclude="$(RootDirectory)\.git\**;$(RootDirectory)\.git*.*;$(RootDirectory)\.git*.*;$(RootDirectory)\Escrow Documentation\**;$(RootDirectory)\.vs\**;$(RootDirectory)\BluePrism.Build\Output;$(RootDirectory)\**\bin\**;$(RootDirectory)\**\obj\**" />
+    </ItemGroup>
+    <Copy SourceFiles="@(SourceFiles)"
+          DestinationFiles="@(SourceFiles->'$(DepositSourceFilesDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+  <Target Name="ExportBinDirectory">
+    <ItemGroup>
+      <FilesToCopy Include="$(RootDirectory)\bin\Tesseract\**\*.*" />
+      <RequiredDllToCopy Include="$(RootDirectory)\bin\ManagedSpyLib.dll"/>
+
+      <RequiredFileToCopy Include="$(RootDirectory)\bin\OcrPlus\bpocrpp.exe"/>
+    </ItemGroup>
+    <MakeDir Directories="$(DepositBinDirectory)"/>
+    <Copy SourceFiles="@(RequiredDllToCopy)"
+          DestinationFolder="$(DepositBinDirectory)"/>
+    <Copy SourceFiles="@(RequiredFileToCopy)"
+          DestinationFolder="$(DepositBinDirectory)\OcrPlus"/>
+
+    <Copy SourceFiles="@(FilesToCopy)"
+          DestinationFiles="@(FilesToCopy->'$(DepositBinDirectory)\Tesseract\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+  <Target Name="ExportDocumentation">
+    <PropertyGroup>
+      <DepositDocumentationFilesDirectory>$(DepositDirectory)\Documentation</DepositDocumentationFilesDirectory>
+    </PropertyGroup>
+    <ItemGroup>
+      <DocumentationFiles Include="$(RootDirectory)\Escrow Documentation\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(DocumentationFiles)"
+          DestinationFiles="@(DocumentationFiles->'$(DepositDocumentationFilesDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+  <Target Name="ZipDepositDirectory">
+    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" CompressPath="$(DepositDirectory)" ZipFileName="$(DepositZipFileFullPath)"/>
+  </Target>
+  <!-- Clean up any directories used to store build artifacts -->
+  <Target Name="Prepare">
+    <RemoveDir Directories="$(DepositDirectory)" Condition="Exists($(DepositDirectory))" />
+    <MakeDir Directories="$(DepositDirectory)" />
+    <RemoveDir Directories="$(NuGetPackagesPath)" Condition="Exists($(NuGetPackagesPath))" />
+    <MakeDir Directories="$(NuGetPackagesPath)" />
+    <Delete Files="$(DepositZipFileFullPath)" />
+  </Target>
+</Project>

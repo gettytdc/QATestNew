@@ -1,0 +1,87 @@
+﻿<process name="Test Help Exists" version="1.0" bpversion="6.7.0.18877" narrative="." byrefcollection="true" preferredid="bddbdd20-9550-4233-9fab-a9a101e557d3">
+  <view>
+    <camerax>0</camerax>
+    <cameray>120</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="e8e0d615-f226-4875-916c-86438c07564e" name="Start" type="Start">
+    <display x="120" y="-105" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>66a8958f-2af5-4cbf-ace5-4ddc3a8eafcf</onsuccess>
+  </stage>
+  <stage stageid="d7bb9bef-9e40-46a7-8ef3-d9d9549fa1c0" name="End" type="End">
+    <display x="120" y="300" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="9e273d94-5491-43ed-af36-3656e078efd6" name="Stage1" type="ProcessInfo">
+    <display x="-30" y="-90" w="150" h="90" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="7d3fed4e-e724-490a-b822-2daacb07dd7a" name="Terminate BP" type="Action">
+    <display x="120" y="210" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>aae5fb10-eff7-4b20-85b1-1e8049932827</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="28b6d177-e901-452b-b142-a1233167ceae" name="Sign In" type="Action">
+    <display x="120" y="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" expr="&quot;admin&quot;" />
+      <input type="password" name="Password" expr="&quot;admin&quot;" />
+    </inputs>
+    <onsuccess>8191fa62-afd7-458c-baba-cb1bd2460412</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="8191fa62-afd7-458c-baba-cb1bd2460412" name="Open Product Help" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="120" y="75" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e3ee81a7-0508-42a8-b1ce-cddec961370d</onsuccess>
+    <resource object="Blue Prism - General - Miscellaneous" action="Open Product Help" />
+  </stage>
+  <stage stageid="66a8958f-2af5-4cbf-ace5-4ddc3a8eafcf" name="Launch Blue Prism" type="Action">
+    <display x="120" y="-60" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>8676111c-528c-4191-bb1b-cf8e917a6358</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="8676111c-528c-4191-bb1b-cf8e917a6358" name="Attach General" type="Action">
+    <display x="120" y="-15" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>28b6d177-e901-452b-b142-a1233167ceae</onsuccess>
+    <resource object="Blue Prism - General (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="e655d38c-9340-4290-9b00-38d41d3a9d4a" name="pid" type="Data">
+    <display x="-30" y="0" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e3ee81a7-0508-42a8-b1ce-cddec961370d" name="Attach Internet Explorer" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="120" y="120" />
+    <onsuccess>24713268-27ec-4e7a-a3df-cb2d2beb959c</onsuccess>
+    <resource object="Blue Prism - Help - Internet Explorer" action="Attach" />
+  </stage>
+  <stage stageid="24713268-27ec-4e7a-a3df-cb2d2beb959c" name="Check Main Page Exists" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="120" y="165" />
+    <onsuccess>7d3fed4e-e724-490a-b822-2daacb07dd7a</onsuccess>
+    <resource object="Blue Prism - Help - Internet Explorer" action="Check Main Page Exists" />
+  </stage>
+  <stage stageid="aae5fb10-eff7-4b20-85b1-1e8049932827" name="Terminate IE" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="120" y="255" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>d7bb9bef-9e40-46a7-8ef3-d9d9549fa1c0</onsuccess>
+    <resource object="Blue Prism - Help - Internet Explorer" action="Terminate" />
+  </stage>
+</process>

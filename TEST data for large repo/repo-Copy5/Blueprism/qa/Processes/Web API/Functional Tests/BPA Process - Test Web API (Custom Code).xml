@@ -1,0 +1,307 @@
+﻿<process name="Test Web API (Custom Code)" version="1.0" bpversion="6.4.0.6367" narrative="" byrefcollection="true" preferredid="1d08cb4f-de84-4e79-897f-42e3a0828a22">
+  <view>
+    <camerax>-58</camerax>
+    <cameray>-21</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="b3213e73-fb3a-4ab0-9708-6829763f8221" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="cf048744-226d-4468-b074-305c4b00d875" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>cfe70a16-8d3f-4692-ab53-939cc744c6b0</onsuccess>
+  </stage>
+  <stage stageid="dfe5caed-98c8-4400-ab68-e282baba290a" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>315</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="a61264bf-62b1-41d8-88c1-80432bb70943" name="Make request" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>0</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Files" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>ceb588a5-5ffe-4b3f-a58d-d059ef8c7efc</onsuccess>
+    <resource object="Web API Service (CustomCode)" action="PostEcho" />
+  </stage>
+  <stage stageid="f72acad2-5017-463a-9ffa-4a5ffaa2d12a" name="Response Headers" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1a5801a7-c0b1-427f-808e-2130dd1de15e" name="HTTP Status Code" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>225</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="07715cca-a796-492f-b7f5-b8cf89277f18" name="Response Content" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ceb588a5-5ffe-4b3f-a58d-d059ef8c7efc" name="Request OK?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[HTTP Status Code]=&quot;202&quot;" />
+    <ontrue>95606c52-c141-4500-9095-7562bf66029b</ontrue>
+    <onfalse>7f44db8e-36d4-4f1f-aafa-a6fcce232444</onfalse>
+  </stage>
+  <stage stageid="7f44db8e-36d4-4f1f-aafa-a6fcce232444" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="Bug" detail="&quot;Request failed. Status &quot; &amp; [HTTP Status Code] &amp; &quot;.&quot;" />
+  </stage>
+  <stage stageid="e2803029-688d-4516-8dba-e87f94192552" name="QA Root" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="cfe70a16-8d3f-4692-ab53-939cc744c6b0" name="Launch" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="number" name="PID" narrative="The PID of the program." stage="PID" />
+    </outputs>
+    <onsuccess>a61264bf-62b1-41d8-88c1-80432bb70943</onsuccess>
+    <resource object="Web API" action="Launch" />
+  </stage>
+  <stage stageid="e7f174e1-1783-4404-95f3-aef3dd2408b9" name="Terminate" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="PID" narrative="The PID of the process you want to kill." expr="[PID]" />
+    </inputs>
+    <onsuccess>f283eff5-a96f-49f2-931c-86da21547ed8</onsuccess>
+    <resource object="Web API" action="Terminate" />
+  </stage>
+  <stage stageid="f283eff5-a96f-49f2-931c-86da21547ed8" name="Failed?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Failed?]" />
+    <ontrue>1d53dd75-cfae-46c2-b2f3-2aec133e6d73</ontrue>
+    <onfalse>dfe5caed-98c8-4400-ab68-e282baba290a</onfalse>
+  </stage>
+  <stage stageid="1d53dd75-cfae-46c2-b2f3-2aec133e6d73" name="RETHROW" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>255</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="194d2503-8ec7-4ed8-9fb6-b80127109027" name="Anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>210</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e7f174e1-1783-4404-95f3-aef3dd2408b9</onsuccess>
+  </stage>
+  <stage stageid="8be53b44-9449-4e32-9452-eac467954626" name="Recover" type="Recover">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>0c0b6ec4-c3da-4529-8a24-a3c57719ac48</onsuccess>
+  </stage>
+  <stage stageid="2ae3b8c8-9b67-4856-853b-576ad721bb65" name="Resume" type="Resume">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>150</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>194d2503-8ec7-4ed8-9fb6-b80127109027</onsuccess>
+  </stage>
+  <stage stageid="0c0b6ec4-c3da-4529-8a24-a3c57719ac48" name="Exception Calc" type="MultipleCalculation">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>2ae3b8c8-9b67-4856-853b-576ad721bb65</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="cbd146d4-09a1-422c-80e7-769ff1ca0ce9" name="PID" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="37688085-363d-486b-9cd2-5f6433de79df" name="Failed?" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e1fb2abd-e77f-4d44-885b-0cb53f210edb" name="Exception" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6a5ed5cf-950e-4e5f-8749-bc8a1a02164c" name="Block1" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>315</displaywidth>
+    <displayheight>210</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="95606c52-c141-4500-9095-7562bf66029b" name="Is Expected Response?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Response Content]=[Expected Response]" />
+    <ontrue>e7f174e1-1783-4404-95f3-aef3dd2408b9</ontrue>
+    <onfalse>7917f980-1a12-481f-bbf6-bf9fbfd10306</onfalse>
+  </stage>
+  <stage stageid="7917f980-1a12-481f-bbf6-bf9fbfd10306" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="Bug" detail="&quot;Reponse does not match expected value. Content is &quot; &amp; [Response Content] &amp;  &quot; instead of &quot; &amp; [Expected Response] &amp; &quot;.&quot;" />
+  </stage>
+  <stage stageid="b4765d46-2d9c-4573-952f-741658faa7e1" name="Expected Response" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">"Method: POST, RequestUri: 'http://localhost:9000/api/echo', Version: 1.1, Content: System.Net.Http.StreamContent, Headers:\r\n{\r\n  Connection: Keep-Alive\r\n  Expect: 100-continue\r\n  Host: localhost:9000\r\n  Content-Length: 49\r\n  Content-Type: application/json\r\n}\r\nMessage Body: \r\nThe params: CustomName, AnotherParam, ThisIsATest\r\n"</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+</process>

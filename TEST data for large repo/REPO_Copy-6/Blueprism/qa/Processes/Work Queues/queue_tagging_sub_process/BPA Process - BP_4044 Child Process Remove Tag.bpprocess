@@ -1,0 +1,53 @@
+﻿<process name="BP_4044 Child Process Remove Tag" version="1.0" bpversion="7.0.0.40159" narrative="" byrefcollection="true" preferredid="86fe91cc-6fc6-40d6-971c-5032114b9a76">
+  <view>
+    <camerax>0</camerax>
+    <cameray>0</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="a52d0689-d4df-40b4-8ad0-c3350d41924d" name="Start" type="Start">
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="Item ID" stage="Item ID" />
+      <input type="text" name="Tag" stage="Tag" />
+    </inputs>
+    <onsuccess>c489855f-506b-4607-9c71-fb16a65eab6e</onsuccess>
+  </stage>
+  <stage stageid="63a00cd6-93f2-48db-9202-31a4c5eb52c1" name="End" type="End">
+    <display x="15" y="-15" />
+  </stage>
+  <stage stageid="0fe20d0d-1633-4059-ab58-e0bd5d81f586" name="Stage1" type="ProcessInfo">
+    <display x="-135" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="c489855f-506b-4607-9c71-fb16a65eab6e" name="Work Queues::Untag Item" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Removes a tag from a work queue item</narrative>
+    <display x="15" y="-60" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the queue item to remove the tag from" expr="[Item ID]" />
+      <input type="text" name="Tag" friendlyname="Tag" narrative="The tag to remove from the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="[Tag]" />
+    </inputs>
+    <onsuccess>63a00cd6-93f2-48db-9202-31a4c5eb52c1</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Untag Item" />
+  </stage>
+  <stage stageid="029999e1-575e-47f2-804f-921c97a45b01" name="Input Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-15" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="78da81b9-c717-4534-9316-709f693bd901" name="Tag" type="Data">
+    <display x="-135" y="45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c68fae91-3b22-465f-aa03-7fa5724c4e4e" name="Item ID" type="Data">
+    <display x="-135" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+</process>

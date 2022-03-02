@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>流程导入</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="pagetitle">流程导入</h1>
+    </div>
+	
+	<p><strong>注意： </strong>此机制基本上已被<a href="relman.html">发行版管理器</a>取代。有关导入流程的具体详细信息，请参阅<a href="relman-import-release.html">导入发行版</a>向导的帮助文档。<br/>保留此文档是为了应对未提供发行版管理器的 Blue Prism 版本。</p>
+
+    <h3>概述</h3>
+
+    <p>流程导入功能可以让您导入在不同的 <a href="helpConnections.htm">Blue Prism 数据库</a>中创建的流程或（<a href="helpBusinessObjects.htm#VBO">可视业务对象</a>）。 如果您拥有用于测试和生产环境的单独数据库，并且希望将测试环境中所做的更改迁移到生产环境中，此功能会特别有用。 “流程导入”向导使用起来既快速又简单。 </p>
+    <p>以下流程图对该任务进行了汇总。下面对每个步骤进行了注解。 <img style="display: block; margin-left:auto; margin-right:auto" src="graphics/ProcessImportWizard.png" alt="流程图汇总了导入的相关步骤"/>
+	</p>
+	
+
+	<h3>1. 选择要导入的文件</h3>
+
+	<p>必须指定流程的文件名。点击“浏览”，导航到要导入文件的位置。该文件必须包含已从其他数据库<a href="frmProcessExport.htm">导出</a>的流程或业务对象。</p>
+
+	<div class="indented">
+	<h3 id="IDConflict">1a.必要时解决 ID 冲突</h3>
+	<p>每个流程和业务对象都有一个在其导出时保留的内部 ID。每个流程和业务对象必须有一个 ID，该 ID 在同一个数据库中的所有其他流程和业务对象中是惟一的。该 ID 具有在<a href="frmStagePropertiesSubProcess.htm">子流程环节</a>中维护引用等多种用途。</p>
+	<p>当您从实时环境导出流程，在测试环境中对其进行一些修改，然后希望通过导入将这些更改传播回实时环境时，通常会发生命名冲突。在这种情况下，您应该选择用传入流程覆盖现有流程。此操作将维护<a href="helpProcessHistory.htm">流程历史记录</a>中的编辑序列。在其他流程（或业务对象）中进行的任何子流程引用都将指向处于新导入状态的流程最新版本。</p>
+	 <p>或者，您可以为传入流程选择一个新 ID，这意味着这两个流程将以不同的名称共存（向导将强制为传入流程选择新名称）。在这种情况下，在其他流程（或业务对象）中进行的子流程引用将并不指向新导入的流程，而是指向原始流程。</p>
+	  </div>
+	  
+	  
+	  <h3>2. 输入流程名称</h3>
+	  <p>系统将显示原始文件中流程的名称。此名称可以保留原样，但如果要更改或更新它，则该名称可以包含空格等任何字符。该名称最多只能包含 128 个字符。</p>
+	  <p>所选名称不得与数据库中的任何现有名称存在冲突（数据库中的现有流程将被某个流程覆盖时除外，特别是在存在 <a href="#IDConflict">ID 冲突</a>时）。</p>
+	   <p>如果要覆盖现有流程，则此处选择的名称将是最新形式的该流程的名称，也即现有流程将被覆盖并重命名。</p>
+	   
+	   <div class="indented">
+	   <h3 id="NameConflict">2a.必要时解决命名冲突</h3>
+	   <p>如果您为流程选择的名称与现有流程的名称存在冲突，则必须点击“返回”按钮并选择其他名称，或者必须从给出的选项中进行选择。</p>
+		<p>如果您由于 <a href="#IDConflict">ID 冲突</a>选择覆盖现有流程，则您仅可以进一步选择重命名现有流程，以便为传入流程让路。在所有其他情况下，您都可以选择覆盖现有流程。</p>
+		</div>
+		
+	<h3>3. 输入流程描述</h3>
+	<p>业务流程的描述最多可以包含 1000 个字符，并将显示在已完成流程图顶部的注释字段中。</p>
+
+	<h3>4. 继续操作 Process Studio</h3>
+
+	<p>完成步骤 1、2 和 3 后，系统将操作并不可撤销地应用您的选择。向导关闭后，您将在 <a href="frmProcess.htm">Process Studio</a> 中看到打开导入流程的选项。</p>
+	
+</body>
+</html>

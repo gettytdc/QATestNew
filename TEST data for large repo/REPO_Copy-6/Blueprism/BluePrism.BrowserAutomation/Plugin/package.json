@@ -1,0 +1,16 @@
+{
+  "name": "blue-prism-plugin",
+  "version": "1.0.0",
+  "scripts": {
+    "build-Debug": "babel ./main.js -d ./build/ && babel ./background.js -d ./build/ && babel ./getHtmlSource.js -d ./build/ && babel ./logger.js -d ./build/",
+    "build-Release": "babel ./main.js -d build && babel ./background.js -d build && babel ./getHtmlSource.js -d build  && babel ./logger.js -d build && uglifyjs ./build/main.js -o ./build/main.js -m -c --ie8 --source-map \"filename='main.js.map'\" && uglifyjs ./build/background.js -o ./build/background.js -m -c --ie8 --source-map \"filename='background.js.map'\" && uglifyjs ./build/getHtmlSource.js -o ./build/getHtmlSource.js -m -c --ie8 --source-map \"filename='getHtmlSource.js.map'\" && uglifyjs ./build/logger.js -o ./build/logger.js -m -c --ie8 --source-map \"filename='logger.js.map'\"",
+    "package-firefox": "web-ext sign --source-dir=./build/ --api-key=user:15933998:55 --api-secret=0b40e6b5571b9b7ba3fabc55b3bd8ca8fa0331e71f43c8dcce0c2d2c92dcdd55  --id=firefox.extension@blueprism.com"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "crypto-js": "^3.2.1",
+    "uglify-js": "^3.3.15",
+    "web-ext": "latest"
+  }
+}

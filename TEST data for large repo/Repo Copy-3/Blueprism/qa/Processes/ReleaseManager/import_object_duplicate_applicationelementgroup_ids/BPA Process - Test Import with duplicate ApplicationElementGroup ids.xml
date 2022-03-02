@@ -1,0 +1,59 @@
+﻿<process name="Test Import with duplicate ApplicationElementGroup ids" version="1.0" bpversion="6.7.0.16072" narrative="" byrefcollection="true" preferredid="c99bf778-f35b-46ba-825e-0f5fa91fbf7e">
+  <view>
+    <camerax>0</camerax>
+    <cameray>21</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="190eca45-7d15-40b7-b7b2-0e134f3290f1" name="Start" type="Start">
+    <display x="15" y="-105" />
+    <onsuccess>73754a1c-0f2b-4308-a5e8-8d0dee6ab853</onsuccess>
+  </stage>
+  <stage stageid="d63e69e9-ab34-4f31-8954-d2ff0c0d1781" name="End" type="End">
+    <display x="15" y="90" />
+  </stage>
+  <stage stageid="639e74bd-3de0-46a5-a384-0aa7ed70a422" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="16ec0a5c-4742-490e-bd93-af7e430ca05d" name="Import Object" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="210" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="The username that you want to authenticate against." expr="&quot;admin&quot;" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the username." expr="&quot;admin&quot;" />
+      <input type="flag" name="Requires Login" friendlyname="Requires Login" narrative="Flag indicating if the login info should be given too" expr="True" />
+      <input type="text" name="Arguments" friendlyname="Arguments" narrative="The arguments to pass to automatec, not including the authentication info" expr="&quot;/import &quot;&quot;&quot;&amp;[QA Root]&amp;&quot;\Processes\ReleaseManager\import_object_duplicate_applicationelementgroup_ids\BPA Object - HSBC_FINMIS_UTILITY_OBJECT.xml&quot;&quot;&quot;" />
+      <input type="flag" name="Negative Test" friendlyname="Negative Test" narrative="Set if expecting an error executing command" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Output" friendlyname="Output" narrative="The output from the command" stage="" />
+    </outputs>
+    <onsuccess>d63e69e9-ab34-4f31-8954-d2ff0c0d1781</onsuccess>
+    <resource object="Blue Prism - Commands" action="Call automateC" />
+  </stage>
+  <stage stageid="73754a1c-0f2b-4308-a5e8-8d0dee6ab853" name="Note1" type="Note">
+    <narrative>GIVEN I have object created in v5
+
+WHEN I import the object into a post v5 build
+
+THEN the object should import without error</narrative>
+    <display x="15" y="-30" w="210" h="90" />
+    <font family="Segoe UI" size="11" style="Bold" color="3DB87A" />
+    <onsuccess>16ec0a5c-4742-490e-bd93-af7e430ca05d</onsuccess>
+  </stage>
+  <stage stageid="4d88753d-eb29-4497-8c8d-905bcb750b69" name="QA Root" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5a4990d8-3121-4381-92fb-93a1f12b7b7b" name="Environment Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-15" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+</process>

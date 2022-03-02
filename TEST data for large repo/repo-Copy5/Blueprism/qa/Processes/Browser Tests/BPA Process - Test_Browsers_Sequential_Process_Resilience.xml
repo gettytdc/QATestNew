@@ -1,0 +1,205 @@
+﻿<process name="Test_Browsers_Sequential_Process_Resilience" version="1.0" bpversion="6.8.0.22441" narrative="Test_Browsers_Sequential_Process_Resilience" byrefcollection="true" preferredid="9dd12997-165c-428b-a217-48d12695c0c4" published="true">
+  <view>
+    <camerax>3</camerax>
+    <cameray>-6</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="b414e72c-0426-4e33-9759-7fc1fa157c93" name="Start" type="Start">
+    <display x="-45" y="-270" w="90" h="30" />
+    <onsuccess>544f83c6-3988-49ba-beb6-f92202b03ddd</onsuccess>
+  </stage>
+  <stage stageid="2a94a083-ec30-4a2f-abbb-dd9f6d1c7824" name="End" type="End">
+    <display x="-45" y="555" />
+  </stage>
+  <stage stageid="d1b65a43-7716-452c-887e-0293ae4d877d" name="Stage1" type="ProcessInfo">
+    <display x="-495" y="-195" w="210" h="90" />
+  </stage>
+  <stage stageid="544f83c6-3988-49ba-beb6-f92202b03ddd" name="Note1" type="Note">
+    <narrative>GIVEN I have Edge, Firefox and Chrome browsers 
+
+WHEN I launch a webpage using these browsers one by one (sequential browser process launches)
+
+AND spy the webelements
+
+AND close each browser when it's process done
+
+THEN user can able to launch and access the webelements in the webpage using these browsers.</narrative>
+    <display x="-45" y="-180" w="450" h="120" />
+    <font family="Segoe UI" size="11" style="Bold" color="000000" />
+    <onsuccess>04924c2e-ecfb-4335-b2b5-d5a1ed170c1f</onsuccess>
+  </stage>
+  <stage stageid="1720f5cc-f4b7-4fee-8763-ad0506c145f5" name="Edge:Sequence process of launching browsers and spying elements" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-300" y="-90" w="600" h="165" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="fbbcd2f2-3c0d-459c-af2e-393cdfb0abd7" name="Recover1" type="Recover">
+    <loginhibit />
+    <display x="240" y="-60" />
+    <onsuccess>d1c8b4b9-62b7-44b6-9511-4b44e522c867</onsuccess>
+  </stage>
+  <stage stageid="d1c8b4b9-62b7-44b6-9511-4b44e522c867" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="240" y="-15" />
+    <onsuccess>cfc422f7-d3b0-4f49-a8df-415dd02cb807</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="[Exception] &amp; &quot;---EDGE EXCEPTION :---- &quot; &amp; ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="cfc422f7-d3b0-4f49-a8df-415dd02cb807" name="Resume1" type="Resume">
+    <loginhibit />
+    <display x="240" y="60" />
+    <onsuccess>ce1f89ea-c78a-4a80-86fb-e3613643cf87</onsuccess>
+  </stage>
+  <stage stageid="9b2c962a-8d46-42ed-aa33-69882d3ce1c7" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-510" y="-75" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f8946e45-34d4-40e0-8e38-c805f980bacc" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-510" y="-30" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f1cc8e6a-c2b6-432c-a8d3-1a2b51f3563e" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-600" y="-105" w="210" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ce1f89ea-c78a-4a80-86fb-e3613643cf87" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="60" w="10" h="10" />
+    <onsuccess>4f094e59-eb4b-46c4-842a-bacd09e164c8</onsuccess>
+  </stage>
+  <stage stageid="78158846-4077-4f50-80b2-0bd333e31d9e" name="Failed" type="Decision">
+    <display x="-45" y="480" w="120" h="60" />
+    <decision expression="[Failed?]" />
+    <ontrue>99256c3d-a416-4fd4-a481-66962cafa900</ontrue>
+    <onfalse>2a94a083-ec30-4a2f-abbb-dd9f6d1c7824</onfalse>
+  </stage>
+  <stage stageid="99256c3d-a416-4fd4-a481-66962cafa900" name="RETHROW" type="Exception">
+    <display x="90" y="480" w="90" h="30" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="04924c2e-ecfb-4335-b2b5-d5a1ed170c1f" name="Edge Launch &amp; Integration" type="Process">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-30" w="450" h="60" />
+    <inputs>
+      <input type="flag" name="Pause During Test?" friendlyname="Pause During Test?" expr="True" />
+    </inputs>
+    <onsuccess>db3982f5-2dea-4827-99de-623ea323cdf4</onsuccess>
+    <processid>671ed5bc-75a3-4b95-bdfa-6f6deff48ede</processid>
+  </stage>
+  <stage stageid="371feabc-c783-43da-a685-c577bd89ef3c" name="Chrome:Sequence process of launching browsers and spying elements" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-300" y="90" w="600" h="165" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="163d7fe2-4a20-4ebc-948b-1b879eb45e41" name="Recover1" type="Recover">
+    <loginhibit />
+    <display x="240" y="120" />
+    <onsuccess>9473fc57-c1ff-4bf3-80db-78281f916e7a</onsuccess>
+  </stage>
+  <stage stageid="9473fc57-c1ff-4bf3-80db-78281f916e7a" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="240" y="180" />
+    <onsuccess>29e81d79-4ed8-4132-a654-99752b470131</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="[Exception] &amp; &quot;---CHROME EXCEPTION :---- &quot; &amp; ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="29e81d79-4ed8-4132-a654-99752b470131" name="Resume1" type="Resume">
+    <loginhibit />
+    <display x="240" y="240" />
+    <onsuccess>62bef5b1-1f41-4b73-98c1-084d895ee83f</onsuccess>
+  </stage>
+  <stage stageid="62bef5b1-1f41-4b73-98c1-084d895ee83f" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="240" w="10" h="10" />
+    <onsuccess>afb2a5b6-613a-48a5-ba30-0e12c790b385</onsuccess>
+  </stage>
+  <stage stageid="4f094e59-eb4b-46c4-842a-bacd09e164c8" name="Chrome Launch &amp; Integration" type="Process">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="150" w="450" h="60" />
+    <inputs>
+      <input type="flag" name="Pause During Test?" friendlyname="Pause During Test?" expr="True" />
+    </inputs>
+    <onsuccess>19af3a01-ab13-4d35-bb0a-4ea005865f26</onsuccess>
+    <processid>5829e85a-9371-47e1-bfb9-1a309b88efc1</processid>
+  </stage>
+  <stage stageid="db3982f5-2dea-4827-99de-623ea323cdf4" name="PAUSE" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="30" w="150" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="10" />
+    </inputs>
+    <onsuccess>ce1f89ea-c78a-4a80-86fb-e3613643cf87</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="19af3a01-ab13-4d35-bb0a-4ea005865f26" name="PAUSE" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="210" w="150" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="10" />
+    </inputs>
+    <onsuccess>62bef5b1-1f41-4b73-98c1-084d895ee83f</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="05867adf-debb-408c-84ce-1a51046fc114" name="Firefox:Sequence process of launching browsers and spying elements" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-300" y="270" w="600" h="165" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="51e73576-3e25-49ea-914d-0dbfe1566438" name="Recover1" type="Recover">
+    <loginhibit />
+    <display x="240" y="300" />
+    <onsuccess>797a4b4e-3d33-41fb-923b-ddb46086284a</onsuccess>
+  </stage>
+  <stage stageid="797a4b4e-3d33-41fb-923b-ddb46086284a" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="240" y="345" />
+    <onsuccess>74ab8904-40ce-4b07-9197-92eeed9ee471</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="[Exception] &amp; &quot;---FIREFOX EXCEPTION :---- :   &quot; &amp; ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="74ab8904-40ce-4b07-9197-92eeed9ee471" name="Resume1" type="Resume">
+    <loginhibit />
+    <display x="240" y="420" />
+    <onsuccess>b165804f-8bbc-47b1-8db9-94cecf187bbf</onsuccess>
+  </stage>
+  <stage stageid="b165804f-8bbc-47b1-8db9-94cecf187bbf" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="420" w="10" h="10" />
+    <onsuccess>78158846-4077-4f50-80b2-0bd333e31d9e</onsuccess>
+  </stage>
+  <stage stageid="afb2a5b6-613a-48a5-ba30-0e12c790b385" name="Firefox Launch &amp; Integration" type="Process">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="330" w="450" h="60" />
+    <inputs>
+      <input type="flag" name="Pause During Test?" friendlyname="Pause During Test?" expr="True" />
+    </inputs>
+    <onsuccess>ec53ce62-2289-4779-85f5-24a6f0a1d1bc</onsuccess>
+    <processid>0ce214cc-b0b2-49cc-9379-17af5d30ffc1</processid>
+  </stage>
+  <stage stageid="ec53ce62-2289-4779-85f5-24a6f0a1d1bc" name="PAUSE" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="390" w="150" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="10" />
+    </inputs>
+    <onsuccess>b165804f-8bbc-47b1-8db9-94cecf187bbf</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+</process>

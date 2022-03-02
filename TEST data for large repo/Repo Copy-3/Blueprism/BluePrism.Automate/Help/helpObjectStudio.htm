@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Blue Prism Help - Object Studio</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="pagetitle">Object Studio</h1>
+    </div>
+    
+    
+    
+    <h3>Overview</h3>
+    <p>
+        Object Studio is a new feature introduced in <a href="ChangeLog.htm#Release_3.0.0">Version 3.0</a>, designed to facilitate
+		the creation of <a href="helpBusinessObjects.htm">Business Objects</a> by providing a familiar <a href="helpFlowCharts.htm">
+		flow chart</a> interface, as used in <a href="frmProcess.htm">Process Studio</a>. Such business objects are known as
+		<a href="helpBusinessObjects.htm#VBO">Visual Business Objects</a>.
+    </p>
+    <p>
+		Typically, a visual business object is used for interacting with a legacy windows applications with no API. Applications which 
+		do provide an API may well be more suitably automated using a <a href="helpBusinessObjects.htm#COM">COM business
+		object</a>. An exception to this advice is Mainframe applications: their use is so widespread that Blue Prism offers special
+		features to allow speedy integration with these APIs.
+	</p>
+    
+    
+    
+    <h3>Object Studio Usage</h3>
+    <p>
+		Stages are laid out on the diagram as in Process Studio, with flow being controlled using <a href="frmStagePropertiesDecision.htm">
+		decision</a> and <a href="frmStagePropertiesChoice.htm">choice</a> stages.
+    </p>
+
+    <a name="Pages" id="Pages"></a>
+    <h3>Pages</h3>
+    <p>
+		In a business process, flow begins at the start stage of the main
+		page and continues by following the links from one stage to the next. 
+		Each page is a logical sub-division of the natural flow. Pages
+		exist primarily as a) a means of re-using often-repeated groups of stages; and b) a
+		means of tidying up the process diagram. For this reason any process could in fact be
+		represented equivalently on a single page.
+	</p>
+	<p>
+		By contrast, pages in a business object which are public do not
+		represent subdivisions of a whole; each page is an entity in its own right, known as
+		a  <span class="emphasis">capability</span> having its
+		own start point. In this sense, a business object has no unique start point: only lots
+		of capabilities, each with its own unique start point.
+	</p>
+	<p>
+		When processes make use of business objects, they call the relevant capability
+		(ie the chosen page) directly; execution does not proceed via a main page.
+	</p>
+	
+	<a name="PublishingPages" id="PublishingPages"></a>
+    <h3>Publishing Pages</h3>
+    <p>
+		As described above, each page represents a unique entry point into the business object.
+		By default, none of these entry points are visible from your Blue Prism Processes. They only
+		become visible when you <span class="emphasis">publish</span> a page. This is achieved
+		via a context menu option on the page header. Once published, you capabilities can be called
+		from an <a href="frmStageProperties.htm">action stage</a>, as normal.
+    </p>
+    <p>
+		By keeping pages unpublished, you may have &quot;private&quot; pages that are useful within
+		your business object, but which you do not want to expose. Equally, this is a useful tactic
+		for making sure that a new capability is not made available until it is ready and has been
+		fully tested.
+	</p>
+		
+    
+    <a name="NewStageTypes" id="NewStageTypes"></a>
+    <h3>New Stage Types</h3>
+    <p>
+		Object Studio introduces the following new stage types: <a href="frmStagePropertiesRead.htm">Read</a>, 
+		<a href="frmStagePropertiesWrite.htm">Write</a>, <a href="frmStagePropertiesNavigate.htm">Navigate</a>,
+		<a href="frmStagePropertiesCode.htm">Code</a> and <a href="frmStagePropertiesWait.htm">Wait</a>.
+		These stage types are only available in Object Studio; they are not available in Process Studio. The new stages
+		are designed for controlling the interaction with your target application: read and write stages control the retrieval
+		and input of data; navigate opens menus, clicks buttons etc; wait is used to make sure your target application
+		is ready for your next stage (eg it has finished loading); and code stages allow advanced users to make use
+		of COM objects.
+    </p>
+    
+    <a name="IntegrationAssistant" id="IntegrationAssistant"></a>    
+    <h3>Application Modeller</h3>
+    <p>
+			The <a href="frmIntegrationAssistant.htm">Application Modeller</a> is a key feature of object studio. The first
+			task in building a business object of any application is to teach Blue Prism about the
+			<a href="frmIntegrationAssistant.htm#Elements">Elements</a> of your target application. This involves creating
+			a friendly name such as &quot;OK Button&quot; and then showing Blue Prism where to find this element via
+			a point and click operation with the mouse. The process is repeated until you have defined all elements of interest
+			in your target application. This will include any text boxes, list views, combo boxes etc from which you wish to read
+			data, and it will include any menus, buttons and tab controls that you need to use.
+    </p>
+    <p>
+		After you have defined the elements of your target application, they are then ready to be used in the
+		<a href="#NewStageTypes">new stages</a> described above. The application element treeview featured
+		in the Application Modeller appears in the properties forms of the new stages. The elements are used simply
+		by dragging them from the tree and dropping them into a new row in the properties form. For example, to
+		read some text from a text box in your application, you drag the text box element into a new row in a read stage, and drag
+		a data item into the same row. When this stage is executed, the text will be read from your target application and stored
+		in the chosen data item.
+	</p>
+	
+</body>
+</html>

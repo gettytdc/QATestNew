@@ -1,0 +1,437 @@
+﻿<process name="Test Resource Timeout" version="1.0" bpversion="6.9.0.24001" narrative="Test to ensure that a resource communication issue which ended up causing various incidents, outlined in dev support bug 9718 - https://portal.blueprism.com/tracker/show_bug.cgi?id=9718 - does not occur again." byrefcollection="true" preferredid="5d8cc902-8cea-4906-82b7-82a05674f217">
+  <view>
+    <camerax>46</camerax>
+    <cameray>332</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="08c8cc9b-b0fc-47fd-914e-8add5d6f355b" type="Normal" published="False">
+    <name>Clean Up</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="65a58376-1b12-4e31-960e-720fcf0ff13b" name="Start" type="Start">
+    <display x="-15" y="-510" w="90" h="30" />
+    <onsuccess>a6363009-48b6-43c9-b660-26c1c2c6d869</onsuccess>
+  </stage>
+  <stage stageid="00029f8a-6d04-4b69-8513-a4031ba7e9a1" name="End" type="End">
+    <display x="-15" y="585" w="90" h="30" />
+  </stage>
+  <stage stageid="0c18f86d-6ad5-420a-948c-65dd8307d6e3" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-435" w="180" h="90" />
+  </stage>
+  <stage stageid="38519328-9f5e-49f2-811d-bf6a0e662203" name="Start Public Resource" type="Action">
+    <display x="-15" y="-315" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" narrative="The port number on which the resource PC should listen" expr="[Resource Port]" />
+      <input type="flag" name="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="" />
+      <input type="text" name="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="" />
+      <input type="password" name="Password" narrative="The password to use for the resource. Only used if Username is given" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" narrative="The PID of the newly created process" stage="Process ID" />
+    </outputs>
+    <onsuccess>9b925156-2c1c-4126-8c8f-8977718a6330</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+  <stage stageid="bd2f0025-d454-46f3-a9c1-d0378891c18c" name="Process ID" type="Data">
+    <display x="-195" y="-150" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6169b73d-456e-45ec-ad8f-f25bd8358f22" name="Locals" type="Block">
+    <loginhibit />
+    <display x="-270" y="-180" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="808080" />
+  </stage>
+  <stage stageid="9b925156-2c1c-4126-8c8f-8977718a6330" name="Hang 5" type="Action">
+    <display x="-15" y="-270" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Sleep Time (Seconds)" narrative="The time (in seconds) for which to sleep" expr="5" />
+    </inputs>
+    <onsuccess>b71784dc-d7bb-4913-9f52-4708bc9e1f64</onsuccess>
+    <resource object="Utility - General" action="Sleep" />
+  </stage>
+  <stage stageid="719fd8e3-fe5f-4b6e-a6f8-b0cef72bb67f" name="Sign Into Client" type="Action">
+    <display x="-15" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="&quot;admin&quot;" />
+      <input type="password" name="Password" expr="&quot;admin&quot;" />
+    </inputs>
+    <onsuccess>2ebcb8d4-cdd8-4a5b-b0d5-f9a9038a6347</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="a87c75c5-1ce0-4aa9-93a8-ecd35e3ed8a2" name="Wait for Resource" type="Action">
+    <display x="-15" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Resource Name" narrative="The name of the Resource PC of interest" expr="[Machine Name] &amp; &quot;:&quot; &amp; [Resource Port]" />
+      <input type="timespan" name="Timeout" narrative="The maximum length of time to wait for the Resource of interest to become available. Default is immediate timeout of resource is not available, ie. zero" expr="MakeTimeSpan(0, 0, 2, 0)" />
+      <input type="text" name="Resource Group to Expand" narrative="Group set to Default" expr="" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Resource Available" narrative="Indicates whether the resource is available. This will be false if a timeout occurs." stage="" />
+    </outputs>
+    <onsuccess>749d8dc0-b690-4d1d-bdf2-906eb4402e23</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Control Room - Wait for Resource to Come Online" />
+  </stage>
+  <stage stageid="749d8dc0-b690-4d1d-bdf2-906eb4402e23" name="Stop Public Resource" type="Action">
+    <display x="-15" y="90" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" narrative="The port number whose resource should be stopped" expr="[Resource Port]" />
+    </inputs>
+    <onsuccess>b7834e7e-23ec-4787-9103-e8bf68ce621a</onsuccess>
+    <resource object="Resource Manager" action="Stop Resource" />
+  </stage>
+  <stage stageid="b7834e7e-23ec-4787-9103-e8bf68ce621a" name="Wait 30" type="Action">
+    <display x="-15" y="135" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Sleep Time (Seconds)" narrative="The time (in seconds) for which to sleep" expr="30" />
+    </inputs>
+    <onsuccess>10b06769-9726-4d27-9d31-caba6dcf8e1a</onsuccess>
+    <resource object="Utility - General" action="Sleep" />
+  </stage>
+  <stage stageid="a6e37a37-fae2-4936-885c-5a4438357634" name="Start Public Resource" type="Action">
+    <display x="-15" y="225" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" narrative="The port number on which the resource PC should listen" expr="[Resource Port]" />
+      <input type="flag" name="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="" />
+      <input type="text" name="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="" />
+      <input type="password" name="Password" narrative="The password to use for the resource. Only used if Username is given" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" narrative="The PID of the newly created process" stage="Process ID" />
+    </outputs>
+    <onsuccess>1ee41765-02b4-4727-ab8c-17ba35b6317a</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+  <stage stageid="1b712a80-1f7a-4bce-819d-003f92397acd" name="Pending Session Position" type="Data">
+    <display x="-195" y="-255" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="9ea48d63-300c-445d-8925-16a17cdca1fe" name="Machine Name" type="Data">
+    <display x="-195" y="-285" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="34746734-402a-485c-9fde-ff8641f6d219" name="Machine Name := GetResourceName()" type="Calculation">
+    <display x="-15" y="-420" w="90" h="30" />
+    <onsuccess>4ad9b604-d772-4c63-bad2-ac8fd5e3c4ef</onsuccess>
+    <calculation expression="GetResourceName()" stage="Machine Name" />
+  </stage>
+  <stage stageid="a6363009-48b6-43c9-b660-26c1c2c6d869" name="Debug?" type="Decision">
+    <display x="-15" y="-465" />
+    <decision expression="EndsWith(GetResourceName(), &quot;_debug&quot;)" />
+    <ontrue>36a032f5-d915-4163-8d15-5b7cc8d9c22e</ontrue>
+    <onfalse>34746734-402a-485c-9fde-ff8641f6d219</onfalse>
+  </stage>
+  <stage stageid="36a032f5-d915-4163-8d15-5b7cc8d9c22e" name="Machine Name := GetResourceName()" type="Calculation">
+    <display x="90" y="-465" w="90" h="30" />
+    <onsuccess>056474a9-635b-4e3b-a55e-fe563d238172</onsuccess>
+    <calculation expression="Mid(GetResourceName(), 1, Len(GetResourceName()) - Len(&quot;_debug&quot;))" stage="Machine Name" />
+  </stage>
+  <stage stageid="056474a9-635b-4e3b-a55e-fe563d238172" name="Anchor1" type="Anchor">
+    <display x="90" y="-390" w="10" h="10" />
+    <onsuccess>4ad9b604-d772-4c63-bad2-ac8fd5e3c4ef</onsuccess>
+  </stage>
+  <stage stageid="4ad9b604-d772-4c63-bad2-ac8fd5e3c4ef" name="Anchor2" type="Anchor">
+    <display x="-15" y="-390" w="10" h="10" />
+    <onsuccess>8958c6e1-19f9-47d0-a30b-30960d752e09</onsuccess>
+  </stage>
+  <stage stageid="2ebcb8d4-cdd8-4a5b-b0d5-f9a9038a6347" name="Publish 'Do Nothing'" type="Action">
+    <display x="-15" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the process to publish" expr="[Process Name]" />
+    </inputs>
+    <onsuccess>26538ab9-240c-45f3-99e5-b23e06fb156b</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Publish Process" />
+  </stage>
+  <stage stageid="52ab4a38-8bd4-40ab-bcae-a79ec8447759" name="Process Name" type="Data">
+    <display x="-195" y="-315" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Do Nothing</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="1ee41765-02b4-4727-ab8c-17ba35b6317a" name="Wait 30" type="Action">
+    <display x="-15" y="270" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Sleep Time (Seconds)" narrative="The time (in seconds) for which to sleep" expr="30" />
+    </inputs>
+    <onsuccess>69e72103-44d9-4639-a759-cfa5fbc37668</onsuccess>
+    <resource object="Utility - General" action="Sleep" />
+  </stage>
+  <stage stageid="cd6ba3da-2ccf-4707-825b-913b06769213" name="Note1" type="Note">
+    <narrative>We need a pause after starting the resource to ensure it registers itself as online to the database; otherwise, we'll just get an 'offline' error when we try and create the session.</narrative>
+    <display x="285" y="270" w="150" h="60" />
+    <onsuccess>1ee41765-02b4-4727-ab8c-17ba35b6317a</onsuccess>
+  </stage>
+  <stage stageid="d54978ed-f425-442f-acdc-b9b9a799a055" name="Clean Up" type="SubSheetInfo">
+    <subsheetid>08c8cc9b-b0fc-47fd-914e-8add5d6f355b</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="e8abd7f2-e30b-4282-91bb-89aab8879899" name="Start" type="Start">
+    <subsheetid>08c8cc9b-b0fc-47fd-914e-8add5d6f355b</subsheetid>
+    <display x="15" y="-210" />
+    <onsuccess>66b60940-54b2-4754-8867-a70457d33f4b</onsuccess>
+  </stage>
+  <stage stageid="9cfac32a-e82b-4ef1-ae31-7a6d21928bc1" name="End" type="End">
+    <subsheetid>08c8cc9b-b0fc-47fd-914e-8add5d6f355b</subsheetid>
+    <display x="15" y="15" />
+  </stage>
+  <stage stageid="755df075-c54b-4e27-84cf-19c044c57a22" name="Unpublish 'Do Nothing'" type="Action">
+    <subsheetid>08c8cc9b-b0fc-47fd-914e-8add5d6f355b</subsheetid>
+    <display x="15" y="-75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the process to publish" expr="[Process Name]" />
+    </inputs>
+    <onsuccess>a23372c0-7a92-40b6-ab15-87e62e749712</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Unpublish Process" />
+  </stage>
+  <stage stageid="e6e5f934-cdec-40b6-81a4-015cc0aa11c9" name="Resource Port" type="Data">
+    <display x="-195" y="-345" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>9001</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="198f0b36-77d7-43bb-aa35-d6db96aef5ca" name="Globals" type="Block">
+    <loginhibit />
+    <display x="-270" y="-375" w="150" h="180" />
+    <font family="Segoe UI" size="10" style="Regular" color="800000" />
+  </stage>
+  <stage stageid="a23372c0-7a92-40b6-ab15-87e62e749712" name="Stop Public Resource" type="Action">
+    <subsheetid>08c8cc9b-b0fc-47fd-914e-8add5d6f355b</subsheetid>
+    <display x="15" y="-30" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" narrative="The port number whose resource should be stopped" expr="[Resource Port]" />
+    </inputs>
+    <onsuccess>9cfac32a-e82b-4ef1-ae31-7a6d21928bc1</onsuccess>
+    <resource object="Resource Manager" action="Stop Resource" />
+  </stage>
+  <stage stageid="d790d391-2eb1-4032-9e27-e68fd5ef8625" name="Clean Up" type="SubSheet">
+    <display x="210" y="465" />
+    <onsuccess>c69560b7-ff58-4995-a0f0-b46b9b028c74</onsuccess>
+    <processid>08c8cc9b-b0fc-47fd-914e-8add5d6f355b</processid>
+  </stage>
+  <stage stageid="23e9d3cd-425a-4ab7-ab65-e89be3d7f79e" name="Recover For Cleanup" type="Recover">
+    <display x="210" y="420" />
+    <onsuccess>d790d391-2eb1-4032-9e27-e68fd5ef8625</onsuccess>
+    <breakpoint type="0">
+      <condition>
+      </condition>
+    </breakpoint>
+  </stage>
+  <stage stageid="c69560b7-ff58-4995-a0f0-b46b9b028c74" name="RETHROW" type="Exception">
+    <display x="285" y="465" />
+    <exception localized="yes" type="" detail="" usecurrent="yes" />
+  </stage>
+  <stage stageid="ba862367-636f-4f01-b5f9-25474b70c39a" name="Clean Up" type="SubSheet">
+    <display x="-15" y="540" w="90" h="30" />
+    <onsuccess>00029f8a-6d04-4b69-8513-a4031ba7e9a1</onsuccess>
+    <processid>08c8cc9b-b0fc-47fd-914e-8add5d6f355b</processid>
+  </stage>
+  <stage stageid="eebfce0b-1860-4057-b4e5-d6d54b5b0aeb" name="Wait for Resource" type="Action">
+    <display x="-15" y="405" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Resource Name" narrative="The name of the Resource PC of interest" expr="[Machine Name] &amp; &quot;:&quot; &amp; [Resource Port]" />
+      <input type="timespan" name="Timeout" narrative="The maximum length of time to wait for the Resource of interest to become available. Default is immediate timeout of resource is not available, ie. zero" expr="MakeTimeSpan(0, 0, 2, 0)" />
+      <input type="text" name="Resource Group to Expand" narrative="Group set to Default" expr="" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Resource Available" narrative="Indicates whether the resource is available. This will be false if a timeout occurs." stage="" />
+    </outputs>
+    <onsuccess>05508822-f2fb-4476-9018-1ba81cac4727</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Control Room - Wait for Resource to Come Online" />
+  </stage>
+  <stage stageid="dd5d02e7-47b0-49cb-ab56-622b7f126f79" name="Note1" type="Note">
+    <narrative>We wait anyway, because the connection manager refreshes every 30s so we might otherwise miss it.</narrative>
+    <display x="-240" y="345" w="150" h="60" />
+    <onsuccess>eebfce0b-1860-4057-b4e5-d6d54b5b0aeb</onsuccess>
+  </stage>
+  <stage stageid="3db8af1a-77b4-4885-af90-1b77668f51ad" name="Note1" type="Note">
+    <narrative>We need a pause here to ensure that the resource indicating to the database that it is offline is picked up in the connection manager code (when it is working, at least)</narrative>
+    <display x="150" y="60" w="150" h="60" />
+    <onsuccess>b7834e7e-23ec-4787-9103-e8bf68ce621a</onsuccess>
+  </stage>
+  <stage stageid="66b60940-54b2-4754-8867-a70457d33f4b" name="Session Position Set?" type="Decision">
+    <subsheetid>08c8cc9b-b0fc-47fd-914e-8add5d6f355b</subsheetid>
+    <display x="15" y="-165" w="90" h="30" />
+    <decision expression="[Pending Session Position] &lt;&gt; 0" />
+    <ontrue>b1f4c9d0-fd41-4b23-a76a-0bd0ff73bca1</ontrue>
+    <onfalse>212e32f3-418d-4eee-be3c-18c605e92b5b</onfalse>
+  </stage>
+  <stage stageid="212e32f3-418d-4eee-be3c-18c605e92b5b" name="Anchor3" type="Anchor">
+    <subsheetid>08c8cc9b-b0fc-47fd-914e-8add5d6f355b</subsheetid>
+    <display x="-60" y="-165" w="10" h="10" />
+    <onsuccess>791902ee-eda6-4152-98b9-124a13ce3155</onsuccess>
+  </stage>
+  <stage stageid="791902ee-eda6-4152-98b9-124a13ce3155" name="Anchor4" type="Anchor">
+    <subsheetid>08c8cc9b-b0fc-47fd-914e-8add5d6f355b</subsheetid>
+    <display x="-60" y="-75" w="10" h="10" />
+    <onsuccess>755df075-c54b-4e27-84cf-19c044c57a22</onsuccess>
+  </stage>
+  <stage stageid="2747d993-7b03-4f72-b6a2-2a751868ab92" name="Note2" type="Note">
+    <narrative>Amended this action. Added 'Maximize Main Application' navigate stage to make sure the resource list is visible, this will be helpful especially for machines with display dimension set on low.</narrative>
+    <display x="-225" y="450" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="FF0000" />
+    <onsuccess>c23bb36a-6f1c-4ff3-abea-e8333ad7e30f</onsuccess>
+  </stage>
+  <stage stageid="c23bb36a-6f1c-4ff3-abea-e8333ad7e30f" name="Create Session" type="Action">
+    <display x="-15" y="495" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" narrative="The name of the process of interest - if it is not found, the 'Ungrouped Processes' group will be opened and checked" expr="&quot;Do Nothing&quot;" />
+      <input type="text" name="Resource Name" narrative="The name of the Resource PC on which to create the session" expr="[Machine Name] &amp; &quot;:&quot; &amp; [Resource Port]" />
+      <input type="text" name="Group to Expand" narrative="Default value is 'Default'." expr="" />
+      <input type="flag" name="Negative Test" narrative="Check for negative testing " expr="" />
+      <input type="text" name="Resource Group to Expand" narrative="Default value is 'Default'" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Position of Pending Session" narrative="The 1-based index of the newly created session in the Environment list in Control Room" stage="Pending Session Position" />
+      <output type="text" name="Error Message (expected)" narrative="Error message returned (negative testing)" stage="" />
+    </outputs>
+    <onsuccess>ba862367-636f-4f01-b5f9-25474b70c39a</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Create Session" />
+  </stage>
+  <stage stageid="05508822-f2fb-4476-9018-1ba81cac4727" name="Open Control Tab" type="Action">
+    <display x="-15" y="450" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>c23bb36a-6f1c-4ff3-abea-e8333ad7e30f</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="b1f4c9d0-fd41-4b23-a76a-0bd0ff73bca1" name="Delete Pending Session" type="Action">
+    <subsheetid>08c8cc9b-b0fc-47fd-914e-8add5d6f355b</subsheetid>
+    <display x="15" y="-120" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Session Position" narrative="The 1-based index of the session of interest, in the Environment list" expr="[Pending Session Position]" />
+      <input type="text" name="Process Name" narrative="The expected process name of the session of interest. This will be double checked before deleting the session at the specified position." expr="[Process Name]" />
+      <input type="text" name="Resource Name" narrative="The expected resource name of the pending session of interset. This will be double checked before deleting the session" expr="[Machine Name] &amp; &quot;:&quot; &amp; [Resource Port]" />
+      <input type="text" name="Session Status" narrative="The expected status of the session. This will be double checked - the default value is 'Pending'" expr="&quot;Pending&quot;" />
+    </inputs>
+    <onsuccess>755df075-c54b-4e27-84cf-19c044c57a22</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Delete Session" />
+  </stage>
+  <stage stageid="26538ab9-240c-45f3-99e5-b23e06fb156b" name="Go to Control" type="Action">
+    <display x="-15" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>a87c75c5-1ce0-4aa9-93a8-ecd35e3ed8a2</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="69e72103-44d9-4639-a759-cfa5fbc37668" name="Go to Home" type="Action">
+    <display x="-15" y="315" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>849dc8d2-8cc7-498e-8ee6-9ad2133499c5</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="849dc8d2-8cc7-498e-8ee6-9ad2133499c5" name="Go to Control" type="Action">
+    <display x="-15" y="360" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>eebfce0b-1860-4057-b4e5-d6d54b5b0aeb</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="b71784dc-d7bb-4913-9f52-4708bc9e1f64" name="Launch Blue Prism" type="Action">
+    <display x="-15" y="-225" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>a502dc44-3fac-4c35-a8a9-ca6f3c8204e5</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="a502dc44-3fac-4c35-a8a9-ca6f3c8204e5" name="Attach Control" type="Action">
+    <display x="-15" y="-180" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>f1f71072-b089-4739-93f7-7d60ad15c187</onsuccess>
+    <resource object="Blue Prism - Control Room (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="f1f71072-b089-4739-93f7-7d60ad15c187" name="Attach Studio" type="Action">
+    <display x="-15" y="-135" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>719fd8e3-fe5f-4b6e-a6f8-b0cef72bb67f</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="7b134f9a-24c7-42e3-b34c-1ae575d1c17e" name="pid" type="Data">
+    <display x="-195" y="-225" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8958c6e1-19f9-47d0-a30b-30960d752e09" name="SSO?" type="Decision">
+    <display x="-15" y="-360" w="90" h="30" />
+    <decision expression="SingleSignon()" />
+    <ontrue>d7d3b2d7-a35c-49ed-900f-eef4c0341067</ontrue>
+    <onfalse>38519328-9f5e-49f2-811d-bf6a0e662203</onfalse>
+  </stage>
+  <stage stageid="d7d3b2d7-a35c-49ed-900f-eef4c0341067" name="Anchor5" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="90" y="-360" w="10" h="10" />
+    <onsuccess>66935171-d81f-423d-9002-4a3a957d4c4e</onsuccess>
+  </stage>
+  <stage stageid="b0b25788-0c9a-44a3-bd0f-dba25b036379" name="Anchor6" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="90" y="-270" w="10" h="10" />
+    <onsuccess>9b925156-2c1c-4126-8c8f-8977718a6330</onsuccess>
+  </stage>
+  <stage stageid="66935171-d81f-423d-9002-4a3a957d4c4e" name="Start Public Resource (SSO)" type="Action">
+    <display x="90" y="-315" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" narrative="The port number on which the resource PC should listen" expr="[Resource Port]" />
+      <input type="flag" name="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="True" />
+      <input type="text" name="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="" />
+      <input type="password" name="Password" narrative="The password to use for the resource. Only used if Username is given" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" narrative="The PID of the newly created process" stage="Process ID" />
+    </outputs>
+    <onsuccess>b0b25788-0c9a-44a3-bd0f-dba25b036379</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+  <stage stageid="10b06769-9726-4d27-9d31-caba6dcf8e1a" name="SSO?" type="Decision">
+    <display x="-15" y="180" w="90" h="30" />
+    <decision expression="SingleSignon()" />
+    <ontrue>7725024e-4865-489d-8de2-827aceb4763c</ontrue>
+    <onfalse>a6e37a37-fae2-4936-885c-5a4438357634</onfalse>
+  </stage>
+  <stage stageid="7725024e-4865-489d-8de2-827aceb4763c" name="Anchor5" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="90" y="180" w="10" h="10" />
+    <onsuccess>64c2434a-af57-41c3-8745-519ebdba4c72</onsuccess>
+  </stage>
+  <stage stageid="a17d69ff-e8fa-4351-8dd5-8a8801cfdefc" name="Anchor6" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="90" y="270" w="10" h="10" />
+    <onsuccess>1ee41765-02b4-4727-ab8c-17ba35b6317a</onsuccess>
+  </stage>
+  <stage stageid="64c2434a-af57-41c3-8745-519ebdba4c72" name="Start Public Resource (SSO)" type="Action">
+    <display x="90" y="225" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" narrative="The port number on which the resource PC should listen" expr="[Resource Port]" />
+      <input type="flag" name="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="True" />
+      <input type="text" name="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="" />
+      <input type="password" name="Password" narrative="The password to use for the resource. Only used if Username is given" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" narrative="The PID of the newly created process" stage="Process ID" />
+    </outputs>
+    <onsuccess>a17d69ff-e8fa-4351-8dd5-8a8801cfdefc</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+</process>

@@ -1,0 +1,108 @@
+syntax = "proto3";
+import "google/protobuf/any.proto";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.instructionalconnection";
+option java_outer_classname = "InstructionalConnection";
+option objc_class_prefix = "HLW";
+
+package InstructionalConnection;
+
+service InstructionalConnectionService {
+  rpc RegisterClient(stream RegisterClientRequest) returns (stream RegisterClientResponse) {}
+  rpc DeRegister(DeRegisterClientRequest) returns (DeRegisterClientResponse) {}
+}
+
+
+message RegisterClientRequest {
+  string clientId = 1;
+  string token = 2;
+  google.protobuf.Any Message = 3;
+}
+
+message RegisterClientResponse {
+    string Error = 1;
+    bool Success = 2;
+    google.protobuf.Any Message =3;
+ }
+
+message DeRegisterClientRequest {
+  string clientId = 1;
+}
+
+message DeRegisterClientResponse {
+    string Error = 1;
+    bool Success = 2;
+}
+
+
+message ResourcesChangedDataMessage {
+    int32 OverallChange = 1;
+    repeated DictionaryElm Changes = 2; 
+}
+
+message DictionaryElm {
+    string Key = 1;
+    int32 ResourceStatus =2;
+}
+
+message SessionCreatedDataMessage {
+    int32 State = 1;
+    string SessionId = 2;
+    string ResourceId = 3;
+    string ProcessId = 4;
+    string ErrorMessage = 5;
+    //data?  char array 
+    int32 ScheduledSessionId = 6;
+    string UserId = 7;
+    repeated DictionaryElm Data = 8;
+    string Tag = 9;
+}
+
+message SessionDeletedDataMessage {
+    string SessId = 1;
+    string ErrMsg = 2;
+    string UserId = 3;
+    int32  ScheduledSessionId = 4;
+}
+
+message SessionEndDataMessage {
+    string SessId = 1;
+    string Status = 2;
+}
+
+message SessionStartedDataMessage {
+    string SessId = 1;          //guid
+    string ErrMsg = 2;          //string
+    string UserId = 3;
+    string UserMsg = 4;
+    int32 ScheduledSessionId = 5;
+}
+
+message SessionStopDataMessage {
+    string SessId = 1;          //guid
+    string ErrMsg = 2;          //string
+    int32 ScheduledSessionId = 3;
+}
+
+message SessionVariablesUpdatedDataMessage {
+    string SessVar = 1;
+    string ErrMsg = 2;
+}
+
+message FailedOperationMessage {
+    string ErrMsg = 1;
+    string Message = 2;
+    int32 StatusCode = 3;
+}
+
+message GetStatusRequest {
+    string ClientId = 1;
+}
+
+message GetStatusResponse {
+    string StatusDetail = 1;
+    int32 StatusCode = 2;
+    bool ClientRecognised = 3;
+}
+

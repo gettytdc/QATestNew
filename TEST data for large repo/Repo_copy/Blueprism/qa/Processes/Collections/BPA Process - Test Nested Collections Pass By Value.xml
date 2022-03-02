@@ -1,0 +1,884 @@
+﻿<process name="Test Nested Collections Pass By Value" version="1.0" bpversion="6.0.0.0" narrative="Ensures that when using calc stages or parameters, nested collections are consistently passed by value rather than reference if the &quot;byrefcollection&quot; value of the process in the XML is set to &quot;true&quot;" byrefcollection="false" preferredid="054f78a7-1fe8-46f4-9cc4-204acccc624e">
+  <view>
+    <camerax>3</camerax>
+    <cameray>-33</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="957df9eb-83ea-40d0-bef8-882f5c53f352" type="Normal" published="False">
+    <name>With Schema</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="5a55e31b-9e41-4f36-ae74-85d77566e564" type="Normal" published="False">
+    <name>Without Schema</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="6c0db62a-1f75-428a-81c7-92f30a9d77fe" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>be5073a7-7ab0-4b56-86a9-bc3c72b75865</onsuccess>
+  </stage>
+  <stage stageid="1d19e25c-9b87-43af-9174-f9ea2518a4f5" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>1305</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="23404911-8c2f-4aff-aa86-739b0a6fa6f0" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="14b56d09-f621-4b3a-a2c9-45d640206b60" name="Candidates" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+      <field name="Name" type="text" />
+      <field name="Qualifications" type="collection" singlerow="1">
+        <field name="Degrees" type="collection">
+          <field name="Graduation Date" type="date" description="The date of the candidate's graduation" />
+          <field name="Class" type="text" description="1; 2.1; 2.2; 2.3; 3; Pass" />
+          <field name="Degree" type="text" description="Bsc / Msc / BA / MA / MPhil / etc." />
+          <field name="Subject" type="text" description="The subject of the degree" />
+        </field>
+        <field name="A-Levels" type="collection">
+          <field name="Date" type="date" description="The date of the A-Level qualification" />
+          <field name="Subject" type="text" description="The subject of the A-Level" />
+          <field name="Grade" type="text" description="A-F, N, something else. God, I can't remember, it was ages ago" />
+        </field>
+        <field name="GCSEs" type="collection">
+          <field name="Date" type="date" description="The date the GCSE qualification was granted." />
+          <field name="Subject" type="text" description="The subject of the GCSE" />
+          <field name="Grade" type="text" description="A-F, A* I guess, though I was always annoyed that that came in after I got my GCSEs" />
+        </field>
+        <field name="Professional" type="collection">
+          <field name="Name" type="text" description="The name of the qualification" />
+          <field name="Date" type="date" description="The date that the qualification was attained" />
+          <field name="Chartered" type="flag" description="Whether the qualification was issue from a professional body with a royal charter" />
+        </field>
+      </field>
+      <field name="Work History" type="collection">
+        <field name="Start Date" type="date" description="The date that the work period started" />
+        <field name="End Date" type="date" description="The date that the work period ended" />
+        <field name="Title" type="text" description="The title of the work project" />
+        <field name="Role" type="text" description="The candidate's role within the work project" />
+        <field name="Description" type="text" description="A description of the project and the candidate's contributions to it." />
+      </field>
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Id" type="number" value="1" />
+        <field name="Name" type="text" value="Semolina Blunt" />
+        <field name="Qualifications" type="collection">
+          <singlerow />
+          <row>
+            <field name="Degrees" type="collection" />
+            <field name="A-Levels" type="collection" />
+            <field name="GCSEs" type="collection">
+              <row>
+                <field name="Date" type="date" value="2002/06/07" />
+                <field name="Subject" type="text" value="English Language" />
+                <field name="Grade" type="text" value="B" />
+              </row>
+              <row>
+                <field name="Date" type="date" value="2002/06/07" />
+                <field name="Subject" type="text" value="English Literature" />
+                <field name="Grade" type="text" value="A" />
+              </row>
+              <row>
+                <field name="Date" type="date" value="2002/06/07" />
+                <field name="Subject" type="text" value="English Lycanthropy" />
+                <field name="Grade" type="text" value="D" />
+              </row>
+              <row>
+                <field name="Date" type="date" value="2002/06/07" />
+                <field name="Subject" type="text" value="English Lepidoptory" />
+                <field name="Grade" type="text" value="C" />
+              </row>
+              <row>
+                <field name="Date" type="date" value="2002/06/07" />
+                <field name="Subject" type="text" value="English Lavatory" />
+                <field name="Grade" type="text" value="A" />
+              </row>
+              <row>
+                <field name="Date" type="date" value="2002/06/07" />
+                <field name="Subject" type="text" value="English Liturgy" />
+                <field name="Grade" type="text" value="F" />
+              </row>
+              <row>
+                <field name="Date" type="date" value="2002/06/07" />
+                <field name="Subject" type="text" value="English" />
+                <field name="Grade" type="text" value="E" />
+              </row>
+            </field>
+            <field name="Professional" type="collection" />
+          </row>
+        </field>
+        <field name="Work History" type="collection">
+          <row>
+            <field name="Start Date" type="date" value="1998/08/12" />
+            <field name="End Date" type="date" value="2004/05/30" />
+            <field name="Title" type="text" value="Mr Blackadder's Household" />
+            <field name="Role" type="text" value="Dogsbody" />
+            <field name="Description" type="text" value="" />
+          </row>
+          <row>
+            <field name="Start Date" type="date" value="2004/05/30" />
+            <field name="End Date" type="date" value="2011/12/24" />
+            <field name="Title" type="text" value="Mr Blackadder's Household" />
+            <field name="Role" type="text" value="Guttersnipe" />
+            <field name="Description" type="text" value="" />
+          </row>
+          <row>
+            <field name="Start Date" type="date" value="2011/12/26" />
+            <field name="End Date" type="date" value="" />
+            <field name="Title" type="text" value="Mr Blackadder's Household" />
+            <field name="Role" type="text" value="Skivvy" />
+            <field name="Description" type="text" value="" />
+          </row>
+        </field>
+      </row>
+      <row>
+        <field name="Id" type="number" value="2" />
+        <field name="Name" type="text" value="Androgoné De Gaulle" />
+        <field name="Qualifications" type="collection">
+          <singlerow />
+          <row>
+            <field name="Degrees" type="collection">
+              <row>
+                <field name="Graduation Date" type="date" value="1998/07/15" />
+                <field name="Class" type="text" value="2.1" />
+                <field name="Degree" type="text" value="BA" />
+                <field name="Subject" type="text" value="Computer Anarchy" />
+              </row>
+            </field>
+            <field name="A-Levels" type="collection">
+              <row>
+                <field name="Date" type="date" value="1995/07/05" />
+                <field name="Subject" type="text" value="Cephalectomy" />
+                <field name="Grade" type="text" value="A" />
+              </row>
+              <row>
+                <field name="Date" type="date" value="1995/07/05" />
+                <field name="Subject" type="text" value="Palilogy" />
+                <field name="Grade" type="text" value="B" />
+              </row>
+              <row>
+                <field name="Date" type="date" value="1995/07/05" />
+                <field name="Subject" type="text" value="Palilogy" />
+                <field name="Grade" type="text" value="C" />
+              </row>
+            </field>
+            <field name="GCSEs" type="collection" />
+            <field name="Professional" type="collection" />
+          </row>
+        </field>
+        <field name="Work History" type="collection" />
+      </row>
+      <row>
+        <field name="Id" type="number" value="3" />
+        <field name="Name" type="text" value="Polonium Von Trappe" />
+        <field name="Qualifications" type="collection">
+          <singlerow />
+          <row>
+            <field name="Degrees" type="collection">
+              <row>
+                <field name="Graduation Date" type="date" value="2009/07/12" />
+                <field name="Class" type="text" value="3" />
+                <field name="Degree" type="text" value="BSc" />
+                <field name="Subject" type="text" value="Technical Pondering" />
+              </row>
+            </field>
+            <field name="A-Levels" type="collection">
+              <row>
+                <field name="Date" type="date" value="2004/06/12" />
+                <field name="Subject" type="text" value="Maths (Pure &amp; Applied)" />
+                <field name="Grade" type="text" value="B" />
+              </row>
+              <row>
+                <field name="Date" type="date" value="2004/06/12" />
+                <field name="Subject" type="text" value="Physics" />
+                <field name="Grade" type="text" value="C" />
+              </row>
+              <row>
+                <field name="Date" type="date" value="2004/08/30" />
+                <field name="Subject" type="text" value="Computing" />
+                <field name="Grade" type="text" value="C" />
+              </row>
+            </field>
+            <field name="GCSEs" type="collection" />
+            <field name="Professional" type="collection" />
+          </row>
+        </field>
+        <field name="Work History" type="collection" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="e3675367-ef47-497f-bbad-f3e45caf436f" name="Get GCSEs" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>d974c865-3d80-47e1-a215-6a192cd6a5a9</onsuccess>
+    <calculation expression="[Candidates.Qualifications.GCSEs]" stage="GCSEs" />
+  </stage>
+  <stage stageid="fd5ee844-20fb-4f74-9019-d450a06e6db9" name="GCSEs" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Date" type="date" />
+      <field name="Subject" type="text" />
+      <field name="Grade" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="be5073a7-7ab0-4b56-86a9-bc3c72b75865" name="For Each Candidate" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="0000FF" />
+    <onsuccess>f42e7afa-82dd-45ab-8618-2b4d8e8c1d59</onsuccess>
+    <groupid>edb3025e-34cd-4c59-a30e-49b18f7687a4</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Candidates</loopdata>
+  </stage>
+  <stage stageid="490d534f-931e-4d35-bbaa-26db9695b42f" name="Next Candidate" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>1260</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="0000FF" />
+    <onsuccess>1d19e25c-9b87-43af-9174-f9ea2518a4f5</onsuccess>
+    <groupid>edb3025e-34cd-4c59-a30e-49b18f7687a4</groupid>
+  </stage>
+  <stage stageid="f42e7afa-82dd-45ab-8618-2b4d8e8c1d59" name="For Each Qualification" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>a48eb50f-e9bd-4b75-84fd-d09c858afbdb</onsuccess>
+    <groupid>db28a06c-fea9-4be4-8c90-c7b6efb5b70a</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Candidates.Qualifications</loopdata>
+  </stage>
+  <stage stageid="a0beaa0a-df71-45f0-aa48-67b55c981ef8" name="Next Qualification" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>1215</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>490d534f-931e-4d35-bbaa-26db9695b42f</onsuccess>
+    <groupid>db28a06c-fea9-4be4-8c90-c7b6efb5b70a</groupid>
+  </stage>
+  <stage stageid="d974c865-3d80-47e1-a215-6a192cd6a5a9" name="Set Date (GCSEs)" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>2a79ba9c-f727-41bc-9dc8-46738597e99c</onsuccess>
+    <calculation expression="MakeDate(14,12,1974)" stage="GCSEs.Date" />
+  </stage>
+  <stage stageid="8f758649-e663-4c43-9312-def918e4059f" name="Get Date (Candidates)" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e3675367-ef47-497f-bbad-f3e45caf436f</onsuccess>
+    <calculation expression="[Candidates.Qualifications.GCSEs.Date]" stage="Date 1" />
+  </stage>
+  <stage stageid="a48eb50f-e9bd-4b75-84fd-d09c858afbdb" name="For Each GCSE" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="800000" />
+    <onsuccess>aa86aa48-86e0-4f2c-a200-407574713a3f</onsuccess>
+    <groupid>b750fa44-f2a4-429a-9bb9-85f6ef4f2378</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Candidates.Qualifications.GCSEs</loopdata>
+  </stage>
+  <stage stageid="78afa833-e8dc-42fd-9c9c-409eaa957ae1" name="Next GCSE" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>1170</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="800000" />
+    <onsuccess>a0beaa0a-df71-45f0-aa48-67b55c981ef8</onsuccess>
+    <groupid>b750fa44-f2a4-429a-9bb9-85f6ef4f2378</groupid>
+  </stage>
+  <stage stageid="6cf81585-086a-4926-b1ca-7d7d46d58525" name="Date 1" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>date</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2a79ba9c-f727-41bc-9dc8-46738597e99c" name="Get Date (Candidates)" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>93599be1-5dac-436e-ba2e-19be15e24027</onsuccess>
+    <calculation expression="[Candidates.Qualifications.GCSEs.Date]" stage="Date 2" />
+  </stage>
+  <stage stageid="d5b74e52-635d-4d83-a342-97e2558c64d4" name="Date 2" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>150</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>date</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c46541d6-27e9-4578-a320-7c4741c31bdc" name="Get Qualifications" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>315</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>aa45698b-0767-4116-adab-0dc0a5ffe4c5</onsuccess>
+    <calculation expression="[Candidates.Qualifications]" stage="Qualifications" />
+  </stage>
+  <stage stageid="a0325d47-a905-4f80-b625-cdcbefe1929d" name="Qualifications" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="aa45698b-0767-4116-adab-0dc0a5ffe4c5" name="Set Date (Qualifications)" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>360</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>516acc88-e2ad-4142-8e51-3cc4255cd6b9</onsuccess>
+    <calculation expression="MakeDate(14,12,1981)" stage="Qualifications.GCSEs.Date" />
+  </stage>
+  <stage stageid="93599be1-5dac-436e-ba2e-19be15e24027" name="Date 1 = Date 2?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>240</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Date 1] = [Date 2]" />
+    <ontrue>c46541d6-27e9-4578-a320-7c4741c31bdc</ontrue>
+    <onfalse>21116887-24be-4712-90e6-fb6930ad1a38</onfalse>
+  </stage>
+  <stage stageid="1b21e008-1901-4182-a0a7-76a5310b0e15" name="Date 1 = Date 2?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>450</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Date 1] = [Date 2]" />
+    <ontrue>0ae9171b-0275-4fd3-a517-8eaa998fcb33</ontrue>
+    <onfalse>90cf7393-13e3-4bc6-a8cb-3ae0e3218c4b</onfalse>
+  </stage>
+  <stage stageid="21116887-24be-4712-90e6-fb6930ad1a38" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>240</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="PassByReferenceException" detail="&quot;Setting an inner collection to a stage with a defined schema passed by reference instead of value. Index: &quot; &amp; [Index]" />
+  </stage>
+  <stage stageid="90cf7393-13e3-4bc6-a8cb-3ae0e3218c4b" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>450</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="PassByReferenceException" detail="&quot;Setting an inner collection to a stage with no schema passed by reference instead of value. Index: &quot; &amp; [Index]" />
+  </stage>
+  <stage stageid="0cbd6b5a-f5ef-4a35-a94d-c54a304c2dfd" name="Test with defined schema in target" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-120</displayx>
+    <displayy>75</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>195</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a5f697c1-cb0d-4e48-ab9f-30e518e896f9" name="Test with no schema in target" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-120</displayx>
+    <displayy>285</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>195</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2b67ed0a-7a5f-4dbf-9492-72d73791d808" name="Index" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>180</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="aa86aa48-86e0-4f2c-a200-407574713a3f" name="Index++" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>8f758649-e663-4c43-9312-def918e4059f</onsuccess>
+    <calculation expression="1 + [Index]" stage="Index" />
+  </stage>
+  <stage stageid="516acc88-e2ad-4142-8e51-3cc4255cd6b9" name="Get Date (Candidates)" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>405</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>1b21e008-1901-4182-a0a7-76a5310b0e15</onsuccess>
+    <calculation expression="[Candidates.Qualifications.GCSEs.Date]" stage="Date 2" />
+  </stage>
+  <stage stageid="4dc51991-8b17-48a2-813a-7b3eeeae0164" name="Test subpage with defined schema in target" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-120</displayx>
+    <displayy>495</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>150</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c13528a1-4f02-4a41-9336-3d1ce4e49624" name="Without Schema" type="SubSheetInfo">
+    <subsheetid>5a55e31b-9e41-4f36-ae74-85d77566e564</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="bfe3e6bb-66cf-40f0-ae1c-e34a701b3234" name="Start" type="Start">
+    <subsheetid>5a55e31b-9e41-4f36-ae74-85d77566e564</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Qualifications" narrative="Collection stage has no schema" stage="Qualifications" />
+    </inputs>
+    <onsuccess>dd9a7162-5ac6-40e8-8f8a-263633ab4f58</onsuccess>
+  </stage>
+  <stage stageid="7c7a613c-b0c0-499d-9a79-463f4cfe8b7a" name="End" type="End">
+    <subsheetid>5a55e31b-9e41-4f36-ae74-85d77566e564</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="a08a2d83-1d0d-42c1-8221-d76be123cb12" name="With Schema" type="SubSheetInfo">
+    <subsheetid>957df9eb-83ea-40d0-bef8-882f5c53f352</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="7fe8967e-a136-48ea-987f-a022a950c783" name="Start" type="Start">
+    <subsheetid>957df9eb-83ea-40d0-bef8-882f5c53f352</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="GCSEs" narrative="GCSEs collection stage has schema" stage="GCSEs" />
+    </inputs>
+    <onsuccess>2c52e890-0733-445f-a6a7-8b04cd775e8d</onsuccess>
+  </stage>
+  <stage stageid="f8fc057c-83d6-4ef5-a056-9538e85727c1" name="End" type="End">
+    <subsheetid>957df9eb-83ea-40d0-bef8-882f5c53f352</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="2c52e890-0733-445f-a6a7-8b04cd775e8d" name="Set Date (GCSEs)" type="Calculation">
+    <subsheetid>957df9eb-83ea-40d0-bef8-882f5c53f352</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>f8fc057c-83d6-4ef5-a056-9538e85727c1</onsuccess>
+    <calculation expression="MakeDate(14,12,1974)" stage="GCSEs.Date" />
+  </stage>
+  <stage stageid="5461d294-0eba-445f-a360-ca2ab3d9d429" name="GCSEs" type="Collection">
+    <subsheetid>957df9eb-83ea-40d0-bef8-882f5c53f352</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Date" type="date" />
+      <field name="Subject" type="text" />
+      <field name="Grade" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="16343e68-5de5-4150-836e-16050d738b16" name="Date 1 = Date 2?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>615</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Date 1] = [Date 2]" />
+    <ontrue>3d3b396a-ade8-4c85-86b1-bec51bf844c8</ontrue>
+    <onfalse>4e48db9e-df8d-44c6-aaf4-ff95a3ada52a</onfalse>
+  </stage>
+  <stage stageid="4e48db9e-df8d-44c6-aaf4-ff95a3ada52a" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>615</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="PassByReferenceException" detail="&quot;Setting an inner collection via a subpage input to a stage with a defined schema passed by reference instead of value. Index: &quot; &amp; [Index]" />
+  </stage>
+  <stage stageid="0ae9171b-0275-4fd3-a517-8eaa998fcb33" name="With Schema" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>525</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="GCSEs" narrative="GCSEs collection stage has schema" expr="[Candidates.Qualifications.GCSEs]" />
+    </inputs>
+    <onsuccess>0a2c27a9-fa28-453d-a1e6-0108fb9def8f</onsuccess>
+    <processid>957df9eb-83ea-40d0-bef8-882f5c53f352</processid>
+  </stage>
+  <stage stageid="0a2c27a9-fa28-453d-a1e6-0108fb9def8f" name="Get Date (Candidates)" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>570</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>16343e68-5de5-4150-836e-16050d738b16</onsuccess>
+    <calculation expression="[Candidates.Qualifications.GCSEs.Date]" stage="Date 2" />
+  </stage>
+  <stage stageid="5d2e0c99-9ccf-40fc-92b0-a7173a805904" name="Test subpage with no schema in target" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-120</displayx>
+    <displayy>660</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>150</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c0fc6794-5864-405c-a0ef-c04932ebc275" name="Date 1 = Date 2?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>780</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Date 1] = [Date 2]" />
+    <ontrue>4e7a2873-ba7c-4c7a-9df1-82544f8b929a</ontrue>
+    <onfalse>76eb4321-1c79-4793-8043-0ab3d578f731</onfalse>
+  </stage>
+  <stage stageid="76eb4321-1c79-4793-8043-0ab3d578f731" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>780</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="PassByReferenceException" detail="&quot;Setting an inner collection via a subpage input to a stage with a defined schema passed by reference instead of value. Index: &quot; &amp; [Index]" />
+  </stage>
+  <stage stageid="3d3b396a-ade8-4c85-86b1-bec51bf844c8" name="Without Schema" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>690</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Qualifications" narrative="Collection stage has no schema" expr="[Candidates.Qualifications]" />
+    </inputs>
+    <onsuccess>7fbe9d38-c22e-418a-ae95-1a4dd2bf9e89</onsuccess>
+    <processid>5a55e31b-9e41-4f36-ae74-85d77566e564</processid>
+  </stage>
+  <stage stageid="7fbe9d38-c22e-418a-ae95-1a4dd2bf9e89" name="Get Date (Candidates)" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>735</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>c0fc6794-5864-405c-a0ef-c04932ebc275</onsuccess>
+    <calculation expression="[Candidates.Qualifications.GCSEs.Date]" stage="Date 2" />
+  </stage>
+  <stage stageid="95b9fa37-6e43-4d50-a6c7-dfa092818231" name="Qualifications" type="Collection">
+    <subsheetid>5a55e31b-9e41-4f36-ae74-85d77566e564</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="dd9a7162-5ac6-40e8-8f8a-263633ab4f58" name="Set Date (Qualifications)" type="Calculation">
+    <subsheetid>5a55e31b-9e41-4f36-ae74-85d77566e564</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>7c7a613c-b0c0-499d-9a79-463f4cfe8b7a</onsuccess>
+    <calculation expression="MakeDate(14,12,1981)" stage="Qualifications.GCSEs.Date" />
+  </stage>
+  <stage stageid="ba5c8e17-1abf-4987-9217-9f99e4997e2f" name="Test action with defined schema in target" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-120</displayx>
+    <displayy>825</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>150</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="8ee4978d-29ec-4464-a6de-f5dd9d995a89" name="Date 1 = Date 2?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>945</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Date 1] = [Date 2]" />
+    <ontrue>2d431ced-02f3-48b7-a61c-5a3e33d3df05</ontrue>
+    <onfalse>1b89fe80-c081-48a3-a013-1dd4d17e4eb8</onfalse>
+  </stage>
+  <stage stageid="1b89fe80-c081-48a3-a013-1dd4d17e4eb8" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>945</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="PassByReferenceException" detail="&quot;Setting an inner collection via an action input to a stage with a defined schema passed by reference instead of value. Index: &quot; &amp; [Index]" />
+  </stage>
+  <stage stageid="10979a4e-b4d8-43b8-968a-58112cc0bb91" name="Get Date (Candidates)" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>900</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>8ee4978d-29ec-4464-a6de-f5dd9d995a89</onsuccess>
+    <calculation expression="[Candidates.Qualifications.GCSEs.Date]" stage="Date 2" />
+  </stage>
+  <stage stageid="867d88ac-8883-40f6-a8be-ddd844e9ae2b" name="Test action with no schema in target" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-120</displayx>
+    <displayy>990</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>150</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3456f5cf-68f1-4d79-b365-63cfbd8d4b44" name="Date 1 = Date 2?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>1110</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Date 1] = [Date 2]" />
+    <ontrue>78afa833-e8dc-42fd-9c9c-409eaa957ae1</ontrue>
+    <onfalse>8e4384d8-fbf9-4d22-82fd-d68f15ffc811</onfalse>
+  </stage>
+  <stage stageid="8e4384d8-fbf9-4d22-82fd-d68f15ffc811" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>1110</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="PassByReferenceException" detail="&quot;Setting an inner collection via an action input to a stage with a defined schema passed by reference instead of value. Index: &quot; &amp; [Index]" />
+  </stage>
+  <stage stageid="12c2496f-bc94-45a8-aad1-0363faa062da" name="Get Date (Candidates)" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>1065</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>3456f5cf-68f1-4d79-b365-63cfbd8d4b44</onsuccess>
+    <calculation expression="[Candidates.Qualifications.GCSEs.Date]" stage="Date 2" />
+  </stage>
+  <stage stageid="4e7a2873-ba7c-4c7a-9df1-82544f8b929a" name="With Schema" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>855</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="GCSEs" narrative="GCSEs collection stage has schema" expr="[Candidates.Qualifications.GCSEs]" />
+    </inputs>
+    <onsuccess>10979a4e-b4d8-43b8-968a-58112cc0bb91</onsuccess>
+    <resource object="Pass By Value Or Reference" action="With Schema" />
+  </stage>
+  <stage stageid="2d431ced-02f3-48b7-a61c-5a3e33d3df05" name="Without Schema" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>1020</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Qualifications" narrative="Collection stage has no schema" expr="[Candidates.Qualifications]" />
+    </inputs>
+    <onsuccess>12c2496f-bc94-45a8-aad1-0363faa062da</onsuccess>
+    <resource object="Pass By Value Or Reference" action="Without Schema" />
+  </stage>
+</process>

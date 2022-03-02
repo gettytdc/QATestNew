@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>UI Automation 导航器</title>
+    <script type="text/javascript" src="script/imagezoom.js"></script>
+</head>
+
+<body class="slick">
+    <div class="header">
+        <h1 class="pagetitle">Object Studio</h1>
+        <h2>UI Automation 导航器</h2>
+    </div>
+    <div class="captioned-image overview-screenshot nozoom">
+        <a href="Graphics/uia-navigator.png" title="UIA 导航器—点击查看大图"><img src="Graphics/uia-navigator.png" alt="UIA 导航器—点击查看大图"/></a>
+        <p>UI Automation 导航器表单</p>
+    </div>
+
+    <h3 id="intro">简介</h3>
+    <p>Object Studio 提供两种主要方法来识别要在可视业务对象中使用的用户界面元素。</p>
+
+    <p>探测工具可以选择要进行自动化的可视化元素，您也可以使用其中一个应用程序导航器表单遍历 UI 模型并识别模型中需要哪个元素。
+    </p>
+
+    <p>目前有两种不同的导航器—一种公开 Win32 和 Active Accessibility 模型，一种（在此页面中描述）公开 UI Automation 模型。本质上，它们以完全相同的方式工作，只有特定于它们所公开的模型类型的微小变化。</p>
+
+    <h3 id="opening">打开 UI Automation 导航器表单</h3>
+    <div class="captioned-image section-screenshot">
+        <img src="Graphics/uia-navigator-menuoption-cropped.png" alt="打开导航器"/>
+    </div>
+    <p>打开 UI Automation 导航器表单的方式是：在 Object Studio 中启动或附加到目标应用程序，然后创建元素。选择新元素后，将显示标有<code>识别</code>的分割按钮。如果点击按钮的下拉菜单部分，它将显示一个菜单，其中包含：</p>
+    <ul>
+        <li>探查元素</li>
+        <li>打开应用程序导航器</li>
+        <li>打开 UI Automation 导航器</li>
+    </ul>
+    <p>可以通过选择最后一个选项来打开导航器表单。</p>
+
+    <p>表单将打开并将模型加载到左侧的树中。当在树中选择元素时，它会在应用程序中突出显示，并在右边的网格中显示它的 UI Automation 属性。</p>
+
+    <h3 id="views">更改视图</h3>
+    <div class="captioned-image section-screenshot">
+        <img src="Graphics/uia-navigator-raw-view.png" alt="UI Automation 原始视图"/>
+    </div>
+    <p>UI Automation 模型允许将元素分类为具体视图，即从最通用到最具体，“原始”、“控制”和“内容”。这些视图可概括描述如下：</p>
+    <dl class="listplease">
+        <dt>原始视图</dt>
+        <dd>严格遵循应用程序本机编程结构的自动化元素的完整树。这是可用的最详细视图。</dd>
+
+        <dt>控制视图</dt>
+        <dd>这是原始视图的子集。它包含向用户显示信息或可以让用户执行操作的元素。它还可以包含非交互式 UI 元素，这些元素有利于 UI 的逻辑结构，例如列表视图标题、工具栏和菜单。
+ 仅用于布局或装饰的非交互式元素（例如用于控件布局的面板）不会出现在控制视图中。</dd>
+
+        <dt>内容视图</dt>
+        <dd>这是控制视图的子集。它包含在用户界面中传达信息的元素，包括可以接收键盘焦点的 UI 元素和一些不是 UI 元素上的标签的文本。</dd>
+    </dl>
+    <p>有关 UI Automation 视图的更多信息，请参考 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee671698(v=vs.85).aspx#views">MSDN UI 自动化树概述</a>页面。
+
+    <p>Blue Prism 中的导航器使用的默认视图是“控制”视图，但是通过在表单的左上角选择所需的视图，可以更改当前视图。</p>
+
+    <p>注意，一些视图改变了层次结构，例如“控制”视图中元素的父元素可能与“原始”视图中同一元素的父元素不同。这与选择元素时存储在 VBO 应用程序模型中的元素没有任何区别，即，视图不会影响为选定元素存储的父数据。</p>
+
+    <h3 id="filtering">筛选模型</h3>
+    <div class="captioned-image section-screenshot">
+        <img src="Graphics/uia-navigator-filter.png" alt="筛选 UI Automation 模型"/>
+    </div>
+    <p>在模型上方的筛选器框中输入搜索词可筛选模型。按 Enter 或暂停键入片刻后，系统将对树进行筛选，使树中仅包含其名称或所选属性含有筛选器文本的元素。</p>
+    <p>按筛选器文本框右侧的红色“x”可以清除筛选文本。</p>
+
+    <h3 id="hiding" style="clear:left">隐藏或显示属性</h3>
+    <div class="captioned-image section-screenshot">
+        <img src="Graphics/uia-navigator-hide-attributes.png" alt="隐藏属性"/>
+    </div>
+    <p>可以通过点击表单顶部中部的按钮来切换属性列表的可见性。这除了简化界面之外没有任何功能效果。</p>
+
+    <h3 id="selecting" style="clear:left">选择元素</h3>
+    <p>在树中选择所需的元素后，可以通过点击<code>确定</code>按钮将其添加到应用程序模型中。</p>
+    <p>要取消选择，可以按<code>取消</code>按钮。这将关闭导航器表单，不对底层应用程序模型进行任何更改。</p>
+
+
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_HTML5___Top_Navigation" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../../" data-mc-has-content-body="True" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Advanced setup">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="../../Skins/Favicons/apple-touch-icon.png"/>
+        <link rel="shortcut icon" href="../../Skins/Favicons/favicon-32x32.png"/>
+        <link rel="icon" sizes="96x96" href="../../Skins/Favicons/favicon-96x96.png"/>
+        <link rel="icon" sizes="32x32" href="../../Skins/Favicons/favicon-32x32.png"/>
+        <link rel="icon" sizes="2263x2263" href="../../Skins/Favicons/BP_Prism_RGB.png"/>
+        <meta charset="utf-8"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/><title>事件结构</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet"/>
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet"/>
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet"/>
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet"/>
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet"/>
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet"/>
+        <link href="../../Skins/Fluid/stylesheets/foundation.6.2.3.css" rel="stylesheet"/>
+        <link href="../../Skins/Fluid/stylesheets/styles.css" rel="stylesheet"/>
+        <link href="../../Skins/Fluid/stylesheets/tablet.css" rel="stylesheet"/>
+        <link href="../../Skins/Fluid/stylesheets/mobile.css" rel="stylesheet"/>
+        <style>/*&lt;meta /&gt;*/
+
+.button.select-language-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/select-language.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.button.feedback-button
+{
+	-pie-background: linear-gradient(#ffffff, #ececec);
+}
+
+.button.print-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/printer.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.button.previous-topic-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/navigate-previous.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.button.next-topic-button
+{
+	-pie-background: url('../../Skins/Default/Stylesheets/Images/navigate-next.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+}
+
+.needs-pie
+{
+	behavior: url('../../Resources/Scripts/PIE-no-motw.htc');
+}
+
+</style>
+        <link href="./AutomateHelp.css" rel="stylesheet"/>
+    </head>
+    <body>
+                                            <div>
+                                                <h1 class="pagebreak">事件结构</h1>
+                                                <p>此部分详细介绍了在从 Blue Prism 收到事件后，这些事件在 Logstash 中的结构。此信息可用于在 Logstash 配置中构造条件语句，以根据内容将事件转移到输出，或者为输出创建自定义消息格式。</p>
+                                                <p>事件（会话日志或已发布的仪表盘）会作为 JSON 字符串存储在 Blue Prism 数据库中。要将此 JSON 字符串转换为可以在 Logstash 中使用的一组字段，可将 JSON 筛选器添加到配置中：</p>
+                                                <p class="code_sample">filter{</p>
+                                                <p class="code_sample">json{source =&gt; "eventdata"</p>
+                                                <p class="code_sample">target =&gt; "event"}</p>
+                                                <p class="code_sample">}</p>
+                                                <p>这会将会话日志/已发布的仪表盘添加为嵌套在“event”字段下的字段。</p>
+                                                <p>例如——</p>
+                                                <p><span class="code_sample">[event][eventType]</span> 包含事件类型（会话日志、已发布的仪表盘或自定义对象数据）。</p>
+                                                <p><span class="code_sample">[event][EventData]</span> 包含作为嵌套字段的事件的数据。</p>
+                                                <p><span class="code_sample">[event][EventData][SessionNumber]</span> 包含会话编号（如果这是会话日志事件）。</p>
+                                                <p>要仅将名为“ProcessA”的流程中的会话日志发送到文本文件，可以为输出使用条件语句：</p>
+                                                <p class="code_sample">output {</p>
+                                                <p class="code_sample">If [event][eventType] == 1 and [event][EventData][ProcessName] == “ProcessA” {</p>
+                                                <p class="code_sample">file {</p>
+                                                <p class="code_sample">path =&gt; “C:\log.txt”</p>
+                                                <p class="code_sample">}</p>
+                                                <p class="code_sample">}</p>
+                                                <p class="code_sample">}</p>
+                                                <p>有关可用字段的完整列表，请参阅以下表格。</p>
+                                                <h2>常规</h2>
+                                                <table style="mc-table-style: url('../../resources/tablestyles/bp-table-row-header.css');margin-left: 0;margin-right: auto;" class="TableStyle-bp-table-row-header" cellspacing="0">
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;"/>
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;"/>
+                                                    <thead>
+                                                        <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                                                            <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                                                                <p>事件</p>
+                                                            </th>
+                                                            <th class="TableStyle-bp-table-row-header-HeadD-Column1-Header1">
+                                                                <p>描述</p>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p class="code_sample">[event][eventType]
+                        </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>表示事件类型的编号：</p>
+                                                                <p>1 = 会话日志</p>
+                                                                <p>2 = 已发布的仪表盘</p>
+                                                                <p>3 = 自定义</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1">
+                                                                <p class="code_sample">[event][EventData]</p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyA-Column1-Body1">
+                                                                <p>事件数据。此类数据的结构将因事件类型而异。</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <h2 class="pagebreak">事件类型—会话日志</h2>
+                                                <table style="mc-table-style: url('../../resources/tablestyles/bp-table-row-header.css');margin-left: 0;margin-right: auto;" class="TableStyle-bp-table-row-header" cellspacing="0">
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;"/>
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;"/>
+                                                    <thead>
+                                                        <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                                                            <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                                                                <p>事件</p>
+                                                            </th>
+                                                            <th class="TableStyle-bp-table-row-header-HeadD-Column1-Header1">
+                                                                <p>描述</p>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][StartDate]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> 使用 ISO 8601 表示法格式化的流程环节的开始日期。例如：2019-02-11T07:59:54.829674+00:00</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][SessionNumber]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> 此会话日志所属会话的会话编号。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ResultType]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>流程环节的结果类型。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][Result]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> 流程环节的结果。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][AttributeXML]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> 序列化为 XML 的环节的输入和输出参数。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ProcessName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> 此环节所属的流程的名称。如果通过业务对象记录会话日志，则此值为空。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ObjectName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> 此环节所属的业务对象的名称。如果通过流程记录会话日志，则此值为空。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ActionName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> 如果此日志来自于操作环节，则此值为操作名称。否则它将为空。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][PageName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> 创建此会话日志的此环节所属的页面的名称。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][StageType]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>创建此会话日志的环节的类型。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][StageId]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyA-Column1-Body1">
+                                                                <p>创建此会话日志的环节的 ID。</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <h2> 事件类型 - 已发布的仪表盘</h2>
+                                                <table style="mc-table-style: url('../../resources/tablestyles/bp-table-row-header.css');margin-left: 0;margin-right: auto;" class="TableStyle-bp-table-row-header" cellspacing="0">
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;"/>
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;"/>
+                                                    <thead>
+                                                        <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                                                            <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                                                                <p>事件</p>
+                                                            </th>
+                                                            <th class="TableStyle-bp-table-row-header-HeadD-Column1-Header1">
+                                                                <p>描述</p>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][Source]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> 已发布的仪表盘的名称。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][Subject]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">生成数据的仪表盘磁贴的名称。</td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1"><span class="code_sample">[event][EventData][Values]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyA-Column1-Body1">
+                                                                <p> 来自仪表盘磁贴的数据。</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <h2 class="pagebreak"> 事件类型 – 自定义对象数据</h2>
+                                                <table style="mc-table-style: url('../../resources/tablestyles/bp-table-row-header.css');margin-left: 0;margin-right: auto;" class="TableStyle-bp-table-row-header" cellspacing="0">
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;"/>
+                                                    <col class="TableStyle-bp-table-row-header-Column-Column1" style="width: 50%;"/>
+                                                    <thead>
+                                                        <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                                                            <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1">
+                                                                <p>事件</p>
+                                                            </th>
+                                                            <th class="TableStyle-bp-table-row-header-HeadD-Column1-Header1">
+                                                                <p>描述</p>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][CustomDataCollection]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> 来自将要发送的流程的自定义数据。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][SessionNumber]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">数据来自的流程的会话编号。</td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1"><span class="code_sample">[event][EventData][StageID]</span>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">从中调用此操作的环节的 ID。</td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][StageName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> “发送自定义数据”操作环节的名称。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][StageType]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> “发送自定义数据”操作环节的类型。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][StartDate]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>运行“发送自定义数据”操作的会话的开始日期。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ProcessName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> 从中调用操作的流程的名称。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][PageName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p> 执行自定义数据操作的流程页面的名称。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyE-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][ObjectName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyD-Column1-Body1">
+                                                                <p>作为数据出处的对象—始终是“数据网关”。</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                                                            <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1">
+                                                                <p><span class="code_sample">[event][EventData][actionName]</span>
+                                                                </p>
+                                                            </td>
+                                                            <td class="TableStyle-bp-table-row-header-BodyA-Column1-Body1">
+                                                                <p>数据来自的操作—始终是“发送自定义数据”。</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section><a data-close="true"></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

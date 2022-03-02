@@ -1,0 +1,2946 @@
+﻿<process name="API - GET schedules - Pagination" version="1.0" bpversion="7.0.0.39397" narrative="" byrefcollection="true" preferredid="c346d975-ebc0-4616-b3fc-569a75192c15">
+  <view>
+    <camerax>-71</camerax>
+    <cameray>117</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="549645e8-f436-4eb0-910c-841591a7364c" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>-50</camerax>
+      <cameray>1102</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="d6eb0775-5392-4439-8fd3-ca34faadc401" type="Normal" published="False">
+    <name>Scenario 1</name>
+    <view>
+      <camerax>330</camerax>
+      <cameray>1860</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="353f5795-7015-448c-aea6-de95fdc795e6" type="Normal" published="False">
+    <name>Scenario 2</name>
+    <view>
+      <camerax>-111</camerax>
+      <cameray>2047</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="cc8ab573-3654-4f19-85b6-b6dbbc97a936" type="Normal" published="False">
+    <name>Add to Clean Up Collection</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="2742fecc-ff29-478b-add0-f6821c2cd14e" type="Normal" published="False">
+    <name>Cleanup</name>
+    <view>
+      <camerax>283</camerax>
+      <cameray>378</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="50a7dec0-d501-47e7-b9a4-921ec5efd1ce" name="Start" type="Start">
+    <display x="15" y="-105" />
+    <onsuccess>1c73167f-1598-4282-a9af-41cd348e2b04</onsuccess>
+  </stage>
+  <stage stageid="31d659d2-2508-4696-bf60-65146099494e" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="a27021fd-e6f6-4a48-af15-b82b26a0e88d" name="Setup" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="-45" w="405" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="1c73167f-1598-4282-a9af-41cd348e2b04" name="Note1" type="Note">
+    <narrative>GIVEN that 11 schedules were created. </narrative>
+    <display x="15" y="-15" w="360" h="30" />
+    <font family="Segoe UI" size="10" style="Regular" color="993366" />
+    <onsuccess>37c7c15c-7680-4404-b52a-9e1b658fd02d</onsuccess>
+  </stage>
+  <stage stageid="15eb9e83-d0a9-470e-936e-0f4a26ce6412" name="Setup" type="SubSheetInfo">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <display x="-135" y="-285" w="150" h="90" />
+  </stage>
+  <stage stageid="654613b2-7359-4503-b376-aab6f35e111a" name="Go to Control" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <display x="15" y="345" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>b2beb794-96b5-475e-8910-38df8dc9b484</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="b2beb794-96b5-475e-8910-38df8dc9b484" name="Select Schedules" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <display x="15" y="390" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Control Item to Click" friendlyname="Control Item to Click" narrative="Control Item to click in left hand side control Tree" expr="&quot;Schedules&quot;" />
+    </inputs>
+    <onsuccess>c66076fc-a476-42c1-98a2-7f2c67515f44</onsuccess>
+    <resource object="Blue Prism - Control - Basic Actions" action="Click Item From Control's Left Tree (Select Item)" />
+  </stage>
+  <stage stageid="c66076fc-a476-42c1-98a2-7f2c67515f44" name="Make Time and Store" type="MultipleCalculation">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="435" w="90" h="30" />
+    <onsuccess>a8a35cdf-6275-44d2-b6a6-73f8184c9400</onsuccess>
+    <steps>
+      <calculation expression="LocalTime()+MakeTimeSpan(0, 1, 0, 0)" stage="Start Time" />
+      <calculation expression="AddDays(Today(),+1)" stage="End Point" />
+      <calculation expression="Now()" stage="Start DateTime" />
+    </steps>
+  </stage>
+  <stage stageid="8a9b73b6-be78-4f9a-9591-2486012f7bab" name="Attach Control" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>a2b56b7e-da6c-4655-9b26-91b1a8d2eb34</onsuccess>
+    <resource object="Blue Prism - Control Room (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="7826dfe4-a0fa-4e99-8322-23a911e07a13" name="Port" type="Data">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <display x="-135" y="-195" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>4233</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="27314ff8-07d6-479b-ad9f-c3058ed530bc" name="pid" type="Data">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <display x="-135" y="-165" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a8578ab6-0fac-43bf-a3b7-03c9f86fe168" name="Local variable" type="Block">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-225" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="37c7c15c-7680-4404-b52a-9e1b658fd02d" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="120" h="30" />
+    <onsuccess>c6986597-a18d-4255-899d-6ff72bdf1800</onsuccess>
+    <processid>549645e8-f436-4eb0-910c-841591a7364c</processid>
+  </stage>
+  <stage stageid="745943aa-8abb-4718-87ab-4dc9f0728b07" name="Global Variables" type="Block">
+    <display x="-345" y="-45" w="150" h="300" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="7b7c11bd-36bb-4b14-a234-953928b01125" name="Start Time" type="Data">
+    <display x="-270" y="-15" w="120" h="30" />
+    <datatype>time</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="93026986-fbfe-489f-8cf8-7cf2605b920c" name="Start DateTime" type="Data">
+    <display x="-270" y="15" w="120" h="30" />
+    <datatype>datetime</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8479a19e-c6fd-4c10-aaf8-dff13275e7b7" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-345" y="270" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="5c6d5300-71e1-409e-b8ac-7f6dbae3a774" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="300" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="93d14d60-5c82-4f77-bc29-0adb260f7fa2" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="330" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="66a66d6b-eb63-47db-b256-b1d575668911" name="Response Content" type="Data">
+    <display x="-270" y="105" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="389b3032-8d1e-4078-82c8-5d5d41c698f5" name="HTTP Status Code" type="Data">
+    <display x="-270" y="75" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2b7ee53b-7287-41dc-b2bb-eb21dd737d11" name="Add to Clean Up Collection" type="SubSheetInfo">
+    <subsheetid>cc8ab573-3654-4f19-85b6-b6dbbc97a936</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="8f101416-c66f-4325-b1dc-d36b9ff5fe06" name="Start" type="Start">
+    <subsheetid>cc8ab573-3654-4f19-85b6-b6dbbc97a936</subsheetid>
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="Item Name" narrative="The name of the item you want to clean up." stage="Item Name" />
+    </inputs>
+    <onsuccess>73d101b7-48ef-4642-9f91-1b6a60657637</onsuccess>
+  </stage>
+  <stage stageid="60a3cb81-f130-49db-bad6-25e0744e760f" name="End" type="End">
+    <subsheetid>cc8ab573-3654-4f19-85b6-b6dbbc97a936</subsheetid>
+    <display x="15" y="30" />
+  </stage>
+  <stage stageid="370c1c55-f70d-4e84-9048-6135e9a17517" name="Item Name" type="Data">
+    <subsheetid>cc8ab573-3654-4f19-85b6-b6dbbc97a936</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="51197242-1eda-4809-af5a-973d527be350" name="Input Variables" type="Block">
+    <subsheetid>cc8ab573-3654-4f19-85b6-b6dbbc97a936</subsheetid>
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="73d101b7-48ef-4642-9f91-1b6a60657637" name="Add Row" type="Action">
+    <subsheetid>cc8ab573-3654-4f19-85b6-b6dbbc97a936</subsheetid>
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to act upon" expr="&quot;CleanUp Collection&quot;" />
+    </inputs>
+    <onsuccess>571774d1-079e-4a03-91e6-a103c9621195</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="2800e13f-354d-427f-b9f8-abd549680756" name="CleanUp Collection" type="Collection">
+    <subsheetid>cc8ab573-3654-4f19-85b6-b6dbbc97a936</subsheetid>
+    <display x="-195" y="60" w="120" h="30" />
+    <datatype>collection</datatype>
+    <collectioninfo>
+      <field name="Item Name" type="text" description="The name of the item that needs cleaning up." />
+    </collectioninfo>
+    <noalwaysinit />
+  </stage>
+  <stage stageid="d3ec6f85-8c4b-4c97-84d9-30134dcfdebb" name="Local Variables" type="Block">
+    <subsheetid>cc8ab573-3654-4f19-85b6-b6dbbc97a936</subsheetid>
+    <display x="-270" y="30" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="571774d1-079e-4a03-91e6-a103c9621195" name="Add To Row" type="Calculation">
+    <subsheetid>cc8ab573-3654-4f19-85b6-b6dbbc97a936</subsheetid>
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>60a3cb81-f130-49db-bad6-25e0744e760f</onsuccess>
+    <calculation expression="[Item Name]" stage="CleanUp Collection.Item Name" />
+  </stage>
+  <stage stageid="5fdb2368-54cb-4d38-acea-989d61288d4f" name="Cleanup" type="SubSheetInfo">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="9976868b-946f-4676-a599-0302585f46c6" name="Start" type="Start">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>bdd82931-393e-4406-855f-492020e55c3f</onsuccess>
+  </stage>
+  <stage stageid="a3987424-350c-4188-a1ab-7f1925d2a751" name="Terminate" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="210" y="420" w="90" h="30" />
+    <onsuccess>98115050-8de5-4b62-b3b3-aef47c574478</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="9177abb5-1fa2-4d4e-9c8a-2589aac59108" name="To Clean" type="LoopStart">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>2216a102-eecf-4cc0-9396-89585f8207d7</onsuccess>
+    <groupid>2d1d4698-796c-44bf-baca-c6a0ea512e8b</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Reversed CleanUp</loopdata>
+  </stage>
+  <stage stageid="e5d0b38b-ab5b-466e-8115-361ef1a4394b" name="To Clean" type="LoopEnd">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="15" y="510" w="90" h="30" />
+    <onsuccess>c5a19914-27eb-4d58-8bad-3ff3824a1430</onsuccess>
+    <groupid>2d1d4698-796c-44bf-baca-c6a0ea512e8b</groupid>
+  </stage>
+  <stage stageid="2216a102-eecf-4cc0-9396-89585f8207d7" name="Which Clean Up" type="ChoiceStart">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="15" y="30" w="90" h="30" />
+    <groupid>d536328f-064c-496c-b618-929de9b6cdf2</groupid>
+    <choices>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Schedule A BP-2361&quot;">
+        <name>Schedule A BP-2361</name>
+        <distance>30</distance>
+        <ontrue>5fc1af96-1377-4cb8-ae15-b148548a9b21</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Schedule B BP-2361&quot;">
+        <name>Schedule B BP-2361</name>
+        <distance>60</distance>
+        <ontrue>d9270095-4e27-46b0-8068-f35c5f99b05f</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Schedule C BP-2361&quot;">
+        <name>Schedule C BP-2361</name>
+        <distance>90</distance>
+        <ontrue>36a18c45-6872-4e47-bddc-5f54da332baf</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Schedule D BP-2361&quot;">
+        <name>Schedule D BP-2361</name>
+        <distance>120</distance>
+        <ontrue>8d241a04-6ece-44df-9c53-92e14cd2a556</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Schedule E BP-2361&quot;">
+        <name>Schedule E BP-2361</name>
+        <distance>150</distance>
+        <ontrue>3860eaee-4f20-4086-8ed1-7113db0afcd0</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Schedule F BP-2361&quot;">
+        <name>Schedule F BP-2361</name>
+        <distance>180</distance>
+        <ontrue>c60a285b-ebc9-48c4-84ad-9b53d41b4032</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Schedule G BP-2361&quot;">
+        <name>Schedule G BP-2361</name>
+        <distance>210</distance>
+        <ontrue>a96a5061-0c86-46f6-b25c-174286eb17e4</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Schedule H BP-2361&quot;">
+        <name>Schedule H BP-2361</name>
+        <distance>240</distance>
+        <ontrue>544ec693-1452-48d9-ba2b-4d49b5cd2fd0</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Schedule I BP-2361&quot;">
+        <name>Schedule I BP-2361</name>
+        <distance>270</distance>
+        <ontrue>ad15d98b-cb61-4b73-8ffb-4c2e52452139</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Schedule J BP-2361&quot;">
+        <name>Schedule J BP-2361</name>
+        <distance>300</distance>
+        <ontrue>cd3839d9-5614-409b-840b-789a20659f5a</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Schedule K BP-2361&quot;">
+        <name>Schedule K BP-2361</name>
+        <distance>330</distance>
+        <ontrue>99bab3e1-0c05-4edf-9b32-356028c47066</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Resource 4233&quot;">
+        <name>Resource 4233</name>
+        <distance>360</distance>
+        <ontrue>00a26c6e-81f5-4603-8de8-75c9861c9c87</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Blue Prism&quot;">
+        <name>Blue Prism</name>
+        <distance>390</distance>
+        <ontrue>a3987424-350c-4188-a1ab-7f1925d2a751</ontrue>
+      </choice>
+    </choices>
+  </stage>
+  <stage stageid="a59aff4c-71b5-42f1-9d92-b6a569eb1190" name="Otherwise" type="ChoiceEnd">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="15" y="465" w="90" h="30" />
+    <onsuccess>c81015ab-0f2b-46f5-b998-83a26fc9e824</onsuccess>
+    <groupid>d536328f-064c-496c-b618-929de9b6cdf2</groupid>
+  </stage>
+  <stage stageid="c81015ab-0f2b-46f5-b998-83a26fc9e824" name="FAIL" type="Exception">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="90" y="465" w="30" h="30" />
+    <exception type="" detail="&quot;You have entered a clean up item the choice doesn't recognise.&quot;" />
+  </stage>
+  <stage stageid="00a26c6e-81f5-4603-8de8-75c9861c9c87" name="Stop Resource" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="120" y="390" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" narrative="The port number whose resource should be stopped" expr="4233" />
+    </inputs>
+    <onsuccess>f1be4fcc-6b70-4e4e-8a95-1ab4ca84ea63</onsuccess>
+    <resource object="Resource Manager" action="Stop Resource" />
+  </stage>
+  <stage stageid="5ce09733-9349-4100-82b1-af67654f5c23" name="Anchor9" type="Anchor">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="405" y="510" w="10" h="10" />
+    <onsuccess>e5d0b38b-ab5b-466e-8115-361ef1a4394b</onsuccess>
+  </stage>
+  <stage stageid="bdd82931-393e-4406-855f-492020e55c3f" name="Reverse Collection" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="Collection" narrative="The collection to be reversed." expr="[CleanUp Collection]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Reversed Collection" narrative="The reversed collection." stage="Reversed CleanUp" />
+    </outputs>
+    <onsuccess>9177abb5-1fa2-4d4e-9c8a-2589aac59108</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Reverse Collection" />
+  </stage>
+  <stage stageid="846051a6-4b62-4676-a0bd-6d2a90162363" name="Reversed CleanUp" type="Collection">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="38d1fcba-4a43-4bd3-b98a-aefa3a482228" name="Local Variables" type="Block">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e7940d48-4327-430a-a8f1-1333db1a6048" name="Delete Schedule" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="330" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Schedule Name" narrative="The name of the schedule which will be run" expr="&quot;Schedule A BP-2361&quot;" />
+    </inputs>
+    <onsuccess>4fbc2a30-7836-4e3b-9eec-ce34b2446179</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Delete Schedule" />
+  </stage>
+  <stage stageid="4fbc2a30-7836-4e3b-9eec-ce34b2446179" name="Anchor6" type="Anchor">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="405" y="60" w="10" h="10" />
+    <onsuccess>26024c0e-c30d-4e2d-8657-5beaac9b74d3</onsuccess>
+  </stage>
+  <stage stageid="c5a19914-27eb-4d58-8bad-3ff3824a1430" name="End1" type="End">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="555" />
+  </stage>
+  <stage stageid="5fc1af96-1377-4cb8-ae15-b148548a9b21" name="Open Control Tab" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="210" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>e7940d48-4327-430a-a8f1-1333db1a6048</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="98115050-8de5-4b62-b3b3-aef47c574478" name="Anchor3" type="Anchor">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="405" y="420" w="10" h="10" />
+    <onsuccess>5ce09733-9349-4100-82b1-af67654f5c23</onsuccess>
+  </stage>
+  <stage stageid="c6986597-a18d-4255-899d-6ff72bdf1800" name="Note1" type="Note">
+    <narrative>WHEN "GET schedules" API call is requested with input "itemsPerPage"
+THEN HTTP Status Code will output 200 to indicate all is well
+AND the Response Content returned will sort the schedules into the desired amount per page
+AND it's possible to navigate backward and forward
+AND up to 1000 itemsPerPage is the current default limit
+</narrative>
+    <display x="15" y="120" w="360" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="993366" />
+    <onsuccess>a6b74d3d-ec43-4eda-975c-d674ccc2f708</onsuccess>
+  </stage>
+  <stage stageid="1e6bb2c9-c29f-4791-8164-3c58e45fdc5a" name="Scenario 1 - Main Acceptance Criteria" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="75" w="405" h="135" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="fa9ea2fe-d78e-4967-b3d5-44f16a2c39ce" name="Delete Schedule" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="330" y="90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Schedule Name" narrative="The name of the schedule which will be run" expr="&quot;Schedule B BP-2361&quot;" />
+    </inputs>
+    <onsuccess>26024c0e-c30d-4e2d-8657-5beaac9b74d3</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Delete Schedule" />
+  </stage>
+  <stage stageid="d9270095-4e27-46b0-8068-f35c5f99b05f" name="Open Control Tab" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="210" y="90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>fa9ea2fe-d78e-4967-b3d5-44f16a2c39ce</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="26024c0e-c30d-4e2d-8657-5beaac9b74d3" name="Anchor5" type="Anchor">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="405" y="90" w="10" h="10" />
+    <onsuccess>201f40c3-bb7c-46b8-a8cf-cff30989df1c</onsuccess>
+  </stage>
+  <stage stageid="aee52afc-8c8e-4124-8677-d9d964130664" name="Create Schedule 11" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="540" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name" friendlyname="Name" narrative="The name of the schedule to create" expr="[Schedule Name Collection.Schedule Name]" />
+      <input type="date" name="Start Date" friendlyname="Start Date" narrative="The start date for the schedule" expr="Today()" />
+      <input type="time" name="Start Time" friendlyname="Start Time" narrative="The start time for the schedule" expr="[Start Time]" />
+      <input type="collection" name="Tasks" friendlyname="Tasks" narrative="The tasks to run" expr="[Task Sessions 1]" />
+      <input type="text" name="Group To Expand" friendlyname="Group To Expand" narrative="Group contianing Process" expr="&quot;Default&quot;" />
+      <input type="text" name="Resource Group To Expand" friendlyname="Resource Group To Expand" narrative="Group containing resources in schedule" expr="&quot;Default&quot;" />
+    </inputs>
+    <onsuccess>a5411646-6869-4a44-8444-1f1f67fd9a1e</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Create Schedule" />
+  </stage>
+  <stage stageid="a6b74d3d-ec43-4eda-975c-d674ccc2f708" name="Scenario 1" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="180" w="120" h="30" />
+    <onsuccess>5f2563d4-1a06-4cff-ab40-d25ea96e114b</onsuccess>
+    <processid>d6eb0775-5392-4439-8fd3-ca34faadc401</processid>
+  </stage>
+  <stage stageid="9d869b08-d6f2-40a2-a10f-d923d8e0d965" name="Recover Setup" type="Recover">
+    <loginhibit />
+    <display x="180" y="30" />
+    <onsuccess>f1d3ea19-5722-4bc9-bdf1-6e262a489439</onsuccess>
+  </stage>
+  <stage stageid="ad0c2b28-4c5f-413b-9751-34f765ba5acf" name="Resume Setup" type="Resume">
+    <loginhibit />
+    <display x="345" y="30" />
+    <onsuccess>6bba1008-3251-4411-94de-b4c49880ab7b</onsuccess>
+  </stage>
+  <stage stageid="f1d3ea19-5722-4bc9-bdf1-6e262a489439" name="Get Exception Setup" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="270" y="30" />
+    <onsuccess>ad0c2b28-4c5f-413b-9751-34f765ba5acf</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="[Exception]&amp;&quot;,Setup Failed. Exception details: &quot;&amp;ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="fa099e1d-0551-4a85-93c6-f93603a91a23" name="Resume Scenario 1" type="Resume">
+    <loginhibit />
+    <display x="270" y="225" />
+    <onsuccess>5f2563d4-1a06-4cff-ab40-d25ea96e114b</onsuccess>
+  </stage>
+  <stage stageid="c548a089-b986-4235-8a7b-db165e27ee5c" name="Get Exception 1" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="270" y="180" />
+    <onsuccess>fa099e1d-0551-4a85-93c6-f93603a91a23</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="[Exception]&amp;&quot;,Scenario 1 Failed. Exception details: &quot;&amp;ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="2e2fd425-6f28-449d-9b60-8a9c29f32e69" name="Recovery Scenario 1" type="Recover">
+    <loginhibit />
+    <display x="180" y="180" />
+    <onsuccess>c548a089-b986-4235-8a7b-db165e27ee5c</onsuccess>
+  </stage>
+  <stage stageid="6bba1008-3251-4411-94de-b4c49880ab7b" name="Anchor10" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="345" y="420" w="10" h="10" />
+    <onsuccess>31ac7d3e-6e72-48f8-add5-367f260451fe</onsuccess>
+  </stage>
+  <stage stageid="451c9214-bb51-4ba8-bb22-dd8926885b94" name="End" type="End">
+    <display x="15" y="540" />
+  </stage>
+  <stage stageid="508e94c2-9a56-4b43-9de4-521b5f5b2d14" name="CleanUp" type="SubSheet">
+    <display x="15" y="450" w="120" h="30" />
+    <onsuccess>7e5a70e0-b93a-477b-ac6e-0dbaabc71424</onsuccess>
+    <processid>2742fecc-ff29-478b-add0-f6821c2cd14e</processid>
+  </stage>
+  <stage stageid="7e5a70e0-b93a-477b-ac6e-0dbaabc71424" name="Failed?" type="Decision">
+    <display x="15" y="495" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>957d990c-4cd4-432c-8eb0-4ffaeea8ed7c</ontrue>
+    <onfalse>451c9214-bb51-4ba8-bb22-dd8926885b94</onfalse>
+  </stage>
+  <stage stageid="957d990c-4cd4-432c-8eb0-4ffaeea8ed7c" name="RETHROW" type="Exception">
+    <display x="105" y="495" />
+    <exception type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="4c095eb9-82e3-4ee3-9859-25ac8d6fdff7" name="Anchor36" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="450" w="10" h="10" />
+    <font family="Segoe UI" size="10" style="Regular" color="993366" />
+    <onsuccess>508e94c2-9a56-4b43-9de4-521b5f5b2d14</onsuccess>
+  </stage>
+  <stage stageid="a0f9a909-581e-4849-91bb-f29fed46de75" name="Scenario 1" type="SubSheetInfo">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="12370e5e-e709-4971-839e-66a0268f1c55" name="Start" type="Start">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="15" y="-150" />
+    <onsuccess>c53c91c7-e759-4557-bf15-ee5e0fa474e2</onsuccess>
+  </stage>
+  <stage stageid="e3b7d51c-8101-4531-b79f-c916891de945" name="Local variables" type="Block">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="02b5279d-3beb-46c9-aa15-74c26ce82e12" name="Response Code and Schedule Count correct?" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="15" y="150" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=10" />
+    <ontrue>58266051-74dd-45af-9292-6f7110fb96de</ontrue>
+    <onfalse>7248ed7d-8626-41a5-881c-075dee25c9e5</onfalse>
+  </stage>
+  <stage stageid="8f278214-1143-4a52-b9ee-0e34679a42a6" name="Default itemsPerPage and paginationToken" type="Block">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="-15" w="255" h="420" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2c56c998-6570-478a-b331-b77caeb75330" name="Convert Response to Collection" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Result Collection" />
+    </outputs>
+    <onsuccess>646cb78a-5d43-45e8-8add-001554cfeefd</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="646cb78a-5d43-45e8-8add-001554cfeefd" name="Count Rows" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>02b5279d-3beb-46c9-aa15-74c26ce82e12</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="73a264b4-5851-4370-a425-08d01ae1dc4f" name="Number of Items Returned" type="Data">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7248ed7d-8626-41a5-881c-075dee25c9e5" name="Failed" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="105" y="150" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 1 - Check Default itemsPerPage and paginationToken with no values&quot;" />
+  </stage>
+  <stage stageid="043d494e-cca9-4c19-9708-ceb214af6e64" name="Blue Prism - API - Get Schedules" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name starts with" friendlyname="Name starts with" narrative="Schedule Name" expr="" />
+      <input type="text" name="Retirement Status" friendlyname="Retirement Status" narrative="Active or Retired" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>2c56c998-6570-478a-b331-b77caeb75330</onsuccess>
+    <resource object="Blue Prism - API - Schedules" action="GET schedules" />
+  </stage>
+  <stage stageid="c53c91c7-e759-4557-bf15-ee5e0fa474e2" name="When:" type="Note">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <narrative>WHEN the default parameter of itemsPerPage and paginationToken has no set values 
+AND Get Schedules was requested
+THEN a response code of 200 should be returned
+AND default number of 10 rows will display
+AND the 11th schedule  will not display</narrative>
+    <display x="15" y="-75" w="240" h="90" />
+    <onsuccess>043d494e-cca9-4c19-9708-ceb214af6e64</onsuccess>
+  </stage>
+  <stage stageid="9d64d13f-81b0-4f08-8e35-fbbf2828275e" name="When:" type="Note">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <narrative>WHEN itemsPerPage is set to 1 and paginationToken has no values
+AND Get Schedules was requested
+THEN a response code of 200 should be returned
+AND only 1 schedule will display (this will be the first schedule in the alphabet "Schedule A")
+AND paginationToken will be returned so the next page can be navigated to
+AND the 2nd schedule "Schedule B" will not be returned</narrative>
+    <display x="15" y="960" w="240" h="90" />
+    <onsuccess>ca6f3469-d9ba-4664-b319-436342f7189d</onsuccess>
+  </stage>
+  <stage stageid="bf73750a-0a60-4933-a745-798c5fc8b213" name="Anchor3" type="Anchor">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="180" y="2010" w="10" h="10" />
+    <onsuccess>10ec61dc-ad82-4246-b165-2efa9fcc2d14</onsuccess>
+  </stage>
+  <stage stageid="10ec61dc-ad82-4246-b165-2efa9fcc2d14" name="Anchor5" type="Anchor">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="180" y="-75" w="10" h="10" />
+    <onsuccess>6f1e854f-e398-483d-b816-ac3f713c929f</onsuccess>
+  </stage>
+  <stage stageid="58266051-74dd-45af-9292-6f7110fb96de" name="Search schedules" type="LoopStart">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" w="90" h="30" />
+    <onsuccess>e501ec9c-bf1a-4f4f-bd62-a76ded1d886a</onsuccess>
+    <groupid>893061f0-936e-4270-afe0-326c70bb8373</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection.items</loopdata>
+  </stage>
+  <stage stageid="074ce73a-570f-4015-8e5a-7bc1bf4d0293" name="Search schedules" type="LoopEnd">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="285" w="90" h="30" />
+    <onsuccess>22cc45cd-6b51-42a1-8402-70f7ebb2186c</onsuccess>
+    <groupid>893061f0-936e-4270-afe0-326c70bb8373</groupid>
+  </stage>
+  <stage stageid="e501ec9c-bf1a-4f4f-bd62-a76ded1d886a" name="Check the 11th schedule does not show" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="15" y="240" w="90" h="30" />
+    <decision expression="[Result Collection.items.JSON:Array.name]=&quot;Schedule K BP-2361&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.description]=&quot;This is a description&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.intervalType]=&quot;Hour&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.isRetired]=True&#xA;AND&#xA;[Result Collection.items.JSON:Array.startDate]&gt;=[Start DateTime]&#xA;AND&#xA;[Result Collection.items.JSON:Array.endPoint]=[End Point]" />
+    <ontrue>ff7cbdb8-9d2a-4ace-82b1-f23b27cecddd</ontrue>
+    <onfalse>074ce73a-570f-4015-8e5a-7bc1bf4d0293</onfalse>
+  </stage>
+  <stage stageid="36c4a4f7-e837-4420-920f-7c2a91bda199" name="Pagination Tokens" type="Block">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="30" w="150" h="240" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="8ccd3cce-7886-4552-a6df-e5101234efcc" name="Note3" type="Note">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <narrative>Default items per page = 10
+
+No Pagination Token = Main page/1st Page
+
+Schedules in total  = 11
+
+Schedules are sorted by default in alphabetical order A to Z</narrative>
+    <display x="-195" y="105" w="120" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="993366" />
+  </stage>
+  <stage stageid="4358c256-19aa-4d99-aac0-4bf28f34680d" name="Pagination Token for Schedule Items per page =10, page 2" type="Data">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="180" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="63fa0f61-00ad-4d60-88c2-7c899480cbca" name="Pagination Token for Schedule Items per page = 1, page 2" type="Data">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="210" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="895c861d-eebe-4b5e-904f-d5d94a5a5707" name="Pagination Token for Schedule Items per page =1, page 3" type="Data">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="240" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ff7cbdb8-9d2a-4ace-82b1-f23b27cecddd" name="Unexpected schedule found" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="105" y="240" />
+    <exception localized="yes" type="&quot;Unexpected schedule found&quot;" detail="&quot;Scenario 1 failed: Did not expect the 11th Schedule to be found but it was found when pagination and items per page is left at default values&quot;" />
+  </stage>
+  <stage stageid="22cc45cd-6b51-42a1-8402-70f7ebb2186c" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="15" y="330" w="90" h="30" />
+    <decision expression="[Result Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>0910e47b-c27c-4638-a849-f8ae790c63dc</ontrue>
+    <onfalse>06d26c68-cd86-4573-b1e6-36b43eb15ecb</onfalse>
+  </stage>
+  <stage stageid="06d26c68-cd86-4573-b1e6-36b43eb15ecb" name="Pagination Token does not exist" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="105" y="330" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 1 failed when checking default values: Pagination token was not returned&quot;" />
+  </stage>
+  <stage stageid="0910e47b-c27c-4638-a849-f8ae790c63dc" name="Store Pagination Token for Navigating" type="Calculation">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="375" w="90" h="30" />
+    <onsuccess>fc81451a-c4b0-4723-a657-aeeeb089e8dd</onsuccess>
+    <calculation expression="[Result Collection.pagingToken]" stage="Pagination Token for Schedule Items per page =10, page 2" />
+  </stage>
+  <stage stageid="83202f5b-f6a9-461a-a507-0c34a66d07b1" name="Response Code and Schedule Count correct?" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="15" y="690" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=1" />
+    <ontrue>961450a3-7276-4567-8116-6e0a49a783fe</ontrue>
+    <onfalse>4a8883c6-d17a-4d76-a2f8-69aab1bd3b84</onfalse>
+  </stage>
+  <stage stageid="f02bf985-1e7b-466a-b0d1-1a0ec1fcd615" name="Default itemsPerPage and paginationToken Page #2" type="Block">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="525" w="255" h="375" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4a8883c6-d17a-4d76-a2f8-69aab1bd3b84" name="Failed" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="105" y="690" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 1 - Check Default itemsPerPage and paginationToken Page #2&quot;" />
+  </stage>
+  <stage stageid="fc81451a-c4b0-4723-a657-aeeeb089e8dd" name="When:" type="Note">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <narrative>WHEN the parameter of itemsPerPage were left at default values and paginationToken value is set to page #2
+AND Get Schedules was requested
+THEN a response code of 200 should be returned
+AND the remaining rows (1 row) will display
+AND the 11th item/log  will display
+AND there will be no more paginationToken due to no more pages to navigate forward.</narrative>
+    <display x="15" y="465" w="240" h="90" />
+    <onsuccess>cc91f1dd-920b-48c1-b2f2-bbe12cee43b5</onsuccess>
+  </stage>
+  <stage stageid="961450a3-7276-4567-8116-6e0a49a783fe" name="Search schedules" type="LoopStart">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="735" w="90" h="30" />
+    <onsuccess>ff96c91b-f318-4710-a7e8-5da184c1dd2d</onsuccess>
+    <groupid>f19e7478-2aa7-4ebf-bb03-9b4c8f536856</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection.items</loopdata>
+  </stage>
+  <stage stageid="6c733b83-87c7-4219-8ce4-2d0d18b5f5d3" name="Search schedules" type="LoopEnd">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="825" w="90" h="30" />
+    <onsuccess>b83964bc-ad1a-4c8b-a6bb-19a628711507</onsuccess>
+    <groupid>f19e7478-2aa7-4ebf-bb03-9b4c8f536856</groupid>
+  </stage>
+  <stage stageid="ff96c91b-f318-4710-a7e8-5da184c1dd2d" name="Check that the 11th schedule show" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="15" y="780" w="90" h="30" />
+    <decision expression="[Result Collection.items.JSON:Array.name]=&quot;Schedule K BP-2361&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.description]=&quot;This is a description&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.intervalType]=&quot;Hour&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.isRetired]=True&#xA;AND&#xA;[Result Collection.items.JSON:Array.startDate]&gt;=[Start DateTime]&#xA;AND&#xA;[Result Collection.items.JSON:Array.endPoint]&lt;=[End Point]" />
+    <ontrue>9ec3bce3-fcb7-4b1d-b7a3-5b56bc735d02</ontrue>
+    <onfalse>6c733b83-87c7-4219-8ce4-2d0d18b5f5d3</onfalse>
+  </stage>
+  <stage stageid="b83964bc-ad1a-4c8b-a6bb-19a628711507" name="Schedule not found" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="105" y="825" />
+    <exception localized="yes" type="&quot; Schedule not found&quot;" detail="&quot;Scenario 1 failed: Expect the 11th schedule to be found but it was not found when pagination values were entered for page 2 and items per page is left at default values&quot;" />
+  </stage>
+  <stage stageid="723ea98c-4a47-41f2-af14-1cd82b289013" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="15" y="870" w="90" h="30" />
+    <decision expression="[Result Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>5d17364b-1217-473f-b1b1-8cb3d2cff89b</ontrue>
+    <onfalse>9d64d13f-81b0-4f08-8e35-fbbf2828275e</onfalse>
+  </stage>
+  <stage stageid="5d17364b-1217-473f-b1b1-8cb3d2cff89b" name="Pagination Token unexpectedly was returned" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="105" y="870" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 1 failed when checking default values and page #2: Pagination token was not expected to return as this is the last page&quot;" />
+  </stage>
+  <stage stageid="7ed0d6d9-7a81-4d93-a9bc-17f40cbc64e5" name="Anchor7" type="Anchor">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="870" w="10" h="10" />
+    <onsuccess>723ea98c-4a47-41f2-af14-1cd82b289013</onsuccess>
+  </stage>
+  <stage stageid="9ec3bce3-fcb7-4b1d-b7a3-5b56bc735d02" name="Anchor8" type="Anchor">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="780" w="10" h="10" />
+    <onsuccess>7ed0d6d9-7a81-4d93-a9bc-17f40cbc64e5</onsuccess>
+  </stage>
+  <stage stageid="ae79fe50-6f0d-4e3e-b571-4e597f99ac09" name="Response Code and Schedule Count correct?" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="15" y="1185" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=1" />
+    <ontrue>39d24e60-e3cb-4ac4-994b-618063600a0b</ontrue>
+    <onfalse>08c7720a-4895-4095-98ce-e38c84c9d173</onfalse>
+  </stage>
+  <stage stageid="0238b184-4d7f-43ff-a6b0-97a3561c2c29" name="1 itemsPerPage and paginationToken no values" type="Block">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="1020" w="255" h="420" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="08c7720a-4895-4095-98ce-e38c84c9d173" name="Failed" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="105" y="1185" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 1 - Check itemsPerPage=1 and paginationToken has no values&quot;" />
+  </stage>
+  <stage stageid="39d24e60-e3cb-4ac4-994b-618063600a0b" name="Search schedules" type="LoopStart">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1230" w="90" h="30" />
+    <onsuccess>14c70ef2-d0c4-4d99-a458-ab4b7b4f1dfc</onsuccess>
+    <groupid>bdd453a5-0041-471d-9293-b57a4f875ae9</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection.items</loopdata>
+  </stage>
+  <stage stageid="98b23e50-21b0-4aba-9c3a-672492d5c180" name="Search schedules" type="LoopEnd">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1320" w="90" h="30" />
+    <onsuccess>157dccaf-1a26-4d56-bb3c-130dcff7f388</onsuccess>
+    <groupid>bdd453a5-0041-471d-9293-b57a4f875ae9</groupid>
+  </stage>
+  <stage stageid="14c70ef2-d0c4-4d99-a458-ab4b7b4f1dfc" name="Check schedule number 2 is not returned" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="15" y="1275" w="90" h="30" />
+    <decision expression="[Result Collection.items.JSON:Array.name]=&quot;Schedule B BP-2361&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.intervalType]=&quot;Once&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.isRetired]=False&#xA;AND&#xA;[Result Collection.items.JSON:Array.startDate]&gt;=[Start DateTime]&#xA;AND&#xA;[Result Collection.items.JSON:Array.endPoint]&lt;=[End Point]" />
+    <ontrue>19af6142-5f52-4d69-9a06-1b846efb0850</ontrue>
+    <onfalse>98b23e50-21b0-4aba-9c3a-672492d5c180</onfalse>
+  </stage>
+  <stage stageid="19af6142-5f52-4d69-9a06-1b846efb0850" name="Unexpected schedule found" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="105" y="1275" />
+    <exception localized="yes" type="&quot;Unexpected schedule found&quot;" detail="&quot;Scenario 1 failed: Did not expect schedule number 2 to be found but it was found when there was 1 itemsPerPage and no paginationToken values supplied.&quot;" />
+  </stage>
+  <stage stageid="157dccaf-1a26-4d56-bb3c-130dcff7f388" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="15" y="1365" w="90" h="30" />
+    <decision expression="[Result Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>4f4c7ce1-feff-4b3d-a915-d1e31a92cc8e</ontrue>
+    <onfalse>27e68ce4-f793-44e2-be19-64b0da24c1f3</onfalse>
+  </stage>
+  <stage stageid="27e68ce4-f793-44e2-be19-64b0da24c1f3" name="Pagination Token does not exist" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="105" y="1365" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 1 failed when checking 1 itemsPerPage and no paginationToken values. The Pagination token was not returned&quot;" />
+  </stage>
+  <stage stageid="4f4c7ce1-feff-4b3d-a915-d1e31a92cc8e" name="Store Pagination Token for Navigating" type="Calculation">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1410" w="90" h="30" />
+    <onsuccess>4c0be81c-a9c3-4706-ae04-a84e4b6e4702</onsuccess>
+    <calculation expression="[Result Collection.pagingToken]" stage="Pagination Token for Schedule Items per page = 1, page 2" />
+  </stage>
+  <stage stageid="0569ce52-9916-4656-94ee-de498d310bc1" name="Response Code and Schedule Count correct?" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="330" y="150" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=1" />
+    <ontrue>8518524b-0232-4aa2-97ba-b6c8a729d764</ontrue>
+    <onfalse>b014bd98-2b25-41aa-8c7a-7cd9c1872330</onfalse>
+  </stage>
+  <stage stageid="a60c2205-42ef-444f-8607-6cfaf6798549" name="1 itemsPerPage and paginationToken page #3" type="Block">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="210" y="-15" w="255" h="390" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b014bd98-2b25-41aa-8c7a-7cd9c1872330" name="Failed" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="420" y="150" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 1 - Check itemsPerPage=1 and paginationToken=#3&quot;" />
+  </stage>
+  <stage stageid="8518524b-0232-4aa2-97ba-b6c8a729d764" name="Search schedules" type="LoopStart">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="195" w="90" h="30" />
+    <onsuccess>62deb68a-6e8e-4cb1-a8f7-712e51998a4c</onsuccess>
+    <groupid>7fedd10b-6384-4f7e-9097-f0b22141916c</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection.items</loopdata>
+  </stage>
+  <stage stageid="123758a9-e943-4458-8077-07d298744ca5" name="Search schedules" type="LoopEnd">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="285" w="90" h="30" />
+    <onsuccess>0e610efd-1afd-4e55-8def-8a6f03eb1ae4</onsuccess>
+    <groupid>7fedd10b-6384-4f7e-9097-f0b22141916c</groupid>
+  </stage>
+  <stage stageid="62deb68a-6e8e-4cb1-a8f7-712e51998a4c" name="Check schedule number 3 is now returned" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="330" y="240" w="90" h="30" />
+    <decision expression="[Result Collection.items.JSON:Array.name]=&quot;Schedule C BP-2361&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.intervalType]=&quot;Once&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.isRetired]=False&#xA;AND&#xA;[Result Collection.items.JSON:Array.startDate]&gt;=[Start DateTime]&#xA;AND&#xA;[Result Collection.items.JSON:Array.endPoint]&lt;=[End Point]" />
+    <ontrue>123758a9-e943-4458-8077-07d298744ca5</ontrue>
+    <onfalse>8a848c12-55cc-4c3f-9145-a361a71a2d53</onfalse>
+  </stage>
+  <stage stageid="8a848c12-55cc-4c3f-9145-a361a71a2d53" name="Schedule not found" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="420" y="240" />
+    <exception localized="yes" type="&quot;Schedule not found&quot;" detail="&quot;Scenario 1 failed: Schedule not found when itemsPerPage=1 and paginationToken is page #3&quot;" />
+  </stage>
+  <stage stageid="0e610efd-1afd-4e55-8def-8a6f03eb1ae4" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="330" y="330" w="90" h="30" />
+    <decision expression="[Result Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>043fde6e-fb96-4796-9197-97c0da31161e</ontrue>
+    <onfalse>a23e86f4-f1c6-4a21-9c95-a11c804696e1</onfalse>
+  </stage>
+  <stage stageid="a23e86f4-f1c6-4a21-9c95-a11c804696e1" name="Pagination Token does not exist" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="420" y="330" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 1 failed when checking paginationToken page #3 and itemsPerPage = 1. There are no paginationToken returned&quot;" />
+  </stage>
+  <stage stageid="6f1e854f-e398-483d-b816-ac3f713c929f" name="When:" type="Note">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <narrative>WHEN itemsPerPage is set to 1 and paginationToken has page #3's token
+AND Get Schedules was requested
+THEN a response code of 200 should be returned
+AND only 1 schedule will display
+AND paginationToken will be returned so the next page can be navigated to
+AND the 3rd schedule will be returned</narrative>
+    <display x="330" y="-75" w="240" h="90" />
+    <onsuccess>79e098c1-9bc5-43f2-9b26-3a6a6887993a</onsuccess>
+  </stage>
+  <stage stageid="7eff7acc-167b-4814-b008-d2eaa77113c5" name="Response Code and Schedule Count correct?" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="330" y="1185" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=11" />
+    <ontrue>41ddb00f-9ac2-484d-82f8-cdf5bdbf768a</ontrue>
+    <onfalse>a8dd9e82-a743-4a2b-8508-158cda860f66</onfalse>
+  </stage>
+  <stage stageid="0e3cf6fb-310f-4a63-9046-5f604620c158" name="itemsPerPage = 15 and paginationToken no values" type="Block">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="210" y="1020" w="255" h="375" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a8dd9e82-a743-4a2b-8508-158cda860f66" name="Failed" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="420" y="1185" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 1 - Check itemsPerPage = 15 and paginationToken has no values&quot;" />
+  </stage>
+  <stage stageid="41ddb00f-9ac2-484d-82f8-cdf5bdbf768a" name="Search schedules" type="LoopStart">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1230" w="90" h="30" />
+    <onsuccess>20bdc236-15e1-461d-b31b-f7f5f39e79e2</onsuccess>
+    <groupid>61bcaf93-f1ce-47f5-bff9-1cbd3e4acec9</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection.items</loopdata>
+  </stage>
+  <stage stageid="fc9d9260-9e76-4d29-97d5-b5978f89dd58" name="Search schedules" type="LoopEnd">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1320" w="90" h="30" />
+    <onsuccess>c0597ffc-c70a-4318-b45e-a8fc5f5cd36a</onsuccess>
+    <groupid>61bcaf93-f1ce-47f5-bff9-1cbd3e4acec9</groupid>
+  </stage>
+  <stage stageid="20bdc236-15e1-461d-b31b-f7f5f39e79e2" name="Check the 11th schedule is returned" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="330" y="1275" w="90" h="30" />
+    <decision expression="[Result Collection.items.JSON:Array.name]=&quot;Schedule K BP-2361&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.description]=&quot;This is a description&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.intervalType]=&quot;Hour&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.isRetired]=True&#xA;AND&#xA;[Result Collection.items.JSON:Array.startDate]&gt;=[Start DateTime]&#xA;AND&#xA;[Result Collection.items.JSON:Array.endPoint]&lt;=[End Point]" />
+    <ontrue>b822aaee-f7af-4652-9ea4-2d40eb33af73</ontrue>
+    <onfalse>fc9d9260-9e76-4d29-97d5-b5978f89dd58</onfalse>
+  </stage>
+  <stage stageid="c0597ffc-c70a-4318-b45e-a8fc5f5cd36a" name="Expected schedule was not found" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="420" y="1320" />
+    <exception localized="yes" type="&quot;Schedule was not found&quot;" detail="&quot;Scenario 1 failed: expect all schedule items to display, however something went wrong when checking itemsPerPage = 15 and paginationToken has no values&quot;" />
+  </stage>
+  <stage stageid="93a6fc44-ffd3-41a0-8e1b-3236a4d82174" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="330" y="1365" w="90" h="30" />
+    <decision expression="[Result Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>3a72bc55-3b88-4abf-bed7-3b85f060aa82</ontrue>
+    <onfalse>80d79cd4-4665-40a9-bb0a-6fb0f5f72699</onfalse>
+  </stage>
+  <stage stageid="3a72bc55-3b88-4abf-bed7-3b85f060aa82" name="Pagination Token unexpectedly was returned" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="420" y="1365" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 1 failed when checking itemsPerPage=15 and paginationToken has no values. No paginationToken is expected to be found, however it was found.&quot;" />
+  </stage>
+  <stage stageid="7aeae0d2-8313-4438-af71-6664a89fd2f4" name="Anchor7" type="Anchor">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="1365" w="10" h="10" />
+    <onsuccess>93a6fc44-ffd3-41a0-8e1b-3236a4d82174</onsuccess>
+  </stage>
+  <stage stageid="b822aaee-f7af-4652-9ea4-2d40eb33af73" name="Anchor8" type="Anchor">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="1275" w="10" h="10" />
+    <onsuccess>7aeae0d2-8313-4438-af71-6664a89fd2f4</onsuccess>
+  </stage>
+  <stage stageid="3ef9e399-4435-48a6-84cc-4008f54b7db8" name="When:" type="Note">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <narrative>WHEN itemsPerPage is set to 15 and paginationToken has no values
+AND Get Schedule was requested
+THEN a response code of 200 should be returned
+AND all schedules will display (11 in total)
+AND paginationToken will not be returned</narrative>
+    <display x="330" y="960" w="240" h="90" />
+    <onsuccess>672b8cc0-2db9-488d-9337-5e0f18959d13</onsuccess>
+  </stage>
+  <stage stageid="362e0cd9-2658-4299-b37c-12b3a9465f5c" name="Response Code and Schedule Count correct?" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="330" y="1680" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=11" />
+    <ontrue>5630e00d-4dae-49e6-b9b6-71e8f2d01996</ontrue>
+    <onfalse>544ec865-ed6e-4113-8d59-981362119e68</onfalse>
+  </stage>
+  <stage stageid="dc36f209-b17e-441b-892e-7af30a0c8cd5" name="itemsPerPage = 1000 and paginationToken no values" type="Block">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="210" y="1515" w="255" h="375" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="544ec865-ed6e-4113-8d59-981362119e68" name="Failed" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="420" y="1680" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 1 - Check itemsPerPage = 1000 and paginationToken has no values&quot;" />
+  </stage>
+  <stage stageid="5630e00d-4dae-49e6-b9b6-71e8f2d01996" name="Search schedules" type="LoopStart">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1725" w="90" h="30" />
+    <onsuccess>baf1eacc-9ebd-4ed4-afdd-53013741de04</onsuccess>
+    <groupid>f62d6918-5697-4676-bbe7-d7625009c50f</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection.items</loopdata>
+  </stage>
+  <stage stageid="c0a4500b-890a-497b-a525-879a1b86efdc" name="Search schedules" type="LoopEnd">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1815" w="90" h="30" />
+    <onsuccess>2fab52f0-d353-4c48-89f2-78ce36453412</onsuccess>
+    <groupid>f62d6918-5697-4676-bbe7-d7625009c50f</groupid>
+  </stage>
+  <stage stageid="baf1eacc-9ebd-4ed4-afdd-53013741de04" name="Check the 11th schedule is returned" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="330" y="1770" w="90" h="30" />
+    <decision expression="[Result Collection.items.JSON:Array.name]=&quot;Schedule K BP-2361&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.description]=&quot;This is a description&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.intervalType]=&quot;Hour&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.isRetired]=True&#xA;AND&#xA;[Result Collection.items.JSON:Array.startDate]&gt;=[Start DateTime]&#xA;AND&#xA;[Result Collection.items.JSON:Array.endPoint]&lt;=[End Point]" />
+    <ontrue>e129286b-10ae-4a2a-a574-1660070180a6</ontrue>
+    <onfalse>c0a4500b-890a-497b-a525-879a1b86efdc</onfalse>
+  </stage>
+  <stage stageid="2fab52f0-d353-4c48-89f2-78ce36453412" name="Schedule not found" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="420" y="1815" />
+    <exception localized="yes" type="&quot;Schedule not found&quot;" detail="&quot;Scenario 1 failed: expect all schedules to display, however something went wrong when checking itemsPerPage = 1000 and paginationToken has no values&quot;" />
+  </stage>
+  <stage stageid="f05c5e40-6cde-4f38-b46c-b793aae7b3ec" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="330" y="1860" w="90" h="30" />
+    <decision expression="[Result Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>f21f2c32-a90b-4504-9aa3-ff1546f6e7f6</ontrue>
+    <onfalse>4599ff85-8552-41fb-9c30-7c61d1d7755c</onfalse>
+  </stage>
+  <stage stageid="f21f2c32-a90b-4504-9aa3-ff1546f6e7f6" name="Pagination Token unexpectedly was returned" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="420" y="1860" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 1 failed when checking itemsPerPage=1000 and paginationToken has no values. No paginationToken is expected to be found, however it was found.&quot;" />
+  </stage>
+  <stage stageid="5464d656-54be-483b-a96c-df52c1a87f6a" name="Anchor7" type="Anchor">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="1860" w="10" h="10" />
+    <onsuccess>f05c5e40-6cde-4f38-b46c-b793aae7b3ec</onsuccess>
+  </stage>
+  <stage stageid="e129286b-10ae-4a2a-a574-1660070180a6" name="Anchor8" type="Anchor">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="1770" w="10" h="10" />
+    <onsuccess>5464d656-54be-483b-a96c-df52c1a87f6a</onsuccess>
+  </stage>
+  <stage stageid="80d79cd4-4665-40a9-bb0a-6fb0f5f72699" name="When:" type="Note">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <narrative>WHEN itemsPerPage is set to 1000 and paginationToken has no values
+AND Get Schedules was requested
+THEN a response code of 200 should be returned
+AND all schedules will display
+AND paginationToken will not be returned </narrative>
+    <display x="330" y="1455" w="240" h="90" />
+    <onsuccess>0118a10c-9105-4fa0-904a-4d878ce2fe32</onsuccess>
+  </stage>
+  <stage stageid="4599ff85-8552-41fb-9c30-7c61d1d7755c" name="End4" type="End">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1920" />
+  </stage>
+  <stage stageid="1cd05d17-9911-43e9-8dea-103fb862e72d" name="Response Code and Schedule Count correct?" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="15" y="1740" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=1" />
+    <ontrue>ce383d27-3f9d-4419-995d-b6ba3ca08308</ontrue>
+    <onfalse>ea9b0556-6cbf-4609-afdb-467ea80ff523</onfalse>
+  </stage>
+  <stage stageid="6a070f68-a500-4bb0-a232-becf94ca48a3" name="1 itemsPerPage and paginationToken page #2" type="Block">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="1575" w="255" h="420" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ea9b0556-6cbf-4609-afdb-467ea80ff523" name="Failed" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="105" y="1740" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 1 - Check itemsPerPage=1 and paginationToken=#2&quot;" />
+  </stage>
+  <stage stageid="ce383d27-3f9d-4419-995d-b6ba3ca08308" name="Search schedules" type="LoopStart">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1785" w="90" h="30" />
+    <onsuccess>b558edc7-5e80-44cf-985c-d01f42963abc</onsuccess>
+    <groupid>4e092369-a590-4998-a734-5fed53cc3cb4</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection.items</loopdata>
+  </stage>
+  <stage stageid="7466e34a-af21-43b7-9f5e-4049f59edd0d" name="Search schedules" type="LoopEnd">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1875" w="90" h="30" />
+    <onsuccess>f2dab2ff-2cbe-4faf-b22f-657ebfcca5f2</onsuccess>
+    <groupid>4e092369-a590-4998-a734-5fed53cc3cb4</groupid>
+  </stage>
+  <stage stageid="6509c0e5-c348-4da0-adaa-19b2b9376622" name="Unexpected schedule found" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="105" y="1830" />
+    <exception localized="yes" type="&quot;Unexpected schedule found&quot;" detail="&quot;Scenario 1 failed: Unexpected schedule found when itemsPerPage=1 and paginationToken is page #2&quot;" />
+  </stage>
+  <stage stageid="f2dab2ff-2cbe-4faf-b22f-657ebfcca5f2" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="15" y="1920" w="90" h="30" />
+    <decision expression="[Result Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>d1a784f4-0f8c-47e1-ac24-b5258dc61741</ontrue>
+    <onfalse>e42775d9-a784-4012-8d21-04ecdcc8a043</onfalse>
+  </stage>
+  <stage stageid="e42775d9-a784-4012-8d21-04ecdcc8a043" name="Pagination Token does not exist" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="105" y="1920" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 1 failed when checking paginationToken page #2 and itemsPerPage = 1. PaginationToken was not returned&quot;" />
+  </stage>
+  <stage stageid="d1a784f4-0f8c-47e1-ac24-b5258dc61741" name="Store Pagination Token for Navigating" type="Calculation">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1965" w="90" h="30" />
+    <onsuccess>1620758f-0456-4f0e-84dd-ae6513597b62</onsuccess>
+    <calculation expression="[Result Collection.pagingToken]" stage="Pagination Token for Schedule Items per page =1, page 3" />
+  </stage>
+  <stage stageid="4c0be81c-a9c3-4706-ae04-a84e4b6e4702" name="When:" type="Note">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <narrative>WHEN itemsPerPage is set to 1 and paginationToken has page #2's token
+AND Get Schedules  was requested
+THEN a response code of 200 should be returned
+AND only 1 schedule will display
+AND paginationToken will be returned so the next page can be navigated to
+AND the 3rd schedule will not be returned</narrative>
+    <display x="15" y="1515" w="240" h="90" />
+    <onsuccess>f0adec00-741c-4c35-8da2-0fcefe1dbd02</onsuccess>
+  </stage>
+  <stage stageid="b558edc7-5e80-44cf-985c-d01f42963abc" name="Check schedule number 3 is not returned" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="15" y="1830" w="90" h="30" />
+    <decision expression="[Result Collection.items.JSON:Array.name]=&quot;Schedule C BP-2361&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.intervalType]=&quot;Once&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.isRetired]=False&#xA;AND&#xA;[Result Collection.items.JSON:Array.startDate]&gt;=[Start DateTime]&#xA;AND&#xA;[Result Collection.items.JSON:Array.endPoint]&lt;=[End Point]" />
+    <ontrue>6509c0e5-c348-4da0-adaa-19b2b9376622</ontrue>
+    <onfalse>7466e34a-af21-43b7-9f5e-4049f59edd0d</onfalse>
+  </stage>
+  <stage stageid="1620758f-0456-4f0e-84dd-ae6513597b62" name="Anchor2" type="Anchor">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="2010" w="10" h="10" />
+    <font family="Segoe UI" size="10" style="Regular" color="993366" />
+    <onsuccess>bf73750a-0a60-4933-a745-798c5fc8b213</onsuccess>
+  </stage>
+  <stage stageid="65481153-9bf1-4f27-983a-a4e1480a65f0" name="Response Code and Schedule Count correct?" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="330" y="690" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=1" />
+    <ontrue>b349b8fe-2601-4687-8d01-d53708321434</ontrue>
+    <onfalse>e1646751-b5ec-4af2-8a0f-2113c7c1605d</onfalse>
+  </stage>
+  <stage stageid="2b92743b-7ad7-4adc-86b1-fa3afa75edaf" name="Navigate back to previous page using paginationToken" type="Block">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="210" y="525" w="255" h="375" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e1646751-b5ec-4af2-8a0f-2113c7c1605d" name="Failed" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="420" y="690" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 1 - Check previous page navigation using paginationToken section&quot;" />
+  </stage>
+  <stage stageid="b349b8fe-2601-4687-8d01-d53708321434" name="Search schedule" type="LoopStart">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="735" w="90" h="30" />
+    <onsuccess>3e717ac0-f0c0-4587-b861-37e44948467d</onsuccess>
+    <groupid>07e33fe6-7ea9-4893-a949-971caa4170c0</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection.items</loopdata>
+  </stage>
+  <stage stageid="b3c3af6c-f6e8-4338-ac62-fef2f83ec695" name="Search schedule" type="LoopEnd">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="825" w="90" h="30" />
+    <onsuccess>e259759e-804c-4745-b171-c3c855713421</onsuccess>
+    <groupid>07e33fe6-7ea9-4893-a949-971caa4170c0</groupid>
+  </stage>
+  <stage stageid="284edc42-7221-4d72-a9d8-af654686bf5d" name="Schedule not found" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="420" y="780" />
+    <exception localized="yes" type="&quot;Unexpected schedule found&quot;" detail="&quot;Scenario 1 failed: Schedule not found.  Check previous page navigation using paginationToken section&quot;" />
+  </stage>
+  <stage stageid="e259759e-804c-4745-b171-c3c855713421" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="330" y="870" w="90" h="30" />
+    <decision expression="[Result Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>3ef9e399-4435-48a6-84cc-4008f54b7db8</ontrue>
+    <onfalse>0d3a00b6-699c-46f5-bd8d-c72859561c98</onfalse>
+  </stage>
+  <stage stageid="0d3a00b6-699c-46f5-bd8d-c72859561c98" name="Pagination Token does not exist" type="Exception">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="420" y="870" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 1 failed when checking if paginationToken exist. It is expected to exist.  Check previous page navigation using paginationToken section&quot;" />
+  </stage>
+  <stage stageid="043fde6e-fb96-4796-9197-97c0da31161e" name="When:" type="Note">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <narrative>WHEN itemsPerPage is set to 1 and paginationToken has page #2's token
+THEN I can NAVIGATE BACK to page 2 
+AND Get Schedule was requested
+THEN a response code of 200 should be returned
+AND only 1 schedule will display
+AND paginationToken will be returned so the previous page can be navigated to
+AND the 2nd schedule will be returned</narrative>
+    <display x="330" y="450" w="240" h="120" />
+    <onsuccess>1a1038e9-89cf-423b-a890-e7246ab7fef3</onsuccess>
+  </stage>
+  <stage stageid="3e717ac0-f0c0-4587-b861-37e44948467d" name="Check schedule number 2 is returned" type="Decision">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <display x="330" y="780" w="90" h="30" />
+    <decision expression="[Result Collection.items.JSON:Array.name]=&quot;Schedule B BP-2361&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.intervalType]=&quot;Once&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.isRetired]=False&#xA;AND&#xA;[Result Collection.items.JSON:Array.startDate]&gt;=[Start DateTime]&#xA;AND&#xA;[Result Collection.items.JSON:Array.endPoint]&lt;=[End Point]" />
+    <ontrue>b3c3af6c-f6e8-4338-ac62-fef2f83ec695</ontrue>
+    <onfalse>284edc42-7221-4d72-a9d8-af654686bf5d</onfalse>
+  </stage>
+  <stage stageid="aaa7cda0-0a4a-4ec6-8178-92a494c97cb5" name="Schedule Name Collection" type="Collection">
+    <display x="-270" y="165" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Schedule Name" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Schedule Name" type="text" value="Schedule A BP-2361" />
+      </row>
+      <row>
+        <field name="Schedule Name" type="text" value="Schedule B BP-2361" />
+      </row>
+      <row>
+        <field name="Schedule Name" type="text" value="Schedule C BP-2361" />
+      </row>
+      <row>
+        <field name="Schedule Name" type="text" value="Schedule D BP-2361" />
+      </row>
+      <row>
+        <field name="Schedule Name" type="text" value="Schedule E BP-2361" />
+      </row>
+      <row>
+        <field name="Schedule Name" type="text" value="Schedule F BP-2361" />
+      </row>
+      <row>
+        <field name="Schedule Name" type="text" value="Schedule G BP-2361" />
+      </row>
+      <row>
+        <field name="Schedule Name" type="text" value="Schedule H BP-2361" />
+      </row>
+      <row>
+        <field name="Schedule Name" type="text" value="Schedule I BP-2361" />
+      </row>
+      <row>
+        <field name="Schedule Name" type="text" value="Schedule J BP-2361" />
+      </row>
+      <row>
+        <field name="Schedule Name" type="text" value="Schedule K BP-2361" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="a8a35cdf-6275-44d2-b6a6-73f8184c9400" name="Create schedule x11" type="LoopStart">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="495" w="90" h="30" />
+    <onsuccess>aee52afc-8c8e-4124-8677-d9d964130664</onsuccess>
+    <groupid>a22e46cc-4608-4f34-8c95-27ae24335f58</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Schedule Name Collection</loopdata>
+  </stage>
+  <stage stageid="94536c10-2979-4b8a-9d98-2911bac22806" name="Create schedule x11" type="LoopEnd">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="675" w="90" h="30" />
+    <onsuccess>f7234f66-6b80-46b6-a3d4-5d592659891a</onsuccess>
+    <groupid>a22e46cc-4608-4f34-8c95-27ae24335f58</groupid>
+  </stage>
+  <stage stageid="df809759-0202-4254-9f4f-4e8ed4d31be5" name="Create 11 schedules which will complete" type="Block">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-75" y="465" w="180" h="240" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4a342376-9bf6-4593-9ef7-96ef8e14e079" name="Task Sessions 1" type="Collection">
+    <loginhibit />
+    <display x="-270" y="195" w="120" h="30" />
+    <datatype>collection</datatype>
+    <collectioninfo>
+      <field name="Task Name" type="text" description="The name of the task to create" />
+      <field name="On Success" type="text" description="The task to perform on successful completion of the task, leave blank for default (Stop)" />
+      <field name="On Failure" type="text" description="The task to perform on failure of the task, leave blank for default (Abort)" />
+      <field name="Sessions" type="collection" description="The sessions to create on the task">
+        <field name="Process Group" type="text" description="The group within which the process can be found, leave empty for no group" />
+        <field name="Process Name" type="text" description="The name of the process to create in the session" />
+        <field name="Resource Name" type="text" description="The name of the resource to run the process on" />
+      </field>
+      <field name="Fail Fast" type="flag" description="True to fail the task immediately on any errors; False to let other sessions run - Defaults to True" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Task Name" type="text" value="Task BP-2361 A" />
+        <field name="On Success" type="text" value="Stop" />
+        <field name="On Failure" type="text" value="Abort" />
+        <field name="Sessions" type="collection">
+          <row>
+            <field name="Process Group" type="text" value="Default" />
+            <field name="Process Name" type="text" value="Sub Process BP-2361 Completed" />
+            <field name="Resource Name" type="text" value="" />
+          </row>
+        </field>
+        <field name="Fail Fast" type="flag" value="False" />
+      </row>
+    </initialvalue>
+    <noalwaysinit />
+  </stage>
+  <stage stageid="31ac7d3e-6e72-48f8-add5-367f260451fe" name="Anchor11" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="420" w="10" h="10" />
+    <onsuccess>508e94c2-9a56-4b43-9de4-521b5f5b2d14</onsuccess>
+  </stage>
+  <stage stageid="5f2563d4-1a06-4cff-ab40-d25ea96e114b" name="Anchor12" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="225" w="10" h="10" />
+    <onsuccess>65051483-dcc6-412b-abdf-39690f808d3a</onsuccess>
+  </stage>
+  <stage stageid="867af894-6fef-48af-9282-63a83543da48" name="End3" type="End">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1170" />
+  </stage>
+  <stage stageid="4b45acb7-6ad3-43c1-9a9a-47b4d02006a6" name="Add to CleanUp Collection" type="SubSheet">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <display x="15" y="630" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="[Schedule Name Collection.Schedule Name]" />
+    </inputs>
+    <onsuccess>94536c10-2979-4b8a-9d98-2911bac22806</onsuccess>
+    <processid>cc8ab573-3654-4f19-85b6-b6dbbc97a936</processid>
+  </stage>
+  <stage stageid="5336147d-9bf6-447e-a2e3-1fd1a7432eaf" name="Delete Schedule" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="330" y="120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Schedule Name" narrative="The name of the schedule which will be run" expr="&quot;Schedule C BP-2361&quot;" />
+    </inputs>
+    <onsuccess>201f40c3-bb7c-46b8-a8cf-cff30989df1c</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Delete Schedule" />
+  </stage>
+  <stage stageid="36a18c45-6872-4e47-bddc-5f54da332baf" name="Open Control Tab" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="210" y="120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>5336147d-9bf6-447e-a2e3-1fd1a7432eaf</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="8864ff37-255c-4600-8ee6-42f7e0d9753e" name="Add to CleanUp Collection" type="SubSheet">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <display x="15" y="300" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;Resource 4233&quot;" />
+    </inputs>
+    <onsuccess>654613b2-7359-4503-b376-aab6f35e111a</onsuccess>
+    <processid>cc8ab573-3654-4f19-85b6-b6dbbc97a936</processid>
+  </stage>
+  <stage stageid="cdf8a920-10c6-486e-b986-7693048cd5ee" name="Resource Manager: Start Resource" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="SSO" friendlyname="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="&quot;False&quot;" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="&quot;admin&quot;" />
+      <input type="password" name="Password" friendlyname="Password" narrative="The password to use for the resource. Only used if Username is given" expr="&quot;admin&quot;" />
+      <input type="number" name="Port" friendlyname="Port" narrative="The port number on which the resource PC should listen" expr="[Port]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" friendlyname="Process ID" narrative="The PID of the newly created process" stage="" />
+    </outputs>
+    <onsuccess>29917e62-6fc8-4ba4-8ac6-37056c392bca</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+  <stage stageid="29917e62-6fc8-4ba4-8ac6-37056c392bca" name="Store resource name" type="MultipleCalculation">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" w="90" h="30" />
+    <onsuccess>8864ff37-255c-4600-8ee6-42f7e0d9753e</onsuccess>
+    <steps>
+      <calculation expression="Replace(GetResourceName(), &quot;_debug&quot;, &quot;&quot;) &amp; &quot;:&quot; &amp; [Port]" stage="Task Sessions 1.Sessions.Resource Name" />
+    </steps>
+  </stage>
+  <stage stageid="8d241a04-6ece-44df-9c53-92e14cd2a556" name="Open Control Tab" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="210" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>38e5ac57-bfd6-4b24-b97f-7f494ae54d4b</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="3860eaee-4f20-4086-8ed1-7113db0afcd0" name="Open Control Tab" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="210" y="180" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>e7556180-d219-49b7-b2e7-6138cd250353</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="c60a285b-ebc9-48c4-84ad-9b53d41b4032" name="Open Control Tab" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="210" y="210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>f21f3f68-9006-4432-b14c-966a0227e31f</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="a96a5061-0c86-46f6-b25c-174286eb17e4" name="Open Control Tab" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="210" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>8636c24e-2370-4f3f-ac5c-ef0e021864b8</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="544ec693-1452-48d9-ba2b-4d49b5cd2fd0" name="Open Control Tab" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="210" y="270" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>65d5eb6e-9271-4c43-8f38-bd859cabe706</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="ad15d98b-cb61-4b73-8ffb-4c2e52452139" name="Open Control Tab" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="210" y="300" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>397deb09-a156-48ea-8f9a-c390b03d6036</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="cd3839d9-5614-409b-840b-789a20659f5a" name="Open Control Tab" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="210" y="330" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>4632c9f7-5a4b-4f07-939d-9330b9c6a387</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="99bab3e1-0c05-4edf-9b32-356028c47066" name="Open Control Tab" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="210" y="360" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>8492225f-f9b0-4230-9a6b-87a890b53647</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="38e5ac57-bfd6-4b24-b97f-7f494ae54d4b" name="Delete Schedule" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="330" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Schedule Name" narrative="The name of the schedule which will be run" expr="&quot;Schedule D BP-2361&quot;" />
+    </inputs>
+    <onsuccess>c115cf02-966a-4d41-b42f-441694af0fd2</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Delete Schedule" />
+  </stage>
+  <stage stageid="e7556180-d219-49b7-b2e7-6138cd250353" name="Delete Schedule" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="330" y="180" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Schedule Name" narrative="The name of the schedule which will be run" expr="&quot;Schedule E BP-2361&quot;" />
+    </inputs>
+    <onsuccess>2c3ab5d5-e04e-439b-9d2b-5d096053dab9</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Delete Schedule" />
+  </stage>
+  <stage stageid="f21f3f68-9006-4432-b14c-966a0227e31f" name="Delete Schedule" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="330" y="210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Schedule Name" narrative="The name of the schedule which will be run" expr="&quot;Schedule F BP-2361&quot;" />
+    </inputs>
+    <onsuccess>a23aae8c-7a2d-447d-84ee-f4303c1bee3b</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Delete Schedule" />
+  </stage>
+  <stage stageid="8636c24e-2370-4f3f-ac5c-ef0e021864b8" name="Delete Schedule" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="330" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Schedule Name" narrative="The name of the schedule which will be run" expr="&quot;Schedule G BP-2361&quot;" />
+    </inputs>
+    <onsuccess>539f2ae4-4615-4979-9d1f-28ef8cbbfedd</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Delete Schedule" />
+  </stage>
+  <stage stageid="65d5eb6e-9271-4c43-8f38-bd859cabe706" name="Delete Schedule" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="330" y="270" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Schedule Name" narrative="The name of the schedule which will be run" expr="&quot;Schedule H BP-2361&quot;" />
+    </inputs>
+    <onsuccess>f1304657-0e89-4deb-99f6-742a47caf242</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Delete Schedule" />
+  </stage>
+  <stage stageid="397deb09-a156-48ea-8f9a-c390b03d6036" name="Delete Schedule" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="330" y="300" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Schedule Name" narrative="The name of the schedule which will be run" expr="&quot;Schedule I BP-2361&quot;" />
+    </inputs>
+    <onsuccess>628c1d16-e393-4a29-ae59-e73dd55abdaa</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Delete Schedule" />
+  </stage>
+  <stage stageid="4632c9f7-5a4b-4f07-939d-9330b9c6a387" name="Delete Schedule" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="330" y="330" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Schedule Name" narrative="The name of the schedule which will be run" expr="&quot;Schedule J BP-2361&quot;" />
+    </inputs>
+    <onsuccess>5ab68562-e356-4fe5-a659-ef9e28c2ad14</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Delete Schedule" />
+  </stage>
+  <stage stageid="8492225f-f9b0-4230-9a6b-87a890b53647" name="Delete Schedule" type="Action">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <display x="330" y="360" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Schedule Name" narrative="The name of the schedule which will be run" expr="&quot;Schedule K BP-2361&quot;" />
+    </inputs>
+    <onsuccess>b5f3be20-85ee-4e41-998c-831b11d79ee7</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Delete Schedule" />
+  </stage>
+  <stage stageid="201f40c3-bb7c-46b8-a8cf-cff30989df1c" name="Anchor1" type="Anchor">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="405" y="120" w="10" h="10" />
+    <onsuccess>c115cf02-966a-4d41-b42f-441694af0fd2</onsuccess>
+  </stage>
+  <stage stageid="c115cf02-966a-4d41-b42f-441694af0fd2" name="Anchor4" type="Anchor">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="405" y="150" w="10" h="10" />
+    <onsuccess>2c3ab5d5-e04e-439b-9d2b-5d096053dab9</onsuccess>
+  </stage>
+  <stage stageid="2c3ab5d5-e04e-439b-9d2b-5d096053dab9" name="Anchor13" type="Anchor">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="405" y="180" w="10" h="10" />
+    <onsuccess>a23aae8c-7a2d-447d-84ee-f4303c1bee3b</onsuccess>
+  </stage>
+  <stage stageid="a23aae8c-7a2d-447d-84ee-f4303c1bee3b" name="Anchor14" type="Anchor">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="405" y="210" w="10" h="10" />
+    <onsuccess>539f2ae4-4615-4979-9d1f-28ef8cbbfedd</onsuccess>
+  </stage>
+  <stage stageid="539f2ae4-4615-4979-9d1f-28ef8cbbfedd" name="Anchor15" type="Anchor">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="405" y="240" w="10" h="10" />
+    <onsuccess>f1304657-0e89-4deb-99f6-742a47caf242</onsuccess>
+  </stage>
+  <stage stageid="f1304657-0e89-4deb-99f6-742a47caf242" name="Anchor16" type="Anchor">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="405" y="270" w="10" h="10" />
+    <onsuccess>628c1d16-e393-4a29-ae59-e73dd55abdaa</onsuccess>
+  </stage>
+  <stage stageid="628c1d16-e393-4a29-ae59-e73dd55abdaa" name="Anchor17" type="Anchor">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="405" y="300" w="10" h="10" />
+    <onsuccess>5ab68562-e356-4fe5-a659-ef9e28c2ad14</onsuccess>
+  </stage>
+  <stage stageid="5ab68562-e356-4fe5-a659-ef9e28c2ad14" name="Anchor18" type="Anchor">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="405" y="330" w="10" h="10" />
+    <onsuccess>b5f3be20-85ee-4e41-998c-831b11d79ee7</onsuccess>
+  </stage>
+  <stage stageid="b5f3be20-85ee-4e41-998c-831b11d79ee7" name="Anchor19" type="Anchor">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="405" y="360" w="10" h="10" />
+    <onsuccess>f1be4fcc-6b70-4e4e-8a95-1ab4ca84ea63</onsuccess>
+  </stage>
+  <stage stageid="f1be4fcc-6b70-4e4e-8a95-1ab4ca84ea63" name="Anchor20" type="Anchor">
+    <subsheetid>2742fecc-ff29-478b-add0-f6821c2cd14e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="405" y="390" w="10" h="10" />
+    <onsuccess>98115050-8de5-4b62-b3b3-aef47c574478</onsuccess>
+  </stage>
+  <stage stageid="79e098c1-9bc5-43f2-9b26-3a6a6887993a" name="Blue Prism - API - Get Schedules" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name starts with" friendlyname="Name starts with" narrative="Schedule Name" expr="" />
+      <input type="text" name="Retirement Status" friendlyname="Retirement Status" narrative="Active or Retired" expr="" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="1" expr="1" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="mixtures of text and numbers" expr="[Pagination Token for Schedule Items per page =1, page 3]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>35ab0a7c-5aed-4731-a3e5-7addcb78ac8c</onsuccess>
+    <resource object="Blue Prism - API - Schedules" action="GET schedules" />
+  </stage>
+  <stage stageid="cc91f1dd-920b-48c1-b2f2-bbe12cee43b5" name="Blue Prism - API - Get Schedules" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="555" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name starts with" friendlyname="Name starts with" narrative="Schedule Name" expr="" />
+      <input type="text" name="Retirement Status" friendlyname="Retirement Status" narrative="Active or Retired" expr="" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="1" expr="" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="mixtures of text and numbers" expr="[Pagination Token for Schedule Items per page =10, page 2]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>0cc7ffdc-7305-4937-8ace-10bda0d6ee66</onsuccess>
+    <resource object="Blue Prism - API - Schedules" action="GET schedules" />
+  </stage>
+  <stage stageid="1a1038e9-89cf-423b-a890-e7246ab7fef3" name="Blue Prism - API - Get Schedules" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="555" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name starts with" friendlyname="Name starts with" narrative="Schedule Name" expr="" />
+      <input type="text" name="Retirement Status" friendlyname="Retirement Status" narrative="Active or Retired" expr="" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="1" expr="1" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="mixtures of text and numbers" expr="[Pagination Token for Schedule Items per page = 1, page 2]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>eab57460-c1ff-4935-b367-87661cf39b78</onsuccess>
+    <resource object="Blue Prism - API - Schedules" action="GET schedules" />
+  </stage>
+  <stage stageid="ca6f3469-d9ba-4664-b319-436342f7189d" name="Blue Prism - API - Get Schedules" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1050" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name starts with" friendlyname="Name starts with" narrative="Schedule Name" expr="" />
+      <input type="text" name="Retirement Status" friendlyname="Retirement Status" narrative="Active or Retired" expr="" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="1" expr="1" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="mixtures of text and numbers" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>ffd14661-ee8c-406e-8372-5ada53875b37</onsuccess>
+    <resource object="Blue Prism - API - Schedules" action="GET schedules" />
+  </stage>
+  <stage stageid="672b8cc0-2db9-488d-9337-5e0f18959d13" name="Blue Prism - API - Get Schedules" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1050" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name starts with" friendlyname="Name starts with" narrative="Schedule Name" expr="" />
+      <input type="text" name="Retirement Status" friendlyname="Retirement Status" narrative="Active or Retired" expr="" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="1" expr="15" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="mixtures of text and numbers" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>488eeae9-4238-45ac-80f2-bb0f41acb430</onsuccess>
+    <resource object="Blue Prism - API - Schedules" action="GET schedules" />
+  </stage>
+  <stage stageid="f0adec00-741c-4c35-8da2-0fcefe1dbd02" name="Blue Prism - API - Get Schedules" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1605" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name starts with" friendlyname="Name starts with" narrative="Schedule Name" expr="" />
+      <input type="text" name="Retirement Status" friendlyname="Retirement Status" narrative="Active or Retired" expr="" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="1" expr="1" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="mixtures of text and numbers" expr="[Pagination Token for Schedule Items per page = 1, page 2]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>40f3b227-2c52-4add-9a55-6607b88386b6</onsuccess>
+    <resource object="Blue Prism - API - Schedules" action="GET schedules" />
+  </stage>
+  <stage stageid="0118a10c-9105-4fa0-904a-4d878ce2fe32" name="Blue Prism - API - Get Schedules" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1545" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name starts with" friendlyname="Name starts with" narrative="Schedule Name" expr="" />
+      <input type="text" name="Retirement Status" friendlyname="Retirement Status" narrative="Active or Retired" expr="" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="1" expr="1000" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="mixtures of text and numbers" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>3b50271a-b6a3-4c70-819d-1c6a43f9b875</onsuccess>
+    <resource object="Blue Prism - API - Schedules" action="GET schedules" />
+  </stage>
+  <stage stageid="555fffd9-69f5-40a9-b1b7-092b766c53f8" name="Result Collection" type="Collection">
+    <display x="-270" y="135" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="pagingToken" type="text" />
+      <field name="items" type="collection">
+        <field name="JSON:Array" type="collection">
+          <field name="id" type="number" />
+          <field name="name" type="text" />
+          <field name="description" type="text" />
+          <field name="isRetired" type="flag" />
+          <field name="tasksCount" type="number" />
+          <field name="intervalType" type="text" />
+          <field name="timePeriod" type="number" />
+          <field name="startPoint" type="datetime" />
+          <field name="endPoint" type="datetime" />
+          <field name="dayOfWeek" type="text" />
+          <field name="dayOfMonth" type="text" />
+          <field name="startDate" type="datetime" />
+          <field name="endDate" type="datetime" />
+          <field name="calendarId" type="text" />
+          <field name="calendarName" type="text" />
+        </field>
+      </field>
+    </collectioninfo>
+  </stage>
+  <stage stageid="0cc7ffdc-7305-4937-8ace-10bda0d6ee66" name="Convert Response to Collection" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="600" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Result Collection" />
+    </outputs>
+    <onsuccess>ceb46382-12d0-487c-8b10-dc9935e3f768</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="ceb46382-12d0-487c-8b10-dc9935e3f768" name="Count Rows" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="645" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>83202f5b-f6a9-461a-a507-0c34a66d07b1</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="ffd14661-ee8c-406e-8372-5ada53875b37" name="Convert Response to Collection" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1095" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Result Collection" />
+    </outputs>
+    <onsuccess>4cd07f47-01fc-4df8-b5ce-b1bd4684da4c</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="4cd07f47-01fc-4df8-b5ce-b1bd4684da4c" name="Count Rows" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1140" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>ae79fe50-6f0d-4e3e-b571-4e597f99ac09</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="40f3b227-2c52-4add-9a55-6607b88386b6" name="Convert Response to Collection" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1650" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Result Collection" />
+    </outputs>
+    <onsuccess>57ad27c0-4951-466f-981f-46271ad6984f</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="57ad27c0-4951-466f-981f-46271ad6984f" name="Count Rows" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1695" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>1cd05d17-9911-43e9-8dea-103fb862e72d</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="35ab0a7c-5aed-4731-a3e5-7addcb78ac8c" name="Convert Response to Collection" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Result Collection" />
+    </outputs>
+    <onsuccess>6a71574c-4f5b-4107-8d91-e27f53a52dd2</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="6a71574c-4f5b-4107-8d91-e27f53a52dd2" name="Count Rows" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>0569ce52-9916-4656-94ee-de498d310bc1</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="eab57460-c1ff-4935-b367-87661cf39b78" name="Convert Response to Collection" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="600" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Result Collection" />
+    </outputs>
+    <onsuccess>92467d2e-021b-4099-9540-f4de224ffda5</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="92467d2e-021b-4099-9540-f4de224ffda5" name="Count Rows" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="645" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>65481153-9bf1-4f27-983a-a4e1480a65f0</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="488eeae9-4238-45ac-80f2-bb0f41acb430" name="Convert Response to Collection" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1095" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Result Collection" />
+    </outputs>
+    <onsuccess>679ec7a0-eff9-4a6a-a406-0a29dc77e11c</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="679ec7a0-eff9-4a6a-a406-0a29dc77e11c" name="Count Rows" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1140" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>7eff7acc-167b-4814-b008-d2eaa77113c5</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="3b50271a-b6a3-4c70-819d-1c6a43f9b875" name="Convert Response to Collection" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1590" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Result Collection" />
+    </outputs>
+    <onsuccess>4965e5c2-6fd0-4aca-a5dd-196d97f1d33a</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="4965e5c2-6fd0-4aca-a5dd-196d97f1d33a" name="Count Rows" type="Action">
+    <subsheetid>d6eb0775-5392-4439-8fd3-ca34faadc401</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="330" y="1635" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>362e0cd9-2658-4299-b37c-12b3a9465f5c</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="2775d382-26fb-4a1d-bea8-7803a85ea6c2" name="Set a description" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="795" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name" friendlyname="Name" narrative="The name you want to call the schedule." expr="&quot;Schedule K BP-2361&quot;" />
+      <input type="text" name="Description" friendlyname="Description" narrative="The description you want to give the schedule." expr="&quot;This is a description&quot;" />
+      <input type="text" name="Initial Task" friendlyname="Initial Task" narrative="The initial task you want to run on the schedule." expr="" />
+    </inputs>
+    <onsuccess>cc8f988f-4d2d-4eca-a677-e743532055a8</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Set Schedule - Basic Config" />
+  </stage>
+  <stage stageid="f7234f66-6b80-46b6-a3d4-5d592659891a" name="Select Schedule 11" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="750" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Schedule Name" friendlyname="Schedule Name" narrative="The name of the schedule you want to select." expr="&quot;Schedule K BP-2361&quot;" />
+    </inputs>
+    <onsuccess>2775d382-26fb-4a1d-bea8-7803a85ea6c2</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Select Schedule" />
+  </stage>
+  <stage stageid="cc8f988f-4d2d-4eca-a677-e743532055a8" name="Select Hourly / Minutely" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="840" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Radio button Choice" friendlyname="Radio button Choice" narrative="i.e. Once, Weekly" expr="&quot;Hourly / Minutely&quot;" />
+    </inputs>
+    <onsuccess>4f5b6ec4-0608-4b4c-a881-ae5a60ce9514</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Schedule Runs - Set Radio Button (Dynamic" />
+  </stage>
+  <stage stageid="4f5b6ec4-0608-4b4c-a881-ae5a60ce9514" name="Set Expiry Date" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="885" w="90" h="30" />
+    <inputs>
+      <input type="date" name="Expiry Date Input" friendlyname="Expiry Date Input" narrative="i.e. 27/02/2001" expr="AddDays(Today(), 1)" />
+      <input type="text" name="Expiry Hour Input" friendlyname="Expiry Hour Input" narrative="i.e. 03 means 03:00:00" expr="&quot;00&quot;" />
+      <input type="text" name="Expiry Minute Input" friendlyname="Expiry Minute Input" narrative="i.e. 30 means 00:30:00" expr="&quot;00&quot;" />
+    </inputs>
+    <onsuccess>f890a37f-9f2e-4c54-9b8d-188777cdf9ee</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Schedule Runs - Set Expiry" />
+  </stage>
+  <stage stageid="f890a37f-9f2e-4c54-9b8d-188777cdf9ee" name="Press Apply" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <display x="15" y="930" w="90" h="30" />
+    <onsuccess>d2ff0e39-9cd9-4f83-9eda-ed11a38f3670</onsuccess>
+    <resource object="Blue Prism - Control - Basic Actions" action="Press Apply" />
+  </stage>
+  <stage stageid="506802da-1d5c-4e53-94d3-cb2fe290c36e" name="Give the 11th schedule different run mode,interval type and description" type="Block">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-75" y="720" w="180" h="240" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f341d8fc-0a2b-4671-8988-f0ae8307b7dc" name="Retire schedule number 11" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1095" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Context Menu Item to Select" friendlyname="Context Menu Item to Select" expr="&quot;Retire&quot;" />
+      <input type="text" name="Schedule Name" friendlyname="Schedule Name" expr="&quot;Schedule K BP-2361&quot;" />
+    </inputs>
+    <onsuccess>867af894-6fef-48af-9282-63a83543da48</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Select an item on a Schedule context menu (Dynamic)" />
+  </stage>
+  <stage stageid="2b139367-ac35-4e23-817f-705322ad3210" name="End Point" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="45" w="120" h="30" />
+    <datatype>datetime</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="65051483-dcc6-412b-abdf-39690f808d3a" name="Note1" type="Note">
+    <narrative>WHEN itemsPerPage, pagingToken and other filters are used such as retirement status
+AND GET Schedules API request was made
+THEN pagingTokens will still be valid if the criteria remain the same
+AND the page can nivigate backwards and forwards</narrative>
+    <display x="15" y="285" w="360" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="993366" />
+    <onsuccess>160a3bda-df25-46d0-9261-5392c3afd237</onsuccess>
+  </stage>
+  <stage stageid="3a3fc735-cb56-4129-a596-4a32ca621e3d" name="Scenario 2 - Additional tests" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="240" w="405" h="135" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="160a3bda-df25-46d0-9261-5392c3afd237" name="Scenario 2" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="345" w="120" h="30" />
+    <onsuccess>8fd0c34a-2ccf-488d-afb3-ab447c4ec5f9</onsuccess>
+    <processid>353f5795-7015-448c-aea6-de95fdc795e6</processid>
+  </stage>
+  <stage stageid="0b28d711-595f-4d74-8511-c415b2c2a0a0" name="Resume Scenario 2" type="Resume">
+    <loginhibit />
+    <display x="270" y="390" />
+    <onsuccess>8fd0c34a-2ccf-488d-afb3-ab447c4ec5f9</onsuccess>
+  </stage>
+  <stage stageid="5f269e95-660f-4be1-b246-f68e3a327fda" name="Get Exception 2" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="270" y="345" />
+    <onsuccess>0b28d711-595f-4d74-8511-c415b2c2a0a0</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="[Exception]&amp;&quot;,Scenario 2 Failed. Exception details: &quot;&amp;ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="fc92c9bd-6516-4c8c-b7f2-3052be748815" name="Recovery Scenario 2" type="Recover">
+    <loginhibit />
+    <display x="180" y="345" />
+    <onsuccess>5f269e95-660f-4be1-b246-f68e3a327fda</onsuccess>
+  </stage>
+  <stage stageid="8fd0c34a-2ccf-488d-afb3-ab447c4ec5f9" name="Anchor12" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="390" w="10" h="10" />
+    <onsuccess>31ac7d3e-6e72-48f8-add5-367f260451fe</onsuccess>
+  </stage>
+  <stage stageid="26a75273-3eeb-466c-a765-358daafe9160" name="Scenario 2" type="SubSheetInfo">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="7a8e097f-ca68-43b2-a774-a382de0a700a" name="Start" type="Start">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>ecb2dd43-5b62-47e5-bf10-c78a226ebf74</onsuccess>
+  </stage>
+  <stage stageid="0e6148d2-278f-4fb9-9fc2-0b94b7f83e2a" name="Retire 3 Schedules" type="Block">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-75" y="975" w="180" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4d8fe891-f252-4f16-bbd2-f54f66c0acc4" name="Retire schedule number 10" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1050" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Context Menu Item to Select" friendlyname="Context Menu Item to Select" expr="&quot;Retire&quot;" />
+      <input type="text" name="Schedule Name" friendlyname="Schedule Name" expr="&quot;Schedule J BP-2361&quot;" />
+    </inputs>
+    <onsuccess>f341d8fc-0a2b-4671-8988-f0ae8307b7dc</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Select an item on a Schedule context menu (Dynamic)" />
+  </stage>
+  <stage stageid="76d94b1a-5eea-488a-98db-82d441ea9f99" name="Pagination Token for Schedule Items per page =1, page 2" type="Data">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="10b8c88d-34dd-41b2-b967-5cbe93946402" name="Local variable" type="Block">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ab31fceb-f22e-4d15-a25a-a4f2066a9eaf" name="Response Code and Schedule Count correct?" type="Decision">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="15" y="90" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=1" />
+    <ontrue>6e0f908f-b6ac-4532-aea4-4d9af3c2a8dc</ontrue>
+    <onfalse>d24f7ca9-e35d-4f2e-9c09-0c0626fe2a3e</onfalse>
+  </stage>
+  <stage stageid="e5ed0728-3858-4c07-83bb-f0d942863be9" name="Retire=False and itemsPerPage=1, Schedule Name=Schedule" type="Block">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="-75" w="270" h="420" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d24f7ca9-e35d-4f2e-9c09-0c0626fe2a3e" name="Failed" type="Exception">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="105" y="90" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 2. Retire=False and itemsPerPage=1, Schedule Name=Schedule&quot;" />
+  </stage>
+  <stage stageid="6e0f908f-b6ac-4532-aea4-4d9af3c2a8dc" name="Search schedules" type="LoopStart">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" w="90" h="30" />
+    <onsuccess>cc0ed53c-e06b-452a-bd53-44ccd8fed0f9</onsuccess>
+    <groupid>8fe78a43-92bd-46c3-b119-c1ad7c961574</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection.items</loopdata>
+  </stage>
+  <stage stageid="fa29c317-27b6-4e2b-ac0b-84264cf0ed3b" name="Search schedules" type="LoopEnd">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="225" w="90" h="30" />
+    <onsuccess>eb96298f-ff69-430e-bfed-b8285a882a27</onsuccess>
+    <groupid>8fe78a43-92bd-46c3-b119-c1ad7c961574</groupid>
+  </stage>
+  <stage stageid="cc0ed53c-e06b-452a-bd53-44ccd8fed0f9" name="Check active schedule A is returned" type="Decision">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="15" y="180" w="90" h="30" />
+    <decision expression="[Result Collection.items.JSON:Array.name]=&quot;Schedule A BP-2361&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.intervalType]=&quot;Once&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.isRetired]=False&#xA;AND&#xA;[Result Collection.items.JSON:Array.startDate]&gt;=[Start DateTime]&#xA;AND&#xA;[Result Collection.items.JSON:Array.endPoint]&lt;=[End Point]" />
+    <ontrue>d863f1c5-66cb-4655-9dde-947643a86f93</ontrue>
+    <onfalse>fa29c317-27b6-4e2b-ac0b-84264cf0ed3b</onfalse>
+  </stage>
+  <stage stageid="eb96298f-ff69-430e-bfed-b8285a882a27" name="Schedule not found" type="Exception">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="105" y="225" />
+    <exception localized="yes" type="&quot;Schedule not found&quot;" detail="&quot;Scenario 2 failed: expect schedule A to display, however something went wrong when checking Retire=False and itemsPerPage=1, Schedule Name=Schedule&quot; " />
+  </stage>
+  <stage stageid="e42844d0-9571-4059-8aaa-46d765f3fdd8" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="15" y="270" w="90" h="30" />
+    <decision expression="[Result Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>83c9aae8-f6e7-465a-8508-4fb8971e6a7d</ontrue>
+    <onfalse>610db699-86b8-48ed-8c52-7505c43ef2ce</onfalse>
+  </stage>
+  <stage stageid="610db699-86b8-48ed-8c52-7505c43ef2ce" name="Pagination Token was not returned" type="Exception">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="105" y="270" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed when checking Retire=False and itemsPerPage=1, Schedule Name=Schedule. PaginationToken is expected to be found, however it was not found.&quot;" />
+  </stage>
+  <stage stageid="1e25733b-db4f-4ce2-a3df-c5d16fb4c2ff" name="Anchor7" type="Anchor">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="270" w="10" h="10" />
+    <onsuccess>e42844d0-9571-4059-8aaa-46d765f3fdd8</onsuccess>
+  </stage>
+  <stage stageid="d863f1c5-66cb-4655-9dde-947643a86f93" name="Anchor8" type="Anchor">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="180" w="10" h="10" />
+    <onsuccess>1e25733b-db4f-4ce2-a3df-c5d16fb4c2ff</onsuccess>
+  </stage>
+  <stage stageid="ecb2dd43-5b62-47e5-bf10-c78a226ebf74" name="Blue Prism - API - Get Schedules" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name starts with" friendlyname="Name starts with" narrative="Schedule Name" expr="&quot;Schedule&quot;" />
+      <input type="text" name="Retirement Status" friendlyname="Retirement Status" narrative="Active or Retired" expr="&quot;Active&quot;" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="1" expr="1" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="mixtures of text and numbers" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>d096b13b-ea1f-4276-a5c9-eb7b97de0513</onsuccess>
+    <resource object="Blue Prism - API - Schedules" action="GET schedules" />
+  </stage>
+  <stage stageid="d096b13b-ea1f-4276-a5c9-eb7b97de0513" name="Convert Response to Collection" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Result Collection" />
+    </outputs>
+    <onsuccess>fd37ddbf-6a7f-4f99-bb3c-5029c66aa238</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="fd37ddbf-6a7f-4f99-bb3c-5029c66aa238" name="Count Rows" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>ab31fceb-f22e-4d15-a25a-a4f2066a9eaf</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="02b560f6-f50c-4118-8bfd-be3cf0b884ff" name="Number of Items Returned" type="Data">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="-195" y="45" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f5a536aa-7be6-45ec-a9c4-2435cefaddd2" name="Response Code and Schedule Count correct?" type="Decision">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="15" y="525" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=1" />
+    <ontrue>45dc7857-bdc5-45e1-b9f6-1d51911f42b7</ontrue>
+    <onfalse>86ffcaa9-7621-4aca-ad2c-1a604520a4b5</onfalse>
+  </stage>
+  <stage stageid="692beb27-6796-42fe-a168-61dde8ae61a5" name="Retire=False and itemsPerPage=1, Schedule Name=Schedule, Page #2" type="Block">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="360" w="270" h="375" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="86ffcaa9-7621-4aca-ad2c-1a604520a4b5" name="Failed" type="Exception">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="105" y="525" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 2. Check Retire=False and itemsPerPage=1, Schedule Name=Schedule, Page #2&quot;" />
+  </stage>
+  <stage stageid="45dc7857-bdc5-45e1-b9f6-1d51911f42b7" name="Search schedules" type="LoopStart">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="570" w="90" h="30" />
+    <onsuccess>30382fff-3c2e-47e1-876a-f8a041b6fff4</onsuccess>
+    <groupid>21581de9-8929-470e-ae17-9006d98e3cf3</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection.items</loopdata>
+  </stage>
+  <stage stageid="0b7df17d-6045-4e38-9bab-deb2f1b6c986" name="Search schedules" type="LoopEnd">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="660" w="90" h="30" />
+    <onsuccess>82795786-b6f6-4d2e-aaea-7c6b80d9c366</onsuccess>
+    <groupid>21581de9-8929-470e-ae17-9006d98e3cf3</groupid>
+  </stage>
+  <stage stageid="30382fff-3c2e-47e1-876a-f8a041b6fff4" name="Check retired schedule B is returned" type="Decision">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="15" y="615" w="90" h="30" />
+    <decision expression="[Result Collection.items.JSON:Array.name]=&quot;Schedule B BP-2361&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.intervalType]=&quot;Once&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.isRetired]=False&#xA;AND&#xA;[Result Collection.items.JSON:Array.startDate]&gt;=[Start DateTime]&#xA;AND&#xA;[Result Collection.items.JSON:Array.endPoint]&lt;=[End Point]" />
+    <ontrue>06b9eeea-822d-4a5d-b074-b1825d3a2f78</ontrue>
+    <onfalse>0b7df17d-6045-4e38-9bab-deb2f1b6c986</onfalse>
+  </stage>
+  <stage stageid="82795786-b6f6-4d2e-aaea-7c6b80d9c366" name="Schedule not found" type="Exception">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="105" y="660" />
+    <exception localized="yes" type="&quot;Schedule not found&quot;" detail="&quot;Scenario 2 failed: expect schedule B to display, however something went wrong when checking Retire=False and itemsPerPage=1, Schedule Name=Schedule, Page #2&quot; " />
+  </stage>
+  <stage stageid="19cc47ad-2535-410b-aceb-aea1bfbfecbb" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="15" y="705" w="90" h="30" />
+    <decision expression="[Result Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>0675e3dd-a585-4bab-aed7-be354ab21a85</ontrue>
+    <onfalse>4c4ed39b-80ea-4abe-9874-43a8c26381d0</onfalse>
+  </stage>
+  <stage stageid="80fc9e04-5cbc-49b0-a2fb-984ba4ce7d70" name="Anchor7" type="Anchor">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="705" w="10" h="10" />
+    <onsuccess>19cc47ad-2535-410b-aceb-aea1bfbfecbb</onsuccess>
+  </stage>
+  <stage stageid="06b9eeea-822d-4a5d-b074-b1825d3a2f78" name="Anchor8" type="Anchor">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="615" w="10" h="10" />
+    <onsuccess>80fc9e04-5cbc-49b0-a2fb-984ba4ce7d70</onsuccess>
+  </stage>
+  <stage stageid="2ca7c023-d399-423a-8286-0d3d17a1e18d" name="Blue Prism - API - Get Schedules" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="390" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name starts with" friendlyname="Name starts with" narrative="Schedule Name" expr="&quot;Schedule&quot;" />
+      <input type="text" name="Retirement Status" friendlyname="Retirement Status" narrative="Active or Retired" expr="&quot;Active&quot;" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="1" expr="1" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="mixtures of text and numbers" expr="[Pagination Token for Schedule Items per page =1, page 2]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>645cc2ec-f49e-4f53-8ff3-c08eb7b668bb</onsuccess>
+    <resource object="Blue Prism - API - Schedules" action="GET schedules" />
+  </stage>
+  <stage stageid="645cc2ec-f49e-4f53-8ff3-c08eb7b668bb" name="Convert Response to Collection" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="435" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Result Collection" />
+    </outputs>
+    <onsuccess>9df9ee03-9fc4-4ce4-9e15-63f9d0675eeb</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="9df9ee03-9fc4-4ce4-9e15-63f9d0675eeb" name="Count Rows" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="480" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>f5a536aa-7be6-45ec-a9c4-2435cefaddd2</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="83c9aae8-f6e7-465a-8508-4fb8971e6a7d" name="Store Pagination Token for Navigating" type="Calculation">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="315" w="90" h="30" />
+    <onsuccess>2ca7c023-d399-423a-8286-0d3d17a1e18d</onsuccess>
+    <calculation expression="[Result Collection.pagingToken]" stage="Pagination Token for Schedule Items per page =1, page 2" />
+  </stage>
+  <stage stageid="4c4ed39b-80ea-4abe-9874-43a8c26381d0" name="Pagination Token was not returned" type="Exception">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="105" y="705" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed when checking Retire=False and itemsPerPage=1, Schedule Name=Schedule, Page #2, . PaginationToken is expected to be found, however it was not found.&quot;" />
+  </stage>
+  <stage stageid="2434053c-d6a7-4aa9-9d4b-0b62cdadbce4" name="Publish Sub Process" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name" friendlyname="Name" narrative="The name of the process to publish" expr="&quot;Sub Process BP-2361 Completed&quot;" />
+    </inputs>
+    <onsuccess>cdf8a920-10c6-486e-b986-7693048cd5ee</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Publish Process" />
+  </stage>
+  <stage stageid="a2b56b7e-da6c-4655-9b26-91b1a8d2eb34" name="Attach to Studio" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>2434053c-d6a7-4aa9-9d4b-0b62cdadbce4</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="a5411646-6869-4a44-8444-1f1f67fd9a1e" name="Select Schedules" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <display x="15" y="585" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Control Item to Click" friendlyname="Control Item to Click" narrative="Control Item to click in left hand side control Tree" expr="&quot;Schedules&quot;" />
+    </inputs>
+    <onsuccess>4b45acb7-6ad3-43c1-9a9a-47b4d02006a6</onsuccess>
+    <resource object="Blue Prism - Control - Basic Actions" action="Click Item From Control's Left Tree (Select Item)" />
+  </stage>
+  <stage stageid="0c57451b-300d-4df9-ae48-b62e32d29761" name="Retire=True and itemsPerPage= 1, Schedule Name=Schedule" type="Block">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="750" w="270" h="420" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="401d62d9-b8a1-4898-84cb-c08660143b4c" name="Response Code and Schedule Count correct?" type="Decision">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="15" y="915" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=1" />
+    <ontrue>cc390465-f476-4f1d-a58e-26c829964ff3</ontrue>
+    <onfalse>c8773f52-a086-4732-8db1-bb347f7b48b2</onfalse>
+  </stage>
+  <stage stageid="c8773f52-a086-4732-8db1-bb347f7b48b2" name="Failed" type="Exception">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="105" y="915" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 2. Retire=True and itemsPerPage=1, Schedule Name=Schedule&quot;" />
+  </stage>
+  <stage stageid="cc390465-f476-4f1d-a58e-26c829964ff3" name="Search schedules" type="LoopStart">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="960" w="90" h="30" />
+    <onsuccess>0329714e-8466-4dbb-8e44-a8ba0f38af72</onsuccess>
+    <groupid>f4339ce8-e586-4fb6-a0c1-4a4c94444290</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection.items</loopdata>
+  </stage>
+  <stage stageid="896e3085-b147-4d3c-a239-105324f06325" name="Search schedules" type="LoopEnd">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1050" w="90" h="30" />
+    <onsuccess>7e2c7d56-c8dd-4e78-8ad8-6088d894ba9d</onsuccess>
+    <groupid>f4339ce8-e586-4fb6-a0c1-4a4c94444290</groupid>
+  </stage>
+  <stage stageid="0329714e-8466-4dbb-8e44-a8ba0f38af72" name="Check retired schedule I is returned" type="Decision">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="15" y="1005" w="90" h="30" />
+    <decision expression="[Result Collection.items.JSON:Array.name]=&quot;Schedule I BP-2361&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.intervalType]=&quot;Once&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.isRetired]=True&#xA;AND&#xA;[Result Collection.items.JSON:Array.startDate]&gt;=[Start DateTime]&#xA;AND&#xA;[Result Collection.items.JSON:Array.endPoint]&lt;=[End Point]" />
+    <ontrue>76db95c0-71ee-4075-b77b-c03beda9fe56</ontrue>
+    <onfalse>896e3085-b147-4d3c-a239-105324f06325</onfalse>
+  </stage>
+  <stage stageid="7e2c7d56-c8dd-4e78-8ad8-6088d894ba9d" name="Schedule not found" type="Exception">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="105" y="1050" />
+    <exception localized="yes" type="&quot;Schedule not found&quot;" detail="&quot;Scenario 2 failed: expect schedule I to display, however something went wrong when checking Retire=True and itemsPerPage=1, Schedule Name=Schedule&quot; " />
+  </stage>
+  <stage stageid="bb67ca2c-b398-448c-a332-9870d92445c0" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="15" y="1095" w="90" h="30" />
+    <decision expression="[Result Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>c7545f01-55a9-48ce-89bc-6982eb82d160</ontrue>
+    <onfalse>dff6f9b0-64d2-48ef-a4b7-ffbb4a66d343</onfalse>
+  </stage>
+  <stage stageid="dff6f9b0-64d2-48ef-a4b7-ffbb4a66d343" name="Pagination Token was not returned" type="Exception">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="105" y="1095" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed when checking Retire=True and itemsPerPage=1, Schedule Name=Schedule. PaginationToken is expected to be found, however it was not found.&quot;" />
+  </stage>
+  <stage stageid="8dc6174f-37db-4669-904d-6f1210cbd511" name="Anchor7" type="Anchor">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="1095" w="10" h="10" />
+    <onsuccess>bb67ca2c-b398-448c-a332-9870d92445c0</onsuccess>
+  </stage>
+  <stage stageid="76db95c0-71ee-4075-b77b-c03beda9fe56" name="Anchor8" type="Anchor">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="1005" w="10" h="10" />
+    <onsuccess>8dc6174f-37db-4669-904d-6f1210cbd511</onsuccess>
+  </stage>
+  <stage stageid="0675e3dd-a585-4bab-aed7-be354ab21a85" name="Blue Prism - API - Get Schedules" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="780" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name starts with" friendlyname="Name starts with" narrative="Schedule Name" expr="&quot;Schedule&quot;" />
+      <input type="text" name="Retirement Status" friendlyname="Retirement Status" narrative="Active or Retired" expr="&quot;Retired&quot;" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="1" expr="1" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="mixtures of text and numbers" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>06a954df-4219-4b63-bfc7-db77f4fb6003</onsuccess>
+    <resource object="Blue Prism - API - Schedules" action="GET schedules" />
+  </stage>
+  <stage stageid="06a954df-4219-4b63-bfc7-db77f4fb6003" name="Convert Response to Collection" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="825" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Result Collection" />
+    </outputs>
+    <onsuccess>26d9a31b-6e8f-4736-8a27-f4dde9bcfb64</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="26d9a31b-6e8f-4736-8a27-f4dde9bcfb64" name="Count Rows" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="870" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>401d62d9-b8a1-4898-84cb-c08660143b4c</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="c7545f01-55a9-48ce-89bc-6982eb82d160" name="Store Pagination Token for Navigating" type="Calculation">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1140" w="90" h="30" />
+    <onsuccess>1c343485-379f-4c28-9a00-561b7776e381</onsuccess>
+    <calculation expression="[Result Collection.pagingToken]" stage="Pagination Token for Schedule Items per page =1, page 2" />
+  </stage>
+  <stage stageid="6249fc90-f205-4777-ab90-2b29f060872e" name="Response Code and Schedule Count correct?" type="Decision">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="15" y="1350" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=1" />
+    <ontrue>2284e348-0551-4720-8232-7772053d99b3</ontrue>
+    <onfalse>1f29c0d9-ae52-42b1-bc4f-97eda126bf94</onfalse>
+  </stage>
+  <stage stageid="7111fc12-bf27-4b98-a912-01ecb9709a89" name="Retire=False and itemsPerPage=1, Schedule Name=Schedule, Page 2&amp;3" type="Block">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="1185" w="270" h="510" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="1f29c0d9-ae52-42b1-bc4f-97eda126bf94" name="Failed" type="Exception">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="105" y="1350" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 2. Check Retire=True and itemsPerPage=1, Schedule Name=Schedule, Page #2 and #3&quot;" />
+  </stage>
+  <stage stageid="2284e348-0551-4720-8232-7772053d99b3" name="Search schedules" type="LoopStart">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1395" w="90" h="30" />
+    <onsuccess>ae300a6f-1a93-42c7-9013-8b8171a8b1a0</onsuccess>
+    <groupid>616933d9-ad5f-4797-a5ee-b2c34dff00f6</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection.items</loopdata>
+  </stage>
+  <stage stageid="6c117847-998a-4959-a87e-285d04678ecd" name="Search schedules" type="LoopEnd">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1485" w="90" h="30" />
+    <onsuccess>a23711b2-ecaf-4a75-9224-15bf1a0c43d6</onsuccess>
+    <groupid>616933d9-ad5f-4797-a5ee-b2c34dff00f6</groupid>
+  </stage>
+  <stage stageid="a23711b2-ecaf-4a75-9224-15bf1a0c43d6" name="Schedule not found" type="Exception">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="105" y="1485" />
+    <exception localized="yes" type="&quot;Schedule not found&quot;" detail="&quot;Scenario 2 failed: expect schedule J to display, however something went wrong when checking Retire=True and itemsPerPage=1, Schedule Name=Schedule, Page #2 and #3&quot; " />
+  </stage>
+  <stage stageid="607d7ad3-dec0-481c-a1cd-500f4e237d17" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="15" y="1530" w="90" h="30" />
+    <decision expression="[Result Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>62382612-8370-46fc-9ae9-7a9220d08603</ontrue>
+    <onfalse>516e05f1-3a8f-4fef-aebc-17dc2945f4f0</onfalse>
+  </stage>
+  <stage stageid="594a9653-a40b-4e4d-88ce-c3e79f8dad27" name="Anchor7" type="Anchor">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="1530" w="10" h="10" />
+    <onsuccess>607d7ad3-dec0-481c-a1cd-500f4e237d17</onsuccess>
+  </stage>
+  <stage stageid="76e9c471-981a-4493-8ce0-08cb4518c336" name="Anchor8" type="Anchor">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="1440" w="10" h="10" />
+    <onsuccess>594a9653-a40b-4e4d-88ce-c3e79f8dad27</onsuccess>
+  </stage>
+  <stage stageid="1c343485-379f-4c28-9a00-561b7776e381" name="Blue Prism - API - Get Schedules" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1215" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name starts with" friendlyname="Name starts with" narrative="Schedule Name" expr="&quot;Schedule&quot;" />
+      <input type="text" name="Retirement Status" friendlyname="Retirement Status" narrative="Active or Retired" expr="&quot;Retired&quot;" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="1" expr="1" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="mixtures of text and numbers" expr="[Pagination Token for Schedule Items per page =1, page 2]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>ee77e27b-2ec3-48d2-b2df-2a790bba80c1</onsuccess>
+    <resource object="Blue Prism - API - Schedules" action="GET schedules" />
+  </stage>
+  <stage stageid="ee77e27b-2ec3-48d2-b2df-2a790bba80c1" name="Convert Response to Collection" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1260" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Result Collection" />
+    </outputs>
+    <onsuccess>19ebae9f-306a-4b1c-b92b-7725f3997c46</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="19ebae9f-306a-4b1c-b92b-7725f3997c46" name="Count Rows" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1305" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>6249fc90-f205-4777-ab90-2b29f060872e</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="516e05f1-3a8f-4fef-aebc-17dc2945f4f0" name="Pagination Token was not returned" type="Exception">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="105" y="1530" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed when checking Retire=True and itemsPerPage=1, Schedule Name=Schedule, Page #2 and #3, . PaginationToken is expected to be found, however it was not found.&quot;" />
+  </stage>
+  <stage stageid="6dcf9823-075e-40c9-a8da-69bec0b0f3cb" name="Navigate backwards: Retire=True and itemsPerPage= 1, Schedule Name=Schedule" type="Block">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="1710" w="270" h="375" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="868137b1-f325-4bd1-9689-406ed2c44e52" name="Response Code and Schedule Count correct?" type="Decision">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="15" y="1875" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Items Returned]=1" />
+    <ontrue>b342c4f2-f055-4a88-89c3-256450588f3b</ontrue>
+    <onfalse>b71b7375-98fc-43be-b922-577ef6c53361</onfalse>
+  </stage>
+  <stage stageid="b71b7375-98fc-43be-b922-577ef6c53361" name="Failed" type="Exception">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="105" y="1875" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned scenario 2. Check navigating backwards: Retire=True and itemsPerPage=1, Schedule Name=Schedule section&quot;" />
+  </stage>
+  <stage stageid="b342c4f2-f055-4a88-89c3-256450588f3b" name="Search schedules" type="LoopStart">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1920" w="90" h="30" />
+    <onsuccess>2c431bdb-8886-419c-b503-43aef55112f5</onsuccess>
+    <groupid>2660506d-b05a-4057-955a-5d189caf17cf</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection.items</loopdata>
+  </stage>
+  <stage stageid="4f20fb0d-972d-4ea6-aae8-2a0db0be4840" name="Search schedules" type="LoopEnd">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="2010" w="90" h="30" />
+    <onsuccess>c07e19ba-e7e8-42c7-9e1a-874980190126</onsuccess>
+    <groupid>2660506d-b05a-4057-955a-5d189caf17cf</groupid>
+  </stage>
+  <stage stageid="c07e19ba-e7e8-42c7-9e1a-874980190126" name="Schedule not found" type="Exception">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="105" y="2010" />
+    <exception localized="yes" type="&quot;Schedule not found&quot;" detail="&quot;Scenario 2 failed: expect schedule J to display, however something went wrong when checking Navigating backwards: Retire=True and itemsPerPage=1, Schedule Name=Schedule&quot; " />
+  </stage>
+  <stage stageid="57a54f35-090a-462b-9c9f-44684ba12034" name="Pagination Token Returned?" type="Decision">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="15" y="2055" w="90" h="30" />
+    <decision expression="[Result Collection.pagingToken]&lt;&gt;&quot;&quot;" />
+    <ontrue>73768c69-68ad-4a82-b4b7-bc626f0aff32</ontrue>
+    <onfalse>2ae2a47e-cdf7-4cfe-a5a0-d4568b08c81a</onfalse>
+  </stage>
+  <stage stageid="2ae2a47e-cdf7-4cfe-a5a0-d4568b08c81a" name="Pagination Token was not returned" type="Exception">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="105" y="2055" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Scenario 2 failed when checking Navigating backwards: Retire=True and itemsPerPage=1, Schedule Name=Schedule. PaginationToken is expected to be found, however it was not found.&quot;" />
+  </stage>
+  <stage stageid="d67a9e55-cba6-4d21-9560-27056c548dbb" name="Anchor7" type="Anchor">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="2055" w="10" h="10" />
+    <onsuccess>57a54f35-090a-462b-9c9f-44684ba12034</onsuccess>
+  </stage>
+  <stage stageid="8f41cb8d-3526-41fb-a979-b066592955cb" name="Anchor8" type="Anchor">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="1965" w="10" h="10" />
+    <onsuccess>d67a9e55-cba6-4d21-9560-27056c548dbb</onsuccess>
+  </stage>
+  <stage stageid="af6d0381-f005-496a-8699-b82189328cba" name="Blue Prism - API - Get Schedules" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1740" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name starts with" friendlyname="Name starts with" narrative="Schedule Name" expr="&quot;Schedule&quot;" />
+      <input type="text" name="Retirement Status" friendlyname="Retirement Status" narrative="Active or Retired" expr="&quot;Retired&quot;" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="1" expr="1" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="mixtures of text and numbers" expr="[Pagination Token for Schedule Items per page =1, page 2]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>4cf0ecff-c0ca-47d8-9651-2da1eca85933</onsuccess>
+    <resource object="Blue Prism - API - Schedules" action="GET schedules" />
+  </stage>
+  <stage stageid="4cf0ecff-c0ca-47d8-9651-2da1eca85933" name="Convert Response to Collection" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1785" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Result Collection" />
+    </outputs>
+    <onsuccess>2756ecc3-0970-433c-803d-750be27a9d9d</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="2756ecc3-0970-433c-803d-750be27a9d9d" name="Count Rows" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1830" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection.items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Items Returned" />
+    </outputs>
+    <onsuccess>868137b1-f325-4bd1-9689-406ed2c44e52</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="73768c69-68ad-4a82-b4b7-bc626f0aff32" name="End2" type="End">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="2115" />
+  </stage>
+  <stage stageid="5791b6f8-81b5-4380-ab40-107794b10080" name="Pagination Token for Schedule Items per page =1, page 3" type="Data">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d2ff0e39-9cd9-4f83-9eda-ed11a38f3670" name="Retire schedule number 9" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1005" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Context Menu Item to Select" friendlyname="Context Menu Item to Select" expr="&quot;Retire&quot;" />
+      <input type="text" name="Schedule Name" friendlyname="Schedule Name" expr="&quot;Schedule I BP-2361&quot;" />
+    </inputs>
+    <onsuccess>4d8fe891-f252-4f16-bbd2-f54f66c0acc4</onsuccess>
+    <resource object="Blue Prism - Control - Scheduler" action="Select an item on a Schedule context menu (Dynamic)" />
+  </stage>
+  <stage stageid="866919fb-661c-47d2-be34-f8f45f9d5ba6" name="Blue Prism - API - Get Schedules" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1620" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name starts with" friendlyname="Name starts with" narrative="Schedule Name" expr="&quot;Schedule&quot;" />
+      <input type="text" name="Retirement Status" friendlyname="Retirement Status" narrative="Active or Retired" expr="&quot;Retired&quot;" />
+      <input type="number" name="Items Per Page" friendlyname="Items Per Page" narrative="1" expr="1" />
+      <input type="text" name="Paging Token" friendlyname="Paging Token" narrative="mixtures of text and numbers" expr="[Pagination Token for Schedule Items per page =1, page 3]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>d3f2f91b-770c-405b-8b3c-8ae3c4881526</onsuccess>
+    <resource object="Blue Prism - API - Schedules" action="GET schedules" />
+  </stage>
+  <stage stageid="62382612-8370-46fc-9ae9-7a9220d08603" name="Store Pagination Token for Navigating" type="Calculation">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1575" w="90" h="30" />
+    <onsuccess>866919fb-661c-47d2-be34-f8f45f9d5ba6</onsuccess>
+    <calculation expression="[Result Collection.pagingToken]" stage="Pagination Token for Schedule Items per page =1, page 3" />
+  </stage>
+  <stage stageid="8d91d858-6394-44c4-80d7-1f79ac655296" name="Note2" type="Note">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <narrative>&lt;--- In order to use token to navigate backward you have to navigate from page 3 to page 2 because to get to page 1 you simply do not put any token in to the Get Schedule request.</narrative>
+    <display x="255" y="1605" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="008000" />
+  </stage>
+  <stage stageid="d3f2f91b-770c-405b-8b3c-8ae3c4881526" name="Convert Response to Collection" type="Action">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="1665" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Result Collection" />
+    </outputs>
+    <onsuccess>af6d0381-f005-496a-8699-b82189328cba</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="ae300a6f-1a93-42c7-9013-8b8171a8b1a0" name="Check retired schedule J is returned" type="Decision">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="15" y="1440" w="90" h="30" />
+    <decision expression="[Result Collection.items.JSON:Array.name]=&quot;Schedule J BP-2361&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.intervalType]=&quot;Once&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.isRetired]=True&#xA;AND&#xA;[Result Collection.items.JSON:Array.startDate]&gt;=[Start DateTime]&#xA;AND&#xA;[Result Collection.items.JSON:Array.endPoint]&lt;=[End Point]" />
+    <ontrue>76e9c471-981a-4493-8ce0-08cb4518c336</ontrue>
+    <onfalse>6c117847-998a-4959-a87e-285d04678ecd</onfalse>
+  </stage>
+  <stage stageid="2c431bdb-8886-419c-b503-43aef55112f5" name="Check retired schedule J is returned" type="Decision">
+    <subsheetid>353f5795-7015-448c-aea6-de95fdc795e6</subsheetid>
+    <display x="15" y="1965" w="90" h="30" />
+    <decision expression="[Result Collection.items.JSON:Array.name]=&quot;Schedule J BP-2361&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.intervalType]=&quot;Once&quot;&#xA;AND&#xA;[Result Collection.items.JSON:Array.isRetired]=True&#xA;AND&#xA;[Result Collection.items.JSON:Array.startDate]&gt;=[Start DateTime]&#xA;AND&#xA;[Result Collection.items.JSON:Array.endPoint]&lt;=[End Point]" />
+    <ontrue>8f41cb8d-3526-41fb-a979-b066592955cb</ontrue>
+    <onfalse>4f20fb0d-972d-4ea6-aae8-2a0db0be4840</onfalse>
+  </stage>
+  <stage stageid="cc191e0a-2dc2-437e-8fd1-e997bf7d6878" name="Start" type="Start">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <display x="15" y="-300" />
+    <onsuccess>ed0a2f00-2293-48e2-9d97-328edf898bbd</onsuccess>
+  </stage>
+  <stage stageid="ed0a2f00-2293-48e2-9d97-328edf898bbd" name="Launch" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <display x="15" y="-255" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>f0f8e42c-fd63-43da-b931-610d4487920a</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="962e095e-73ce-44f3-ac6b-23fe4666c172" name="Sign In Auth Server" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-165" w="90" h="30" />
+    <onsuccess>ecd5f19d-dce7-45b0-9e3f-016305cfc10b</onsuccess>
+    <resource object="Blue Prism" action="Sign in using Auth Server" />
+  </stage>
+  <stage stageid="ecd5f19d-dce7-45b0-9e3f-016305cfc10b" name="IMS Server:Attach" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-120" w="90" h="30" />
+    <onsuccess>48563fc6-8722-482b-9937-aeccd3643d3a</onsuccess>
+    <resource object="IMS Server" action="Attach" />
+  </stage>
+  <stage stageid="48563fc6-8722-482b-9937-aeccd3643d3a" name="IMS Server:Login" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="&quot;admin&quot;" />
+      <input type="text" name="Password" friendlyname="Password" expr="&quot;Qq1234!!&quot;" />
+    </inputs>
+    <onsuccess>018c462e-b467-429b-abfb-07243fa83ec4</onsuccess>
+    <resource object="IMS Server" action="Login" />
+  </stage>
+  <stage stageid="018c462e-b467-429b-abfb-07243fa83ec4" name="Setup Credential" type="Action">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="Requires Login" friendlyname="Requires Login" narrative="Flag indicating if the login info should be given too" expr="True" />
+      <input type="text" name="Arguments" friendlyname="Arguments" narrative="The arguments to pass to automatec, not including the authentication info" expr="&quot;/createcredential &quot;&quot;BPE-API-Credential&quot;&quot; ServiceAccount E3NbGuz9G/nSpQWdz6DMROZhtIDHtUhev13wsCV72fY=  /credentialtype OAuth2ClientCredentials&quot;" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username that you want to authenticate against." expr="" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the username." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Output" friendlyname="Output" narrative="The output from the command" stage="" />
+    </outputs>
+    <onsuccess>cb5e5d33-ebc8-4dd4-8b66-ab5bd2b110aa</onsuccess>
+    <resource object="Call AutomateC" action="Call AutomateC" />
+  </stage>
+  <stage stageid="6563616c-8ecd-475a-8075-baf279de8a77" name="Credential already exists?" type="Recover">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit />
+    <display x="120" y="-15" w="90" h="30" />
+    <onsuccess>49671973-b262-4f4e-801c-6d88b36fd936</onsuccess>
+  </stage>
+  <stage stageid="49671973-b262-4f4e-801c-6d88b36fd936" name="Resume1" type="Resume">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit />
+    <display x="120" y="45" w="90" h="30" />
+    <onsuccess>cb5e5d33-ebc8-4dd4-8b66-ab5bd2b110aa</onsuccess>
+  </stage>
+  <stage stageid="cb5e5d33-ebc8-4dd4-8b66-ab5bd2b110aa" name="Anchor14" type="Anchor">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="10" h="10" />
+    <onsuccess>8a9b73b6-be78-4f9a-9591-2486012f7bab</onsuccess>
+  </stage>
+  <stage stageid="9941664b-7814-4fea-ba74-fbffc279f615" name="Create credential" type="Block">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="225" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f0f8e42c-fd63-43da-b931-610d4487920a" name="Add to CleanUp Collection" type="SubSheet">
+    <subsheetid>549645e8-f436-4eb0-910c-841591a7364c</subsheetid>
+    <display x="15" y="-210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;Blue Prism&quot;" />
+    </inputs>
+    <onsuccess>962e095e-73ce-44f3-ac6b-23fe4666c172</onsuccess>
+    <processid>cc8ab573-3654-4f19-85b6-b6dbbc97a936</processid>
+  </stage>
+</process>

@@ -1,0 +1,2580 @@
+﻿<process name="Test Queue Locking" version="1.0" narrative="Test to ensure that queue locking and unlocking is working correctly, and that GetPendingItems works correctly" preferredid="c5447d21-2ad6-40cf-86e7-eb9857c7d516">
+  <view>
+    <camerax>0</camerax>
+    <cameray>0</cameray>
+    <zoom>1</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="32e609bb-fb2f-4cb7-bc90-747b679b149d" type="Normal" published="False">
+    <name>Test Get Pending</name>
+    <view>
+      <camerax>79</camerax>
+      <cameray>12</cameray>
+      <zoom>1</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="2c821c45-de73-4a9f-806d-153af271ca09" type="Normal" published="False">
+    <name>Setup Fish</name>
+    <view>
+      <camerax>207</camerax>
+      <cameray>-42</cameray>
+      <zoom>1</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="e65ab99c-abdd-4baa-b738-e63d41a8c866" type="Normal" published="False">
+    <name>Check Exists In Pending</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom>1</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="860775d0-91f8-44fe-9e4a-1316b29fa3ba" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>ff3f6311-1c73-475c-a5f2-210d6547a00b</onsuccess>
+  </stage>
+  <stage stageid="eb0a5ea4-7858-407b-b65f-94629e462815" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>450</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="ca0cb2f4-7ef6-471a-a2d5-31ffe15d1186" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>-240</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="ff3f6311-1c73-475c-a5f2-210d6547a00b" name="Create Fish" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to be created" expr="&quot;Fish&quot;" />
+      <input type="text" name="Key Field" narrative="The key column to use in the collection which makes up a queue item" expr="&quot;Species&quot;" />
+      <input type="number" name="Max Attempts" narrative="The maximum number of retry attempts for the queue. Default: 5" expr="5" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" narrative="Whether the create call was successful or not" stage="Success" />
+      <output type="text" name="Subprocess Output" narrative="The output from the automatec &quot;create queue&quot; process" stage="Subprocess Output" />
+    </outputs>
+    <onsuccess>38cc28ba-c32b-4362-a241-ae1280c3121e</onsuccess>
+    <resource object="Queue Utils" action="Create Queue" />
+  </stage>
+  <stage stageid="6d03fa86-5cf5-4afd-8a31-b805abd4c3e9" name="Success" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-255</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c15c102d-6e5f-4b27-bb8d-6eadb116af7b" name="Subprocess Output" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2f0a7614-eeba-435b-8b9f-abf128155999" name="Fish Bits" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Species" type="text" />
+      <field name="Taste Score" type="number" />
+      <field name="Good Looks" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Species" type="text" value="Cod" />
+        <field name="Taste Score" type="number" value="6" />
+        <field name="Good Looks" type="number" value="1" />
+      </row>
+      <row>
+        <field name="Species" type="text" value="Sardine" />
+        <field name="Taste Score" type="number" value="3" />
+        <field name="Good Looks" type="number" value="1" />
+      </row>
+      <row>
+        <field name="Species" type="text" value="Rainbow Trout" />
+        <field name="Taste Score" type="number" value="7" />
+        <field name="Good Looks" type="number" value="1" />
+      </row>
+      <row>
+        <field name="Species" type="text" value="Tuna" />
+        <field name="Taste Score" type="number" value="6" />
+        <field name="Good Looks" type="number" value="1" />
+      </row>
+      <row>
+        <field name="Species" type="text" value="Sea Bass" />
+        <field name="Taste Score" type="number" value="9" />
+        <field name="Good Looks" type="number" value="1" />
+      </row>
+      <row>
+        <field name="Species" type="text" value="Monkfish" />
+        <field name="Taste Score" type="number" value="8" />
+        <field name="Good Looks" type="number" value="0" />
+      </row>
+      <row>
+        <field name="Species" type="text" value="Coley" />
+        <field name="Taste Score" type="number" value="4" />
+        <field name="Good Looks" type="number" value="1" />
+      </row>
+      <row>
+        <field name="Species" type="text" value="Dogfish" />
+        <field name="Taste Score" type="number" value="1" />
+        <field name="Good Looks" type="number" value="1" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="38cc28ba-c32b-4362-a241-ae1280c3121e" name="Swim free, my friends" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Fish&quot;" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Fish Bits]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="Released IDs" />
+    </outputs>
+    <onsuccess>77f0eb28-8540-476b-b284-ed15769726d3</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="77f0eb28-8540-476b-b284-ed15769726d3" name="Look for locked fish" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="&quot;Fish&quot;" />
+      <input type="text" name="Tags" narrative="The semi-colon separated tags to filter the locked items with. Empty implies that all locked items in the queue should be returned" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Locked Items" narrative="The currently locked items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Locked Items" />
+    </outputs>
+    <onsuccess>6f88690c-d114-472e-94ca-76cecd7b61b4</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Locked Items" />
+  </stage>
+  <stage stageid="0516b6d0-038d-404b-93a4-28c5a1f3f407" name="Locked Items" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>0</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" />
+      <field name="Locked" type="datetime" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="533c7f9d-c5f0-4ed0-9eeb-84d37f5842b8" name="Any there?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>0</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] &gt; 0" />
+    <ontrue>1fb5711f-70a3-4635-8a7f-026fbc40446f</ontrue>
+    <onfalse>20f98ace-4f51-4f31-a8e7-7c9dabc4ebcd</onfalse>
+  </stage>
+  <stage stageid="6f88690c-d114-472e-94ca-76cecd7b61b4" name="Count them" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Locked Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>533c7f9d-c5f0-4ed0-9eeb-84d37f5842b8</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="ea1cf766-0dc7-4c53-b389-611a8e0ca72c" name="Count" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="53ec93d4-5744-474a-916d-70512cb20c00" name="Well, there shouldn't be." type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>-270</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Fish found to be locked immediately after adding to the queue&quot;" />
+  </stage>
+  <stage stageid="dcca30bc-d79d-4796-8188-59ad806509ee" name="Released IDs" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="441bbb8e-15f0-4f8e-98eb-f255f529c5a3" name="Catch a cod" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Fish&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;Cod&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>e850b8d1-23fb-4b13-9d75-1adf4554b0ad</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="f400f80d-0b1b-4948-85da-fdb0c8c9a9f7" name="Setup Fish" type="SubSheetInfo">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="90981d61-d221-4ea0-86c0-9172bd1bac4e" name="Start" type="Start">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>-270</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Released Fish" narrative="The fish that have been released which require careful categorisation" stage="Released IDs" />
+    </inputs>
+    <onsuccess>7faa2582-91d8-4eeb-aa9e-90f1c8a0fc43</onsuccess>
+  </stage>
+  <stage stageid="96306dc2-1c24-470c-9342-48815bc9f6da" name="End" type="End">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="bd4c725d-4d85-456f-89b1-bdab4e7754b0" name="Released IDs" type="Collection">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7faa2582-91d8-4eeb-aa9e-90f1c8a0fc43" name="For Each Released ID" type="LoopStart">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>c05605e8-2ba1-4e9c-91ab-414ba4acd3c0</onsuccess>
+    <groupid>cd13aec0-b4cc-4c52-970e-87e9f4479aca</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Released IDs</loopdata>
+  </stage>
+  <stage stageid="d7f16225-73a7-45c6-b251-4b1d49ceb5cf" name="Next Released ID" type="LoopEnd">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>165</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>96306dc2-1c24-470c-9342-48815bc9f6da</onsuccess>
+    <groupid>cd13aec0-b4cc-4c52-970e-87e9f4479aca</groupid>
+  </stage>
+  <stage stageid="c05605e8-2ba1-4e9c-91ab-414ba4acd3c0" name="Catch the fish" type="Action">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to get data from. An error will be raised if this item does not exist." expr="[Released IDs.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+      <output type="timespan" name="Worktime" narrative="The total time spent on this item (including previous attempts)" stage="" />
+      <output type="timespan" name="Attempt Worktime" narrative="The amount of time spent on this particular attempt of the item" stage="" />
+      <output type="datetime" name="Loaded DateTime" narrative="The date and time at which this item was first loaded into the queue." stage="" />
+      <output type="datetime" name="Deferred DateTime" narrative="The date and time at which this item has been deferred to. Empty if this item has not been deferred." stage="" />
+      <output type="datetime" name="Completed DateTime" narrative="The date and time at which this item was marked as complete. Empty if this item has not been marked as complete" stage="" />
+      <output type="datetime" name="Exception DateTime" narrative="The date and time at which this item was marked as an exception. Empty if there has never been an exception on this item." stage="" />
+      <output type="text" name="Exception Reason" narrative="The exception reason recorded against this item." stage="" />
+      <output type="text" name="Tags" narrative="The semi-colon separated set of tags which apply to the item. " stage="" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Fish Bit" />
+    </outputs>
+    <onsuccess>b9d162d8-5f1f-4a9b-96a3-6933aaaf9b09</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Item Data" />
+  </stage>
+  <stage stageid="b9d162d8-5f1f-4a9b-96a3-6933aaaf9b09" name="But does it taste good?" type="ChoiceStart">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <groupid>4bd33ecb-cf70-4ea3-be82-3ffb14e12331</groupid>
+    <choices>
+      <choice expression="[Fish Bit.Taste Score] &gt; 7">
+        <name>Finger Lickin' Good</name>
+        <distance>30</distance>
+        <ontrue>29048def-9b52-44f8-b5a3-a671c125e822</ontrue>
+      </choice>
+      <choice expression="[Fish Bit.Taste Score] &gt; 4">
+        <name>Pretty Tasty</name>
+        <distance>75</distance>
+        <ontrue>e5680f2d-be55-41ff-b7da-69e5d3ed20b0</ontrue>
+      </choice>
+    </choices>
+  </stage>
+  <stage stageid="e9ea01ba-14e7-4886-ad06-ac4932553271" name="I'll pass, ta" type="ChoiceEnd">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>2321bae5-62d8-4a90-b471-df2fff18311e</onsuccess>
+    <groupid>4bd33ecb-cf70-4ea3-be82-3ffb14e12331</groupid>
+  </stage>
+  <stage stageid="29048def-9b52-44f8-b5a3-a671c125e822" name="Tag as &quot;Taste: Scrummy&quot;" type="Action">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[Released IDs.Item ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;Taste: Scrummy&quot;" />
+    </inputs>
+    <onsuccess>2b2e0712-fd44-4bba-b424-d233965e2c48</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="e5680f2d-be55-41ff-b7da-69e5d3ed20b0" name="Tag as &quot;Taste: Not Bad&quot;" type="Action">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[Released IDs.Item ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;Taste: Not Bad&quot;" />
+    </inputs>
+    <onsuccess>db7aa735-7de7-4448-9622-e18bd59590d8</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="2321bae5-62d8-4a90-b471-df2fff18311e" name="Tag as &quot;Taste: Ick&quot;" type="Action">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[Released IDs.Item ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;Taste: Ick&quot;" />
+    </inputs>
+    <onsuccess>0f065efe-f4c1-4472-ad5e-92f9ca8f51d8</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="2b2e0712-fd44-4bba-b424-d233965e2c48" name="anchor1" type="Anchor">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>db7aa735-7de7-4448-9622-e18bd59590d8</onsuccess>
+  </stage>
+  <stage stageid="db7aa735-7de7-4448-9622-e18bd59590d8" name="anchor2" type="Anchor">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>0f065efe-f4c1-4472-ad5e-92f9ca8f51d8</onsuccess>
+  </stage>
+  <stage stageid="0f065efe-f4c1-4472-ad5e-92f9ca8f51d8" name="anchor3" type="Anchor">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>8216b7f2-1249-4a62-960e-f7cdf7889ef4</onsuccess>
+  </stage>
+  <stage stageid="8216b7f2-1249-4a62-960e-f7cdf7889ef4" name="anchor4" type="Anchor">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>1f92a2ab-36e0-495a-90be-709ca9093e93</onsuccess>
+  </stage>
+  <stage stageid="1f92a2ab-36e0-495a-90be-709ca9093e93" name="anchor5" type="Anchor">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>8f52ae6d-f0b5-4298-9d2d-31a6c9639ea6</onsuccess>
+  </stage>
+  <stage stageid="8f52ae6d-f0b5-4298-9d2d-31a6c9639ea6" name="But does it look good?" type="ChoiceStart">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <groupid>4e79dd34-7411-44fd-a759-843a731a9313</groupid>
+    <choices>
+      <choice expression="[Fish Bit.Good Looks] &gt; 2">
+        <name>Are you sure it's a fish?</name>
+        <distance>30</distance>
+        <ontrue>9fb867fe-c468-43f9-827b-dbe2409abe78</ontrue>
+      </choice>
+      <choice expression="[Fish Bit.Good Looks] &gt; 0">
+        <name>Not bad, for a fish</name>
+        <distance>75</distance>
+        <ontrue>a22d0c50-7a6a-4961-aaf7-9d4dc0947390</ontrue>
+      </choice>
+    </choices>
+  </stage>
+  <stage stageid="64f41eb3-53e1-4049-953c-8d7e23092dae" name="Don't fancy yours much" type="ChoiceEnd">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>4d5171d7-afbc-44a6-9f25-713b1c1940bc</onsuccess>
+    <groupid>4e79dd34-7411-44fd-a759-843a731a9313</groupid>
+  </stage>
+  <stage stageid="9fb867fe-c468-43f9-827b-dbe2409abe78" name="Tag as &quot;Looks: Surprisingly Good&quot;" type="Action">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[Released IDs.Item ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;Looks: Surprisingly Good&quot;" />
+    </inputs>
+    <onsuccess>dbd0ccaf-3762-47de-ac98-bc2dee951f92</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="a22d0c50-7a6a-4961-aaf7-9d4dc0947390" name="Tag as &quot;Looks: Average, for a fish&quot;" type="Action">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[Released IDs.Item ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;Looks: Average, for a fish&quot;" />
+    </inputs>
+    <onsuccess>9d40d8db-5448-42be-b366-5f160035c8db</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="4d5171d7-afbc-44a6-9f25-713b1c1940bc" name="Tag as &quot;Looks: Ick&quot;" type="Action">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>135</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[Released IDs.Item ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;Looks: Ick&quot;" />
+    </inputs>
+    <onsuccess>f9559cb1-342e-4190-9127-07c21487608c</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="dbd0ccaf-3762-47de-ac98-bc2dee951f92" name="anchor1" type="Anchor">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>45</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>9d40d8db-5448-42be-b366-5f160035c8db</onsuccess>
+  </stage>
+  <stage stageid="9d40d8db-5448-42be-b366-5f160035c8db" name="anchor2" type="Anchor">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>90</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>f9559cb1-342e-4190-9127-07c21487608c</onsuccess>
+  </stage>
+  <stage stageid="f9559cb1-342e-4190-9127-07c21487608c" name="anchor3" type="Anchor">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>135</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>108462d7-d80d-44a2-933d-b4dbe27ee9f5</onsuccess>
+  </stage>
+  <stage stageid="108462d7-d80d-44a2-933d-b4dbe27ee9f5" name="anchor4" type="Anchor">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>165</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>d7f16225-73a7-45c6-b251-4b1d49ceb5cf</onsuccess>
+  </stage>
+  <stage stageid="20f98ace-4f51-4f31-a8e7-7c9dabc4ebcd" name="Setup Fish" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Released Fish" narrative="The fish that have been released which require careful categorisation" expr="[Released IDs]" />
+    </inputs>
+    <onsuccess>23406e97-d9bc-4fbb-816a-a7037fefdcc2</onsuccess>
+    <processid>2c821c45-de73-4a9f-806d-153af271ca09</processid>
+  </stage>
+  <stage stageid="e8c29ced-8b99-4cf6-b360-c85a0ceead55" name="Item ID" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-255</displayx>
+    <displayy>90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="09c8a331-88d8-4506-9f08-1e47d17d5702" name="Get a second cod" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Fish&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;Cod&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID II" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>b4de43c2-b37f-4148-bf38-6250f8db8074</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="60d9786a-f815-4475-b464-e396947022ce" name="Item ID II" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-150</displayx>
+    <displayy>90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e850b8d1-23fb-4b13-9d75-1adf4554b0ad" name="Look for locked fish" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="&quot;Fish&quot;" />
+      <input type="text" name="Tags" narrative="The semi-colon separated tags to filter the locked items with. Empty implies that all locked items in the queue should be returned" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Locked Items" narrative="The currently locked items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Locked Items" />
+    </outputs>
+    <onsuccess>e010e35d-c44b-47ae-b2fe-0623b7a3c095</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Locked Items" />
+  </stage>
+  <stage stageid="aaa7d672-43bc-40d1-82f3-12113a19ea9d" name="Just the one?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] = 1" />
+    <ontrue>c5edcf19-e8ab-441c-a24b-c5de6fc63162</ontrue>
+    <onfalse>c788a079-0521-4ae8-a336-ba635385be35</onfalse>
+  </stage>
+  <stage stageid="e010e35d-c44b-47ae-b2fe-0623b7a3c095" name="Count them" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Locked Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>aaa7d672-43bc-40d1-82f3-12113a19ea9d</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="c788a079-0521-4ae8-a336-ba635385be35" name="There can be only one" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>300</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Should be just one locked fish found after a single GetNext - found &quot; &amp; [Count]" />
+  </stage>
+  <stage stageid="b4de43c2-b37f-4148-bf38-6250f8db8074" name="Any more?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID II] &lt;&gt; &quot;&quot;" />
+    <ontrue>4d712c96-9150-4325-80ca-61cde01328d6</ontrue>
+    <onfalse>34846b03-aa00-41af-bf58-fc98fde2ffc8</onfalse>
+  </stage>
+  <stage stageid="4d712c96-9150-4325-80ca-61cde01328d6" name="Well, there shouldn't be." type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>300</displayx>
+    <displayy>90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Locking on GetNext didn't work. Items found : &quot; &amp; [Item ID] &amp; &quot; -and- &quot; &amp; [Item ID II]" />
+  </stage>
+  <stage stageid="34846b03-aa00-41af-bf58-fc98fde2ffc8" name="Look for really tasty locked fish" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>135</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="&quot;Fish&quot;" />
+      <input type="text" name="Tags" narrative="The semi-colon separated tags to filter the locked items with. Empty implies that all locked items in the queue should be returned" expr="&quot;Taste: Scrummy&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Locked Items" narrative="The currently locked items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Locked Items" />
+    </outputs>
+    <onsuccess>9d7f1592-62fc-46b1-9ba9-37598898fc81</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Locked Items" />
+  </stage>
+  <stage stageid="9d7f1592-62fc-46b1-9ba9-37598898fc81" name="Count them" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>180</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Locked Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>837cce1f-be40-436d-bbdb-77c76216fc76</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="837cce1f-be40-436d-bbdb-77c76216fc76" name="Any there?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>225</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] &gt; 0" />
+    <ontrue>c2aec1a2-df76-40d6-b52e-410f4f05eaa5</ontrue>
+    <onfalse>abe28ba9-d0cc-4a0b-92f4-db4baf05de06</onfalse>
+  </stage>
+  <stage stageid="c2aec1a2-df76-40d6-b52e-410f4f05eaa5" name="Well, there shouldn't be." type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>300</displayx>
+    <displayy>225</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Cod isn't that tasty - shouldn't be returned in GetLocked(Scrummy)&quot;" />
+  </stage>
+  <stage stageid="1fb5711f-70a3-4635-8a7f-026fbc40446f" name="anchor6" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>0</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>53ec93d4-5744-474a-916d-70512cb20c00</onsuccess>
+  </stage>
+  <stage stageid="23406e97-d9bc-4fbb-816a-a7037fefdcc2" name="anchor6" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>45</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>695d746e-9520-4f75-8c7f-7ac3ada03dcd</onsuccess>
+  </stage>
+  <stage stageid="695d746e-9520-4f75-8c7f-7ac3ada03dcd" name="anchor6" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>441bbb8e-15f0-4f8e-98eb-f255f529c5a3</onsuccess>
+  </stage>
+  <stage stageid="abe28ba9-d0cc-4a0b-92f4-db4baf05de06" name="Look for quite nice locked fish" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>270</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="&quot;Fish&quot;" />
+      <input type="text" name="Tags" narrative="The semi-colon separated tags to filter the locked items with. Empty implies that all locked items in the queue should be returned" expr="&quot;Taste: Not Bad&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Locked Items" narrative="The currently locked items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Locked Items" />
+    </outputs>
+    <onsuccess>ffeecc9f-8b6a-40b0-81b8-e87091ae3cf0</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Locked Items" />
+  </stage>
+  <stage stageid="ffeecc9f-8b6a-40b0-81b8-e87091ae3cf0" name="Count them" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>315</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Locked Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>fedd8695-6f69-4fba-9245-dd30b79bbc63</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="fedd8695-6f69-4fba-9245-dd30b79bbc63" name="Just the one?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] = 1" />
+    <ontrue>94e9236b-20a5-4f4d-a000-977ac6dab212</ontrue>
+    <onfalse>fffa2107-eef0-4765-9b4c-51c38502101f</onfalse>
+  </stage>
+  <stage stageid="fffa2107-eef0-4765-9b4c-51c38502101f" name="There can be only one" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>300</displayx>
+    <displayy>360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Should be just one quite nice locked fish found after a single GetNext - found &quot; &amp; [Count]" />
+  </stage>
+  <stage stageid="4ee7ba7f-ed6f-4bba-bc4e-3c0dbde60c22" name="Catch an ugly one" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Fish&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="&quot;Looks: Ick&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID II" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>2cd8f417-dd6a-45f3-a62a-bc3e2de3334c</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="94e9236b-20a5-4f4d-a000-977ac6dab212" name="anchor6" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>405</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>343187a3-29b7-4b52-abbc-62c9dab056d5</onsuccess>
+  </stage>
+  <stage stageid="343187a3-29b7-4b52-abbc-62c9dab056d5" name="anchor6" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>360</displayx>
+    <displayy>405</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>dbf2c4ca-951c-4769-990f-cac2c2cbefb6</onsuccess>
+  </stage>
+  <stage stageid="dbf2c4ca-951c-4769-990f-cac2c2cbefb6" name="anchor6" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>360</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>4ee7ba7f-ed6f-4bba-bc4e-3c0dbde60c22</onsuccess>
+  </stage>
+  <stage stageid="2cd8f417-dd6a-45f3-a62a-bc3e2de3334c" name="Look for locked fish" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="&quot;Fish&quot;" />
+      <input type="text" name="Tags" narrative="The semi-colon separated tags to filter the locked items with. Empty implies that all locked items in the queue should be returned" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Locked Items" narrative="The currently locked items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Locked Items" />
+    </outputs>
+    <onsuccess>814d0fe2-1615-4347-8468-a088169aa9ab</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Locked Items" />
+  </stage>
+  <stage stageid="9756a283-02d1-4c51-aa2a-ef2cfcdee76e" name="Two, right?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] = 2" />
+    <ontrue>5a5330ef-8c19-4ea4-a48f-20833092d275</ontrue>
+    <onfalse>557b3454-a96f-40d8-9c37-14d3302f45cc</onfalse>
+  </stage>
+  <stage stageid="814d0fe2-1615-4347-8468-a088169aa9ab" name="Count them" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Locked Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>9756a283-02d1-4c51-aa2a-ef2cfcdee76e</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="557b3454-a96f-40d8-9c37-14d3302f45cc" name="Two's company" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>570</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Should be two locked fish - found &quot; &amp; [Count]" />
+  </stage>
+  <stage stageid="46372808-eea5-4df7-a5eb-2f9b718cb2d8" name="Look for really tasty locked fish" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="&quot;Fish&quot;" />
+      <input type="text" name="Tags" narrative="The semi-colon separated tags to filter the locked items with. Empty implies that all locked items in the queue should be returned" expr="&quot;Taste: Scrummy&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Locked Items" narrative="The currently locked items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Locked Items" />
+    </outputs>
+    <onsuccess>edf66092-695d-4e92-b161-74c5e7062c03</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Locked Items" />
+  </stage>
+  <stage stageid="edf66092-695d-4e92-b161-74c5e7062c03" name="Count them" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Locked Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>fe4f78cb-fa4b-4224-bfff-882db51796dd</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="fe4f78cb-fa4b-4224-bfff-882db51796dd" name="Just the one?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] = 1" />
+    <ontrue>05bd4c93-e63f-49df-8bbb-e895d57a2e1a</ontrue>
+    <onfalse>832d1be2-df8e-4d6c-a014-4ee40ccd4cc5</onfalse>
+  </stage>
+  <stage stageid="832d1be2-df8e-4d6c-a014-4ee40ccd4cc5" name="There can be only one" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>570</displayx>
+    <displayy>135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Should be just tasty fish found after two GetNexts - found &quot; &amp; [Count]" />
+  </stage>
+  <stage stageid="05bd4c93-e63f-49df-8bbb-e895d57a2e1a" name="Look for quite nice locked fish" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>180</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="&quot;Fish&quot;" />
+      <input type="text" name="Tags" narrative="The semi-colon separated tags to filter the locked items with. Empty implies that all locked items in the queue should be returned" expr="&quot;Taste: Not Bad&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Locked Items" narrative="The currently locked items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Locked Items" />
+    </outputs>
+    <onsuccess>8f1bdd8f-9116-4834-94a9-f177561de7b2</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Locked Items" />
+  </stage>
+  <stage stageid="3d7139c8-fbff-4802-bb42-28f347d625eb" name="Just the one?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>270</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] = 1" />
+    <ontrue>d4a40a11-c88e-40fd-b266-9824ca359364</ontrue>
+    <onfalse>b9c40c43-6a4a-46a3-9d4c-766e5779b377</onfalse>
+  </stage>
+  <stage stageid="b9c40c43-6a4a-46a3-9d4c-766e5779b377" name="There can be only one" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>570</displayx>
+    <displayy>270</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Should be just one quite nice locked fish found after two GetNexts - found &quot; &amp; [Count]" />
+  </stage>
+  <stage stageid="d4a40a11-c88e-40fd-b266-9824ca359364" name="Look for edible locked fish" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>315</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="&quot;Fish&quot;" />
+      <input type="text" name="Tags" narrative="The semi-colon separated tags to filter the locked items with. Empty implies that all locked items in the queue should be returned" expr="&quot;-Taste: Ick&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Locked Items" narrative="The currently locked items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Locked Items" />
+    </outputs>
+    <onsuccess>26b4cfa5-fb52-48d3-9f53-054973da215c</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Locked Items" />
+  </stage>
+  <stage stageid="5460ab5b-7d32-4e65-8500-8a346bc3060c" name="Two, right?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>405</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] = 2" />
+    <ontrue>2a00bca4-986d-4ff1-9ae4-fe32ff81ba84</ontrue>
+    <onfalse>0ff6d50c-9bb8-4bc6-96f0-3606786f8729</onfalse>
+  </stage>
+  <stage stageid="0ff6d50c-9bb8-4bc6-96f0-3606786f8729" name="Two's company" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>570</displayx>
+    <displayy>405</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Should be two edible locked fish - found &quot; &amp; [Count]" />
+  </stage>
+  <stage stageid="2a00bca4-986d-4ff1-9ae4-fe32ff81ba84" name="anchor6" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>450</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>9a24b4f2-1074-4941-b848-f8d4faca7b21</onsuccess>
+  </stage>
+  <stage stageid="9a24b4f2-1074-4941-b848-f8d4faca7b21" name="anchor6" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>630</displayx>
+    <displayy>450</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>1369fc58-1967-4dd9-be0d-8d529708ee05</onsuccess>
+  </stage>
+  <stage stageid="1369fc58-1967-4dd9-be0d-8d529708ee05" name="anchor6" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>630</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>6377e2e5-e774-44b5-a0eb-49fd3cf2c4a5</onsuccess>
+  </stage>
+  <stage stageid="6377e2e5-e774-44b5-a0eb-49fd3cf2c4a5" name="Release the cod" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="Unlocked" />
+    </outputs>
+    <onsuccess>5565d0de-01bc-4757-80e5-ad6fcedb2445</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="a1a38e95-9407-4ae5-af8a-d4e879daf191" name="Unlocked" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b8258965-05c2-4e56-9989-d8e6df9d90db" name="Look for locked fish" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="&quot;Fish&quot;" />
+      <input type="text" name="Tags" narrative="The semi-colon separated tags to filter the locked items with. Empty implies that all locked items in the queue should be returned" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Locked Items" narrative="The currently locked items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Locked Items" />
+    </outputs>
+    <onsuccess>0592ddbc-49fc-4c8b-8ca6-11738e96508d</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Locked Items" />
+  </stage>
+  <stage stageid="bca83dee-811b-4d5e-9307-272b1df80d80" name="Just the one?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] = 1" />
+    <ontrue>eb86da83-0ab5-448b-be33-ec292f09b9da</ontrue>
+    <onfalse>b0bf82e2-8c42-454a-bd06-c11cb0934fbb</onfalse>
+  </stage>
+  <stage stageid="0592ddbc-49fc-4c8b-8ca6-11738e96508d" name="Count them" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Locked Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>bca83dee-811b-4d5e-9307-272b1df80d80</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="b0bf82e2-8c42-454a-bd06-c11cb0934fbb" name="There can be only one" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>825</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception II" detail="&quot;Should be just one locked fish found after releasing the cod - found &quot; &amp; [Count]" />
+  </stage>
+  <stage stageid="8f1bdd8f-9116-4834-94a9-f177561de7b2" name="Count them" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>225</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Locked Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>3d7139c8-fbff-4802-bb42-28f347d625eb</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="26b4cfa5-fb52-48d3-9f53-054973da215c" name="Count them" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>360</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Locked Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>5460ab5b-7d32-4e65-8500-8a346bc3060c</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="5565d0de-01bc-4757-80e5-ad6fcedb2445" name="Did we release it?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Unlocked]" />
+    <ontrue>b8258965-05c2-4e56-9989-d8e6df9d90db</ontrue>
+    <onfalse>ed9450b5-39a6-481e-8e29-5db2ce302383</onfalse>
+  </stage>
+  <stage stageid="ed9450b5-39a6-481e-8e29-5db2ce302383" name="Then who did?" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>825</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Cod not unlocked by us...&quot;" />
+  </stage>
+  <stage stageid="658b9591-c465-4232-b13c-ca96bef1b88f" name="Look for quite nice locked fish" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="&quot;Fish&quot;" />
+      <input type="text" name="Tags" narrative="The semi-colon separated tags to filter the locked items with. Empty implies that all locked items in the queue should be returned" expr="&quot;Taste: Not Bad&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Locked Items" narrative="The currently locked items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Locked Items" />
+    </outputs>
+    <onsuccess>eae2dedd-a1a3-456c-a8d9-65a065e31866</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Locked Items" />
+  </stage>
+  <stage stageid="eae2dedd-a1a3-456c-a8d9-65a065e31866" name="Count them" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Locked Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>03b02b2b-3724-4560-b1af-d0d3376f485b</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="03b02b2b-3724-4560-b1af-d0d3376f485b" name="Any there?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] &gt; 0" />
+    <ontrue>71a3b97e-2cef-42eb-a91f-337ccdb7d947</ontrue>
+    <onfalse>0792c2be-c51d-4d4b-bc60-8fccb74675f8</onfalse>
+  </stage>
+  <stage stageid="71a3b97e-2cef-42eb-a91f-337ccdb7d947" name="Well, there shouldn't be." type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>825</displayx>
+    <displayy>180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Cod's been released. No quite nice locked fish should be around. Found : &quot; &amp; [Count]" />
+  </stage>
+  <stage stageid="0792c2be-c51d-4d4b-bc60-8fccb74675f8" name="Mark the monkfish as eaten" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>225</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID II]" />
+    </inputs>
+    <onsuccess>dac5e9ea-1571-46cb-a123-10829fc16a89</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="dac5e9ea-1571-46cb-a123-10829fc16a89" name="Try and release it" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>270</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Item ID II]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="Unlocked" />
+    </outputs>
+    <onsuccess>be01970b-c64e-4e1c-ba7e-ccbf12f364e9</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="be01970b-c64e-4e1c-ba7e-ccbf12f364e9" name="Did we release it?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>315</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Unlocked]" />
+    <ontrue>d2d49a91-41c0-4839-9f67-b533cb9241cb</ontrue>
+    <onfalse>a377cbc7-bc4f-4b7e-b57a-e390883365f4</onfalse>
+  </stage>
+  <stage stageid="d2d49a91-41c0-4839-9f67-b533cb9241cb" name="Well we shouldn't have" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>825</displayx>
+    <displayy>315</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Monkfish unlocked by us... it shouldn't have been&quot;" />
+  </stage>
+  <stage stageid="d3c8b352-467e-4527-9229-92c375f36b90" name="Fish Bit" type="Collection">
+    <subsheetid>2c821c45-de73-4a9f-806d-153af271ca09</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>30</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="aead4895-e13d-4261-badf-f6cce9f3939a" name="Check Exists In Pending" type="SubSheetInfo">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>Checks if a particular item exists in the pending items collection or not.</narrative>
+    <displayx>-165</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="948ac7cb-ecbc-4829-9529-0f1288b888fe" name="Start" type="Start">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-225</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to check for in the pending items." stage="Item ID" />
+      <input type="number" name="Expected Count" narrative="The expected number of work queue items found to be pending" stage="Expected Count" />
+    </inputs>
+    <onsuccess>e895cff7-bea2-4928-ae0c-a3383a2c8159</onsuccess>
+  </stage>
+  <stage stageid="43fd6e89-5568-49e8-9ee1-83df0de894fb" name="End" type="End">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="flag" name="Exists" narrative="Flag to indicate whether the given item ID exists in the pending items." stage="Exists" />
+    </outputs>
+  </stage>
+  <stage stageid="7652dafd-f170-49f3-a6d9-63a5571c0f74" name="Item ID" type="Data">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="367b1b85-e189-4277-b516-3b2a7839f122" name="Expected Count" type="Data">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-120</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>-1</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e895cff7-bea2-4928-ae0c-a3383a2c8159" name="Get Pending Items" type="Action">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="&quot;Fish&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="" />
+      <input type="number" name="Maximum" narrative="Optionally, the maximum number of items to return. Default is to return all items" expr="" />
+      <input type="number" name="Skip" narrative="Optionally, the number of items to skip before returning. Default is zero, ie. return all items from the head of the queue" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Pending Items" narrative="The currently pending items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Pending Items" />
+    </outputs>
+    <onsuccess>fc2e2b0c-ec20-4a29-b159-30ceb159765e</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Pending Items" />
+  </stage>
+  <stage stageid="c558096a-e485-4d52-aa28-d09e6239c1ad" name="Pending Items" type="Collection">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="d3c8fc7c-eb96-47ee-a41e-1ead3e0a829f" name="For Each Pending Item" type="LoopStart">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>0</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>f595ac93-9c01-4c03-859f-ff6a4c127346</onsuccess>
+    <groupid>330d634a-f4b3-4c5a-a051-4eb4743d3dcd</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Pending Items</loopdata>
+  </stage>
+  <stage stageid="77640edb-0bc8-4668-97d3-8ee239d49416" name="Next Pending Item" type="LoopEnd">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>43fd6e89-5568-49e8-9ee1-83df0de894fb</onsuccess>
+    <groupid>330d634a-f4b3-4c5a-a051-4eb4743d3dcd</groupid>
+  </stage>
+  <stage stageid="f595ac93-9c01-4c03-859f-ff6a4c127346" name="Does this match our Item ID?" type="Decision">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Pending Items.Item ID] = [Item ID]" />
+    <ontrue>6ab06068-fa68-4cb3-8e16-74846cdbae63</ontrue>
+    <onfalse>77640edb-0bc8-4668-97d3-8ee239d49416</onfalse>
+  </stage>
+  <stage stageid="0b63e6cb-b630-4efe-b352-264b35187085" name="Exists" type="Data">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6ab06068-fa68-4cb3-8e16-74846cdbae63" name="Exists = True" type="Calculation">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>458599e6-9c91-4cfc-8add-8800513485ee</onsuccess>
+    <calculation expression="True" stage="Exists" />
+  </stage>
+  <stage stageid="458599e6-9c91-4cfc-8add-8800513485ee" name="anchor7" type="Anchor">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>150</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>43fd6e89-5568-49e8-9ee1-83df0de894fb</onsuccess>
+  </stage>
+  <stage stageid="c5edcf19-e8ab-441c-a24b-c5de6fc63162" name="Check If It's Pending" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to check for in the pending items." expr="[Item ID]" />
+      <input type="number" name="Expected Count" narrative="The expected number of work queue items found to be pending" expr="7" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Exists" narrative="Flag to indicate whether the given item ID exists in the pending items." stage="Is In Pending" />
+    </outputs>
+    <onsuccess>48a9e05a-49ec-4aab-b200-3f230cf1ee47</onsuccess>
+    <processid>e65ab99c-abdd-4baa-b738-e63d41a8c866</processid>
+  </stage>
+  <stage stageid="8708a385-3940-48d4-a150-e40acd3d7e99" name="Count how many are pending" type="Action">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Pending Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>c126fcb2-44ca-4244-9c64-22c4365495a2</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="28a36eec-8354-4514-86f2-2bf00adf2e39" name="Count" type="Data">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c126fcb2-44ca-4244-9c64-22c4365495a2" name="Does it match?" type="Decision">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] = [Expected Count]" />
+    <ontrue>d3c8fc7c-eb96-47ee-a41e-1ead3e0a829f</ontrue>
+    <onfalse>db9911f9-cd95-43e6-85bd-d8f7d5ec5352</onfalse>
+  </stage>
+  <stage stageid="db9911f9-cd95-43e6-85bd-d8f7d5ec5352" name="Wrong number of pending items." type="Exception">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Expected &quot; &amp; [Expected Count] &amp; &quot; pending items. Found : &quot; &amp; [Count]" />
+  </stage>
+  <stage stageid="fc2e2b0c-ec20-4a29-b159-30ceb159765e" name="Are we checking the count?" type="Decision">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Expected Count] &gt;= 0" />
+    <ontrue>8708a385-3940-48d4-a150-e40acd3d7e99</ontrue>
+    <onfalse>f0068ca6-9e7b-4345-8aa3-0d697220a844</onfalse>
+  </stage>
+  <stage stageid="f0068ca6-9e7b-4345-8aa3-0d697220a844" name="anchor8" type="Anchor">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>225</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>b6539517-b67b-4535-8392-4c14aa33aa37</onsuccess>
+  </stage>
+  <stage stageid="b6539517-b67b-4535-8392-4c14aa33aa37" name="anchor8" type="Anchor">
+    <subsheetid>e65ab99c-abdd-4baa-b738-e63d41a8c866</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>225</displayx>
+    <displayy>0</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>d3c8fc7c-eb96-47ee-a41e-1ead3e0a829f</onsuccess>
+  </stage>
+  <stage stageid="8e1c2b25-09d1-4fb3-9a40-c237b5d22ab4" name="Is In Pending" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="48a9e05a-49ec-4aab-b200-3f230cf1ee47" name="Well, is it?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>0</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Is In Pending]" />
+    <ontrue>1e5b0a13-62a6-464d-9d94-46e63c2d495d</ontrue>
+    <onfalse>09c8a331-88d8-4506-9f08-1e47d17d5702</onfalse>
+  </stage>
+  <stage stageid="1e5b0a13-62a6-464d-9d94-46e63c2d495d" name="Well, it shouldn't be." type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>300</displayx>
+    <displayy>0</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Cod was found to be pending. Item ID : &quot; &amp; [Item ID]" />
+  </stage>
+  <stage stageid="5a5330ef-8c19-4ea4-a48f-20833092d275" name="Check If It's Pending" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to check for in the pending items." expr="[Item ID II]" />
+      <input type="number" name="Expected Count" narrative="The expected number of work queue items found to be pending" expr="6" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Exists" narrative="Flag to indicate whether the given item ID exists in the pending items." stage="Is In Pending" />
+    </outputs>
+    <onsuccess>bbf5de56-9f2c-4546-b486-2eea2c046c07</onsuccess>
+    <processid>e65ab99c-abdd-4baa-b738-e63d41a8c866</processid>
+  </stage>
+  <stage stageid="bbf5de56-9f2c-4546-b486-2eea2c046c07" name="Well, is it?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>0</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Is In Pending]" />
+    <ontrue>e16c3722-5825-45a6-8f35-c3426f1a5daa</ontrue>
+    <onfalse>46372808-eea5-4df7-a5eb-2f9b718cb2d8</onfalse>
+  </stage>
+  <stage stageid="e16c3722-5825-45a6-8f35-c3426f1a5daa" name="Well, it shouldn't be." type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>570</displayx>
+    <displayy>0</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Monkfish was found to be pending. Item ID : &quot; &amp; [Item ID II]" />
+  </stage>
+  <stage stageid="eb86da83-0ab5-448b-be33-ec292f09b9da" name="Check If It's Pending" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>0</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to check for in the pending items." expr="[Item ID]" />
+      <input type="number" name="Expected Count" narrative="The expected number of work queue items found to be pending" expr="7" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Exists" narrative="Flag to indicate whether the given item ID exists in the pending items." stage="Is In Pending" />
+    </outputs>
+    <onsuccess>ce285ddf-2311-4911-a5f8-79efa5a71a97</onsuccess>
+    <processid>e65ab99c-abdd-4baa-b738-e63d41a8c866</processid>
+  </stage>
+  <stage stageid="ce285ddf-2311-4911-a5f8-79efa5a71a97" name="Well, is it?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Is In Pending]" />
+    <ontrue>658b9591-c465-4232-b13c-ca96bef1b88f</ontrue>
+    <onfalse>1f991576-3147-441b-ad76-afd395c52a9a</onfalse>
+  </stage>
+  <stage stageid="1f991576-3147-441b-ad76-afd395c52a9a" name="Well, now it should be." type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>825</displayx>
+    <displayy>45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Unlocked cod was *not* found to be pending. Item ID : &quot; &amp; [Item ID]" />
+  </stage>
+  <stage stageid="67c153c9-e403-40e1-9f61-9a7cc8cc3b65" name="Test Get Pending" type="SubSheetInfo">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>Further tests for get pending.</narrative>
+    <displayx>-255</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="cea406be-5542-4aba-878a-9380908f8e06" name="Start" type="Start">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e96de33a-ab04-480f-a967-5dc8e531b8ca</onsuccess>
+  </stage>
+  <stage stageid="011495e8-c4fd-4215-97b3-c19f25886e1e" name="End" type="End">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>240</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="a377cbc7-bc4f-4b7e-b57a-e390883365f4" name="Test Get Pending" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>2c192134-ef6f-4b60-b70d-9874628b2288</onsuccess>
+    <processid>32e609bb-fb2f-4cb7-bc90-747b679b149d</processid>
+  </stage>
+  <stage stageid="aabcc885-e712-4007-ae7a-9c61124f3368" name="Note1" type="Note">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>Current state of play is that there are 8 items in the list, 7 pending, 1 completed. The completed one is 'Monkfish'</narrative>
+    <displayx>-90</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="e96de33a-ab04-480f-a967-5dc8e531b8ca" name="Get Pending Cod" type="Action">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="&quot;Fish&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;Cod&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="" />
+      <input type="number" name="Maximum" narrative="Optionally, the maximum number of items to return. Default is to return all items" expr="" />
+      <input type="number" name="Skip" narrative="Optionally, the number of items to skip before returning. Default is zero, ie. return all items from the head of the queue" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Pending Items" narrative="The currently pending items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Pending Items" />
+    </outputs>
+    <onsuccess>6cdc3262-a966-4c28-81b1-2101d1e4c5ca</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Pending Items" />
+  </stage>
+  <stage stageid="e3764ac8-0b6d-4755-a6a5-b4e4fbd52e09" name="Pending Items" type="Collection">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="9d639aee-c39b-4bac-916f-a4642dfa115a" name="Is there one there?" type="Decision">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] = 1" />
+    <ontrue>aa40c95c-215d-412c-9674-c54e35252882</ontrue>
+    <onfalse>7f4af0bc-890f-4930-b7bb-1e5e02d6510e</onfalse>
+  </stage>
+  <stage stageid="6cdc3262-a966-4c28-81b1-2101d1e4c5ca" name="Count them" type="Action">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Pending Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>9d639aee-c39b-4bac-916f-a4642dfa115a</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="9cf251d0-611a-4d80-9260-7222fbb57a2f" name="Count" type="Data">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3fbf0608-a3c2-4143-b9d2-0c1823dadf3b" name="Get Pending Monkfish" type="Action">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="&quot;Fish&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;Monkfish&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="" />
+      <input type="number" name="Maximum" narrative="Optionally, the maximum number of items to return. Default is to return all items" expr="" />
+      <input type="number" name="Skip" narrative="Optionally, the number of items to skip before returning. Default is zero, ie. return all items from the head of the queue" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Pending Items" narrative="The currently pending items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Pending Items" />
+    </outputs>
+    <onsuccess>0a28841d-b6d0-468b-a01e-ba4f3b170ac6</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Pending Items" />
+  </stage>
+  <stage stageid="2e1640bc-cd6c-49be-85fb-5013baaf5e1e" name="Any there?" type="Decision">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] &gt; 0" />
+    <ontrue>c0e7ca2a-c888-4a50-a2e7-5b204ae8489c</ontrue>
+    <onfalse>2684fcc8-2190-4e87-bd72-a28b2589a40e</onfalse>
+  </stage>
+  <stage stageid="0a28841d-b6d0-468b-a01e-ba4f3b170ac6" name="Count them" type="Action">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Pending Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>2e1640bc-cd6c-49be-85fb-5013baaf5e1e</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="7f4af0bc-890f-4930-b7bb-1e5e02d6510e" name="That's not right" type="Exception">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Should be one pending cod. Found : &quot; &amp; [Count]" />
+  </stage>
+  <stage stageid="c0e7ca2a-c888-4a50-a2e7-5b204ae8489c" name="That's not right" type="Exception">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Should be no  pending monkfish. Found : &quot; &amp; [Count]" />
+  </stage>
+  <stage stageid="2684fcc8-2190-4e87-bd72-a28b2589a40e" name="Get Pending (Max := 3)" type="Action">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>300</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="&quot;Fish&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="" />
+      <input type="number" name="Maximum" narrative="Optionally, the maximum number of items to return. Default is to return all items" expr="3" />
+      <input type="number" name="Skip" narrative="Optionally, the number of items to skip before returning. Default is zero, ie. return all items from the head of the queue" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Pending Items" narrative="The currently pending items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Saved Items" />
+    </outputs>
+    <onsuccess>fcb6eea9-8f3c-4370-bb17-be90da9f4d34</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Pending Items" />
+  </stage>
+  <stage stageid="05b4bf46-c650-47a8-a900-44f1908ed4ec" name="Saved Items" type="Collection">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="fcb6eea9-8f3c-4370-bb17-be90da9f4d34" name="Count them" type="Action">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>345</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Saved Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>4dfd32be-86ee-47ed-a24c-2ef2e3fbc528</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="4dfd32be-86ee-47ed-a24c-2ef2e3fbc528" name="Three, right?" type="Decision">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>390</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] = 3" />
+    <ontrue>61bea469-6489-43c5-98c8-e35b6e305a79</ontrue>
+    <onfalse>d615eebd-7294-4cb6-9d0d-287a94bfb995</onfalse>
+  </stage>
+  <stage stageid="d615eebd-7294-4cb6-9d0d-287a94bfb995" name="That's not right" type="Exception">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>390</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;GetPending (Max:3) return &quot; &amp; [Count] &amp; &quot; items&quot;" />
+  </stage>
+  <stage stageid="cc1a88b1-ac11-40f1-aaf2-7d08e113f9ae" name="Get Pending (Max:=3, Skip:=3)" type="Action">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the locked items are required" expr="&quot;Fish&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="" />
+      <input type="number" name="Maximum" narrative="Optionally, the maximum number of items to return. Default is to return all items" expr="3" />
+      <input type="number" name="Skip" narrative="Optionally, the number of items to skip before returning. Default is zero, ie. return all items from the head of the queue" expr="3" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Pending Items" narrative="The currently pending items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Pending Items 2" />
+    </outputs>
+    <onsuccess>a62e427a-72c5-4578-9e19-73dd1f959f16</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Pending Items" />
+  </stage>
+  <stage stageid="a62e427a-72c5-4578-9e19-73dd1f959f16" name="Count them" type="Action">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Pending Items 2&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>516f9abd-72b0-4822-bb2a-d875b61c4d6a</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="516f9abd-72b0-4822-bb2a-d875b61c4d6a" name="Three, right?" type="Decision">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] = 3" />
+    <ontrue>0086feaf-7470-41f2-8d60-23d862ece08d</ontrue>
+    <onfalse>064ca38b-ca43-456e-803a-29005ac4b1b8</onfalse>
+  </stage>
+  <stage stageid="064ca38b-ca43-456e-803a-29005ac4b1b8" name="That's not right" type="Exception">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;GetPending (Max:3,Skip:3) return &quot; &amp; [Count] &amp; &quot; items&quot;" />
+  </stage>
+  <stage stageid="61bea469-6489-43c5-98c8-e35b6e305a79" name="anchor9" type="Anchor">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>420</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>9127c5b2-b23d-453a-ac8c-d139aa9eb4df</onsuccess>
+  </stage>
+  <stage stageid="9127c5b2-b23d-453a-ac8c-d139aa9eb4df" name="anchor10" type="Anchor">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>225</displayx>
+    <displayy>420</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>b3f5c6dd-572c-4eb5-ae1e-3a0c15fdc598</onsuccess>
+  </stage>
+  <stage stageid="b3f5c6dd-572c-4eb5-ae1e-3a0c15fdc598" name="anchor11" type="Anchor">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>225</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>cc1a88b1-ac11-40f1-aaf2-7d08e113f9ae</onsuccess>
+  </stage>
+  <stage stageid="0086feaf-7470-41f2-8d60-23d862ece08d" name="For Each Saved Item" type="LoopStart">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>0</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="0000FF" />
+    <onsuccess>6ac9d2c6-c9a9-4c7d-9ec6-a3ae909351cb</onsuccess>
+    <groupid>9cd2e664-3f1f-4871-a448-146bcda99227</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Saved Items</loopdata>
+  </stage>
+  <stage stageid="e4d82e9a-9a0a-4dfd-8996-1fce62990dc1" name="Next Saved Item" type="LoopEnd">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="0000FF" />
+    <onsuccess>011495e8-c4fd-4215-97b3-c19f25886e1e</onsuccess>
+    <groupid>9cd2e664-3f1f-4871-a448-146bcda99227</groupid>
+  </stage>
+  <stage stageid="6ac9d2c6-c9a9-4c7d-9ec6-a3ae909351cb" name="For Each Pending Item [2]" type="LoopStart">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="008000" />
+    <onsuccess>6293e86e-a270-4d4e-927b-bfe313e8c242</onsuccess>
+    <groupid>ee9def2a-da4d-47f0-b39a-7adcbd2cd5fc</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Pending Items 2</loopdata>
+  </stage>
+  <stage stageid="2e0858ab-8e8f-436f-b08c-4ee11e60c549" name="Next Pending Item [2]" type="LoopEnd">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="008000" />
+    <onsuccess>e4d82e9a-9a0a-4dfd-8996-1fce62990dc1</onsuccess>
+    <groupid>ee9def2a-da4d-47f0-b39a-7adcbd2cd5fc</groupid>
+  </stage>
+  <stage stageid="6293e86e-a270-4d4e-927b-bfe313e8c242" name="Is this a match?" type="Decision">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Saved Items.Item ID] = [Pending Items 2.Item ID]" />
+    <ontrue>d452df43-a249-473c-a619-d8442e143fae</ontrue>
+    <onfalse>2e0858ab-8e8f-436f-b08c-4ee11e60c549</onfalse>
+  </stage>
+  <stage stageid="d452df43-a249-473c-a619-d8442e143fae" name="That's not right" type="Exception">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Fish which should have been skipped found. Item ID : &quot; &amp; [Saved Items.Item ID]" />
+  </stage>
+  <stage stageid="367af0bf-ea68-47fa-9605-a2b8e24e97f4" name="Note2" type="Note">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>GetNext(Skip:3) should skip the 3 that GetNext(Max:3) retrieved before (in Saved Items). Ensure that there's no intersect between the collections.</narrative>
+    <displayx>465</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="993300" />
+    <onsuccess>0086feaf-7470-41f2-8d60-23d862ece08d</onsuccess>
+  </stage>
+  <stage stageid="f4e3c58a-ea9b-4c3e-a207-3815d7fcd069" name="Note3" type="Note">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>The cod was released. Should be back in pending again.</narrative>
+    <displayx>-105</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="993300" />
+    <onsuccess>e96de33a-ab04-480f-a967-5dc8e531b8ca</onsuccess>
+  </stage>
+  <stage stageid="21f62bcb-189c-4a66-8fa0-d8c27be038fd" name="Note3" type="Note">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>The monkfish was consumed. Should *not* be back in pending again.</narrative>
+    <displayx>-105</displayx>
+    <displayy>135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="993300" />
+    <onsuccess>3fbf0608-a3c2-4143-b9d2-0c1823dadf3b</onsuccess>
+  </stage>
+  <stage stageid="92cc3ccc-0c04-4239-9df5-ae5c20ed9c41" name="Note3" type="Note">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>Max value should return only up to the given number</narrative>
+    <displayx>-150</displayx>
+    <displayy>330</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="993300" />
+    <onsuccess>2684fcc8-2190-4e87-bd72-a28b2589a40e</onsuccess>
+  </stage>
+  <stage stageid="6c5ad377-9b41-4ece-b76b-488b7272b95a" name="Note3" type="Note">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>Skip value with Max value should still return only up to the given (max) number</narrative>
+    <displayx>450</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="993300" />
+    <onsuccess>cc1a88b1-ac11-40f1-aaf2-7d08e113f9ae</onsuccess>
+  </stage>
+  <stage stageid="48bffafd-4e9a-4f01-92f1-230a3f6ad3c0" name="Pending Items 2" type="Collection">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>180</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ba49ab91-d72b-4963-9a62-2ab74d836c43" name="Note4" type="Note">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>Here because the Loop Start seems to pick the first stage with the required name rather than the one in the current scope.</narrative>
+    <displayx>-405</displayx>
+    <displayy>195</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="f37325e5-a388-43dc-a9f2-d8dd4a64cde1" name="." type="Block">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-510</displayx>
+    <displayy>150</displayy>
+    <displaywidth>345</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="683e7c0e-9679-4597-a3ac-c10616ae785a" name="Worktime" type="Data">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-405</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>timespan</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d5198af1-2adf-40be-89c8-16b34d7d6cff" name="Attempt Worktime" type="Data">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-465</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>timespan</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f1ddb54a-e347-404d-8def-bfc56b7d2e3b" name="Data" type="Collection">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-405</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="aa40c95c-215d-412c-9674-c54e35252882" name="For Each Pending Item" type="LoopStart">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="0000FF" />
+    <onsuccess>123788ae-e5e5-4d7f-8724-777858aae14d</onsuccess>
+    <groupid>80ac688e-94fe-4659-93b3-7ec4e0d3fee8</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Pending Items</loopdata>
+  </stage>
+  <stage stageid="b39aced9-8695-48da-9034-0d982af8d9ca" name="Next Pending Item" type="LoopEnd">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="0000FF" />
+    <onsuccess>3fbf0608-a3c2-4143-b9d2-0c1823dadf3b</onsuccess>
+    <groupid>80ac688e-94fe-4659-93b3-7ec4e0d3fee8</groupid>
+  </stage>
+  <stage stageid="123788ae-e5e5-4d7f-8724-777858aae14d" name="Get Item Data" type="Action">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to get data from. An error will be raised if this item does not exist." expr="[Pending Items.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+      <output type="timespan" name="Worktime" narrative="The total time spent on this item (including previous attempts)" stage="Worktime" />
+      <output type="timespan" name="Attempt Worktime" narrative="The amount of time spent on this particular attempt of the item" stage="Attempt Worktime" />
+      <output type="datetime" name="Loaded DateTime" narrative="The date and time at which this item was first loaded into the queue." stage="" />
+      <output type="datetime" name="Deferred DateTime" narrative="The date and time at which this item has been deferred to. Empty if this item has not been deferred." stage="" />
+      <output type="datetime" name="Completed DateTime" narrative="The date and time at which this item was marked as complete. Empty if this item has not been marked as complete" stage="" />
+      <output type="datetime" name="Exception DateTime" narrative="The date and time at which this item was marked as an exception. Empty if there has never been an exception on this item." stage="" />
+      <output type="text" name="Exception Reason" narrative="The exception reason recorded against this item." stage="" />
+      <output type="text" name="Tags" narrative="The semi-colon separated set of tags which apply to the item. " stage="" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Data" />
+    </outputs>
+    <onsuccess>d6bd7595-130e-4649-8dc5-ede8c18b4a3d</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Item Data" />
+  </stage>
+  <stage stageid="d6bd7595-130e-4649-8dc5-ede8c18b4a3d" name="Is this our cod?" type="Decision">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Data.Species] = &quot;Cod&quot;" />
+    <ontrue>b39aced9-8695-48da-9034-0d982af8d9ca</ontrue>
+    <onfalse>989c41d0-00ca-4cae-847b-59e8cf510adb</onfalse>
+  </stage>
+  <stage stageid="989c41d0-00ca-4cae-847b-59e8cf510adb" name="That's not right" type="Exception">
+    <subsheetid>32e609bb-fb2f-4cb7-bc90-747b679b149d</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure Exception" detail="&quot;Tried to Get Item Data on pending cod : Found &quot; &amp; [Data.Species]" />
+  </stage>
+  <stage stageid="2c192134-ef6f-4b60-b70d-9874628b2288" name="No-one Gets Out Alive" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>405</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete" expr="&quot;Fish&quot;" />
+    </inputs>
+    <onsuccess>eb0a5ea4-7858-407b-b65f-94629e462815</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+</process>

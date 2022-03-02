@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>UIオートメーションナビゲーター</title>
+    <script type="text/javascript" src="script/imagezoom.js"></script>
+</head>
+
+<body class="slick">
+    <div class="header">
+        <h1 class="pagetitle">オブジェクトスタジオ</h1>
+        <h2>UIオートメーションナビゲーター</h2>
+    </div>
+    <div class="captioned-image overview-screenshot nozoom">
+        <a href="Graphics/uia-navigator.png" title="UIAナビゲーター - クリックして拡大表示"><img src="Graphics/uia-navigator.png" alt="UIAナビゲーター - クリックして拡大表示"/></a>
+        <p>UIオートメーションナビゲーターのフォーム</p>
+    </div>
+
+    <h3 id="intro">はじめに</h3>
+    <p>オブジェクトスタジオではビジュアルビジネスオブジェクトでユーザーインターフェイス要素を識別する方法が主に2つあります。</p>
+
+    <p>スパイツールは自動化する視覚的な要素を選択できたり、UIモデルを横断してモデルで必要な要素を識別するアプリケーションナビゲーターフォームの1つを使うことができます。
+    </p>
+
+    <p>現在2つの異なるナビゲーターがあります。1つはWin32とアクティブアクセシビリティモデルを公開し、もう1つはUIオートメーションモデルを公開します。基本的にこの2つのナビゲーターの動作はまったく同じものですが、モデルの種類に特有な多少の差異があります。</p>
+
+    <h3 id="opening">UIオートメーションナビゲーターのフォームを開く</h3>
+    <div class="captioned-image section-screenshot">
+        <img src="Graphics/uia-navigator-menuoption-cropped.png" alt="ナビゲーターを開く"/>
+    </div>
+    <p>UIオートメーションナビゲーターのフォームは、オブジェクトスタジオで対象アプリケーションを起動またはアタッチしてから要素を作成して開くことができます。新しい要素を選択すると、［<code>識別</code>］というラベルの付いた分割ボタンが表示されます。ボタンのドロップダウンメニュー部分をクリックすると、以下を含むメニューが表示されます。</p>
+    <ul>
+        <li>スパイ要素</li>
+        <li>アプリケーションナビゲーターを開く</li>
+        <li>UIオートメーションナビゲーターを開く</li>
+    </ul>
+    <p>ナビゲーターのフォームは以上のオプションの最後を選択すると開くことができます。</p>
+
+    <p>フォームが開き、モデルが左側のツリーに読み込まれます。ツリーで要素を選択するとアプリケーションの要素がハイライトされ、右側のグリッドにUIオートメーション属性が表示されます。</p>
+
+    <h3 id="views">ビューを変更する</h3>
+    <div class="captioned-image section-screenshot">
+        <img src="Graphics/uia-navigator-raw-view.png" alt="UIオートメーション未加工ビュー"/>
+    </div>
+    <p>UIオートメーションモデルで、要素を特定のビュー、すなわち最も一般的なものから固有のものまで、 「未加工」、「コントロール」、「コンテンツ」 に分類できます。ビューは次のように大まかに説明できます。</p>
+    <dl class="listplease">
+        <dt>未加工ビュー</dt>
+        <dd>アプリケーションのネイティブなプログラム構造に厳密に従っている自動化要素の完全なツリーのことです。最も詳細なビューになります。</dd>
+
+        <dt>コントロールビュー</dt>
+        <dd>Raw Viewのサブセットです。ユーザーに情報を表示したり、ユーザーがアクションを実行できるようにする要素が含まれています。リストビューのヘッダー、ツールバー、メニューなど、UIの論理構造に寄与する非対話型のUI要素を含めることもできます。
+ コントロールのレイアウトに使用されるパネルなど、レイアウトや装飾にのみ使用される非対話型の要素は、コントロールビューには表示されません。</dd>
+
+        <dt>コンテンツビュー</dt>
+        <dd>これはコントロールビューのサブセットです。コンテンツビューにはキーボードフォーカスを受け取るUI要素やUI要素上のラベルではないテキストを含む、ユーザーインターフェイス内の情報を伝達する要素が含まれています。</dd>
+    </dl>
+    <p>UIオートメーションビューに関する詳細については、「<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee671698(v=vs.85).aspx#views">MSDN UIオートメーションツリーの概要</a>」ページでご確認ください。
+
+    <p>Blue Prismのナビゲーターで使用されるデフォルトのビューは［コントロール］ビューですが、フォームの左上にある希望のビューを選択して現在のビューを変更できます。</p>
+
+    <p>ビューによって階層構造が異なることにご注意ください。たとえば、［コントロール］ビューで見た場合の要素の親は［未加工］ビューで見た場合の同じ要素の親とは異なる場合があります。要素を選択したときにVBOのアプリケーションモデルに格納されている要素に影響を与えません。つまり、ビューは選択した要素に対して格納されている親データには影響しません。</p>
+
+    <h3 id="filtering">モデルをフィルタリングする</h3>
+    <div class="captioned-image section-screenshot">
+        <img src="Graphics/uia-navigator-filter.png" alt="UIオートメーションモデルをフィルタリングする"/>
+    </div>
+    <p>検索用語をモデル上部のフィルターボックスに入力することで、モデルをフィルタリングできます。Enterキーを押すか、しばらく入力を止めると、ツリーは名前または選択した属性にフィルターテキストが含まれる要素のみを含むようにフィルタリングされます。</p>
+    <p>フィルターテキストボックスの右にある赤い［X］を押すと、フィルターテキストをクリアできます。</p>
+
+    <h3 id="hiding" style="clear:left">属性を非表示または表示する</h3>
+    <div class="captioned-image section-screenshot">
+        <img src="Graphics/uia-navigator-hide-attributes.png" alt="属性を非表示にする"/>
+    </div>
+    <p>属性リストの表示はフォームの中央上部にあるボタンをクリックして切り替えられます。これはインターフェイスを簡素化するもので、それ以外の機能の効果はありません。</p>
+
+    <h3 id="selecting" style="clear:left">要素を選択する</h3>
+    <p>ツリーで目的の要素を選択した後に［<code>OK</code>］ボタンを押すことで、要素をアプリケーションモデルに追加できます。</p>
+    <p>選択をキャンセルするには、［<code>キャンセル</code>］ボタンを押します。キャンセルすると、元のアプリケーションモデルは変更されずにナビゲータフォームが閉じます。</p>
+
+
+</body>
+</html>

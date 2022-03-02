@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Java Access Bridge—设置说明</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="pagetitle">帮助</h1>
+    </div>
+	
+	<h2>Java Access Bridge—设置说明</h2>
+	
+	<h3>概述</h3>
+	<p>
+ 可通过两种方法安装 <a href="http://java.sun.com/products/accessbridge/">Java Access Bridge</a> (JAB)：自动安装和手动安装。前者为首选的安装方法，通常可以满足大多数使用情境的需要；我们将在此对后者予以说明，以供参考。
+	</p>
+	<p>
+ 对于非标准的 Java Runtime Environment (JRE) 安装，需要使用手动方式。
+ 想要持续控制软件运行环境或因特殊目的修改了 JRE 的供应商有时会使用这类安装。
+	</p>
+	
+	<h3>先决条件</h3>
+	<p>
+ 必须先安装要使用 Java Access Bridge (JAB) 的 Java Runtime Environment (JRE)。
+	</p>
+	
+	<h3>要求</h3>
+	<p>
+ 在撰写本文时，Java Access Bridge (JAB) 的最新版本是 2.0.1。
+ 但是，此版本包含一个致命错误，而且不适用于 Blue Prism。对于 JRE 1.2.2 版及更高版本，建议使用 JAB 2.0.0 版。Blue Prism 可以应用户请求提供 JAB 2.0.0 副本。请咨询 Blue Prism，以确认您的 JRE 版本是否低于 1.2.2。
+	</p>
+	
+	<h3>自动安装</h3>
+	<p>
+ 要开始自动安装，请运行安装可执行文件，然后按照屏幕上的说明进行操作。完成后，请重启 PC。
+	</p>
+	
+	<h3>手动安装</h3>
+	<p>
+ 请仅针对非标准 JRE 进行手动安装；自动安装程序将找到所有标准 JRE 并根据需要进行修改。
+	</p>
+	
+	<div class="indented">
+		<h4>1. 提取文件</h4>
+		<p>
+ 将安装存档文件 accessbridge-2_0_0-manual_install.zip 的内容提取到临时目录中。
+		</p>
+		
+		<h4>2. 复制系统文件</h4>
+		<p>
+ 将文件 JavaAccessBridge.dll、JAWTAccessBridge.dll 和 WindowsAccessBridge.dll 复制到位于以下位置的 Windows 系统目录中：
+		</p>
+		<pre> c:\windows\system32\</pre>
+		<p>
+ 请注意，如果您运行过自动安装程序，则这些文件可能已存在。
+ 在这种情况下，无需替换这些文件（除非它们对应的是较早的 Java Access Bridge 版本，如版本 1.0）。
+		</p>
+		
+		<h4>3. 查找目标 JRE</h4>
+		<p>
+ 请先查找您已安装的 JRE。您可能会安装 Java Access Bridge (JAB) 以同时用于多个 JRE 安装。事实上，这可能是必要且可取的，因为官方 Sun Microsystems Java Web 浏览器插件之类的产品会安装新的独立 JRE。因此，为了能使嵌入在网页中的 Java 应用程序实现自动化，您需要在这类 JRE（以及您选择的任何其他 JRE）中安装 JAB。要安装到多个 JRE 中，请按照以下说明针对各个 JRE 安装目录重复执行相关操作。
+		</p>
+		<p>
+ 标准 JRE 安装通常可以在这类目录中找到：
+		</p>
+		<pre> c:\Program Files\Java\jdk1.5.0\jre\
+ c:\Program Files\Java\jre1.5.0_05</pre>
+		<p>
+ 非标准 JRE 安装通常可以目标应用程序安装目录的子目录中找到。例如：
+		</p>
+		<pre> c:\Program Files\MySpecialApplication\JRE\</pre>
+		
+		<h4>4. 查找扩展程序目录</h4>
+		<p>
+ 转到安装目录下的文件夹 lib\ext。例如：
+		</p>
+		<pre> c:\Program Files\Java\jdk1.5.0\jre\lib\ext
+ c:\Program Files\Java\jre1.5.0_05\lib\ext</pre>
+		
+		<h4>5. 复制 Java 文件</h4>
+		<p>
+ 将名为 access-bridge.jar 的文件复制到上一步所找到的“ext”目录中。
+		</p>
+		<p>
+ 请识别目标 JRE 安装的版本：一个形式如“1.X”的值。
+ 将名为 jaccess-1_X.jar（X 是 JRE 版本编号中所含的数字）的文件复制到“ext”目录中，然后将该文件重命名为 jaccess.jar
+		</p>
+		<p>
+ 如果没有匹配的文件，则可使用版本号最接近的低版本文件（例如，如果是 1.5 或 1.6，但没有匹配的文件，请使用文件 jaccess-1.4.jar）。
+		</p>
+		
+		<h4>6. 创建属性文件</h4>
+		<p>
+ 检查“lib”文件夹（“ext”文件夹的上一个层级）中是否存在名为 accessibility.properties 的文件；如果需要，请使用文本编辑器创建该文件。
+ 请务必正确拼写该文件的名称。如果该文件不包含以下这一行，则将此行添加到文件末尾，单独成行：
+		</p>
+		<pre>assistive_technologies=com.sun.java.accessibility.AccessBridge</pre>
+		<p>
+ 此行可以是文件中唯一的一行。
+		</p>
+			
+		<h4>7. 清理</h4>
+		<p>
+ 删除用于存储安装存档文件 (accessbridge-2_0_0-manual_install.zip) 提取内容的临时目录。
+		</p>
+		<p>
+ 重启 PC。
+		</p>
+	</div>
+
+	<h3>备注</h3>
+	<p>
+ 每次升级或修改有关 JRE 时（例如，为了安全更新，Java Runtime Environment 的创建者 Sun Microsystems 会进行相应的升级或修改），都必须重复安装 Java Access Bridge，以确保新的 JRE 具有适当的扩展程序，以便与 Access Bridge 一起使用。
+	</p>
+	<p>
+ 每次在计算机上安装新的 JRE 时（例如，与新软件一起使用时），可能都需要重复安装 Java Access Bridge，即使对于现有 JRE 也是如此。
+	</p>
+	
+</body>
+</html>

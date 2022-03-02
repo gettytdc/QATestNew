@@ -1,0 +1,39 @@
+startapplication path=calc hook=False
+
+#Wait for the calculator to appear...
+wait timeout=10000 {checkwindow windowtext=Calculator}=True
+$AbortIf RESULT:0
+
+readtextocr imagefile="ocr_images\\test.tiff"
+$AbortIfNot RESULT:Chris Sneddon;
+
+readtextocr imagefile="ocr_images\\jt_1.png"
+$AbortIfNot RESULT:0 125740008 56630
+
+readtextocr imagefile="ocr_images\\jt_2.png"
+$AbortIfNot RESULT:167. 38
+
+# Pretending there's no such thing as a 1 or 0 digit, but there is a lower case l and upper case O...
+readtextocr imagefile="ocr_images\\jt_2.png" charwhitelist="l23456789O." diagspath="tmp"
+$AbortIfNot RESULT:l67. 38
+readtextocr imagefile="ocr_images\\jt_1.png" charwhitelist="l23456789O." diagspath="tmp"
+$AbortIfNot RESULT:O l2574OOO8 5663O
+
+readtextocr imagefile="ocr_images\\jt_3.png"
+$AbortIfNot RESULT:This number is not on the blacklist
+
+readtextocr imagefile="ocr_images\\orangebg.png"
+$AbortIfNot RESULT:Customer Comms:Face-to -Face :> Customer Comms:Face-to -Face :> Account:
+
+readtextocr imagefile="ocr_images\\bold.png"
+$AbortIfNot RESULT:Saved Basket
+
+readtextocr imagefile="ocr_images\\white_on_red.png" diagspath="tmp"
+$AbortIfNot RESULT:Services & Propositions
+
+readtextocr windowtext="Hex" StartX="16" StartY="2" EndX="43" EndY="14"
+$AbortIfNot RESULT:Hex
+
+#Close calculator
+closewindow windowtext=Calculator
+

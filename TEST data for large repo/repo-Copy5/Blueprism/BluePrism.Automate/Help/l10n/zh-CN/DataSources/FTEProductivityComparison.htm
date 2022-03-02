@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<title>仪表盘</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+		dl.import-rules dd>ul>li { margin-bottom: 1em; }
+		dl.import-rules dd>ul { padding-left: 1em; }
+	</style>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">Blue Prism</h1>
+		<h2>FTE 生产力比较</h2>
+	</div>
+
+  <h3>BPDS_FTEProductivityComparison</h3>
+  <p>返回指定期限内已完成的案例数（可选择与代表人力劳动力的指标进行比较）。请注意，需要参数值才能进行比较。仅返回已完成天的数据（即不包括上次编制 MI 统计数据后完成的案例）。</p>
+  <p><b>来源：</b>Blue Prism 数据库—实时表和 MI 存储库（需要启用对 MI 统计数据进行的编制）</p>
+  
+  <h3>示例图表</h3>
+  <img alt="FTE 生产力比较" src="Graphics/tile-FTEProductivityComparison.png"/>
+			
+  <h3>参数</h3>
+  <table>
+    <tr>
+      <th>参数名称</th>
+      <th>数据类型</th>
+      <th>描述</th>
+      <th>验证</th>
+    </tr>
+    <tr>
+      <td>@BPQueueName</td>
+      <td>文本</td>
+      <td>要查询的单个队列的名称（如未指定，将查询所有队列）</td>
+      <td>无。</td>
+    </tr>
+    <tr>
+      <td>@NumberOfMonths</td>
+      <td>整数</td>
+      <td>报告期以月为单位（如未指定，则月数为 6 个月）</td>
+      <td>最大值。12 个月</td>
+    </tr>
+    <tr>
+      <td>@FTEProductivity</td>
+      <td>十进制</td>
+      <td><p>表示用于比较的一个 FTE 的每日生产力（即一个 FTE 一天处理的平均案例数）。如未指定，则返回已完成的案例数量</p></td>
+      <td>无。</td>
+    </tr>
+    <tr>
+      <td>@FTECost</td>
+      <td>十进制</td>
+      <td><p>仅在指定了 @FTEProductivity 时才适用，表示用于比较的一个 FTE 的满负荷日成本</p></td>
+      <td>无。</td>
+    </tr>
+    <tr>
+      <td>@DisplayAs</td>
+      <td>文本</td>
+      <td><p>仅在指定了 @FTEProductivity 时才适用，可能的值包括：</p>
+          <ul>
+            <li><b>百分比</b>—返回作为 FTE 生产力的百分比的值</li>
+            <li><b>数量</b>—返回作为等效 FTE 的数量的值</li>
+            <li><b>成本</b>—返回表示成本节约量（基于 FTE 的等效数量）的值（需要 @FTECost 的值）</li>
+          </ul>
+          <p>如未指定，则返回作为 FTE 生产力的百分比的值</p></td>
+      <td>百分比、数量或成本</td>
+    </tr>
+  </table>
+  
+</body>
+</html>

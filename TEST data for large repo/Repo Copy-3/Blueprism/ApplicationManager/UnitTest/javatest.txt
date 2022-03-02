@@ -1,0 +1,41 @@
+startapplication path="java -jar CGJavaTest\\CGJavaTest.jar" hook=False jab=True
+$AbortIfNot OK
+
+#Wait for the application to appear...
+#wait timeout=200000 {jabcheckexists name="Press Me"}=True
+wait timeout=30000 {jabcheckexists name="CGJavaTest"}=True
+$AbortIf RESULT:0
+
+#Check edit box contains expected text
+jabgettext javatext="Edit Test" role=text
+$AbortIfNot RESULT:Edit Test
+
+#Write some different text to the edit box
+jabsettext javatext="Edit Test" role=text newtext=Written
+$AbortIfNot OK
+
+#Check edit box contains new text
+jabgettext role=text
+$AbortIfNot RESULT:Written
+
+
+# ----------------------
+# This bit is the modal dialog test, which is all commented out for now
+
+#Press the Press Me button
+#jabaction action=click name="Press Me"
+#$AbortIfNot OK
+
+#wait timeout=10000
+
+#wait timeout=5000 {jabcheckexists name="Message"}=True
+#$AbortIf RESULT:0
+
+# end of modal dialog test
+# ----------------------
+
+
+#Close the app
+closewindow windowtext=CGJavaTest
+
+#Finished!

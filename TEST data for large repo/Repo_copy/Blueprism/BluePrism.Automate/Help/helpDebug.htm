@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Debug Help</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="pagetitle">Help</h1>
+    </div>
+
+    <h3>Debugging in Process Studio and Object Studio</h3>
+
+    <p>The debugging facility allows you to simulate the execution (ie the running) of your
+    business process or business object from within <a href="frmProcess.htm">process studio</a> or
+    <a href="helpObjectStudio.htm">object studio</a>. All the while, you can watch which path the execution takes along your
+    <a href="helpFlowCharts.htm">flow chart</a>, query the values of data items, amend your
+    flowchart during execution and jump to areas of interest.</p>
+
+    <p>The behaviour of the debugger varies between process studio and object studio, to reflect
+    the structural differences between processes and objects. This document outlines those
+    differences below.</p>
+
+    <h3>The Debug Toolbar <a name="DebugToolbar" id="DebugToolbar"></a></h3>
+
+    <p>The debug toolbar is found towards the top of the process studio / object studio screen. It
+    comprises the following buttons:</p>
+
+    <ul>
+        <li class="bold">
+            Play 
+
+            <p class="indented">Runs the process from the current point forward to the end of the
+            flowchart. The speed can be varied from the drop-down menu inside the play button.</p>
+        </li>
+
+        <li class="bold">
+            Step 
+
+            <p class="indented">Advances the current stage by one step. If the next stage lies
+            inside another page, process or business object then the display navigates to that
+            position, loading a new process studio / object studio window as required.</p>
+        </li>
+
+        <li class="bold">
+            Step over 
+
+            <p class="indented">Behaves as for the "Step" command, except that if the current stage
+            is a page reference stage or a subprocess then all stages contained inside the
+            referenced page/process are executed in one go, and the flow jumps to the next stage on
+            the current page. In this sense, the flow has not stepped "into" the nested sub-page,
+            but stepped "over" it.</p>
+        </li>
+
+        <li class="bold">
+            Step out 
+
+            <p class="indented">Continues running until the flow moves out of the current
+            page/sub-process back to the stage which called the current page/sub-process.</p>
+        </li>
+
+        <li class="bold">
+            Pause 
+
+            <p class="indented">Pauses the execution at its current point. To resume, use play,
+            step, step out etc</p>
+        </li>
+
+        <li class="bold">
+            Restart 
+
+            <p class="indented">Restarts the debugger.</p>
+        </li>
+    </ul>
+     
+    <h3>Process Studio Debug vs Object Studio Debug <a name="Concepts" id="Concepts"></a></h3>
+
+    <h5 class="bold">Conceptual differences between processes and business objects</h5>
+
+    <ul>
+		
+        <li class="bold"><a name="Pages" id="Pages"></a>
+            Flow control and pages 
+
+            <p class="indented">In a business process, flow begins at the start stage of the main
+            page and continues by following the links from one stage to the next. At some points,
+            the flow may follow one path or another depending on the outcome of a
+            <a href="helpCalculationsAndDecisions.htm">decision stage</a> or a
+            <a href="frmStagePropertiesChoice.htm">choice stage</a>.</p>
+
+            <p class="indented">Each page is a logical sub-division of the natural flow. Pages
+            exist primarily as a) a means of re-using often-repeated groups of stages; and b) a
+            means of tidying up the process diagram. For this reason any process could in fact be
+            represented equivalently on a single page.</p>
+
+            <p class="indented">By contrast, pages in a business object which are public do not
+            represent subdivisions of a whole; each page is an entity in its own right, having its
+            own start point. In this sense, a business object has no unique start point: only lots
+            of capabilities each with its own unique start point.</p>
+        </li>
+    </ul>
+
+    <h5 class="bold">Debug differences</h5>
+
+    <ul>
+		<li class="bold"><a name="EntryPoints" id="EntryPoints"></a>    
+            Flow starting points 
+
+            <p class="indented">Since there is no unique starting point for a business object, when
+            you press restart in object studio the debugger will not jump to the start stage on the
+            first page, but will jump to the start stage on the current page.</p>
+        </li>
+
+		
+        <li class="bold"><a name="EndPoints" id="EndPoints"></a>    
+            Flow end points 
+
+            <p class="indented">Similarly, the flow ends on the same page in a business object -
+            there is no calling page to return to. The exception to this is if the business object
+            debugging was called from a parent process. In this case the flow continues back up
+            into the parent process and proceeds from the action stage which called the current
+            business object action.</p>
+        </li>
+
+		<li class="bold"><a name="DataResetting" id="DataResetting"></a>Resetting of data items 
+
+            <p class="indented">Calling the restart command in process studio causes all data items
+            to be reset to their <a href="frmStagePropertiesData.htm">initial value</a>. Calling
+            reset in object studio causes all data items on the current page to be reset, but all
+            other data items will retain their value.</p>
+        </li>
+
+        <li class="bold">
+            Execution of cleanup page (object studio only) 
+
+            <p class="indented">Calling the restart command in object studio causes the cleanup
+            page to be called. Thus it is important to check that your cleanup page is valid and
+            that it can run to completion each time.</p>
+        </li>
+
+		
+        <li class="bold"><a name="Launching" id="Launching"></a> 
+            Launching the target application (object studio only) 
+
+            <p class="indented">Depending on how your business object is designed, it may not be
+            convenient for you to run an action which launches your target application and then to
+            test your action of interest. This may be the case for example if you are testing an
+            action to retrieve data from a special screen in your application and your screen must
+            be navigated to via a complicated routine.</p>
+
+            <p class="indented">The launch button allows you to start (or attach to) your application.
+            You may then navigate to the screen of interest within your application, select the action
+            page of interest and begin debugging.</p>
+
+            <p class="indented">Note that the launch button first executes the Init page before
+            launching the application. If this causes you an inconvenience then you may wish to
+            redesign the init page to test a custom flag data item and to exit early if the
+            business object is in an undesired state.</p>
+        </li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,565 @@
+﻿<process name="Test Batch Size Parameter of Add to Work Queue doesn't error" version="1.0" bpversion="6.8.0.22998" narrative="" byrefcollection="true" preferredid="02d7d127-991b-4846-857c-98bf2c2ed2cb" published="true">
+  <view>
+    <camerax>20</camerax>
+    <cameray>94</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="85e25ff2-9f4d-4c07-b4f3-fc129c905bfe" type="Normal" published="False">
+    <name>Successful Batch Size of 1</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-79</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="af098cb9-f068-4989-bf65-20891f93ef73" type="Normal" published="False">
+    <name>Batch size of 25000</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>43</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="70e6542a-4806-483c-b349-71a146345c7e" type="Normal" published="False">
+    <name>Clean Up</name>
+    <view>
+      <camerax>-32</camerax>
+      <cameray>84</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="a1fe6dee-4873-4de1-ac66-af624e70e180" name="Start" type="Start">
+    <display x="30" y="-150" />
+    <onsuccess>b5c05c19-6ec2-4381-97a4-4b1010159668</onsuccess>
+  </stage>
+  <stage stageid="93920d80-9a72-491d-9e4e-606fb93c03ee" name="End" type="End">
+    <display x="30" y="120" />
+  </stage>
+  <stage stageid="c26eb730-ab23-4131-a983-687b7e07fb16" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-120" w="150" h="90" />
+  </stage>
+  <stage stageid="cf4eee57-b678-4551-a632-e7e442d038bd" name="Note1" type="Note">
+    <narrative>WHEN you set a batch size to 1 and 'Add to Queue'...THEN all items should load to the queue without error.</narrative>
+    <display x="30" y="-60" w="270" h="30" />
+    <onsuccess>69fe3ffc-faab-4de7-9ae2-7ea038ed6809</onsuccess>
+  </stage>
+  <stage stageid="b5c05c19-6ec2-4381-97a4-4b1010159668" name="Note2" type="Note">
+    <narrative>GIVEN you have a collection of 100 rows...</narrative>
+    <display x="30" y="-105" w="270" h="30" />
+    <onsuccess>cf4eee57-b678-4551-a632-e7e442d038bd</onsuccess>
+  </stage>
+  <stage stageid="378c5e9f-92ed-4009-b50a-2fcd3a14c6df" name="Global Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-60" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4533998e-8b0e-42ce-818b-8c4a5316fbd6" name="Queue Name" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-30" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">US-7652</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="be70b9f2-a924-4d05-b477-7e4fce1037af" name="Successful Batch Size of 1" type="SubSheetInfo">
+    <subsheetid>85e25ff2-9f4d-4c07-b4f3-fc129c905bfe</subsheetid>
+    <display x="-120" y="-165" w="150" h="90" />
+  </stage>
+  <stage stageid="2e57f699-6d94-4276-b288-832af4ff74a7" name="Start" type="Start">
+    <subsheetid>85e25ff2-9f4d-4c07-b4f3-fc129c905bfe</subsheetid>
+    <display x="15" y="-195" />
+    <onsuccess>ed67b242-949c-4abd-b856-9533c8c76a99</onsuccess>
+  </stage>
+  <stage stageid="ee1e1e61-5b27-4268-9976-64a8839cc3d0" name="End" type="End">
+    <subsheetid>85e25ff2-9f4d-4c07-b4f3-fc129c905bfe</subsheetid>
+    <display x="15" y="75" />
+  </stage>
+  <stage stageid="27a3c4e9-8bc1-4942-a4a1-33bf24c704c7" name="Add To Queue with a batch size of 1" type="Action">
+    <subsheetid>85e25ff2-9f4d-4c07-b4f3-fc129c905bfe</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>The Data collection contains the items to be added to the queue. The collection may contain single or multiple rows, with each representing an item to be added.
+
+If there is a failure during the process, the queue will be unchanged - i.e. no rows will be loaded even if the error occurred on the last one.
+
+If Defer Until is specified, the items will not be available to be worked until then. Otherwise, they are available immediately.
+
+If the queue has a key field defined, an item added has key data longer than the maximum permitted 255 characters, an error will occur</narrative>
+    <display x="15" y="-105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="collection" name="Data" friendlyname="Data" narrative="A collection containing the data, one row for each item to be added" expr="[100 row collection]" />
+      <input type="datetime" name="Defer Until" friendlyname="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" friendlyname="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" friendlyname="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" friendlyname="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+      <input type="number" name="Batch Size" friendlyname="Batch Size" narrative="Optionally, the batch size to use when adding many items to the queue.  A Value of 0 will process all items in one batch.  An empty field will use the default batch size of 1000." expr="1" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" friendlyname="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="Item IDs" />
+    </outputs>
+    <onsuccess>536f0ae3-2c9f-41c4-9a3a-8cd0d0a5a4b2</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="7bce749a-0212-4fed-b72b-fd2b859f2256" name="100 rows added to Queue?" type="Decision">
+    <subsheetid>85e25ff2-9f4d-4c07-b4f3-fc129c905bfe</subsheetid>
+    <display x="15" y="-15" w="90" h="30" />
+    <decision expression="[Item IDs] = [Pending Items]" />
+    <ontrue>06022b42-fe4f-45c2-9723-e0fc989a8a19</ontrue>
+    <onfalse>76a95119-06bd-4c04-b999-3f4c557625da</onfalse>
+  </stage>
+  <stage stageid="76a95119-06bd-4c04-b999-3f4c557625da" name="Rows not added to Queue" type="Exception">
+    <subsheetid>85e25ff2-9f4d-4c07-b4f3-fc129c905bfe</subsheetid>
+    <display x="120" y="-15" />
+    <exception localized="yes" type="Bad Results" detail="&quot;Rows not successfully added to Queue&quot;" />
+  </stage>
+  <stage stageid="69fe3ffc-faab-4de7-9ae2-7ea038ed6809" name="Successful Batch Size of 1" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="-15" w="270" h="30" />
+    <onsuccess>92472cda-4e01-42b6-9913-896590c7b42a</onsuccess>
+    <processid>85e25ff2-9f4d-4c07-b4f3-fc129c905bfe</processid>
+  </stage>
+  <stage stageid="210459c5-f717-4a1a-872c-c8166253ba8c" name="Local Outputs" type="Block">
+    <subsheetid>85e25ff2-9f4d-4c07-b4f3-fc129c905bfe</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-105" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="536f0ae3-2c9f-41c4-9a3a-8cd0d0a5a4b2" name="Get Pending Items" type="Action">
+    <subsheetid>85e25ff2-9f4d-4c07-b4f3-fc129c905bfe</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Retrieves the IDs for all currently pending work queue items in the specified queue, matching the given tags</narrative>
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue for which the pending items are required" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+      <input type="number" name="Maximum" friendlyname="Maximum" narrative="Optionally, the maximum number of items to return. Default is to return all items" expr="" />
+      <input type="number" name="Skip" friendlyname="Skip" narrative="Optionally, the number of items to skip before returning. Default is zero, ie. return all items from the head of the queue" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Pending Items" friendlyname="Pending Items" narrative="The currently pending items in the queue, referenced by ID. The single column is 'Item ID' : text. The elements in the collection will be in the order in which they will be loaded by the 'Get Next Item' action." stage="Pending Items" />
+    </outputs>
+    <onsuccess>7bce749a-0212-4fed-b72b-fd2b859f2256</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Pending Items" />
+  </stage>
+  <stage stageid="44e4b23e-7a70-4a37-9443-0a89ff5453da" name="Pending Items" type="Collection">
+    <subsheetid>85e25ff2-9f4d-4c07-b4f3-fc129c905bfe</subsheetid>
+    <display x="-120" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="06022b42-fe4f-45c2-9723-e0fc989a8a19" name="Clean Up" type="SubSheet">
+    <subsheetid>85e25ff2-9f4d-4c07-b4f3-fc129c905bfe</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <onsuccess>ee1e1e61-5b27-4268-9976-64a8839cc3d0</onsuccess>
+    <processid>70e6542a-4806-483c-b349-71a146345c7e</processid>
+  </stage>
+  <stage stageid="d52311c8-90e4-49e8-b3e5-87855029d606" name="Clean Up" type="SubSheetInfo">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <display x="-135" y="-120" w="150" h="90" />
+  </stage>
+  <stage stageid="bd4329f5-cdd0-47fa-923d-d7aac29ebd7f" name="Start" type="Start">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <display x="0" y="-150" />
+    <onsuccess>e3721214-d488-4c9a-a4f3-7722f426ce2b</onsuccess>
+  </stage>
+  <stage stageid="5887c488-673d-45c7-b233-c1dc6435fbc0" name="End" type="End">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <display x="0" y="480" />
+  </stage>
+  <stage stageid="e3721214-d488-4c9a-a4f3-7722f426ce2b" name="Get Pending Items" type="Action">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Retrieves the IDs for all currently pending work queue items in the specified queue, matching the given tags</narrative>
+    <display x="0" y="-105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue for which the pending items are required" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+      <input type="number" name="Maximum" friendlyname="Maximum" narrative="Optionally, the maximum number of items to return. Default is to return all items" expr="" />
+      <input type="number" name="Skip" friendlyname="Skip" narrative="Optionally, the number of items to skip before returning. Default is zero, ie. return all items from the head of the queue" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Pending Items" friendlyname="Pending Items" narrative="The currently pending items in the queue, referenced by ID. The single column is 'Item ID' : text. The elements in the collection will be in the order in which they will be loaded by the 'Get Next Item' action." stage="Pending Items" />
+    </outputs>
+    <onsuccess>4b19e80b-efd1-411b-8ebd-f26da9402e8c</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Pending Items" />
+  </stage>
+  <stage stageid="105d598d-12cc-488c-8f2c-331d81b57fca" name="Pending Items" type="Collection">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <display x="-135" y="-30" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="4b19e80b-efd1-411b-8ebd-f26da9402e8c" name="Pending Items" type="LoopStart">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-60" w="90" h="30" />
+    <onsuccess>96aba6c1-9f01-4365-b5df-7cefbacf9b31</onsuccess>
+    <groupid>e39ee5b9-30ec-4557-912f-1ebbbe9b864e</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Pending Items</loopdata>
+  </stage>
+  <stage stageid="f36513b5-8bec-4f16-97bf-73883c6032ca" name="Pending Items" type="LoopEnd">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="30" w="90" h="30" />
+    <onsuccess>5fad1e81-ea7a-45d1-8115-59c95d69bdb3</onsuccess>
+    <groupid>e39ee5b9-30ec-4557-912f-1ebbbe9b864e</groupid>
+  </stage>
+  <stage stageid="215005be-2e6d-4a45-b1ad-b5349be5425f" name="Pending Items" type="Block">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-60" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="96aba6c1-9f01-4365-b5df-7cefbacf9b31" name="Get Next Item" type="Action">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="0" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data associated with the item - a single collection row." stage="Get Next Item" />
+      <output type="text" name="Status" friendlyname="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" friendlyname="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>f36513b5-8bec-4f16-97bf-73883c6032ca</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="30c0ddcf-a295-4764-9f6e-5e2a2e8bb149" name="Item ID" type="Data">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <display x="-135" y="45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b491dd12-0f8e-4b52-9d56-c0d02c08fb7f" name="Get Next Item" type="Collection">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <display x="-135" y="75" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5fad1e81-ea7a-45d1-8115-59c95d69bdb3" name="Get Locked Items" type="Action">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Retrieves the IDs and locked times for all currently locked work queue items in the specified queue, matching the given tags</narrative>
+    <display x="0" y="75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue for which the locked items are required" expr="[Queue Name]" />
+      <input type="text" name="Tags" friendlyname="Tags" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Locked Items" friendlyname="Locked Items" narrative="The currently locked items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Locked Items" />
+    </outputs>
+    <onsuccess>35309e02-aba6-4652-b398-50b9c1b4aff3</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Locked Items" />
+  </stage>
+  <stage stageid="eb2db663-79f4-4a0c-894a-73e5a29daeda" name="Locked Items" type="Collection">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <display x="-135" y="150" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+      <field name="Locked" type="datetime" description="The date/time when the item was locked" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="3dfedb56-b207-46b1-99c8-593b8f7574dd" name="Unlock Item" type="Action">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Unlocks a currently locked work queue item</narrative>
+    <display x="0" y="210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Locked Items.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" friendlyname="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="Unlocked" />
+    </outputs>
+    <onsuccess>c38dd9b7-b398-4d1e-8b9c-38815c33e851</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="99f9654e-d0fa-4683-9a00-423ac271eb64" name="Delete Previously locked Items" type="Action">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Delete the given item from a queue. Note that there is no locking involved in this, i.e. you should only delete an item if you are sure it is safe to do so. On the other hand, attempting to delete an item that is locked (e.g. being worked by another process) will result in an error</narrative>
+    <display x="0" y="390" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item to delete. An error will be raised if this item does not exist, or is locked." expr="[Locked Items.Item ID]" />
+    </inputs>
+    <onsuccess>a0c94f8b-1ce0-40f8-b008-9f99da9d2a8a</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Delete Item" />
+  </stage>
+  <stage stageid="93e5c6ea-f98c-495d-afe0-d65017e238b3" name="Are locked items now UNLOCKED?" type="Decision">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <display x="0" y="300" w="90" h="30" />
+    <decision expression="[Unlocked] = True" />
+    <ontrue>11fb85b2-4d0a-436a-ba27-c9e43992cbbd</ontrue>
+    <onfalse>80f7a0dc-7e97-40c5-a325-e7962a534ca9</onfalse>
+  </stage>
+  <stage stageid="80f7a0dc-7e97-40c5-a325-e7962a534ca9" name="Unable to Unlock Items" type="Exception">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <display x="90" y="300" />
+    <exception localized="yes" type="Action Failed" detail="&quot;Unable to Unlock Items&quot;" />
+  </stage>
+  <stage stageid="35309e02-aba6-4652-b398-50b9c1b4aff3" name="No Locked Items?" type="Decision">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <display x="0" y="120" w="90" h="30" />
+    <decision expression="[Locked Items.Item ID] = &quot;&quot;" />
+    <ontrue>955d1eae-6955-4437-af0b-c329b496fe8f</ontrue>
+    <onfalse>0d87b994-0ff2-4f59-ba32-69df0aeafe19</onfalse>
+  </stage>
+  <stage stageid="955d1eae-6955-4437-af0b-c329b496fe8f" name="Anchor5" type="Anchor">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="135" y="120" w="10" h="10" />
+    <onsuccess>41cab825-86fd-4b4d-adfe-e5514325d0cf</onsuccess>
+  </stage>
+  <stage stageid="dc2f628f-666d-4f1a-b9e3-dda95e327fb7" name="Unlocked" type="Data">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <display x="-135" y="180" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="11fb85b2-4d0a-436a-ba27-c9e43992cbbd" name="Locked Items" type="LoopStart">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="345" w="90" h="30" />
+    <onsuccess>99f9654e-d0fa-4683-9a00-423ac271eb64</onsuccess>
+    <groupid>44a0bd00-de7b-47ff-8717-104a8ae051c4</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Locked Items</loopdata>
+  </stage>
+  <stage stageid="a0c94f8b-1ce0-40f8-b008-9f99da9d2a8a" name="Locked Items" type="LoopEnd">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="435" w="90" h="30" />
+    <onsuccess>5887c488-673d-45c7-b233-c1dc6435fbc0</onsuccess>
+    <groupid>44a0bd00-de7b-47ff-8717-104a8ae051c4</groupid>
+  </stage>
+  <stage stageid="0d87b994-0ff2-4f59-ba32-69df0aeafe19" name="Locked Items" type="LoopStart">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="165" w="90" h="30" />
+    <onsuccess>3dfedb56-b207-46b1-99c8-593b8f7574dd</onsuccess>
+    <groupid>dd37210d-28c7-43b7-90a8-745199a8e48a</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Locked Items</loopdata>
+  </stage>
+  <stage stageid="c38dd9b7-b398-4d1e-8b9c-38815c33e851" name="Locked Items" type="LoopEnd">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="255" w="90" h="30" />
+    <onsuccess>93e5c6ea-f98c-495d-afe0-d65017e238b3</onsuccess>
+    <groupid>dd37210d-28c7-43b7-90a8-745199a8e48a</groupid>
+  </stage>
+  <stage stageid="41cab825-86fd-4b4d-adfe-e5514325d0cf" name="Anchor1" type="Anchor">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="135" y="480" w="10" h="10" />
+    <onsuccess>5887c488-673d-45c7-b233-c1dc6435fbc0</onsuccess>
+  </stage>
+  <stage stageid="7bcde234-0e36-4dd7-9a10-346c0b6ce8a5" name="Locked Items" type="Block">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="120" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="371ffca0-b56a-41f9-be80-cb19146242e4" name="Get Next Item" type="Block">
+    <subsheetid>70e6542a-4806-483c-b349-71a146345c7e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="15" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="25e24835-d0cd-4bd9-b37c-8360ad4e3454" name="Batch size of 25000" type="SubSheetInfo">
+    <subsheetid>af098cb9-f068-4989-bf65-20891f93ef73</subsheetid>
+    <display x="-120" y="-165" w="150" h="90" />
+  </stage>
+  <stage stageid="f57f1cd1-b3fa-40f7-8ce8-4845ed47ba38" name="Start" type="Start">
+    <subsheetid>af098cb9-f068-4989-bf65-20891f93ef73</subsheetid>
+    <display x="15" y="-195" />
+    <onsuccess>4e0af621-5ca9-497d-b2be-22a1546ee28a</onsuccess>
+  </stage>
+  <stage stageid="2367b323-5905-4d88-9b56-ee547bccb7c4" name="End" type="End">
+    <subsheetid>af098cb9-f068-4989-bf65-20891f93ef73</subsheetid>
+    <display x="15" y="75" />
+  </stage>
+  <stage stageid="526529e7-b89d-449a-84fc-ee760d04b600" name="Add To Queue with a batch size of 25000" type="Action">
+    <subsheetid>af098cb9-f068-4989-bf65-20891f93ef73</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>The Data collection contains the items to be added to the queue. The collection may contain single or multiple rows, with each representing an item to be added.
+
+If there is a failure during the process, the queue will be unchanged - i.e. no rows will be loaded even if the error occurred on the last one.
+
+If Defer Until is specified, the items will not be available to be worked until then. Otherwise, they are available immediately.
+
+If the queue has a key field defined, an item added has key data longer than the maximum permitted 255 characters, an error will occur</narrative>
+    <display x="15" y="-105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="collection" name="Data" friendlyname="Data" narrative="A collection containing the data, one row for each item to be added" expr="[100 row collection]" />
+      <input type="datetime" name="Defer Until" friendlyname="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" friendlyname="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" friendlyname="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" friendlyname="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+      <input type="number" name="Batch Size" friendlyname="Batch Size" narrative="Optionally, the batch size to use when adding many items to the queue.  A Value of 0 will process all items in one batch.  An empty field will use the default batch size of 1000." expr="25000" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" friendlyname="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="Item IDs" />
+    </outputs>
+    <onsuccess>8bfaddd3-0fe6-4080-abc3-38f8bbbcd3c7</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="e034c8f8-e763-4330-ab65-f024e4bfd5e7" name="100 rows added to Queue?" type="Decision">
+    <subsheetid>af098cb9-f068-4989-bf65-20891f93ef73</subsheetid>
+    <display x="15" y="-15" w="90" h="30" />
+    <decision expression="[Item IDs] = [Pending Items]" />
+    <ontrue>f4215158-5dc5-4e24-beeb-4d11d4de9fce</ontrue>
+    <onfalse>f4ef533b-9b91-49fa-8774-f5adf303d0fa</onfalse>
+  </stage>
+  <stage stageid="f4ef533b-9b91-49fa-8774-f5adf303d0fa" name="Rows not added to Queue" type="Exception">
+    <subsheetid>af098cb9-f068-4989-bf65-20891f93ef73</subsheetid>
+    <display x="120" y="-15" />
+    <exception localized="yes" type="Bad Results" detail="&quot;Rows not successfully added to Queue&quot;" />
+  </stage>
+  <stage stageid="8bfaddd3-0fe6-4080-abc3-38f8bbbcd3c7" name="Get Pending Items" type="Action">
+    <subsheetid>af098cb9-f068-4989-bf65-20891f93ef73</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Retrieves the IDs for all currently pending work queue items in the specified queue, matching the given tags</narrative>
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue for which the pending items are required" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+      <input type="number" name="Maximum" friendlyname="Maximum" narrative="Optionally, the maximum number of items to return. Default is to return all items" expr="" />
+      <input type="number" name="Skip" friendlyname="Skip" narrative="Optionally, the number of items to skip before returning. Default is zero, ie. return all items from the head of the queue" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Pending Items" friendlyname="Pending Items" narrative="The currently pending items in the queue, referenced by ID. The single column is 'Item ID' : text. The elements in the collection will be in the order in which they will be loaded by the 'Get Next Item' action." stage="Pending Items" />
+    </outputs>
+    <onsuccess>e034c8f8-e763-4330-ab65-f024e4bfd5e7</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Pending Items" />
+  </stage>
+  <stage stageid="f4215158-5dc5-4e24-beeb-4d11d4de9fce" name="Clean Up" type="SubSheet">
+    <subsheetid>af098cb9-f068-4989-bf65-20891f93ef73</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <onsuccess>2367b323-5905-4d88-9b56-ee547bccb7c4</onsuccess>
+    <processid>70e6542a-4806-483c-b349-71a146345c7e</processid>
+  </stage>
+  <stage stageid="916d2702-6fcb-4eff-b334-6ecbf7244728" name="Batch size of 25000" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="75" w="270" h="30" />
+    <onsuccess>93920d80-9a72-491d-9e4e-606fb93c03ee</onsuccess>
+    <processid>af098cb9-f068-4989-bf65-20891f93ef73</processid>
+  </stage>
+  <stage stageid="92472cda-4e01-42b6-9913-896590c7b42a" name="Note4" type="Note">
+    <narrative>WHEN you set a batch size to '25000'...THEN all items should load to the queue without error.</narrative>
+    <display x="30" y="30" w="270" h="30" />
+    <onsuccess>916d2702-6fcb-4eff-b334-6ecbf7244728</onsuccess>
+  </stage>
+  <stage stageid="edf6bdd4-32be-4edb-ad17-6e65ac21d574" name="100 row collection" type="Collection">
+    <subsheetid>85e25ff2-9f4d-4c07-b4f3-fc129c905bfe</subsheetid>
+    <display x="-120" y="-75" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+  </stage>
+  <stage stageid="3c2b71a0-a28c-47a2-b0cf-333fd75bc685" name="Item IDs" type="Collection">
+    <subsheetid>85e25ff2-9f4d-4c07-b4f3-fc129c905bfe</subsheetid>
+    <display x="-120" y="-45" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="ed67b242-949c-4abd-b856-9533c8c76a99" name="Build Large Collection (100)" type="Action">
+    <subsheetid>85e25ff2-9f4d-4c07-b4f3-fc129c905bfe</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-150" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Start Index" friendlyname="Start Index" narrative="The index that the collection should be built from" expr="1" />
+      <input type="number" name="End Index" friendlyname="End Index" narrative="The last index that should be added to the collection" expr="100" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Output" friendlyname="Output" narrative="The collection which has been built" stage="100 row collection" />
+    </outputs>
+    <onsuccess>27a3c4e9-8bc1-4942-a4a1-33bf24c704c7</onsuccess>
+    <resource object="Queue Utils" action="Build Large Collection" />
+  </stage>
+  <stage stageid="314d3bdc-b442-4297-b041-e945555a9166" name="Local Outputs" type="Block">
+    <subsheetid>af098cb9-f068-4989-bf65-20891f93ef73</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-105" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f42e4f41-8446-401d-ada7-a5ac54f1776b" name="Pending Items" type="Collection">
+    <subsheetid>af098cb9-f068-4989-bf65-20891f93ef73</subsheetid>
+    <display x="-120" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="e2bbab5d-00d4-4da2-8d64-d3c15aada5da" name="10000 row collection" type="Collection">
+    <subsheetid>af098cb9-f068-4989-bf65-20891f93ef73</subsheetid>
+    <display x="-120" y="-75" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+  </stage>
+  <stage stageid="2e2b3e18-e3b1-439f-b48e-ea255a19178a" name="Item IDs" type="Collection">
+    <subsheetid>af098cb9-f068-4989-bf65-20891f93ef73</subsheetid>
+    <display x="-120" y="-45" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="4e0af621-5ca9-497d-b2be-22a1546ee28a" name="Build Large Collection (10000)" type="Action">
+    <subsheetid>af098cb9-f068-4989-bf65-20891f93ef73</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-150" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Start Index" friendlyname="Start Index" narrative="The index that the collection should be built from" expr="1" />
+      <input type="number" name="End Index" friendlyname="End Index" narrative="The last index that should be added to the collection" expr="10000" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Output" friendlyname="Output" narrative="The collection which has been built" stage="100 row collection" />
+    </outputs>
+    <onsuccess>526529e7-b89d-449a-84fc-ee760d04b600</onsuccess>
+    <resource object="Queue Utils" action="Build Large Collection" />
+  </stage>
+  <stage stageid="bf911cc9-57d8-4372-bebc-ed7af5a8ffc1" name="Note3" type="Note">
+    <narrative>We can't check that the batching is working, we are simply checking that when batches are provided so errors occur and the items are added. </narrative>
+    <display x="255" y="-30" w="150" h="180" />
+  </stage>
+</process>

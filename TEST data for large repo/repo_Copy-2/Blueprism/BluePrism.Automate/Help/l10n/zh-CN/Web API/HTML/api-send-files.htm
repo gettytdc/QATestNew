@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-gb" xml:lang="en-gb" data-mc-search-type="Stem" data-mc-help-system-file-name="Blue Prism Help.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>发送文件</title>
+        <link type="text/css" href="../../AutomateHelp.css" rel="stylesheet"/>
+		<link href="../../TableStyles/bp_footer_tablestyle.css" rel="stylesheet"/>
+		<link href="../../TableStyles/bp-table-column-header.css" rel="stylesheet"/>
+        <link href="../../TableStyles/bp-table-row-header.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <h1 class="pagebreak">发送文件</h1>
+        <p>以下示例演示了如何作为 HTTP 请求的一部分发送单个或多个文件。</p>
+        <h2>发送单个文件</h2>
+        <p>此操作将以二进制流的形式发送单个文件。使用此内容类型时，Content-Type HTTP 标头将设置为 application/octet-stream，但在 Web API 操作定义中指定了不同的 Content-Type 标头值时除外。</p>
+        <h3>Web API 定义</h3>
+        <p>API 定义中的操作对正文内容使用 <b>POST</b> 方法和<b>单个文件</b>。文件参数名称在使用此操作的流程中创建名为<i>发行版说明</i>的输入参数。</p>
+        <p><a href="../Images/api-file-eg-single.png"><img class="MCPopupThumbnail img imglargeimage75pc" data-mc-width="682" data-mc-height="186" src="../Images/api-file-eg-single_thumb_0_128.png" tabindex=""/></a>
+        </p>
+        <h3>流程</h3>
+        <p><a href="../Images/api-file-single.png"><img class="MCPopupThumbnail img imglargeimage75pc" data-mc-width="525" data-mc-height="187" src="../Images/api-file-single_thumb_0_128.png" tabindex=""/></a>
+        </p>
+        <p>在 Process Studio 中，流程包含一个名为<i>备注</i>且已导入了文件的数据项（数据类型为“二进制”）。</p>
+        <p><a href="../Images/api-file-eg-data.png"><img class="MCPopupThumbnail img imglargeimage75pc" data-mc-width="597" data-mc-height="337" src="../Images/api-file-eg-data_thumb_0_128.png" tabindex=""/></a>
+        </p>
+        <p class="pagebreak">流程中的操作环节使用 API 定义，并引用<i>备注</i>数据项作为输入参数的值。</p>
+        <p><a href="../Images/api-file-eg-action.png"><img class="MCPopupThumbnail img imglargeimage75pc" data-mc-width="601" data-mc-height="191" src="../Images/api-file-eg-action_thumb_0_128.png" tabindex=""/></a>
+        </p>
+        <p>调用 API 时，导入到数据项中的文件将作为 HTTP 请求的一部分发送。</p>
+        <h2 class="pagebreak">发送多个文件</h2>
+        <p>使用 multipart/form-data 内容类型在单个请求中发送多个文件。</p>
+        <h3>Web API 定义</h3>
+        <p>API 定义中的操作对正文内容使用 <b>POST</b> 方法和<b>多个文件</b>。文件参数名称在使用此操作的流程中创建名为<i>文档</i>的输入参数。</p>
+        <p><a href="../Images/api-files-eg-def.png"><img class="MCPopupThumbnail img imglargeimage75pc" data-mc-width="682" data-mc-height="187" src="../Images/api-files-eg-def_thumb_0_128.png" tabindex=""/></a>
+        </p>
+        <h3>流程</h3>
+        <p>流程包含一个名为<i>文件</i>的集合项，其中导入了许多文件。</p>
+        <p><a href="../Images/api-file-multiple.png"><img class="MCPopupThumbnail img imglargeimage75pc" data-mc-width="525" data-mc-height="187" src="../Images/api-file-multiple_thumb_0_128.png" tabindex=""/></a>
+        </p>
+        <p><a href="../Images/api-files-eg-collection.png"><img class="MCPopupThumbnail img imglargeimage75pc" data-mc-width="611" data-mc-height="253" src="../Images/api-files-eg-collection_thumb_0_128.png" tabindex=""/></a>
+        </p>
+        <p class="pagebreak">传递给输入参数的集合应使用以下指定的模式：</p>
+        <table style="mc-table-style: url('../../TableStyles/bp-table-column-header.css');margin-left: 0;margin-right: auto;" class="TableStyle-bp-table-column-header" cellspacing="0">
+            <col class="TableStyle-bp-table-column-header-Column-Column1"/>
+            <col class="TableStyle-bp-table-column-header-Column-Column2"/>
+            <col class="TableStyle-bp-table-column-header-Column-Column2"/>
+            <col class="TableStyle-bp-table-column-header-Column-Column2"/>
+            <thead>
+                <tr class="TableStyle-bp-table-column-header-Head-Header1">
+                    <th class="TableStyle-bp-table-column-header-HeadE-Column1-Header1">
+                        <p>名称</p>
+                    </th>
+                    <th class="TableStyle-bp-table-column-header-HeadF-Column2-Header1">
+                        <p>数据类型</p>
+                    </th>
+                    <th class="TableStyle-bp-table-column-header-HeadF-Column2-Header1">
+                        <p>是否必需</p>
+                    </th>
+                    <th class="TableStyle-bp-table-column-header-HeadD-Column2-Header1">
+                        <p>描述</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-bp-table-column-header-Body-Body1">
+                    <td class="TableStyle-bp-table-column-header-BodyE-Column1-Body1">
+                        <p>文件</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyF-Column2-Body1">
+                        <p>二进制</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyF-Column2-Body1">
+                        <p>正确</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyD-Column2-Body1">
+                        <p>要发送的文件。</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-column-header-Body-Body1">
+                    <td class="TableStyle-bp-table-column-header-BodyE-Column1-Body1">
+                        <p>文件名 </p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyF-Column2-Body1">
+                        <p>文本</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyF-Column2-Body1">
+                        <p>错误</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyD-Column2-Body1">
+                        <p>用于在多部分表单正文中填充此文件部分的文件名标头</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-column-header-Body-Body1">
+                    <td class="TableStyle-bp-table-column-header-BodyE-Column1-Body1">
+                        <p>字段名称</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyF-Column2-Body1">
+                        <p>文本</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyF-Column2-Body1">
+                        <p>错误</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyD-Column2-Body1">
+                        <p>用于在多部分表单正文中填充此文件部分的名称标头</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-bp-table-column-header-Body-Body1">
+                    <td class="TableStyle-bp-table-column-header-BodyB-Column1-Body1">
+                        <p>内容类型</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyC-Column2-Body1">
+                        <p>文本</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyC-Column2-Body1">
+                        <p>错误</p>
+                    </td>
+                    <td class="TableStyle-bp-table-column-header-BodyA-Column2-Body1">
+                        <p>用于在多部分表单正文中填充此文件部分的 Content-Type 标头。如未指定值，则默认使用 <i>application/octe -stream</i>。</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>创建集合时，可以通过点击“集合属性”中的“导入字段”<b></b>并从所需的 Web API 操作中选择一个参数来导入所需的模式。</p>
+        <p><a href="../Images/api-import-fields.png"><img class="MCPopupThumbnail img imglargeimage100pc" data-mc-width="1000" data-mc-height="855" src="../Images/api-import-fields_thumb_0_128.png" tabindex=""/></a>
+        </p>
+        <p class="pagebreak">流程中的操作环节使用 API 定义，并引用<i>文件</i>数据项作为输入参数的值。</p>
+        <p><a href="../Images/api-files-eg-action.png"><img class="MCPopupThumbnail img imglargeimage75pc" data-mc-width="601" data-mc-height="193" src="../Images/api-files-eg-action_thumb_0_128.png" tabindex=""/></a>
+        </p>
+        <p>调用 API 时，文件将作为 HTTP 请求的一部分发送。</p>
+        <p> </p>
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../TableStyles/bp_footer_tablestyle.css');" class="TableStyle-bp_footer_tablestyle" cellspacing="0">
+            <col class="TableStyle-bp_footer_tablestyle-Column-Column1"/>
+            <tbody>
+                <tr class="TableStyle-bp_footer_tablestyle-Body-Body1">
+                    <td class="TableStyle-bp_footer_tablestyle-BodyD-Column1-Body1"> </td>
+                </tr>
+                <tr class="TableStyle-bp_footer_tablestyle-Body-Body1">
+                    <td style="text-align: center;" class="TableStyle-bp_footer_tablestyle-BodyD-Column1-Body1">机密商业信息</td>
+                </tr>
+                <tr class="TableStyle-bp_footer_tablestyle-Body-Body1">
+                    <td style="text-align: center;" class="TableStyle-bp_footer_tablestyle-BodyA-Column1-Body1">®Blue Prism 是 Blue Prism Limited 的注册商标</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,310 @@
+﻿<process name="MS Word Get Footer Text" version="1.0" bpversion="6.9.0.25018" narrative="Automated process to check Get Footer text functionality in MS Word" byrefcollection="true" preferredid="2f8f9b6e-4407-4986-9d68-06c7f9d94301">
+  <view>
+    <camerax>-23</camerax>
+    <cameray>285</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="465649d8-2997-4e16-ba88-85b39c3402ff" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>99</camerax>
+      <cameray>61</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="7e28a9b4-d5e7-43ab-b6c2-8fdcc15864e8" type="Normal" published="False">
+    <name>Get Footer Text</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="2399a687-2070-4311-97cc-30230ac9e969" type="Normal" published="False">
+    <name>CleanUp</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="97136c22-e8d6-4aa3-85a9-2a35a65b64b6" name="Stage1" type="ProcessInfo">
+    <display x="-300" y="-45" w="150" h="90" />
+  </stage>
+  <stage stageid="35baaf5b-7159-47e8-bc7a-876db5668511" name="Start" type="Start">
+    <display x="-45" y="-75" />
+    <onsuccess>52b9ca88-43c4-4260-af89-a355b4305ed9</onsuccess>
+  </stage>
+  <stage stageid="9ea9ad18-ad59-4899-b692-f64bee26177d" name="QA Root" type="Data">
+    <display x="-300" y="150" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <alwaysinit />
+  </stage>
+  <stage stageid="ec01c944-0bf0-4da6-b47b-85ad74226d95" name="Global Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-375" y="120" w="150" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4239d351-a2ee-4e0e-be02-5268cdfe4f53" name="Exception" type="Data">
+    <display x="-300" y="75" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5a14ce32-0f0e-4bbb-8118-8e8295e8a5ce" name="Failed?" type="Data">
+    <display x="-300" y="45" w="150" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="85b89dd5-4b5a-4fe4-9967-ee4ac42af8c1" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-375" y="15" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="36fd2e8d-c3ea-467c-88e3-29bae9104cdd" name="Doc File Path" type="Data">
+    <display x="-300" y="180" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">\Processes\MS Office\MS Word Sample Doc\TestDoc US-1664-7.docx</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="6faf6c85-9be3-459b-9eb0-6262918ea591" name="handle" type="Data">
+    <display x="-300" y="210" w="150" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ecfb3899-4d28-42f8-a056-d56bb3926e6b" name="End" type="End">
+    <display x="-45" y="330" />
+  </stage>
+  <stage stageid="d4309e85-09b6-419c-9d81-1a9c607d6332" name="Failed?" type="Decision">
+    <display x="-45" y="285" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>b5b892d2-021b-4094-959b-ca0fba94357a</ontrue>
+    <onfalse>ecfb3899-4d28-42f8-a056-d56bb3926e6b</onfalse>
+  </stage>
+  <stage stageid="b5b892d2-021b-4094-959b-ca0fba94357a" name="Re-Throw" type="Exception">
+    <display x="60" y="285" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="230ecfae-b0c3-4b17-890a-486f0443e4eb" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="135" y="240" w="10" h="10" />
+    <onsuccess>a255fc65-b6ba-495b-9d44-8644ad7312d7</onsuccess>
+  </stage>
+  <stage stageid="0353eb82-1446-4b31-b52b-004ce40fe9aa" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="135" y="45" w="90" h="30" />
+    <onsuccess>b3c55bc4-2d2e-4157-91d5-6036b8839f87</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="b3c55bc4-2d2e-4157-91d5-6036b8839f87" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="135" y="90" />
+    <onsuccess>230ecfae-b0c3-4b17-890a-486f0443e4eb</onsuccess>
+  </stage>
+  <stage stageid="0df9bf2a-0aa0-4c83-aa56-a7a9060bc1aa" name="Scenarios" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-45" w="390" h="255" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="5deabf80-88e4-4d7f-8dae-40e0681edc37" name="Recover1" type="Recover">
+    <loginhibit />
+    <display x="135" y="0" />
+    <onsuccess>0353eb82-1446-4b31-b52b-004ce40fe9aa</onsuccess>
+  </stage>
+  <stage stageid="863aafc2-cb28-4e9e-8016-a9f5c1ee8ce6" name="Setup" type="SubSheetInfo">
+    <subsheetid>465649d8-2997-4e16-ba88-85b39c3402ff</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="6d3bc4b2-63c1-43f2-b606-c478e5bb7e63" name="Note1" type="Note">
+    <narrative>WHEN  I use Get Footer text 
+THEN the document footer is successfully read
+
+</narrative>
+    <display x="-45" y="120" w="270" h="60" />
+    <onsuccess>74c151ef-adb3-486d-995e-abef744f1646</onsuccess>
+  </stage>
+  <stage stageid="74c151ef-adb3-486d-995e-abef744f1646" name="Get Footer Text" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="180" w="270" h="30" />
+    <onsuccess>a255fc65-b6ba-495b-9d44-8644ad7312d7</onsuccess>
+    <processid>7e28a9b4-d5e7-43ab-b6c2-8fdcc15864e8</processid>
+  </stage>
+  <stage stageid="61cb308e-1719-4cce-8bfa-0184177cbbcc" name="Get Footer Text" type="SubSheetInfo">
+    <subsheetid>7e28a9b4-d5e7-43ab-b6c2-8fdcc15864e8</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="a182be6a-c61f-45f4-a98a-f0c403cd0b32" name="Doc Name" type="Data">
+    <display x="-300" y="240" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">TestDoc US-1664-7.docx</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="52b9ca88-43c4-4260-af89-a355b4305ed9" name="Note1" type="Note">
+    <narrative>GIVEN I have access to a MS Word document with page footer text
+</narrative>
+    <display x="-45" y="0" w="270" h="60" />
+    <onsuccess>2459e5bc-63da-4c5f-8386-70b5df37518b</onsuccess>
+  </stage>
+  <stage stageid="2459e5bc-63da-4c5f-8386-70b5df37518b" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="60" w="270" h="30" />
+    <onsuccess>6d3bc4b2-63c1-43f2-b606-c478e5bb7e63</onsuccess>
+    <processid>465649d8-2997-4e16-ba88-85b39c3402ff</processid>
+  </stage>
+  <stage stageid="304865db-3e8a-4271-bfeb-c9f4318623f6" name="Start" type="Start">
+    <subsheetid>7e28a9b4-d5e7-43ab-b6c2-8fdcc15864e8</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>4b50d045-2877-483f-abc3-ce1b3bdaa3eb</onsuccess>
+  </stage>
+  <stage stageid="bff5e289-800b-4a2d-b0aa-3666f4925573" name="Output" type="Block">
+    <subsheetid>7e28a9b4-d5e7-43ab-b6c2-8fdcc15864e8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="09ccbd2e-3ec1-44ca-90f5-185c36e3d637" name="CleanUp" type="SubSheetInfo">
+    <subsheetid>2399a687-2070-4311-97cc-30230ac9e969</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="a255fc65-b6ba-495b-9d44-8644ad7312d7" name="CleanUp" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="240" w="90" h="30" />
+    <onsuccess>d4309e85-09b6-419c-9d81-1a9c607d6332</onsuccess>
+    <processid>2399a687-2070-4311-97cc-30230ac9e969</processid>
+  </stage>
+  <stage stageid="7b743355-a8f5-4010-8178-ba8b7e7d355b" name="Start" type="Start">
+    <subsheetid>465649d8-2997-4e16-ba88-85b39c3402ff</subsheetid>
+    <display x="-60" y="-135" />
+    <onsuccess>ca8e6233-9794-4e3c-8512-5ff4fd60d08a</onsuccess>
+  </stage>
+  <stage stageid="ca8e6233-9794-4e3c-8512-5ff4fd60d08a" name="Create Instance" type="Action">
+    <subsheetid>465649d8-2997-4e16-ba88-85b39c3402ff</subsheetid>
+    <display x="-60" y="-90" w="90" h="30" />
+    <outputs>
+      <output type="number" name="handle" stage="handle" />
+    </outputs>
+    <onsuccess>e25d7279-514a-4197-9059-3cbd846dc165</onsuccess>
+    <resource object="MS Word VBO" action="Create Instance" />
+  </stage>
+  <stage stageid="64ca7924-5c2c-4993-bce0-361563ae30da" name="End" type="End">
+    <subsheetid>7e28a9b4-d5e7-43ab-b6c2-8fdcc15864e8</subsheetid>
+    <display x="-45" y="15" />
+  </stage>
+  <stage stageid="4b50d045-2877-483f-abc3-ce1b3bdaa3eb" name="Get Footer Text" type="Action">
+    <subsheetid>7e28a9b4-d5e7-43ab-b6c2-8fdcc15864e8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="number" name="handle" expr="[handle]" />
+      <input type="text" name="document name" friendlyname="document name" expr="[Doc Name]" />
+      <input type="number" name="section" friendlyname="section" narrative="Default 1" expr="1" />
+      <input type="number" name="footer" friendlyname="footer" narrative="Default 1" expr="1" />
+    </inputs>
+    <outputs>
+      <output type="text" name="footer text" friendlyname="footer text" stage="Footer Text" />
+    </outputs>
+    <onsuccess>f1387184-41aa-49d5-b158-6a428aa0ea49</onsuccess>
+    <resource object="MS Word VBO" action="Get Footer Text" />
+  </stage>
+  <stage stageid="f1387184-41aa-49d5-b158-6a428aa0ea49" name="Is Footer Text correct?" type="Decision">
+    <subsheetid>7e28a9b4-d5e7-43ab-b6c2-8fdcc15864e8</subsheetid>
+    <display x="-45" y="-45" w="90" h="30" />
+    <decision expression="[Footer Text] = &quot;This is a page footer text&quot;" />
+    <ontrue>64ca7924-5c2c-4993-bce0-361563ae30da</ontrue>
+    <onfalse>6548f49f-049b-4153-9044-fb169a39f009</onfalse>
+  </stage>
+  <stage stageid="6548f49f-049b-4153-9044-fb169a39f009" name="Fail" type="Exception">
+    <subsheetid>7e28a9b4-d5e7-43ab-b6c2-8fdcc15864e8</subsheetid>
+    <display x="30" y="-45" w="30" h="30" />
+    <exception type="Test Failure" detail="&quot;The page footer text is incorrect&quot;" />
+  </stage>
+  <stage stageid="c01abd3c-d9c9-4b63-af5b-2695b52a39bb" name="Start" type="Start">
+    <subsheetid>2399a687-2070-4311-97cc-30230ac9e969</subsheetid>
+    <display x="-60" y="-135" />
+    <onsuccess>97018898-7d6b-4565-841c-9f3fa4fb5cad</onsuccess>
+  </stage>
+  <stage stageid="1a4e2672-fda2-4292-8e0f-e7a1c0da4800" name="End" type="End">
+    <subsheetid>2399a687-2070-4311-97cc-30230ac9e969</subsheetid>
+    <display x="-60" y="0" />
+  </stage>
+  <stage stageid="97018898-7d6b-4565-841c-9f3fa4fb5cad" name="Close Doc" type="Action">
+    <subsheetid>2399a687-2070-4311-97cc-30230ac9e969</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="documentname" friendlyname="documentname" expr="[Doc Name]" />
+      <input type="number" name="handle" friendlyname="handle" expr="[handle]" />
+    </inputs>
+    <onsuccess>1d482b06-7b6f-44a0-90b9-68ab4044149e</onsuccess>
+    <resource object="MS Word VBO" action="Close" />
+  </stage>
+  <stage stageid="1d482b06-7b6f-44a0-90b9-68ab4044149e" name="Exit Instance " type="Action">
+    <subsheetid>2399a687-2070-4311-97cc-30230ac9e969</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" expr="[handle]" />
+    </inputs>
+    <onsuccess>1a4e2672-fda2-4292-8e0f-e7a1c0da4800</onsuccess>
+    <resource object="MS Word VBO" action="Exit" />
+  </stage>
+  <stage stageid="0b921b6e-54e3-4899-a8c9-c35311ef7cc0" name="Success" type="Data">
+    <subsheetid>2399a687-2070-4311-97cc-30230ac9e969</subsheetid>
+    <display x="-195" y="-15" w="150" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f193b22c-088d-4382-95b1-05cb587ad73e" name="Message" type="Data">
+    <subsheetid>2399a687-2070-4311-97cc-30230ac9e969</subsheetid>
+    <display x="-195" y="15" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4a863965-742c-4369-a835-176575c19732" name="Block1" type="Block">
+    <subsheetid>2399a687-2070-4311-97cc-30230ac9e969</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e25d7279-514a-4197-9059-3cbd846dc165" name="Open Document" type="Action">
+    <subsheetid>465649d8-2997-4e16-ba88-85b39c3402ff</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" expr="[handle]" />
+      <input type="text" name="File Name" friendlyname="File Name" expr="[QA Root] &amp; [Doc File Path]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Document Name" friendlyname="Document Name" stage="Doc Name" />
+    </outputs>
+    <onsuccess>7d5a0e79-2d78-4429-b48a-81520c975ed2</onsuccess>
+    <resource object="MS Word VBO" action="Open" />
+  </stage>
+  <stage stageid="7d5a0e79-2d78-4429-b48a-81520c975ed2" name="End" type="End">
+    <subsheetid>465649d8-2997-4e16-ba88-85b39c3402ff</subsheetid>
+    <display x="-60" y="0" />
+  </stage>
+  <stage stageid="afb7b10c-f74d-474d-a832-d4eea8b0f4e3" name="Footer Text" type="Data">
+    <subsheetid>7e28a9b4-d5e7-43ab-b6c2-8fdcc15864e8</subsheetid>
+    <display x="-195" y="-15" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+</process>

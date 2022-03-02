@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Blue Prism Scheduler Configuration</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+		h3, h4 { clear:left !important; }
+	</style>
+</head>
+
+<body class="slick scheduler minishot">
+	<div class="header">
+		<h1 class="pagetitle">System Manager</h1>
+		
+		<h2>Scheduler Configuration</h2>
+	</div>
+	<div class="captioned-image overview-screenshot nozoom">
+		<a href="Graphics/scheduler-config.png" 
+			title="Scheduler Config - Click for a larger image"><img 
+			src="Graphics/scheduler-config.png" alt="Scheduler Config - Click for a larger image"/></a>
+		<p>Scheduler Configuration</p>
+	</div>
+	
+	<h3>Overview</h3>
+	<p>The Blue Prism scheduler runs as part of the 
+	<a href="helpBPServer.htm">Blue Prism Server</a> service, but is
+	configured on a per-connection basis within the product.
+	By default, the scheduler does not run on a new connection. In order
+	to utilise it, it must be enabled in the 'System' section of
+	System Manager.</p>
+	
+	<p>Any user with the 'System Manager - Scheduler' preference
+	enabled can configure the scheduler for a connection.</p>
+	
+	<h3 id="activate">Activating the Scheduler</h3>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/scheduler-activate.png" alt="Activating the scheduler"/>
+	</div>
+	<p>By ticking the 'Activate scheduler for this environment' box, the
+	scheduler is enabled.</p>
+	
+	<p>Note that this setting is only checked when the BP Server service
+	is started, so it must be restarted after changing this value to
+	enable or disable the scheduler.</p>
+	
+	<h3>Configuring the Scheduler</h3>
+	<p>To enable the other scheduler configuration, the scheduler must
+	first be <a href="#activate">made active</a>.</p>
+	
+	
+	<h4>Checking for missed schedules</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/scheduler-missed.png" alt="Checking for missed schedules"/>
+	</div>
+	<p>When the scheduler initialises, it can check back for recent
+	schedules which should have executed while the scheduler was not
+	running.</p>
+	<p>To configure how far back the scheduler should check, the number
+	of minutes to look back can be entered in the 'Execute missed
+	schedules from the past <i>n</i> minutes' text box.</p>
+	<p>To set the scheduler to not look back at all, a value of 0 (zero)
+	should be entered.</p>
+	<p>Note that if a schedule is discovered which should have executed
+	multiple times in the configured period, it will only be executed
+	once. Equally, schedules which have successfully run will not be
+	executed again.</p>
+	<p>Also note that this setting is only effective when the scheduler
+	is starting up, so it will have no effect on a running scheduler.</p>
+	
+	<h4>Setting the retry period for offline resources</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/scheduler-retry-period.png" alt="Setting the retry period"/>
+	</div>
+	<p>If a resource is discovered to be offline when the scheduler
+	attempts to run a process on it, it will wait and retry the resource
+	after a defined number of seconds.</p>
+	<p>The number of seconds to wait between retries is configured by
+	entering a number into the 'retry after <i>n</i> seconds' text box.
+	</p>
+	
+	<h4>Setting the number of retries for offline resources</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/scheduler-retry-times.png" alt="Setting the number of retry attempts"/>
+	</div>
+	<p>An offline resource is tested a number of times by the scheduler
+	to see if it has become available.</p>
+	<p>The number of times to retry the	resource is configurable by
+	entering a number into the 'Retry a maximum of <i>n</i> times'
+	text box.</p>
+	<p>To configure the scheduler to not retry an offline resource at
+	all, a value of 0 (zero) should be entered here.</p>
+</body>
+</html>

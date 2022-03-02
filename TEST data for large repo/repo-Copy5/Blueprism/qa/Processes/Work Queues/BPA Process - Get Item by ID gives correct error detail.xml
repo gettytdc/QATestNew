@@ -1,0 +1,1302 @@
+﻿<process name="Get Item by ID gives correct error detail" version="1.0" bpversion="6.8.0.21370" narrative="US-8082 - depending on the reason for 'Get Item ID' to fail will give the appropriate error message." byrefcollection="true" preferredid="8b81e518-7fd8-41a3-8c12-1c592a90e0c6" published="true">
+  <view>
+    <camerax>0</camerax>
+    <cameray>111</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="41492e9d-890c-4f4a-a025-6aec870ecda5" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>14</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="5b5d9018-1046-4b7d-8ecb-4212cf929506" type="Normal" published="False">
+    <name>Deferred Queue Item</name>
+    <view>
+      <camerax>-23</camerax>
+      <cameray>6</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="c321c033-dff9-417c-92fc-aceaec2557a0" type="Normal" published="False">
+    <name>Not Active Queue Item</name>
+    <view>
+      <camerax>-32</camerax>
+      <cameray>22</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="9fe90010-0eef-43d2-9608-0bd0a8fd7914" type="Normal" published="False">
+    <name>Invalid Queue Item</name>
+    <view>
+      <camerax>20</camerax>
+      <cameray>54</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="74926b5a-3506-40e9-9451-3c1869655929" type="Normal" published="False">
+    <name>Locked Queue Item</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>102</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="f8f10b06-0e33-49e3-af40-0364683ad738" type="Normal" published="False">
+    <name>Successful Get Item by ID</name>
+    <view>
+      <camerax>-4</camerax>
+      <cameray>135</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="a347c6da-85d4-4821-a2e7-669bbbfc1723" type="Normal" published="False">
+    <name>Clean Up</name>
+    <view>
+      <camerax>42</camerax>
+      <cameray>69</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="16d38c5a-b7ff-4aae-a784-87746972c484" name="Start" type="Start">
+    <display x="15" y="-195" />
+    <onsuccess>ce5350fd-1cb1-4267-8133-b92592122016</onsuccess>
+  </stage>
+  <stage stageid="065a0a5d-3456-4b31-8664-376cdbdfb4c2" name="End" type="End">
+    <display x="15" y="435" />
+  </stage>
+  <stage stageid="4c172776-d0dc-4e83-83ce-db0a7d079ab8" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-165" w="150" h="90" />
+  </stage>
+  <stage stageid="202975ac-f25a-4a97-b0ff-a6de18a31425" name="Setup" type="SubSheetInfo">
+    <subsheetid>41492e9d-890c-4f4a-a025-6aec870ecda5</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="72e8b4e1-7d82-4cc8-bc9f-cb2e2d981610" name="Start" type="Start">
+    <subsheetid>41492e9d-890c-4f4a-a025-6aec870ecda5</subsheetid>
+    <display x="30" y="-90" />
+    <onsuccess>8b78dba5-5f9d-4914-a2c5-88a30703616e</onsuccess>
+  </stage>
+  <stage stageid="62f3287c-c2f3-4469-81bd-7d1a63e05950" name="End" type="End">
+    <subsheetid>41492e9d-890c-4f4a-a025-6aec870ecda5</subsheetid>
+    <display x="30" y="150" />
+  </stage>
+  <stage stageid="fab363c7-6367-4ec2-8142-f6c316c35b63" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-105" w="90" h="30" />
+    <onsuccess>d8d4cb1a-3c81-454a-bb74-e0a7075d6b3e</onsuccess>
+    <processid>41492e9d-890c-4f4a-a025-6aec870ecda5</processid>
+  </stage>
+  <stage stageid="d8d4cb1a-3c81-454a-bb74-e0a7075d6b3e" name="Note1" type="Note">
+    <narrative>GIVEN an Item is 'deferred' in the Queue....THEN error message will read "The queue item '{0}' is deferred"</narrative>
+    <display x="15" y="-60" w="210" h="30" />
+    <onsuccess>6c7c37ff-abbd-44d0-9986-9b7ca844fa17</onsuccess>
+  </stage>
+  <stage stageid="f5bc2d2a-a868-4d26-abd7-4ee44b616b40" name="Note2" type="Note">
+    <narrative>GIVEN an item is 'Not Active'...THEN the error message will read "The queue item '{0}' is not in an active state."</narrative>
+    <display x="15" y="30" w="210" h="30" />
+    <onsuccess>c32f7a3d-c3f5-41b8-8a19-be374c1247d5</onsuccess>
+  </stage>
+  <stage stageid="6df0dd9c-f1af-4f1d-b550-792c57c43b51" name="Note3" type="Note">
+    <narrative>GIVEN there is no such item...THEN the error message will read "The queue item of '{0}' was not found".</narrative>
+    <display x="15" y="120" w="210" h="30" />
+    <onsuccess>2c9d32da-bc9d-43a6-ad02-b49d81a8cb35</onsuccess>
+  </stage>
+  <stage stageid="72441985-eaa0-4548-b9d7-2d3cd3e593eb" name="Note4" type="Note">
+    <narrative>GIVEN an item is 'Locked...THEN the error message will read "The queue item '{0}' is locked."</narrative>
+    <display x="15" y="210" w="210" h="30" />
+    <onsuccess>665fe21f-7761-4744-ad65-810563e2124b</onsuccess>
+  </stage>
+  <stage stageid="ce5350fd-1cb1-4267-8133-b92592122016" name="Note5" type="Note">
+    <narrative>When you have items in a Queue within Blue Prism...</narrative>
+    <display x="15" y="-150" w="210" h="30" />
+    <onsuccess>fab363c7-6367-4ec2-8142-f6c316c35b63</onsuccess>
+  </stage>
+  <stage stageid="2de58ab0-a320-4d21-97d2-7eb7494f5070" name="Note6" type="Note">
+    <narrative>GIVEN item is active and present...THEN no error message will appear.</narrative>
+    <display x="15" y="300" w="210" h="30" />
+    <onsuccess>25f78788-e777-484c-9364-5a10720e8023</onsuccess>
+  </stage>
+  <stage stageid="8e3f5bd8-3a28-49c9-a8c0-cb42573f0074" name="Global Variables" type="Block">
+    <subsheetid>41492e9d-890c-4f4a-a025-6aec870ecda5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-30" w="150" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d5d25813-fa1e-4e9c-9672-958981330e61" name="Add To Queue" type="Action">
+    <subsheetid>41492e9d-890c-4f4a-a025-6aec870ecda5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>The Data collection contains the items to be added to the queue. The collection may contain single or multiple rows, with each representing an item to be added.
+
+If there is a failure during the process, the queue will be unchanged - i.e. no rows will be loaded even if the error occurred on the last one.
+
+If Defer Until is specified, the items will not be available to be worked until then. Otherwise, they are available immediately.
+
+If the queue has a key field defined, an item added has key data longer than the maximum permitted 255 characters, an error will occur</narrative>
+    <display x="30" y="30" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="collection" name="Data" friendlyname="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Item data for Work Queues]" />
+      <input type="datetime" name="Defer Until" friendlyname="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" friendlyname="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" friendlyname="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" friendlyname="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+      <input type="number" name="Batch Size" friendlyname="Batch Size" narrative="Optionally, the batch size to use when adding many items to the queue.  A Value of 0 will process all items in one batch.  An empty field will use the default batch size of 1000." expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" friendlyname="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="Item IDs" />
+    </outputs>
+    <onsuccess>130b197f-8071-49b0-b890-0196f3b4a5fa</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="4bf77fa8-b340-4944-9420-ff505a341526" name="Deferred Queue Item" type="SubSheetInfo">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="2b2e0784-ca75-43d9-9e7f-37b9c1c211a8" name="Start" type="Start">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <display x="15" y="-150" />
+    <onsuccess>22a7a0c9-cda2-44d7-8843-b5deac29c390</onsuccess>
+  </stage>
+  <stage stageid="950ad3a6-c73b-49fa-bcc0-85e9c76457f9" name="End" type="End">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <display x="15" y="195" />
+  </stage>
+  <stage stageid="72090a4d-5328-4a33-8e32-33426dddb9b5" name="Not Active Queue Item" type="SubSheetInfo">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="e1387338-53a5-4a0c-bd1d-505ac841f36f" name="Start" type="Start">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <display x="15" y="-135" />
+    <onsuccess>9629feeb-eb44-41c5-946f-c9c40ba34ea2</onsuccess>
+  </stage>
+  <stage stageid="78334c3d-feb8-4319-8343-896b20487dc7" name="End" type="End">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <display x="15" y="210" />
+  </stage>
+  <stage stageid="e5d6882d-4808-4827-b353-0f4f813d9109" name="Defer Queue Item" type="Action">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Marks the item as deferred. It is unlocked, but it will not be made available for processing again until the specified time.
+
+The attempts count for the item is reset to zero.</narrative>
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item to defer" expr="[Item ID]" />
+      <input type="datetime" name="Until" friendlyname="Until" narrative="When to resume processing the case" expr="AddDays(Now(), 1)" />
+    </inputs>
+    <onsuccess>98cb4aec-48bd-4358-b05d-d6eb046aa6c0</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Defer" />
+  </stage>
+  <stage stageid="883b1997-7779-497d-a18a-1409145f71a3" name="Item IDs" type="Collection">
+    <subsheetid>41492e9d-890c-4f4a-a025-6aec870ecda5</subsheetid>
+    <display x="-195" y="0" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+  </stage>
+  <stage stageid="12799774-4d9a-44e7-a7cc-dc2d157e3610" name="Item data for Work Queues" type="Collection">
+    <subsheetid>41492e9d-890c-4f4a-a025-6aec870ecda5</subsheetid>
+    <display x="-195" y="45" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item Name" type="text" description="Name of Item" />
+      <field name="Item Number" type="number" />
+      <field name="Item ID" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Item Name" type="text" value="Item A" />
+        <field name="Item Number" type="number" value="1" />
+        <field name="Item ID" type="text" value="" />
+      </row>
+      <row>
+        <field name="Item Name" type="text" value="Item B" />
+        <field name="Item Number" type="number" value="2" />
+        <field name="Item ID" type="text" value="" />
+      </row>
+      <row>
+        <field name="Item Name" type="text" value="Item C" />
+        <field name="Item Number" type="number" value="3" />
+        <field name="Item ID" type="text" value="" />
+      </row>
+      <row>
+        <field name="Item Name" type="text" value="Item D" />
+        <field name="Item Number" type="number" value="4" />
+        <field name="Item ID" type="text" value="" />
+      </row>
+      <row>
+        <field name="Item Name" type="text" value="Item E" />
+        <field name="Item Number" type="number" value="5" />
+        <field name="Item ID" type="text" value="" />
+      </row>
+      <row>
+        <field name="Item Name" type="text" value="Item F" />
+        <field name="Item Number" type="number" value="6" />
+        <field name="Item ID" type="text" value="" />
+      </row>
+      <row>
+        <field name="Item Name" type="text" value="Item G" />
+        <field name="Item Number" type="number" value="7" />
+        <field name="Item ID" type="text" value="" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="745a27c9-359e-4b0d-adf9-24e7813e7c65" name="Queue Name" type="Data">
+    <subsheetid>41492e9d-890c-4f4a-a025-6aec870ecda5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">US-8082</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="6c7c37ff-abbd-44d0-9986-9b7ca844fa17" name="Deferred Queue Item" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>f5bc2d2a-a868-4d26-abd7-4ee44b616b40</onsuccess>
+    <processid>5b5d9018-1046-4b7d-8ecb-4212cf929506</processid>
+  </stage>
+  <stage stageid="c32f7a3d-c3f5-41b8-8a19-be374c1247d5" name="Not Active Queue Item" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="90" h="30" />
+    <onsuccess>6df0dd9c-f1af-4f1d-b550-792c57c43b51</onsuccess>
+    <processid>c321c033-dff9-417c-92fc-aceaec2557a0</processid>
+  </stage>
+  <stage stageid="22a7a0c9-cda2-44d7-8843-b5deac29c390" name="Get next item" type="Action">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="15" y="-105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" friendlyname="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" friendlyname="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>e5d6882d-4808-4827-b353-0f4f813d9109</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="cbb055b0-f005-47c9-843a-7fcb4f02c40a" name="Item ID" type="Data">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <display x="-210" y="-15" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="98cb4aec-48bd-4358-b05d-d6eb046aa6c0" name="Get Item By ID" type="Action">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <narrative>This action gets the item corresponding to the Id</narrative>
+    <display x="15" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue." expr="[Queue Name]" />
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The Id of the queue item" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="" />
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" friendlyname="Status" narrative="The status of the item." stage="Status" />
+      <output type="number" name="Attempts" friendlyname="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Item By ID" />
+  </stage>
+  <stage stageid="b0d28a46-8f9d-48e0-b1e9-f49af764b0eb" name="Status" type="Data">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <display x="-210" y="75" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9629feeb-eb44-41c5-946f-c9c40ba34ea2" name="Get Next Item" type="Action">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="15" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" friendlyname="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" friendlyname="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>39c5dc9b-d60b-4a65-8440-8ccb4d9965cd</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="e1a209ae-7ee7-4ba2-9f21-9712ba27f6b9" name="Item ID" type="Data">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <display x="-210" y="0" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="39c5dc9b-d60b-4a65-8440-8ccb4d9965cd" name="Mark as Completed to Lock" type="Action">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Marks the item as completed, by updating the Completed timestamp and setting Locked to null. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="15" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+    </inputs>
+    <onsuccess>f6add995-b0ab-4265-bee1-8ade53a674a7</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="f6add995-b0ab-4265-bee1-8ade53a674a7" name="Get Item By ID" type="Action">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <narrative>This action gets the item corresponding to the Id</narrative>
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue." expr="[Queue Name]" />
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The Id of the queue item" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="" />
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" friendlyname="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" friendlyname="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Item By ID" />
+  </stage>
+  <stage stageid="fdaa659a-cd87-40bf-9831-83d34270cc31" name="'Get Next Item' ID" type="Block">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="135" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="32e5a51d-dcdf-4d65-8a23-5a84d9237a0e" name="'Get Item by ID' Status" type="Block">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="45" w="135" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0ca1b384-0cdd-4525-aca8-a423eba7f3a1" name="Read Exception Detail" type="Block">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="120" w="135" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="da229c54-cf97-4f54-ba7c-5479321da69a" name="Resume1" type="Resume">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <loginhibit />
+    <display x="15" y="60" />
+    <onsuccess>1e18f619-752d-45c1-bcca-09463fbdcf2f</onsuccess>
+  </stage>
+  <stage stageid="b9ab6229-4816-4cb3-9432-c10ea88e5f62" name="Exception Handling" type="Block">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-30" w="210" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="aba55099-5394-463b-acf1-bd10ec23baa0" name="Recover2" type="Recover">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <loginhibit />
+    <display x="120" y="0" />
+    <onsuccess>668150a8-cc7a-46fc-b7c8-52aa0fa30c80</onsuccess>
+  </stage>
+  <stage stageid="668150a8-cc7a-46fc-b7c8-52aa0fa30c80" name="Get Exception Detail" type="Calculation">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="60" w="90" h="30" />
+    <onsuccess>da229c54-cf97-4f54-ba7c-5479321da69a</onsuccess>
+    <calculation expression="ExceptionDetail()" stage="Exception Detail" />
+  </stage>
+  <stage stageid="36775fde-8539-43c6-a384-d70a4cd8be09" name="Exception Detail" type="Data">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <display x="-210" y="150" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5525ee45-3c01-4558-9979-d170f14d5b45" name="Expected Exception Detail" type="Block">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="195" w="135" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="1e18f619-752d-45c1-bcca-09463fbdcf2f" name="Is Exception Detail correct?" type="Decision">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <display x="15" y="120" w="90" h="30" />
+    <decision expression="StartsWith([Exception Detail], [Error starts with])&#xA;&#xA;AND&#xA;&#xA;EndsWith([Exception Detail], [Error Ends with])" />
+    <ontrue>950ad3a6-c73b-49fa-bcc0-85e9c76457f9</ontrue>
+    <onfalse>1bf1223b-e6dc-4566-886e-bdadb937e391</onfalse>
+  </stage>
+  <stage stageid="1bf1223b-e6dc-4566-886e-bdadb937e391" name="Incorrect error message" type="Exception">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <display x="120" y="120" />
+    <exception localized="yes" type="Bad Results" detail="&quot;Incorrect Error Message&quot;" />
+  </stage>
+  <stage stageid="c3eea5ea-21d5-45ff-980d-e4c878c63dc3" name="Error starts with" type="Data">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="225" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">The queue item</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b14f9614-e862-49ac-bbda-196fa09b72d2" name="Error Ends with" type="Data">
+    <subsheetid>5b5d9018-1046-4b7d-8ecb-4212cf929506</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="255" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">is deferred.</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4c8f4afb-ca46-442f-a354-eb0030c53a50" name="Exception Handling" type="Block">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-15" w="225" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d78744ec-f652-4457-b953-b4dd5e6eda2a" name="Recover3" type="Recover">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <loginhibit />
+    <display x="120" y="15" />
+    <onsuccess>2f147a1f-9f2b-4075-a6f8-7c82f021b39c</onsuccess>
+  </stage>
+  <stage stageid="2f147a1f-9f2b-4075-a6f8-7c82f021b39c" name="Get Exception Detail" type="Calculation">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="75" />
+    <onsuccess>d0b7ecb2-7a47-40b4-9c4d-2e225360b5f7</onsuccess>
+    <calculation expression="ExceptionDetail()" stage="Exception Detail" />
+  </stage>
+  <stage stageid="b1001bc4-cdef-45d1-b24b-7f26e3f63c45" name="Exception Detail" type="Data">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <display x="-210" y="75" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d0b7ecb2-7a47-40b4-9c4d-2e225360b5f7" name="Resume2" type="Resume">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <loginhibit />
+    <display x="15" y="75" />
+    <onsuccess>7ca0fefb-abee-4d87-be97-c6fd9a518230</onsuccess>
+  </stage>
+  <stage stageid="7ca0fefb-abee-4d87-be97-c6fd9a518230" name="Is Exception detail correct?" type="Decision">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <display x="15" y="135" w="90" h="30" />
+    <decision expression="StartsWith([Exception Detail], [Error starts with])&#xA;&#xA;AND&#xA;&#xA;EndsWith([Exception Detail], [Error ends with])" />
+    <ontrue>78334c3d-feb8-4319-8343-896b20487dc7</ontrue>
+    <onfalse>0be5a068-7917-44e7-8472-3426cb07ce63</onfalse>
+  </stage>
+  <stage stageid="0be5a068-7917-44e7-8472-3426cb07ce63" name="Incorrect Error Message" type="Exception">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <display x="120" y="135" />
+    <exception localized="yes" type="Bad Results" detail="&quot;Incorrect Error Message&quot;" />
+  </stage>
+  <stage stageid="4a24538e-b38d-4677-b06a-cbf3c42790c0" name="Error starts with" type="Data">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="150" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">The queue item</initialvalue>
+    <private />
+  </stage>
+  <stage stageid="81447d37-6441-49e1-be95-35d04e4c1a19" name="'Get Next' Item ID" type="Block">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-30" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="5b4142c5-4855-4a11-867a-746293f0c601" name="Read Exception Detail" type="Block">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="45" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ed92d00f-813e-48e2-805a-061006bfce23" name="Expected Exception Detail" type="Block">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="120" w="120" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="6adfb178-8e23-4a18-b6b3-d81d65a6c5bc" name="Error ends with" type="Data">
+    <subsheetid>c321c033-dff9-417c-92fc-aceaec2557a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="180" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">is not in an active state.</initialvalue>
+    <private />
+  </stage>
+  <stage stageid="2ee4c3f3-4897-4582-ab96-6ba41464da08" name="Invalid Queue Item" type="SubSheetInfo">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <display x="-195" y="-135" w="150" h="90" />
+  </stage>
+  <stage stageid="975e8ae3-e320-410a-9771-dffa12637d31" name="Start" type="Start">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <display x="15" y="-180" />
+    <onsuccess>b5ca7d16-7dbd-4791-9297-f74c02e7795f</onsuccess>
+  </stage>
+  <stage stageid="991a0426-5de0-4110-b9a1-5811aa4032c1" name="End" type="End">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <display x="15" y="90" />
+  </stage>
+  <stage stageid="2c9d32da-bc9d-43a6-ad02-b49d81a8cb35" name="Invalid Queue Item" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <onsuccess>72441985-eaa0-4548-b9d7-2d3cd3e593eb</onsuccess>
+    <processid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</processid>
+  </stage>
+  <stage stageid="b5ca7d16-7dbd-4791-9297-f74c02e7795f" name="Get Item By ID" type="Action">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <narrative>This action gets the item corresponding to the Id</narrative>
+    <display x="15" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue." expr="[Queue Name]" />
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The Id of the queue item" expr="[Purposefully Incorrect Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="" />
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" friendlyname="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" friendlyname="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Item By ID" />
+  </stage>
+  <stage stageid="e59ae383-3ef1-42ca-b3c3-c9e7b9fc32fa" name="Exception Handling" type="Block">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-120" w="225" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="98109b86-0559-4148-9ca4-dffe9b60ca72" name="Recover3" type="Recover">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <loginhibit />
+    <display x="120" y="-90" />
+    <onsuccess>671c5fcf-e82f-412b-b72c-717cb80638f6</onsuccess>
+  </stage>
+  <stage stageid="671c5fcf-e82f-412b-b72c-717cb80638f6" name="Get Exception Detail" type="Calculation">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="-30" />
+    <onsuccess>4e7b35cd-ddc4-4b88-ad0b-1f3c3a971831</onsuccess>
+    <calculation expression="ExceptionDetail()" stage="Exception Detail" />
+  </stage>
+  <stage stageid="4e7b35cd-ddc4-4b88-ad0b-1f3c3a971831" name="Resume2" type="Resume">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <loginhibit />
+    <display x="15" y="-30" />
+    <onsuccess>33e3a6ca-182e-493b-8b72-0c629284423c</onsuccess>
+  </stage>
+  <stage stageid="33e3a6ca-182e-493b-8b72-0c629284423c" name="Is Exception detail correct?" type="Decision">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <display x="15" y="30" w="90" h="30" />
+    <decision expression="StartsWith([Exception Detail], [Error starts with])&#xA;&#xA;AND&#xA;&#xA;EndsWith([Exception Detail], [Error ends with])" />
+    <ontrue>991a0426-5de0-4110-b9a1-5811aa4032c1</ontrue>
+    <onfalse>2b4405df-8cd5-4143-8e76-e597144d85a7</onfalse>
+  </stage>
+  <stage stageid="2b4405df-8cd5-4143-8e76-e597144d85a7" name="Incorrect Error Message" type="Exception">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <display x="120" y="30" />
+    <exception localized="yes" type="Bad Results" detail="&quot;Incorrect Error Message&quot;" />
+  </stage>
+  <stage stageid="03a9b886-a404-42a5-a72f-1ce212612000" name="Exception Detail" type="Data">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <display x="-195" y="45" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ffff4ca0-a242-41fb-ae30-93498f66b8e2" name="Error starts with" type="Data">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="120" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">The queue item</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="dc664c5f-b2b2-4163-b283-ba3a8fc1bc12" name="Read Exception Detail" type="Block">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="15" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="1b7cb7a0-27e1-4ded-83a1-322b77e3ab30" name="Expected Exception Detail" type="Block">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="90" w="120" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c6461d86-7984-4297-959b-fc0ed0a63c48" name="Error ends with" type="Data">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="150" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">was not found.</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="74b1e173-39bf-4cc5-ab18-0c71f8c06bc2" name="Purposefully Incorrect Item ID" type="Data">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <display x="-195" y="-30" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">510e55fd-aad7-4778-86ff-7a4e11d1422c</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ce11a94f-339c-42bb-8891-0d9e4ab5e4e8" name="Invalid Item ID" type="Block">
+    <subsheetid>9fe90010-0eef-43d2-9608-0bd0a8fd7914</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="-60" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="edc90df0-e568-434b-9d8c-86555ecd6e8e" name="Locked Queue Item" type="SubSheetInfo">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <display x="-195" y="-135" w="150" h="90" />
+  </stage>
+  <stage stageid="e5a2379c-ecce-4ef8-9142-1da0aebd4fa8" name="Start" type="Start">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <display x="15" y="-150" />
+    <onsuccess>17c09549-6284-4377-a264-f087ea5fd177</onsuccess>
+  </stage>
+  <stage stageid="173cca21-5e09-45f5-8ab4-2f310959b800" name="End" type="End">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <display x="15" y="180" />
+  </stage>
+  <stage stageid="17c09549-6284-4377-a264-f087ea5fd177" name="Get Next Item" type="Action">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="15" y="-105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" friendlyname="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" friendlyname="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>5e2e6bbd-6449-4bc2-953c-d28c10e94343</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="2a54dfc7-cafa-4bc4-a4c2-bfb4dc7cd20a" name="Get Item By ID" type="Action">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <narrative>This action gets the item corresponding to the Id</narrative>
+    <display x="15" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue." expr="[Queue Name]" />
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The Id of the queue item" expr="[Locked Items.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="" />
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" friendlyname="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" friendlyname="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Item By ID" />
+  </stage>
+  <stage stageid="e8f52ba9-eaa2-4701-a4c9-4abcec6c77a4" name="Exception Handling" type="Block">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-75" y="-30" w="225" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="5828a886-30d9-41e4-815d-c7f8985aeb84" name="Recover3" type="Recover">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <loginhibit />
+    <display x="120" y="0" />
+    <onsuccess>75009be8-30f1-4515-9d68-2e7c2d495681</onsuccess>
+  </stage>
+  <stage stageid="75009be8-30f1-4515-9d68-2e7c2d495681" name="Get Exception Detail" type="Calculation">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="60" />
+    <onsuccess>5c0eda8e-aeda-4090-9175-7145a666acdf</onsuccess>
+    <calculation expression="ExceptionDetail()" stage="Exception Detail" />
+  </stage>
+  <stage stageid="5c0eda8e-aeda-4090-9175-7145a666acdf" name="Resume2" type="Resume">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <loginhibit />
+    <display x="15" y="60" />
+    <onsuccess>131c096e-51f9-428f-825f-e62e34a1b335</onsuccess>
+  </stage>
+  <stage stageid="131c096e-51f9-428f-825f-e62e34a1b335" name="Is Exception detail correct?" type="Decision">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <display x="15" y="120" w="90" h="30" />
+    <decision expression="StartsWith([Exception Detail], [Error starts with])&#xA;&#xA;AND&#xA;&#xA;EndsWith([Exception Detail], [Error ends with])" />
+    <ontrue>173cca21-5e09-45f5-8ab4-2f310959b800</ontrue>
+    <onfalse>49d85f53-ce5f-44b7-b6c8-8fdbd95b5e68</onfalse>
+  </stage>
+  <stage stageid="49d85f53-ce5f-44b7-b6c8-8fdbd95b5e68" name="Incorrect Error Message" type="Exception">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <display x="120" y="120" />
+    <exception localized="yes" type="Bad Results" detail="&quot;Incorrect Error Message&quot;" />
+  </stage>
+  <stage stageid="7647b68e-c806-41b4-97f3-84ce0cad3062" name="Locked Items" type="Collection">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <display x="-210" y="30" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+      <field name="Locked" type="datetime" description="The date/time when the item was locked" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="5e2e6bbd-6449-4bc2-953c-d28c10e94343" name="Get Locked Items" type="Action">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Retrieves the IDs and locked times for all currently locked work queue items in the specified queue, matching the given tags</narrative>
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue for which the locked items are required" expr="[Queue Name]" />
+      <input type="text" name="Tags" friendlyname="Tags" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Locked Items" friendlyname="Locked Items" narrative="The currently locked items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Locked Items" />
+    </outputs>
+    <onsuccess>2a54dfc7-cafa-4bc4-a4c2-bfb4dc7cd20a</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Locked Items" />
+  </stage>
+  <stage stageid="a5208bd8-5c4f-492e-8401-1a3dec8daafb" name="Exception Detail" type="Data">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <display x="-210" y="105" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4d64622b-8fa3-40b3-9c1b-c33b8c29d9bf" name="Error starts with" type="Data">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="180" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">The queue item</initialvalue>
+    <private />
+  </stage>
+  <stage stageid="3d32ec78-c55f-4d9f-bcbd-671efe946785" name="Read Exception Detail" type="Block">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="75" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="7d230a1c-0346-460a-8458-b901aaeae9a3" name="Expected Exception Detail" type="Block">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="150" w="120" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b0d43b4d-7f55-4772-93cc-76b4159c08bb" name="Error ends with" type="Data">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="210" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">is locked.</initialvalue>
+    <private />
+  </stage>
+  <stage stageid="b26340d2-d9b6-4699-aee7-761fda799ec6" name="Item ID" type="Data">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <display x="-210" y="-45" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="eff56e48-52a0-4648-93c6-3219c48738bf" name="'Get Next' Item ID" type="Block">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-75" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="31540f49-782c-40bc-bc14-8a292ed821ba" name="Get Locked Item IDs" type="Block">
+    <subsheetid>74926b5a-3506-40e9-9451-3c1869655929</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="0" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="665fe21f-7761-4744-ad65-810563e2124b" name="Locked Queue Item" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" w="90" h="30" />
+    <onsuccess>2de58ab0-a320-4d21-97d2-7eb7494f5070</onsuccess>
+    <processid>74926b5a-3506-40e9-9451-3c1869655929</processid>
+  </stage>
+  <stage stageid="58130336-93f1-4403-ad6d-4671cd55e0e1" name="Successful Get Item by ID" type="SubSheetInfo">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="7fd64878-e847-45cc-91ef-7a9a4b3c679d" name="Start" type="Start">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <display x="15" y="-135" />
+    <onsuccess>94e4e106-7acc-473e-a0b8-a72cdfbe6e39</onsuccess>
+  </stage>
+  <stage stageid="25f78788-e777-484c-9364-5a10720e8023" name="Successful Get Item by ID" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="345" w="90" h="30" />
+    <onsuccess>86fb4498-aec4-4373-8fd8-00492b2a49af</onsuccess>
+    <processid>f8f10b06-0e33-49e3-af40-0364683ad738</processid>
+  </stage>
+  <stage stageid="ece30095-8315-48ee-a6ba-4326712a3c6c" name="Item ID" type="Data">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <display x="-210" y="-15" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="01b6df9d-15bb-4d8f-98d2-a077f2c89670" name="Get Item By ID" type="Action">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <narrative>This action gets the item corresponding to the Id</narrative>
+    <display x="15" y="15" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue." expr="[Queue Name]" />
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The Id of the queue item" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Retrieved Item ID" />
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" friendlyname="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" friendlyname="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>732dc9c0-8761-4f3f-b264-6648e9cdca1d</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Item By ID" />
+  </stage>
+  <stage stageid="a8bd71bb-f462-4b8e-b2d1-4637c503c500" name="End" type="End">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <display x="15" y="210" />
+  </stage>
+  <stage stageid="d8186c44-7b0d-4023-bf32-776c64e4e62d" name="Recover3" type="Recover">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <loginhibit />
+    <display x="105" y="15" />
+    <onsuccess>75dc32cd-8d1a-4258-86ae-89a1ba559552</onsuccess>
+  </stage>
+  <stage stageid="75dc32cd-8d1a-4258-86ae-89a1ba559552" name="Get Exception Detail" type="Calculation">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="105" y="75" />
+    <onsuccess>d4be056d-7221-485b-819b-1774223849a9</onsuccess>
+    <calculation expression="ExceptionDetail()" stage="Exception Detail" />
+  </stage>
+  <stage stageid="574ffd60-2fb6-4605-8a2d-c1440641aa5d" name="Exception Detail" type="Data">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <display x="-210" y="210" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fd542739-b653-4baa-a4cf-d99434c2309b" name="Read Exception Detail" type="Block">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="180" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a556c305-9b59-4240-aa01-e162a8731d4a" name="Exception Handling" type="Block">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-75" y="-15" w="210" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d4be056d-7221-485b-819b-1774223849a9" name="Failed" type="Exception">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <display x="210" y="75" />
+    <exception localized="yes" type="Action Failed" detail="[Exception Detail]" />
+  </stage>
+  <stage stageid="498fc55c-fcaf-461d-bf1c-c73ef32be0ec" name="'Get Next' Item ID" type="Block">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="94e4e106-7acc-473e-a0b8-a72cdfbe6e39" name="Get Next Item" type="Action">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="15" y="-90" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" friendlyname="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" friendlyname="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>da851635-292d-4ba5-b8cc-a7700604611c</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="aa376407-b6b8-4da1-b2eb-b2ff29a016cb" name="Clean Up" type="SubSheetInfo">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <display x="-195" y="-120" w="150" h="90" />
+  </stage>
+  <stage stageid="05d4b888-d912-4f66-a36b-0a7204685110" name="Start" type="Start">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <display x="15" y="-180" />
+    <onsuccess>56cd9108-1a54-4304-a47b-92df9a9d03ca</onsuccess>
+  </stage>
+  <stage stageid="deeb6a3e-7a57-4cbb-b02d-3605879349ec" name="End" type="End">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <display x="15" y="480" />
+  </stage>
+  <stage stageid="86fb4498-aec4-4373-8fd8-00492b2a49af" name="Clean Up" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="390" w="90" h="30" />
+    <onsuccess>065a0a5d-3456-4b31-8664-376cdbdfb4c2</onsuccess>
+    <processid>a347c6da-85d4-4821-a2e7-669bbbfc1723</processid>
+  </stage>
+  <stage stageid="da851635-292d-4ba5-b8cc-a7700604611c" name="Unlock Item" type="Action">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Unlocks a currently locked work queue item</narrative>
+    <display x="15" y="-45" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" friendlyname="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="Unlocked" />
+    </outputs>
+    <onsuccess>01b6df9d-15bb-4d8f-98d2-a077f2c89670</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="68e89809-5c06-4d86-b693-79a28bcff37e" name="Unlocked" type="Data">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <display x="-210" y="60" w="90" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d0db0612-9dc0-4538-bd56-26c4c3f7718c" name="Item Unlocked?" type="Block">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="30" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="8391c396-4d44-4112-87ae-ceadb3d3f9ef" name="Retrieved Item ID" type="Data">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <display x="-210" y="135" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f8234ebd-19ff-481f-b738-9bb3decce217" name="Retrieved Get Item By ID" type="Block">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="105" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="732dc9c0-8761-4f3f-b264-6648e9cdca1d" name="Item ID is retrieved correctly?" type="Decision">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <display x="15" y="135" w="90" h="30" />
+    <decision expression="[Item ID] = [Retrieved Item ID]" />
+    <ontrue>a8bd71bb-f462-4b8e-b2d1-4637c503c500</ontrue>
+    <onfalse>1f5eac48-fce6-47d2-aa6b-c26dec603c8e</onfalse>
+  </stage>
+  <stage stageid="1f5eac48-fce6-47d2-aa6b-c26dec603c8e" name="ID Not retrieved" type="Exception">
+    <subsheetid>f8f10b06-0e33-49e3-af40-0364683ad738</subsheetid>
+    <display x="135" y="135" />
+    <exception localized="yes" type="FAILED" detail="&quot;ID Not retrieved&quot;" />
+  </stage>
+  <stage stageid="56cd9108-1a54-4304-a47b-92df9a9d03ca" name="Delete Processed Items" type="Action">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-135" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to delete items from" expr="[Queue Name]" />
+      <input type="datetime" name="Date Threshold" friendlyname="Date Threshold" narrative="The threshold date. Items completed or marked with an exception before this date will be deleted from the queue - if not given, all processed items in the specified queue will be deleted." expr="Now()" />
+      <input type="flag" name="Delete From All Queues" friendlyname="Delete From All Queues" narrative="Indicates whether to delete items from all queues. If this flag is set to true you cannot specify a queue to delete from. This value defaults to false if nothing is entered. " expr="False" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Deletion Count" friendlyname="Deletion Count" narrative="Indicates the number of items which were deleted (which may legitimately be zero)." stage="Deletion Count" />
+    </outputs>
+    <onsuccess>3b9c904d-b30e-4fa5-9d2c-8b1738fac6a3</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Delete Processed Items" />
+  </stage>
+  <stage stageid="3b9c904d-b30e-4fa5-9d2c-8b1738fac6a3" name="Get Locked Items" type="Action">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Retrieves the IDs and locked times for all currently locked work queue items in the specified queue, matching the given tags</narrative>
+    <display x="15" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue for which the locked items are required" expr="[Queue Name]" />
+      <input type="text" name="Tags" friendlyname="Tags" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Locked Items" friendlyname="Locked Items" narrative="The currently locked items in the queue. Columns are 'Item ID' : text, and 'Locked' : datetime. The elements in the collection will be in locked date/time order" stage="Locked Items" />
+    </outputs>
+    <onsuccess>020d876e-ba6a-4862-b44d-f6aab9e33c07</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Locked Items" />
+  </stage>
+  <stage stageid="0274c5ff-93c6-4ebb-9a94-8e77364f1416" name="Locked Items" type="Collection">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <display x="-210" y="75" w="90" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+      <field name="Locked" type="datetime" description="The date/time when the item was locked" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="1c4d1e0a-1bb3-4ac9-9024-fc429fb70143" name="Deletion Count" type="Data">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <display x="-210" y="-15" w="90" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ba556a5e-60a9-41bb-8a5c-3b69ef632b45" name="Unlock Item" type="Action">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Unlocks a currently locked work queue item</narrative>
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Locked Items.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" friendlyname="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="Unlocked" />
+    </outputs>
+    <onsuccess>962b6de3-346e-4d51-91b9-72b809e4250b</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="d8238c87-19f4-4704-a69a-69f7b604c69b" name="Unlocked" type="Data">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <display x="-210" y="105" w="90" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4796a47c-2d1c-418a-9ee3-a63e0f7aa3fa" name="Delete Previously locked Items" type="Action">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Delete the given item from a queue. Note that there is no locking involved in this, i.e. you should only delete an item if you are sure it is safe to do so. On the other hand, attempting to delete an item that is locked (e.g. being worked by another process) will result in an error</narrative>
+    <display x="15" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item to delete. An error will be raised if this item does not exist, or is locked." expr="[Locked Items.Item ID]" />
+    </inputs>
+    <onsuccess>2549902e-eba9-4962-a7a4-8aa3bacde736</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Delete Item" />
+  </stage>
+  <stage stageid="962b6de3-346e-4d51-91b9-72b809e4250b" name="Are locked items now UNLOCKED?" type="Decision">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <display x="15" y="60" w="90" h="30" />
+    <decision expression="[Unlocked] = True" />
+    <ontrue>4796a47c-2d1c-418a-9ee3-a63e0f7aa3fa</ontrue>
+    <onfalse>ee69611f-9766-47c1-a96c-9be51584e2b2</onfalse>
+  </stage>
+  <stage stageid="ee69611f-9766-47c1-a96c-9be51584e2b2" name="Unable to Unlock Items" type="Exception">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <display x="150" y="60" />
+    <exception localized="yes" type="Action Failed" detail="&quot;Unable to Unlock Items&quot;" />
+  </stage>
+  <stage stageid="e295f020-3f20-4031-ae8d-c3861777056d" name="Processed Items Deleted" type="Block">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a806e43e-779a-4413-b8a3-f6edbef5faf0" name="Locked items unlocked?" type="Block">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="45" w="120" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2549902e-eba9-4962-a7a4-8aa3bacde736" name="Get Pending Items" type="Action">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Retrieves the IDs for all currently pending work queue items in the specified queue, matching the given tags</narrative>
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue for which the pending items are required" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+      <input type="number" name="Maximum" friendlyname="Maximum" narrative="Optionally, the maximum number of items to return. Default is to return all items" expr="" />
+      <input type="number" name="Skip" friendlyname="Skip" narrative="Optionally, the number of items to skip before returning. Default is zero, ie. return all items from the head of the queue" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Pending Items" friendlyname="Pending Items" narrative="The currently pending items in the queue, referenced by ID. The single column is 'Item ID' : text. The elements in the collection will be in the order in which they will be loaded by the 'Get Next Item' action." stage="Pending Items" />
+    </outputs>
+    <onsuccess>2317b688-e0ee-48a2-a5fc-3d8fda32f8b8</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Pending Items" />
+  </stage>
+  <stage stageid="12ff9933-599a-4b4e-8276-dc08aa6cc92d" name="Pending Items" type="Collection">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <display x="-210" y="180" w="90" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="675c3986-20b4-4d40-af4d-0ffec5eee6f2" name="Delete Item" type="Action">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Delete the given item from a queue. Note that there is no locking involved in this, i.e. you should only delete an item if you are sure it is safe to do so. On the other hand, attempting to delete an item that is locked (e.g. being worked by another process) will result in an error</narrative>
+    <display x="15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item to delete. An error will be raised if this item does not exist, or is locked." expr="[Pending Items.Item ID]" />
+    </inputs>
+    <onsuccess>1de239ea-df02-4335-a42e-262ec284caef</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Delete Item" />
+  </stage>
+  <stage stageid="2317b688-e0ee-48a2-a5fc-3d8fda32f8b8" name="Pending Items" type="LoopStart">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="90" h="30" />
+    <onsuccess>675c3986-20b4-4d40-af4d-0ffec5eee6f2</onsuccess>
+    <groupid>ee5f1fb9-5af7-4434-9947-b8f2711529c0</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Pending Items</loopdata>
+  </stage>
+  <stage stageid="1de239ea-df02-4335-a42e-262ec284caef" name="Pending Items" type="LoopEnd">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="300" w="90" h="30" />
+    <onsuccess>5eff1de0-49fa-4baf-ae17-b1c448f2bd4c</onsuccess>
+    <groupid>ee5f1fb9-5af7-4434-9947-b8f2711529c0</groupid>
+  </stage>
+  <stage stageid="020d876e-ba6a-4862-b44d-f6aab9e33c07" name="No Locked Items?" type="Decision">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <display x="15" y="-45" w="90" h="30" />
+    <decision expression="[Locked Items.Item ID] = &quot;&quot;" />
+    <ontrue>11fc1c92-28e1-4e42-bdc3-a308fea6c057</ontrue>
+    <onfalse>ba556a5e-60a9-41bb-8a5c-3b69ef632b45</onfalse>
+  </stage>
+  <stage stageid="11fc1c92-28e1-4e42-bdc3-a308fea6c057" name="Anchor5" type="Anchor">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="195" y="-45" w="10" h="10" />
+    <onsuccess>8be41b22-8400-4375-82e4-057041c99be3</onsuccess>
+  </stage>
+  <stage stageid="8be41b22-8400-4375-82e4-057041c99be3" name="Anchor6" type="Anchor">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="195" y="165" w="10" h="10" />
+    <onsuccess>2549902e-eba9-4962-a7a4-8aa3bacde736</onsuccess>
+  </stage>
+  <stage stageid="3e5f9d48-8453-4777-8fb4-188355b8b478" name="Pending Items to be Deleted" type="Block">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="150" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="8b78dba5-5f9d-4914-a2c5-88a30703616e" name="Item Data for Work Queues" type="LoopStart">
+    <subsheetid>41492e9d-890c-4f4a-a025-6aec870ecda5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="30" y="-30" w="90" h="30" />
+    <onsuccess>d5d25813-fa1e-4e9c-9672-958981330e61</onsuccess>
+    <groupid>4bfe614f-3025-47a6-9131-d2f72547d8cc</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Item data for Work Queues</loopdata>
+  </stage>
+  <stage stageid="130b197f-8071-49b0-b890-0196f3b4a5fa" name="Item Data for Work Queues" type="LoopEnd">
+    <subsheetid>41492e9d-890c-4f4a-a025-6aec870ecda5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="30" y="90" w="90" h="30" />
+    <onsuccess>62f3287c-c2f3-4469-81bd-7d1a63e05950</onsuccess>
+    <groupid>4bfe614f-3025-47a6-9131-d2f72547d8cc</groupid>
+  </stage>
+  <stage stageid="5eff1de0-49fa-4baf-ae17-b1c448f2bd4c" name="Items Still In Queue?" type="Action">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Check if an item with the given key is already in the queue</narrative>
+    <display x="15" y="345" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to check" expr="[Queue Name]" />
+      <input type="text" name="Key" friendlyname="Key" narrative="The key to check." expr="[Item IDs.Item ID]" />
+      <input type="flag" name="Include Pending" friendlyname="Include Pending" narrative="Check any items in the queue which are currently awaiting being worked. This will include any deferred items which have a deferral date in the past and any locked items. Optional - Default is True" expr="True" />
+      <input type="flag" name="Include Deferred" friendlyname="Include Deferred" narrative="Check any items in the queue which are currently deferred to a later date. Optional - Default is True" expr="True" />
+      <input type="flag" name="Include Completed" friendlyname="Include Completed" narrative="Check any items in the queue which are completed. Optional - Default is True" expr="True" />
+      <input type="flag" name="Include Terminated" friendlyname="Include Terminated" narrative="Check any items in the queue which have been fully terminated. Optional - Default is True" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" friendlyname="Item IDs" narrative="The Item IDs which represent the work items found with the given key" stage="Item IDs remaining in Queue" />
+      <output type="flag" name="Result" friendlyname="Result" narrative="True if an item with the given key is in the queue, False otherwise." stage="Result" />
+    </outputs>
+    <onsuccess>c2a268d1-03c8-45f8-af25-516268575e70</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Is Item In Queue" />
+  </stage>
+  <stage stageid="e19a4e6b-d42f-48b3-912d-a8f350c5dac9" name="Result" type="Data">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <display x="-210" y="285" w="90" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6536348c-a7dd-47c3-ab74-72c05b370a09" name="Item IDs remaining in Queue" type="Collection">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <display x="-210" y="330" w="90" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="0a4d9df4-01e8-4b8f-b97c-52c150aa2164" name="Items Still in Queue" type="Block">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="255" w="120" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="81813db5-920f-4f35-b006-a38acfe968c8" name="Delete remaining Items from Queue" type="Action">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Delete the given item from a queue. Note that there is no locking involved in this, i.e. you should only delete an item if you are sure it is safe to do so. On the other hand, attempting to delete an item that is locked (e.g. being worked by another process) will result in an error</narrative>
+    <display x="135" y="405" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item to delete. An error will be raised if this item does not exist, or is locked." expr="[Item IDs remaining in Queue.Item ID]" />
+    </inputs>
+    <onsuccess>3955d203-77a1-4192-adaf-03f51a45ce64</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Delete Item" />
+  </stage>
+  <stage stageid="c2a268d1-03c8-45f8-af25-516268575e70" name="No items Remaining?" type="Decision">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <display x="15" y="405" w="90" h="30" />
+    <decision expression="[Result] = False" />
+    <ontrue>deeb6a3e-7a57-4cbb-b02d-3605879349ec</ontrue>
+    <onfalse>81813db5-920f-4f35-b006-a38acfe968c8</onfalse>
+  </stage>
+  <stage stageid="3955d203-77a1-4192-adaf-03f51a45ce64" name="Anchor4" type="Anchor">
+    <subsheetid>a347c6da-85d4-4821-a2e7-669bbbfc1723</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="135" y="480" w="10" h="10" />
+    <onsuccess>deeb6a3e-7a57-4cbb-b02d-3605879349ec</onsuccess>
+  </stage>
+</process>

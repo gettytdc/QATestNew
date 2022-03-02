@@ -1,0 +1,81 @@
+﻿<process name="WQItemUnLocked-BG-4494" version="1.0" bpversion="6.8.0.20331" narrative="TagWQItemUnLocked-BG-4494 " byrefcollection="true" preferredid="21bf547d-2b65-4ee1-9913-d88106196284">
+  <view>
+    <camerax>-152</camerax>
+    <cameray>-181</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="9c86b8ba-ec98-48ab-924b-b57e0f50cc3e" name="Stage1" type="ProcessInfo">
+    <display x="-375" y="-345" w="150" h="90" />
+  </stage>
+  <stage stageid="aa7d954f-7b0b-440b-bf25-9d7c910e75bf" name="Start" type="Start">
+    <display x="-60" y="-225" />
+    <inputs>
+      <input type="text" name="Queue Name" stage="Queue Name" />
+      <input type="text" name="Item ID" stage="Item ID" />
+    </inputs>
+    <onsuccess>62c2e58c-34fb-4e7d-b4b1-215e2f80e897</onsuccess>
+  </stage>
+  <stage stageid="e3bc69a1-df7b-4d97-9637-7b6c24fd2fd7" name="Input Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-465" y="-225" w="225" h="255" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="6e7da8b5-44ae-4dfc-932e-e2be9c11cc54" name="End" type="End">
+    <display x="-60" y="-45" />
+  </stage>
+  <stage stageid="45fd0a31-dbc1-49c8-8ed6-ebe2fde09888" name="Tag Item" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Adds a tag to a work queue item</narrative>
+    <display x="-60" y="-120" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the queue item to add the tag to" expr="[New item id]" />
+      <input type="text" name="Tag" friendlyname="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;New Added Tag&quot;" />
+    </inputs>
+    <onsuccess>6e7da8b5-44ae-4dfc-932e-e2be9c11cc54</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="e33d4f91-17e7-4737-8e9e-98d3a4a63003" name="Item ID" type="Data">
+    <display x="-345" y="-180" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="475ef8a2-7d6b-4364-a2c8-63b3715dbbe7" name="Queue Name" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="-120" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9de24e5f-2e00-436f-9656-0072b984ca9e" name="New item id" type="Data">
+    <display x="-375" y="-60" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="62c2e58c-34fb-4e7d-b4b1-215e2f80e897" name="Get Next Item" type="Action">
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="-60" y="-180" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="New item id" />
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" friendlyname="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" friendlyname="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>45fd0a31-dbc1-49c8-8ed6-ebe2fde09888</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+</process>

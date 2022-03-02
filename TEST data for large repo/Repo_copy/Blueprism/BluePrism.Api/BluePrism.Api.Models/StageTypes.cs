@@ -1,0 +1,37 @@
+namespace BluePrism.Api.Models
+{
+    public enum StageTypes
+    {
+        Undefined,
+        Action,
+        Decision,
+        Calculation,
+        Data,
+        Collection,
+        Process,
+        SubSheet,
+        ProcessInfo,
+        SubSheetInfo,
+        Start,
+        End,
+        Anchor,
+        Note,
+        LoopStart,
+        LoopEnd,
+        Read,
+        Write,
+        Navigate,
+        Code,
+        ChoiceStart,
+        ChoiceEnd,
+        WaitStart,
+        WaitEnd,
+        Alert,
+        Exception,
+        Recover,
+        Resume,
+        Block,
+        MultipleCalculation,
+        Skill,
+    }
+}

@@ -1,0 +1,530 @@
+﻿<process name="Test Collections Remove Row" version="1.0" bpversion="6.0.0.0" narrative="Tests that 'Remove Row' invalidates the current row and removes all affected rows in a collection. See bug 9644." preferredid="746d9e78-1708-4b45-bb07-3a48cc1c29fa">
+  <view>
+    <camerax>0</camerax>
+    <cameray>615</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="0088ab65-28d4-43bc-9c48-75d40c1d0148" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>660</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="2a41be4e-fc41-48da-bae9-c2e05b50eb54" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="bf177be1-c18b-4a91-aa83-d22c319d5909" name="Stuff" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>0</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Value" type="text" namespace="" description="A value. Or not" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Value" type="text" value="Leave 1" />
+      </row>
+      <row>
+        <field name="Value" type="text" value="Remove" />
+      </row>
+      <row>
+        <field name="Value" type="text" value="Remove" />
+      </row>
+      <row>
+        <field name="Value" type="text" value="Leave 2" />
+      </row>
+      <row>
+        <field name="Value" type="text" value="Remove" />
+      </row>
+      <row>
+        <field name="Value" type="text" value="Remove" />
+      </row>
+      <row>
+        <field name="Value" type="text" value="Remove" />
+      </row>
+      <row>
+        <field name="Value" type="text" value="Leave 3" />
+      </row>
+      <row>
+        <field name="Value" type="text" value="Leave 4" />
+      </row>
+      <row>
+        <field name="Value" type="text" value="Leave 5" />
+      </row>
+      <row>
+        <field name="Value" type="text" value="Remove" />
+      </row>
+      <row>
+        <field name="Value" type="text" value="Leave 6" />
+      </row>
+      <row>
+        <field name="Value" type="text" value="Remove" />
+      </row>
+      <row>
+        <field name="Value" type="text" value="Remove" />
+      </row>
+      <row>
+        <field name="Value" type="text" value="Remove" />
+      </row>
+      <row>
+        <field name="Value" type="text" value="Remove" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="0fef7a78-d278-48b1-b4c8-ad34b5342ac2" name="For Each Bit Of Stuff" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>8be37f0b-0831-41bd-9c33-dffdb92d3a1f</onsuccess>
+    <groupid>f4e2ab1c-34c3-469c-be65-350d01b50a93</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Stuff</loopdata>
+  </stage>
+  <stage stageid="0059ebbb-d288-4f76-89e0-d63b9a69e6d7" name="Next Bit Of Stuff" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e85e8fa8-d94d-4b05-bb5c-73111948e058</onsuccess>
+    <groupid>f4e2ab1c-34c3-469c-be65-350d01b50a93</groupid>
+  </stage>
+  <stage stageid="8be37f0b-0831-41bd-9c33-dffdb92d3a1f" name="Remove?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="StartsWith([Stuff.Value], &quot;Remove&quot;)" />
+    <ontrue>220a4014-86a8-4c46-8337-3a2bfeb99297</ontrue>
+    <onfalse>0059ebbb-d288-4f76-89e0-d63b9a69e6d7</onfalse>
+  </stage>
+  <stage stageid="220a4014-86a8-4c46-8337-3a2bfeb99297" name="Delete Row" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Stuff&quot;" />
+    </inputs>
+    <onsuccess>eb685b89-0ef6-4f9c-bbe1-f5fb295e2e9a</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Remove Row" />
+  </stage>
+  <stage stageid="eb685b89-0ef6-4f9c-bbe1-f5fb295e2e9a" name="Set Current Row" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>225</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>d4833782-d3de-49bc-9170-a0b7d5dc9c11</onsuccess>
+    <calculation expression="&quot;This shouldn't work&quot;" stage="Stuff.Value" />
+  </stage>
+  <stage stageid="d4833782-d3de-49bc-9170-a0b7d5dc9c11" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>300</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Collection Exception" detail="&quot;The current row should not be valid as it has been deleted; Managed to set a value in it&quot;" />
+  </stage>
+  <stage stageid="124e5ee1-da31-4c71-8f7f-8d3b305a5cd1" name="Row Should Be Invalid" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>105</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ac48a511-11d6-44e1-bbbd-51f04c30f5c1" name="Recover" type="Recover">
+    <narrative>
+    </narrative>
+    <displayx>225</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>c08829b9-9b9e-4c58-8ade-f76db91e4338</onsuccess>
+  </stage>
+  <stage stageid="c08829b9-9b9e-4c58-8ade-f76db91e4338" name="Expected Behaviour" type="Resume">
+    <narrative>
+    </narrative>
+    <displayx>225</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>0059ebbb-d288-4f76-89e0-d63b9a69e6d7</onsuccess>
+  </stage>
+  <stage stageid="e85e8fa8-d94d-4b05-bb5c-73111948e058" name="For Each Bit Of Stuff" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>a03a82d7-f9eb-464a-83e2-37e3a942147b</onsuccess>
+    <groupid>3d443e9a-004f-4f3e-b0bb-8d2945a5745b</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Stuff</loopdata>
+  </stage>
+  <stage stageid="a7693eb3-94d7-4ed0-b233-3781a13f34e8" name="Next Bit Of Stuff" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>225</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>c26f7947-6798-4e95-b858-ce5569ac7628</onsuccess>
+    <groupid>3d443e9a-004f-4f3e-b0bb-8d2945a5745b</groupid>
+  </stage>
+  <stage stageid="a03a82d7-f9eb-464a-83e2-37e3a942147b" name="Remove?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="StartsWith([Stuff.Value], &quot;Remove&quot;)" />
+    <ontrue>2e3b51b9-1b26-4b79-ac18-25b7a4365b74</ontrue>
+    <onfalse>a7693eb3-94d7-4ed0-b233-3781a13f34e8</onfalse>
+  </stage>
+  <stage stageid="2e3b51b9-1b26-4b79-ac18-25b7a4365b74" name="FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>180</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Collection Exception" detail="&quot;Found a 'Remove' row after all Remove rows should have been, well, removed.&quot;" />
+  </stage>
+  <stage stageid="9345f420-8cf5-4aae-afe3-d9029750911d" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Arial" size="10" style="Regular" color="000000" />
+    <onsuccess>0fef7a78-d278-48b1-b4c8-ad34b5342ac2</onsuccess>
+  </stage>
+  <stage stageid="45a82145-c3db-413d-9629-b8dd0296fa6c" name="Loop Counter" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>90</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Arial" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b9ae369d-b746-4001-aa7c-c26e53159bfb" name="Card Numbers Tab" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>240</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Arial" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="card_number" type="text" namespace="" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="card_number" type="text" value="1" />
+      </row>
+      <row>
+        <field name="card_number" type="text" value="2" />
+      </row>
+      <row>
+        <field name="card_number" type="text" value="3" />
+      </row>
+      <row>
+        <field name="card_number" type="text" value="1" />
+      </row>
+      <row>
+        <field name="card_number" type="text" value="2" />
+      </row>
+      <row>
+        <field name="card_number" type="text" value="2" />
+      </row>
+      <row>
+        <field name="card_number" type="text" value="4" />
+      </row>
+      <row>
+        <field name="card_number" type="text" value="5" />
+      </row>
+      <row>
+        <field name="card_number" type="text" value="5" />
+      </row>
+      <row>
+        <field name="card_number" type="text" value="6" />
+      </row>
+      <row>
+        <field name="card_number" type="text" value="6" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="9efdd060-fa12-4a30-bf30-d7803ce2337d" name="Success" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>135</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Arial" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="65a1194c-9a03-462e-9628-0765d5eed31b" name="Message" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>45</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Arial" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="cee66f19-16d7-4149-bf9e-18ed0052d5a7" name="Temp Account Number" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>180</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Arial" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c26f7947-6798-4e95-b858-ce5569ac7628" name="Sort Card Numbers Tab" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>270</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Arial" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Collection" narrative="The collection to sort." expr="[Card Numbers Tab]" />
+      <input type="text" name="Sort Field" narrative="The field to sort by." expr="&quot;card_number&quot;" />
+      <input type="flag" name="Ascending Order" narrative="True to sort in ascending order." expr="True" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Sorted Collection" narrative="The sorted collection." stage="Card Numbers Tab" />
+      <output type="flag" name="Success" narrative="True if sorting was successful." stage="Success" />
+      <output type="text" name="Message" narrative="An error message when sorting failed." stage="Message" />
+    </outputs>
+    <onsuccess>398c0bce-3422-4479-ad52-a7dc66ad702d</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Sort Collection" />
+  </stage>
+  <stage stageid="1de47e29-6a1e-465a-9360-dcf76de29ec1" name="Card Numbers Tab" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Arial" size="10" style="Regular" color="000000" />
+    <onsuccess>44912831-37e4-4a9f-be49-13c1ef6f0b2a</onsuccess>
+    <groupid>171e6b75-344e-4ef4-bf56-abad0e23a13e</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Card Numbers Tab</loopdata>
+  </stage>
+  <stage stageid="3ba231d4-996f-4d2e-a439-b3942ecf0b4c" name="Card Numbers Tab" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>555</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Arial" size="10" style="Regular" color="000000" />
+    <onsuccess>0ebc5e72-4e42-41ef-837f-f88bedeaa4e8</onsuccess>
+    <groupid>171e6b75-344e-4ef4-bf56-abad0e23a13e</groupid>
+  </stage>
+  <stage stageid="398c0bce-3422-4479-ad52-a7dc66ad702d" name="Clear Account Number" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>315</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Arial" size="10" style="Regular" color="000000" />
+    <onsuccess>1de47e29-6a1e-465a-9360-dcf76de29ec1</onsuccess>
+    <calculation expression="&quot;&quot;" stage="Temp Account Number" />
+  </stage>
+  <stage stageid="df39154b-99ac-46f4-9f37-d020fda2ef4f" name="Same as Previuos?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>450</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Arial" size="10" style="Regular" color="000000" />
+    <decision expression="[Card Numbers Tab.card_number] = [Temp Account Number]" />
+    <ontrue>6f97904e-245e-445c-993a-9b154fe3f2be</ontrue>
+    <onfalse>d3d40996-02a1-4968-8a8c-2553e1a6a012</onfalse>
+  </stage>
+  <stage stageid="d3d40996-02a1-4968-8a8c-2553e1a6a012" name="Update Account Number" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>450</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Arial" size="10" style="Regular" color="000000" />
+    <onsuccess>8e2275f7-1e7b-41dd-8b31-9c67f4e4e200</onsuccess>
+    <calculation expression="[Card Numbers Tab.card_number]" stage="Temp Account Number" />
+  </stage>
+  <stage stageid="8e2275f7-1e7b-41dd-8b31-9c67f4e4e200" name="Anchor40" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>525</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Arial" size="10" style="Regular" color="000000" />
+    <onsuccess>d7058aea-da02-431b-a66c-f9fe24890113</onsuccess>
+  </stage>
+  <stage stageid="6f97904e-245e-445c-993a-9b154fe3f2be" name="Remove Row" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>495</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Arial" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Card Numbers Tab&quot;" />
+    </inputs>
+    <onsuccess>d7058aea-da02-431b-a66c-f9fe24890113</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Remove Row" />
+  </stage>
+  <stage stageid="44912831-37e4-4a9f-be49-13c1ef6f0b2a" name="Loop Counter" type="Calculation">
+    <narrative>Just for demo purposes</narrative>
+    <displayx>15</displayx>
+    <displayy>405</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Arial" size="10" style="Regular" color="000000" />
+    <onsuccess>df39154b-99ac-46f4-9f37-d020fda2ef4f</onsuccess>
+    <calculation expression="[Loop Counter] + 1" stage="Loop Counter" />
+  </stage>
+  <stage stageid="0ebc5e72-4e42-41ef-837f-f88bedeaa4e8" name="Matches?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>615</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Card Numbers Tab]=[Expected Collection]" />
+    <ontrue>0088ab65-28d4-43bc-9c48-75d40c1d0148</ontrue>
+    <onfalse>942fdf78-3a73-4e34-aa5a-969b1565b837</onfalse>
+  </stage>
+  <stage stageid="2aa00298-97d8-4fe7-b571-4c33f48984bc" name="Expected Collection" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>330</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="card_number" type="text" namespace="" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="card_number" type="text" value="1" />
+      </row>
+      <row>
+        <field name="card_number" type="text" value="2" />
+      </row>
+      <row>
+        <field name="card_number" type="text" value="3" />
+      </row>
+      <row>
+        <field name="card_number" type="text" value="4" />
+      </row>
+      <row>
+        <field name="card_number" type="text" value="5" />
+      </row>
+      <row>
+        <field name="card_number" type="text" value="6" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="942fdf78-3a73-4e34-aa5a-969b1565b837" name="Unexpected outcome" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>615</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="Bug" detail="&quot;Collections do not match&quot;" />
+  </stage>
+  <stage stageid="d7058aea-da02-431b-a66c-f9fe24890113" name="Anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>525</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>3ba231d4-996f-4d2e-a439-b3942ecf0b4c</onsuccess>
+  </stage>
+</process>

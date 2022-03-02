@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>キュー管理</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+		h3, h4 { clear:left !important; }
+		span.filter { color: #666; font-weight: bold}
+		div.section-screenshot, div.screenshot { width: 100px; }
+		ul.nobullets li, dl.nobullets dt { list-style-type:none; }
+	</style>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">コントロールルーム</h1>
+		<h2>アクティブキュー</h2>
+	</div>
+	<div class="captioned-image overview-screenshot nozoom">
+		<a href="Graphics/activequeue-control.png" title="アクティブキュー - クリックして拡大画像を表示"><img src="Graphics/activequeue-control.png" alt="アクティブキュー - クリックして拡大画像を表示"/></a>
+		<p>アクティブキュー</p>
+	</div>
+
+	<h3 id="overview">概要</h3>
+
+	<p><a href="active-queues.html">アクティブキュー</a>は、変化するワークロードやビジネスニーズに動的に対応できるように、リソースグループ間で作業を分散し、統計とフィードバックを照合するメカニズムを提供します。</p>
+
+    <p>アクティブキューコントロールページでは、これらのキューと現在処理中のセッション数を監視できます。また、ワークロード分散について決定するための統計情報が表示されます。</p>
+
+    <p>キューコンテンツの表示と操作は、アクティブでないワークキューと同じインターフェイスを使用します。そのインターフェイスの使用方法の詳細については、「<a href="control-queues.html">キュー管理</a>」ヘルプページを参照してください。</p>
+
+
+    <h3 id="display">ディスプレイ</h3>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/activequeue-stats.png" alt="アクティブキュー統計"/>
+	</div>
+
+    <p>アクティブキューは、ページ左側の［コントロール］ツリーに表示されます。グループまたはアクティブキューを選択すると、ページの右側にそのグループ内のキューに関する情報が表示されます。</p>
+
+    <p>各キューは上部グリッドに1行で表示され、現在のキューの状態に関する統計情報を示します。</p>
+
+    <dl class="bulleted">
+      <dt>名前</dt>
+      <dd>アクティブキューの名前です。</dd>
+
+      <dt>ステータス</dt>
+      <dd>キューが実行中か一時停止中かを示します。これは動作中のセッションを示すものではなく、キューが<code>キューの構成</code>ページで［<a href="sysman-queues.html">一時停止中</a>］として設定されているかどうかを示します。</dd>
+
+      <dt id="target">ターゲットリソース</dt>
+      <dd>Blue Prismが到達目標としているアクティブキューを処理中のリソースの数です。これはアクティブキューを処理するセッションを追加または削除するために、ユーザーにより変更される設定です。</dd>
+
+      <dt>アクティブセッション</dt>
+      <dd>現在キューを処理している動作中のセッションの数です。これは、停止リクエストが送信されたがまだ実行されていないセッションを含む、管理対象リソース上で正常に作成および開始されたすべてのセッションを表します。</dd>
+
+      <dt>利用可能なリソース</dt>
+      <dd>さらにセッションを実行するためにグループで使用可能なリソースの数です。</dd>
+
+      <dt>残り時間</dt>
+      <dd>キュー内のすべてのケースを処理するために残っている合計時間です。これは、キュー内のケースの平均作業時間に、キュー内で処理を待機しているケースの数を掛けたものです。</dd>
+
+      <dt>経過した残り時間</dt>
+      <dd>このキューを処理している現在のアクティブセッション数で残っている経過時間です。</dd>
+
+      <dt>ETA</dt>
+      <dd>ケースの平均作業時間が同じで、アクティブセッション数が同じである場合に、キュー内のすべてのケースが処理される予定時間です。</dd>
+
+      <dt>稼働</dt>
+      <dd>キュー内の完了したケースの数です。</dd>
+
+      <dt>保留中</dt>
+      <dd>キュー内で処理を待機しているケースの数です。</dd>
+
+      <dt>照会</dt>
+      <dd>キュー内の照会されたケースの数です。</dd>
+
+      <dt>合計</dt>
+      <dd>キュー内のケースの合計数です。</dd>
+
+    </dl>
+
+    <p>キューを選択すると、ページの下半分にキューのコンテンツが表示されます。キューのコンテンツを処理する方法については、「<a href="control-queues.html">キュー管理</a>」ページを参照してください。</p>
+
+	<div class="captioned-image screenshot">
+		<img src="Graphics/activequeue-changing.png" alt="ターゲットリソースを変更する"/>
+	</div>
+    <h3 id="control">アクティブキューをコントロールする</h3>
+    <p>キューの［<a href="#target">ターゲットリソース</a>］セル変更できます。これは、新しいターゲット数が現在のアクティブセッション数より多いか少ないかによって、セッションの作成と開始、または実行中のセッションへの停止リクエストの送信に影響します。</p>
+
+    <p>新しいターゲットを選択するには、影響を受けるキューを表す行の［<code>ターゲットリソース</code>］セルをダブルクリックする必要があります。ターゲットをゼロから利用可能なリソース数の間に設定できるコントロールが表示されます。<p>
+
+	<div class="captioned-image screenshot">
+		<img src="Graphics/activequeue-changed.png" alt="変更されたターゲットリソース"/>
+	</div>
+    <p>変更を有効にするには、<code>Tab</code>キーを押してコントロールを閉じるか、他の場所をクリックします。その数がコミットされ、アクティブキューマネージャーは利用可能なリソースでセッションの作成/停止を開始します。</p>
+
+	<div class="captioned-image screenshot">
+		<img src="Graphics/activequeue-refresh.png" alt="表示を更新する"/>
+	</div>
+    <p>ディスプレイに表示されているアクティブセッションと利用可能なリソースの数は、既知の変更があるとすぐに更新されます。統計の更新頻度は多くありませんが、ページの右上にあるアクションメニューから［<code>更新</code>］を選択すると、完全な更新データを取得できます。</p>
+
+    <p>各アクティブキューは、それらのセッションがバックグラウンドセッションであっても、各リソースで1つのセッションしか実行できません。実行モードが許可されている場合は、異なるアクティブキューに代わって1つのリソースが複数のセッションを実行できます。</p>
+
+    <h3 id="notes">ノート</h3>
+    <p>アクティブキューを扱う場合は、アクティブキューがBlue Prism製品内の他の概念を処理する方法について、発生する可能性のある問題がいくつかあります。</p>
+
+    <h4 id="pools">リソースプール</h4>
+    <p>リソースプールは、アクティブキューの範囲内で単一のリソースとして機能します。詳細については、「<a href="active-queues.html#pools">アクティブキューとリソースプール</a>」を参照してください。</p>
+
+    <h4 id="errors">エラー処理</h4>
+    <p>アクティブキューに代わって新しいセッションを作成または開始しようとしたときにエラーが発生した場合、セッションを続行するためにさまざまなリソースが再試行されます。<br/>
+ セッションの作成または開始に3回失敗すると、エラーがWindowsイベントログに書き込まれ、セッションは中止されます。そのセッションが自動的に再試行されないことを示すために、ターゲットリソース数がドロップされます。</p>
+
+    <h4 id="external">外部セッションイベント</h4>
+    <p>セッションがコントロールルームのユーザーによって中止または停止された場合、アクティブキューで動作中のセッションが少ないことを示すために、ターゲットリソース数が減少します。</p>
+
+</body>
+</html>

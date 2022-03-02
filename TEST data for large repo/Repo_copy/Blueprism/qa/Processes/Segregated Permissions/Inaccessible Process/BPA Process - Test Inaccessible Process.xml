@@ -1,0 +1,1159 @@
+﻿<process name="Test Inaccessible Process" version="1.0" bpversion="6.7.0.15588" narrative="" byrefcollection="true" preferredid="b9c5ddb0-3805-4beb-8d71-6d2662f82d3f">
+  <view>
+    <camerax>44</camerax>
+    <cameray>-21</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="0ba54b89-4916-474f-98a4-2989deb95ff5" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>-8</camerax>
+      <cameray>36</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="0a4ed4d8-255e-45d3-bb09-77e64a814b51" type="Normal" published="False">
+    <name>Accessing from a process (Permissions Restricted)</name>
+    <view>
+      <camerax>15</camerax>
+      <cameray>136</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="79fc1230-4b57-4f85-a789-d2e861beeb1c" type="Normal" published="False">
+    <name>Accessing from an object (Permissions Restricted)</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>19</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="174abb86-c5a2-466f-91de-7cbd6bb3114b" type="Normal" published="False">
+    <name>Accessing from a process / object (Process Deleted)</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>147</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="ad96b759-7d24-4979-bdd7-5139901821bc" type="Normal" published="False">
+    <name>Clean Up</name>
+    <view>
+      <camerax>283</camerax>
+      <cameray>-226</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="4e6f07a6-b245-45ca-9dcf-f40ba22616e0" name="Start" type="Start">
+    <display x="15" y="-255" />
+    <onsuccess>a34478e4-d39f-4027-8a3b-5c693fc05636</onsuccess>
+  </stage>
+  <stage stageid="4e22fc07-e32c-40d8-9186-eabf049e3938" name="End" type="End">
+    <display x="15" y="180" />
+  </stage>
+  <stage stageid="9bc6d575-9dd8-4c77-89c4-8b4f51b08fda" name="Stage1" type="ProcessInfo">
+    <display x="-135" y="-225" w="150" h="90" />
+  </stage>
+  <stage stageid="d0e4af03-53a0-48c3-88ad-5c007166d7db" name="Clean Up" type="SubSheetInfo">
+    <subsheetid>ad96b759-7d24-4979-bdd7-5139901821bc</subsheetid>
+    <display x="-135" y="-405" w="150" h="90" />
+  </stage>
+  <stage stageid="422ca66b-7057-4fb0-8403-13ba36430b5a" name="Start" type="Start">
+    <subsheetid>ad96b759-7d24-4979-bdd7-5139901821bc</subsheetid>
+    <display x="15" y="-435" />
+    <onsuccess>94e64791-f6e1-40ba-8c2a-e130f13f353e</onsuccess>
+  </stage>
+  <stage stageid="1d23a929-085d-4a42-acd7-84bf2d6689df" name="End" type="End">
+    <subsheetid>ad96b759-7d24-4979-bdd7-5139901821bc</subsheetid>
+    <display x="15" y="-45" />
+  </stage>
+  <stage stageid="d350ed94-57f4-49e0-9fc8-667484c79009" name="Exception Detail" type="Data">
+    <display x="-135" y="90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ad578ea1-ddd6-4f86-87c5-5ce13e13290d" name="Recover" type="Recover">
+    <display x="105" y="-195" />
+    <onsuccess>a2d7b0d5-6208-4504-ba6e-2a523515b75c</onsuccess>
+  </stage>
+  <stage stageid="18165f42-7b0a-4a95-93da-b14354747b74" name="Resume" type="Resume">
+    <display x="105" y="-105" />
+    <onsuccess>a923e3ba-c3eb-4873-ac28-e41f8bdfc6ed</onsuccess>
+  </stage>
+  <stage stageid="1db1feb8-893a-4a04-a0a4-64fca830633f" name="RETHROW" type="Exception">
+    <display x="105" y="135" />
+    <exception type="FAIL" detail="[Exception Detail] " />
+  </stage>
+  <stage stageid="ebe78223-b059-47be-86a0-0201746846f8" name="Clean Up" type="SubSheet">
+    <display x="15" y="90" w="90" h="30" />
+    <onsuccess>84fc8a7f-195e-485c-b12b-5ef384d1483d</onsuccess>
+    <processid>ad96b759-7d24-4979-bdd7-5139901821bc</processid>
+  </stage>
+  <stage stageid="eb12fb7d-fa4d-4bae-b18f-e988467712b8" name="Delete Role/User" type="Action">
+    <subsheetid>ad96b759-7d24-4979-bdd7-5139901821bc</subsheetid>
+    <display x="15" y="-150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="UserName" expr="[RestrictedUserName]" />
+      <input type="text" name="RoleName" expr="[RoleName]" />
+    </inputs>
+    <onsuccess>b1c89f45-219c-45fa-a0d2-d391cbc1a5b7</onsuccess>
+    <resource object="QA - Templates - Segregated Permissions" action="Delete Role/User" />
+  </stage>
+  <stage stageid="24ff68b1-a197-4a4c-80fd-cba46d280414" name="Sign In" type="Action">
+    <subsheetid>ad96b759-7d24-4979-bdd7-5139901821bc</subsheetid>
+    <display x="15" y="-195" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="&quot;admin&quot;" />
+      <input type="password" name="Password" expr="&quot;admin&quot;" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>eb12fb7d-fa4d-4bae-b18f-e988467712b8</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="b1c89f45-219c-45fa-a0d2-d391cbc1a5b7" name="Exit Application" type="Action">
+    <subsheetid>ad96b759-7d24-4979-bdd7-5139901821bc</subsheetid>
+    <display x="15" y="-105" w="90" h="30" />
+    <onsuccess>1d23a929-085d-4a42-acd7-84bf2d6689df</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="0e652ce3-a3a6-4b84-9b29-e85bd1390078" name="Setup" type="SubSheetInfo">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="-135" y="-270" w="150" h="90" />
+  </stage>
+  <stage stageid="be93ccb2-acb7-41f2-8969-92081a6ce3b8" name="Start" type="Start">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="15" y="-300" />
+    <onsuccess>63479874-f9f7-416c-8146-df73ce9f5728</onsuccess>
+  </stage>
+  <stage stageid="1441297b-7be6-40f5-a1de-d46dc8a85c05" name="End" type="End">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="15" y="360" />
+  </stage>
+  <stage stageid="12f5aa0b-bf48-406c-a4d8-947ad5279a36" name="Create role and user" type="Action">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="Role Permissions" narrative="Collection containing nodes and values for child nodes (check/unchecl)" expr="[Permissions]" />
+      <input type="text" name="Role Name" expr="[RoleName]" />
+      <input type="text" name="User Name" expr="[RestrictedUserName]" />
+      <input type="password" name="Password" expr="[Restricted User Password]" />
+    </inputs>
+    <onsuccess>4148eb0e-cfff-4a06-9b2c-4f060503aa4f</onsuccess>
+    <resource object="QA - Templates - Segregated Permissions" action="Create Role/User" />
+  </stage>
+  <stage stageid="06c420f1-dd95-4fa8-b39a-11818c06b49a" name="Sign Out" type="Action">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="15" y="255" w="90" h="30" />
+    <onsuccess>5888aebc-c78f-4ab9-84a0-df6870fffdbc</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="5888aebc-c78f-4ab9-84a0-df6870fffdbc" name="Sign In" type="Action">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="15" y="300" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="[RestrictedUserName]" />
+      <input type="password" name="Password" expr="[Restricted User Password]" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>1441297b-7be6-40f5-a1de-d46dc8a85c05</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="a34478e4-d39f-4027-8a3b-5c693fc05636" name="Setup" type="SubSheet">
+    <display x="15" y="-195" w="90" h="30" />
+    <onsuccess>352250ae-9041-4e09-b836-1d08e41c7dc6</onsuccess>
+    <processid>0ba54b89-4916-474f-98a4-2989deb95ff5</processid>
+  </stage>
+  <stage stageid="dbe72f72-fa84-423e-ac9d-3bda5c1b2207" name="Setup Test" type="Block">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="-45" y="-270" w="120" h="600" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+  </stage>
+  <stage stageid="e5245907-9224-4b61-8593-58178d6b224b" name="Accessing from a process (Permissions Restricted)" type="SubSheetInfo">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="-195" y="-165" w="150" h="90" />
+  </stage>
+  <stage stageid="18c735a4-f8a7-4a59-b369-8bb42561cc56" name="Start" type="Start">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="15" y="-195" />
+    <onsuccess>68e2ae7c-3b0d-4688-9d63-764e2cb3f2fa</onsuccess>
+  </stage>
+  <stage stageid="00ac0676-5eba-48de-9718-d577417a2192" name="End" type="End">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="15" y="450" />
+  </stage>
+  <stage stageid="9b13b282-4c26-477d-84c2-1f8982507e77" name="Test 1 - Validate no prompt when permissions allowed" type="Block">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="-105" y="-75" w="270" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="999999" />
+  </stage>
+  <stage stageid="6f750e92-fd47-40c0-9fa3-aafbe580d47c" name="Open Process" type="Action">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="15" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" expr="[Process A]" />
+      <input type="text" name="Folder to Select" expr="&quot;Default&quot;" />
+      <input type="number" name="MatchIndex" expr="1" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Access Warning" narrative="Access warning when opening member" stage="Access Warning" />
+    </outputs>
+    <onsuccess>4319ddf5-d1de-41a0-b543-ee2583063042</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Process" />
+  </stage>
+  <stage stageid="352250ae-9041-4e09-b836-1d08e41c7dc6" name="Accessing from a process (Permissions Restricted)" type="SubSheet">
+    <display x="15" y="-135" w="90" h="60" />
+    <onsuccess>0a71c48b-5c26-493c-8a70-98c44f2a7d18</onsuccess>
+    <processid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</processid>
+  </stage>
+  <stage stageid="560aa2b2-6332-4fa1-8830-2fe851345e09" name="Process A" type="Data">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="-195" y="-75" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Test Process A (BG-3658)</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3ad819f3-06fb-42a1-a81f-7c910076e89d" name="Process B" type="Data">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="-195" y="-45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Test Process B (BG-3658)</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4fbb708e-49ee-4258-9213-e2d7e06779ad" name="Open Process" type="Action">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="15" y="210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" expr="[Process B]" />
+      <input type="text" name="Folder to Select" expr="&quot;Default&quot;" />
+      <input type="number" name="MatchIndex" expr="1" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Access Warning" narrative="Access warning when opening member" stage="Access Warning" />
+    </outputs>
+    <onsuccess>145cc232-fc6b-428d-a714-2dcf1e34e4d2</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Process" />
+  </stage>
+  <stage stageid="7587737b-360b-4ea6-a595-a91af5214237" name="Test 2 - Validate prompt appears when permissions restricted" type="Block">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="-105" y="180" w="270" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="999999" />
+  </stage>
+  <stage stageid="9c50ac74-0ba3-47f9-a6c8-421bdbf8b2b2" name="Test Process Names" type="Block">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="-270" y="-105" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="adeae02c-bbe4-4c9e-8774-1712f758726e" name="Access Warning" type="Block">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="-270" y="0" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c00ad62b-20e8-41b0-8fb9-28542526d2e6" name="Access Warning" type="Data">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="-195" y="30" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4319ddf5-d1de-41a0-b543-ee2583063042" name="No warning received?" type="Decision">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="15" y="0" w="90" h="30" />
+    <decision expression="[Access Warning]=&quot;&quot;" />
+    <ontrue>66820a79-2b38-4811-b84d-841f2dab5dd8</ontrue>
+    <onfalse>c3482259-026f-4b20-893c-764121305c98</onfalse>
+  </stage>
+  <stage stageid="c3482259-026f-4b20-893c-764121305c98" name="FAIL" type="Exception">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="105" y="0" />
+    <exception type="Test Fail" detail="&quot;Prompt was displayed when no permission restrictions were in place&quot;" />
+  </stage>
+  <stage stageid="66820a79-2b38-4811-b84d-841f2dab5dd8" name="Close Process" type="Action">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="15" y="60" w="90" h="30" />
+    <onsuccess>70d09bcf-18a9-4fa7-bc0f-ffcb7fbe81be</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="39ea7cbf-f2f0-4319-bf37-5339956fcb95" name="Expected Errors" type="Block">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="-270" y="105" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="82eaa107-1bdd-4eb8-92b1-6b835e11e95f" name="Permission on opening process" type="Data">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="-195" y="135" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">This process cannot be saved because you do not have permission to execute all linked processes or business objects. Please either remove the affected links or contact your administrator to obtain permission.</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="95fc24e5-f281-4c12-be1e-29c8b8ec6aaa" name="Permission on saving process" type="Data">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="-195" y="165" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">This process cannot be saved because you do not have permission to execute all linked processes or business objects. Please either remove the affected links or contact your administrator to obtain permission.</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="145cc232-fc6b-428d-a714-2dcf1e34e4d2" name="Expected Warning Received" type="Decision">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="15" y="255" w="90" h="30" />
+    <decision expression="[Access Warning]=[Permission on opening process]" />
+    <ontrue>3ccb8e02-db5b-4118-b04a-419df5183ba6</ontrue>
+    <onfalse>ddf1b29c-ad1f-45f7-a97c-b643ab206d62</onfalse>
+  </stage>
+  <stage stageid="ddf1b29c-ad1f-45f7-a97c-b643ab206d62" name="FAIL" type="Exception">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="105" y="255" />
+    <exception type="Test Fail" detail="&quot;Expected warning was not prompted when opening a procees linked to inaccessible an process&quot;" />
+  </stage>
+  <stage stageid="3ccb8e02-db5b-4118-b04a-419df5183ba6" name="Attempt to Save Process" type="Action">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="15" y="300" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Edit Summary" narrative="The summary to add to the audit trail for the process" expr="" />
+      <input type="flag" name="Already Waiting" narrative="True if it's already waiting (i.e. don't press 'Save')" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Warning on Save" narrative="Warning given when not possible to save due to inaccessible linked process or object" stage="Save Warning" />
+    </outputs>
+    <onsuccess>a8731695-5755-425f-805e-40bc26d54758</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Save Open Process" />
+  </stage>
+  <stage stageid="1780011e-2cf4-4517-b747-174b18758948" name="Save Warning" type="Data">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="-195" y="60" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a8731695-5755-425f-805e-40bc26d54758" name="Expected Warning Received" type="Decision">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="15" y="345" w="90" h="30" />
+    <decision expression="[Save Warning]=[Permission on saving process]" />
+    <ontrue>493d5247-512b-4eb0-9ed8-e7b808911bdc</ontrue>
+    <onfalse>cd9f9615-f6de-496c-b999-e41ddeedbca7</onfalse>
+  </stage>
+  <stage stageid="cd9f9615-f6de-496c-b999-e41ddeedbca7" name="FAIL" type="Exception">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="105" y="345" />
+    <exception type="Test Fail" detail="&quot;Expected warning was not prompted when attempting to save a process linked to an inaccessible process&quot;" />
+  </stage>
+  <stage stageid="493d5247-512b-4eb0-9ed8-e7b808911bdc" name="Close Process" type="Action">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <display x="15" y="405" w="90" h="30" />
+    <onsuccess>00ac0676-5eba-48de-9718-d577417a2192</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="9d8abad1-a317-4f94-828a-9132c45f7058" name="Cleanup" type="Block">
+    <subsheetid>ad96b759-7d24-4979-bdd7-5139901821bc</subsheetid>
+    <display x="-45" y="-405" w="195" h="330" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="43debc12-04d9-4c5b-9632-b73a35600522" name="Recover" type="Recover">
+    <subsheetid>ad96b759-7d24-4979-bdd7-5139901821bc</subsheetid>
+    <display x="105" y="-105" />
+    <onsuccess>1ffaf80e-a84d-43a8-9d8b-cfb4842dde25</onsuccess>
+  </stage>
+  <stage stageid="1ffaf80e-a84d-43a8-9d8b-cfb4842dde25" name="Resume" type="Resume">
+    <subsheetid>ad96b759-7d24-4979-bdd7-5139901821bc</subsheetid>
+    <display x="195" y="-105" />
+    <onsuccess>e0c91503-9d19-445f-bebb-d6939849bb10</onsuccess>
+  </stage>
+  <stage stageid="e0c91503-9d19-445f-bebb-d6939849bb10" name="Anchor1" type="Anchor">
+    <subsheetid>ad96b759-7d24-4979-bdd7-5139901821bc</subsheetid>
+    <display x="195" y="-45" w="10" h="10" />
+    <onsuccess>1d23a929-085d-4a42-acd7-84bf2d6689df</onsuccess>
+  </stage>
+  <stage stageid="61d04a2c-b7d5-4bca-bcf7-216c79bd695e" name="pid" type="Data">
+    <display x="-135" y="-135" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3337dffd-21ff-4679-9c4e-a75f72ec3ed7" name="Go To Studio" type="Action">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>6f750e92-fd47-40c0-9fa3-aafbe580d47c</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="4148eb0e-cfff-4a06-9b2c-4f060503aa4f" name="Go To Studio" type="Action">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <loginhibit />
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>4c65237f-6078-4ae6-87fe-0785a1885529</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="8fde1786-c933-40e4-94d9-2632456abb2c" name="Process 1" type="Data">
+    <display x="-135" y="-45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Process BG-3658 (Permissions)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="193cf101-f571-4760-8cb7-5248fa72ba0b" name="Process 2" type="Data">
+    <display x="-135" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Process BG-3658 (NoPermissions)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="072a894a-0395-4ce3-ad8c-246d3a87eff0" name="Sign In" type="Action">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="15" y="-105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="" />
+      <input type="password" name="Password" expr="" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Locale" friendlyname="Locale" narrative="Blue Prism Locale setting" stage="" />
+    </outputs>
+    <onsuccess>12f5aa0b-bf48-406c-a4d8-947ad5279a36</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="63479874-f9f7-416c-8146-df73ce9f5728" name="Launch Blue Prism" type="Action">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="15" y="-240" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>de2e9f4c-ef2b-4f22-9e4c-2f8c60ea901c</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="de2e9f4c-ef2b-4f22-9e4c-2f8c60ea901c" name="Attach Studio" type="Action">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="15" y="-195" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>d3950f50-e3ec-4a2a-871d-5406b4b51c54</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="d3950f50-e3ec-4a2a-871d-5406b4b51c54" name="Attach System" type="Action">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="15" y="-150" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>072a894a-0395-4ce3-ad8c-246d3a87eff0</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="a2d7b0d5-6208-4504-ba6e-2a523515b75c" name="Get Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="105" y="-150" />
+    <onsuccess>18165f42-7b0a-4a95-93da-b14354747b74</onsuccess>
+    <steps>
+      <calculation expression="ExceptionDetail()" stage="Exception Detail" />
+      <calculation expression="True" stage="Failed?" />
+    </steps>
+  </stage>
+  <stage stageid="84fc8a7f-195e-485c-b12b-5ef384d1483d" name="Failed?" type="Decision">
+    <display x="15" y="135" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>1db1feb8-893a-4a04-a0a4-64fca830633f</ontrue>
+    <onfalse>4e22fc07-e32c-40d8-9186-eabf049e3938</onfalse>
+  </stage>
+  <stage stageid="8ba38ea6-21b6-4935-843a-60aa174ebc7e" name="Failed?" type="Data">
+    <display x="-135" y="60" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="17794b69-afb0-4afd-adaa-9d168778b5b6" name="Cleanup" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-225" w="195" h="285" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="084bb4bc-d197-47df-bd35-511cbd35b567" name="Local Variables" type="Block">
+    <display x="-210" y="30" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ac1ded1b-b3d9-47cb-a63f-a3bbf89ca502" name="Global Variables" type="Block">
+    <display x="-210" y="-165" w="150" h="180" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a8e5c4cb-17e9-481f-8d2c-e65cbdf5b42c" name="Permissions" type="Collection">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="-135" y="-180" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Parent Node" type="text" />
+      <field name="Check/Uncheck" type="flag" />
+      <field name="Child Node" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Parent Node" type="text" value="Process Studio" />
+        <field name="Check/Uncheck" type="flag" value="True" />
+        <field name="Child Node" type="text" value="Process Studio" />
+      </row>
+      <row>
+        <field name="Parent Node" type="text" value="Object Studio" />
+        <field name="Check/Uncheck" type="flag" value="True" />
+        <field name="Child Node" type="text" value="Object Studio" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="8fea7f4a-aadb-4c91-a961-10273a812bca" name="Local Variables" type="Block">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="-210" y="-210" w="150" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="aa902872-d9ec-4de1-8812-eae5a04cc066" name="Restricted User Password" type="Data">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="-135" y="-150" w="120" h="30" />
+    <datatype>password</datatype>
+    <initialvalueenc>49,20,7,67,26,91,6,1</initialvalueenc>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="02c17cb6-ad3b-46a2-a808-f1741f15fcaa" name="NoExecute Folder Name" type="Data">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="-135" y="-120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Process NoPermissions (BG3658)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="155c320f-47e9-43b3-8bff-5136c5c74d0f" name="No Execute Folder Permissions" type="Collection">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="-135" y="-90" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Delete Process" type="flag" />
+      <field name="Edit Process" type="flag" />
+      <field name="Execute Process" type="flag" />
+      <field name="Export Process" type="flag" />
+      <field name="View Process" type="flag" />
+      <field name="Execute Process as Web Service" type="flag" />
+      <field name="Create Process" type="flag" />
+      <field name="Edit Process Groups" type="flag" />
+      <field name="Import Process" type="flag" />
+      <field name="Manage Process Access Rights" type="flag" />
+      <field name="Role Name" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Delete Process" type="flag" value="True" />
+        <field name="Edit Process" type="flag" value="False" />
+        <field name="Execute Process" type="flag" value="False" />
+        <field name="Export Process" type="flag" value="True" />
+        <field name="View Process" type="flag" value="False" />
+        <field name="Execute Process as Web Service" type="flag" value="True" />
+        <field name="Create Process" type="flag" value="False" />
+        <field name="Edit Process Groups" type="flag" value="True" />
+        <field name="Import Process" type="flag" value="True" />
+        <field name="Manage Process Access Rights" type="flag" value="True" />
+        <field name="Role Name" type="text" value="BG3658_Role" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="b0e47f05-67a8-4dae-8f79-134480f128e1" name="Set restricted" type="Action">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="15" y="120" w="90" h="30" />
+    <onsuccess>730ac7fe-4512-4834-a07a-0cc102fa1c9c</onsuccess>
+    <resource object="Blue Prism - Studio" action="Manage Access Rights Set Restricted" />
+  </stage>
+  <stage stageid="4c65237f-6078-4ae6-87fe-0785a1885529" name="Load Access Rights" type="Action">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Target Element" narrative="Element (Process/object/group) to display current Access rights" expr="[NoExecute Folder Name]" />
+      <input type="flag" name="Nested?" narrative="Set flag if element is contained within another element" expr="" />
+      <input type="text" name="Nesting Structure" narrative="Provide a colleciton of parent elements to expand nodes" expr="" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Access Rights Screen loaded" narrative="Flag set to true if screen successfully loaded" stage="" />
+      <output type="text" name="Exception" narrative="Exception text output" stage="" />
+    </outputs>
+    <onsuccess>d5927ba7-d9e3-4ca3-9b90-b2d95c995974</onsuccess>
+    <resource object="Blue Prism - Studio" action="Manage Access Rights Select Window" />
+  </stage>
+  <stage stageid="730ac7fe-4512-4834-a07a-0cc102fa1c9c" name="Set Permissions" type="Action">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="Set Role Permissions" narrative="Collection with users and permissions to be set" expr="[No Execute Folder Permissions]" />
+      <input type="flag" name="Negative Test?" narrative="flag to change the flow so a user can attempt to set permissions when folder is not restritcted" expr="" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Permissions Set?" narrative="Flag to indicate if permissions have been set " stage="" />
+      <output type="text" name="Exception" narrative="text passed from exception" stage="" />
+    </outputs>
+    <onsuccess>b7ee446a-daf9-4541-9196-fd288e23fd57</onsuccess>
+    <resource object="Blue Prism - Studio" action="Manage Access Rights Set Individual Permissions - Process" />
+  </stage>
+  <stage stageid="b7ee446a-daf9-4541-9196-fd288e23fd57" name="Click Ok" type="Action">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <display x="15" y="210" w="90" h="30" />
+    <onsuccess>06c420f1-dd95-4fa8-b39a-11818c06b49a</onsuccess>
+    <resource object="Blue Prism - Studio" action="Manage Access Rights Accept/Close Window" />
+  </stage>
+  <stage stageid="d5927ba7-d9e3-4ca3-9b90-b2d95c995974" name="Select User Role" type="Action">
+    <subsheetid>0ba54b89-4916-474f-98a4-2989deb95ff5</subsheetid>
+    <loginhibit />
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="User Role" expr="[RoleName]" />
+    </inputs>
+    <onsuccess>b0e47f05-67a8-4dae-8f79-134480f128e1</onsuccess>
+    <resource object="Blue Prism - Studio" action="Select User Role" />
+  </stage>
+  <stage stageid="ff6f62a1-e433-4ee3-a8d4-84bf11301075" name="Accessing from an object (Permissions Restricted)" type="SubSheetInfo">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="-195" y="-210" w="150" h="90" />
+  </stage>
+  <stage stageid="ca553bc4-7e41-4e5e-9c0c-b35282058848" name="Accessing from a process / object (Process Deleted)" type="SubSheetInfo">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="-195" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="6d5cc1d7-9459-4d13-a4c0-b4456fe756cb" name="Start" type="Start">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="15" y="-195" />
+    <onsuccess>30322308-c0ee-41e8-b158-0c9f77ff0c39</onsuccess>
+  </stage>
+  <stage stageid="417e1298-64a5-4826-893d-d2cf060b581a" name="End" type="End">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="15" y="585" />
+  </stage>
+  <stage stageid="8860bc7a-60b0-4aa9-a03e-0cf6e6968a45" name="Delete Process" type="Action">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" friendlyname="Process Name" narrative="The name of the process you want to delete." expr="[Process 2]" />
+      <input type="text" name="Deletion Reason" friendlyname="Deletion Reason" narrative="The reason you wish to delete the process." expr="" />
+      <input type="text" name="Group to Expand" friendlyname="Group to Expand" narrative="Group containing the process" expr="[NoExecute Folder Name]" />
+    </inputs>
+    <onsuccess>b182e5ec-89c4-438a-baa3-61c853635aca</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Delete Process" />
+  </stage>
+  <stage stageid="b182e5ec-89c4-438a-baa3-61c853635aca" name="Open Process" type="Action">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="15" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" expr="[Process B]" />
+      <input type="text" name="Folder to Select" expr="&quot;Default&quot;" />
+      <input type="number" name="MatchIndex" expr="1" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Access Warning" narrative="Access warning when opening member" stage="Access Warning" />
+    </outputs>
+    <onsuccess>3e33406d-f799-4df9-be05-354b886d38e0</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Process" />
+  </stage>
+  <stage stageid="c39418aa-1f1c-4fd9-a0b8-fc915ed86dc0" name="Validate prompt appears when process deleted (Access from Process)" type="Block">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="-105" y="-30" w="270" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="999999" />
+  </stage>
+  <stage stageid="3e33406d-f799-4df9-be05-354b886d38e0" name="Expected Warning Received" type="Decision">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="15" y="45" w="90" h="30" />
+    <decision expression="[Access Warning]=&quot;&quot;" />
+    <ontrue>51feae5c-fa96-48f9-982e-a56e81a1ce7f</ontrue>
+    <onfalse>64b7ee19-7116-42ec-80ed-a3ad7164415e</onfalse>
+  </stage>
+  <stage stageid="51feae5c-fa96-48f9-982e-a56e81a1ce7f" name="Attempt to Save Process" type="Action">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="15" y="90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Edit Summary" narrative="The summary to add to the audit trail for the process" expr="&quot;Because&quot;" />
+      <input type="flag" name="Already Waiting" narrative="True if it's already waiting (i.e. don't press 'Save')" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Warning on Save" narrative="Warning given when not possible to save due to inaccessible linked process or object" stage="Save Warning" />
+    </outputs>
+    <onsuccess>62ec0389-512e-4085-9df8-db8684b70d62</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Save Open Process" />
+  </stage>
+  <stage stageid="62ec0389-512e-4085-9df8-db8684b70d62" name="Expected Warning Received" type="Decision">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="15" y="135" w="90" h="30" />
+    <decision expression="[Save Warning]=&quot;&quot;" />
+    <ontrue>605bc24f-70b4-4405-926b-9cbe1fc09cf2</ontrue>
+    <onfalse>e68393d8-4566-4b86-a105-f4504231685a</onfalse>
+  </stage>
+  <stage stageid="605bc24f-70b4-4405-926b-9cbe1fc09cf2" name="Close Process" type="Action">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="15" y="195" w="90" h="30" />
+    <onsuccess>ab96787c-adfc-4d64-a077-c1bc177df899</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="da1a4e09-cca6-410a-8bda-2f6c7b191de9" name="Validate prompt appears when process deleted (Access from Object)" type="Block">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="-105" y="315" w="270" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="999999" />
+  </stage>
+  <stage stageid="5a368e9a-2131-4bd2-8fa0-a8fa98f6daa8" name="Start" type="Start">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="15" y="-240" />
+    <onsuccess>7bd57adb-551d-4c84-9cc7-4a28124f91e9</onsuccess>
+  </stage>
+  <stage stageid="927861dc-3b90-4cb8-812a-dff76fca9d2b" name="End" type="End">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="15" y="405" />
+  </stage>
+  <stage stageid="3fddcdb8-83e5-494c-a953-1968d5fd00a8" name="Test 1 - Validate no prompt when permissions allowed" type="Block">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="-105" y="-120" w="270" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="999999" />
+  </stage>
+  <stage stageid="e67a1d0b-7c3a-4233-a960-4078669a6252" name="Open Object" type="Action">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Folder to Select" narrative="Name of folder the object you wish to select is contained within" expr="&quot;Default&quot;" />
+      <input type="number" name="MatchIndex" expr="2" />
+      <input type="text" name="Object Name" friendlyname="Object Name" narrative="The name of the object you wish to open." expr="[Object A]" />
+    </inputs>
+    <onsuccess>bc72fcd3-cd74-452f-8263-1a95e024492f</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Object" />
+  </stage>
+  <stage stageid="6dffd6be-a4c8-40ee-af33-b60e99784c44" name="Object A" type="Data">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="-195" y="-120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Test Object A (BG-3658)</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="764b4e08-44a0-4db0-bffd-36b1f08fce41" name="Object B" type="Data">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="-195" y="-90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Test Object B (BG-3658)</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5d9fef66-9d63-4ead-addd-c684bed2838e" name="Test 2 - Validate prompt appears when permissions restricted" type="Block">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="-105" y="135" w="270" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="999999" />
+  </stage>
+  <stage stageid="e68b8840-ff96-4fe0-a25e-862eae44c5e9" name="Test Object Names" type="Block">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="-270" y="-150" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2902ea2c-e92e-4386-ade2-240087df13a8" name="Access Warning" type="Block">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f63b3366-a569-41ee-aba4-fb852b7019c7" name="Access Warning" type="Data">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="bc72fcd3-cd74-452f-8263-1a95e024492f" name="No warning received?" type="Decision">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="15" y="-45" w="90" h="30" />
+    <decision expression="[Access Warning]=&quot;&quot;" />
+    <ontrue>16aa2f1b-6903-4269-aba1-dba8cedbac64</ontrue>
+    <onfalse>33e35e53-7143-4eea-9b67-6025915b01d0</onfalse>
+  </stage>
+  <stage stageid="33e35e53-7143-4eea-9b67-6025915b01d0" name="FAIL" type="Exception">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="105" y="-45" />
+    <exception type="Test Fail" detail="&quot;Prompt was displayed when no permission restrictions were in place&quot;" />
+  </stage>
+  <stage stageid="16aa2f1b-6903-4269-aba1-dba8cedbac64" name="Close Object" type="Action">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="15" y="15" w="90" h="30" />
+    <onsuccess>8750520b-72c8-474a-86fb-5c62073105d1</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="29f157a2-bffd-4719-acc5-0740754c2ecb" name="Expected Errors" type="Block">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="-270" y="60" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a20575e8-76d5-42dd-9545-b424460496e4" name="Permission on opening process" type="Data">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="-195" y="90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">This business object cannot be saved because you do not have permission to execute all linked processes or business objects. Please either remove the affected links or contact your administrator to obtain permission.</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0a96f862-111a-458f-b06c-b0b63aa6472f" name="Permission on saving process" type="Data">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="-195" y="120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">This business object cannot be saved because you do not have permission to execute all linked processes or business objects. Please either remove the affected links or contact your administrator to obtain permission.</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="47284285-e5f7-496a-baf5-ab6f99818937" name="Expected Warning Received" type="Decision">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="15" y="210" w="90" h="30" />
+    <decision expression="[Access Warning]=[Permission on opening process]" />
+    <ontrue>b0df5ab7-bec9-4390-8b35-0a204645826a</ontrue>
+    <onfalse>fd7c4c52-6683-4e18-9c08-9ee020867142</onfalse>
+  </stage>
+  <stage stageid="fd7c4c52-6683-4e18-9c08-9ee020867142" name="FAIL" type="Exception">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="105" y="210" />
+    <exception type="Test Fail" detail="&quot;Expected warning was not prompted when opening an object linked to an inaccessible process&quot;" />
+  </stage>
+  <stage stageid="b0df5ab7-bec9-4390-8b35-0a204645826a" name="Attempt to Save Object" type="Action">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Edit Summary" narrative="The summary to add to the audit trail for the process" expr="" />
+      <input type="flag" name="Already Waiting" narrative="True if it's already waiting (i.e. don't press 'Save')" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Warning on Save" friendlyname="Warning on Save" narrative="Warning given when not possible to save due to inaccessible linked process or object" stage="Save Warning" />
+    </outputs>
+    <onsuccess>e2b7b02d-f4c5-4751-a037-45f9a4280807</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Save Open Object" />
+  </stage>
+  <stage stageid="aac05369-c3a1-45a2-8ba4-f45c5a078fa2" name="Save Warning" type="Data">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e2b7b02d-f4c5-4751-a037-45f9a4280807" name="Expected Warning Received" type="Decision">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="15" y="300" w="90" h="30" />
+    <decision expression="[Save Warning]=[Permission on saving process]" />
+    <ontrue>358efde3-963c-46b5-af3a-5d6a126ace70</ontrue>
+    <onfalse>a6f6c5bf-e29e-45b4-ac1b-f99e864487fb</onfalse>
+  </stage>
+  <stage stageid="a6f6c5bf-e29e-45b4-ac1b-f99e864487fb" name="FAIL" type="Exception">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="105" y="300" />
+    <exception type="Test Fail" detail="&quot;Expected warning was not prompted when attempting to save an object linked to n inaccessible process&quot;" />
+  </stage>
+  <stage stageid="358efde3-963c-46b5-af3a-5d6a126ace70" name="Close Object" type="Action">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <display x="15" y="360" w="90" h="30" />
+    <onsuccess>927861dc-3b90-4cb8-812a-dff76fca9d2b</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="dcfa4450-7580-4001-925f-686e6b158d82" name="Open Object" type="Action">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Folder to Select" narrative="Name of folder the object you wish to select is contained within" expr="&quot;Default&quot;" />
+      <input type="number" name="MatchIndex" expr="2" />
+      <input type="text" name="Object Name" friendlyname="Object Name" narrative="The name of the object you wish to open." expr="[Object B]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Access Warning" friendlyname="Access Warning" stage="Access Warning" />
+    </outputs>
+    <onsuccess>47284285-e5f7-496a-baf5-ab6f99818937</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Object" />
+  </stage>
+  <stage stageid="0a71c48b-5c26-493c-8a70-98c44f2a7d18" name="Accessing from an object (Permissions Restricted)" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="60" />
+    <onsuccess>a803634c-d6d2-450a-a61d-940d56c41310</onsuccess>
+    <processid>79fc1230-4b57-4f85-a789-d2e861beeb1c</processid>
+  </stage>
+  <stage stageid="a803634c-d6d2-450a-a61d-940d56c41310" name="Accessing from a process / object (Process Deleted)" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="90" h="60" />
+    <onsuccess>ebe78223-b059-47be-86a0-0201746846f8</onsuccess>
+    <processid>174abb86-c5a2-466f-91de-7cbd6bb3114b</processid>
+  </stage>
+  <stage stageid="a923e3ba-c3eb-4873-ac28-e41f8bdfc6ed" name="Anchor2" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="105" y="90" w="10" h="10" />
+    <onsuccess>ebe78223-b059-47be-86a0-0201746846f8</onsuccess>
+  </stage>
+  <stage stageid="94e64791-f6e1-40ba-8c2a-e130f13f353e" name="Exit Application" type="Action">
+    <subsheetid>ad96b759-7d24-4979-bdd7-5139901821bc</subsheetid>
+    <display x="15" y="-375" w="90" h="30" />
+    <onsuccess>6c319fd4-82db-40c1-82ee-a63e6e2c15df</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="6c319fd4-82db-40c1-82ee-a63e6e2c15df" name="Launch Blue Prism" type="Action">
+    <subsheetid>ad96b759-7d24-4979-bdd7-5139901821bc</subsheetid>
+    <display x="15" y="-330" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>391c6e31-1da0-4f19-9b44-dfb22b95d4ef</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="391c6e31-1da0-4f19-9b44-dfb22b95d4ef" name="Attach Studio" type="Action">
+    <subsheetid>ad96b759-7d24-4979-bdd7-5139901821bc</subsheetid>
+    <display x="15" y="-285" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>573e4b6f-58a4-4cbb-ac89-dac40ab0bd64</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="573e4b6f-58a4-4cbb-ac89-dac40ab0bd64" name="Attach System" type="Action">
+    <subsheetid>ad96b759-7d24-4979-bdd7-5139901821bc</subsheetid>
+    <display x="15" y="-240" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>24ff68b1-a197-4a4c-80fd-cba46d280414</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="2bea0870-9110-4796-8ce8-39cc3f0a5ba2" name="RestrictedUserName" type="Data">
+    <display x="-135" y="-75" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">BG3658_User</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="bc298eb6-8dfd-442a-9690-66b685723dac" name="RoleName" type="Data">
+    <display x="-135" y="-105" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">BG3658_Role</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="1f34543b-b316-4918-9089-132742e28d32" name="Expected Warning Received" type="Decision">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="15" y="390" w="90" h="30" />
+    <decision expression="[Access Warning]=&quot;&quot;" />
+    <ontrue>fa1d1d51-47a2-478d-a148-548da38c25ad</ontrue>
+    <onfalse>99e07f15-5dc8-4f76-98f2-65ed52baacab</onfalse>
+  </stage>
+  <stage stageid="99e07f15-5dc8-4f76-98f2-65ed52baacab" name="FAIL" type="Exception">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="105" y="390" />
+    <exception type="Test Fail" detail="&quot;Expected warning was not prompted when opening an object linked to an inaccessible process&quot;" />
+  </stage>
+  <stage stageid="eddca282-b9e1-4859-a096-48a6ff4cb209" name="Open Object" type="Action">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="345" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Folder to Select" narrative="Name of folder the object you wish to select is contained within" expr="&quot;Default&quot;" />
+      <input type="number" name="MatchIndex" expr="2" />
+      <input type="text" name="Object Name" friendlyname="Object Name" narrative="The name of the object you wish to open." expr="[Object B]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Access Warning" friendlyname="Access Warning" stage="Access Warning" />
+    </outputs>
+    <onsuccess>1f34543b-b316-4918-9089-132742e28d32</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Object" />
+  </stage>
+  <stage stageid="fa1d1d51-47a2-478d-a148-548da38c25ad" name="Attempt to Save Object" type="Action">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="435" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Edit Summary" narrative="The summary to add to the audit trail for the process" expr="&quot;Because&quot;" />
+      <input type="flag" name="Already Waiting" narrative="True if it's already waiting (i.e. don't press 'Save')" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Warning on Save" friendlyname="Warning on Save" narrative="Warning given when not possible to save due to inaccessible linked process or object" stage="Save Warning" />
+    </outputs>
+    <onsuccess>3e3339d2-fc38-465a-a897-ae4a7af8d2dc</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Save Open Object" />
+  </stage>
+  <stage stageid="3e3339d2-fc38-465a-a897-ae4a7af8d2dc" name="Expected Warning Received" type="Decision">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="15" y="480" w="90" h="30" />
+    <decision expression="[Save Warning]=&quot;&quot;" />
+    <ontrue>7d35d152-4356-4016-9593-92a3a3411f97</ontrue>
+    <onfalse>4cf7f0ea-3011-4647-a3b0-86ee80d83431</onfalse>
+  </stage>
+  <stage stageid="4cf7f0ea-3011-4647-a3b0-86ee80d83431" name="FAIL" type="Exception">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="105" y="480" />
+    <exception type="Test Fail" detail="&quot;Expected warning was prompted when attempting to save an object linked to an inaccessible process&quot;" />
+  </stage>
+  <stage stageid="7d35d152-4356-4016-9593-92a3a3411f97" name="Close Object" type="Action">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="15" y="540" w="90" h="30" />
+    <onsuccess>417e1298-64a5-4826-893d-d2cf060b581a</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="64b7ee19-7116-42ec-80ed-a3ad7164415e" name="FAIL" type="Exception">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="105" y="45" />
+    <exception type="Test Fail" detail="&quot;Expected warning was not prompted when opening a procees linked to inaccessible an process&quot;" />
+  </stage>
+  <stage stageid="e68393d8-4566-4b86-a105-f4504231685a" name="FAIL" type="Exception">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="105" y="135" />
+    <exception type="Test Fail" detail="&quot;Expected warning was prompted when attempting to save a process linked to an inaccessible process&quot;" />
+  </stage>
+  <stage stageid="dd805e61-1704-483e-bb90-5b71c8dabd43" name="Object B" type="Data">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="-195" y="45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Test Object B (BG-3658)</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="aeef03a1-f19e-4722-8b6a-7a01f41040b2" name="Test Process / Object Names" type="Block">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="-270" y="-15" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4edef528-f968-481d-adda-1e06bb3cb6f5" name="Process B" type="Data">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Test Process B (BG-3658)</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0acc542a-3b0d-49ab-aa60-ca3aaca09807" name="Access Warning" type="Block">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="-270" y="90" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a201d9e4-ef10-4316-9726-1f5909d48a02" name="Access Warning" type="Data">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="-195" y="120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8e35a412-9d1f-4224-b7f3-777d814ecb3a" name="Save Warning" type="Data">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <display x="-195" y="150" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="70d09bcf-18a9-4fa7-bc0f-ffcb7fbe81be" name="Go To Home" type="Action">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <loginhibit />
+    <display x="15" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>01c92610-cafa-4540-9c5b-6c6e55b2fa5c</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="01c92610-cafa-4540-9c5b-6c6e55b2fa5c" name="Go To Studio" type="Action">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <loginhibit />
+    <display x="15" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>4fbb708e-49ee-4258-9213-e2d7e06779ad</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="68e2ae7c-3b0d-4688-9d63-764e2cb3f2fa" name="Go To Home" type="Action">
+    <subsheetid>0a4ed4d8-255e-45d3-bb09-77e64a814b51</subsheetid>
+    <loginhibit />
+    <display x="15" y="-150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>3337dffd-21ff-4679-9c4e-a75f72ec3ed7</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="8750520b-72c8-474a-86fb-5c62073105d1" name="Go To Home" type="Action">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <loginhibit />
+    <display x="15" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>a2c0ad65-66b4-412b-8805-a9a1cb1d1a79</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="a2c0ad65-66b4-412b-8805-a9a1cb1d1a79" name="Go To Studio" type="Action">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <loginhibit />
+    <display x="15" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>dcfa4450-7580-4001-925f-686e6b158d82</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="7bd57adb-551d-4c84-9cc7-4a28124f91e9" name="Go To Home" type="Action">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <loginhibit />
+    <display x="15" y="-195" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>3a2e8c67-564f-4f5d-b1ee-516a36f71efb</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="3a2e8c67-564f-4f5d-b1ee-516a36f71efb" name="Go To Studio" type="Action">
+    <subsheetid>79fc1230-4b57-4f85-a789-d2e861beeb1c</subsheetid>
+    <loginhibit />
+    <display x="15" y="-150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>e67a1d0b-7c3a-4233-a960-4078669a6252</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="30322308-c0ee-41e8-b158-0c9f77ff0c39" name="Go To Home" type="Action">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <loginhibit />
+    <display x="15" y="-150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>405fb435-b30f-4e04-829f-c31679312c08</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="405fb435-b30f-4e04-829f-c31679312c08" name="Go To Studio" type="Action">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>8860bc7a-60b0-4aa9-a03e-0cf6e6968a45</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="ab96787c-adfc-4d64-a077-c1bc177df899" name="Go To Home" type="Action">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <loginhibit />
+    <display x="15" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>8ec531d0-b1d6-4276-aa38-c4ba73713213</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="8ec531d0-b1d6-4276-aa38-c4ba73713213" name="Go To Studio" type="Action">
+    <subsheetid>174abb86-c5a2-466f-91de-7cbd6bb3114b</subsheetid>
+    <loginhibit />
+    <display x="15" y="285" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>eddca282-b9e1-4859-a096-48a6ff4cb209</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+</process>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+
+    <title>光学式文字認識（OCR）</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="pagetitle">ヘルプ</h1>
+    </div>
+
+    <h3>光学式文字認識（OCR）</h3>
+    <p>画面上のテキストとの連携にネイティブの文字認識エンジンの使用が適さない場合に、Blue Prism内でOCRエンジンを使用できます。一般的には、平滑化テキストが適用される場合、あるいはスキャンされた電子文書またはその他の制限を受ける電子文書と連携する場合があります。</p>
+    
+    <p>Blue Prism機能は、組み込みのTesseract OCRエンジンを利用し、パターンマッチングおよび複雑な言語ベースのテキスト認識を使用してテキストを認識します。</p>
+    
+    <p>認識効果を最大限に引き出すには、最低で300ドット/インチ（dpi）が必要です。画面上のテキストなど、dpiがこれより低い画像の場合は、エンジンに渡す前にキャプチャした領域のサイズを［縮尺］パラメーターにより意図的に拡大します。
+ 通常、縮尺の倍率を4または5に設定するとよい結果が得られます。
+    </p>
+
+    <p>OCRエンジンは、以前にキャプチャされたアプリケーションモデラー領域に対して使われる<a href="frmStagePropertiesRead.htm">読み取り</a>ステージを通して利用され、テキスト、リスト、グリッドを読み取るためのオプションが含まれます。選択された領域に対して使われた縮尺が妥当であるかを検証できるようにするために、事前処理された画像を特定の診断場所に出力することもできます。</p>
+
+    <h5 id="lang">言語パック</h5>
+    <p>Tesseractで使用する言語パックはインターネットで入手できます。Blue PrismはTesseractバージョン4.0.0で動作し、一緒に適切なメジャーバージョンの言語ファイルを使用することが不可欠です。現在、バージョン4.0.0の言語ファイルが<a target="_blank" href="https://github.com/tesseract-ocr/tesseract/wiki/Data-Files">Tesseract Webサイト</a>からダウンロードできます。</p>
+
+    <p>別の言語のサポートを追加するには、それに合ったファイルをダウンロードしてTesseract\tessdataフォルダー（通常は<code>C:\Program Files\Blue Prism Limited\Blue Prism Automate\Tesseract\tessdata</code>）にコピーします。
+    </p>
+
+    <p>言語ファイルには先頭に、fra（フランス語）、deu（ドイツ語）、jpn（日本語）、chi-tra（繁体字中国語）などの言語コードが付いています。必要な各デバイスにインストールした後に、必要なパックを使用するようにエンジンに指示するには、このコードを<a href="frmStagePropertiesRead.htm">読み取り</a>ステージ内の［OCRでテキストを読み取る］アクションの言語パラメーターで指定します。</p>
+
+    <h5 id="lang">ページ分割モード</h5>
+    <p><a href="frmStagePropertiesRead.htm">読み取り</a>ステージ内の［OCRでテキストを読み取る］アクションにはオプションのテキストパラメーター［ページ分割モード］があり、これによりTesseractで定義された値を指定できるようになります。このパラメーターに入力可能な値と、そのアクションの簡単な説明を以下に示します。</p>
+
+    <p>［ページ分割モード］に値が入力されていない場合は、デフォルト値の［Auto］が使用されます。
+        <dl class="indented">
+            <dt>OSD</dt>
+            <dd>
+ Orientation and script detection (OSD) only（向きとスクリプトの検出（OSD）のみ）
+            </dd>
+            <dt>AutoWithOSD</dt>
+            <dd>OSDと自動ページ分割。</dd>
+            <dt>AutoNoOCR</dt>
+            <dd>自動ページ分割、ただしOSDまたはOCRなし。</dd>
+            <dt>Auto</dt>
+            <dd>Fully automatic page segmentation, but no OSD（完全自動ページ分割、OSDなし。デフォルト）</dd>
+            <dt>列</dt>
+            <dd>Assume a single column of text of variable sizes（可変サイズの1つのテキスト列として認識）</dd>
+            <dt>VerticalBlock</dt>
+            <dd>Assume a single uniform block of vertically aligned text（縦書きテキストの単一のブロックとして認識）</dd>
+            <dt>ブロック</dt>
+            <dd>Assume a single uniform block of text（単一ブロックとして認識）</dd>
+            <dt>Line</dt>
+            <dd>Treat the image as a single text line（画像を単一のテキスト行として処理）</dd>
+            <dt>Word</dt>
+            <dd>Treat the image as a single word（画像を1単語として処理）</dd>
+            <dt>CircledWord</dt>
+            <dd>Treat the image as a single word in a circle（画像を円で囲まれた1単語として処理）</dd>
+            <dt>Character</dt>
+            <dd>Treat the image as a single character（画像を1文字として処理）</dd>
+            <dt>SparseText</dt>
+            <dd>順不同でできるだけ多くのテキストを検出。</dd>
+            <dt>SparseTextWithOSD</dt>
+            <dd>OSDを使用したスパーステキスト。</dd>
+            <dt>RawLine</dt>
+            <dd>Tesseract固有の回避策を省略して、画像を1行のテキストとして処理。</dd>
+        </dl>
+ 分割モードの詳細については、TesseractのWebサイトの公式ドキュメントを参照してください。
+    </p>
+
+</body>
+</html>

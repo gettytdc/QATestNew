@@ -1,0 +1,63 @@
+﻿<process name="Test ExternalApp Global Timeout (Wait stage)" version="1.0" bpversion="6.7.0.16562" narrative="" byrefcollection="true" preferredid="700f3012-b95a-42dc-a02f-f4cd688e6c93" published="true">
+  <view>
+    <camerax>0</camerax>
+    <cameray>48</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="a2d4d3bf-fbad-490d-a0e8-23550d9d83cb" name="Start" type="Start">
+    <display x="15" y="-195" />
+    <onsuccess>57e45083-ba37-43f9-8a52-d9b3fe94fa5e</onsuccess>
+  </stage>
+  <stage stageid="db1eb029-1163-40cf-91f4-c9b6f0095b3f" name="End" type="End">
+    <display x="15" y="240" />
+  </stage>
+  <stage stageid="cda06f43-c45d-41e9-92b0-30edd07504ef" name="Stage1" type="ProcessInfo">
+    <display x="-180" y="-165" w="150" h="90" />
+  </stage>
+  <stage stageid="cc4a40d1-ca56-4e54-876a-08e1e6203571" name="Launch" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="90" h="30" />
+    <onsuccess>b4f1c261-8896-4687-81e2-01802faed2c5</onsuccess>
+    <resource object="external-wait-global-timeout" action="Launch" />
+  </stage>
+  <stage stageid="b4f1c261-8896-4687-81e2-01802faed2c5" name="Terminate" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="0" w="90" h="30" />
+    <onsuccess>1d134643-776b-4508-b0c4-352d47605768</onsuccess>
+    <resource object="external-wait-global-timeout" action="Terminate" />
+  </stage>
+  <stage stageid="351bc2ec-e5a6-4344-b998-3ed743277b4a" name="Launch (Small Wait)" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="150" w="90" h="30" />
+    <onsuccess>e7105b4c-83b2-4cc3-bb3e-93763b0a6956</onsuccess>
+    <resource object="external-wait-global-timeout" action="Launch - Small Wait" />
+  </stage>
+  <stage stageid="57e45083-ba37-43f9-8a52-d9b3fe94fa5e" name="Note1" type="Note">
+    <narrative>GIVEN a global external timeout is set
+
+WHEN the external application hangs 
+AND the global external timeout is lower then the wait timeout
+
+THEN an eternal timeout error is thrown</narrative>
+    <display x="15" y="-120" w="210" h="90" />
+    <onsuccess>cc4a40d1-ca56-4e54-876a-08e1e6203571</onsuccess>
+  </stage>
+  <stage stageid="e7105b4c-83b2-4cc3-bb3e-93763b0a6956" name="Terminate" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" w="90" h="30" />
+    <onsuccess>db1eb029-1163-40cf-91f4-c9b6f0095b3f</onsuccess>
+    <resource object="external-wait-global-timeout" action="Terminate" />
+  </stage>
+  <stage stageid="1d134643-776b-4508-b0c4-352d47605768" name="Note1" type="Note">
+    <narrative>GIVEN a global external timeout is set
+
+WHEN the external application hangs 
+AND the global external timeout is higher then the wait timeout
+
+THEN the wait stage timeout is respected</narrative>
+    <display x="15" y="75" w="210" h="90" />
+    <onsuccess>351bc2ec-e5a6-4344-b998-3ed743277b4a</onsuccess>
+  </stage>
+</process>

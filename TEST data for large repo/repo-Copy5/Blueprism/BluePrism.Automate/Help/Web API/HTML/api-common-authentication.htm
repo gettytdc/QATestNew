@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-gb" xml:lang="en-gb" data-mc-search-type="Stem" data-mc-help-system-file-name="Blue Prism Help.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Common authentication</title>
+        <link type="text/css" href="../../AutomateHelp.css" rel="stylesheet" />
+		<link href="../../TableStyles/bp_footer_tablestyle.css" rel="stylesheet" />
+		<link href="../../TableStyles/bp-table-column-header.css" rel="stylesheet" />
+        <link href="../../TableStyles/bp-table-row-header.css" rel="stylesheet" />
+    </head>
+    <body>
+        <h1 class="pagebreak">Common authentication</h1>
+        <p>Where API&#160;requests require authentication to send and receive information, credentials specific to the authentication type can be configured. Blue Prism supports the use of the following authentication types for API&#160;requests:</p>
+        <ul>
+            <li class="bullet_1" value="1"><a href="#Basic">Basic</a>
+            </li>
+            <li class="bullet_1" value="2"><a href="#Bearer">Bearer Token</a>
+            </li>
+            <li class="bullet_1" value="3"><a href="#OAuth">OAuth 2.0 (Client Credentials)</a>
+            </li>
+            <li class="bullet_1" value="4"><a href="#OAuth2">OAuth 2.0 (JWT Bearer Token)</a>
+            </li>
+            <li class="bullet_1" value="5"><a href="#Custom">Custom</a>
+            </li>
+        </ul>
+        <p><a href="../Images/api-auth-type.png"><img data-mc-width="606" data-mc-height="272" src="../Images/api-auth-type_thumb_0_128.png" tabindex="" /></a>
+        </p>
+        <p>Credentials are used to store the data required to make an authenticated request to a Web API. Credentials applicable to the above authentication types are created in <a href="web-api-credentials.htm">Credential Manager</a> and then used to authenticate any request to the Web API. The credential selected in the API&#160;definition is used for all associated actions. However, when exposed to processes, an alternative credential can be used when specified as an input parameter. </p>
+        <p>In the example below, the <i>Address Credential</i> has been selected in the API&#160;definition as the default credential for all associated actions where an alternative value is not specified in the action inputs in Object Studio and Process Studio.</p>
+        <p><a href="../Images/api-select-credential.png"><img data-mc-width="682" data-mc-height="225" src="../Images/api-select-credential_thumb_0_128.png" tabindex="" /></a>
+        </p>
+        <p class="pagebreak">Given that <b>Expose to process</b> has been selected, a related input parameter is available for processes. The name of an alternative credential has been specified in the input parameter and is used when the API&#160;is called.</p>
+        <p><a href="../Images/api-alternative-credential.png"><img data-mc-width="605" data-mc-height="286" src="../Images/api-alternative-credential_thumb_0_128.png" tabindex="" /></a>
+        </p>
+        <h2>Authentication types</h2>
+        <p>The following authentication types can be configured within a Web API&#160;definition.:</p>
+        <h3>None</h3>
+        <p class="bullet_1">The API does not require authentication.</p>
+        <h3><a name="Basic"></a>Basic</h3>
+        <p class="bullet_1">Uses HTTP&#160;Basic Authentication  to send a username and password from a selected credential in request headers. If required, and if the API&#160;supports it, select the <b>Pre-emtively send the authorization header</b> check box. Pre-emptive authorization sends the basic authentication response directly with the HTTP request rather than when responding to an unauthorized response. </p>
+        <p class="continue">Select the required credential from the drop-down list and if required, select <b>Expose to process</b> and enter a parameter name.</p>
+        <h3><a name="OAuth"></a>OAuth 2.0 (Client Credentials)</h3>
+        <p>Makes a request to an authorization server with a client ID&#160;and secret. If the credentials are valid, an access token is returned which is used to authenticate the API&#160;request.</p>
+        <p>The authentication type is configured using the following fields:</p>
+        <ul>
+            <li class="bullet_1" value="1"><b>Authorization URI</b> - The address of the authorization server.</li>
+            <li class="bullet_1" value="2"><b>Credential</b> - The name of the credential, in Credential Manager, that contains the Client ID and Client Secret that is  used to get the access token from the authorization server</li>
+            <li class="bullet_1" value="3"><b>Parameter name</b> - If the authentication is exposed to objects and processes, the name of the input parameter for actions.</li>
+            <li class="bullet_1" value="4"><b>Scope</b> - The level of access requested from the authorization server that will be permitted by the token. </li>
+        </ul>
+        <h3 class="pagebreak"><a name="OAuth2"></a>OAuth 2.0 (JWT Bearer Token)</h3>
+        <p>This credential type is a form of OAuth 2.0 authentication using a JSON&#160;Web Token (JWT) to authenticate rather providing a client ID&#160;and secret as with standard OAuth 2.0. The request data, specifying who is requesting the information and their intended use, is sent to the authorization server as a signed JWT. If the JWT&#160;is valid, the server returns an access token that is used to authenticate the API&#160;request.  </p>
+        <p>The following fields are used to create the request.</p>
+        <ul>
+            <li class="bullet_1" value="1"><b>Algorithm</b> - The algorithm used to sign the JWT - currently only the RSA SHA-256 algorithm type is supported.</li>
+            <li class="bullet_1" value="2"><b>Authorization URI</b> - The address of the authorization server.</li>
+            <li class="bullet_1" value="3"><b>Audience</b> - Used to identify the authorization server as the intended recipient of the token.</li>
+            <li class="bullet_1" value="4"><b>Scope</b> - The level of access requested from the authorization server to be permitted by the token. </li>
+            <li class="bullet_1" value="5"><b>Subject</b> - The Subject typically identifies the user for which the access token is being requested. Parameters can be used in this field.</li>
+            <li class="bullet_1" value="6"><b>JWT Expiry</b> - The length of time after which the token is not accepted by the authorization server.</li>
+            <li class="bullet_1" value="7"><b>Credential</b> - The credential, configured in Credential Manager, used to authenticate the request.</li>
+            <li class="bullet_1" value="8"><b>Parameter Name</b> - If the authentication is exposed to objects and processes, the name of the input parameter for actions.</li>
+        </ul>
+        <h3><a name="Bearer"></a>Bearer Token</h3>
+        <p>This credential type caters for situations where the token has already been obtained and needs to be sent in the authorization header. This could be used to support situations whereby Blue Prism uses a different method, such as a code stage, to obtain the token. </p>
+        <p>The token is stored in a credential and referenced in an API&#160;definition. When used in request headers the token passed in the following format: </p>
+        <p class="code_sample">Authorization: Bearer &lt;AccessToken&gt;</p>
+        <p>For example, <code>Authorization: Bearer FGRS5-PUUDW-NBC2Q-96UYR-QBDSY</code></p>
+        <h3><a name="Custom"></a>Custom</h3>
+        <p>Custom credentials allow bespoke authentication methods to be used in Blue Prism. For example, a custom credential could be used to authenticate using an API&#160;key or subscription key, stored securely in the password field of a credential. The credential, stored in Credential Manager can be passed into the API&#160;request as a parameter allowing it to be used in the request body, header, or URL.</p>
+        <p class="bullet_1">For more information about using custom credentials, see <a href="api-custom-credentials.htm#Custom">Custom credentials</a>.</p>
+        <p>&#160;</p>
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../TableStyles/bp_footer_tablestyle.css');" class="TableStyle-bp_footer_tablestyle" cellspacing="0">
+            <col class="TableStyle-bp_footer_tablestyle-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-bp_footer_tablestyle-Body-Body1">
+                    <td class="TableStyle-bp_footer_tablestyle-BodyD-Column1-Body1">&#160;</td>
+                </tr>
+                <tr class="TableStyle-bp_footer_tablestyle-Body-Body1">
+                    <td style="text-align: center;" class="TableStyle-bp_footer_tablestyle-BodyD-Column1-Body1">Commercial in Confidence</td>
+                </tr>
+                <tr class="TableStyle-bp_footer_tablestyle-Body-Body1">
+                    <td style="text-align: center;" class="TableStyle-bp_footer_tablestyle-BodyA-Column1-Body1">®Blue Prism is a Registered Trademark of Blue Prism Limited</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,543 @@
+﻿<process name="Test SAP Check Boxes" version="1.0" bpversion="6.8.0.20397" narrative="" byrefcollection="true" preferredid="aebbaf24-0321-4dad-9bd7-610979532061" published="true">
+  <view>
+    <camerax>0</camerax>
+    <cameray>-126</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="352e077d-4417-40d3-9e9c-f8e6d81fbb01" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>285</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="bc1d1e82-a683-448a-b1c7-934da5fab458" type="Normal" published="False">
+    <name>Check Boxes</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-105</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="2e3d2c32-afd0-43d5-a816-05d4512cb539" name="Start" type="Start">
+    <display x="15" y="-240" />
+    <onsuccess>9df162aa-6851-4ef3-bdd2-21fb0f7a8e11</onsuccess>
+  </stage>
+  <stage stageid="f71168dd-bf5e-4b1c-bd41-57bb66a1b155" name="End" type="End">
+    <display x="30" y="585" />
+  </stage>
+  <stage stageid="2ed223a0-cdce-4f27-8d1b-03d58a7e1c7c" name="Stage1" type="ProcessInfo">
+    <display x="-210" y="-210" w="150" h="90" />
+  </stage>
+  <stage stageid="d670d8d0-8d5b-47a2-a696-a68d8c085023" name="Terminate" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="540" w="90" h="30" />
+    <onsuccess>f71168dd-bf5e-4b1c-bd41-57bb66a1b155</onsuccess>
+    <resource object="SAP" action="Terminate" />
+  </stage>
+  <stage stageid="cf86e6a3-1b7a-4d91-bf67-ab3d91998ef0" name="Setup" type="SubSheetInfo">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="-120" y="-30" w="150" h="90" />
+  </stage>
+  <stage stageid="57e916ba-5b34-46d1-8d8d-adbcfada0ee4" name="Start" type="Start">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="15" y="-60" />
+    <onsuccess>f149e43b-4b63-4913-b5f0-0c023cc3236d</onsuccess>
+  </stage>
+  <stage stageid="087e49f9-b4e2-4493-96cf-3786e669e216" name="End" type="End">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="15" y="330" />
+  </stage>
+  <stage stageid="f149e43b-4b63-4913-b5f0-0c023cc3236d" name="Launch" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>a777fb1e-8c51-4eca-bb51-9436ad607421</onsuccess>
+    <resource object="SAP" action="Launch" />
+  </stage>
+  <stage stageid="8b256fbd-ddfe-4b9a-acd7-a2c11dc2af12" name="Log On (740)" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="The username for the account you want to access." expr="&quot;qa74&quot;" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the user you want to access." expr="&quot;BpPa55word1&quot;" />
+    </inputs>
+    <onsuccess>8de2edc4-24ad-457e-b3bc-1bae3d3cfcc5</onsuccess>
+    <resource object="SAP" action="Log On" />
+  </stage>
+  <stage stageid="a777fb1e-8c51-4eca-bb51-9436ad607421" name="Get SAP Version" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <outputs>
+      <output type="text" name="SAP Version" friendlyname="SAP Version" stage="SAP Version" />
+    </outputs>
+    <onsuccess>4ebca774-e797-4bff-b31b-6b4118eb4ab5</onsuccess>
+    <resource object="SAP" action="Get SAP Version" />
+  </stage>
+  <stage stageid="4ebca774-e797-4bff-b31b-6b4118eb4ab5" name="SAP Version?" type="ChoiceStart">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="15" y="75" w="90" h="30" />
+    <groupid>d2b6df8a-a63d-4e7b-a35e-e02131de0cfc</groupid>
+    <choices>
+      <choice expression="[SAP Version]=&quot;740&quot;">
+        <name>740</name>
+        <distance>30</distance>
+        <ontrue>8b256fbd-ddfe-4b9a-acd7-a2c11dc2af12</ontrue>
+      </choice>
+      <choice expression="[SAP Version]=&quot;760&quot;">
+        <name>760</name>
+        <distance>75</distance>
+        <ontrue>9b57921f-d70d-4395-8161-290136880e9d</ontrue>
+      </choice>
+    </choices>
+  </stage>
+  <stage stageid="5d8e1687-288a-4cf8-8da2-225b220cb422" name="Otherwise" type="ChoiceEnd">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="15" y="195" w="90" h="30" />
+    <onsuccess>17f32e1c-4456-4f86-800a-5399351a4e75</onsuccess>
+    <groupid>d2b6df8a-a63d-4e7b-a35e-e02131de0cfc</groupid>
+  </stage>
+  <stage stageid="3ffcf1c7-df4b-44be-98ef-01798fb6b08b" name="SAP Version" type="Data">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="-120" y="60" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="17f32e1c-4456-4f86-800a-5399351a4e75" name="SAP Version FAIL" type="Exception">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="120" y="195" w="90" h="30" />
+    <exception localized="yes" type="SAP Version" detail="&quot;You are using a SAP client with an unrecogised version.&quot;" />
+  </stage>
+  <stage stageid="9b57921f-d70d-4395-8161-290136880e9d" name="Log On (760)" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="The username for the account you want to access." expr="&quot;qa76&quot;" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the user you want to access." expr="&quot;BpPa55word1&quot;" />
+    </inputs>
+    <onsuccess>f3d0d6c2-ecbe-49b0-bedb-f38d4919e4f9</onsuccess>
+    <resource object="SAP" action="Log On" />
+  </stage>
+  <stage stageid="8de2edc4-24ad-457e-b3bc-1bae3d3cfcc5" name="Anchor1" type="Anchor">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="180" y="105" w="10" h="10" />
+    <onsuccess>f3d0d6c2-ecbe-49b0-bedb-f38d4919e4f9</onsuccess>
+  </stage>
+  <stage stageid="f3d0d6c2-ecbe-49b0-bedb-f38d4919e4f9" name="Anchor2" type="Anchor">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="180" y="150" w="10" h="10" />
+    <onsuccess>eb77cf2e-c353-4ea3-9d92-ef6a86ea7deb</onsuccess>
+  </stage>
+  <stage stageid="eb77cf2e-c353-4ea3-9d92-ef6a86ea7deb" name="Anchor3" type="Anchor">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="180" y="240" w="10" h="10" />
+    <onsuccess>a9471d63-3707-4760-aae6-04ac225e9625</onsuccess>
+  </stage>
+  <stage stageid="948bcdd1-3e62-4ab2-ab45-0e61cf9af658" name="Local Variable" type="Block">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="30" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="7ae9fb2c-c678-49ff-bfe8-cf9ab3b9e471" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-120" w="240" h="30" />
+    <onsuccess>e3e04a07-4819-4323-b27f-2d93865c4c1c</onsuccess>
+    <processid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</processid>
+  </stage>
+  <stage stageid="69a11b95-fd07-4aff-b4e6-02f2dec92573" name="Check Boxes" type="SubSheetInfo">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="-120" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="6916aebc-1ca9-4861-ab60-d1800b988abd" name="Start" type="Start">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>d677bad3-f980-4552-8b7b-e7864b7c15c1</onsuccess>
+  </stage>
+  <stage stageid="a22f0d38-28e7-44ce-8aca-ec13d3c4b6bb" name="End" type="End">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="15" y="615" />
+  </stage>
+  <stage stageid="d8305e98-e6e3-4fa2-9905-9d2c7de3bc3b" name="Check Boxes" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="240" h="30" />
+    <onsuccess>ae65b51a-89fc-431e-b5b4-c92969babb92</onsuccess>
+    <processid>bc1d1e82-a683-448a-b1c7-934da5fab458</processid>
+  </stage>
+  <stage stageid="a9471d63-3707-4760-aae6-04ac225e9625" name="Search BIBS" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Transaction" friendlyname="Transaction" narrative="The transaction code you want to search." expr="&quot;BIBS&quot;" />
+    </inputs>
+    <onsuccess>99b83a6e-4670-4b00-983b-609511efc508</onsuccess>
+    <resource object="SAP" action="Search Transaction" />
+  </stage>
+  <stage stageid="99b83a6e-4670-4b00-983b-609511efc508" name="Select Check Boxes" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="285" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Control Type" friendlyname="Control Type" narrative="The name of the control type you want to select (Eg. Radio Buttons)" expr="&quot;Check Boxes&quot;" />
+    </inputs>
+    <onsuccess>087e49f9-b4e2-4493-96cf-3786e669e216</onsuccess>
+    <resource object="SAP" action="Select Control Type (BIBS)" />
+  </stage>
+  <stage stageid="12eb7baa-99bd-4199-9be0-cf74b23bd4d4" name="Read Check Box (1)" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Check Box ID" friendlyname="Check Box ID" narrative="The ID of the check box you want to read, 1 - 5" expr="[Expected Check Boxes Values (1).Radio Button ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Check Box State" friendlyname="Check Box State" narrative="The state of the read check box." stage="Check Box State" />
+    </outputs>
+    <onsuccess>468f77c5-343f-4d89-92e9-b023c613efa0</onsuccess>
+    <resource object="SAP" action="Read Check Box" />
+  </stage>
+  <stage stageid="1009c1d2-13bc-49b4-94eb-542ebf94329d" name="Expected Check Boxes Values (1)" type="Collection">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="-120" y="15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Radio Button ID" type="number" />
+      <field name="State" type="flag" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Radio Button ID" type="number" value="1" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="2" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="3" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="4" />
+        <field name="State" type="flag" value="False" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="b9f6126c-482a-4374-aeaa-1c66c639b613" name="Loop Expceted Values (1)" type="LoopStart">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>12eb7baa-99bd-4199-9be0-cf74b23bd4d4</onsuccess>
+    <groupid>787ad2cd-1565-4aed-bbcb-0d4739208893</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Check Boxes Values (1)</loopdata>
+  </stage>
+  <stage stageid="952ec771-7c46-4d5b-b1b8-bab23ebfafac" name="Loop Expceted Values (1)" type="LoopEnd">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="90" h="30" />
+    <onsuccess>209313e7-b5a1-41ef-b7d7-2b1017237cdd</onsuccess>
+    <groupid>787ad2cd-1565-4aed-bbcb-0d4739208893</groupid>
+  </stage>
+  <stage stageid="468f77c5-343f-4d89-92e9-b023c613efa0" name="Check Box State Correct?" type="Decision">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="15" y="75" w="90" h="30" />
+    <decision expression="[Check Box State]=[Expected Check Boxes Values (1).State]" />
+    <ontrue>952ec771-7c46-4d5b-b1b8-bab23ebfafac</ontrue>
+    <onfalse>03a62cfd-1c27-4cbb-ad5c-5102b0df5b51</onfalse>
+  </stage>
+  <stage stageid="03a62cfd-1c27-4cbb-ad5c-5102b0df5b51" name="FAIL" type="Exception">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="105" y="75" />
+    <exception localized="yes" type="Radio Button State Exception" detail="&quot;The state of the radio button wasn't correct.&quot;" />
+  </stage>
+  <stage stageid="173467e6-2bf4-4315-b9fe-f3b248ee8246" name="Check Box State" type="Data">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="-120" y="150" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="32515eac-ac87-44a8-8abd-bacaa409f440" name="Input Variables" type="Block">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-15" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3ea06827-113d-4ee0-8f28-98f1e10ca566" name="Local Variables" type="Block">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="120" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="8a70e0ef-0dc2-4206-9936-04967cb3ec9c" name="Failed?" type="Decision">
+    <display x="15" y="135" w="240" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>8d212e94-45de-4df4-b8a7-4b70f276ab37</ontrue>
+    <onfalse>bff4cf5c-a0cf-4b35-902d-dd1a1a347d5c</onfalse>
+  </stage>
+  <stage stageid="ae65b51a-89fc-431e-b5b4-c92969babb92" name="Terminate" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="90" w="240" h="30" />
+    <onsuccess>8a70e0ef-0dc2-4206-9936-04967cb3ec9c</onsuccess>
+    <resource object="SAP" action="Terminate" />
+  </stage>
+  <stage stageid="9df162aa-6851-4ef3-bdd2-21fb0f7a8e11" name="Note1" type="Note">
+    <narrative>GIVEN SAP is launched
+AND the style guide is open</narrative>
+    <display x="15" y="-180" w="240" h="60" />
+    <font family="Segoe UI" size="11" style="Bold" color="339966" />
+    <onsuccess>7ae9fb2c-c678-49ff-bfe8-cf9ab3b9e471</onsuccess>
+  </stage>
+  <stage stageid="e3e04a07-4819-4323-b27f-2d93865c4c1c" name="Note1" type="Note">
+    <narrative>WHEN setting check boxes via a write stage
+THEN the check box is successfully set</narrative>
+    <display x="15" y="-45" w="240" h="60" />
+    <font family="Segoe UI" size="11" style="Bold" color="339966" />
+    <onsuccess>d8305e98-e6e3-4fa2-9905-9d2c7de3bc3b</onsuccess>
+  </stage>
+  <stage stageid="6acfa0a3-eb3c-462b-9542-48fd36fa2efd" name="Cleanup Block" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-90" w="345" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="93c6a6a7-575f-418d-a2a2-ae08fe006ec9" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="180" y="30" />
+    <onsuccess>a3bf0060-15d9-41fc-a154-139287c6dafc</onsuccess>
+  </stage>
+  <stage stageid="c3f4fd17-3634-4080-b807-4b410add3a56" name="Mark Failure" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="180" y="-15" />
+    <onsuccess>93c6a6a7-575f-418d-a2a2-ae08fe006ec9</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="a3bf0060-15d9-41fc-a154-139287c6dafc" name="Anchor4" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="180" y="90" w="10" h="10" />
+    <onsuccess>ae65b51a-89fc-431e-b5b4-c92969babb92</onsuccess>
+  </stage>
+  <stage stageid="8d212e94-45de-4df4-b8a7-4b70f276ab37" name="Rethrow" type="Exception">
+    <display x="180" y="135" />
+    <exception localized="yes" type="" detail="[Exception]" />
+  </stage>
+  <stage stageid="375a218a-2bab-4130-ba0e-740e25d69867" name="Failed?" type="Data">
+    <display x="-210" y="-120" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="abdf7776-b16c-466f-a10f-60398a0f3368" name="Exception" type="Data">
+    <display x="-210" y="-90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d10a56fd-81f0-4092-8810-e8bdc3b3fcd2" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="-150" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="bff4cf5c-a0cf-4b35-902d-dd1a1a347d5c" name="End1" type="End">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="180" />
+  </stage>
+  <stage stageid="d677bad3-f980-4552-8b7b-e7864b7c15c1" name="Set Check Box (1)" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Check Box ID" friendlyname="Check Box ID" narrative="The ID of the check box you want to select, 1 - 5" expr="1" />
+      <input type="flag" name="Check Box State" friendlyname="Check Box State" narrative="The state you want to set the check box, True or False." expr="True" />
+    </inputs>
+    <onsuccess>b9f6126c-482a-4374-aeaa-1c66c639b613</onsuccess>
+    <resource object="SAP" action="Set Check Box" />
+  </stage>
+  <stage stageid="17821175-92f8-42cc-aedd-86ebaec01ee5" name="Read Check Box (1)" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Check Box ID" friendlyname="Check Box ID" narrative="The ID of the check box you want to read, 1 - 5" expr="[Expected Check Boxes Values (2).Radio Button ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Check Box State" friendlyname="Check Box State" narrative="The state of the read check box." stage="Check Box State" />
+    </outputs>
+    <onsuccess>13d1bbc0-ef86-4709-bd4a-f10a6eeebd84</onsuccess>
+    <resource object="SAP" action="Read Check Box" />
+  </stage>
+  <stage stageid="24ad3d81-2d95-4b0d-9dc3-15104f494086" name="Loop Expceted Values (1)" type="LoopStart">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="90" h="30" />
+    <onsuccess>17821175-92f8-42cc-aedd-86ebaec01ee5</onsuccess>
+    <groupid>734ec554-aa93-4577-8346-6de1b447879d</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Check Boxes Values (2)</loopdata>
+  </stage>
+  <stage stageid="202d77f0-fbd4-4c97-8c80-515e88509acb" name="Loop Expceted Values (1)" type="LoopEnd">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="345" w="90" h="30" />
+    <onsuccess>2739a725-8945-46b6-a796-d46ae99441c6</onsuccess>
+    <groupid>734ec554-aa93-4577-8346-6de1b447879d</groupid>
+  </stage>
+  <stage stageid="13d1bbc0-ef86-4709-bd4a-f10a6eeebd84" name="Check Box State Correct?" type="Decision">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="15" y="300" w="90" h="30" />
+    <decision expression="[Check Box State]=[Expected Check Boxes Values (2).State]" />
+    <ontrue>202d77f0-fbd4-4c97-8c80-515e88509acb</ontrue>
+    <onfalse>7862b3f0-328f-4171-9be5-33650bac1d79</onfalse>
+  </stage>
+  <stage stageid="7862b3f0-328f-4171-9be5-33650bac1d79" name="FAIL" type="Exception">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="105" y="300" />
+    <exception localized="yes" type="Radio Button State Exception" detail="&quot;The state of the radio button wasn't correct.&quot;" />
+  </stage>
+  <stage stageid="209313e7-b5a1-41ef-b7d7-2b1017237cdd" name="Set Check Box (3)" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Check Box ID" friendlyname="Check Box ID" narrative="The ID of the check box you want to select, 1 - 5" expr="3" />
+      <input type="flag" name="Check Box State" friendlyname="Check Box State" narrative="The state you want to set the check box, True or False." expr="True" />
+    </inputs>
+    <onsuccess>24ad3d81-2d95-4b0d-9dc3-15104f494086</onsuccess>
+    <resource object="SAP" action="Set Check Box" />
+  </stage>
+  <stage stageid="92513dec-8621-40de-ae7f-61838c845f4f" name="Expected Check Boxes Values (2)" type="Collection">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="-120" y="45" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Radio Button ID" type="number" />
+      <field name="State" type="flag" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Radio Button ID" type="number" value="1" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="2" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="3" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="4" />
+        <field name="State" type="flag" value="False" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="73da7fcc-8bd0-478e-8b6e-ca6209d0531e" name="Read Check Box (1)" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="480" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Check Box ID" friendlyname="Check Box ID" narrative="The ID of the check box you want to read, 1 - 5" expr="[Expected Check Boxes Values (3).Radio Button ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Check Box State" friendlyname="Check Box State" narrative="The state of the read check box." stage="Check Box State" />
+    </outputs>
+    <onsuccess>51a23da1-79e7-4775-b5cd-e9a540bf6221</onsuccess>
+    <resource object="SAP" action="Read Check Box" />
+  </stage>
+  <stage stageid="e6d78317-4bbd-48ce-b106-950befb4b9b5" name="Loop Expceted Values (3)" type="LoopStart">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="435" w="90" h="30" />
+    <onsuccess>73da7fcc-8bd0-478e-8b6e-ca6209d0531e</onsuccess>
+    <groupid>9b098027-f00f-4bbe-9e47-a58cd53f3e9f</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Check Boxes Values (3)</loopdata>
+  </stage>
+  <stage stageid="a7ac2d11-eef0-4a7d-a79b-43872a048889" name="Loop Expceted Values (3)" type="LoopEnd">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="570" w="90" h="30" />
+    <onsuccess>a22f0d38-28e7-44ce-8aca-ec13d3c4b6bb</onsuccess>
+    <groupid>9b098027-f00f-4bbe-9e47-a58cd53f3e9f</groupid>
+  </stage>
+  <stage stageid="51a23da1-79e7-4775-b5cd-e9a540bf6221" name="Check Box State Correct?" type="Decision">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="15" y="525" w="90" h="30" />
+    <decision expression="[Check Box State]=[Expected Check Boxes Values (3).State]" />
+    <ontrue>a7ac2d11-eef0-4a7d-a79b-43872a048889</ontrue>
+    <onfalse>f57bcd87-135a-40de-a970-61c2efb92c52</onfalse>
+  </stage>
+  <stage stageid="f57bcd87-135a-40de-a970-61c2efb92c52" name="FAIL" type="Exception">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="105" y="525" />
+    <exception localized="yes" type="Radio Button State Exception" detail="&quot;The state of the radio button wasn't correct.&quot;" />
+  </stage>
+  <stage stageid="2739a725-8945-46b6-a796-d46ae99441c6" name="Set Check Box (1)" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="390" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Check Box ID" friendlyname="Check Box ID" narrative="The ID of the check box you want to select, 1 - 5" expr="1" />
+      <input type="flag" name="Check Box State" friendlyname="Check Box State" narrative="The state you want to set the check box, True or False." expr="False" />
+    </inputs>
+    <onsuccess>e6d78317-4bbd-48ce-b106-950befb4b9b5</onsuccess>
+    <resource object="SAP" action="Set Check Box" />
+  </stage>
+  <stage stageid="08e57d98-3910-4322-b5d1-6dc938c0ac92" name="Expected Check Boxes Values (3)" type="Collection">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="-120" y="75" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Radio Button ID" type="number" />
+      <field name="State" type="flag" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Radio Button ID" type="number" value="1" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="2" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="3" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="4" />
+        <field name="State" type="flag" value="False" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="854ce9bb-2dd0-4c3e-a074-b734f3e4894f" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="180" y="-60" />
+    <onsuccess>c3f4fd17-3634-4080-b807-4b410add3a56</onsuccess>
+  </stage>
+</process>

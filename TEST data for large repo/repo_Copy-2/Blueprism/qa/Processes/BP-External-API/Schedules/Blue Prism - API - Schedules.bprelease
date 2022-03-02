@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<bpr:release xmlns:bpr="http://www.blueprism.co.uk/product/release">
+    <bpr:name>Blue Prism - API - Schedules</bpr:name>
+    <bpr:release-notes />
+    <bpr:created>2021-04-22 15:50:07Z</bpr:created>
+    <bpr:package-id>-1</bpr:package-id>
+    <bpr:package-name>&lt;Adhoc Package&gt;</bpr:package-name>
+    <bpr:user-created-by>admin</bpr:user-created-by>
+    <bpr:contents count="1">
+        <webapiservice id="9a4e8eb9-b431-4a03-8a1a-2713837b5f77" name="Blue Prism - API - Schedules" enabled="true" xmlns="http://www.blueprism.co.uk/product/webapiservice">
+            <configuration baseurl="https://testserver.example.com:8080/api/v7/" xmlns="">
+                <actions>
+                    <action id="22" name="GET schedules" enabled="true" enableRequestOutputParameter="false" disableSendingOfRequest="false">
+                        <description><![CDATA[]]></description>
+                        <request httpmethod="GET" urlpath="/schedules?name.strtw=[Name starts with]&amp;retirementStatus=[Retirement Status]&amp;itemsPerPage=[Items Per Page]&amp;pagingToken=[Paging Token]">
+                            <headers />
+                            <bodycontent type="0"></bodycontent>
+                        </request>
+                        <parameters>
+                            <actionparameter name="Name starts with" expose="true" datatype="64">
+                                <initialvalue><![CDATA[]]></initialvalue>
+                                <description><![CDATA[Schedule Name]]></description>
+                            </actionparameter>
+                            <actionparameter name="Retirement Status" expose="true" datatype="64">
+                                <initialvalue><![CDATA[]]></initialvalue>
+                                <description><![CDATA[Active or Retired]]></description>
+                            </actionparameter>
+                            <actionparameter name="Items Per Page" expose="true" datatype="16">
+                                <initialvalue><![CDATA[]]></initialvalue>
+                                <description><![CDATA[1]]></description>
+                            </actionparameter>
+                            <actionparameter name="Paging Token" expose="true" datatype="64">
+                                <initialvalue><![CDATA[]]></initialvalue>
+                                <description><![CDATA[mixtures of text and numbers]]></description>
+                            </actionparameter>
+                        </parameters>
+                        <outputparameters>
+                            <parameters />
+                            <code><![CDATA[]]></code>
+                        </outputparameters>
+                    </action>
+                    <action id="23" name="GET schedules log" enabled="true" enableRequestOutputParameter="false" disableSendingOfRequest="false">
+                        <description><![CDATA[]]></description>
+                        <request httpmethod="GET" urlpath="/schedules/[Schedule ID]/logs?itemsPerPage=[Items per page]">
+                            <headers />
+                            <bodycontent type="0"></bodycontent>
+                        </request>
+                        <parameters>
+                            <actionparameter name="Schedule ID" expose="true" datatype="16">
+                                <initialvalue><![CDATA[]]></initialvalue>
+                                <description><![CDATA[]]></description>
+                            </actionparameter>
+                            <actionparameter name="Items per page" expose="true" datatype="16">
+                                <initialvalue><![CDATA[]]></initialvalue>
+                                <description><![CDATA[]]></description>
+                            </actionparameter>
+                        </parameters>
+                        <outputparameters>
+                            <parameters />
+                            <code><![CDATA[]]></code>
+                        </outputparameters>
+                    </action>
+                    <action id="24" name="POST schedules to run at a given time" enabled="true" enableRequestOutputParameter="true" disableSendingOfRequest="false">
+                        <description><![CDATA[]]></description>
+                        <request httpmethod="POST" urlpath="/schedules/[Schedule ID]/sessions">
+                            <headers>
+                                <httpheader name="Content-Type" value="application/json" />
+                            </headers>
+                            <bodycontent type="1">
+                                <template><![CDATA[{
+  "startTime": "[Start Time]"
+}]]></template>
+                            </bodycontent>
+                        </request>
+                        <parameters>
+                            <actionparameter name="Schedule ID" expose="true" datatype="16">
+                                <initialvalue><![CDATA[]]></initialvalue>
+                                <description><![CDATA[]]></description>
+                            </actionparameter>
+                            <actionparameter name="Start Time" expose="true" datatype="4">
+                                <initialvalue><![CDATA[]]></initialvalue>
+                                <description><![CDATA[produces scheduled time]]></description>
+                            </actionparameter>
+                        </parameters>
+                        <outputparameters>
+                            <parameters>
+                                <customoutputparameter type="JsonPath" name="scheduledTime" description="" path="$.scheduledTime" datatype="datetime"></customoutputparameter>
+                            </parameters>
+                            <code><![CDATA[]]></code>
+                        </outputparameters>
+                    </action>
+                    <action id="25" name="PUT schedules" enabled="true" enableRequestOutputParameter="false" disableSendingOfRequest="false">
+                        <description><![CDATA[]]></description>
+                        <request httpmethod="PUT" urlpath="/schedules/[Schedule ID]">
+                            <headers>
+                                <httpheader name="Content-Type" value="application/json" />
+                                <httpheader name="Accept" value="application/json" />
+                            </headers>
+                            <bodycontent type="1">
+                                <template><![CDATA[{
+  "isRetired": "[isRetired]"
+}]]></template>
+                            </bodycontent>
+                        </request>
+                        <parameters>
+                            <actionparameter name="isRetired" expose="true" datatype="8">
+                                <initialvalue><![CDATA[True]]></initialvalue>
+                                <description><![CDATA[]]></description>
+                            </actionparameter>
+                            <actionparameter name="Schedule ID" expose="true" datatype="16">
+                                <initialvalue><![CDATA[]]></initialvalue>
+                                <description><![CDATA[]]></description>
+                            </actionparameter>
+                        </parameters>
+                        <outputparameters>
+                            <parameters />
+                            <code><![CDATA[]]></code>
+                        </outputparameters>
+                    </action>
+                    <action id="26" name="GET Tasks" enabled="true" enableRequestOutputParameter="false" disableSendingOfRequest="false">
+                        <description><![CDATA[]]></description>
+                        <request httpmethod="GET" urlpath="/schedules/[Schedule ID]/tasks">
+                            <headers />
+                            <bodycontent type="1">
+                                <template><![CDATA[]]></template>
+                            </bodycontent>
+                        </request>
+                        <parameters>
+                            <actionparameter name="Schedule ID" expose="true" datatype="16">
+                                <initialvalue><![CDATA[]]></initialvalue>
+                                <description><![CDATA[]]></description>
+                            </actionparameter>
+                        </parameters>
+                        <outputparameters>
+                            <parameters />
+                            <code><![CDATA[]]></code>
+                        </outputparameters>
+                    </action>
+                    <action id="27" name="GET Tasks Sessions" enabled="true" enableRequestOutputParameter="false" disableSendingOfRequest="false">
+                        <description><![CDATA[]]></description>
+                        <request httpmethod="GET" urlpath="/schedules/tasks/[Task ID]/sessions">
+                            <headers />
+                            <bodycontent type="0"></bodycontent>
+                        </request>
+                        <parameters>
+                            <actionparameter name="Task ID" expose="true" datatype="16">
+                                <initialvalue><![CDATA[]]></initialvalue>
+                                <description><![CDATA[]]></description>
+                            </actionparameter>
+                        </parameters>
+                        <outputparameters>
+                            <parameters />
+                            <code><![CDATA[]]></code>
+                        </outputparameters>
+                    </action>
+                </actions>
+                <commonparameters />
+                <commonheaders />
+                <commonauthentications>
+                    <authentication type="4" scope="bp-api bpserver" authorizationserver="https://ims-v7bpcsvm.bpdevops.co.uk/connect/token">
+                        <credential credentialname="BPE-API-Credential" exposetoprocess="false" inputparametername="" />
+                    </authentication>
+                </commonauthentications>
+                <commoncode>
+                    <codeproperties code="" language="visualbasic">
+                        <namespaces>
+                            <namespace>System</namespace>
+                            <namespace>System.Drawing</namespace>
+                            <namespace>System.Data</namespace>
+                        </namespaces>
+                        <references>
+                            <reference>System.dll</reference>
+                            <reference>System.Data.dll</reference>
+                            <reference>System.Xml.dll</reference>
+                            <reference>System.Drawing.dll</reference>
+                        </references>
+                    </codeproperties>
+                </commoncode>
+                <configurationsettings>
+                    <configurationsettings requesttimeout="60" authserverrequesttimeout="10" />
+                </configurationsettings>
+            </configuration>
+        </webapiservice>
+    </bpr:contents>
+</bpr:release>

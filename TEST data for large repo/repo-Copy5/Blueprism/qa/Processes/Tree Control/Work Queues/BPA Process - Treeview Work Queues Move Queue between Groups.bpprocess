@@ -1,0 +1,674 @@
+﻿<process name="Treeview Work Queues Move Queue between Groups" version="1.0" bpversion="6.10.0.27898" narrative="" byrefcollection="true" preferredid="5b1fe30c-5987-4d1e-bedf-b183e4c4b26c">
+  <view>
+    <camerax>30</camerax>
+    <cameray>101</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="5e7205b3-c009-4b82-b8b7-162c02d221d7" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>162</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="c1e5eea6-7023-46a5-8c7f-1fba98e3ded9" type="Normal" published="False">
+    <name>Move Work Queue between Groups</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-135</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="74ef15fa-3a6a-40d6-8860-58879c6dcc0a" type="Normal" published="False">
+    <name>Move Work Queue from Group to Subgroup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>128</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="c3f534f3-b231-485a-8172-8e771272247d" name="Stage1" type="ProcessInfo">
+    <display x="-225" y="-105" w="180" h="90" />
+  </stage>
+  <stage stageid="9bc5011d-5fa5-4c02-983f-ad3f48f744f5" name="Start" type="Start">
+    <display x="60" y="-135" />
+    <onsuccess>01070ee0-f0b3-47bd-add8-6ebbd41edf27</onsuccess>
+  </stage>
+  <stage stageid="c9e5e704-5e10-4f64-9678-a1a8ad8734fd" name="End" type="End">
+    <display x="60" y="360" />
+  </stage>
+  <stage stageid="01070ee0-f0b3-47bd-add8-6ebbd41edf27" name="Note1" type="Note">
+    <narrative>GIVEN I am a BP user and have signed in</narrative>
+    <display x="60" y="-90" w="300" h="30" />
+    <onsuccess>da97017f-33d6-47eb-8f17-ad97f8f47f1d</onsuccess>
+  </stage>
+  <stage stageid="3353974e-7ca0-4766-8472-d3d882a1048c" name="Note3" type="Note">
+    <narrative>WHEN I move a work queue from a group to a target group
+THEN the queue is no longer showing in the default group tree but available in the target group tree node</narrative>
+    <display x="60" y="30" w="330" h="60" />
+    <onsuccess>65785aa1-dba7-4be5-841d-35d86f778920</onsuccess>
+  </stage>
+  <stage stageid="be01b882-846e-403f-9e1d-8aacf6272e89" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="270" y="75" />
+    <onsuccess>a1f4120d-2559-4c5f-acdb-cb4b69842431</onsuccess>
+  </stage>
+  <stage stageid="a1f4120d-2559-4c5f-acdb-cb4b69842431" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="270" y="120" w="90" h="30" />
+    <onsuccess>e595992f-05f0-4a3f-9349-9c935dfff3b7</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="e595992f-05f0-4a3f-9349-9c935dfff3b7" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="270" y="165" />
+    <onsuccess>61f896b5-f7bf-4c22-9730-6c5255299020</onsuccess>
+  </stage>
+  <stage stageid="da97017f-33d6-47eb-8f17-ad97f8f47f1d" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="-45" w="300" h="30" />
+    <onsuccess>3353974e-7ca0-4766-8472-d3d882a1048c</onsuccess>
+    <processid>5e7205b3-c009-4b82-b8b7-162c02d221d7</processid>
+  </stage>
+  <stage stageid="6d46d8ec-5eff-4f96-9a2f-c0c37ec15a01" name="Failed?" type="Decision">
+    <display x="60" y="315" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>e77d4c89-7d5c-45e2-a7da-fca5d7494318</ontrue>
+    <onfalse>c9e5e704-5e10-4f64-9678-a1a8ad8734fd</onfalse>
+  </stage>
+  <stage stageid="e77d4c89-7d5c-45e2-a7da-fca5d7494318" name="Re-Throw" type="Exception">
+    <display x="165" y="315" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="61f896b5-f7bf-4c22-9730-6c5255299020" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="270" y="270" w="10" h="10" />
+    <onsuccess>855a367d-a640-4bbd-bb29-3bf71e5dbd18</onsuccess>
+  </stage>
+  <stage stageid="b574bc5e-196f-4949-803d-cfc4586ff641" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5d648996-1440-405d-8ca9-bf045dfdc39c" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1b188cf5-4101-4484-8b3d-655ecb315d94" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="76f6aa6a-0e23-49ae-ba3f-df43067e4ddc" name="pid" type="Data">
+    <display x="-210" y="90" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e09a6306-0fba-4c7a-9a38-3cea5977dcf9" name="Global Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="60" w="150" h="240" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="47cb0931-b43d-4f91-9a23-94bef9e4df88" name="Setup" type="SubSheetInfo">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="9c02ae22-4581-489f-9491-8b835e4604ed" name="Start" type="Start">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-60" y="-135" />
+    <onsuccess>707a6425-0b70-474d-a8ef-b7d0da86bb27</onsuccess>
+  </stage>
+  <stage stageid="707a6425-0b70-474d-a8ef-b7d0da86bb27" name="Launch" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-90" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>e483b55f-303e-43f0-a597-817ad582e9be</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="ad7204cf-b3c5-4b27-8bed-7ae7f1141450" name="Sign In" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Locale" friendlyname="Locale" narrative="Blue Prism Locale setting" stage="" />
+    </outputs>
+    <onsuccess>6ac44d64-b413-4c29-9697-7b888b6e8df4</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="e483b55f-303e-43f0-a597-817ad582e9be" name="Attach (System)" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>ad7204cf-b3c5-4b27-8bed-7ae7f1141450</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="98c6285d-0b03-402c-a458-bce1a4dc8730" name="Move Work Queue between Groups" type="SubSheetInfo">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="65785aa1-dba7-4be5-841d-35d86f778920" name="Move Work Queue between Groups" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="90" w="330" h="30" />
+    <onsuccess>72f81a7b-8d44-4da1-beb1-2572a6d06893</onsuccess>
+    <processid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</processid>
+  </stage>
+  <stage stageid="72f81a7b-8d44-4da1-beb1-2572a6d06893" name="Note3" type="Note">
+    <narrative>WHEN I move a work queue from a group to a subgroup
+THEN the queue is no longer showing in the group tree but available in the subgroup tree node</narrative>
+    <display x="60" y="150" w="330" h="60" />
+    <onsuccess>11061300-0b58-4b2f-98bc-c971feb86fe4</onsuccess>
+  </stage>
+  <stage stageid="11061300-0b58-4b2f-98bc-c971feb86fe4" name="Move Work Queue from Group to Subgroup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="210" w="330" h="30" />
+    <onsuccess>855a367d-a640-4bbd-bb29-3bf71e5dbd18</onsuccess>
+    <processid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</processid>
+  </stage>
+  <stage stageid="199c1406-160f-41af-b524-73540abcbac9" name="Scenarios" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-15" w="435" h="255" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b52ee30f-5fca-4227-8809-6378965b4efb" name="Start" type="Start">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>31a823bd-a362-4a83-bfa9-9ec6d44a3e3d</onsuccess>
+  </stage>
+  <stage stageid="dcd7023d-3a7f-409d-8759-676a4aa4f544" name="Local variables" type="Block">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="71f9a474-e622-41ef-8d1f-f36d2ff6a6de" name="End" type="End">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="615" />
+  </stage>
+  <stage stageid="3eaf182c-3066-460c-9ba3-ebe052b40122" name="Group 1" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">G6 TFM163</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="3aeb032c-241e-4a65-9c04-5289abde7b81" name="Move Work Queue from Group to Subgroup" type="SubSheetInfo">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="855a367d-a640-4bbd-bb29-3bf71e5dbd18" name="Terminate" type="Action">
+    <display x="60" y="270" w="90" h="30" />
+    <onsuccess>6d46d8ec-5eff-4f96-9a2f-c0c37ec15a01</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="5c4fb823-af2d-4843-a565-f89fd8e047fd" name="Group Tree Items" type="Collection">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="60ce34f6-2dcd-4e01-8155-4e6a2dc2f387" name="Get Group Tree Items" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="195" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queues Group name" friendlyname="Queues Group name" expr="[Group 2]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Group Tree Items" friendlyname="Group Tree Items" stage="Group Tree Items" />
+    </outputs>
+    <onsuccess>96a8285b-9b91-43d4-b3e5-864f500fb2d6</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="907f68a7-a435-4122-a057-c27e0688a09e" name="Queue available in Group2?" type="Decision">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="285" w="120" h="30" />
+    <decision expression="[Group Tree Items.Node Text]=[Queue 1]" />
+    <ontrue>d56e16bf-dce5-4a58-8a30-d95c02589da2</ontrue>
+    <onfalse>3075bcc9-663b-4d19-925b-43a3fcb1da37</onfalse>
+  </stage>
+  <stage stageid="08f2842d-3b0e-41dd-bd1c-79a9d49b467e" name="Exception" type="Exception">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="30" y="330" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;The queue is missing&quot;" />
+  </stage>
+  <stage stageid="3f466b0f-def0-4a61-87cd-a08f04f66e6b" name="Go To Home" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="570" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>71f9a474-e622-41ef-8d1f-f36d2ff6a6de</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="08359e4f-e615-4c27-b7d4-38d1c1a90901" name="Ensure queue is moved from group1 to group2" type="Block">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="165" w="180" h="375" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="96a8285b-9b91-43d4-b3e5-864f500fb2d6" name="Check Queues" type="LoopStart">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="240" w="90" h="30" />
+    <onsuccess>907f68a7-a435-4122-a057-c27e0688a09e</onsuccess>
+    <groupid>903cd6a8-65a9-4590-978a-a9300b5fff11</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Group Tree Items</loopdata>
+  </stage>
+  <stage stageid="3075bcc9-663b-4d19-925b-43a3fcb1da37" name="Check Queues" type="LoopEnd">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="330" w="90" h="30" />
+    <onsuccess>08f2842d-3b0e-41dd-bd1c-79a9d49b467e</onsuccess>
+    <groupid>903cd6a8-65a9-4590-978a-a9300b5fff11</groupid>
+  </stage>
+  <stage stageid="d56e16bf-dce5-4a58-8a30-d95c02589da2" name="Anchor3" type="Anchor">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="60" y="285" w="10" h="10" />
+    <onsuccess>7845b16b-951b-41fd-930c-f6c6f1b3899b</onsuccess>
+  </stage>
+  <stage stageid="7845b16b-951b-41fd-930c-f6c6f1b3899b" name="Anchor5" type="Anchor">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="60" y="375" w="10" h="10" />
+    <onsuccess>444d7db7-1910-4c8e-b42d-97159a1d91d3</onsuccess>
+  </stage>
+  <stage stageid="06444b99-aa0b-446b-8907-f5e84b9bfecb" name="Local variables" type="Block">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="de1616d8-85fd-440b-b190-7c8e016659e1" name="Group Tree Items" type="Collection">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4b0e2287-d19c-4aa5-8bee-c1be1e584fcd" name="Subgroup" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="240" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">S8 TFM163</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="bdf66c5a-3aee-4a76-b245-8169439ec0af" name="Queue 1" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="180" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Q6 TFM163</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="31a823bd-a362-4a83-bfa9-9ec6d44a3e3d" name="Browse to System" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>a4998230-6ec2-4d96-b5d5-c2681560ed5e</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="4a9cfe6b-6f6e-42d3-9ba5-29892d4acd92" name="Queue removed from group1?" type="Decision">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="465" w="120" h="30" />
+    <decision expression="[Group Tree Items.Node Text]=[Queue 1]" />
+    <ontrue>2ae5d483-bcb9-4cc2-a2fa-c7bc9def9594</ontrue>
+    <onfalse>21e20a5b-22aa-43cd-ae5a-ac93c0a5f7ca</onfalse>
+  </stage>
+  <stage stageid="2ae5d483-bcb9-4cc2-a2fa-c7bc9def9594" name="Exception" type="Exception">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="45" y="465" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;The queue has not been removed from group&quot;" />
+  </stage>
+  <stage stageid="2a50d35c-b20a-4b1b-bd98-ac05b8063a4f" name="Check Queues" type="LoopStart">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="420" w="90" h="30" />
+    <onsuccess>4a9cfe6b-6f6e-42d3-9ba5-29892d4acd92</onsuccess>
+    <groupid>d1725370-6d59-4075-b5d7-41d926752543</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Group Tree Items</loopdata>
+  </stage>
+  <stage stageid="21e20a5b-22aa-43cd-ae5a-ac93c0a5f7ca" name="Check Queues" type="LoopEnd">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="510" w="90" h="30" />
+    <onsuccess>3f466b0f-def0-4a61-87cd-a08f04f66e6b</onsuccess>
+    <groupid>d1725370-6d59-4075-b5d7-41d926752543</groupid>
+  </stage>
+  <stage stageid="e6af0656-e75a-4d85-b41b-73327320cc28" name="Queue 2" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="270" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Q8 TFM163</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="6ac44d64-b413-4c29-9697-7b888b6e8df4" name="End" type="End">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-60" y="45" />
+  </stage>
+  <stage stageid="a4998230-6ec2-4d96-b5d5-c2681560ed5e" name="Browse to Work Queues" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Workflow&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Work Queues&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>39e0082f-42d8-4bc2-aa56-3411fabc8520</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="444d7db7-1910-4c8e-b42d-97159a1d91d3" name="Get Group Tree Items" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="375" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queues Group name" friendlyname="Queues Group name" expr="[Group 1]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Group Tree Items" friendlyname="Group Tree Items" stage="Group Tree Items" />
+    </outputs>
+    <onsuccess>2a50d35c-b20a-4b1b-bd98-ac05b8063a4f</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="c405796b-432e-45da-9fea-d4f487cf80fa" name="Group 2" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="150" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">G7 TFM163</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="bed703a2-38b4-409a-a3c6-1554e4a12369" name="Group 3" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="210" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">G8 TFM163</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="39e0082f-42d8-4bc2-aa56-3411fabc8520" name="Create Group 1" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Work Queue Group Name" friendlyname="Work Queue Group Name" narrative="The name you want to give the group you are making." expr="[Group 1]" />
+      <input type="text" name="Target Group" friendlyname="Target Group" narrative="The group you want to create the new group inside. This will default to &quot;Queues&quot;" expr="&quot;Queues&quot;" />
+      <input type="number" name="Target Group Match Index" friendlyname="Target Group Match Index" narrative="If the target group exists more than once this way you can target specific ones." expr="1" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" stage="" />
+    </outputs>
+    <onsuccess>1425b1bd-fc4d-47fd-bb3a-cdb7270a1180</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Create Work Queue Group" />
+  </stage>
+  <stage stageid="9f93e8e1-4690-4ccb-bf72-77fe4930c265" name="Create Group 2" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Work Queue Group Name" friendlyname="Work Queue Group Name" narrative="The name you want to give the group you are making." expr="[Group 2]" />
+      <input type="text" name="Target Group" friendlyname="Target Group" narrative="The group you want to create the new group inside. This will default to &quot;Queues&quot;" expr="&quot;Queues&quot;" />
+      <input type="number" name="Target Group Match Index" friendlyname="Target Group Match Index" narrative="If the target group exists more than once this way you can target specific ones." expr="1" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" stage="" />
+    </outputs>
+    <onsuccess>f4a2e7c4-5a2c-40bd-b9bf-63cca7406749</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Create Work Queue Group" />
+  </stage>
+  <stage stageid="1425b1bd-fc4d-47fd-bb3a-cdb7270a1180" name="Create Queue" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue name" friendlyname="Queue name" expr="[Queue 1]" />
+      <input type="text" name="Group name" friendlyname="Group name" expr="[Group 1]" />
+      <input type="number" name="Group Match Index" friendlyname="Group Match Index" expr="1" />
+    </inputs>
+    <onsuccess>9f93e8e1-4690-4ccb-bf72-77fe4930c265</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Create Work Queue from Group" />
+  </stage>
+  <stage stageid="f4a2e7c4-5a2c-40bd-b9bf-63cca7406749" name="Move Queue from Group1 to Group2" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="135" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue name" friendlyname="Queue name" expr="[Queue 1]" />
+      <input type="text" name="Target Group name" friendlyname="Target Group name" expr="[Group 2]" />
+    </inputs>
+    <onsuccess>60ce34f6-2dcd-4e01-8155-4e6a2dc2f387</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Drag Queue into Group" />
+  </stage>
+  <stage stageid="58089d57-d932-43d7-b820-6125dddb5ffe" name="Start" type="Start">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>c5a43894-d408-43a6-aa96-a71d5f252fb6</onsuccess>
+  </stage>
+  <stage stageid="1caaae9d-053d-4ba6-8133-93a7a9920461" name="End" type="End">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-45" y="615" />
+  </stage>
+  <stage stageid="213bffb5-5e7d-4534-8501-3857a46075f3" name="Get Group Tree Items" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="195" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queues Group name" friendlyname="Queues Group name" expr="[Subgroup]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Group Tree Items" friendlyname="Group Tree Items" stage="Group Tree Items" />
+    </outputs>
+    <onsuccess>34ce98a5-84a0-4b93-a40d-a336805bebf8</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="d8684ee0-b210-4e13-8a8e-25038267bbe3" name="Queue available in subgroup?" type="Decision">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-45" y="285" w="120" h="30" />
+    <decision expression="[Group Tree Items.Node Text]=[Queue 2]" />
+    <ontrue>f9cecc4e-8d01-40e6-aed5-c2f2f43e0c53</ontrue>
+    <onfalse>7d452905-48e5-482c-9530-f02b20ba8022</onfalse>
+  </stage>
+  <stage stageid="0833557a-723c-4c9c-83e2-2b049aee7411" name="Exception" type="Exception">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="30" y="330" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;The queue is missing&quot;" />
+  </stage>
+  <stage stageid="0557adcd-5586-4a34-8d13-ef258a79235a" name="Go To Home" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="570" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>1caaae9d-053d-4ba6-8133-93a7a9920461</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="34ce98a5-84a0-4b93-a40d-a336805bebf8" name="Check Queues" type="LoopStart">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="240" w="90" h="30" />
+    <onsuccess>d8684ee0-b210-4e13-8a8e-25038267bbe3</onsuccess>
+    <groupid>217ecbd6-c522-45c5-a27c-eb9a21de1256</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Group Tree Items</loopdata>
+  </stage>
+  <stage stageid="7d452905-48e5-482c-9530-f02b20ba8022" name="Check Queues" type="LoopEnd">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="330" w="90" h="30" />
+    <onsuccess>0833557a-723c-4c9c-83e2-2b049aee7411</onsuccess>
+    <groupid>217ecbd6-c522-45c5-a27c-eb9a21de1256</groupid>
+  </stage>
+  <stage stageid="f9cecc4e-8d01-40e6-aed5-c2f2f43e0c53" name="Anchor3" type="Anchor">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="60" y="285" w="10" h="10" />
+    <onsuccess>7d7d7579-75cf-4ea1-9195-7817d00e6d55</onsuccess>
+  </stage>
+  <stage stageid="7d7d7579-75cf-4ea1-9195-7817d00e6d55" name="Anchor5" type="Anchor">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="60" y="375" w="10" h="10" />
+    <onsuccess>cf0bf6fc-23db-43e4-81e6-02f3d82bffff</onsuccess>
+  </stage>
+  <stage stageid="c5a43894-d408-43a6-aa96-a71d5f252fb6" name="Browse to System" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>bea3761c-2533-401e-8d52-d738ef222a06</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="30a82010-562b-4895-91cb-80134a0b2942" name="Queue removed from group?" type="Decision">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-45" y="465" w="120" h="30" />
+    <decision expression="[Group Tree Items.Node Text]=[Queue 2]" />
+    <ontrue>d4eda3a7-2ba4-4155-b004-5cdee4f6821d</ontrue>
+    <onfalse>329b6d45-d5c5-45f5-ade4-c9b67dc9294f</onfalse>
+  </stage>
+  <stage stageid="d4eda3a7-2ba4-4155-b004-5cdee4f6821d" name="Exception" type="Exception">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="45" y="465" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;The queue has not been removed from group&quot;" />
+  </stage>
+  <stage stageid="95ecb4fa-da95-43f5-a6e7-31cb561e445a" name="Check Queues" type="LoopStart">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="420" w="90" h="30" />
+    <onsuccess>30a82010-562b-4895-91cb-80134a0b2942</onsuccess>
+    <groupid>e538b476-f5c7-4fbc-9f56-e55c8421aee2</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Group Tree Items</loopdata>
+  </stage>
+  <stage stageid="329b6d45-d5c5-45f5-ade4-c9b67dc9294f" name="Check Queues" type="LoopEnd">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="510" w="90" h="30" />
+    <onsuccess>0557adcd-5586-4a34-8d13-ef258a79235a</onsuccess>
+    <groupid>e538b476-f5c7-4fbc-9f56-e55c8421aee2</groupid>
+  </stage>
+  <stage stageid="bea3761c-2533-401e-8d52-d738ef222a06" name="Browse to Work Queues" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Workflow&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Work Queues&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>22d01b49-69a0-47cb-9c58-c2eacef25ec2</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="cf0bf6fc-23db-43e4-81e6-02f3d82bffff" name="Get Group Tree Items" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="375" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queues Group name" friendlyname="Queues Group name" expr="[Group 3]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Group Tree Items" friendlyname="Group Tree Items" stage="Group Tree Items" />
+    </outputs>
+    <onsuccess>95ecb4fa-da95-43f5-a6e7-31cb561e445a</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="22d01b49-69a0-47cb-9c58-c2eacef25ec2" name="Create Group " type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Work Queue Group Name" friendlyname="Work Queue Group Name" narrative="The name you want to give the group you are making." expr="[Group 3]" />
+      <input type="text" name="Target Group" friendlyname="Target Group" narrative="The group you want to create the new group inside. This will default to &quot;Queues&quot;" expr="&quot;Queues&quot;" />
+      <input type="number" name="Target Group Match Index" friendlyname="Target Group Match Index" narrative="If the target group exists more than once this way you can target specific ones." expr="1" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" stage="" />
+    </outputs>
+    <onsuccess>418f209b-ab05-4e27-bc11-3437df04ad1c</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Create Work Queue Group" />
+  </stage>
+  <stage stageid="6946ca97-49c3-42eb-b3c2-bb6d535d9cb8" name="Create Subgroup" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="90" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Target Group Match Index" friendlyname="Target Group Match Index" narrative="If the target group exists more than once this way you can target specific ones." expr="1" />
+      <input type="text" name="Work Queue Group Parent Name" friendlyname="Work Queue Group Parent Name" narrative="The name of the parent group." expr="[Group 3]" />
+      <input type="text" name=" Work Queue Sub Group Name" friendlyname=" Work Queue Sub Group Name" narrative="The name of the sub group to create." expr="[Subgroup]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" stage="" />
+    </outputs>
+    <onsuccess>7326b328-bcaf-4dd0-bd74-d76b60079a08</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Create Work Queue Sub Group" />
+  </stage>
+  <stage stageid="418f209b-ab05-4e27-bc11-3437df04ad1c" name="Create Queue" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue name" friendlyname="Queue name" expr="[Queue 2]" />
+      <input type="text" name="Group name" friendlyname="Group name" expr="[Group 3]" />
+      <input type="number" name="Group Match Index" friendlyname="Group Match Index" expr="1" />
+    </inputs>
+    <onsuccess>6946ca97-49c3-42eb-b3c2-bb6d535d9cb8</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Create Work Queue from Group" />
+  </stage>
+  <stage stageid="7326b328-bcaf-4dd0-bd74-d76b60079a08" name="Move Queue from Group to Subgroup" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="135" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue name" friendlyname="Queue name" expr="[Queue 2]" />
+      <input type="text" name="Target Group name" friendlyname="Target Group name" expr="[Subgroup]" />
+    </inputs>
+    <onsuccess>213bffb5-5e7d-4534-8501-3857a46075f3</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Drag Queue into Group" />
+  </stage>
+  <stage stageid="ad4e3dde-5e57-4492-9516-027da48e5fa8" name="Ensure queue is moved from group to subgroup" type="Block">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="165" w="180" h="375" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+</process>

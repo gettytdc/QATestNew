@@ -1,0 +1,962 @@
+﻿<process name="Test SAP Radio Buttons" version="1.0" bpversion="6.8.0.20397" narrative="" byrefcollection="true" preferredid="cd3e6b11-ea6c-4ddf-b814-4165b0b84180" published="true">
+  <view>
+    <camerax>0</camerax>
+    <cameray>21</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="352e077d-4417-40d3-9e9c-f8e6d81fbb01" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>42</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="bc1d1e82-a683-448a-b1c7-934da5fab458" type="Normal" published="False">
+    <name>Radio Buttons (Navigate)</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>168</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="bebdcbe9-351b-4a4a-a0bf-ac63090c91a2" type="Normal" published="False">
+    <name>Radio Buttons (Write)</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>294</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="2e3d2c32-afd0-43d5-a816-05d4512cb539" name="Start" type="Start">
+    <display x="15" y="-240" />
+    <onsuccess>9df162aa-6851-4ef3-bdd2-21fb0f7a8e11</onsuccess>
+  </stage>
+  <stage stageid="f71168dd-bf5e-4b1c-bd41-57bb66a1b155" name="End" type="End">
+    <display x="30" y="585" />
+  </stage>
+  <stage stageid="2ed223a0-cdce-4f27-8d1b-03d58a7e1c7c" name="Stage1" type="ProcessInfo">
+    <display x="-210" y="-210" w="150" h="90" />
+  </stage>
+  <stage stageid="d670d8d0-8d5b-47a2-a696-a68d8c085023" name="Terminate" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="30" y="540" w="90" h="30" />
+    <onsuccess>f71168dd-bf5e-4b1c-bd41-57bb66a1b155</onsuccess>
+    <resource object="SAP" action="Terminate" />
+  </stage>
+  <stage stageid="cf86e6a3-1b7a-4d91-bf67-ab3d91998ef0" name="Setup" type="SubSheetInfo">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="-120" y="-30" w="150" h="90" />
+  </stage>
+  <stage stageid="57e916ba-5b34-46d1-8d8d-adbcfada0ee4" name="Start" type="Start">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="15" y="-60" />
+    <onsuccess>f149e43b-4b63-4913-b5f0-0c023cc3236d</onsuccess>
+  </stage>
+  <stage stageid="087e49f9-b4e2-4493-96cf-3786e669e216" name="End" type="End">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="15" y="330" />
+  </stage>
+  <stage stageid="f149e43b-4b63-4913-b5f0-0c023cc3236d" name="Launch" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>a777fb1e-8c51-4eca-bb51-9436ad607421</onsuccess>
+    <resource object="SAP" action="Launch" />
+  </stage>
+  <stage stageid="8b256fbd-ddfe-4b9a-acd7-a2c11dc2af12" name="Log On (740)" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="The username for the account you want to access." expr="&quot;qa74&quot;" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the user you want to access." expr="&quot;BpPa55word1&quot;" />
+    </inputs>
+    <onsuccess>8de2edc4-24ad-457e-b3bc-1bae3d3cfcc5</onsuccess>
+    <resource object="SAP" action="Log On" />
+  </stage>
+  <stage stageid="a777fb1e-8c51-4eca-bb51-9436ad607421" name="Get SAP Version" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <outputs>
+      <output type="text" name="SAP Version" friendlyname="SAP Version" stage="SAP Version" />
+    </outputs>
+    <onsuccess>4ebca774-e797-4bff-b31b-6b4118eb4ab5</onsuccess>
+    <resource object="SAP" action="Get SAP Version" />
+  </stage>
+  <stage stageid="4ebca774-e797-4bff-b31b-6b4118eb4ab5" name="SAP Version?" type="ChoiceStart">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="15" y="75" w="90" h="30" />
+    <groupid>d2b6df8a-a63d-4e7b-a35e-e02131de0cfc</groupid>
+    <choices>
+      <choice expression="[SAP Version]=&quot;740&quot;">
+        <name>740</name>
+        <distance>30</distance>
+        <ontrue>8b256fbd-ddfe-4b9a-acd7-a2c11dc2af12</ontrue>
+      </choice>
+      <choice expression="[SAP Version]=&quot;760&quot;">
+        <name>760</name>
+        <distance>75</distance>
+        <ontrue>9b57921f-d70d-4395-8161-290136880e9d</ontrue>
+      </choice>
+    </choices>
+  </stage>
+  <stage stageid="5d8e1687-288a-4cf8-8da2-225b220cb422" name="Otherwise" type="ChoiceEnd">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="15" y="195" w="90" h="30" />
+    <onsuccess>17f32e1c-4456-4f86-800a-5399351a4e75</onsuccess>
+    <groupid>d2b6df8a-a63d-4e7b-a35e-e02131de0cfc</groupid>
+  </stage>
+  <stage stageid="3ffcf1c7-df4b-44be-98ef-01798fb6b08b" name="SAP Version" type="Data">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="-120" y="60" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="17f32e1c-4456-4f86-800a-5399351a4e75" name="SAP Version FAIL" type="Exception">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <display x="120" y="195" w="90" h="30" />
+    <exception localized="yes" type="SAP Version" detail="&quot;You are using a SAP client with an unrecogised version.&quot;" />
+  </stage>
+  <stage stageid="9b57921f-d70d-4395-8161-290136880e9d" name="Log On (760)" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="The username for the account you want to access." expr="&quot;qa76&quot;" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the user you want to access." expr="&quot;BpPa55word1&quot;" />
+    </inputs>
+    <onsuccess>f3d0d6c2-ecbe-49b0-bedb-f38d4919e4f9</onsuccess>
+    <resource object="SAP" action="Log On" />
+  </stage>
+  <stage stageid="8de2edc4-24ad-457e-b3bc-1bae3d3cfcc5" name="Anchor1" type="Anchor">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="180" y="105" w="10" h="10" />
+    <onsuccess>f3d0d6c2-ecbe-49b0-bedb-f38d4919e4f9</onsuccess>
+  </stage>
+  <stage stageid="f3d0d6c2-ecbe-49b0-bedb-f38d4919e4f9" name="Anchor2" type="Anchor">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="180" y="150" w="10" h="10" />
+    <onsuccess>eb77cf2e-c353-4ea3-9d92-ef6a86ea7deb</onsuccess>
+  </stage>
+  <stage stageid="eb77cf2e-c353-4ea3-9d92-ef6a86ea7deb" name="Anchor3" type="Anchor">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="180" y="240" w="10" h="10" />
+    <onsuccess>a9471d63-3707-4760-aae6-04ac225e9625</onsuccess>
+  </stage>
+  <stage stageid="948bcdd1-3e62-4ab2-ab45-0e61cf9af658" name="Local Variable" type="Block">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="30" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="7ae9fb2c-c678-49ff-bfe8-cf9ab3b9e471" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-120" w="240" h="30" />
+    <onsuccess>e3e04a07-4819-4323-b27f-2d93865c4c1c</onsuccess>
+    <processid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</processid>
+  </stage>
+  <stage stageid="69a11b95-fd07-4aff-b4e6-02f2dec92573" name="Radio Buttons (Navigate)" type="SubSheetInfo">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="-120" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="6916aebc-1ca9-4861-ab60-d1800b988abd" name="Start" type="Start">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>bec77e7b-7314-46cb-8bde-a33084a46a4a</onsuccess>
+  </stage>
+  <stage stageid="a22f0d38-28e7-44ce-8aca-ec13d3c4b6bb" name="End" type="End">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="15" y="615" />
+  </stage>
+  <stage stageid="d8305e98-e6e3-4fa2-9905-9d2c7de3bc3b" name="Radio Buttons (Navigate)" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="240" h="30" />
+    <onsuccess>58ff5c04-8f09-428c-830a-ce487cdd6e11</onsuccess>
+    <processid>bc1d1e82-a683-448a-b1c7-934da5fab458</processid>
+  </stage>
+  <stage stageid="a9471d63-3707-4760-aae6-04ac225e9625" name="Search BIBS" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Transaction" friendlyname="Transaction" narrative="The transaction code you want to search." expr="&quot;BIBS&quot;" />
+    </inputs>
+    <onsuccess>99b83a6e-4670-4b00-983b-609511efc508</onsuccess>
+    <resource object="SAP" action="Search Transaction" />
+  </stage>
+  <stage stageid="99b83a6e-4670-4b00-983b-609511efc508" name="Select Radio Buttons" type="Action">
+    <subsheetid>352e077d-4417-40d3-9e9c-f8e6d81fbb01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="285" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Control Type" friendlyname="Control Type" narrative="The name of the control type you want to select (Eg. Radio Buttons)" expr="&quot;Radio Buttons&quot;" />
+    </inputs>
+    <onsuccess>087e49f9-b4e2-4493-96cf-3786e669e216</onsuccess>
+    <resource object="SAP" action="Select Control Type (BIBS)" />
+  </stage>
+  <stage stageid="bec77e7b-7314-46cb-8bde-a33084a46a4a" name="Set Radio Button 2" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Radio Button ID" friendlyname="Radio Button ID" narrative="The ID of the radio button you want to select, 1 - 9" expr="2" />
+      <input type="flag" name="Write Value?" friendlyname="Write Value?" narrative="As default it will use a navigate stage to set the radio button, do you want to set it via a write stage instead?" expr="" />
+    </inputs>
+    <onsuccess>b9f6126c-482a-4374-aeaa-1c66c639b613</onsuccess>
+    <resource object="SAP" action="Set Radio Button" />
+  </stage>
+  <stage stageid="12eb7baa-99bd-4199-9be0-cf74b23bd4d4" name="Read Radio Button" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Radio Button ID" friendlyname="Radio Button ID" narrative="The ID of the radio button you want to read, 1 - 9" expr="[Expected Radio Button Values (1).Radio Button ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Radio Button State" friendlyname="Radio Button State" narrative="The checked state of the radio button." stage="Radio Button State" />
+    </outputs>
+    <onsuccess>468f77c5-343f-4d89-92e9-b023c613efa0</onsuccess>
+    <resource object="SAP" action="Read Radio Button" />
+  </stage>
+  <stage stageid="1009c1d2-13bc-49b4-94eb-542ebf94329d" name="Expected Radio Button Values (1)" type="Collection">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="-120" y="15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Radio Button ID" type="number" />
+      <field name="State" type="flag" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Radio Button ID" type="number" value="1" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="2" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="3" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="4" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="5" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="6" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="7" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="8" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="9" />
+        <field name="State" type="flag" value="False" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="b9f6126c-482a-4374-aeaa-1c66c639b613" name="Loop Expceted Values (1)" type="LoopStart">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>12eb7baa-99bd-4199-9be0-cf74b23bd4d4</onsuccess>
+    <groupid>787ad2cd-1565-4aed-bbcb-0d4739208893</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Radio Button Values (1)</loopdata>
+  </stage>
+  <stage stageid="952ec771-7c46-4d5b-b1b8-bab23ebfafac" name="Loop Expceted Values (1)" type="LoopEnd">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="90" h="30" />
+    <onsuccess>ce921305-302b-4e6f-bb2f-834cf5435583</onsuccess>
+    <groupid>787ad2cd-1565-4aed-bbcb-0d4739208893</groupid>
+  </stage>
+  <stage stageid="468f77c5-343f-4d89-92e9-b023c613efa0" name="Radio Button State Correct?" type="Decision">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="15" y="75" w="90" h="30" />
+    <decision expression="[Radio Button State]=[Expected Radio Button Values (1).State]" />
+    <ontrue>952ec771-7c46-4d5b-b1b8-bab23ebfafac</ontrue>
+    <onfalse>03a62cfd-1c27-4cbb-ad5c-5102b0df5b51</onfalse>
+  </stage>
+  <stage stageid="03a62cfd-1c27-4cbb-ad5c-5102b0df5b51" name="FAIL" type="Exception">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="105" y="75" />
+    <exception localized="yes" type="Radio Button State Exception" detail="&quot;The state of the radio button wasn't correct.&quot;" />
+  </stage>
+  <stage stageid="173467e6-2bf4-4315-b9fe-f3b248ee8246" name="Radio Button State" type="Data">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="-120" y="165" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="32515eac-ac87-44a8-8abd-bacaa409f440" name="Input Variables" type="Block">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-15" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3ea06827-113d-4ee0-8f28-98f1e10ca566" name="Local Variables" type="Block">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="135" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ce921305-302b-4e6f-bb2f-834cf5435583" name="Set Radio Button 7" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Radio Button ID" friendlyname="Radio Button ID" narrative="The ID of the radio button you want to select, 1 - 9" expr="7" />
+      <input type="flag" name="Write Value?" friendlyname="Write Value?" narrative="As default it will use a navigate stage to set the radio button, do you want to set it via a write stage instead?" expr="" />
+    </inputs>
+    <onsuccess>d69183cd-825c-4215-be64-3a79bf4fca51</onsuccess>
+    <resource object="SAP" action="Set Radio Button" />
+  </stage>
+  <stage stageid="7e718615-84ae-4826-b9dc-d81e7b429b86" name="Expected Radio Button Values (2)" type="Collection">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="-120" y="45" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Radio Button ID" type="number" />
+      <field name="State" type="flag" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Radio Button ID" type="number" value="1" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="2" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="3" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="4" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="5" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="6" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="7" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="8" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="9" />
+        <field name="State" type="flag" value="False" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="2dfe68d2-9f6a-489b-80ee-f34a5c921b5b" name="Read Radio Button" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Radio Button ID" friendlyname="Radio Button ID" narrative="The ID of the radio button you want to read, 1 - 9" expr="[Expected Radio Button Values (2).Radio Button ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Radio Button State" friendlyname="Radio Button State" narrative="The checked state of the radio button." stage="Radio Button State" />
+    </outputs>
+    <onsuccess>3f32b965-6b63-42a2-95c4-eef7b138ee9e</onsuccess>
+    <resource object="SAP" action="Read Radio Button" />
+  </stage>
+  <stage stageid="d69183cd-825c-4215-be64-3a79bf4fca51" name="Loop Expceted Values (2)" type="LoopStart">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="90" h="30" />
+    <onsuccess>2dfe68d2-9f6a-489b-80ee-f34a5c921b5b</onsuccess>
+    <groupid>e5ced6af-e8b1-4bbd-9c91-0c4ac89662e6</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Radio Button Values (2)</loopdata>
+  </stage>
+  <stage stageid="5fc4411d-6b24-4f59-8b12-8ee2ec682ef1" name="Loop Expceted Values (2)" type="LoopEnd">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="345" w="90" h="30" />
+    <onsuccess>ae1e30d7-ece9-4061-8c2d-d92734f44945</onsuccess>
+    <groupid>e5ced6af-e8b1-4bbd-9c91-0c4ac89662e6</groupid>
+  </stage>
+  <stage stageid="3f32b965-6b63-42a2-95c4-eef7b138ee9e" name="Radio Button State Correct?" type="Decision">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="15" y="300" w="90" h="30" />
+    <decision expression="[Radio Button State]=[Expected Radio Button Values (2).State]" />
+    <ontrue>5fc4411d-6b24-4f59-8b12-8ee2ec682ef1</ontrue>
+    <onfalse>aefc41e6-177c-4411-8cd0-fb8d73d24c9c</onfalse>
+  </stage>
+  <stage stageid="aefc41e6-177c-4411-8cd0-fb8d73d24c9c" name="FAIL" type="Exception">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="105" y="300" />
+    <exception localized="yes" type="Radio Button State Exception" detail="&quot;The state of the radio button wasn't correct.&quot;" />
+  </stage>
+  <stage stageid="775ee488-8953-49ce-b8d8-f44aafdd9412" name="Expected Radio Button Values (3)" type="Collection">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="-120" y="75" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Radio Button ID" type="number" />
+      <field name="State" type="flag" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Radio Button ID" type="number" value="1" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="2" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="3" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="4" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="5" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="6" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="7" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="8" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="9" />
+        <field name="State" type="flag" value="True" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="ae1e30d7-ece9-4061-8c2d-d92734f44945" name="Set Radio Button 9" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="390" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Radio Button ID" friendlyname="Radio Button ID" narrative="The ID of the radio button you want to select, 1 - 9" expr="9" />
+      <input type="flag" name="Write Value?" friendlyname="Write Value?" narrative="As default it will use a navigate stage to set the radio button, do you want to set it via a write stage instead?" expr="" />
+    </inputs>
+    <onsuccess>523c703e-731d-410d-8745-38e9b055279a</onsuccess>
+    <resource object="SAP" action="Set Radio Button" />
+  </stage>
+  <stage stageid="e1ff3a8e-0df5-4f98-b9ed-0036c36f3fe8" name="Read Radio Button" type="Action">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="480" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Radio Button ID" friendlyname="Radio Button ID" narrative="The ID of the radio button you want to read, 1 - 9" expr="[Expected Radio Button Values (3).Radio Button ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Radio Button State" friendlyname="Radio Button State" narrative="The checked state of the radio button." stage="Radio Button State" />
+    </outputs>
+    <onsuccess>b3da2830-1788-4716-aac7-7665d7632a44</onsuccess>
+    <resource object="SAP" action="Read Radio Button" />
+  </stage>
+  <stage stageid="523c703e-731d-410d-8745-38e9b055279a" name="Loop Expceted Values (3)" type="LoopStart">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="435" w="90" h="30" />
+    <onsuccess>e1ff3a8e-0df5-4f98-b9ed-0036c36f3fe8</onsuccess>
+    <groupid>77db2176-1917-4b93-9410-715ca84ea68f</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Radio Button Values (3)</loopdata>
+  </stage>
+  <stage stageid="c6ac6eeb-e51e-4c47-a049-731887eb91e6" name="Loop Expceted Values (3)" type="LoopEnd">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="570" w="90" h="30" />
+    <onsuccess>a22f0d38-28e7-44ce-8aca-ec13d3c4b6bb</onsuccess>
+    <groupid>77db2176-1917-4b93-9410-715ca84ea68f</groupid>
+  </stage>
+  <stage stageid="b3da2830-1788-4716-aac7-7665d7632a44" name="Radio Button State Correct?" type="Decision">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="15" y="525" w="90" h="30" />
+    <decision expression="[Radio Button State]=[Expected Radio Button Values (3).State]" />
+    <ontrue>c6ac6eeb-e51e-4c47-a049-731887eb91e6</ontrue>
+    <onfalse>892c6840-4182-474a-a575-9df1127b077b</onfalse>
+  </stage>
+  <stage stageid="892c6840-4182-474a-a575-9df1127b077b" name="FAIL" type="Exception">
+    <subsheetid>bc1d1e82-a683-448a-b1c7-934da5fab458</subsheetid>
+    <display x="105" y="525" />
+    <exception localized="yes" type="Radio Button State Exception" detail="&quot;The state of the radio button wasn't correct.&quot;" />
+  </stage>
+  <stage stageid="d6506b16-2cb1-4502-9b84-7f1c9bc0416a" name="Radio Buttons (Write)" type="SubSheetInfo">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <display x="-120" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="dfe8bdc6-d33f-4407-8034-705e9dac61ca" name="Start" type="Start">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>f40c36e3-8cd9-4fc5-ae1e-6ffea9292fcc</onsuccess>
+  </stage>
+  <stage stageid="84e114cc-ce6f-4d78-9f9b-aa6a674d2b6a" name="End" type="End">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <display x="15" y="615" />
+  </stage>
+  <stage stageid="f40c36e3-8cd9-4fc5-ae1e-6ffea9292fcc" name="Set Radio Button 4" type="Action">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Radio Button ID" friendlyname="Radio Button ID" narrative="The ID of the radio button you want to select, 1 - 9" expr="4" />
+      <input type="flag" name="Write Value?" friendlyname="Write Value?" narrative="As default it will use a navigate stage to set the radio button, do you want to set it via a write stage instead?" expr="True" />
+    </inputs>
+    <onsuccess>331f1ad0-6683-4d9b-a96a-12f16c317b18</onsuccess>
+    <resource object="SAP" action="Set Radio Button" />
+  </stage>
+  <stage stageid="78b21760-8c5a-4a8e-b561-5dfc79f53d42" name="Read Radio Button" type="Action">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Radio Button ID" friendlyname="Radio Button ID" narrative="The ID of the radio button you want to read, 1 - 9" expr="[Expected Radio Button Values (1).Radio Button ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Radio Button State" friendlyname="Radio Button State" narrative="The checked state of the radio button." stage="Radio Button State" />
+    </outputs>
+    <onsuccess>2a4f4e48-e83d-4250-b448-96353dd12dad</onsuccess>
+    <resource object="SAP" action="Read Radio Button" />
+  </stage>
+  <stage stageid="331f1ad0-6683-4d9b-a96a-12f16c317b18" name="Loop Expceted Values (1)" type="LoopStart">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>78b21760-8c5a-4a8e-b561-5dfc79f53d42</onsuccess>
+    <groupid>740f8775-8032-4631-9e00-6dbcafa15764</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Radio Button Values (1)</loopdata>
+  </stage>
+  <stage stageid="e631819f-059a-424e-b108-f5d7c7059e91" name="Loop Expceted Values (1)" type="LoopEnd">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="90" h="30" />
+    <onsuccess>9aafe798-5262-4d9a-b7a8-0d28511920b9</onsuccess>
+    <groupid>740f8775-8032-4631-9e00-6dbcafa15764</groupid>
+  </stage>
+  <stage stageid="2a4f4e48-e83d-4250-b448-96353dd12dad" name="Radio Button State Correct?" type="Decision">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <display x="15" y="75" w="90" h="30" />
+    <decision expression="[Radio Button State]=[Expected Radio Button Values (1).State]" />
+    <ontrue>e631819f-059a-424e-b108-f5d7c7059e91</ontrue>
+    <onfalse>5aa041d6-029d-4fe7-aa6a-e21ec4cdff65</onfalse>
+  </stage>
+  <stage stageid="5aa041d6-029d-4fe7-aa6a-e21ec4cdff65" name="FAIL" type="Exception">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <display x="105" y="75" />
+    <exception localized="yes" type="Radio Button State Exception" detail="&quot;The state of the radio button wasn't correct.&quot;" />
+  </stage>
+  <stage stageid="681d5569-cb91-4198-87b8-dd4227b96efb" name="Radio Button State" type="Data">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <display x="-120" y="165" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="97fe69ac-525b-47f1-9218-833ad61179c4" name="Input Variables" type="Block">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-15" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4a1f1851-9c8f-4ce6-95ac-d646311b005f" name="Local Variables" type="Block">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="135" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="9aafe798-5262-4d9a-b7a8-0d28511920b9" name="Set Radio Button 6" type="Action">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Radio Button ID" friendlyname="Radio Button ID" narrative="The ID of the radio button you want to select, 1 - 9" expr="6" />
+      <input type="flag" name="Write Value?" friendlyname="Write Value?" narrative="As default it will use a navigate stage to set the radio button, do you want to set it via a write stage instead?" expr="True" />
+    </inputs>
+    <onsuccess>1ede21e9-f6fa-4461-a5da-45a5770a5a56</onsuccess>
+    <resource object="SAP" action="Set Radio Button" />
+  </stage>
+  <stage stageid="f1dbd5ac-8b67-4d70-8459-2dc65083d1fb" name="Read Radio Button" type="Action">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Radio Button ID" friendlyname="Radio Button ID" narrative="The ID of the radio button you want to read, 1 - 9" expr="[Expected Radio Button Values (2).Radio Button ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Radio Button State" friendlyname="Radio Button State" narrative="The checked state of the radio button." stage="Radio Button State" />
+    </outputs>
+    <onsuccess>938cab26-8613-4f45-b515-a69304f2aa60</onsuccess>
+    <resource object="SAP" action="Read Radio Button" />
+  </stage>
+  <stage stageid="1ede21e9-f6fa-4461-a5da-45a5770a5a56" name="Loop Expceted Values (2)" type="LoopStart">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="90" h="30" />
+    <onsuccess>f1dbd5ac-8b67-4d70-8459-2dc65083d1fb</onsuccess>
+    <groupid>b2308402-dd8a-4bbb-bef0-71299511ccf2</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Radio Button Values (2)</loopdata>
+  </stage>
+  <stage stageid="58098cf6-0f21-4ea6-8e79-2d7e3dbd5bdb" name="Loop Expceted Values (2)" type="LoopEnd">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="345" w="90" h="30" />
+    <onsuccess>6ff558a4-cd00-4a05-ac08-3ee2a4f3ec6e</onsuccess>
+    <groupid>b2308402-dd8a-4bbb-bef0-71299511ccf2</groupid>
+  </stage>
+  <stage stageid="938cab26-8613-4f45-b515-a69304f2aa60" name="Radio Button State Correct?" type="Decision">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <display x="15" y="300" w="90" h="30" />
+    <decision expression="[Radio Button State]=[Expected Radio Button Values (2).State]" />
+    <ontrue>58098cf6-0f21-4ea6-8e79-2d7e3dbd5bdb</ontrue>
+    <onfalse>9539228b-1622-478c-8949-188daabd4d22</onfalse>
+  </stage>
+  <stage stageid="9539228b-1622-478c-8949-188daabd4d22" name="FAIL" type="Exception">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <display x="105" y="300" />
+    <exception localized="yes" type="Radio Button State Exception" detail="&quot;The state of the radio button wasn't correct.&quot;" />
+  </stage>
+  <stage stageid="6ff558a4-cd00-4a05-ac08-3ee2a4f3ec6e" name="Set Radio Button 8" type="Action">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="390" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Radio Button ID" friendlyname="Radio Button ID" narrative="The ID of the radio button you want to select, 1 - 9" expr="8" />
+      <input type="flag" name="Write Value?" friendlyname="Write Value?" narrative="As default it will use a navigate stage to set the radio button, do you want to set it via a write stage instead?" expr="True" />
+    </inputs>
+    <onsuccess>1acc13a8-7551-4f25-8ffe-1d6c78f0f93a</onsuccess>
+    <resource object="SAP" action="Set Radio Button" />
+  </stage>
+  <stage stageid="abd3f3e6-3403-4fe2-9ed8-30bc21249197" name="Read Radio Button" type="Action">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="480" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Radio Button ID" friendlyname="Radio Button ID" narrative="The ID of the radio button you want to read, 1 - 9" expr="[Expected Radio Button Values (3).Radio Button ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Radio Button State" friendlyname="Radio Button State" narrative="The checked state of the radio button." stage="Radio Button State" />
+    </outputs>
+    <onsuccess>83b94e9a-e9b4-4ed2-8ac1-c537bbfbb2a4</onsuccess>
+    <resource object="SAP" action="Read Radio Button" />
+  </stage>
+  <stage stageid="1acc13a8-7551-4f25-8ffe-1d6c78f0f93a" name="Loop Expceted Values (3)" type="LoopStart">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="435" w="90" h="30" />
+    <onsuccess>abd3f3e6-3403-4fe2-9ed8-30bc21249197</onsuccess>
+    <groupid>dc2a6295-1ad5-4192-993d-46125fd24444</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Radio Button Values (3)</loopdata>
+  </stage>
+  <stage stageid="e702562d-0efa-4e47-ba71-56942d871478" name="Loop Expceted Values (3)" type="LoopEnd">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="570" w="90" h="30" />
+    <onsuccess>84e114cc-ce6f-4d78-9f9b-aa6a674d2b6a</onsuccess>
+    <groupid>dc2a6295-1ad5-4192-993d-46125fd24444</groupid>
+  </stage>
+  <stage stageid="83b94e9a-e9b4-4ed2-8ac1-c537bbfbb2a4" name="Radio Button State Correct?" type="Decision">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <display x="15" y="525" w="90" h="30" />
+    <decision expression="[Radio Button State]=[Expected Radio Button Values (3).State]" />
+    <ontrue>e702562d-0efa-4e47-ba71-56942d871478</ontrue>
+    <onfalse>ef2a612c-eacc-4166-9699-044de3dc4a24</onfalse>
+  </stage>
+  <stage stageid="ef2a612c-eacc-4166-9699-044de3dc4a24" name="FAIL" type="Exception">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <display x="105" y="525" />
+    <exception localized="yes" type="Radio Button State Exception" detail="&quot;The state of the radio button wasn't correct.&quot;" />
+  </stage>
+  <stage stageid="270c4d3e-e682-44b2-938b-96f91b49480e" name="Expected Radio Button Values (1)" type="Collection">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <display x="-120" y="15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Radio Button ID" type="number" />
+      <field name="State" type="flag" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Radio Button ID" type="number" value="1" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="2" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="3" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="4" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="5" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="6" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="7" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="8" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="9" />
+        <field name="State" type="flag" value="True" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="4a0f1cbf-a444-4a31-a125-4d38a2acf436" name="Expected Radio Button Values (2)" type="Collection">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <display x="-120" y="45" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Radio Button ID" type="number" />
+      <field name="State" type="flag" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Radio Button ID" type="number" value="1" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="2" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="3" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="4" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="5" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="6" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="7" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="8" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="9" />
+        <field name="State" type="flag" value="True" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="b6ceaa57-8931-4d6c-9e73-9d50c0746021" name="Expected Radio Button Values (3)" type="Collection">
+    <subsheetid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</subsheetid>
+    <display x="-120" y="75" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Radio Button ID" type="number" />
+      <field name="State" type="flag" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Radio Button ID" type="number" value="1" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="2" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="3" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="4" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="5" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="6" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="7" />
+        <field name="State" type="flag" value="False" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="8" />
+        <field name="State" type="flag" value="True" />
+      </row>
+      <row>
+        <field name="Radio Button ID" type="number" value="9" />
+        <field name="State" type="flag" value="False" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="6387dc92-e56c-4297-b976-b2adaec5a121" name="Radio Buttons (Write)" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" w="240" h="30" />
+    <onsuccess>ae65b51a-89fc-431e-b5b4-c92969babb92</onsuccess>
+    <processid>bebdcbe9-351b-4a4a-a0bf-ac63090c91a2</processid>
+  </stage>
+  <stage stageid="8a70e0ef-0dc2-4206-9936-04967cb3ec9c" name="Failed?" type="Decision">
+    <display x="15" y="240" w="240" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>8d212e94-45de-4df4-b8a7-4b70f276ab37</ontrue>
+    <onfalse>bff4cf5c-a0cf-4b35-902d-dd1a1a347d5c</onfalse>
+  </stage>
+  <stage stageid="ae65b51a-89fc-431e-b5b4-c92969babb92" name="Terminate" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" w="240" h="30" />
+    <onsuccess>8a70e0ef-0dc2-4206-9936-04967cb3ec9c</onsuccess>
+    <resource object="SAP" action="Terminate" />
+  </stage>
+  <stage stageid="9df162aa-6851-4ef3-bdd2-21fb0f7a8e11" name="Note1" type="Note">
+    <narrative>GIVEN SAP is launched
+AND the style guide is open</narrative>
+    <display x="15" y="-180" w="240" h="60" />
+    <font family="Segoe UI" size="11" style="Bold" color="339966" />
+    <onsuccess>7ae9fb2c-c678-49ff-bfe8-cf9ab3b9e471</onsuccess>
+  </stage>
+  <stage stageid="e3e04a07-4819-4323-b27f-2d93865c4c1c" name="Note1" type="Note">
+    <narrative>WHEN setting radio buttons via a navigation stage
+THEN the radio button is successfully set
+AND other radio buttons respond correctly</narrative>
+    <display x="15" y="-45" w="240" h="60" />
+    <font family="Segoe UI" size="11" style="Bold" color="339966" />
+    <onsuccess>d8305e98-e6e3-4fa2-9905-9d2c7de3bc3b</onsuccess>
+  </stage>
+  <stage stageid="58ff5c04-8f09-428c-830a-ce487cdd6e11" name="Note1" type="Note">
+    <narrative>WHEN setting radio buttons via a write stage
+THEN the radio button is successfully set
+AND other radio buttons respond correctly</narrative>
+    <display x="15" y="75" w="240" h="60" />
+    <font family="Segoe UI" size="11" style="Bold" color="339966" />
+    <onsuccess>6387dc92-e56c-4297-b976-b2adaec5a121</onsuccess>
+  </stage>
+  <stage stageid="6acfa0a3-eb3c-462b-9542-48fd36fa2efd" name="Cleanup Block" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-90" w="345" h="255" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="93c6a6a7-575f-418d-a2a2-ae08fe006ec9" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="180" y="30" />
+    <onsuccess>a3bf0060-15d9-41fc-a154-139287c6dafc</onsuccess>
+  </stage>
+  <stage stageid="c3f4fd17-3634-4080-b807-4b410add3a56" name="Mark Failure" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="180" y="-15" />
+    <onsuccess>93c6a6a7-575f-418d-a2a2-ae08fe006ec9</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="a3bf0060-15d9-41fc-a154-139287c6dafc" name="Anchor4" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="180" y="195" w="10" h="10" />
+    <onsuccess>ae65b51a-89fc-431e-b5b4-c92969babb92</onsuccess>
+  </stage>
+  <stage stageid="8d212e94-45de-4df4-b8a7-4b70f276ab37" name="Rethrow" type="Exception">
+    <display x="180" y="240" />
+    <exception localized="yes" type="" detail="[Exception]" />
+  </stage>
+  <stage stageid="375a218a-2bab-4130-ba0e-740e25d69867" name="Failed?" type="Data">
+    <display x="-210" y="-120" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="abdf7776-b16c-466f-a10f-60398a0f3368" name="Exception" type="Data">
+    <display x="-210" y="-90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d10a56fd-81f0-4092-8810-e8bdc3b3fcd2" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="-150" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="bff4cf5c-a0cf-4b35-902d-dd1a1a347d5c" name="End1" type="End">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="285" />
+  </stage>
+  <stage stageid="884be815-5ec6-4296-a499-c81147b9f5ab" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="180" y="-60" />
+    <onsuccess>c3f4fd17-3634-4080-b807-4b410add3a56</onsuccess>
+  </stage>
+</process>

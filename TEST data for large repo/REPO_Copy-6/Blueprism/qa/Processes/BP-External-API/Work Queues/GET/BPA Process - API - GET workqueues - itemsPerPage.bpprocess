@@ -1,0 +1,2938 @@
+﻿<process name="API - GET workqueues - itemsPerPage" version="1.0" bpversion="7.0.0.39397" narrative="" byrefcollection="true" preferredid="969158d1-b13f-43b3-851c-591a4f67ff66">
+  <view>
+    <camerax>120</camerax>
+    <cameray>45</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="35e4a25d-3be4-4079-9172-6a5adeca098f" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>-7</camerax>
+      <cameray>525</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="5367a450-3436-4671-8a0d-5d5a81de521d" type="Normal" published="False">
+    <name>itemsPerPage negative scenarios</name>
+    <view>
+      <camerax>27</camerax>
+      <cameray>975</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0" type="Normal" published="False">
+    <name>itemsPerPage positive scenarios</name>
+    <view>
+      <camerax>27</camerax>
+      <cameray>525</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="e0bccb2e-4d3a-42cf-b913-287c3ff1ac20" type="Normal" published="False">
+    <name>itemsPerPage not supplied</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>136</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="cc63b4ab-15cd-4e6f-a366-a3167a4fa91c" type="Normal" published="False">
+    <name>Add to Cleanup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-3</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="86c68210-f036-4137-95d7-f70cc6db3783" type="Normal" published="False">
+    <name>Cleanup</name>
+    <view>
+      <camerax>597</camerax>
+      <cameray>150</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="43eb6e5d-030d-453a-894c-1c6e09e52732" name="Start" type="Start">
+    <display x="45" y="-240" />
+    <onsuccess>95d8a8b4-41c6-45bc-939a-d1b9241f0630</onsuccess>
+  </stage>
+  <stage stageid="6b7ae773-943d-4f66-bb0a-3746d0fca712" name="Stage1" type="ProcessInfo">
+    <display x="-240" y="-210" w="150" h="90" />
+  </stage>
+  <stage stageid="e85873f5-c2f6-4ad0-a169-e69be2ecc800" name="End1" type="End">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="345" />
+  </stage>
+  <stage stageid="f5798412-80be-487a-9afa-ad7468cf894c" name="Global Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-315" y="-150" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3dc21b95-0b51-4a26-8c17-e7be3509dcb7" name="Note1" type="Note">
+    <narrative>GIVEN I push a GET workqueues request 
+WHEN I supply valid itemsPerPage data
+THEN the appropriate response is returned</narrative>
+    <display x="45" y="15" w="360" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>8f109b96-0a23-4d5e-aad9-ab7549d400be</onsuccess>
+  </stage>
+  <stage stageid="f6360219-a1f1-4612-bb06-624c50d8f06f" name="Setup" type="SubSheetInfo">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="-150" y="-990" w="150" h="90" />
+  </stage>
+  <stage stageid="ca07c9d5-ac08-4028-829c-1db1613ee08c" name="End" type="End">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="195" y="570" />
+  </stage>
+  <stage stageid="95d8a8b4-41c6-45bc-939a-d1b9241f0630" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="-180" w="300" h="30" />
+    <onsuccess>64c45f08-f0c7-4f2b-8e95-90693fe6e2c4</onsuccess>
+    <processid>35e4a25d-3be4-4079-9172-6a5adeca098f</processid>
+  </stage>
+  <stage stageid="79aba039-35ca-45a4-b754-faedb635b195" name="Add To Queue" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>The Data collection contains the items to be added to the queue. The collection may contain single or multiple rows, with each representing an item to be added.
+
+If there is a failure during the process, the queue will be unchanged - i.e. no rows will be loaded even if the error occurred on the last one.
+
+If Defer Until is specified, the items will not be available to be worked until then. Otherwise, they are available immediately.
+
+If the queue has a key field defined, an item added has key data longer than the maximum permitted 255 characters, an error will occur</narrative>
+    <display x="15" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to add items to" expr="[Expected Queue Name]" />
+      <input type="collection" name="Data" friendlyname="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Dummy Queue Item Data]" />
+      <input type="datetime" name="Defer Until" friendlyname="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" friendlyname="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" friendlyname="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" friendlyname="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+      <input type="number" name="Batch Size" friendlyname="Batch Size" narrative="Optionally, the batch size to use when adding many items to the queue.  A Value of 0 will process all items in one batch.  An empty field will use the default batch size of 1000." expr="">
+        <validator type="BluePrism.AutomateProcessCore.RangeParameterValidation" parameter="0:25000" />
+      </input>
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" friendlyname="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>392e29f9-e145-4e91-8efe-377a2972af97</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="d00ae412-7925-4cab-af49-e90a8afd80a7" name="Dummy Queue Item Data" type="Collection">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="-150" y="-765" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Field1" type="text" />
+      <field name="Field2" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Field1" type="text" value="Field 1 Dummy Data" />
+        <field name="Field2" type="text" value="Field 2 Dummy Data" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="392e29f9-e145-4e91-8efe-377a2972af97" name="Increment Items Added" type="Calculation">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="90" h="30" />
+    <onsuccess>5762f9cf-cc8a-44c3-87f2-b5ac24728daa</onsuccess>
+    <calculation expression="[Current Items Added]+1" stage="Current Items Added" />
+  </stage>
+  <stage stageid="3e17de3c-1ffc-42c2-90fe-1fff840f4b70" name="Current Items Added" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="-150" y="-705" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5762f9cf-cc8a-44c3-87f2-b5ac24728daa" name="Required Items Added?" type="Decision">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="15" y="0" w="90" h="30" />
+    <decision expression="[Current Items Added]=[Expected Total Item Count]" />
+    <ontrue>a39932be-a98b-451f-b53b-3d7da855be1a</ontrue>
+    <onfalse>d84eab87-5de1-4e89-b749-61aece2bc6ee</onfalse>
+  </stage>
+  <stage stageid="a39932be-a98b-451f-b53b-3d7da855be1a" name="Get Next Pending Item" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue" expr="[Expected Queue Name]" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" friendlyname="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" friendlyname="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>2d38b051-1b94-4ee7-b515-1848c778048f</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="d84eab87-5de1-4e89-b749-61aece2bc6ee" name="Anchor22" type="Anchor">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="0" w="10" h="10" />
+    <onsuccess>217b0721-2449-4f91-9f97-0e2bb2eb0065</onsuccess>
+  </stage>
+  <stage stageid="217b0721-2449-4f91-9f97-0e2bb2eb0065" name="Anchor23" type="Anchor">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="10" h="10" />
+    <onsuccess>79aba039-35ca-45a4-b754-faedb635b195</onsuccess>
+  </stage>
+  <stage stageid="14addd3a-e111-401a-91ac-7fabdc589694" name="Current Items Completed" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-645" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="15240f5b-cd8f-4de0-9aa4-44cf7af8c568" name="Current Items Exceptioned" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-675" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0037ce6f-f322-41b0-abce-f4a14bf73787" name="Item ID" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="-150" y="-615" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="07b21f95-80fe-4905-89f6-67267fc54891" name="Mark Item Completed" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Marks the item as completed, by updating the Completed timestamp and setting Locked to null. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+    </inputs>
+    <onsuccess>f29e36cf-cbe1-45a7-90b6-8217cdd4f8d7</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="f29e36cf-cbe1-45a7-90b6-8217cdd4f8d7" name="Increment Items Completed" type="Calculation">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="90" h="30" />
+    <onsuccess>0dda8d62-33c1-4d66-8f21-63028f1511ee</onsuccess>
+    <calculation expression="[Current Items Completed]+1" stage="Current Items Completed" />
+  </stage>
+  <stage stageid="0dda8d62-33c1-4d66-8f21-63028f1511ee" name="Required Items Completed?" type="Decision">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="15" y="255" w="90" h="30" />
+    <decision expression="[Current Items Completed]=[Expected Completed Count]" />
+    <ontrue>dd575ce8-f3c5-4d7b-8ce3-54cbdc89d0ce</ontrue>
+    <onfalse>047540b0-d508-4cae-9cda-b670651f9b5d</onfalse>
+  </stage>
+  <stage stageid="dd575ce8-f3c5-4d7b-8ce3-54cbdc89d0ce" name="Get Next Pending Item" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="15" y="330" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue" expr="[Expected Queue Name]" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" friendlyname="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" friendlyname="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>6519d688-7f51-4019-a8c7-9f4d402412e3</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="047540b0-d508-4cae-9cda-b670651f9b5d" name="Anchor24" type="Anchor">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="255" w="10" h="10" />
+    <onsuccess>ce6d2fa8-8494-48da-9b95-9516e0ed6edd</onsuccess>
+  </stage>
+  <stage stageid="ce6d2fa8-8494-48da-9b95-9516e0ed6edd" name="Anchor25" type="Anchor">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="75" w="10" h="10" />
+    <onsuccess>a39932be-a98b-451f-b53b-3d7da855be1a</onsuccess>
+  </stage>
+  <stage stageid="6519d688-7f51-4019-a8c7-9f4d402412e3" name="Mark Item Exceptioned" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="15" y="375" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" friendlyname="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;Generating Item in Exception State&quot;" />
+      <input type="flag" name="Retry" friendlyname="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="False" />
+      <input type="flag" name="Keep Locked" friendlyname="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" friendlyname="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>7d7fa05d-9ad7-4963-9242-c8e5990a086e</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="7d7fa05d-9ad7-4963-9242-c8e5990a086e" name="Increment Items Exceptioned" type="Calculation">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="420" w="90" h="30" />
+    <onsuccess>8045204e-a0fb-4c53-ae92-e7f37ee387ba</onsuccess>
+    <calculation expression="[Current Items Exceptioned]+1" stage="Current Items Exceptioned" />
+  </stage>
+  <stage stageid="8045204e-a0fb-4c53-ae92-e7f37ee387ba" name="Required Items Exceptioned?" type="Decision">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="15" y="465" w="90" h="30" />
+    <decision expression="[Current Items Exceptioned]=[Expected Exception Count]" />
+    <ontrue>dd12a104-4e33-422e-839b-2ec0cecb4110</ontrue>
+    <onfalse>193b4a64-b04b-45e4-91b9-28820b2571e4</onfalse>
+  </stage>
+  <stage stageid="193b4a64-b04b-45e4-91b9-28820b2571e4" name="Anchor26" type="Anchor">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="465" w="10" h="10" />
+    <onsuccess>ce3e380d-d788-4411-9678-eff889aee7fd</onsuccess>
+  </stage>
+  <stage stageid="ce3e380d-d788-4411-9678-eff889aee7fd" name="Anchor27" type="Anchor">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="330" w="10" h="10" />
+    <onsuccess>dd575ce8-f3c5-4d7b-8ce3-54cbdc89d0ce</onsuccess>
+  </stage>
+  <stage stageid="b2705e6e-1c93-4d61-9510-510cf1b2743b" name="Add Total Items Expected to Queue 1" type="Block">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-120" w="150" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="003366" />
+  </stage>
+  <stage stageid="d995f4c4-b3b0-4cc9-9d6a-bf78ba12ad13" name="Complete Expected Items in Queue" type="Block">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="45" w="150" h="240" />
+    <font family="Segoe UI" size="10" style="Regular" color="993300" />
+  </stage>
+  <stage stageid="47efedc3-809c-4f60-93ed-9cc5137d2b27" name="Exception Expected Items in Queue" type="Block">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="300" w="150" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="0000FF" />
+  </stage>
+  <stage stageid="74c5c67a-0e2f-4c93-96a1-d4a874e6bdf7" name="Local Variables" type="Block">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-225" y="-795" w="150" h="210" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="283eda22-3f52-46c1-9da8-a6466d5bda25" name="Add To Queue" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>The Data collection contains the items to be added to the queue. The collection may contain single or multiple rows, with each representing an item to be added.
+
+If there is a failure during the process, the queue will be unchanged - i.e. no rows will be loaded even if the error occurred on the last one.
+
+If Defer Until is specified, the items will not be available to be worked until then. Otherwise, they are available immediately.
+
+If the queue has a key field defined, an item added has key data longer than the maximum permitted 255 characters, an error will occur</narrative>
+    <display x="195" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to add items to" expr="[Expected Queue Name (2)]" />
+      <input type="collection" name="Data" friendlyname="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Dummy Queue Item Data]" />
+      <input type="datetime" name="Defer Until" friendlyname="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" friendlyname="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" friendlyname="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" friendlyname="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+      <input type="number" name="Batch Size" friendlyname="Batch Size" narrative="Optionally, the batch size to use when adding many items to the queue.  A Value of 0 will process all items in one batch.  An empty field will use the default batch size of 1000." expr="">
+        <validator type="BluePrism.AutomateProcessCore.RangeParameterValidation" parameter="0:25000" />
+      </input>
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" friendlyname="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>f7073c64-ce3e-4a43-8af7-f38ef189402f</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="f7073c64-ce3e-4a43-8af7-f38ef189402f" name="Increment Items Added" type="Calculation">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="195" y="-45" w="90" h="30" />
+    <onsuccess>cd210fbe-5066-4b89-81f4-b0298146d4dd</onsuccess>
+    <calculation expression="[Current Items Added]+1" stage="Current Items Added" />
+  </stage>
+  <stage stageid="cd210fbe-5066-4b89-81f4-b0298146d4dd" name="Required Items Added?" type="Decision">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="195" y="0" w="90" h="30" />
+    <decision expression="[Current Items Added]=[Expected Total Item Count (2)]" />
+    <ontrue>8c421979-7eeb-4199-874e-2623050d0b17</ontrue>
+    <onfalse>246f11e9-09fe-42e4-8a50-b80b5141d797</onfalse>
+  </stage>
+  <stage stageid="8c421979-7eeb-4199-874e-2623050d0b17" name="Get Next Pending Item" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="195" y="75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue" expr="[Expected Queue Name (2)]" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" friendlyname="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" friendlyname="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>9b7cb656-10a3-4e8a-8174-1c4d6dc743be</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="246f11e9-09fe-42e4-8a50-b80b5141d797" name="Anchor22" type="Anchor">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="255" y="0" w="10" h="10" />
+    <onsuccess>469b87dd-48b4-4eb9-aaa7-c52895e425ef</onsuccess>
+  </stage>
+  <stage stageid="469b87dd-48b4-4eb9-aaa7-c52895e425ef" name="Anchor23" type="Anchor">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="255" y="-90" w="10" h="10" />
+    <onsuccess>283eda22-3f52-46c1-9da8-a6466d5bda25</onsuccess>
+  </stage>
+  <stage stageid="f159cfd9-3d30-4151-ba51-e1b5404b9e54" name="Mark Item Completed" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Marks the item as completed, by updating the Completed timestamp and setting Locked to null. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="195" y="165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+    </inputs>
+    <onsuccess>66301a79-ccdd-4f28-9b68-e22366a3431c</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="66301a79-ccdd-4f28-9b68-e22366a3431c" name="Increment Items Completed" type="Calculation">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="195" y="210" w="90" h="30" />
+    <onsuccess>9efb3c9c-1cc8-460e-b867-da4215d8d489</onsuccess>
+    <calculation expression="[Current Items Completed]+1" stage="Current Items Completed" />
+  </stage>
+  <stage stageid="9efb3c9c-1cc8-460e-b867-da4215d8d489" name="Required Items Completed?" type="Decision">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="195" y="255" w="90" h="30" />
+    <decision expression="[Current Items Completed]=[Expected Completed Count (2)]" />
+    <ontrue>02aa17e9-1344-46fc-b4f1-a36aa6397878</ontrue>
+    <onfalse>9a9b48b9-99e7-41ee-a7a1-29388153a97c</onfalse>
+  </stage>
+  <stage stageid="02aa17e9-1344-46fc-b4f1-a36aa6397878" name="Get Next Pending Item" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="195" y="330" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue" expr="[Expected Queue Name (2)]" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" friendlyname="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" friendlyname="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>51d5dcdf-ef43-4972-b1c8-81d33304a7d2</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="9a9b48b9-99e7-41ee-a7a1-29388153a97c" name="Anchor24" type="Anchor">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="255" y="255" w="10" h="10" />
+    <onsuccess>70e03cc6-73b0-42f9-846b-d43f7a33f5a2</onsuccess>
+  </stage>
+  <stage stageid="70e03cc6-73b0-42f9-846b-d43f7a33f5a2" name="Anchor25" type="Anchor">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="255" y="75" w="10" h="10" />
+    <onsuccess>8c421979-7eeb-4199-874e-2623050d0b17</onsuccess>
+  </stage>
+  <stage stageid="51d5dcdf-ef43-4972-b1c8-81d33304a7d2" name="Mark Item Exceptioned" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="195" y="375" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" friendlyname="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;Generating Item in Exception State&quot;" />
+      <input type="flag" name="Retry" friendlyname="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="False" />
+      <input type="flag" name="Keep Locked" friendlyname="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" friendlyname="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>dd5a6f8b-9d9e-4085-a265-840873fabe06</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="dd5a6f8b-9d9e-4085-a265-840873fabe06" name="Increment Items Exceptioned" type="Calculation">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="195" y="420" w="90" h="30" />
+    <onsuccess>201db786-7425-4515-ae92-da4d973a73f0</onsuccess>
+    <calculation expression="[Current Items Exceptioned]+1" stage="Current Items Exceptioned" />
+  </stage>
+  <stage stageid="201db786-7425-4515-ae92-da4d973a73f0" name="Required Items Exceptioned?" type="Decision">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="195" y="465" w="90" h="30" />
+    <decision expression="[Current Items Exceptioned]=[Expected Exception Count (2)]" />
+    <ontrue>830f2f0f-8ab3-4fd9-ba25-3a6799e99121</ontrue>
+    <onfalse>88de1625-635f-4b12-9b34-80945a7479e3</onfalse>
+  </stage>
+  <stage stageid="88de1625-635f-4b12-9b34-80945a7479e3" name="Anchor26" type="Anchor">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="255" y="465" w="10" h="10" />
+    <onsuccess>a3132109-95f2-4ed0-9dd7-3d71c6702a87</onsuccess>
+  </stage>
+  <stage stageid="a3132109-95f2-4ed0-9dd7-3d71c6702a87" name="Anchor27" type="Anchor">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="255" y="330" w="10" h="10" />
+    <onsuccess>02aa17e9-1344-46fc-b4f1-a36aa6397878</onsuccess>
+  </stage>
+  <stage stageid="526a69dc-2aa6-4b3d-9d25-60b7c45216c3" name="Add Total Items Expected to Queue 2" type="Block">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="-120" w="150" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="003366" />
+  </stage>
+  <stage stageid="38e43d08-c546-4a6d-9929-fe03cd311a58" name="Complete Expected Items in Queue" type="Block">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="45" w="150" h="240" />
+    <font family="Segoe UI" size="10" style="Regular" color="993300" />
+  </stage>
+  <stage stageid="bcca5245-312e-44c0-9009-7fd47fdcd9bc" name="Exception Expected Items in Queue" type="Block">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="300" w="150" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="0000FF" />
+  </stage>
+  <stage stageid="b91de860-c635-4712-9626-f4fef82007df" name="Browse to System" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-660" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>95a79b4b-07a8-4175-80ea-25d5175378c8</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="88833a9b-0b14-4e30-b3ee-39e5989d987f" name="pid" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="-150" y="-735" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="23bcc485-b52d-4826-ba0c-1e06b12ada07" name="Browse to Workflow" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-435" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Workflow&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Work Queues&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>d7ca0488-4eb4-4470-8a21-dfa9d170a213</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="d7ca0488-4eb4-4470-8a21-dfa9d170a213" name="Create Queue 1" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-390" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name" friendlyname="Name" narrative="The name of the work queue" expr="[Expected Queue Name]" />
+      <input type="text" name="Key Field" friendlyname="Key Field" narrative="The key field for the work queue" expr="[Expected Key Field]" />
+      <input type="flag" name="Active" friendlyname="Active" narrative="Flag indicating if the work queue should be made active or not - default is True, ie. Active" expr="[Expected Is Running]" />
+      <input type="number" name="Max Attempts" friendlyname="Max Attempts" narrative="The maximum number of attempts to allow on this queue" expr="[Expected Max Attempts]" />
+      <input type="flag" name="Set Encryption?" friendlyname="Set Encryption?" narrative="This is a flag to tick the encryption tickbox for a queue." expr="[Expected IsEncrypted]" />
+      <input type="text" name="Scheme Name" friendlyname="Scheme Name" narrative="This is the name of the scheme in which you wish to encrypt the queue with." expr="" />
+      <input type="flag" name="Set Active Queue" friendlyname="Set Active Queue" narrative="True or False, do you want to make this an active queue." expr="False" />
+      <input type="text" name="Assigned Process" friendlyname="Assigned Process" narrative="The name of the proccess you wish to assign to the active queue." expr="" />
+      <input type="text" name="Assigned Resource Group" friendlyname="Assigned Resource Group" narrative="The name of the resoruce group you want to assign to the active queue." expr="" />
+    </inputs>
+    <onsuccess>8b217408-4315-4a55-98aa-fda4475a32f6</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Create Work Queue" />
+  </stage>
+  <stage stageid="3e9fde55-cc60-4f74-a083-eb968057d326" name="Create Queue 2" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-300" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name" friendlyname="Name" narrative="The name of the work queue" expr="[Expected Queue Name (2)]" />
+      <input type="text" name="Key Field" friendlyname="Key Field" narrative="The key field for the work queue" expr="[Expected Key Field (2)]" />
+      <input type="flag" name="Active" friendlyname="Active" narrative="Flag indicating if the work queue should be made active or not - default is True, ie. Active" expr="[Expected Is Running (2)]" />
+      <input type="number" name="Max Attempts" friendlyname="Max Attempts" narrative="The maximum number of attempts to allow on this queue" expr="[Expected Max Attempts (2)]" />
+      <input type="flag" name="Set Encryption?" friendlyname="Set Encryption?" narrative="This is a flag to tick the encryption tickbox for a queue." expr="[Expected IsEncrypted (2)]" />
+      <input type="text" name="Scheme Name" friendlyname="Scheme Name" narrative="This is the name of the scheme in which you wish to encrypt the queue with." expr="[Scheme Name]" />
+      <input type="flag" name="Set Active Queue" friendlyname="Set Active Queue" narrative="True or False, do you want to make this an active queue." expr="False" />
+      <input type="text" name="Assigned Process" friendlyname="Assigned Process" narrative="The name of the proccess you wish to assign to the active queue." expr="" />
+      <input type="text" name="Assigned Resource Group" friendlyname="Assigned Resource Group" narrative="The name of the resoruce group you want to assign to the active queue." expr="" />
+    </inputs>
+    <onsuccess>acbaa9da-5516-487f-92b3-b59d14a8024a</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Create Work Queue" />
+  </stage>
+  <stage stageid="c9e5808c-185b-4fc1-aedb-c909d703685b" name="Create Queue 3" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name" friendlyname="Name" narrative="The name of the work queue" expr="[Expected Queue Name (3)]" />
+      <input type="text" name="Key Field" friendlyname="Key Field" narrative="The key field for the work queue" expr="[Expected Key Field (3)]" />
+      <input type="flag" name="Active" friendlyname="Active" narrative="Flag indicating if the work queue should be made active or not - default is True, ie. Active" expr="[Expected Is Running (3)]" />
+      <input type="number" name="Max Attempts" friendlyname="Max Attempts" narrative="The maximum number of attempts to allow on this queue" expr="[Expected Max Attempts (3)]" />
+      <input type="flag" name="Set Encryption?" friendlyname="Set Encryption?" narrative="This is a flag to tick the encryption tickbox for a queue." expr="[Expected IsEncrypted (3)]" />
+      <input type="text" name="Scheme Name" friendlyname="Scheme Name" narrative="This is the name of the scheme in which you wish to encrypt the queue with." expr="" />
+      <input type="flag" name="Set Active Queue" friendlyname="Set Active Queue" narrative="True or False, do you want to make this an active queue." expr="False" />
+      <input type="text" name="Assigned Process" friendlyname="Assigned Process" narrative="The name of the proccess you wish to assign to the active queue." expr="" />
+      <input type="text" name="Assigned Resource Group" friendlyname="Assigned Resource Group" narrative="The name of the resoruce group you want to assign to the active queue." expr="" />
+    </inputs>
+    <onsuccess>09de62b8-bb4f-4d30-bb9e-ba455dbcdf56</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Create Work Queue" />
+  </stage>
+  <stage stageid="dd12a104-4e33-422e-839b-2ec0cecb4110" name="Reset Counts" type="MultipleCalculation">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="525" w="90" h="30" />
+    <onsuccess>15c84214-2b4f-4c75-bffb-9022703d6c9c</onsuccess>
+    <steps>
+      <calculation expression="0" stage="Current Items Added" />
+      <calculation expression="0" stage="Current Items Completed" />
+      <calculation expression="0" stage="Current Items Exceptioned" />
+    </steps>
+  </stage>
+  <stage stageid="d6a987a4-0628-4abb-baf1-579910242031" name="Anchor28" type="Anchor">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="105" y="-90" w="10" h="10" />
+    <onsuccess>283eda22-3f52-46c1-9da8-a6466d5bda25</onsuccess>
+  </stage>
+  <stage stageid="95a79b4b-07a8-4175-80ea-25d5175378c8" name="Browse to Encryption Schemes" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-600" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Encryption Schemes&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>8ebdd8f8-142c-4770-b8b3-f4944f40091b</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="8ebdd8f8-142c-4770-b8b3-f4944f40091b" name="Create Encryption Scheme" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-555" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Scheme Name" friendlyname="Scheme Name" narrative="The name in which you want to call your encrpytion scheme." expr="[Scheme Name]" />
+      <input type="flag" name="Available?" friendlyname="Available?" narrative="This will tick a box that allows the encryption scheme to become available." expr="True" />
+      <input type="flag" name="Database?" friendlyname="Database?" narrative="Mark as true if you want to store the scheme on the database. Please note that this will default to true." expr="True" />
+      <input type="text" name="Method" friendlyname="Method" narrative="The encryption method used with the scheme." expr="&quot;AES-256 AesCryptoService (256 bit)&quot;" />
+    </inputs>
+    <onsuccess>696f4bec-4d7f-47ce-af9a-b525da9ddbd4</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Encryption Schemes - Create Encryption Scheme" />
+  </stage>
+  <stage stageid="12c06fb8-c8ae-4c08-83e9-e3f4cdbcbf95" name="Scheme Name" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-240" y="-120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Encryption Scheme (BP-1406)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="2041873a-bae6-4632-85f2-2fef1e98a8ab" name="Create Encryption Scheme" type="Block">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-630" w="150" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b59a1dd8-3a77-4105-8b30-ffc79020f434" name="Create Queues" type="Block">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-465" w="150" h="330" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+  </stage>
+  <stage stageid="15c84214-2b4f-4c75-bffb-9022703d6c9c" name="Anchor29" type="Anchor">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="105" y="525" w="10" h="10" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>d6a987a4-0628-4abb-baf1-579910242031</onsuccess>
+  </stage>
+  <stage stageid="be126bb3-384a-47c2-8b45-9e16fba5d2eb" name="Cleanup" type="SubSheetInfo">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="150" y="-120" w="150" h="90" />
+  </stage>
+  <stage stageid="00de690c-983f-4850-b9c9-17d5f569f3a0" name="Response Content" type="Data">
+    <display x="-240" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="53fbdcf9-bc1c-4a7d-ad8f-a482f7491078" name="HTTP Status Code" type="Data">
+    <display x="-240" y="-45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5eea0281-a0fb-45e7-b934-6508495cd6cf" name="Result Collection" type="Collection">
+    <display x="-240" y="15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="JSON:Array" type="collection">
+        <field name="id" type="text" />
+        <field name="name" type="text" />
+        <field name="status" type="flag" />
+        <field name="keyField" type="text" />
+        <field name="maxAttempts" type="number" />
+        <field name="isEncrypted" type="flag" />
+        <field name="encryptionKeyId" type="number" />
+        <field name="pendingItemCount" type="number" />
+        <field name="completedItemCount" type="number" />
+        <field name="exceptionedItemCount" type="number" />
+        <field name="totalItemCount" type="number" />
+        <field name="averageWorkTime" type="text" />
+        <field name="totalCaseDuration" type="text" />
+        <field name="processId" type="text" />
+        <field name="resourceGroupId" type="text" />
+        <field name="targetSessionCount" type="number" />
+        <field name="lockedItemCount" type="number" />
+        <field name="groupName" type="text" />
+        <field name="groupId" type="text" />
+      </field>
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="JSON:Array" type="collection" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="ccc957c8-f145-4ed6-bdff-63804bed1f43" name="API Response Data" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-315" y="-75" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3a9b03c7-2d4f-429f-a57d-818a3597773a" name="Cleanup Block" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-150" w="480" h="375" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ed75dfdf-67ad-47fd-a5a2-34de3d8f6b22" name="Cleanup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="255" w="300" h="30" />
+    <onsuccess>1ac14194-bc23-4eba-8d05-4f20c9bc9a9c</onsuccess>
+    <processid>86c68210-f036-4137-95d7-f70cc6db3783</processid>
+  </stage>
+  <stage stageid="2d38b051-1b94-4ee7-b515-1848c778048f" name="Pause (1 Second)" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="1" />
+    </inputs>
+    <onsuccess>07b21f95-80fe-4905-89f6-67267fc54891</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="9b7cb656-10a3-4e8a-8174-1c4d6dc743be" name="Pause (2 Seconds)" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="195" y="120" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="2" />
+    </inputs>
+    <onsuccess>f159cfd9-3d30-4151-ba51-e1b5404b9e54</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="34b9ddb6-8c39-412f-b5d4-43be9097a411" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-315" y="60" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4b28d2b6-e550-4eb5-bc24-a19c72604e56" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-240" y="90" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="11023205-eac8-4d11-9fd7-4efab2234d2b" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-240" y="120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c2c13b44-cae6-4e0d-bc3a-d0f8f652fed4" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="270" y="105" w="90" h="30" />
+    <onsuccess>9f044ac9-9da9-4522-a001-e6ccbc73efe1</onsuccess>
+  </stage>
+  <stage stageid="fa92fa3b-ad01-4038-96c1-377000f74faf" name="Get Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="270" y="60" w="90" h="30" />
+    <onsuccess>c2c13b44-cae6-4e0d-bc3a-d0f8f652fed4</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="1ac14194-bc23-4eba-8d05-4f20c9bc9a9c" name="Failed?" type="Decision">
+    <display x="45" y="300" w="150" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>1ebdc55d-f97f-4b58-ae2e-e00e40e01462</ontrue>
+    <onfalse>e85873f5-c2f6-4ad0-a169-e69be2ecc800</onfalse>
+  </stage>
+  <stage stageid="1ebdc55d-f97f-4b58-ae2e-e00e40e01462" name="RETHROW" type="Exception">
+    <display x="165" y="300" />
+    <exception localized="yes" type="Test Fail" detail="[Exception]" />
+  </stage>
+  <stage stageid="9f044ac9-9da9-4522-a001-e6ccbc73efe1" name="Anchor31" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="270" y="255" w="10" h="10" />
+    <onsuccess>ed75dfdf-67ad-47fd-a5a2-34de3d8f6b22</onsuccess>
+  </stage>
+  <stage stageid="d0caa9b7-11ad-47a9-90ea-f8c10c24a32b" name="Add to Cleanup" type="SubSheetInfo">
+    <subsheetid>cc63b4ab-15cd-4e6f-a366-a3167a4fa91c</subsheetid>
+    <display x="-120" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="ec54aa7a-3afd-4669-af4b-3b9747f0d047" name="Start" type="Start">
+    <subsheetid>cc63b4ab-15cd-4e6f-a366-a3167a4fa91c</subsheetid>
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="Item Name" narrative="The name of the item you want to clean up." stage="Item Name" />
+    </inputs>
+    <onsuccess>c3731248-ccec-470b-b343-d0975a8e577b</onsuccess>
+  </stage>
+  <stage stageid="66bf6301-e024-46e2-be09-6662fa73dd53" name="End" type="End">
+    <subsheetid>cc63b4ab-15cd-4e6f-a366-a3167a4fa91c</subsheetid>
+    <display x="15" y="30" />
+  </stage>
+  <stage stageid="2e7c1fa2-59f3-413a-96d7-66ca96d11cbe" name="Item Name" type="Data">
+    <subsheetid>cc63b4ab-15cd-4e6f-a366-a3167a4fa91c</subsheetid>
+    <display x="-120" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b3a6c719-236b-4090-bfb0-444748c67e34" name="Input Variables" type="Block">
+    <subsheetid>cc63b4ab-15cd-4e6f-a366-a3167a4fa91c</subsheetid>
+    <display x="-195" y="-15" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c3731248-ccec-470b-b343-d0975a8e577b" name="Add Row" type="Action">
+    <subsheetid>cc63b4ab-15cd-4e6f-a366-a3167a4fa91c</subsheetid>
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to act upon" expr="&quot;CleanUp Collection&quot;" />
+    </inputs>
+    <onsuccess>d6d3bca6-37fe-43e7-9a6a-48059ac4f906</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="2647d19c-537e-43cd-92ec-527a69ca305a" name="CleanUp Collection" type="Collection">
+    <subsheetid>cc63b4ab-15cd-4e6f-a366-a3167a4fa91c</subsheetid>
+    <display x="-120" y="90" w="120" h="30" />
+    <datatype>collection</datatype>
+    <collectioninfo>
+      <field name="Item Name" type="text" description="The name of the item that needs cleaning up." />
+    </collectioninfo>
+    <noalwaysinit />
+  </stage>
+  <stage stageid="968551c1-3af1-44ea-a0e8-f39933cdb728" name="Local Variables" type="Block">
+    <subsheetid>cc63b4ab-15cd-4e6f-a366-a3167a4fa91c</subsheetid>
+    <display x="-195" y="60" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d6d3bca6-37fe-43e7-9a6a-48059ac4f906" name="Add To Row" type="Calculation">
+    <subsheetid>cc63b4ab-15cd-4e6f-a366-a3167a4fa91c</subsheetid>
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>66bf6301-e024-46e2-be09-6662fa73dd53</onsuccess>
+    <calculation expression="[Item Name]" stage="CleanUp Collection.Item Name" />
+  </stage>
+  <stage stageid="bb02b3db-b90e-4023-b6cd-c95f268dd201" name="Start" type="Start">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="285" y="-150" />
+    <onsuccess>4f109f33-6345-4696-af97-7258a6d53f06</onsuccess>
+  </stage>
+  <stage stageid="964530ec-2719-4bac-9fc6-5ca741df631d" name="To Clean" type="LoopStart">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="285" y="-60" w="90" h="30" />
+    <onsuccess>d353ee09-009a-49b3-a634-bd699182d928</onsuccess>
+    <groupid>bd5bd337-4424-4179-a44d-4c48da756b6c</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Reversed CleanUp</loopdata>
+  </stage>
+  <stage stageid="07d59d4b-d6ec-417e-b9c9-38ad777698c7" name="To Clean" type="LoopEnd">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="285" y="630" w="90" h="30" />
+    <onsuccess>df759bdb-c7cd-498e-9b37-8c4c3a8fa627</onsuccess>
+    <groupid>bd5bd337-4424-4179-a44d-4c48da756b6c</groupid>
+  </stage>
+  <stage stageid="d353ee09-009a-49b3-a634-bd699182d928" name="Which Clean Up" type="ChoiceStart">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="285" y="-15" w="90" h="30" />
+    <groupid>edbe5d1c-d361-447d-b78b-7c4fa7fad056</groupid>
+    <choices>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Blue Prism&quot;">
+        <name>Blue Prism</name>
+        <distance>30</distance>
+        <ontrue>f421d0b2-e72c-4d11-8af9-4706f1381f39</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Encryption Scheme&quot;">
+        <name>Encryption Scheme</name>
+        <distance>75</distance>
+        <ontrue>f537a423-2d26-4baf-8fb2-dd4703a9a47e</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Queue 1&quot;">
+        <name>Queue 1</name>
+        <distance>120</distance>
+        <ontrue>87d6c8e9-a596-4421-b659-51aef32e0631</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Queue 2&quot;">
+        <name>Queue 2</name>
+        <distance>165</distance>
+        <ontrue>658f60c1-d291-4a36-ab55-e386dc8a1596</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Queue 3&quot;">
+        <name>Queue 3</name>
+        <distance>210</distance>
+        <ontrue>fbc2b371-c32f-42ba-a94a-f5903e496cd3</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Test Queue 4 (BP-1406)&quot;">
+        <name>Test Queue 4 (BP-1406)</name>
+        <distance>255</distance>
+        <ontrue>2f3a6d5b-b6c1-4c5d-8005-157877fbae75</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Test Queue 5 (BP-1406)&quot;">
+        <name>Test Queue 5 (BP-1406)</name>
+        <distance>300</distance>
+        <ontrue>7f2f3155-329b-40a7-950d-dacd34fbe00f</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Test Queue 6 (BP-1406)&quot;">
+        <name>Test Queue 6 (BP-1406)</name>
+        <distance>345</distance>
+        <ontrue>673e037b-6d7c-430e-90e7-4d3d62302e2e</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Test Queue 7 (BP-1406)&quot;">
+        <name>Test Queue 7 (BP-1406)</name>
+        <distance>390</distance>
+        <ontrue>f841b9e2-de87-410f-b531-61a79ba5f286</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Test Queue 8 (BP-1406)&quot;">
+        <name>Test Queue 8 (BP-1406)</name>
+        <distance>435</distance>
+        <ontrue>79e4db2e-00c5-4091-ba5f-7f612c11a1a6</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Test Queue 9 (BP-1406)&quot;">
+        <name>Test Queue 9 (BP-1406)</name>
+        <distance>480</distance>
+        <ontrue>37b9389b-c5af-4917-bfe1-2a40fc295f11</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Test Queue 10 (BP-1406)&quot;">
+        <name>Test Queue 10 (BP-1406)</name>
+        <distance>525</distance>
+        <ontrue>c7298008-a91e-4a17-ac44-1d95540085c2</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Test Queue 11 (BP-1406)&quot;">
+        <name>Test Queue 11 (BP-1406)</name>
+        <distance>570</distance>
+        <ontrue>70d19723-b208-404a-96dc-722bf187124d</ontrue>
+      </choice>
+    </choices>
+  </stage>
+  <stage stageid="6d7fa260-b134-42a3-b574-831856b366a7" name="Otherwise" type="ChoiceEnd">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="285" y="585" w="90" h="30" />
+    <onsuccess>987b14e1-cb18-4bfd-9fba-ebc0a0ef212d</onsuccess>
+    <groupid>edbe5d1c-d361-447d-b78b-7c4fa7fad056</groupid>
+  </stage>
+  <stage stageid="987b14e1-cb18-4bfd-9fba-ebc0a0ef212d" name="FAIL" type="Exception">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="360" y="585" w="30" h="30" />
+    <exception type="" detail="&quot;You have entered a clean up item the choice doesn't recognise.&quot;" />
+  </stage>
+  <stage stageid="4f109f33-6345-4696-af97-7258a6d53f06" name="Reverse Collection" type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="285" y="-105" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="Collection" narrative="The collection to be reversed." expr="[CleanUp Collection]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Reversed Collection" narrative="The reversed collection." stage="Reversed CleanUp" />
+    </outputs>
+    <onsuccess>964530ec-2719-4bac-9fc6-5ca741df631d</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Reverse Collection" />
+  </stage>
+  <stage stageid="c663609e-7f6f-4879-91c5-d0ca261f6df1" name="Reversed CleanUp" type="Collection">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="150" y="-30" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="527959ca-c647-4d5e-9ace-5d87c0d401ef" name="Local Variables" type="Block">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="75" y="-60" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="dc358008-8b20-4a1f-8cf1-139d6757a0a3" name="Anchor5" type="Anchor">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="810" y="630" w="10" h="10" />
+    <onsuccess>07d59d4b-d6ec-417e-b9c9-38ad777698c7</onsuccess>
+  </stage>
+  <stage stageid="25b0f66d-0d20-42af-b1e9-b43370c8ffaa" name="Anchor4" type="Anchor">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="810" y="60" w="10" h="10" />
+    <onsuccess>9c339755-ecde-45b4-87ce-0cfbec912fcb</onsuccess>
+  </stage>
+  <stage stageid="9c339755-ecde-45b4-87ce-0cfbec912fcb" name="Anchor4" type="Anchor">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="810" y="105" w="10" h="10" />
+    <onsuccess>e25f0ffe-f99d-488e-9384-4e7ea7168e6b</onsuccess>
+  </stage>
+  <stage stageid="11c98a38-4dcd-45d6-aec4-0d40f31071cc" name="Anchor4" type="Anchor">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="810" y="195" w="10" h="10" />
+    <onsuccess>e4e45b2d-d264-4a93-9e37-4e7dc9c8eafe</onsuccess>
+  </stage>
+  <stage stageid="1645368e-6e1a-4415-80c1-b7de8da384bf" name="Anchor6" type="Anchor">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="810" y="555" w="10" h="10" />
+    <onsuccess>dc358008-8b20-4a1f-8cf1-139d6757a0a3</onsuccess>
+  </stage>
+  <stage stageid="573da9ad-8f1f-47da-aaf7-452e48665923" name="Terminate" type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="630" y="15" w="90" h="30" />
+    <onsuccess>2c459cc4-9cb6-4ae9-a112-30b4bbcec180</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="f421d0b2-e72c-4d11-8af9-4706f1381f39" name="Close all child windows" type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="525" y="15" w="90" h="30" />
+    <onsuccess>573da9ad-8f1f-47da-aaf7-452e48665923</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="2c459cc4-9cb6-4ae9-a112-30b4bbcec180" name="Anchor9" type="Anchor">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="810" y="15" w="10" h="10" />
+    <onsuccess>25b0f66d-0d20-42af-b1e9-b43370c8ffaa</onsuccess>
+  </stage>
+  <stage stageid="df759bdb-c7cd-498e-9b37-8c4c3a8fa627" name="End1" type="End">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="285" y="675" />
+  </stage>
+  <stage stageid="ba991f70-14ee-4160-9e3a-f5a75a45b330" name="Resume2" type="Resume">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit />
+    <display x="195" y="675" />
+    <onsuccess>df759bdb-c7cd-498e-9b37-8c4c3a8fa627</onsuccess>
+  </stage>
+  <stage stageid="fbc2b371-c32f-42ba-a94a-f5903e496cd3" name="Destroy Queue (3)" type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="735" y="195" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to delete" expr="[Expected Queue Name (3)]" />
+    </inputs>
+    <onsuccess>11c98a38-4dcd-45d6-aec4-0d40f31071cc</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+  <stage stageid="696f4bec-4d7f-47ce-af9a-b525da9ddbd4" name="Add to Cleanup (Encryption Scheme)" type="SubSheet">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-510" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;Encryption Scheme&quot;" />
+    </inputs>
+    <onsuccess>23bcc485-b52d-4826-ba0c-1e06b12ada07</onsuccess>
+    <processid>cc63b4ab-15cd-4e6f-a366-a3167a4fa91c</processid>
+  </stage>
+  <stage stageid="8b217408-4315-4a55-98aa-fda4475a32f6" name="Add to Cleanup (Queue 1)" type="SubSheet">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-345" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;Queue 1&quot;" />
+    </inputs>
+    <onsuccess>3e9fde55-cc60-4f74-a083-eb968057d326</onsuccess>
+    <processid>cc63b4ab-15cd-4e6f-a366-a3167a4fa91c</processid>
+  </stage>
+  <stage stageid="acbaa9da-5516-487f-92b3-b59d14a8024a" name="Add to Cleanup (Queue 2)" type="SubSheet">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;Queue 2&quot;" />
+    </inputs>
+    <onsuccess>c9e5808c-185b-4fc1-aedb-c909d703685b</onsuccess>
+    <processid>cc63b4ab-15cd-4e6f-a366-a3167a4fa91c</processid>
+  </stage>
+  <stage stageid="09de62b8-bb4f-4d30-bb9e-ba455dbcdf56" name="Add to Cleanup (Queue 3)" type="SubSheet">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;Queue 3&quot;" />
+    </inputs>
+    <onsuccess>79aba039-35ca-45a4-b754-faedb635b195</onsuccess>
+    <processid>cc63b4ab-15cd-4e6f-a366-a3167a4fa91c</processid>
+  </stage>
+  <stage stageid="830f2f0f-8ab3-4fd9-ba25-3a6799e99121" name="Pause (30 Seconds)" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="195" y="525" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="30" />
+    </inputs>
+    <onsuccess>ca07c9d5-ac08-4028-829c-1db1613ee08c</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="b57519d9-1e7c-436a-9bea-7d354846977e" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="270" y="15" w="90" h="30" />
+    <onsuccess>fa92fa3b-ad01-4038-96c1-377000f74faf</onsuccess>
+  </stage>
+  <stage stageid="d6365216-7a68-4b7c-adc2-47ba6f8e418d" name="itemsPerPage positive scenarios" type="SubSheetInfo">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <narrative>There are 4 workqueues  in total present upon the system. ensure that when appling sorting to the GET function, the results are as expected</narrative>
+    <display x="-195" y="-255" w="150" h="90" />
+  </stage>
+  <stage stageid="98021cf8-af85-4d2c-adb2-862d22d42b1d" name="itemsPerPage negative scenarios" type="SubSheetInfo">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="-195" y="-90" w="150" h="90" />
+  </stage>
+  <stage stageid="ab4bbc7e-ebcd-40a6-9f58-a15c38aa91c6" name="End" type="End">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="375" y="1080" />
+  </stage>
+  <stage stageid="196b140b-d259-4eb7-9026-cdd5ad542cb4" name="When:" type="Note">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <narrative>WHEN The input parameter of pageNumber is set to a value of -3
+THEN A response code of 400 should be returned along with an appropriate user error message</narrative>
+    <display x="15" y="-45" w="240" h="60" />
+    <onsuccess>02584608-0c2b-4f92-a661-e925b1726fbc</onsuccess>
+  </stage>
+  <stage stageid="02584608-0c2b-4f92-a661-e925b1726fbc" name="GET Work Queues" type="Action">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="text" name="sortBy" friendlyname="sortBy" expr="" />
+      <input type="number" name="pageNumber" friendlyname="pageNumber" expr="&quot;-3&quot;" />
+      <input type="number" name="itemsPerPage" friendlyname="itemsPerPage" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+      <output type="text" name="Queue ID" friendlyname="Queue ID" stage="" />
+      <output type="text" name="Queue Name" friendlyname="Queue Name" stage="" />
+      <output type="text" name="isRunning" friendlyname="isRunning" stage="" />
+      <output type="text" name="keyField" friendlyname="keyField" stage="" />
+      <output type="number" name="maxAttempts" friendlyname="maxAttempts" stage="" />
+      <output type="flag" name="isEncrypted" friendlyname="isEncrypted" stage="" />
+      <output type="number" name="encryptionKeyId" friendlyname="encryptionKeyId" stage="" />
+      <output type="number" name="PendingItemCount" friendlyname="PendingItemCount" stage="" />
+      <output type="number" name="completedItemCount" friendlyname="completedItemCount" stage="" />
+      <output type="number" name="exceptionedItemCount" friendlyname="exceptionedItemCount" stage="" />
+      <output type="number" name="totalItemCount" friendlyname="totalItemCount" stage="" />
+      <output type="timespan" name="averageWorkTime" friendlyname="averageWorkTime" stage="" />
+      <output type="timespan" name="totalCaseDuration" friendlyname="totalCaseDuration" stage="" />
+      <output type="time" name="processId" friendlyname="processId" stage="" />
+      <output type="text" name="resourceGroupId" friendlyname="resourceGroupId" stage="" />
+      <output type="number" name="targetSessionCount" friendlyname="targetSessionCount" stage="" />
+      <output type="text" name="Request Data" friendlyname="Request Data" stage="" />
+    </outputs>
+    <onsuccess>18aaa693-3dbc-4c44-a527-481137f0b852</onsuccess>
+    <resource object="Blue Prism - API - Work Queues" action="GET Work Queues" />
+  </stage>
+  <stage stageid="3bc8e87c-601f-421a-9aa4-ab8ea76d8d80" name="When:" type="Note">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <narrative>WHEN The input parameter of pageNumber is set to a value of 3.5
+THEN A response code of 400 should be returned along with an appropriate user error message</narrative>
+    <display x="15" y="240" w="240" h="60" />
+    <onsuccess>24df133c-62dc-428e-ab3d-4efed993a503</onsuccess>
+  </stage>
+  <stage stageid="24df133c-62dc-428e-ab3d-4efed993a503" name="GET Work Queues" type="Action">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="315" w="90" h="30" />
+    <inputs>
+      <input type="text" name="sortBy" friendlyname="sortBy" expr="" />
+      <input type="text" name="sortOrder" friendlyname="sortOrder" expr="" />
+      <input type="number" name="pageNumber" friendlyname="pageNumber" expr="&quot;3.5&quot;" />
+      <input type="number" name="itemsPerPage" friendlyname="itemsPerPage" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+      <output type="text" name="Queue ID" friendlyname="Queue ID" stage="" />
+      <output type="text" name="Queue Name" friendlyname="Queue Name" stage="" />
+      <output type="text" name="isRunning" friendlyname="isRunning" stage="" />
+      <output type="text" name="keyField" friendlyname="keyField" stage="" />
+      <output type="number" name="maxAttempts" friendlyname="maxAttempts" stage="" />
+      <output type="flag" name="isEncrypted" friendlyname="isEncrypted" stage="" />
+      <output type="number" name="encryptionKeyId" friendlyname="encryptionKeyId" stage="" />
+      <output type="number" name="PendingItemCount" friendlyname="PendingItemCount" stage="" />
+      <output type="number" name="completedItemCount" friendlyname="completedItemCount" stage="" />
+      <output type="number" name="exceptionedItemCount" friendlyname="exceptionedItemCount" stage="" />
+      <output type="number" name="totalItemCount" friendlyname="totalItemCount" stage="" />
+      <output type="timespan" name="averageWorkTime" friendlyname="averageWorkTime" stage="" />
+      <output type="timespan" name="totalCaseDuration" friendlyname="totalCaseDuration" stage="" />
+      <output type="time" name="processId" friendlyname="processId" stage="" />
+      <output type="text" name="resourceGroupId" friendlyname="resourceGroupId" stage="" />
+      <output type="number" name="targetSessionCount" friendlyname="targetSessionCount" stage="" />
+      <output type="text" name="Request Data" friendlyname="Request Data" stage="" />
+    </outputs>
+    <onsuccess>afefba85-3d76-429f-b0ae-fca18b8e41eb</onsuccess>
+    <resource object="Blue Prism - API - Work Queues" action="GET Work Queues" />
+  </stage>
+  <stage stageid="8c32d0af-9b40-4b97-a0a1-1a2ee4b0762a" name="When:" type="Note">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <narrative>WHEN The input parameter of pageNumber is set to a value of 0
+THEN A response code of 400 should be returned along with an appropriate user error message</narrative>
+    <display x="15" y="525" w="240" h="60" />
+    <onsuccess>e2ed2c13-1302-47b9-9ea1-bae1e9a319bb</onsuccess>
+  </stage>
+  <stage stageid="e2ed2c13-1302-47b9-9ea1-bae1e9a319bb" name="GET Work Queues" type="Action">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="600" w="90" h="30" />
+    <inputs>
+      <input type="text" name="sortBy" friendlyname="sortBy" expr="" />
+      <input type="text" name="sortOrder" friendlyname="sortOrder" expr="" />
+      <input type="number" name="pageNumber" friendlyname="pageNumber" expr="&quot;0&quot;" />
+      <input type="number" name="itemsPerPage" friendlyname="itemsPerPage" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+      <output type="text" name="Queue ID" friendlyname="Queue ID" stage="" />
+      <output type="text" name="Queue Name" friendlyname="Queue Name" stage="" />
+      <output type="text" name="isRunning" friendlyname="isRunning" stage="" />
+      <output type="text" name="keyField" friendlyname="keyField" stage="" />
+      <output type="number" name="maxAttempts" friendlyname="maxAttempts" stage="" />
+      <output type="flag" name="isEncrypted" friendlyname="isEncrypted" stage="" />
+      <output type="number" name="encryptionKeyId" friendlyname="encryptionKeyId" stage="" />
+      <output type="number" name="PendingItemCount" friendlyname="PendingItemCount" stage="" />
+      <output type="number" name="completedItemCount" friendlyname="completedItemCount" stage="" />
+      <output type="number" name="exceptionedItemCount" friendlyname="exceptionedItemCount" stage="" />
+      <output type="number" name="totalItemCount" friendlyname="totalItemCount" stage="" />
+      <output type="timespan" name="averageWorkTime" friendlyname="averageWorkTime" stage="" />
+      <output type="timespan" name="totalCaseDuration" friendlyname="totalCaseDuration" stage="" />
+      <output type="time" name="processId" friendlyname="processId" stage="" />
+      <output type="text" name="resourceGroupId" friendlyname="resourceGroupId" stage="" />
+      <output type="number" name="targetSessionCount" friendlyname="targetSessionCount" stage="" />
+      <output type="text" name="Request Data" friendlyname="Request Data" stage="" />
+    </outputs>
+    <onsuccess>dd9e1c5f-00df-419b-a04c-31dbd76b87b2</onsuccess>
+    <resource object="Blue Prism - API - Work Queues" action="GET Work Queues" />
+  </stage>
+  <stage stageid="79fd8de0-db31-4218-85e3-51bd12feff6a" name="When:" type="Note">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <narrative>WHEN The input parameter of pageNumber is set to a value of 'apple'
+THEN A response code of 400 should be returned along with an appropriate user error message</narrative>
+    <display x="15" y="810" w="240" h="60" />
+    <onsuccess>13f07b00-533a-46c3-a109-8e04f92c9148</onsuccess>
+  </stage>
+  <stage stageid="13f07b00-533a-46c3-a109-8e04f92c9148" name="GET Work Queues" type="Action">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="885" w="90" h="30" />
+    <inputs>
+      <input type="text" name="sortBy" friendlyname="sortBy" expr="" />
+      <input type="text" name="sortOrder" friendlyname="sortOrder" expr="" />
+      <input type="number" name="pageNumber" friendlyname="pageNumber" expr="&quot;apple&quot;" />
+      <input type="number" name="itemsPerPage" friendlyname="itemsPerPage" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+      <output type="text" name="Queue ID" friendlyname="Queue ID" stage="" />
+      <output type="text" name="Queue Name" friendlyname="Queue Name" stage="" />
+      <output type="text" name="isRunning" friendlyname="isRunning" stage="" />
+      <output type="text" name="keyField" friendlyname="keyField" stage="" />
+      <output type="number" name="maxAttempts" friendlyname="maxAttempts" stage="" />
+      <output type="flag" name="isEncrypted" friendlyname="isEncrypted" stage="" />
+      <output type="number" name="encryptionKeyId" friendlyname="encryptionKeyId" stage="" />
+      <output type="number" name="PendingItemCount" friendlyname="PendingItemCount" stage="" />
+      <output type="number" name="completedItemCount" friendlyname="completedItemCount" stage="" />
+      <output type="number" name="exceptionedItemCount" friendlyname="exceptionedItemCount" stage="" />
+      <output type="number" name="totalItemCount" friendlyname="totalItemCount" stage="" />
+      <output type="timespan" name="averageWorkTime" friendlyname="averageWorkTime" stage="" />
+      <output type="timespan" name="totalCaseDuration" friendlyname="totalCaseDuration" stage="" />
+      <output type="time" name="processId" friendlyname="processId" stage="" />
+      <output type="text" name="resourceGroupId" friendlyname="resourceGroupId" stage="" />
+      <output type="number" name="targetSessionCount" friendlyname="targetSessionCount" stage="" />
+      <output type="text" name="Request Data" friendlyname="Request Data" stage="" />
+    </outputs>
+    <onsuccess>31a62c97-9c85-4210-8292-61d2edbe9edb</onsuccess>
+    <resource object="Blue Prism - API - Work Queues" action="GET Work Queues" />
+  </stage>
+  <stage stageid="91d858f8-b01a-4d3b-91fc-8740fd61b770" name="When:" type="Note">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <narrative>WHEN The input parameter of itemsPerPage is set to a value of -3
+THEN A response code of 400 should be returned along with an appropriate user error message</narrative>
+    <display x="375" y="-45" w="240" h="60" />
+    <onsuccess>2ca0d70b-d3b1-45ce-8a6f-bbaabcd2ffeb</onsuccess>
+  </stage>
+  <stage stageid="2ca0d70b-d3b1-45ce-8a6f-bbaabcd2ffeb" name="GET Work Queues" type="Action">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="375" y="30" w="90" h="30" />
+    <inputs>
+      <input type="text" name="sortBy" friendlyname="sortBy" expr="" />
+      <input type="text" name="sortOrder" friendlyname="sortOrder" expr="" />
+      <input type="number" name="pageNumber" friendlyname="pageNumber" expr="" />
+      <input type="number" name="itemsPerPage" friendlyname="itemsPerPage" expr="&quot;-3&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+      <output type="text" name="Queue ID" friendlyname="Queue ID" stage="" />
+      <output type="text" name="Queue Name" friendlyname="Queue Name" stage="" />
+      <output type="text" name="isRunning" friendlyname="isRunning" stage="" />
+      <output type="text" name="keyField" friendlyname="keyField" stage="" />
+      <output type="number" name="maxAttempts" friendlyname="maxAttempts" stage="" />
+      <output type="flag" name="isEncrypted" friendlyname="isEncrypted" stage="" />
+      <output type="number" name="encryptionKeyId" friendlyname="encryptionKeyId" stage="" />
+      <output type="number" name="PendingItemCount" friendlyname="PendingItemCount" stage="" />
+      <output type="number" name="completedItemCount" friendlyname="completedItemCount" stage="" />
+      <output type="number" name="exceptionedItemCount" friendlyname="exceptionedItemCount" stage="" />
+      <output type="number" name="totalItemCount" friendlyname="totalItemCount" stage="" />
+      <output type="timespan" name="averageWorkTime" friendlyname="averageWorkTime" stage="" />
+      <output type="timespan" name="totalCaseDuration" friendlyname="totalCaseDuration" stage="" />
+      <output type="time" name="processId" friendlyname="processId" stage="" />
+      <output type="text" name="resourceGroupId" friendlyname="resourceGroupId" stage="" />
+      <output type="number" name="targetSessionCount" friendlyname="targetSessionCount" stage="" />
+      <output type="text" name="Request Data" friendlyname="Request Data" stage="" />
+    </outputs>
+    <onsuccess>fcfaaab7-d20b-4cef-b3e9-ce31d2f41dbc</onsuccess>
+    <resource object="Blue Prism - API - Work Queues" action="GET Work Queues" />
+  </stage>
+  <stage stageid="b4015c3b-5b33-4848-a37d-46d5bd66233e" name="When:" type="Note">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <narrative>WHEN The input parameter of itemsPerPage is set to a value of 3.5
+THEN A response code of 400 should be returned along with an appropriate user error message</narrative>
+    <display x="375" y="240" w="240" h="60" />
+    <onsuccess>2ed41f85-3f8f-4a33-9a74-3a5bd2901127</onsuccess>
+  </stage>
+  <stage stageid="2ed41f85-3f8f-4a33-9a74-3a5bd2901127" name="GET Work Queues" type="Action">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="375" y="315" w="90" h="30" />
+    <inputs>
+      <input type="text" name="sortBy" friendlyname="sortBy" expr="" />
+      <input type="text" name="sortOrder" friendlyname="sortOrder" expr="" />
+      <input type="number" name="pageNumber" friendlyname="pageNumber" expr="" />
+      <input type="number" name="itemsPerPage" friendlyname="itemsPerPage" expr="&quot;3.5&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+      <output type="text" name="Queue ID" friendlyname="Queue ID" stage="" />
+      <output type="text" name="Queue Name" friendlyname="Queue Name" stage="" />
+      <output type="text" name="isRunning" friendlyname="isRunning" stage="" />
+      <output type="text" name="keyField" friendlyname="keyField" stage="" />
+      <output type="number" name="maxAttempts" friendlyname="maxAttempts" stage="" />
+      <output type="flag" name="isEncrypted" friendlyname="isEncrypted" stage="" />
+      <output type="number" name="encryptionKeyId" friendlyname="encryptionKeyId" stage="" />
+      <output type="number" name="PendingItemCount" friendlyname="PendingItemCount" stage="" />
+      <output type="number" name="completedItemCount" friendlyname="completedItemCount" stage="" />
+      <output type="number" name="exceptionedItemCount" friendlyname="exceptionedItemCount" stage="" />
+      <output type="number" name="totalItemCount" friendlyname="totalItemCount" stage="" />
+      <output type="timespan" name="averageWorkTime" friendlyname="averageWorkTime" stage="" />
+      <output type="timespan" name="totalCaseDuration" friendlyname="totalCaseDuration" stage="" />
+      <output type="time" name="processId" friendlyname="processId" stage="" />
+      <output type="text" name="resourceGroupId" friendlyname="resourceGroupId" stage="" />
+      <output type="number" name="targetSessionCount" friendlyname="targetSessionCount" stage="" />
+      <output type="text" name="Request Data" friendlyname="Request Data" stage="" />
+    </outputs>
+    <onsuccess>8432aa5e-297f-4faf-abf9-20d4a5af1385</onsuccess>
+    <resource object="Blue Prism - API - Work Queues" action="GET Work Queues" />
+  </stage>
+  <stage stageid="bcfb1fd6-e421-4ff9-ac90-a6ab7de25295" name="When:" type="Note">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <narrative>WHEN The input parameter of itemsPerPage is set to a value of 0
+THEN A response code of 400 should be returned along with an appropriate user error message</narrative>
+    <display x="375" y="525" w="240" h="60" />
+    <onsuccess>05fab54c-d921-4660-9368-8affe097f4b6</onsuccess>
+  </stage>
+  <stage stageid="05fab54c-d921-4660-9368-8affe097f4b6" name="GET Work Queues" type="Action">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="375" y="600" w="90" h="30" />
+    <inputs>
+      <input type="text" name="sortBy" friendlyname="sortBy" expr="" />
+      <input type="text" name="sortOrder" friendlyname="sortOrder" expr="" />
+      <input type="number" name="pageNumber" friendlyname="pageNumber" expr="" />
+      <input type="number" name="itemsPerPage" friendlyname="itemsPerPage" expr="&quot;0&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+      <output type="text" name="Queue ID" friendlyname="Queue ID" stage="" />
+      <output type="text" name="Queue Name" friendlyname="Queue Name" stage="" />
+      <output type="text" name="isRunning" friendlyname="isRunning" stage="" />
+      <output type="text" name="keyField" friendlyname="keyField" stage="" />
+      <output type="number" name="maxAttempts" friendlyname="maxAttempts" stage="" />
+      <output type="flag" name="isEncrypted" friendlyname="isEncrypted" stage="" />
+      <output type="number" name="encryptionKeyId" friendlyname="encryptionKeyId" stage="" />
+      <output type="number" name="PendingItemCount" friendlyname="PendingItemCount" stage="" />
+      <output type="number" name="completedItemCount" friendlyname="completedItemCount" stage="" />
+      <output type="number" name="exceptionedItemCount" friendlyname="exceptionedItemCount" stage="" />
+      <output type="number" name="totalItemCount" friendlyname="totalItemCount" stage="" />
+      <output type="timespan" name="averageWorkTime" friendlyname="averageWorkTime" stage="" />
+      <output type="timespan" name="totalCaseDuration" friendlyname="totalCaseDuration" stage="" />
+      <output type="time" name="processId" friendlyname="processId" stage="" />
+      <output type="text" name="resourceGroupId" friendlyname="resourceGroupId" stage="" />
+      <output type="number" name="targetSessionCount" friendlyname="targetSessionCount" stage="" />
+      <output type="text" name="Request Data" friendlyname="Request Data" stage="" />
+    </outputs>
+    <onsuccess>7aba66fb-37f1-4216-ba46-693803561d0c</onsuccess>
+    <resource object="Blue Prism - API - Work Queues" action="GET Work Queues" />
+  </stage>
+  <stage stageid="bf4f5a42-6484-4b4b-bd4d-69918de5c02e" name="When:" type="Note">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <narrative>WHEN The input parameter of itemsPerPage is set to a value of 2,000,000,000
+THEN A response code of 400 should be returned along with an appropriate user error message</narrative>
+    <display x="375" y="810" w="240" h="60" />
+    <onsuccess>72791c95-976f-4c1f-8039-a21500b5e62d</onsuccess>
+  </stage>
+  <stage stageid="72791c95-976f-4c1f-8039-a21500b5e62d" name="GET Work Queues" type="Action">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="375" y="885" w="90" h="30" />
+    <inputs>
+      <input type="text" name="sortBy" friendlyname="sortBy" expr="" />
+      <input type="text" name="sortOrder" friendlyname="sortOrder" expr="" />
+      <input type="number" name="pageNumber" friendlyname="pageNumber" expr="" />
+      <input type="number" name="itemsPerPage" friendlyname="itemsPerPage" expr="&quot;2000000000&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+      <output type="text" name="Queue ID" friendlyname="Queue ID" stage="" />
+      <output type="text" name="Queue Name" friendlyname="Queue Name" stage="" />
+      <output type="text" name="isRunning" friendlyname="isRunning" stage="" />
+      <output type="text" name="keyField" friendlyname="keyField" stage="" />
+      <output type="number" name="maxAttempts" friendlyname="maxAttempts" stage="" />
+      <output type="flag" name="isEncrypted" friendlyname="isEncrypted" stage="" />
+      <output type="number" name="encryptionKeyId" friendlyname="encryptionKeyId" stage="" />
+      <output type="number" name="PendingItemCount" friendlyname="PendingItemCount" stage="" />
+      <output type="number" name="completedItemCount" friendlyname="completedItemCount" stage="" />
+      <output type="number" name="exceptionedItemCount" friendlyname="exceptionedItemCount" stage="" />
+      <output type="number" name="totalItemCount" friendlyname="totalItemCount" stage="" />
+      <output type="timespan" name="averageWorkTime" friendlyname="averageWorkTime" stage="" />
+      <output type="timespan" name="totalCaseDuration" friendlyname="totalCaseDuration" stage="" />
+      <output type="time" name="processId" friendlyname="processId" stage="" />
+      <output type="text" name="resourceGroupId" friendlyname="resourceGroupId" stage="" />
+      <output type="number" name="targetSessionCount" friendlyname="targetSessionCount" stage="" />
+      <output type="text" name="Request Data" friendlyname="Request Data" stage="" />
+    </outputs>
+    <onsuccess>3c7ca2ca-8fd4-48ca-b508-9cf01acbbb45</onsuccess>
+    <resource object="Blue Prism - API - Work Queues" action="GET Work Queues" />
+  </stage>
+  <stage stageid="3cf1d60c-5ad5-47dd-8264-a6bf9deeda2f" name="itemsPerPage negative scenarios" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="-45" w="360" h="30" />
+    <onsuccess>3dc21b95-0b51-4a26-8c17-e7be3509dcb7</onsuccess>
+    <processid>5367a450-3436-4671-8a0d-5d5a81de521d</processid>
+  </stage>
+  <stage stageid="64c45f08-f0c7-4f2b-8e95-90693fe6e2c4" name="Note1" type="Note">
+    <narrative>GIVEN I push a GET workqueues request 
+WHEN I supply invalid itemsPerPage data
+THEN the appropriate response is returned</narrative>
+    <display x="45" y="-105" w="360" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>3cf1d60c-5ad5-47dd-8264-a6bf9deeda2f</onsuccess>
+  </stage>
+  <stage stageid="85f9685f-9b70-4ffa-9ffa-c01870f2a255" name="Resume1" type="Resume">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit />
+    <display x="15" y="165" w="90" h="30" />
+    <onsuccess>3bc8e87c-601f-421a-9aa4-ab8ea76d8d80</onsuccess>
+  </stage>
+  <stage stageid="e497cfac-6dac-4dc2-8fb4-8c12276db58e" name="Negative pageNumber value" type="Block">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="0" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC00" />
+  </stage>
+  <stage stageid="e5e1cadc-56ab-4529-ace0-f5fa6214f2bb" name="Recover3" type="Recover">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit />
+    <display x="15" y="360" w="90" h="30" />
+    <onsuccess>7b74276b-1ea6-49c1-8f00-cfe9ad056b7e</onsuccess>
+  </stage>
+  <stage stageid="56cf16c3-1ef0-4774-9a37-92bd70a6714a" name="Resume3" type="Resume">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit />
+    <display x="15" y="450" w="90" h="30" />
+    <onsuccess>8c32d0af-9b40-4b97-a0a1-1a2ee4b0762a</onsuccess>
+  </stage>
+  <stage stageid="7e962423-4097-4b4a-affd-e26307cd96ff" name="Decimal pageNumber value" type="Block">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="285" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC00" />
+  </stage>
+  <stage stageid="99c5b337-dd33-42e0-89d1-7906a067f35a" name="Resume4" type="Resume">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit />
+    <display x="15" y="735" w="90" h="30" />
+    <onsuccess>79fd8de0-db31-4218-85e3-51bd12feff6a</onsuccess>
+  </stage>
+  <stage stageid="33cbd1e2-85db-4d3f-a2d0-d31fb478a1b8" name="pageNumber value of 0" type="Block">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="570" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC00" />
+  </stage>
+  <stage stageid="36a8a275-2d8d-4322-941e-4249e9b608eb" name="Resume5" type="Resume">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit />
+    <display x="15" y="1020" w="90" h="30" />
+  </stage>
+  <stage stageid="7d8621c4-8d53-48bc-9214-f7004b543b53" name="pageNumber value string type" type="Block">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="855" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC00" />
+  </stage>
+  <stage stageid="f4ad168b-729f-4134-b6e6-f5f56876d91e" name="Resume6" type="Resume">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit />
+    <display x="375" y="165" w="90" h="30" />
+    <onsuccess>b4015c3b-5b33-4848-a37d-46d5bd66233e</onsuccess>
+  </stage>
+  <stage stageid="6738cb79-bdf2-4eab-b732-4a305cdf3f6f" name="Recover7" type="Recover">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit />
+    <display x="375" y="360" w="90" h="30" />
+    <onsuccess>66ba69bf-5154-4fc4-9a24-12c748111fab</onsuccess>
+  </stage>
+  <stage stageid="85300f06-8b85-46d8-b7d5-96f9da40549c" name="Resume7" type="Resume">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit />
+    <display x="375" y="450" w="90" h="30" />
+    <onsuccess>bcfb1fd6-e421-4ff9-ac90-a6ab7de25295</onsuccess>
+  </stage>
+  <stage stageid="29a4eea8-c6f9-48f6-b3a6-2f74f614e5ad" name="Recover8" type="Recover">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit />
+    <display x="375" y="645" w="90" h="30" />
+    <onsuccess>815154e5-d4a0-4b18-b82b-380fddc4600b</onsuccess>
+  </stage>
+  <stage stageid="5b1b3122-3de6-499f-bdf0-0b10cb801720" name="Resume8" type="Resume">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit />
+    <display x="375" y="735" w="90" h="30" />
+    <onsuccess>bf4f5a42-6484-4b4b-bd4d-69918de5c02e</onsuccess>
+  </stage>
+  <stage stageid="5986bf3a-47da-4ffc-872e-bbb0abff4d38" name="Resume9" type="Resume">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit />
+    <display x="375" y="1020" w="90" h="30" />
+    <onsuccess>ab4bbc7e-ebcd-40a6-9f58-a15c38aa91c6</onsuccess>
+  </stage>
+  <stage stageid="7be6dab6-e9e0-4b34-a703-8c2aa154db62" name="Negative itemsPerPage value" type="Block">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="315" y="0" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC00" />
+  </stage>
+  <stage stageid="9d622669-af97-4e6c-a19b-f240eae5c4fc" name="Decimal itemsPerPage value" type="Block">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="315" y="285" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC00" />
+  </stage>
+  <stage stageid="5c7ea4ba-daa4-4514-95e4-57b9e5c2af82" name="itemsPerPage value of 0" type="Block">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="315" y="570" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC00" />
+  </stage>
+  <stage stageid="fe80511a-a1fc-4c70-a02c-ae08277f88ae" name="itemsPerPage value string type" type="Block">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="315" y="855" w="120" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC00" />
+  </stage>
+  <stage stageid="8f109b96-0a23-4d5e-aad9-ab7549d400be" name="itemsPerPage positive scenarios" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="75" w="360" h="30" />
+    <onsuccess>6f617d90-eb90-4a8e-8fa3-55f9de106eb7</onsuccess>
+    <processid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</processid>
+  </stage>
+  <stage stageid="6f617d90-eb90-4a8e-8fa3-55f9de106eb7" name="Note1" type="Note">
+    <narrative>GIVEN I push a GET workqueues request 
+WHEN no  criteria is supplied
+THEN the appropriate response is returned and the workqueues are returned</narrative>
+    <display x="45" y="135" w="360" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>0ab07ce2-aaf9-4c88-9527-fde19e05b63c</onsuccess>
+  </stage>
+  <stage stageid="6d50a10a-f43d-439d-aa58-29dd24af819f" name="itemsPerPage not supplied" type="SubSheetInfo">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="db3daa69-2c5b-4a11-817f-0aec29a74bc7" name="Start" type="Start">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <display x="-30" y="-135" />
+    <onsuccess>00b93496-3eee-4afe-8d06-f4373a9abf55</onsuccess>
+  </stage>
+  <stage stageid="0ab07ce2-aaf9-4c88-9527-fde19e05b63c" name="itemsPerPage not supplied" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="195" w="360" h="30" />
+    <onsuccess>ed75dfdf-67ad-47fd-a5a2-34de3d8f6b22</onsuccess>
+    <processid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</processid>
+  </stage>
+  <stage stageid="18aaa693-3dbc-4c44-a527-481137f0b852" name="Failed" type="Exception">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="105" y="30" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Failed to retrieve workqueues&quot;" />
+  </stage>
+  <stage stageid="afefba85-3d76-429f-b0ae-fca18b8e41eb" name="Failed" type="Exception">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="105" y="315" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Failed to retrieve workqueues&quot;" />
+  </stage>
+  <stage stageid="fcfaaab7-d20b-4cef-b3e9-ce31d2f41dbc" name="Failed" type="Exception">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="465" y="30" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Failed to retrieve workqueues&quot;" />
+  </stage>
+  <stage stageid="8432aa5e-297f-4faf-abf9-20d4a5af1385" name="Failed" type="Exception">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="465" y="315" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Failed to retrieve workqueues&quot;" />
+  </stage>
+  <stage stageid="dd9e1c5f-00df-419b-a04c-31dbd76b87b2" name="Failed" type="Exception">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="105" y="600" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Failed to retrieve workqueues&quot;" />
+  </stage>
+  <stage stageid="7aba66fb-37f1-4216-ba46-693803561d0c" name="Failed" type="Exception">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="465" y="600" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Failed to retrieve workqueues&quot;" />
+  </stage>
+  <stage stageid="31a62c97-9c85-4210-8292-61d2edbe9edb" name="Failed" type="Exception">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="105" y="885" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Failed to retrieve workqueues&quot;" />
+  </stage>
+  <stage stageid="3c7ca2ca-8fd4-48ca-b508-9cf01acbbb45" name="Failed" type="Exception">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="465" y="885" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Failed to retrieve workqueues&quot;" />
+  </stage>
+  <stage stageid="cb5ae08f-021e-4af5-b610-6ac84ac49add" name="Local variables" type="Block">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="74585ffd-d6b4-4742-bbaa-e4f3a154bfa1" name="Local variables" type="Block">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-195" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e468483f-4ee1-464e-83af-9c9a87acb702" name="Expected Queue Name" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-540" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Test Queue (BP-1406)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="fa70e16f-67be-4909-bd78-decbc50a4b77" name="Expected Key Field" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-480" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Field 1</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="467b057e-d2f5-40dc-b17f-527509a671d9" name="Expected Is Running" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-510" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="e2c488aa-e716-481e-8eb2-adb278af0eb2" name="Expected Max Attempts" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-450" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>1</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="c566b15c-27a6-4adc-b011-454b232da874" name="Expected IsEncrypted" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-420" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="dd6cfb88-009f-4308-94f2-46a3b1dadb9d" name="Expected Pending Count" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-360" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>12</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="7b3bb422-6eb8-4760-838d-007c33b3dfc9" name="Expected Completed Count" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-330" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>8</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="51866863-24cd-46c5-9686-fc92082e3dd5" name="Expected Exception Count" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-300" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>10</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="bd799479-0f75-4b06-a5d5-acdb440fd6e6" name="Expected Total Item Count" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-270" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>30</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="8f821453-a291-43f6-a3f2-0e404a6d1033" name="Expected Avg Work Time" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-240" w="120" h="30" />
+    <datatype>timespan</datatype>
+    <initialvalue>0.00:00:00</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="1a1568fa-7858-4a4d-8dec-e214e41b602a" name="Expected Total Case Duration" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-210" w="120" h="30" />
+    <datatype>timespan</datatype>
+    <initialvalue>0.00:00:16</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="8e5be2ff-09d8-4f72-80f1-455dc59d32c7" name="Expected Queue Name (2)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-135" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Test Queue 2 (BP-1406)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="7ccfc10a-a1a4-4b8b-9a7b-2d4177248ae2" name="Expected Key Field (2)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-75" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Field 2</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="fa411a3f-898a-41ef-843d-adba4124709a" name="Expected Is Running (2)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-105" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="3dcfb492-6691-4ae9-8785-4e58bca3ee15" name="Expected Max Attempts (2)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-45" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>2</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="d652a6e2-19c5-4656-8b29-a35a5d7ac60c" name="Expected IsEncrypted (2)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="894d90da-2248-4e9a-9276-5d4caaca241e" name="Expected Pending Count (2)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="45" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>3</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="089af10f-5a97-4add-89da-50ca98181ea8" name="Expected Completed Count (2)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="75" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>12</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="a8fcbd8f-5a7c-427e-95f7-5650c5874b85" name="Expected Exception Count (2)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="105" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>7</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="fe761918-70ca-4eb4-8744-991b77dde41e" name="Expected Total Item Count (2)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="135" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>22</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="2f186746-8971-4c57-a65e-7087d6f678c7" name="Expected Avg Work Time (2)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="165" w="120" h="30" />
+    <datatype>timespan</datatype>
+    <initialvalue>0.00:00:01</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="1192ce52-fa54-4662-83a9-2bf304a7aa54" name="Expected Total Case Duration (2)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="195" w="120" h="30" />
+    <datatype>timespan</datatype>
+    <initialvalue>0.00:00:36</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="a9a06f6c-aa16-4899-9655-b1a65dbca8b4" name="Expected Response Results (2)" type="Block">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-225" y="-165" w="150" h="390" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f12ee934-2342-4eed-8bc0-e84cd78de4a9" name="Expected Queue Name (3)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="270" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Test Queue 3 (BP-1406)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="a833dfa9-23b6-417e-b672-208752f218b3" name="Expected Key Field (3)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="330" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Field 3</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="7e83697e-f6c1-4147-95f8-4918fe179b7e" name="Expected Is Running (3)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="300" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="bb3d62fc-5f47-4c5b-ad5d-bd4f0f42fa4a" name="Expected Max Attempts (3)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="360" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>1</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="a3366493-7c21-43e3-9fbe-c944ea78507c" name="Expected IsEncrypted (3)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="390" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="1fcebfaa-75dd-491f-bbb8-50fe96ba46a7" name="Expected Pending Count (3)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="450" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="05536ec8-9b6e-4555-83d3-8ca525ffaa14" name="Expected Completed Count (3)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="480" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="5b5549ea-815a-40d6-8f38-d3a1161d697e" name="Expected Exception Count (3)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="510" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="c7322577-7da4-4c79-ad6d-9349de1c80ae" name="Expected Total Item Count (3)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="540" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="dd14e6b9-59d3-40c2-a13e-83fb8c88a75c" name="Expected Avg Work Time (3)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="570" w="120" h="30" />
+    <datatype>timespan</datatype>
+    <initialvalue>0.00:00:00</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="890ebe35-15e9-4cea-873c-172ce6bfa043" name="Expected Total Case Duration (3)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="600" w="120" h="30" />
+    <datatype>timespan</datatype>
+    <initialvalue>0.00:00:00</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="096c043d-afa7-4704-8e21-a35da14b8e00" name="Expected encryptionKeyId" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="-390" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="d99ac499-0570-45cf-a1cf-b3938b0d613b" name="Expected encryptionKeyId (2)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="15" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>3</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="d3aa40ed-db20-4087-9b3a-85a4a84af664" name="Expected encryptionKeyId (3)" type="Data">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-150" y="420" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="34e7661a-d38f-4c6b-a21a-4abcf588ece5" name="Expected Response Results (1)" type="Block">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-225" y="-570" w="150" h="390" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="9c93fc3d-d2b8-4298-babb-8515cefd724b" name="Expected Response Results (3)" type="Block">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-225" y="240" w="150" h="390" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="50b443cf-f7bf-44e5-a5fd-7bb782b40a58" name="http status code and response as expected?" type="Decision">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="15" y="120" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot; &amp; NewLine() &amp; &quot;HTTP Status Code: 400&quot; &amp; NewLine() &amp; &quot;HTTP Response Content: [{&quot;&quot;invalidField&quot;&quot;:&quot;&quot;PageNumber&quot;&quot;,&quot;&quot;message&quot;&quot;:&quot;&quot;'Page Number' must be greater than '0'.&quot;&quot;}]&quot;)&lt;&gt;0" />
+    <ontrue>85f9685f-9b70-4ffa-9ffa-c01870f2a255</ontrue>
+    <onfalse>269cd0f9-53b9-4bf7-88f4-98d99cf1fe5f</onfalse>
+  </stage>
+  <stage stageid="7b74276b-1ea6-49c1-8f00-cfe9ad056b7e" name="http status code and response as expected?" type="Decision">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="15" y="405" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot; &amp; NewLine() &amp; &quot;HTTP Status Code: 400&quot; &amp; NewLine() &amp; &quot;HTTP Response Content: [{&quot;&quot;invalidField&quot;&quot;:&quot;&quot;PageNumber&quot;&quot;,&quot;&quot;message&quot;&quot;:&quot;&quot;The value '3.5' is not valid for PageNumber.&quot;&quot;}]&quot;)&lt;&gt;0" />
+    <ontrue>56cf16c3-1ef0-4774-9a37-92bd70a6714a</ontrue>
+    <onfalse>3082adb9-134b-4962-89ac-41c80370b7ca</onfalse>
+  </stage>
+  <stage stageid="31fb204f-bfa8-4aad-98dc-4b4da1db4d85" name="http status code and response as expected?" type="Decision">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="15" y="690" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot; &amp; NewLine() &amp; &quot;HTTP Status Code: 400&quot; &amp; NewLine() &amp; &quot;HTTP Response Content: [{&quot;&quot;invalidField&quot;&quot;:&quot;&quot;PageNumber&quot;&quot;,&quot;&quot;message&quot;&quot;:&quot;&quot;'Page Number' must be greater than '0'.&quot;&quot;}]&quot;)&lt;&gt;0" />
+    <ontrue>99c5b337-dd33-42e0-89d1-7906a067f35a</ontrue>
+    <onfalse>054ad88b-20b3-4f5b-b147-cb5648644dce</onfalse>
+  </stage>
+  <stage stageid="1fa8e494-6df7-408e-9aa8-5525e854a490" name="http status code and response as expected?" type="Decision">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="15" y="975" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot; &amp; NewLine() &amp; &quot;HTTP Status Code: 400&quot; &amp; NewLine() &amp; &quot;HTTP Response Content: [{&quot;&quot;invalidField&quot;&quot;:&quot;&quot;PageNumber&quot;&quot;,&quot;&quot;message&quot;&quot;:&quot;&quot;The value 'apple' is not valid for PageNumber.&quot;&quot;}]&quot;)&lt;&gt;0" />
+    <ontrue>36a8a275-2d8d-4322-941e-4249e9b608eb</ontrue>
+    <onfalse>0797546a-1d97-4a7b-9f20-4d05cc9f8db1</onfalse>
+  </stage>
+  <stage stageid="c3675eb6-cc01-480b-a37d-efa0e9963bf6" name="http status code and response as expected?" type="Decision">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="375" y="120" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot; &amp; NewLine() &amp; &quot;HTTP Status Code: 400&quot; &amp; NewLine() &amp; &quot;HTTP Response Content: [{&quot;&quot;invalidField&quot;&quot;:&quot;&quot;ItemsPerPage&quot;&quot;,&quot;&quot;message&quot;&quot;:&quot;&quot;'Items Per Page' must be between 1 and 1000. You entered -3.&quot;&quot;}&quot;)&lt;&gt;0" />
+    <ontrue>f4ad168b-729f-4134-b6e6-f5f56876d91e</ontrue>
+    <onfalse>0d272d40-83b4-4b45-bd95-f360486d4bc7</onfalse>
+  </stage>
+  <stage stageid="66ba69bf-5154-4fc4-9a24-12c748111fab" name="http status code and response as expected?" type="Decision">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="375" y="405" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot; &amp; NewLine() &amp; &quot;HTTP Status Code: 400&quot; &amp; NewLine() &amp; &quot;HTTP Response Content: [{&quot;&quot;invalidField&quot;&quot;:&quot;&quot;ItemsPerPage&quot;&quot;,&quot;&quot;message&quot;&quot;:&quot;&quot;The value '3.5' is not valid for ItemsPerPage.&quot;&quot;}]&quot;)&lt;&gt;0" />
+    <ontrue>85300f06-8b85-46d8-b7d5-96f9da40549c</ontrue>
+    <onfalse>eb319339-f25c-42af-95e1-191ca5ae71ff</onfalse>
+  </stage>
+  <stage stageid="815154e5-d4a0-4b18-b82b-380fddc4600b" name="http status code and response as expected?" type="Decision">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="375" y="690" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot; &amp; NewLine() &amp; &quot;HTTP Status Code: 400&quot; &amp; NewLine() &amp; &quot;HTTP Response Content: [{&quot;&quot;invalidField&quot;&quot;:&quot;&quot;ItemsPerPage&quot;&quot;,&quot;&quot;message&quot;&quot;:&quot;&quot;'Items Per Page' must be between 1 and 1000. You entered 0.&quot;&quot;}]&quot;)&lt;&gt;0" />
+    <ontrue>5b1b3122-3de6-499f-bdf0-0b10cb801720</ontrue>
+    <onfalse>7a087307-e3ce-41f6-8d93-b7c2bd9f07b0</onfalse>
+  </stage>
+  <stage stageid="0a1dbc99-3b4e-432e-aa94-38139e06f532" name="http status code and response as expected?" type="Decision">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="375" y="975" w="90" h="30" />
+    <decision expression="InStr(ExceptionDetail(),&quot;Unexpected error Error during Web API HTTP Request&quot; &amp; NewLine() &amp; &quot;HTTP Status Code: 400&quot; &amp; NewLine() &amp; &quot;HTTP Response Content: [{&quot;&quot;invalidField&quot;&quot;:&quot;&quot;ItemsPerPage&quot;&quot;,&quot;&quot;message&quot;&quot;:&quot;&quot;'Items Per Page' must be between 1 and 1000. You entered 2000000000.&quot;&quot;}]&quot;)&lt;&gt;0" />
+    <ontrue>5986bf3a-47da-4ffc-872e-bbb0abff4d38</ontrue>
+    <onfalse>8ea08c28-09a3-47d4-be95-ea3eab531bfb</onfalse>
+  </stage>
+  <stage stageid="5fb4619e-5852-4cc3-bdcc-b79a7ba3785a" name="Start" type="Start">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <display x="0" y="-285" />
+    <onsuccess>bcbdc46b-7ac8-4adf-bc8f-243f8c276863</onsuccess>
+  </stage>
+  <stage stageid="bcbdc46b-7ac8-4adf-bc8f-243f8c276863" name="GET Work Queues" type="Action">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-225" w="90" h="30" />
+    <inputs>
+      <input type="text" name="sortBy" friendlyname="sortBy" expr="" />
+      <input type="number" name="pageNumber" friendlyname="pageNumber" expr="" />
+      <input type="number" name="itemsPerPage" friendlyname="itemsPerPage" expr="1" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+      <output type="text" name="Queue ID" friendlyname="Queue ID" stage="" />
+      <output type="text" name="Queue Name" friendlyname="Queue Name" stage="" />
+      <output type="text" name="isRunning" friendlyname="isRunning" stage="" />
+      <output type="text" name="keyField" friendlyname="keyField" stage="" />
+      <output type="number" name="maxAttempts" friendlyname="maxAttempts" stage="" />
+      <output type="flag" name="isEncrypted" friendlyname="isEncrypted" stage="" />
+      <output type="number" name="encryptionKeyId" friendlyname="encryptionKeyId" stage="" />
+      <output type="number" name="PendingItemCount" friendlyname="PendingItemCount" stage="" />
+      <output type="number" name="completedItemCount" friendlyname="completedItemCount" stage="" />
+      <output type="number" name="exceptionedItemCount" friendlyname="exceptionedItemCount" stage="" />
+      <output type="number" name="totalItemCount" friendlyname="totalItemCount" stage="" />
+      <output type="timespan" name="averageWorkTime" friendlyname="averageWorkTime" stage="" />
+      <output type="timespan" name="totalCaseDuration" friendlyname="totalCaseDuration" stage="" />
+      <output type="time" name="processId" friendlyname="processId" stage="" />
+      <output type="text" name="resourceGroupId" friendlyname="resourceGroupId" stage="" />
+      <output type="number" name="targetSessionCount" friendlyname="targetSessionCount" stage="" />
+      <output type="text" name="Request Data" friendlyname="Request Data" stage="" />
+    </outputs>
+    <onsuccess>247f25d3-6aca-4fde-a617-16a014a1456b</onsuccess>
+    <resource object="Blue Prism - API - Work Queues" action="GET Work Queues" />
+  </stage>
+  <stage stageid="ddac5075-d0d3-466a-9242-340401aea601" name="Response Code and Queues Count correct?" type="Decision">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <display x="0" y="-45" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Queues Returned]=1" />
+    <ontrue>f4abb357-c3d9-44b3-a6b9-06499c705add</ontrue>
+    <onfalse>99ae671f-9335-4504-8d33-8d3dcdf2589d</onfalse>
+  </stage>
+  <stage stageid="18bdd986-ca0f-4c8f-b80e-5cc06aeea2d9" name="itemsPerPage=1" type="Block">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-255" w="165" h="240" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f0b9d477-adb9-458c-83a9-adf69d1eed3d" name="GET Work Queues" type="Action">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="360" w="90" h="30" />
+    <inputs>
+      <input type="text" name="sortBy" friendlyname="sortBy" expr="" />
+      <input type="number" name="pageNumber" friendlyname="pageNumber" expr="" />
+      <input type="number" name="itemsPerPage" friendlyname="itemsPerPage" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+      <output type="text" name="Queue ID" friendlyname="Queue ID" stage="" />
+      <output type="text" name="Queue Name" friendlyname="Queue Name" stage="" />
+      <output type="text" name="isRunning" friendlyname="isRunning" stage="" />
+      <output type="text" name="keyField" friendlyname="keyField" stage="" />
+      <output type="number" name="maxAttempts" friendlyname="maxAttempts" stage="" />
+      <output type="flag" name="isEncrypted" friendlyname="isEncrypted" stage="" />
+      <output type="number" name="encryptionKeyId" friendlyname="encryptionKeyId" stage="" />
+      <output type="number" name="PendingItemCount" friendlyname="PendingItemCount" stage="" />
+      <output type="number" name="completedItemCount" friendlyname="completedItemCount" stage="" />
+      <output type="number" name="exceptionedItemCount" friendlyname="exceptionedItemCount" stage="" />
+      <output type="number" name="totalItemCount" friendlyname="totalItemCount" stage="" />
+      <output type="timespan" name="averageWorkTime" friendlyname="averageWorkTime" stage="" />
+      <output type="timespan" name="totalCaseDuration" friendlyname="totalCaseDuration" stage="" />
+      <output type="time" name="processId" friendlyname="processId" stage="" />
+      <output type="text" name="resourceGroupId" friendlyname="resourceGroupId" stage="" />
+      <output type="number" name="targetSessionCount" friendlyname="targetSessionCount" stage="" />
+      <output type="text" name="Request Data" friendlyname="Request Data" stage="" />
+    </outputs>
+    <onsuccess>057aa78f-f8b2-4b7c-9017-36cd66f7b5e5</onsuccess>
+    <resource object="Blue Prism - API - Work Queues" action="GET Work Queues" />
+  </stage>
+  <stage stageid="00b93496-3eee-4afe-8d06-f4373a9abf55" name="NOTE" type="Note">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <narrative>Add more workqueues to the system to take the total to over 10, for validating when the defauls are used for pagination.</narrative>
+    <display x="-30" y="-75" w="150" h="60" />
+    <onsuccess>f522115e-ff20-47d1-a6fb-b3354d9a8a93</onsuccess>
+  </stage>
+  <stage stageid="ac4a2a4c-0a54-4bee-b2d2-8a5f1b6e4808" name="Create Queues" type="Action">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name" friendlyname="Name" narrative="The name of the work queue" expr="[Queues.Queue]" />
+      <input type="text" name="Key Field" friendlyname="Key Field" narrative="The key field for the work queue" expr="[Expected Key Field]" />
+      <input type="flag" name="Active" friendlyname="Active" narrative="Flag indicating if the work queue should be made active or not - default is True, ie. Active" expr="[Expected Is Running]" />
+      <input type="number" name="Max Attempts" friendlyname="Max Attempts" narrative="The maximum number of attempts to allow on this queue" expr="[Expected Max Attempts]" />
+      <input type="flag" name="Set Encryption?" friendlyname="Set Encryption?" narrative="This is a flag to tick the encryption tickbox for a queue." expr="[Expected IsEncrypted]" />
+      <input type="text" name="Scheme Name" friendlyname="Scheme Name" narrative="This is the name of the scheme in which you wish to encrypt the queue with." expr="" />
+      <input type="flag" name="Set Active Queue" friendlyname="Set Active Queue" narrative="True or False, do you want to make this an active queue." expr="False" />
+      <input type="text" name="Assigned Process" friendlyname="Assigned Process" narrative="The name of the proccess you wish to assign to the active queue." expr="" />
+      <input type="text" name="Assigned Resource Group" friendlyname="Assigned Resource Group" narrative="The name of the resoruce group you want to assign to the active queue." expr="" />
+    </inputs>
+    <onsuccess>55b1944b-b413-410f-b292-bcee439cde51</onsuccess>
+    <resource object="Blue Prism - System - Workflow" action="Create Work Queue" />
+  </stage>
+  <stage stageid="55b1944b-b413-410f-b292-bcee439cde51" name="Add to Cleanup (6th Queue )" type="SubSheet">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="[Queues.Queue]" />
+    </inputs>
+    <onsuccess>cd0e9a3d-5bc4-40c7-baeb-3493c8b99d8d</onsuccess>
+    <processid>cc63b4ab-15cd-4e6f-a366-a3167a4fa91c</processid>
+  </stage>
+  <stage stageid="1ac5a8f4-e3a8-418b-9f10-e31bf499c62f" name="Pause (30 Seconds)" type="Action">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="300" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="30" />
+    </inputs>
+    <onsuccess>f0b9d477-adb9-458c-83a9-adf69d1eed3d</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="f522115e-ff20-47d1-a6fb-b3354d9a8a93" name="Loop Start1" type="LoopStart">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="-15" w="90" h="30" />
+    <onsuccess>408e8c27-81eb-49c8-b1e1-4a4e50f343ae</onsuccess>
+    <groupid>0eacfec3-8595-4a2f-a050-12c8f09e803c</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Queues</loopdata>
+  </stage>
+  <stage stageid="cd0e9a3d-5bc4-40c7-baeb-3493c8b99d8d" name="Loop End1" type="LoopEnd">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="255" w="90" h="30" />
+    <onsuccess>1ac5a8f4-e3a8-418b-9f10-e31bf499c62f</onsuccess>
+    <groupid>0eacfec3-8595-4a2f-a050-12c8f09e803c</groupid>
+  </stage>
+  <stage stageid="57616deb-2efa-4153-a236-e5d10960d9cc" name="pageNumber and itemsPerPage NULL" type="Block">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="330" w="165" h="240" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e24975bc-2a22-4233-bc33-62c0c66922e3" name="End" type="End">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <display x="-30" y="600" />
+  </stage>
+  <stage stageid="3c411df7-963b-4f7c-b82f-cdec970933a3" name="Queues" type="Collection">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Queue" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Queue" type="text" value="Test Queue 4 (BP-1406)" />
+      </row>
+      <row>
+        <field name="Queue" type="text" value="Test Queue 5 (BP-1406)" />
+      </row>
+      <row>
+        <field name="Queue" type="text" value="Test Queue 6 (BP-1406)" />
+      </row>
+      <row>
+        <field name="Queue" type="text" value="Test Queue 7 (BP-1406)" />
+      </row>
+      <row>
+        <field name="Queue" type="text" value="Test Queue 8 (BP-1406)" />
+      </row>
+      <row>
+        <field name="Queue" type="text" value="Test Queue 9 (BP-1406)" />
+      </row>
+      <row>
+        <field name="Queue" type="text" value="Test Queue 10 (BP-1406)" />
+      </row>
+      <row>
+        <field name="Queue" type="text" value="Test Queue 11 (BP-1406)" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="87d6c8e9-a596-4421-b659-51aef32e0631" name="Destroy Queue (1)" type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="735" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to delete" expr="[Expected Queue Name]" />
+    </inputs>
+    <onsuccess>9c339755-ecde-45b4-87ce-0cfbec912fcb</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+  <stage stageid="50af6a93-d30c-4b7f-bf6f-69a95f69e2a7" name="Browse to System" type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="525" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>2cbe77ca-5e96-467b-a581-3e822d057e5d</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="2cbe77ca-5e96-467b-a581-3e822d057e5d" name="Browse to Encryption Schemes" type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="630" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Encryption Schemes&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>2477c646-2eee-401b-a63c-8b9f1af5fa4f</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="2477c646-2eee-401b-a63c-8b9f1af5fa4f" name="Delete Encryption Schemes" type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="735" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Scheme Name" friendlyname="Scheme Name" narrative="This is the name of the encryption scheme you wish to delete. " expr="[Scheme Name]" />
+    </inputs>
+    <onsuccess>25b0f66d-0d20-42af-b1e9-b43370c8ffaa</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Encryption Schemes - Delete Encryption Scheme" />
+  </stage>
+  <stage stageid="f537a423-2d26-4baf-8fb2-dd4703a9a47e" name="Close all child windows" type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <display x="420" y="60" w="90" h="30" />
+    <onsuccess>50af6a93-d30c-4b7f-bf6f-69a95f69e2a7</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="658f60c1-d291-4a36-ab55-e386dc8a1596" name="Destroy Queue (2)" type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="735" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to delete" expr="[Expected Queue Name (2)]" />
+    </inputs>
+    <onsuccess>e25f0ffe-f99d-488e-9384-4e7ea7168e6b</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+  <stage stageid="e25f0ffe-f99d-488e-9384-4e7ea7168e6b" name="Anchor1" type="Anchor">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="810" y="150" w="10" h="10" />
+    <onsuccess>11c98a38-4dcd-45d6-aec4-0d40f31071cc</onsuccess>
+  </stage>
+  <stage stageid="2f3a6d5b-b6c1-4c5d-8005-157877fbae75" name="Destroy Queue " type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="735" y="240" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to delete" expr="&quot;Test Queue 4 (BP-1406)&quot;" />
+    </inputs>
+    <onsuccess>e4e45b2d-d264-4a93-9e37-4e7dc9c8eafe</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+  <stage stageid="7f2f3155-329b-40a7-950d-dacd34fbe00f" name="Destroy Queue " type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="735" y="285" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to delete" expr="&quot;Test Queue 5 (BP-1406)&quot;" />
+    </inputs>
+    <onsuccess>4c977e48-c4e2-4296-8f22-4a839e5ecd11</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+  <stage stageid="673e037b-6d7c-430e-90e7-4d3d62302e2e" name="Destroy Queue " type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="735" y="330" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to delete" expr="&quot;Test Queue 6 (BP-1406)&quot;" />
+    </inputs>
+    <onsuccess>998df6f5-6e18-4c80-a29b-713d6d96fa8e</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+  <stage stageid="f841b9e2-de87-410f-b531-61a79ba5f286" name="Destroy Queue " type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="735" y="375" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to delete" expr="&quot;Test Queue 7 (BP-1406)&quot;" />
+    </inputs>
+    <onsuccess>86777f04-2fe7-4a44-9804-95d50fea7a28</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+  <stage stageid="79e4db2e-00c5-4091-ba5f-7f612c11a1a6" name="Destroy Queue " type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="735" y="420" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to delete" expr="&quot;Test Queue 8 (BP-1406)&quot;" />
+    </inputs>
+    <onsuccess>913ebe1c-1573-41bb-aa64-1f70a51df4d6</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+  <stage stageid="37b9389b-c5af-4917-bfe1-2a40fc295f11" name="Destroy Queue " type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="735" y="465" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to delete" expr="&quot;Test Queue 9 (BP-1406)&quot;" />
+    </inputs>
+    <onsuccess>9b6c376b-fdab-4f1f-9153-7e3c623c00ee</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+  <stage stageid="c7298008-a91e-4a17-ac44-1d95540085c2" name="Destroy Queue " type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="735" y="510" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to delete" expr="&quot;Test Queue 10 (BP-1406)&quot;" />
+    </inputs>
+    <onsuccess>91e227f1-a07b-4bdd-bb02-9c85cc19d801</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+  <stage stageid="70d19723-b208-404a-96dc-722bf187124d" name="Destroy Queue " type="Action">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="735" y="555" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to delete" expr="&quot;Test Queue 11 (BP-1406)&quot;" />
+    </inputs>
+    <onsuccess>1645368e-6e1a-4415-80c1-b7de8da384bf</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+  <stage stageid="e4e45b2d-d264-4a93-9e37-4e7dc9c8eafe" name="Anchor2" type="Anchor">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="810" y="240" w="10" h="10" />
+    <onsuccess>4c977e48-c4e2-4296-8f22-4a839e5ecd11</onsuccess>
+  </stage>
+  <stage stageid="4c977e48-c4e2-4296-8f22-4a839e5ecd11" name="Anchor3" type="Anchor">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="810" y="285" w="10" h="10" />
+    <onsuccess>998df6f5-6e18-4c80-a29b-713d6d96fa8e</onsuccess>
+  </stage>
+  <stage stageid="998df6f5-6e18-4c80-a29b-713d6d96fa8e" name="Anchor7" type="Anchor">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="810" y="330" w="10" h="10" />
+    <onsuccess>86777f04-2fe7-4a44-9804-95d50fea7a28</onsuccess>
+  </stage>
+  <stage stageid="86777f04-2fe7-4a44-9804-95d50fea7a28" name="Anchor10" type="Anchor">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="810" y="375" w="10" h="10" />
+    <onsuccess>913ebe1c-1573-41bb-aa64-1f70a51df4d6</onsuccess>
+  </stage>
+  <stage stageid="913ebe1c-1573-41bb-aa64-1f70a51df4d6" name="Anchor12" type="Anchor">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="810" y="420" w="10" h="10" />
+    <onsuccess>9b6c376b-fdab-4f1f-9153-7e3c623c00ee</onsuccess>
+  </stage>
+  <stage stageid="9b6c376b-fdab-4f1f-9153-7e3c623c00ee" name="Anchor13" type="Anchor">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="810" y="465" w="10" h="10" />
+    <onsuccess>91e227f1-a07b-4bdd-bb02-9c85cc19d801</onsuccess>
+  </stage>
+  <stage stageid="91e227f1-a07b-4bdd-bb02-9c85cc19d801" name="Anchor14" type="Anchor">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="810" y="510" w="10" h="10" />
+    <onsuccess>1645368e-6e1a-4415-80c1-b7de8da384bf</onsuccess>
+  </stage>
+  <stage stageid="269cd0f9-53b9-4bf7-88f4-98d99cf1fe5f" name="Failed" type="Exception">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="105" y="120" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned&quot;" />
+  </stage>
+  <stage stageid="3082adb9-134b-4962-89ac-41c80370b7ca" name="Failed" type="Exception">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="105" y="405" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned&quot;" />
+  </stage>
+  <stage stageid="054ad88b-20b3-4f5b-b147-cb5648644dce" name="Failed" type="Exception">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="105" y="690" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned&quot;" />
+  </stage>
+  <stage stageid="0797546a-1d97-4a7b-9f20-4d05cc9f8db1" name="Failed" type="Exception">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="105" y="975" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned&quot;" />
+  </stage>
+  <stage stageid="0d272d40-83b4-4b45-bd95-f360486d4bc7" name="Failed" type="Exception">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="465" y="120" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned&quot;" />
+  </stage>
+  <stage stageid="eb319339-f25c-42af-95e1-191ca5ae71ff" name="Failed" type="Exception">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="465" y="405" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned&quot;" />
+  </stage>
+  <stage stageid="7a087307-e3ce-41f6-8d93-b7c2bd9f07b0" name="Failed" type="Exception">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="465" y="690" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned&quot;" />
+  </stage>
+  <stage stageid="8ea08c28-09a3-47d4-be95-ea3eab531bfb" name="Failed" type="Exception">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="465" y="975" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned&quot;" />
+  </stage>
+  <stage stageid="247f25d3-6aca-4fde-a617-16a014a1456b" name="Convert Response to Collection" type="Action">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-180" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Default Result Collection" />
+    </outputs>
+    <onsuccess>31c4b766-3ccd-476b-93ce-e4e51d2b6ca2</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="ba9a34f0-b78a-4fe8-857d-9a2ff2758045" name="Count Queues" type="Action">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Queues Returned" />
+    </outputs>
+    <onsuccess>ddac5075-d0d3-466a-9242-340401aea601</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="b4a64bc5-c70e-4142-ab4d-0cbdfd1cf350" name="Number of Queues Returned" type="Data">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <display x="-195" y="-165" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f4abb357-c3d9-44b3-a6b9-06499c705add" name="GET Work Queues" type="Action">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="30" w="90" h="30" />
+    <inputs>
+      <input type="text" name="sortBy" friendlyname="sortBy" expr="" />
+      <input type="number" name="pageNumber" friendlyname="pageNumber" expr="" />
+      <input type="number" name="itemsPerPage" friendlyname="itemsPerPage" expr="2" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+      <output type="text" name="Queue ID" friendlyname="Queue ID" stage="" />
+      <output type="text" name="Queue Name" friendlyname="Queue Name" stage="" />
+      <output type="text" name="isRunning" friendlyname="isRunning" stage="" />
+      <output type="text" name="keyField" friendlyname="keyField" stage="" />
+      <output type="number" name="maxAttempts" friendlyname="maxAttempts" stage="" />
+      <output type="flag" name="isEncrypted" friendlyname="isEncrypted" stage="" />
+      <output type="number" name="encryptionKeyId" friendlyname="encryptionKeyId" stage="" />
+      <output type="number" name="PendingItemCount" friendlyname="PendingItemCount" stage="" />
+      <output type="number" name="completedItemCount" friendlyname="completedItemCount" stage="" />
+      <output type="number" name="exceptionedItemCount" friendlyname="exceptionedItemCount" stage="" />
+      <output type="number" name="totalItemCount" friendlyname="totalItemCount" stage="" />
+      <output type="timespan" name="averageWorkTime" friendlyname="averageWorkTime" stage="" />
+      <output type="timespan" name="totalCaseDuration" friendlyname="totalCaseDuration" stage="" />
+      <output type="time" name="processId" friendlyname="processId" stage="" />
+      <output type="text" name="resourceGroupId" friendlyname="resourceGroupId" stage="" />
+      <output type="number" name="targetSessionCount" friendlyname="targetSessionCount" stage="" />
+      <output type="text" name="Request Data" friendlyname="Request Data" stage="" />
+    </outputs>
+    <onsuccess>70f028a9-9259-4dff-abc7-4b5be245da8e</onsuccess>
+    <resource object="Blue Prism - API - Work Queues" action="GET Work Queues" />
+  </stage>
+  <stage stageid="3a945a6b-c290-4189-91c3-a065ab43e986" name="Response Code and Queues Count correct?" type="Decision">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <display x="0" y="210" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Queues Returned]=2" />
+    <ontrue>7c61e206-b1fd-45c8-aabb-bc14cf9648b7</ontrue>
+    <onfalse>8b0e3168-ad27-476a-b6bb-6ebaceed11ff</onfalse>
+  </stage>
+  <stage stageid="37d94b91-a4f9-454d-98e1-6c90075753b6" name="itemsPerPage=2" type="Block">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="0" w="165" h="240" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="70f028a9-9259-4dff-abc7-4b5be245da8e" name="Convert Response to Collection" type="Action">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Default Result Collection" />
+    </outputs>
+    <onsuccess>0995d076-0e62-4ff2-b26c-a6baef3a5262</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="00b3f35b-dfb3-4f0e-b19d-91f29011e451" name="Count Queues" type="Action">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Queues Returned" />
+    </outputs>
+    <onsuccess>3a945a6b-c290-4189-91c3-a065ab43e986</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="7c61e206-b1fd-45c8-aabb-bc14cf9648b7" name="GET Work Queues" type="Action">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="285" w="90" h="30" />
+    <inputs>
+      <input type="text" name="sortBy" friendlyname="sortBy" expr="" />
+      <input type="number" name="pageNumber" friendlyname="pageNumber" expr="" />
+      <input type="number" name="itemsPerPage" friendlyname="itemsPerPage" expr="3" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+      <output type="text" name="Queue ID" friendlyname="Queue ID" stage="" />
+      <output type="text" name="Queue Name" friendlyname="Queue Name" stage="" />
+      <output type="text" name="isRunning" friendlyname="isRunning" stage="" />
+      <output type="text" name="keyField" friendlyname="keyField" stage="" />
+      <output type="number" name="maxAttempts" friendlyname="maxAttempts" stage="" />
+      <output type="flag" name="isEncrypted" friendlyname="isEncrypted" stage="" />
+      <output type="number" name="encryptionKeyId" friendlyname="encryptionKeyId" stage="" />
+      <output type="number" name="PendingItemCount" friendlyname="PendingItemCount" stage="" />
+      <output type="number" name="completedItemCount" friendlyname="completedItemCount" stage="" />
+      <output type="number" name="exceptionedItemCount" friendlyname="exceptionedItemCount" stage="" />
+      <output type="number" name="totalItemCount" friendlyname="totalItemCount" stage="" />
+      <output type="timespan" name="averageWorkTime" friendlyname="averageWorkTime" stage="" />
+      <output type="timespan" name="totalCaseDuration" friendlyname="totalCaseDuration" stage="" />
+      <output type="time" name="processId" friendlyname="processId" stage="" />
+      <output type="text" name="resourceGroupId" friendlyname="resourceGroupId" stage="" />
+      <output type="number" name="targetSessionCount" friendlyname="targetSessionCount" stage="" />
+      <output type="text" name="Request Data" friendlyname="Request Data" stage="" />
+    </outputs>
+    <onsuccess>137baea7-774d-49f5-8364-d606f85bd750</onsuccess>
+    <resource object="Blue Prism - API - Work Queues" action="GET Work Queues" />
+  </stage>
+  <stage stageid="7c824021-54ff-4bf8-8393-597e15d413d6" name="Response Code and Queues Count correct?" type="Decision">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <display x="0" y="465" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Queues Returned]=3" />
+    <ontrue>c593d5d8-0806-4123-87e4-f86d333f87e5</ontrue>
+    <onfalse>07977a98-0daf-4766-abe5-a63b94ffb705</onfalse>
+  </stage>
+  <stage stageid="7b8b773d-476b-4bad-9bb3-c8775228f221" name="itemsPerPage=3" type="Block">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="255" w="165" h="240" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="137baea7-774d-49f5-8364-d606f85bd750" name="Convert Response to Collection" type="Action">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="330" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Default Result Collection" />
+    </outputs>
+    <onsuccess>a38100bb-c8e1-455b-9ed1-d31808a7117a</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="eed28e63-b4c2-4a43-9d1b-a3da0a5a85f5" name="Count Queues" type="Action">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="420" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Queues Returned" />
+    </outputs>
+    <onsuccess>7c824021-54ff-4bf8-8393-597e15d413d6</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="99ae671f-9335-4504-8d33-8d3dcdf2589d" name="Failed" type="Exception">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <display x="75" y="-45" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned&quot;" />
+  </stage>
+  <stage stageid="8b0e3168-ad27-476a-b6bb-6ebaceed11ff" name="Failed" type="Exception">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <display x="75" y="210" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned&quot;" />
+  </stage>
+  <stage stageid="07977a98-0daf-4766-abe5-a63b94ffb705" name="Failed" type="Exception">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <display x="75" y="465" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned&quot;" />
+  </stage>
+  <stage stageid="c593d5d8-0806-4123-87e4-f86d333f87e5" name="End2" type="End">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="525" />
+  </stage>
+  <stage stageid="8f855983-22b2-4aa0-8017-02b24e866e07" name="Response Code and Queues Count correct?" type="Decision">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <display x="-30" y="540" w="90" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;&#xA;AND&#xA;[Number of Queues Returned]=10" />
+    <ontrue>e24975bc-2a22-4233-bc33-62c0c66922e3</ontrue>
+    <onfalse>ebff66c5-22db-498d-b0b3-40d557545e41</onfalse>
+  </stage>
+  <stage stageid="057aa78f-f8b2-4b7c-9017-36cd66f7b5e5" name="Convert Response to Collection" type="Action">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="405" w="90" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Default Result Collection" />
+    </outputs>
+    <onsuccess>49760768-4e82-413a-a9a4-a35039fb350a</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="0626bf28-2bf5-4d07-b96c-3b6d969a1b0d" name="Count Queues" type="Action">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="495" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Result Collection&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Number of Queues Returned" />
+    </outputs>
+    <onsuccess>8f855983-22b2-4aa0-8017-02b24e866e07</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="ebff66c5-22db-498d-b0b3-40d557545e41" name="Failed" type="Exception">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <display x="45" y="540" w="30" h="30" />
+    <exception localized="yes" type="Unexpected Response Values" detail="&quot;Incorrect response returned&quot;" />
+  </stage>
+  <stage stageid="930e09aa-c76d-4c16-be32-fd4a210ac2b2" name="Number of Queues Returned" type="Data">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="951fdc78-54ca-493a-acea-b16fff20e2f2" name="Recover6" type="Recover">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit />
+    <display x="375" y="75" w="90" h="30" />
+    <onsuccess>c3675eb6-cc01-480b-a37d-efa0e9963bf6</onsuccess>
+  </stage>
+  <stage stageid="a5e60579-62f8-4d0c-99b5-987587ef71d8" name="Recover9" type="Recover">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit />
+    <display x="375" y="930" w="90" h="30" />
+    <onsuccess>0a1dbc99-3b4e-432e-aa94-38139e06f532</onsuccess>
+  </stage>
+  <stage stageid="970f18df-e8f7-4e7d-bbbb-281c6f90976b" name="Recover5" type="Recover">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit />
+    <display x="15" y="930" w="90" h="30" />
+    <onsuccess>1fa8e494-6df7-408e-9aa8-5525e854a490</onsuccess>
+  </stage>
+  <stage stageid="862be6d1-3b51-4232-af45-0edc72980619" name="Recover4" type="Recover">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit />
+    <display x="15" y="645" w="90" h="30" />
+    <onsuccess>31fb204f-bfa8-4aad-98dc-4b4da1db4d85</onsuccess>
+  </stage>
+  <stage stageid="104753ef-57f4-4d6f-bb06-17faafedb65b" name="Browse to Workflow" type="Action">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Workflow&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Work Queues&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>ac4a2a4c-0a54-4bee-b2d2-8a5f1b6e4808</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="408e8c27-81eb-49c8-b1e1-4a4e50f343ae" name="Browse to Home" type="Action">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="30" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>41ded389-75cf-4810-8d23-b2f225119f5c</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="41ded389-75cf-4810-8d23-b2f225119f5c" name="Browse to System" type="Action">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>104753ef-57f4-4d6f-bb06-17faafedb65b</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="b2cbd62a-c812-4afa-8c54-36cb503e6906" name="Recover2" type="Recover">
+    <subsheetid>86c68210-f036-4137-95d7-f70cc6db3783</subsheetid>
+    <loginhibit />
+    <display x="195" y="630" />
+    <onsuccess>ba991f70-14ee-4160-9e3a-f5a75a45b330</onsuccess>
+  </stage>
+  <stage stageid="e2d4e32a-5c5f-4b6f-b990-419782b85077" name="Recover1" type="Recover">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <loginhibit />
+    <display x="15" y="75" w="90" h="30" />
+    <onsuccess>50b443cf-f7bf-44e5-a5fd-7bb782b40a58</onsuccess>
+  </stage>
+  <stage stageid="8a3b0eab-d6db-4211-8576-57c17a493d42" name="Default Result Collection" type="Collection">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <display x="-195" y="-135" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="31c4b766-3ccd-476b-93ce-e4e51d2b6ca2" name="Return to Collection" type="Calculation">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="-135" w="90" h="30" />
+    <onsuccess>ba9a34f0-b78a-4fe8-857d-9a2ff2758045</onsuccess>
+    <calculation expression="[Default Result Collection.items]" stage="Result Collection" />
+  </stage>
+  <stage stageid="0995d076-0e62-4ff2-b26c-a6baef3a5262" name="Return to Collection" type="Calculation">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="120" w="90" h="30" />
+    <onsuccess>00b3f35b-dfb3-4f0e-b19d-91f29011e451</onsuccess>
+    <calculation expression="[Default Result Collection.items]" stage="Result Collection" />
+  </stage>
+  <stage stageid="a38100bb-c8e1-455b-9ed1-d31808a7117a" name="Return to Collection" type="Calculation">
+    <subsheetid>1dd80cdd-fb3f-4253-a6dd-0a9cb3b918a0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="0" y="375" w="90" h="30" />
+    <onsuccess>eed28e63-b4c2-4a43-9d1b-a3da0a5a85f5</onsuccess>
+    <calculation expression="[Default Result Collection.items]" stage="Result Collection" />
+  </stage>
+  <stage stageid="49760768-4e82-413a-a9a4-a35039fb350a" name="Return to Collection" type="Calculation">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="450" w="90" h="30" />
+    <onsuccess>0626bf28-2bf5-4d07-b96c-3b6d969a1b0d</onsuccess>
+    <calculation expression="[Default Result Collection.items]" stage="Result Collection" />
+  </stage>
+  <stage stageid="b5131071-073a-4f2d-88dd-a9a1af1ad41c" name="Default Result Collection" type="Collection">
+    <subsheetid>e0bccb2e-4d3a-42cf-b913-287c3ff1ac20</subsheetid>
+    <display x="-195" y="45" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="db47868d-427f-4ebc-aa5e-b8419143a2ff" name="Start" type="Start">
+    <subsheetid>5367a450-3436-4671-8a0d-5d5a81de521d</subsheetid>
+    <display x="375" y="-105" />
+    <onsuccess>91d858f8-b01a-4d3b-91fc-8740fd61b770</onsuccess>
+  </stage>
+  <stage stageid="89a4e8eb-2d13-4295-9b5e-43f896cd52b8" name="Add to Cleanup" type="SubSheet">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-990" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;Blue Prism&quot;" />
+    </inputs>
+    <onsuccess>6a59954f-6b99-4916-a3c9-7d33a05ee43e</onsuccess>
+    <processid>cc63b4ab-15cd-4e6f-a366-a3167a4fa91c</processid>
+  </stage>
+  <stage stageid="b2fa0d72-4ef9-4df1-96f5-efda85f7d382" name="Start" type="Start">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="15" y="-1080" />
+    <onsuccess>7cb4835b-84f2-45d0-aa9b-d644c23eb182</onsuccess>
+  </stage>
+  <stage stageid="7cb4835b-84f2-45d0-aa9b-d644c23eb182" name="Launch" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="15" y="-1035" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>89a4e8eb-2d13-4295-9b5e-43f896cd52b8</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="6a59954f-6b99-4916-a3c9-7d33a05ee43e" name="Attach to System" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <display x="15" y="-945" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>9919c128-1416-438c-ba90-5cd94c67526f</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="9919c128-1416-438c-ba90-5cd94c67526f" name="Sign In Auth Server" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-900" w="90" h="30" />
+    <onsuccess>6c197cc2-7b3c-4fa3-9237-5a5f908fa6f0</onsuccess>
+    <resource object="Blue Prism" action="Sign in using Auth Server" />
+  </stage>
+  <stage stageid="6c197cc2-7b3c-4fa3-9237-5a5f908fa6f0" name="IMS Server:Attach" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-855" w="90" h="30" />
+    <onsuccess>6950ba9c-ff65-40ba-ad9c-5a68f38718c5</onsuccess>
+    <resource object="IMS Server" action="Attach" />
+  </stage>
+  <stage stageid="6950ba9c-ff65-40ba-ad9c-5a68f38718c5" name="IMS Server:Login" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-810" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="&quot;admin&quot;" />
+      <input type="text" name="Password" friendlyname="Password" expr="&quot;Qq1234!!&quot;" />
+    </inputs>
+    <onsuccess>c66db8d7-d8af-43b8-8aa6-c4ae59c6b31a</onsuccess>
+    <resource object="IMS Server" action="Login" />
+  </stage>
+  <stage stageid="c66db8d7-d8af-43b8-8aa6-c4ae59c6b31a" name="Setup Credential" type="Action">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-750" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="Requires Login" friendlyname="Requires Login" narrative="Flag indicating if the login info should be given too" expr="True" />
+      <input type="text" name="Arguments" friendlyname="Arguments" narrative="The arguments to pass to automatec, not including the authentication info" expr="&quot;/createcredential &quot;&quot;BPE-API-Credential&quot;&quot; ServiceAccount E3NbGuz9G/nSpQWdz6DMROZhtIDHtUhev13wsCV72fY=  /credentialtype OAuth2ClientCredentials&quot;" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username that you want to authenticate against." expr="" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the username." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Output" friendlyname="Output" narrative="The output from the command" stage="" />
+    </outputs>
+    <onsuccess>8efbba27-3cc6-406c-89c0-d1d2ba4303ca</onsuccess>
+    <resource object="Call AutomateC" action="Call AutomateC" />
+  </stage>
+  <stage stageid="1458ff8b-5d85-42a9-887c-7db76316d029" name="Credential already exists?" type="Recover">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit />
+    <display x="120" y="-750" w="90" h="30" />
+    <onsuccess>69c4fc1a-ce75-47e6-8de4-bdea7a677580</onsuccess>
+  </stage>
+  <stage stageid="69c4fc1a-ce75-47e6-8de4-bdea7a677580" name="Resume1" type="Resume">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit />
+    <display x="120" y="-690" w="90" h="30" />
+    <onsuccess>8efbba27-3cc6-406c-89c0-d1d2ba4303ca</onsuccess>
+  </stage>
+  <stage stageid="8efbba27-3cc6-406c-89c0-d1d2ba4303ca" name="Anchor14" type="Anchor">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-690" w="10" h="10" />
+    <onsuccess>b91de860-c635-4712-9626-f4fef82007df</onsuccess>
+  </stage>
+  <stage stageid="86a0febc-0c5c-453e-9676-78deda3b70f0" name="Create credential" type="Block">
+    <subsheetid>35e4a25d-3be4-4079-9172-6a5adeca098f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-780" w="225" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+</process>

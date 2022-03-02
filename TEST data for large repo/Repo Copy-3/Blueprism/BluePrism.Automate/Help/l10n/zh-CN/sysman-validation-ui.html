@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<title>系统管理器—设计控件</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+		div.screenshot { width: 150px; }
+	</style>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">系统管理器</h1>
+		<h2>审计—设计控件</h2>
+	</div>
+
+	<div class="captioned-image overview-screenshot nozoom">
+		<a href="Graphics/sysman-validate-designcontrol.png" title="设计控件—点击查看大图"><img alt="设计控件—点击查看大图" src="Graphics/sysman-validate-designcontrol.png"/></a>
+		<p>设计控制</p>
+	</div>
+
+	<h3>概述</h3>
+	<p>流程和 Object Studio 中的验证配置在系统管理器的“审计”部分的“设计控制”<code></code>选项卡中进行管理。</p>
+	<p>从这里开始，可以将某些检查设置为忽略，或禁止未通过特定检查类别或严重性的流程或 VBO 发布到控制室或保存到数据库。</p>
+	
+	<div class="clearer light"></div>
+	<h3 id="basic">基本配置</h3>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/sysman-validate-auto.png" alt="自动验证"/></div>
+	<h4 id="autovalidation">自动验证</h4>
+	<p>默认情况下，流程或 VBO 在首次打开时、保存时以及在调试会话中重置时会自动进行验证。</p>
+	<p>如果发现验证花费的时间太多，例如，在处理大型流程/VBO 时，可以在此处对执行自动验证的 3 个点中的任何一个禁用自动验证。</p>
+	<p>请注意，如果在<em>保存</em>流程/VBO 时禁用了自动验证，则尝试禁止保存流程/VBO 会变得徒劳，因为在允许保存到数据库之前不会尝试验证。</p>
+	
+	<h4 id="category">类别</h4>
+	<p>每个验证都属于一个特定类别—可以同时配置的一系列验证检查。类别如下：—</p>
+	<dl class="bulleted">
+		<dt>环节验证</dt>
+		<dd>此类别中的检查用于处理环节本身，其中各个环节的配置在某种程度上是错误的，<i>例如</i>，“读取”<code></code>环节没有设置要读取的应用程序元素，或“计算”<code></code>环节正在尝试将值存储在“数据”<code></code>或“收集”<code></code>环节以外的环节。</dd>
+		
+		<dt>流验证</dt>
+		<dd>这一类别涉及通过环节的控制流程、环节之间的联系而不涉及环节本身。例如，如果某个“决策”<code></code>环节具有指向另一个环节的“Yes”<code></code>链接，但却没有“No”<code></code>链接，则会导致此列表中的错误，而没有传出链接的非终止环节也是如此。</dd>
+		
+		<dt>文档控制</dt>
+		<dd>此类别的检查确保流程/VBO 的文档是足够的—它可以检查在环节中定义的参数是否具有描述，或者是否定义了环节的前提条件和后置条件。</dd>
+	</dl>
+	
+	<h4 id="severity">严重性</h4>
+	<p>在每个类别中，有 3 种严重性：— </p>
+	<dl class="bulleted">
+	
+		<dt>错误</dt>
+		<dd>可能无法在控制室中成功运行或被其他流程调用的流程问题。</dd>
+			
+		<dt>警告</dt>
+		<dd>可能不会导致流程失败但却不正确的流程问题。</dd>
+			
+		<dt>建议</dt>
+		<dd>流程的非最佳部分（通常是文件记录），对流程的运行几乎没有影响或没有直接影响，但可能使其更难以维护或被其他开发人员理解。</dd>
+	</dl>
+	<p>可以在每个类别的<a href="#advanced">高级配置</a>中指定每个检查的严重性。</p>
+	
+	<div class="captioned-image screenshot">
+		<img src="Graphics/sysman-validate-actions.png" alt="设计控制"/></div>
+	<h4 id="action">设计控制</h4>
+	<p>对于每个类别中的每个检查严重性，可以设置一个控件来改变用户对检查的感知，即：—</p>
+	<dl class="bulleted">
+		<dt>忽略</dt>
+		<dd>向用户隐藏此检查结果，因此如果流程/VBO 未通过检查，则他们永远不会看到检查消息。</dd>
+			
+		<dt>验证</dt>
+		<dd>大多数检查的默认值—如果流程/VB 未通过检查，则在验证窗口中显示一条消息，但不会以任何方式阻止流程/VBO。</dd>
+		
+		<dt>验证并禁止发布</dt>
+		<dd>如果流程/VBO 未通过检查，则在验证窗口中显示消息。它还会阻止将该流程发布到控制室，直到修复了所有使用此操作的检查。</dd>
+		
+		<dt>验证并禁止保存</dt>
+		<dd>如果流程/VBO 未通过检查，则在验证窗口中显示消息。在使用此操作时，用户还会被禁止保存流程/VBO，直到修复与此操作相关的所有检查。</dd>
+	</dl>
+	
+	<div class="captioned-image screenshot">
+		<img src="Graphics/sysman-validate-advancedbutton.png" alt="高级配置"/></div>
+	<h3 id="advanced">高级配置</h3>
+	<p>每个类别都有一个“高级”<code></code>按钮，它将打开该类别的高级配置。</p>
+	<p>用户可以使用此按钮来选择所选类别中每个检查的严重性。系统还提供禁用特定检查的机制。</p>
+	
+	<hr class="clearer light"/>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/sysman-validate-advanced-enable.png" alt="高级配置"/></div>
+	<h4 id="enable">启用/禁用检查</h4>
+	<p>“已启用”<code></code>列指示某项检查是被启用还是禁用。要启用/禁用特定检查，请相应地勾选/取消勾选该复选框。</p>
+	<p>禁用的检查不会向用户显示，或被视为导致禁止保存或发布的错误。</p>
+	<p>在按下“确定”<code></code>按钮时，状态将被保存到数据库中。</p>
+		
+	<hr class="clearer light"/>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/sysman-validate-advanced-severity.png" alt="高级配置"/></div>
+	<h4 id="advanced-severity">单个严重性</h4>
+	<p>“严重性”<code></code>列用于指定单个检查的严重性。例如，查看是否<code>“环节的名称为空”</code>的检查在默认情况下是警告。
+ 要将其设置为错误，应从该检查的“严重性”下拉列表中选择“错误”<code></code>。</p>
+	<p>同样，按下“确定”<code></code>按钮时，会保存单个严重性。</p>
+
+	<div class="clearer"></div>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/sysman-validate-importexport.png" alt="高级配置"/></div>
+	<h3 id="import-export">导入/导出</h3>
+	<p>在使用某个设计控制模式时，可以将其保存到文件系统中的单个文件中。</p>
+	<p>同样，也可以从文件系统导入单个文件，并将其应用于当前的设计控制模式。</p>
+	
+	<h4 id="export">导出</h4>
+	<p>“导出”<code></code>链接用于启动将设计控制模式导出到文件的操作。</p>
+	<p>点击该链接时，会显示“另存为”<code></code>对话框—选择输出文件的位置后，输入所需的文件名并按“确定”<code></code>，该模式将保存到文件中。</p>
+	
+	<h4 id="import">导入</h4>
+	<p>“导入”<code></code>链接用于从现有文件导入一个模式。</p>
+	<p>在启动时，系统将打开“打开文件”<code></code>对话框，用户可选择从中导出所需模式的文件。</p>
+	<p>选择文件后，模式将保存到数据库并立即生效。</p>
+	
+
+</body>
+</html>

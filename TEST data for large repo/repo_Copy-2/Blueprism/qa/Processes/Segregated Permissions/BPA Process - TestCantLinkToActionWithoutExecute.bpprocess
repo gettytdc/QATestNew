@@ -1,0 +1,1057 @@
+﻿<process name="TestCantLinkToActionWithoutExecute" version="1.0" bpversion="6.10.0.27898" narrative="Tests that in an Action stage, business objects are not listed if the user does not have Execute permission on them." byrefcollection="true" preferredid="68831d79-1e73-4d11-8021-da5309c5f99f">
+  <view>
+    <camerax>-282</camerax>
+    <cameray>-27</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="403a982b-47c1-4ed1-b049-6a28591e3341" type="Normal" published="False">
+    <name>Create User / Role</name>
+    <view>
+      <camerax>27</camerax>
+      <cameray>150</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="3b0beba9-437a-40eb-8369-287ac96ccf22" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-45</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="c0744223-99e1-4742-99a1-fd7d2d4188d9" type="Normal" published="False">
+    <name>Cleanup</name>
+    <view>
+      <camerax>6</camerax>
+      <cameray>172</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="72975add-ddea-4ff8-b536-2f0508108f5c" type="Normal" published="False">
+    <name>Can Link to objects in action stage</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>72</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="abb2306f-963b-4566-8650-7b0f78148abb" name="Stage1" type="ProcessInfo">
+    <display x="-615" y="-225" w="150" h="90" />
+  </stage>
+  <stage stageid="e3391cc7-075d-448e-91c8-d56fc88b47c9" name="Start" type="Start">
+    <display x="-390" y="-405" />
+    <onsuccess>500c344d-4635-44a4-8304-1361bcf7bf70</onsuccess>
+  </stage>
+  <stage stageid="e96935e1-4736-4bf6-8cb8-cd27f6552b82" name="End" type="End">
+    <display x="60" y="420" />
+  </stage>
+  <stage stageid="90619f09-ef0f-4c04-a075-13722ecab2ad" name="Sign In as Admin" type="Action">
+    <display x="-390" y="-210" />
+    <inputs>
+      <input type="text" name="Username" expr="&quot;admin&quot;" />
+      <input type="password" name="Password" expr="&quot;admin&quot;" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>a6fbd57b-81ce-4d91-9274-c65d3f138259</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="a6fbd57b-81ce-4d91-9274-c65d3f138259" name="Setup" type="SubSheet">
+    <display x="-390" y="-165" />
+    <onsuccess>452ade9e-0b04-4628-ab85-af4b1a772d7a</onsuccess>
+    <processid>3b0beba9-437a-40eb-8369-287ac96ccf22</processid>
+  </stage>
+  <stage stageid="6c5c218d-066a-43ff-8d80-02339e622c86" name="Recover For Clean Up" type="Recover">
+    <display x="60" y="-135" />
+    <onsuccess>9ebfaa66-ec75-453f-aec7-6a347692e211</onsuccess>
+  </stage>
+  <stage stageid="380430a5-32b0-440e-a840-7909f8485b66" name="Rethrow" type="Exception">
+    <display x="195" y="360" />
+    <exception type="Access Rights" detail="[Exception Detail]" />
+  </stage>
+  <stage stageid="9e2f4742-252e-4389-a035-9cd496f3f625" name="Cleanup" type="SubSheet">
+    <display x="60" y="195" />
+    <onsuccess>b70effda-9375-4396-8f8c-86fca4114810</onsuccess>
+    <processid>c0744223-99e1-4742-99a1-fd7d2d4188d9</processid>
+  </stage>
+  <stage stageid="9ebfaa66-ec75-453f-aec7-6a347692e211" name="Store Error" type="Calculation">
+    <display x="60" y="-90" />
+    <onsuccess>6558b840-a3eb-4c72-9382-513549979bc6</onsuccess>
+    <calculation expression="ExceptionDetail()" stage="Exception Detail" />
+  </stage>
+  <stage stageid="d8b95ac9-2d52-40ca-bb3d-de8c919658fc" name="Exception Detail" type="Data">
+    <display x="135" y="-90" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6558b840-a3eb-4c72-9382-513549979bc6" name="Resume1" type="Resume">
+    <display x="60" y="-45" />
+    <onsuccess>65cda518-de1e-4a8b-8537-00d85b723a21</onsuccess>
+  </stage>
+  <stage stageid="b5ec7cff-c2c8-4fb2-9aee-68f9869de7d0" name="Setup" type="SubSheetInfo">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="b775423d-0a9c-43ef-bbe8-eceeb2f8fc18" name="Start" type="Start">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <display x="15" y="-540" />
+    <onsuccess>e27911d0-faf0-42a3-b14a-2d4e6558ec0a</onsuccess>
+  </stage>
+  <stage stageid="bf6b302a-4ce3-403f-95f3-392b5bd29d0d" name="End" type="End">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <display x="15" y="225" />
+  </stage>
+  <stage stageid="df29a961-55ec-4e3d-b4c9-c6c51c0820b9" name="Cleanup" type="SubSheetInfo">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="0530343c-deb2-4165-b2de-5b22e974a5be" name="Start" type="Start">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="15" y="-255" />
+    <onsuccess>b9238316-1731-47a7-b265-e15d17b8e2e7</onsuccess>
+  </stage>
+  <stage stageid="28270d5b-1590-42d7-8169-626b37d326ff" name="End" type="End">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="15" y="465" />
+  </stage>
+  <stage stageid="b70effda-9375-4396-8f8c-86fca4114810" name="Exit" type="Action">
+    <display x="60" y="285" />
+    <onsuccess>35af7f70-6f44-4d23-8f96-93e8692b5d10</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="cc44b689-f5f3-49ce-b29d-738b914662a7" name="Create 'ExecuteOnly' object group" type="Action">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <display x="15" y="-360" />
+    <inputs>
+      <input type="text" name="Group Name" narrative="The name you wish to give the group." expr="[Execute Only Group Name]" />
+      <input type="flag" name="Process Group?" narrative="True or False, do you want to create a process group." expr="False" />
+      <input type="flag" name="Object Group?" narrative="True or False, do you want to create a object group?" expr="True" />
+    </inputs>
+    <onsuccess>39867e63-a3b4-4abc-99ad-555d5fbe0a47</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Process / Object Group - Create" />
+  </stage>
+  <stage stageid="9f070760-0928-4b63-b41e-9ad423cd4255" name="Add object to group" type="Action">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <display x="15" y="-45" />
+    <inputs>
+      <input type="text" name="Folder to Move" expr="[Execute Only Object Name]" />
+      <input type="text" name="Targer Folder" expr="[Execute Only Group Name]" />
+      <input type="flag" name="Nested Group" expr="True" />
+      <input type="collection" name="Nesting Structure" expr="" />
+      <input type="flag" name="Move From Default Process Groupr?" expr="" />
+      <input type="flag" name="Move From Default Object Group" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Value from Warning" narrative="Read the warning dialog window text after a folder move has been attempted" stage="" />
+    </outputs>
+    <onsuccess>52c7569d-c51e-422e-ac8e-b94370a0524f</onsuccess>
+    <resource object="Blue Prism - Studio" action="Move Process/Object Group" />
+  </stage>
+  <stage stageid="0617daa1-c73f-45bb-ad67-3d116cf02fdb" name="Objects" type="Collection">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <display x="-90" y="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Name" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Name" type="text" value="" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="7b3a187e-b418-4478-9086-a753ec7524ee" name="Test Role Name" type="Data">
+    <display x="-225" y="-285" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">US1864_TestRole</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="bb7664a0-0fce-492e-8064-8e40ad7b26c4" name="Execute Only Group Name" type="Data">
+    <display x="-225" y="-240" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">US1864_ExecuteOnlyGroup</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="8535e3dd-1371-47ff-8c1c-fef3f0a275cc" name="Execute Only Object Name" type="Data">
+    <display x="-225" y="-195" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">US1864_ExecuteOnlyObj</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="b6eb8f5a-5ba2-40c9-a43c-80bd04c059aa" name="Test Process Name" type="Data">
+    <display x="-225" y="-150" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">US1864_TestProcess</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="452ade9e-0b04-4628-ab85-af4b1a772d7a" name="Sign out as Admin" type="Action">
+    <display x="-390" y="-120" />
+    <onsuccess>dc38b701-8d96-4da3-a013-9bf8fd59456c</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="763dac67-1d5a-4db8-9817-0c6e73565618" name="Test user name" type="Data">
+    <display x="-225" y="-105" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">US1864_b</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="e5bf6976-e5c6-4134-90f3-cc24b6eefafd" name="Test user password" type="Data">
+    <display x="-225" y="-60" w="120" h="30" />
+    <datatype>password</datatype>
+    <initialvalueenc>32,17,25,89,3</initialvalueenc>
+    <alwaysinit />
+  </stage>
+  <stage stageid="733101b6-473e-4060-a29e-2cd87819eba4" name="Role Permissions" type="Collection">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <display x="-90" y="105" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Parent Node" type="text" />
+      <field name="Check/Uncheck" type="flag" />
+      <field name="Child Node" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Parent Node" type="text" value="Object Studio" />
+        <field name="Check/Uncheck" type="flag" value="True" />
+        <field name="Child Node" type="text" value="Execute Business Object" />
+      </row>
+      <row>
+        <field name="Parent Node" type="text" value="Process Studio" />
+        <field name="Check/Uncheck" type="flag" value="True" />
+        <field name="Child Node" type="text" value="Edit Process" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="877ff523-9586-4156-b1cb-0ec4f3986d6e" name="Test Failure?" type="Decision">
+    <display x="60" y="360" />
+    <decision expression="Len([Exception Detail]) &gt; 0" />
+    <ontrue>380430a5-32b0-440e-a840-7909f8485b66</ontrue>
+    <onfalse>e96935e1-4736-4bf6-8cb8-cd27f6552b82</onfalse>
+  </stage>
+  <stage stageid="dc38b701-8d96-4da3-a013-9bf8fd59456c" name="Sign in as Test User" type="Action">
+    <display x="-390" y="-75" />
+    <inputs>
+      <input type="text" name="Username" expr="[Test user name]" />
+      <input type="password" name="Password" expr="[Test user password]" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>b3a88182-e992-4306-b12d-da7a0f393cfa</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="7d656f78-f8c4-49fb-ab7b-14d78aa3b427" name="Sign out Test User" type="Action">
+    <display x="60" y="105" />
+    <onsuccess>41e85077-2cb4-4f71-898d-b9752c9e021b</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="41e85077-2cb4-4f71-898d-b9752c9e021b" name="Sign In as Admin" type="Action">
+    <display x="60" y="150" />
+    <inputs>
+      <input type="text" name="Username" expr="&quot;admin&quot;" />
+      <input type="password" name="Password" expr="&quot;admin&quot;" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>9e2f4742-252e-4389-a035-9cd496f3f625</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="e19182bd-c77c-4c4c-a9ab-724291dfe6f5" name="Can Link to objects in action stage" type="SubSheetInfo">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <display x="-180" y="-195" w="150" h="90" />
+  </stage>
+  <stage stageid="2ab7d91c-7a97-4de9-9494-bb0d54ad0ef3" name="Start" type="Start">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <display x="15" y="-195" />
+    <onsuccess>02c87350-c939-4e9c-8b23-6d4f6e444ef0</onsuccess>
+  </stage>
+  <stage stageid="72424e43-e3aa-44b0-a107-6fbe4f9bc16a" name="End" type="End">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <display x="15" y="300" />
+  </stage>
+  <stage stageid="fb578ce2-9626-4a22-a656-af7dd243017a" name="Can Link to objects in action stage" type="SubSheet">
+    <display x="-165" y="15" w="90" h="60" />
+    <onsuccess>65cda518-de1e-4a8b-8537-00d85b723a21</onsuccess>
+    <processid>72975add-ddea-4ff8-b536-2f0508108f5c</processid>
+  </stage>
+  <stage stageid="b3a88182-e992-4306-b12d-da7a0f393cfa" name="Anchor1" type="Anchor">
+    <display x="-390" y="15" w="10" h="10" />
+    <onsuccess>fb578ce2-9626-4a22-a656-af7dd243017a</onsuccess>
+  </stage>
+  <stage stageid="65cda518-de1e-4a8b-8537-00d85b723a21" name="Anchor2" type="Anchor">
+    <display x="60" y="15" w="10" h="10" />
+    <onsuccess>7d656f78-f8c4-49fb-ab7b-14d78aa3b427</onsuccess>
+  </stage>
+  <stage stageid="16917f96-be9f-47dc-856a-4cbd30d2bb8c" name="Create User / Role" type="SubSheetInfo">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="5b88b29e-ac9d-455e-a017-0a712b2325bd" name="Start" type="Start">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="30" y="-195" />
+    <inputs>
+      <input type="collection" name="Role Permissions" narrative="Collection containing nodes and values for child nodes (check/unchecl)" stage="Role Permissions" />
+      <input type="text" name="Role Name" stage="Role Name" />
+      <input type="text" name="User Name" stage="User Name" />
+      <input type="password" name="Password" stage="" />
+    </inputs>
+    <onsuccess>561f5602-120c-46eb-bc80-f7da4366c958</onsuccess>
+  </stage>
+  <stage stageid="24fbf910-d552-4774-831e-4af657fbbf62" name="Role Permissions" type="Collection">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="-105" y="-15" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Parent Node" type="text" description="Name of the parent node you wish to set a permission on" />
+      <field name="Check/Uncheck" type="flag" />
+      <field name="Child Node" type="text" description="Name of the node you wish to set a permission on" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="26d51e6d-4ffc-4811-b1fe-1d554327ee98" name="Select User Permissions" type="Action">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="30" y="30" />
+    <inputs>
+      <input type="text" name="Parent Node Name" narrative="Name of the Parent Node which child belongs to." expr="[Role Permissions.Parent Node]" />
+      <input type="text" name="Child Node Name" narrative="Name of the child node to Check or Uncheck." expr="[Role Permissions.Child Node]" />
+      <input type="flag" name="Check?" narrative="True if Item needs to be Checked, False if Item needs to be unchecked." expr="[Role Permissions.Check/Uncheck]" />
+    </inputs>
+    <onsuccess>cd0f991d-ac3a-416d-9a5f-18b1e1233596</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Roles - Check/Uncheck Child Node" />
+  </stage>
+  <stage stageid="93f9cc6d-d2ee-4c4a-beb2-24da20af2456" name="Go To User Roles" type="Action">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="30" y="-105" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="&quot;User Roles&quot;" />
+    </inputs>
+    <onsuccess>9026edf6-e30a-489c-8f9e-aafd3649e3ec</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="9026edf6-e30a-489c-8f9e-aafd3649e3ec" name="Create Role" type="Action">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="30" y="-60" />
+    <inputs>
+      <input type="text" name="New Role Name" narrative="Name of the new Role" expr="[Role Name]" />
+    </inputs>
+    <onsuccess>8c6da280-2a94-496d-9380-443026543c4c</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Roles - Create Role" />
+  </stage>
+  <stage stageid="8c6da280-2a94-496d-9380-443026543c4c" name="Loop Start1" type="LoopStart">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="30" y="-15" />
+    <onsuccess>26d51e6d-4ffc-4811-b1fe-1d554327ee98</onsuccess>
+    <groupid>7087f5e3-1509-4ec4-a21a-d0386549bcab</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Role Permissions</loopdata>
+  </stage>
+  <stage stageid="cd0f991d-ac3a-416d-9a5f-18b1e1233596" name="Loop End1" type="LoopEnd">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="30" y="75" />
+    <onsuccess>a16b87b6-0b0e-464d-acd3-1c0efbb80866</onsuccess>
+    <groupid>7087f5e3-1509-4ec4-a21a-d0386549bcab</groupid>
+  </stage>
+  <stage stageid="42a37c18-b620-41c7-a17b-5ff309f51041" name="End1" type="End">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="30" y="300" />
+  </stage>
+  <stage stageid="a16b87b6-0b0e-464d-acd3-1c0efbb80866" name="Press Apply" type="Action">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="30" y="120" />
+    <onsuccess>af7be583-918d-4323-8bd6-8151488158f9</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Roles - Press Apply Button" />
+  </stage>
+  <stage stageid="c52adb27-43f1-4e42-ba78-f266e171e230" name="Go To Users" type="Action">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="30" y="210" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Users&quot;" />
+    </inputs>
+    <onsuccess>e7a15792-ac2d-4d4b-9651-40fa0babb9eb</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="e7a15792-ac2d-4d4b-9651-40fa0babb9eb" name="Create New User" type="Action">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="30" y="255" />
+    <inputs>
+      <input type="text" name="Username" narrative="The username of the user you wish to create." expr="[User Name]" />
+      <input type="password" name="Password" narrative="The password in which you want to assign to the user." expr="[Password]" />
+      <input type="date" name="User Expiry Date" narrative="The date in which the user account will expire." expr="" />
+      <input type="date" name="Password Expiry Date" narrative="The date in which the password will expire. " expr="" />
+      <input type="collection" name="Roles" narrative="The roles you wish to give to your user." expr="[Roles]" />
+      <input type="text" name="Password Duration" narrative="The duration, in weeks you wish the password to last before expiring." expr="" />
+    </inputs>
+    <onsuccess>42a37c18-b620-41c7-a17b-5ff309f51041</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Create New Username" />
+  </stage>
+  <stage stageid="380e7ebb-f40e-471e-94b5-e9ebdc58b32f" name="User Name" type="Data">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="-105" y="15" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9254f566-65bd-429c-b64a-e78ef3e70671" name="Password" type="Data">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="-105" y="45" />
+    <datatype>password</datatype>
+    <initialvalueenc>
+    </initialvalueenc>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="42cdabec-5d2f-486b-9ed7-e2a37482c908" name="Roles" type="Collection">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="-105" y="75" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Role" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Role" type="text" value="" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="af7be583-918d-4323-8bd6-8151488158f9" name="Store Role Name" type="Calculation">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="30" y="165" />
+    <onsuccess>c52adb27-43f1-4e42-ba78-f266e171e230</onsuccess>
+    <calculation expression="[Role Name]" stage="Roles.Role" />
+  </stage>
+  <stage stageid="ab5c261d-5167-403d-b961-b7d64444655d" name="Role Name" type="Data">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="-105" y="-45" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="561f5602-120c-46eb-bc80-f7da4366c958" name="Go To System Tab" type="Action">
+    <subsheetid>403a982b-47c1-4ed1-b049-6a28591e3341</subsheetid>
+    <display x="30" y="-150" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>93f9cc6d-d2ee-4c4a-beb2-24da20af2456</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="a2375e2c-67ba-4a6c-83f8-7c71d2d5779c" name="Create User / Role" type="Action">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <display x="15" y="135" />
+    <inputs>
+      <input type="collection" name="Role Permissions" narrative="Collection containing nodes and values for child nodes (check/unchecl)" expr="[Role Permissions]" />
+      <input type="text" name="Role Name" expr="[Test Role Name]" />
+      <input type="text" name="User Name" expr="[Test user name]" />
+      <input type="password" name="Password" expr="[Test user password]" />
+    </inputs>
+    <onsuccess>2b6ec723-726c-46ca-af30-266bf1845a81</onsuccess>
+    <resource object="QA - Templates - Segregated Permissions" action="Create Role/User" />
+  </stage>
+  <stage stageid="4a1038f8-dda8-45c1-b3a6-504c9ea20680" name="Delete ExecuteOnly Group" type="Action">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="15" y="330" />
+    <inputs>
+      <input type="text" name="Group Name" narrative="Name of the Group to Delete" expr="[Execute Only Group Name]" />
+    </inputs>
+    <onsuccess>a0441fd7-237e-4e92-b223-87be42aa161e</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Delete Process Group / Object Group" />
+  </stage>
+  <stage stageid="93b016da-1196-4aa3-8fdf-1f02c2f2ba62" name="Test" type="Block">
+    <display x="-450" y="-375" w="615" h="435" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3f97eaf0-dfd6-4396-8d77-e466c8099b75" name="No Execute Group Name" type="Data">
+    <display x="-90" y="-240" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">US1864_NoExecuteGroup</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="7d9cbff4-b11d-4940-aee9-20e4bb47cf10" name="No Execute Object Name" type="Data">
+    <display x="-90" y="-195" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">US1864_NoExecuteObj</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="72aeef5e-7cd0-4da5-9c84-917ef26a03f3" name="Create NoExecute Group" type="Action">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <display x="15" y="-180" />
+    <inputs>
+      <input type="text" name="Group Name" narrative="The name you wish to give the group." expr="[No Execute Group Name]" />
+      <input type="flag" name="Process Group?" narrative="True or False, do you want to create a process group." expr="False" />
+      <input type="flag" name="Object Group?" narrative="True or False, do you want to create a object group?" expr="True" />
+    </inputs>
+    <onsuccess>2a2761d0-0989-49d5-b792-845452f7ab48</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Process / Object Group - Create" />
+  </stage>
+  <stage stageid="149ce231-5331-4914-a771-07c1abee8de9" name="Add object to group" type="Action">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <display x="15" y="90" />
+    <inputs>
+      <input type="text" name="Folder to Move" expr="[No Execute Object Name]" />
+      <input type="text" name="Targer Folder" expr="[No Execute Group Name]" />
+      <input type="flag" name="Nested Group" expr="True" />
+      <input type="collection" name="Nesting Structure" expr="" />
+      <input type="flag" name="Move From Default Process Groupr?" expr="" />
+      <input type="flag" name="Move From Default Object Group" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Value from Warning" narrative="Read the warning dialog window text after a folder move has been attempted" stage="" />
+    </outputs>
+    <onsuccess>a2375e2c-67ba-4a6c-83f8-7c71d2d5779c</onsuccess>
+    <resource object="Blue Prism - Studio" action="Move Process/Object Group" />
+  </stage>
+  <stage stageid="a0441fd7-237e-4e92-b223-87be42aa161e" name="Delete NoExecute Group" type="Action">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="15" y="405" />
+    <inputs>
+      <input type="text" name="Group Name" narrative="Name of the Group to Delete" expr="[No Execute Group Name]" />
+    </inputs>
+    <onsuccess>28270d5b-1590-42d7-8169-626b37d326ff</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Delete Process Group / Object Group" />
+  </stage>
+  <stage stageid="4dc52ffd-ac7d-4e54-af7c-f60566239687" name="Cleanup" type="Block">
+    <display x="0" y="75" w="165" h="240" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b023143b-97ba-41cb-9fd5-d9abdebf24fd" name="Recover" type="Recover">
+    <display x="135" y="150" />
+    <onsuccess>cc242d97-e773-4fd6-8fea-759b92eff56c</onsuccess>
+  </stage>
+  <stage stageid="cc242d97-e773-4fd6-8fea-759b92eff56c" name="Resume2" type="Resume">
+    <display x="135" y="240" />
+    <onsuccess>bda476cd-04ca-4265-9c0a-0f4cf5ae57ed</onsuccess>
+  </stage>
+  <stage stageid="bda476cd-04ca-4265-9c0a-0f4cf5ae57ed" name="Anchor3" type="Anchor">
+    <display x="135" y="330" w="10" h="10" />
+    <onsuccess>35af7f70-6f44-4d23-8f96-93e8692b5d10</onsuccess>
+  </stage>
+  <stage stageid="35af7f70-6f44-4d23-8f96-93e8692b5d10" name="Anchor4" type="Anchor">
+    <display x="60" y="330" w="10" h="10" />
+    <onsuccess>877ff523-9586-4156-b1cb-0ec4f3986d6e</onsuccess>
+  </stage>
+  <stage stageid="85c8e529-a61a-4965-be07-65b3bf001faa" name="Open Test Process" type="Action">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <display x="15" y="-15" />
+    <inputs>
+      <input type="text" name="Process Name" expr="[Test Process Name]" />
+      <input type="text" name="Folder to Select" expr="&quot;Default&quot;" />
+      <input type="number" name="MatchIndex" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Access Warning" narrative="Access warning when opening member" stage="" />
+    </outputs>
+    <onsuccess>97ffe161-8116-4cee-a9ee-ecaa7305c45c</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Process" />
+  </stage>
+  <stage stageid="2b6ec723-726c-46ca-af30-266bf1845a81" name="Set NoExecute Group Permissions" type="Action">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <display x="15" y="180" />
+    <inputs>
+      <input type="text" name="Target Group" expr="[No Execute Group Name]" />
+      <input type="collection" name="Set Role Permissions" expr="[NoExecute Group Permissions]" />
+    </inputs>
+    <onsuccess>bf6b302a-4ce3-403f-95f3-392b5bd29d0d</onsuccess>
+    <resource object="QA - Templates - Segregated Permissions" action="Set Permissions - Object" />
+  </stage>
+  <stage stageid="69b90a2f-1718-4f0f-8e3a-e9355bf3d9c1" name="ExecuteOnly Group Permissions" type="Collection">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <display x="210" y="240" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Role Name" type="text" />
+      <field name="Create Business Object" type="flag" />
+      <field name="Delete Business Object" type="flag" />
+      <field name="Edit Business Object" type="flag" />
+      <field name="Export Business Object" type="flag" />
+      <field name="Import Process Business Object" type="flag" />
+      <field name="Execute Business Object" type="flag" />
+      <field name="View Business Object" type="flag" />
+      <field name="Edit Object Groups" type="flag" />
+      <field name="Manage Business Object Access Rights" type="flag" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Role Name" type="text" value="US1864_TestRole" />
+        <field name="Create Business Object" type="flag" value="False" />
+        <field name="Delete Business Object" type="flag" value="False" />
+        <field name="Edit Business Object" type="flag" value="False" />
+        <field name="Export Business Object" type="flag" value="False" />
+        <field name="Import Process Business Object" type="flag" value="False" />
+        <field name="Execute Business Object" type="flag" value="True" />
+        <field name="View Business Object" type="flag" value="False" />
+        <field name="Edit Object Groups" type="flag" value="False" />
+        <field name="Manage Business Object Access Rights" type="flag" value="False" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="4c82190c-b836-4269-9c70-f003e8a5a1e4" name="NoExecute Group Permissions" type="Collection">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <display x="210" y="300" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Role Name" type="text" />
+      <field name="Create Business Object" type="flag" />
+      <field name="Delete Business Object" type="flag" />
+      <field name="Edit Business Object" type="flag" />
+      <field name="Export Business Object" type="flag" />
+      <field name="Import Process Business Object" type="flag" />
+      <field name="Execute Business Object" type="flag" />
+      <field name="View Business Object" type="flag" />
+      <field name="Edit Object Groups" type="flag" />
+      <field name="Manage Business Object Access Rights" type="flag" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Role Name" type="text" value="US1864_TestRole" />
+        <field name="Create Business Object" type="flag" value="False" />
+        <field name="Delete Business Object" type="flag" value="False" />
+        <field name="Edit Business Object" type="flag" value="False" />
+        <field name="Export Business Object" type="flag" value="False" />
+        <field name="Import Process Business Object" type="flag" value="False" />
+        <field name="Execute Business Object" type="flag" value="False" />
+        <field name="View Business Object" type="flag" value="True" />
+        <field name="Edit Object Groups" type="flag" value="False" />
+        <field name="Manage Business Object Access Rights" type="flag" value="False" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="97ffe161-8116-4cee-a9ee-ecaa7305c45c" name="Open Action Stage Properties" type="Action">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <display x="15" y="30" />
+    <onsuccess>04627294-0dfb-43c1-b55a-3ec023543112</onsuccess>
+    <resource object="Blue Prism - Studio" action="Double Click Action Stage" />
+  </stage>
+  <stage stageid="90032dcc-1af3-4544-93f5-8a88c13712d2" name="Block2" type="Block">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="-30" y="-225" w="165" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f7edc5ad-1f4f-4fc7-b302-c3ddc1ce1da2" name="Recover1" type="Recover">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="90" y="-195" />
+    <onsuccess>496a6c2e-b3f7-4fb7-abb7-f0ea9cf797e0</onsuccess>
+  </stage>
+  <stage stageid="496a6c2e-b3f7-4fb7-abb7-f0ea9cf797e0" name="Resume2" type="Resume">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="180" y="-195" />
+    <onsuccess>519f03f6-03d6-4148-8f8b-a0ee239d441f</onsuccess>
+  </stage>
+  <stage stageid="d116ad65-417b-4e69-befd-99d1e94afa9d" name="Block5" type="Block">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="-30" y="-150" w="165" h="510" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c7e09aee-b8b3-452e-9928-e5156ad54a9a" name="Block7" type="Block">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="-30" y="375" w="165" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2ce958ff-d92a-4da2-81e2-e2611525d934" name="Recover4" type="Recover">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="90" y="330" />
+    <onsuccess>39381035-cf2c-427e-b4e4-ce8e71dee2d8</onsuccess>
+  </stage>
+  <stage stageid="cbc166e6-63e4-4b48-ba7a-c51f35e2e5b0" name="Recover6" type="Recover">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="90" y="405" />
+    <onsuccess>4838ce04-e01a-492a-b267-48bf423da6c3</onsuccess>
+  </stage>
+  <stage stageid="39381035-cf2c-427e-b4e4-ce8e71dee2d8" name="Resume5" type="Resume">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="180" y="330" />
+    <onsuccess>a0441fd7-237e-4e92-b223-87be42aa161e</onsuccess>
+  </stage>
+  <stage stageid="4838ce04-e01a-492a-b267-48bf423da6c3" name="Resume7" type="Resume">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="180" y="405" />
+    <onsuccess>28270d5b-1590-42d7-8169-626b37d326ff</onsuccess>
+  </stage>
+  <stage stageid="04627294-0dfb-43c1-b55a-3ec023543112" name="Get Action Stage VBO List" type="Action">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <display x="15" y="75" />
+    <outputs>
+      <output type="collection" name="Object List" narrative="List of objects available for selection in Action Properties Window" stage="VBOs" />
+    </outputs>
+    <onsuccess>98298162-9a4b-4df3-9833-c1507fe05c9b</onsuccess>
+    <resource object="Blue Prism - Studio" action="Action Properties - Read Busniess Object List" />
+  </stage>
+  <stage stageid="da729195-de5e-4b3e-8503-2802b954324f" name="VBOs" type="Collection">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <display x="90" y="75" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ab0e719b-e1cb-48f3-94aa-bfaa4474205c" name="Can Link to ExecuteOnly VBO?" type="Decision">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <display x="15" y="165" />
+    <decision expression="[Contains ExecuteOnly VBO]" />
+    <ontrue>d69676f8-d850-4c42-9884-1d6dd34fda7e</ontrue>
+    <onfalse>35a8805e-adbe-4667-beac-2a2f4ba2771e</onfalse>
+  </stage>
+  <stage stageid="98298162-9a4b-4df3-9833-c1507fe05c9b" name="Check If can link to VBO" type="Action">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <display x="15" y="120" />
+    <inputs>
+      <input type="collection" name="Collection" narrative="Required : The collection to search" expr="[VBOs]" />
+      <input type="text" name="Column Name" narrative="Required : The name of the column to search" expr="&quot;Item Name&quot;" />
+      <input type="text" name="Exact Value" narrative="Optional : The exact value to search for - this is case insensitive" expr="[Execute Only Object Name]" />
+      <input type="text" name="Regex" narrative="Optional : The regular expression to search for - this is case sensitive unless specified otherwise in the regular expression using &quot;(?i)&quot;" expr="" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Contains Search Term" narrative="Flag indicating if the collection found the given search term or not" stage="Contains ExecuteOnly VBO" />
+      <output type="collection" name="Groups" narrative="The groups defined in the regular expression when it is applied to the found term" stage="" />
+    </outputs>
+    <onsuccess>ab0e719b-e1cb-48f3-94aa-bfaa4474205c</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Collection Contains Value" />
+  </stage>
+  <stage stageid="0c915b16-75b9-46ee-a37b-075bf57fea1e" name="Contains ExecuteOnly VBO" type="Data">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <display x="-75" y="120" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="35a8805e-adbe-4667-beac-2a2f4ba2771e" name="FAIL" type="Exception">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <display x="105" y="165" />
+    <exception type="Test Failure" detail="&quot;Unable to link to VBO which user has Execute permission on.&quot;" />
+  </stage>
+  <stage stageid="d69676f8-d850-4c42-9884-1d6dd34fda7e" name="Check can't link to 'NoExecute' vbo" type="Action">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <display x="15" y="210" />
+    <inputs>
+      <input type="collection" name="Collection" narrative="Required : The collection to search" expr="[VBOs]" />
+      <input type="text" name="Column Name" narrative="Required : The name of the column to search" expr="&quot;Item Name&quot;" />
+      <input type="text" name="Exact Value" narrative="Optional : The exact value to search for - this is case insensitive" expr="[No Execute Object Name]" />
+      <input type="text" name="Regex" narrative="Optional : The regular expression to search for - this is case sensitive unless specified otherwise in the regular expression using &quot;(?i)&quot;" expr="" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Contains Search Term" narrative="Flag indicating if the collection found the given search term or not" stage="Contains NoExecute VBO" />
+      <output type="collection" name="Groups" narrative="The groups defined in the regular expression when it is applied to the found term" stage="" />
+    </outputs>
+    <onsuccess>96f2ad28-9639-4601-a277-d15c50b85384</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Collection Contains Value" />
+  </stage>
+  <stage stageid="96f2ad28-9639-4601-a277-d15c50b85384" name="Can Link to NoExecute VBO?" type="Decision">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <display x="15" y="255" />
+    <decision expression="[Contains NoExecute VBO]" />
+    <ontrue>678821c7-2158-4d0c-9a32-912f1d6452bb</ontrue>
+    <onfalse>72424e43-e3aa-44b0-a107-6fbe4f9bc16a</onfalse>
+  </stage>
+  <stage stageid="678821c7-2158-4d0c-9a32-912f1d6452bb" name="FAIL" type="Exception">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <display x="105" y="255" />
+    <exception type="Test Failure" detail="&quot;Able to link to VBO which user does not have Execute permission on&quot;" />
+  </stage>
+  <stage stageid="0a5aa0ab-c22e-40d4-8bec-5e8a3068a014" name="Contains NoExecute VBO" type="Data">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <display x="-75" y="210" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7660ebd8-b5eb-4c7c-a2f8-37a051a77c2a" name="Go To Studio" type="Action">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="15" y="-75" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>086245d4-6144-4fe6-ba30-af755990f382</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="b9238316-1731-47a7-b265-e15d17b8e2e7" name="Delete Role/User" type="Action">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="15" y="-195" />
+    <inputs>
+      <input type="text" name="UserName" expr="[Test user name]" />
+      <input type="text" name="RoleName" expr="[Test Role Name]" />
+    </inputs>
+    <onsuccess>316e97f9-d325-482a-b26f-132753e4e20b</onsuccess>
+    <resource object="QA - Templates - Segregated Permissions" action="Delete Role/User" />
+  </stage>
+  <stage stageid="e5783df7-bce4-4340-b7ba-6e251416de6f" name="Object Archive Group" type="Data">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="-195" y="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">arcobject</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="150fe38b-0479-4cfe-94a7-438c985eb23f" name="Input Data" type="Block">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="-270" y="-45" w="135" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ec45a568-56c3-4641-8638-8800123b50b0" name="Check and Create Object Archive Group" type="Action">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="15" y="15" />
+    <inputs>
+      <input type="text" name="Group Name" narrative="The name you wish to give the group." expr="[Object Archive Group]" />
+      <input type="flag" name="Process Group?" narrative="True or False, do you want to create a process group." expr="False" />
+      <input type="flag" name="Object Group?" narrative="True or False, do you want to create a object group?" expr="True" />
+    </inputs>
+    <onsuccess>1f9b7de5-4d9c-49a5-a2d0-928c3e589ee4</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Process / Object Group - Create" />
+  </stage>
+  <stage stageid="5493ecac-fa8e-4fba-a0cc-a2140f0d5c34" name="Reset ExecuteOnly object to archive group" type="Action">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="15" y="150" />
+    <inputs>
+      <input type="text" name="Folder to Move" narrative="It's really process/object to move" expr="[Execute Only Object Name]" />
+      <input type="text" name="Targer Folder" narrative="Name of the target group (ooops on naming consitency)" expr="[Object Archive Group]" />
+      <input type="flag" name="Nested Group" expr="" />
+      <input type="collection" name="Nesting Structure" expr="" />
+      <input type="flag" name="Move From Default Process Groupr?" expr="False" />
+      <input type="flag" name="Move From Default Object Group" expr="False" />
+      <input type="unknown" name="Containing folder" narrative="Name of the group the above -^ sits in" expr="[Execute Only Group Name]" />
+      <input type="number" name="Containing Folder Match index" narrative="To be used if the containing folder occurs more than once in the tree " expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Value from Warning" narrative="Read the warning dialog window text after a folder move has been attempted" stage="" />
+    </outputs>
+    <onsuccess>083c6bf9-47b4-4b73-bc9a-cee7dc3e03e4</onsuccess>
+    <resource object="Blue Prism - Studio" action="Move Process/Object Group" />
+  </stage>
+  <stage stageid="006fb1fe-d6c7-44bc-a6a3-0a4f414753fb" name="Reset NoExecute object to archive" type="Action">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="15" y="285" />
+    <inputs>
+      <input type="text" name="Folder to Move" narrative="It's really process/object to move" expr="[No Execute Object Name]" />
+      <input type="text" name="Targer Folder" narrative="Name of the target group (ooops on naming consitency)" expr="[Object Archive Group]" />
+      <input type="flag" name="Nested Group" expr="" />
+      <input type="collection" name="Nesting Structure" expr="" />
+      <input type="flag" name="Move From Default Process Groupr?" expr="False" />
+      <input type="flag" name="Move From Default Object Group" expr="False" />
+      <input type="unknown" name="Containing folder" narrative="Name of the group the above -^ sits in" expr="[No Execute Group Name]" />
+      <input type="number" name="Containing Folder Match index" narrative="To be used if the containing folder occurs more than once in the tree " expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Value from Warning" narrative="Read the warning dialog window text after a folder move has been attempted" stage="" />
+    </outputs>
+    <onsuccess>4a1038f8-dda8-45c1-b3a6-504c9ea20680</onsuccess>
+    <resource object="Blue Prism - Studio" action="Move Process/Object Group" />
+  </stage>
+  <stage stageid="500c344d-4635-44a4-8304-1361bcf7bf70" name="Launch Blue Prism" type="Action">
+    <display x="-390" y="-345" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>b9714fc7-ca4d-480a-9871-b7b7a09f681e</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="b9714fc7-ca4d-480a-9871-b7b7a09f681e" name="Attach Studio" type="Action">
+    <display x="-390" y="-300" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>f4d36d90-bb57-48bd-a2c3-9895f0e249ac</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="f4d36d90-bb57-48bd-a2c3-9895f0e249ac" name="Attach System" type="Action">
+    <display x="-390" y="-255" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>90619f09-ef0f-4c04-a075-13722ecab2ad</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="51a44c14-0371-44f2-a135-70021701a513" name="pid" type="Data">
+    <display x="-615" y="-150" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2a2761d0-0989-49d5-b792-845452f7ab48" name="Go To Studio" type="Action">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <loginhibit />
+    <display x="15" y="-135" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>8f1a0894-eb69-4cb0-aed9-73289c51cd46</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="52c7569d-c51e-422e-ac8e-b94370a0524f" name="Go To Studio" type="Action">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <loginhibit />
+    <display x="15" y="0" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>b06fe0cd-e110-4963-a1ff-4403d5e32868</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="1f9b7de5-4d9c-49a5-a2d0-928c3e589ee4" name="Go To Studio" type="Action">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <loginhibit />
+    <display x="15" y="60" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>f21b561e-f02a-490d-9848-1f423e0e7293</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="083c6bf9-47b4-4b73-bc9a-cee7dc3e03e4" name="Go To Studio" type="Action">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <loginhibit />
+    <display x="15" y="195" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>53284577-9980-4be7-bc1a-990ee1c07041</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="02c87350-c939-4e9c-8b23-6d4f6e444ef0" name="Go To Home" type="Action">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <loginhibit />
+    <display x="15" y="-150" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>7d3aa793-2d90-4e92-b709-c38e0ed3cc5a</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="7d3aa793-2d90-4e92-b709-c38e0ed3cc5a" name="Go To Studio" type="Action">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>0b1c77bb-4f67-40d3-b23d-6e07ced635c4</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="e27911d0-faf0-42a3-b14a-2d4e6558ec0a" name="Go To Home" type="Action">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <loginhibit />
+    <display x="15" y="-495" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>4ade58c5-91a1-416d-80dc-364feb470177</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="4ade58c5-91a1-416d-80dc-364feb470177" name="Go To Studio" type="Action">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <loginhibit />
+    <display x="15" y="-450" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>09fbc7d2-57c5-4fbc-a2f1-f12bc0ee9846</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="39867e63-a3b4-4abc-99ad-555d5fbe0a47" name="Go To Home" type="Action">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <loginhibit />
+    <display x="15" y="-315" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>68db55d8-da01-41a1-94e8-fdf0198a8df9</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="68db55d8-da01-41a1-94e8-fdf0198a8df9" name="Go To Studio" type="Action">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <loginhibit />
+    <display x="15" y="-270" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>04ac2902-6317-4185-8ef0-daa568de4dc5</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="316e97f9-d325-482a-b26f-132753e4e20b" name="Go To Home" type="Action">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <loginhibit />
+    <display x="15" y="-120" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>7660ebd8-b5eb-4c7c-a2f8-37a051a77c2a</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="519f03f6-03d6-4148-8f8b-a0ee239d441f" name="Anchor5" type="Anchor">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <display x="180" y="-120" w="10" h="10" />
+    <onsuccess>316e97f9-d325-482a-b26f-132753e4e20b</onsuccess>
+  </stage>
+  <stage stageid="09fbc7d2-57c5-4fbc-a2f1-f12bc0ee9846" name="Collapse Default Folders" type="Action">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-405" />
+    <onsuccess>cc44b689-f5f3-49ce-b29d-738b914662a7</onsuccess>
+    <resource object="Blue Prism - Studio" action="Collapse Default Studio Folders" />
+  </stage>
+  <stage stageid="04ac2902-6317-4185-8ef0-daa568de4dc5" name="Collapse Default Folders" type="Action">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-225" />
+    <onsuccess>72aeef5e-7cd0-4da5-9c84-917ef26a03f3</onsuccess>
+    <resource object="Blue Prism - Studio" action="Collapse Default Studio Folders" />
+  </stage>
+  <stage stageid="8f1a0894-eb69-4cb0-aed9-73289c51cd46" name="Collapse Default Folders" type="Action">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-90" />
+    <onsuccess>9f070760-0928-4b63-b41e-9ad423cd4255</onsuccess>
+    <resource object="Blue Prism - Studio" action="Collapse Default Studio Folders" />
+  </stage>
+  <stage stageid="b06fe0cd-e110-4963-a1ff-4403d5e32868" name="Collapse Default Folders" type="Action">
+    <subsheetid>3b0beba9-437a-40eb-8369-287ac96ccf22</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" />
+    <onsuccess>149ce231-5331-4914-a771-07c1abee8de9</onsuccess>
+    <resource object="Blue Prism - Studio" action="Collapse Default Studio Folders" />
+  </stage>
+  <stage stageid="086245d4-6144-4fe6-ba30-af755990f382" name="Collapse Default Folders" type="Action">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-30" />
+    <onsuccess>ec45a568-56c3-4641-8638-8800123b50b0</onsuccess>
+    <resource object="Blue Prism - Studio" action="Collapse Default Studio Folders" />
+  </stage>
+  <stage stageid="f21b561e-f02a-490d-9848-1f423e0e7293" name="Collapse Default Folders" type="Action">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="105" />
+    <onsuccess>5493ecac-fa8e-4fba-a0cc-a2140f0d5c34</onsuccess>
+    <resource object="Blue Prism - Studio" action="Collapse Default Studio Folders" />
+  </stage>
+  <stage stageid="53284577-9980-4be7-bc1a-990ee1c07041" name="Collapse Default Folders" type="Action">
+    <subsheetid>c0744223-99e1-4742-99a1-fd7d2d4188d9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="240" />
+    <onsuccess>006fb1fe-d6c7-44bc-a6a3-0a4f414753fb</onsuccess>
+    <resource object="Blue Prism - Studio" action="Collapse Default Studio Folders" />
+  </stage>
+  <stage stageid="0b1c77bb-4f67-40d3-b23d-6e07ced635c4" name="Collapse Default Folders" type="Action">
+    <subsheetid>72975add-ddea-4ff8-b536-2f0508108f5c</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" />
+    <onsuccess>85c8e529-a61a-4965-be07-65b3bf001faa</onsuccess>
+    <resource object="Blue Prism - Studio" action="Collapse Default Studio Folders" />
+  </stage>
+</process>

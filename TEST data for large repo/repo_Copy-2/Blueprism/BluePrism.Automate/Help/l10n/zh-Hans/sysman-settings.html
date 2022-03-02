@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>系统管理器—设置</title>
+    <script type="text/javascript" src="script/imagezoom.js"></script>
+    <style type="text/css">
+        div.screenshot { width: 150px; }
+    </style>
+</head>
+
+<body class="slick">
+    <div class="header">
+        <h1 class="pagetitle">系统管理器</h1>
+        <h2>系统—设置</h2>
+    </div>
+
+    <h3>概述</h3>
+    <p>一般环境级的设置在系统管理器的“设置”部分中配置。</p>
+    <p>它允许您管理 Blue Prism 组件的自动保存和汇总要求，使用客户端时的内部运行时资源运行以及环境的主题。</p>
+    <p><code></code>需要“系统—设置”权限才能查看或更改这些设置。</p>
+
+    <h3>本地设备设置</h3>
+    <dl class="listplease">
+        <dt>个人运行时资源</dt>
+        <dd>
+            <p>在 Blue Prism 客户端被登录时，嵌入式运行时资源会自动运行，并可供登录到客户端的用户使用。请注意，这<em>不</em>是公开可用的资源—它只能由当前登录的用户使用。</p>
+            <p><code></code>要禁用此运行时资源，请在用户登录时取消选中“当用户登录时，在此计算机上启动个人运行时资源”复选框。<strong>注意： </strong>这会在此计算机上对所有 Blue Prism 环境禁用嵌入式资源，而不仅仅是对当前登录的环境。</p>
+        </dd>
+    </dl>
+
+    <h3>系统级设置</h3>
+    <h4>常规</h4>
+    <dl class="listplease">
+        <dt id="autosave">备份和自动保存</dt>
+        <dd>
+            <p>默认情况下，Blue Prism 将自动保存在 Design Studio 中编辑流程和对象时所做的任何更改。</p>
+            <p><code></code>您可以通过“在编辑流程或业务对象选项时自动备份”来更改自动保存的频率，或完全禁用它。</p>
+        </dd>
+
+        <dt id="summary">执行更改汇总</dt>
+        <dd>
+            <p><code></code>当用户保存对流程或业务对象所做的任何更改时，您可以使用“强制用户在保存流程或业务对象时汇总其更改”选项要求用户汇总其更改。</p><p>
+            </p>
+            <p>默认情况下，用户需要在保存时汇总其更改。</p><p>
+            </p>
+        </dd>
+
+        <dt id="allowpaste">允许密码粘贴</dt>
+        <dd>通常，用户能够将剪贴板中的密码粘贴到 Blue Prism 客户端软件中的密码输入框中。在这样做时，将在托管内存中公开密码的纯文本。此选项允许管理员禁止该行为，这意味着该框不允许使用粘贴的数据来填充。</p><p>
+        </dd>
+
+		<dt id="allowpaste">允许最新的运行时资源截图</dt>
+        <dd>这使管理员能够指示用户是否可以配置异常环节，以便在发生错误时进行截图并存储屏幕截图。然后，可以通过控制室查看此屏幕截图。</p><p>
+        </dd>
+
+		<dt id="warning">默认会话警告时间</dt>
+        <dd>这允许管理员设置会话在控制室中显示为警告之前可以保留在同一环节的默认时间量（以分钟为单位）。设置为 0 将禁用任何显示为警告的会话。</p><p>
+        </dd>
+    </dl>
+
+    <h4>运行时资源连接</h4>
+    <dl class="listplease">
+        <dt id="require-secure">需要安全的入站指令连接</dt>
+        <dd>
+            <p>指定 Blue Prism 客户端和 Blue Prism 服务器仅能够与配置为应用基于证书的加密的运行时资源建立连接。此外，如果启用此设置，则运行时资源只有在配置为应用基于证书的加密时才能与平台建立连接。</p>
+            <p>这不适用于当用户登录 Blue Prism 客户端时可以在本地自动启动的运行时资源。</p>
+        </dd>
+        <dt id="allow-anon">允许匿名资源</dt>
+        <dd>
+            <p>指定公共运行时资源不需要显式身份验证即可连接到环境。</p>
+        </dd>
+	<dt id="allow-screencapture">允许最新的运行时资源屏幕截图</dt>
+        <dd>
+            <p>指定运行时资源可以进行屏幕截图。</p>
+        </dd>
+        <dt id="prevent-registration">防止注册新的运行时资源</dt>
+        <dd>
+            <p>用于仅允许之前已经在数据库中注册的运行时资源与环境建立连接。这可以防止之前未注册的设备成功建立连接。</p>
+        </dd>
+        <dt id="enforce-permissions">会话管理强制执行用户控制权限</dt>
+        <dd>
+            <p>默认情况下启用。启用时，如果请求会话控制操作，则将验证控制用户的权限。如果禁用，会话控制操作将验证用于根据环境验证运行时资源的帐户的权限。</p>
+            <p>建议启用此设置。启用后，创建、启动和删除资源 pc 命令不再有效。它们被下列命令替换：createas、startas、deleteas</p>
+        </dd>
+        <dt id="registration">资源注册和寻址</dt>
+        <dd>
+            </p>
+            <p>系统管理员可以选择更改此设置（如果适用于部署）：</p>
+            <p>
+                <ul>
+                    <li>使用计算机（短）名称进行注册和通信（默认）</li>
+                    <li>使用计算机（短）名称进行注册并使用 FQDN 进行通信*</li>
+                    <li>使用 FQDN 进行注册和通信</li>
+                </ul>
+            </p>
+            <p>
+                <i> *如果设备注册的内容与先前注册的计算机名称匹配但没有匹配的 FQDN，则连接将被拒绝。在这种情况下中，可以在资源管理中重置与短名称关联的 FQDN。 </i>
+            </p>
+            <p>
+                <strong>注册：</strong>注册运行时资源时使用的名称格式是在管理和配置平台时（例如在会话日志、计划和控制室内）使用的名称格式。</p>
+            <p>更改用于注册组件的名称需要将每个组件注册为环境中的新设备，这意味着可能需要重复任何之前的运行时资源配置（例如，配置资源组和资源池、向凭据分配访问权限、计划配置等）。</p>
+
+            <p>
+                <strong>连接：</strong>因此，连接到设备时使用的名称格式是必须可从每个设备解析为 IP 地址的名称，并且可以初始化连接。</p>
+        </dd>
+    </dl>
+
+     <h4>数据库</h4>
+    <dl class="listplease">
+        <dt id="unicode">会话日志的 Unicode 支持</dt>
+        <dd>
+            <p>默认情况下，会话日志以非 unicode 格式存储在数据库中。您可以使用“启用会话日志的 Unicode 支持”<code></code>选项，启用在这些日志中存储其他字符的功能。</p>
+            <p>在启用此设置之前，应注意 Unicode 记录将需要更多的 SQL 磁盘空间来存储所有新的会话日志。此外，在进行 Unicode 日志记录后，还原此更改将需要手动干预并可能出现重大系统停机（需要事先使用<a href="helpArchiving.htm">存档</a>工具从数据库中删除任何 Unicode 日志）。</p>
+
+            <p>
+                <b>注意：</b> 只有在没有挂起或正在运行的会话时才能更改此设置。</p>
+        </dd>
+    </dl>
+
+
+        <h3 id="theme">环境主题</h3>
+        <p>通过为标题标签和状态栏选择前景色和背景色，可以为环境配置基本“主题”。</p>
+        <p><code></code><code></code>可以从“背景”和“前景”下拉菜单中的预定义颜色列表中选择颜色。</p>
+        <p><code></code><code></code>所选颜色将显示在“预览”框中，并且可以通过按相关的“应用”按钮来应用更改。</p>
+        <p>请注意，更改将立即应用于 Blue Prism 客户端窗口，但任何打开的 Design Studio 窗口在关闭并重新打开都不会反映更改。同样，其他已登录的用户在注销并重新登录环境之前也不会看到更改。</p>
+
+
+    </body>
+</html>

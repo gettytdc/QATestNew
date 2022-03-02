@@ -1,0 +1,1877 @@
+﻿<process name="Queue Loader" version="1.0" narrative="Test of loading items into a work queue and testing if they are there" preferredid="6cef2400-29e1-4a1c-b0c4-bbcc1390ba14">
+  <view>
+    <camerax>0</camerax>
+    <cameray>0</cameray>
+    <zoom>1</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="a832b9c3-78fa-41a9-b9cb-0358a8e593e6" type="Normal" published="False">
+    <name>Test Large Load</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>132</cameray>
+      <zoom>1</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="e6c08c54-2a92-4692-a97c-c68f62cd9e7e" type="Normal" published="False">
+    <name>Check Data Collection Contains</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom>1</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="79ae9325-450e-43f3-881f-68452aee3f12" type="Normal" published="False">
+    <name>Check ID Collection Contains</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>19</cameray>
+      <zoom>1</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="72b5d583-5d19-41e0-946c-d4bcfcb12e41" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>-390</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>61b76f8d-f61e-419d-acce-9d871462dba8</onsuccess>
+  </stage>
+  <stage stageid="886bd5f1-94b9-451f-a7a2-ee7da0ade371" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>960</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="93bc8f60-ab9e-4ec4-96d2-2f522fcb5465" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-330</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="aabcdb8d-6b61-4df3-92f0-42b437fade7d" name="Data" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-510</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Account Number" type="text" />
+      <field name="Name" type="text" />
+      <field name="Balance" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Account Number" type="text" value="41987664" />
+        <field name="Name" type="text" value="Mr Smith" />
+        <field name="Balance" type="number" value="54.12" />
+      </row>
+      <row>
+        <field name="Account Number" type="text" value="48498888" />
+        <field name="Name" type="text" value="Mr Jones" />
+        <field name="Balance" type="number" value="411.23" />
+      </row>
+      <row>
+        <field name="Account Number" type="text" value="5123'441" />
+        <field name="Name" type="text" value="Mrs Humperdink" />
+        <field name="Balance" type="number" value="-1203.22" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="ab612870-2ff0-4e16-9c8d-58a918eb4619" name="Load data" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>-255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue 1 Name]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Data]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="Queue 1 IDs" />
+    </outputs>
+    <onsuccess>309bd7d3-dcf9-4378-9199-be71d87f4637</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="511625b7-6c4c-4b38-936d-6a8a3c17a043" name="Data2" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-510</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Account Number" type="text" />
+      <field name="Name" type="text" />
+      <field name="Balance" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Account Number" type="text" value="45467565" />
+        <field name="Name" type="text" value="Mr Green" />
+        <field name="Balance" type="number" value="10.00" />
+      </row>
+      <row>
+        <field name="Account Number" type="text" value="54355555" />
+        <field name="Name" type="text" value="Mr Plum" />
+        <field name="Balance" type="number" value="20.00" />
+      </row>
+      <row>
+        <field name="Account Number" type="text" value="43356777" />
+        <field name="Name" type="text" value="Mrs White" />
+        <field name="Balance" type="number" value="30.00" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="309bd7d3-dcf9-4378-9199-be71d87f4637" name="Load second queue" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" expr="[Queue 2 Name]" />
+      <input type="collection" name="Data" expr="[Data2]" />
+      <input type="datetime" name="Defer Until" expr="" />
+    </inputs>
+    <onsuccess>3973ca79-ab62-4afc-a467-4f12c0237690</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="3973ca79-ab62-4afc-a467-4f12c0237690" name="Check an item that exists" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to check" expr="[Queue 1 Name]" />
+      <input type="text" name="Key" narrative="The key to check." expr="&quot;41987664&quot;" />
+      <input type="flag" name="Include Pending" narrative="Check any items in the queue which are currently awaiting being worked. This will include any deferred items which have a deferral date in the past." expr="" />
+      <input type="flag" name="Include Deferred" narrative="Check any items in the queue which are currently deferred to a later date." expr="" />
+      <input type="flag" name="Include Completed" narrative="Check any items in the queue which are completed" expr="" />
+      <input type="flag" name="Include Terminated" narrative="Check any items in the queue which have been fully terminated" expr="" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Result" narrative="True if an item with the given key is in the queue, False otherwise." stage="Exists" />
+      <output type="collection" name="Item IDs" narrative="The Item IDs which represent the work items found with the given key" stage="Item IDs" />
+    </outputs>
+    <onsuccess>546273c1-8e1b-47df-8b46-85dcdf2fec55</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Is Item In Queue" />
+  </stage>
+  <stage stageid="445238d4-ddd2-425e-8df3-6f0c5bdab842" name="Check an item that doesn't exist" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>15</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to check" expr="[Queue 1 Name]" />
+      <input type="text" name="Key" narrative="The key to check." expr="&quot;zzzzzzz&quot;" />
+      <input type="flag" name="Include Pending" narrative="Check any items in the queue which are currently awaiting being worked. This will include any deferred items which have a deferral date in the past." expr="" />
+      <input type="flag" name="Include Deferred" narrative="Check any items in the queue which are currently deferred to a later date." expr="" />
+      <input type="flag" name="Include Completed" narrative="Check any items in the queue which are completed" expr="" />
+      <input type="flag" name="Include Terminated" narrative="Check any items in the queue which have been fully terminated" expr="" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Result" narrative="True if an item with the given key is in the queue, False otherwise." stage="Exists" />
+    </outputs>
+    <onsuccess>6b1649a8-2cf2-4bac-8814-801037da3b06</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Is Item In Queue" />
+  </stage>
+  <stage stageid="ab83e3d1-de90-461d-af8a-b9b09dbd6526" name="Exception 1" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Item that should have existed did not (1)&quot;" />
+  </stage>
+  <stage stageid="3c8a88af-7e71-421d-a62a-fcd6174ea084" name="Exception 2" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Item that should not have existed did (2)&quot;" />
+  </stage>
+  <stage stageid="546273c1-8e1b-47df-8b46-85dcdf2fec55" name="Check 1" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Exists]=True" />
+    <ontrue>243f964e-467e-411e-a208-bcec2d06ff03</ontrue>
+    <onfalse>ab83e3d1-de90-461d-af8a-b9b09dbd6526</onfalse>
+  </stage>
+  <stage stageid="6b1649a8-2cf2-4bac-8814-801037da3b06" name="Check 2" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Exists]=False" />
+    <ontrue>1ae273d9-59cf-4941-85b7-c44fd9d4b88e</ontrue>
+    <onfalse>3c8a88af-7e71-421d-a62a-fcd6174ea084</onfalse>
+  </stage>
+  <stage stageid="ed2a7b2e-843e-4e97-9ec5-726bf2573649" name="Note1" type="Note">
+    <narrative>Once the items are loaded, we test the "Is Item In Queue" action by looking for both items that should exist, and items that should not.</narrative>
+    <displayx>-15</displayx>
+    <displayy>-255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>180</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="1ae273d9-59cf-4941-85b7-c44fd9d4b88e" name="Check for non-pending item that exists, but is pending" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>105</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to check" expr="[Queue 1 Name]" />
+      <input type="text" name="Key" narrative="The key to check." expr="&quot;41987664&quot;" />
+      <input type="flag" name="Include Pending" narrative="Check any items in the queue which are currently awaiting being worked. This will include any deferred items which have a deferral date in the past." expr="False" />
+      <input type="flag" name="Include Deferred" narrative="Check any items in the queue which are currently deferred to a later date." expr="" />
+      <input type="flag" name="Include Completed" narrative="Check any items in the queue which are completed" expr="" />
+      <input type="flag" name="Include Terminated" narrative="Check any items in the queue which have been fully terminated" expr="" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Result" narrative="True if an item with the given key is in the queue, False otherwise." stage="Exists" />
+    </outputs>
+    <onsuccess>072a74eb-c399-40b9-b787-01993b5dc905</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Is Item In Queue" />
+  </stage>
+  <stage stageid="51eaeec5-ae10-4717-a6e5-a3064184bd4b" name="Exception 3" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Item that should not have existed did (3)&quot;" />
+  </stage>
+  <stage stageid="072a74eb-c399-40b9-b787-01993b5dc905" name="Check 3" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Exists]=False" />
+    <ontrue>b6341123-f08b-4f36-b4d4-8b86917ed9be</ontrue>
+    <onfalse>51eaeec5-ae10-4717-a6e5-a3064184bd4b</onfalse>
+  </stage>
+  <stage stageid="d5fab9ad-d937-49d0-a8cf-e7c3a174fa90" name="Get Next / Lock Item" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>-285</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue 1 Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Item Data" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>0ed73ad8-4cf1-40da-92b4-525f6db7969d</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="fb4cbddd-21cb-44b2-abf7-6d243c05e91f" name="Item ID" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-450</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0ed73ad8-4cf1-40da-92b4-525f6db7969d" name="Check for pending-only item that exists, but is locked" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>-240</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to check" expr="[Queue 1 Name]" />
+      <input type="text" name="Key" narrative="The key to check." expr="[Item Data.Account Number]" />
+      <input type="flag" name="Include Pending" narrative="Check any items in the queue which are currently awaiting being worked. This will include any deferred items which have a deferral date in the past." expr="True" />
+      <input type="flag" name="Include Deferred" narrative="Check any items in the queue which are currently deferred to a later date." expr="False" />
+      <input type="flag" name="Include Completed" narrative="Check any items in the queue which are completed" expr="False" />
+      <input type="flag" name="Include Terminated" narrative="Check any items in the queue which have been fully terminated" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Result" narrative="True if an item with the given key is in the queue, False otherwise." stage="Exists" />
+      <output type="collection" name="Item IDs" narrative="The Item IDs which represent the work items found with the given key" stage="Item IDs" />
+    </outputs>
+    <onsuccess>dc307ac6-1d80-4b67-99b9-d9235bc9c576</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Is Item In Queue" />
+  </stage>
+  <stage stageid="89370ac4-5e9d-4436-9cb6-992caf575bbc" name="Item Data" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-390</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b6341123-f08b-4f36-b4d4-8b86917ed9be" name="Check for pending-only item that exists, and is pending" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>195</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to check" expr="[Queue 1 Name]" />
+      <input type="text" name="Key" narrative="The key to check." expr="&quot;41987664&quot;" />
+      <input type="flag" name="Include Pending" narrative="Check any items in the queue which are currently awaiting being worked. This will include any deferred items which have a deferral date in the past." expr="True" />
+      <input type="flag" name="Include Deferred" narrative="Check any items in the queue which are currently deferred to a later date." expr="False" />
+      <input type="flag" name="Include Completed" narrative="Check any items in the queue which are completed" expr="False" />
+      <input type="flag" name="Include Terminated" narrative="Check any items in the queue which have been fully terminated" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Result" narrative="True if an item with the given key is in the queue, False otherwise." stage="Exists" />
+      <output type="collection" name="Item IDs" narrative="The Item IDs which represent the work items found with the given key" stage="Item IDs" />
+    </outputs>
+    <onsuccess>61cde298-1707-46e4-a4a3-d3ec73954846</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Is Item In Queue" />
+  </stage>
+  <stage stageid="6d7b49e4-4ecc-4ca3-9348-31e992c31688" name="Exists" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-375</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="151ce5a7-246f-4ee7-96a9-a82098780bad" name="Exception 4" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>240</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Item that should have existed did not (4)&quot;" />
+  </stage>
+  <stage stageid="61cde298-1707-46e4-a4a3-d3ec73954846" name="Check 4" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>240</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Exists]=True" />
+    <ontrue>b4570b6a-bf86-4575-9376-2ca4fd30b279</ontrue>
+    <onfalse>151ce5a7-246f-4ee7-96a9-a82098780bad</onfalse>
+  </stage>
+  <stage stageid="ebc2a7cc-bc7e-480a-a9ab-87cccd21a1e7" name="Exception 5" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Item that should have existed did not (5)&quot;" />
+  </stage>
+  <stage stageid="dc307ac6-1d80-4b67-99b9-d9235bc9c576" name="Check 5" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Exists]=True" />
+    <ontrue>902a440e-f959-4c56-a73a-7c928a2aaf46</ontrue>
+    <onfalse>ebc2a7cc-bc7e-480a-a9ab-87cccd21a1e7</onfalse>
+  </stage>
+  <stage stageid="cee05f58-bb22-4777-a32e-6100db3cd62c" name="Defer for 30 seconds" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to defer" expr="[Item ID]" />
+      <input type="datetime" name="Until" narrative="When to resume processing the case" expr="Now() + MakeTimeSpan(0, 0, 0, 30, 0)" />
+    </inputs>
+    <onsuccess>8ab03f18-902c-4731-8caa-18b5cd9cddc1</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Defer" />
+  </stage>
+  <stage stageid="8ab03f18-902c-4731-8caa-18b5cd9cddc1" name="Check for pending-only item that exists, but is deferred" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to check" expr="[Queue 1 Name]" />
+      <input type="text" name="Key" narrative="The key to check." expr="[Item Data.Account Number]" />
+      <input type="flag" name="Include Pending" narrative="Check any items in the queue which are currently awaiting being worked. This will include any deferred items which have a deferral date in the past." expr="True" />
+      <input type="flag" name="Include Deferred" narrative="Check any items in the queue which are currently deferred to a later date." expr="False" />
+      <input type="flag" name="Include Completed" narrative="Check any items in the queue which are completed" expr="False" />
+      <input type="flag" name="Include Terminated" narrative="Check any items in the queue which have been fully terminated" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Result" narrative="True if an item with the given key is in the queue, False otherwise." stage="Exists" />
+    </outputs>
+    <onsuccess>84a659fc-3d20-4004-9fa1-b66b397eb559</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Is Item In Queue" />
+  </stage>
+  <stage stageid="682e86c5-2a69-42d3-91a7-0a020193c29f" name="Exception 6" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Item that should not have existed did (6)&quot;" />
+  </stage>
+  <stage stageid="84a659fc-3d20-4004-9fa1-b66b397eb559" name="Check 6" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Exists]=False" />
+    <ontrue>a111fff4-6e7a-4289-b4a8-b72a817380e0</ontrue>
+    <onfalse>682e86c5-2a69-42d3-91a7-0a020193c29f</onfalse>
+  </stage>
+  <stage stageid="a111fff4-6e7a-4289-b4a8-b72a817380e0" name="Check for deferred-only item that exists, and is deferred" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>75</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to check" expr="[Queue 1 Name]" />
+      <input type="text" name="Key" narrative="The key to check." expr="[Item Data.Account Number]" />
+      <input type="flag" name="Include Pending" narrative="Check any items in the queue which are currently awaiting being worked. This will include any deferred items which have a deferral date in the past." expr="False" />
+      <input type="flag" name="Include Deferred" narrative="Check any items in the queue which are currently deferred to a later date." expr="True" />
+      <input type="flag" name="Include Completed" narrative="Check any items in the queue which are completed" expr="False" />
+      <input type="flag" name="Include Terminated" narrative="Check any items in the queue which have been fully terminated" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Result" narrative="True if an item with the given key is in the queue, False otherwise." stage="Exists" />
+    </outputs>
+    <onsuccess>eb9d66aa-1ed7-4121-9512-cb7d6d4d2b40</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Is Item In Queue" />
+  </stage>
+  <stage stageid="bf213094-1661-4c13-9acf-58412da3e9f8" name="Exception 7" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Item that should have existed did not (7)&quot;" />
+  </stage>
+  <stage stageid="eb9d66aa-1ed7-4121-9512-cb7d6d4d2b40" name="Check 7" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Exists]=True" />
+    <ontrue>f47f3f38-e322-4957-bb33-586d5fa32a77</ontrue>
+    <onfalse>bf213094-1661-4c13-9acf-58412da3e9f8</onfalse>
+  </stage>
+  <stage stageid="3a6da103-351c-4003-838c-c5e5e9448178" name="Wait for 1 minute" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>255</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Seconds" narrative="The number of seconds to wait (can be fractional)" expr="60" />
+    </inputs>
+    <onsuccess>8f49bf53-8db6-472b-b65f-4be8644962e2</onsuccess>
+    <resource object="Queue Utils" action="Wait n seconds" />
+  </stage>
+  <stage stageid="8f49bf53-8db6-472b-b65f-4be8644962e2" name="Check for deferred-only item that exists, which was deferred, but should now be pending" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>300</displayy>
+    <displaywidth>240</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to check" expr="[Queue 1 Name]" />
+      <input type="text" name="Key" narrative="The key to check." expr="[Item Data.Account Number]" />
+      <input type="flag" name="Include Pending" narrative="Check any items in the queue which are currently awaiting being worked. This will include any deferred items which have a deferral date in the past." expr="False" />
+      <input type="flag" name="Include Deferred" narrative="Check any items in the queue which are currently deferred to a later date." expr="True" />
+      <input type="flag" name="Include Completed" narrative="Check any items in the queue which are completed" expr="False" />
+      <input type="flag" name="Include Terminated" narrative="Check any items in the queue which have been fully terminated" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Result" narrative="True if an item with the given key is in the queue, False otherwise." stage="Exists" />
+    </outputs>
+    <onsuccess>d5a4efb9-77ed-4754-a33c-59a39d4005d7</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Is Item In Queue" />
+  </stage>
+  <stage stageid="38780e30-0cd7-4ea9-8517-5a9222629d67" name="Exception 8" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>345</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Item that should not have existed did (8)&quot;" />
+  </stage>
+  <stage stageid="d5a4efb9-77ed-4754-a33c-59a39d4005d7" name="Check 8" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>345</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Exists]=False" />
+    <ontrue>3a5a9c64-27ec-4959-af44-36a546212918</ontrue>
+    <onfalse>38780e30-0cd7-4ea9-8517-5a9222629d67</onfalse>
+  </stage>
+  <stage stageid="5258bef3-6392-4fed-9ccd-0a509f2c1190" name="anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>360</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>23330d75-996d-4343-9432-cf6ff6d7eb1b</onsuccess>
+  </stage>
+  <stage stageid="23330d75-996d-4343-9432-cf6ff6d7eb1b" name="anchor2" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>45</displayx>
+    <displayy>360</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>f88c0203-8f30-40d5-934f-6ad98650728e</onsuccess>
+  </stage>
+  <stage stageid="f88c0203-8f30-40d5-934f-6ad98650728e" name="anchor3" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>45</displayx>
+    <displayy>-285</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>d5fab9ad-d937-49d0-a8cf-e7c3a174fa90</onsuccess>
+  </stage>
+  <stage stageid="3c730ebb-94ae-45bd-8cec-1e1bd23aa033" name="Test Large Load" type="SubSheetInfo">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>Test for loading a large collection onto a queue (see bug 5889)</narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="e1ceef1a-f0a8-4203-9a23-0a7ff82b148c" name="Start" type="Start">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Size" narrative="The number of rows in the collection to be added to the queue" stage="Size" />
+      <input type="text" name="Queue Name" narrative="The name of the queue to create" stage="Queue Name" />
+    </inputs>
+    <onsuccess>6fe22731-d651-4524-a62e-f1889e4f0a71</onsuccess>
+  </stage>
+  <stage stageid="28b1dc5e-8b54-4b5e-bbe1-62909f3686e8" name="People" type="Collection">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="ID" type="text" description="The ID of the person" />
+      <field name="Forename" type="text" description="The forename of the person" />
+      <field name="Surname" type="text" description="The surname of the person" />
+      <field name="Age" type="number" description="The age of the person" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="d4674491-1181-4086-aadf-db6b4c34c53d" name="Size" type="Data">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>0</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c721bc46-b006-409e-9c4e-7d1c54f72104" name="Queue Name" type="Data">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6fe22731-d651-4524-a62e-f1889e4f0a71" name="Create Queue" type="Action">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to be created" expr="[Queue Name]" />
+      <input type="text" name="Key Field" narrative="The key column to use in the collection which makes up a queue item" expr="&quot;ID&quot;" />
+      <input type="number" name="Max Attempts" narrative="The maximum number of retry attempts for the queue. Default: 5" expr="3" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" narrative="Whether the create call was successful or not" stage="Success" />
+      <output type="text" name="Subprocess Output" narrative="The output from the automatec &quot;create queue&quot; process" stage="Subprocess Output" />
+    </outputs>
+    <onsuccess>fb71855d-f69c-451e-a922-49d9a8c47e83</onsuccess>
+    <resource object="Queue Utils" action="Create Queue" />
+  </stage>
+  <stage stageid="0f77a979-a59c-49cb-b9cf-474017215c8c" name="Success" type="Data">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="197d4c00-0439-4ffe-acfc-0453691a6457" name="Subprocess Output" type="Data">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fb71855d-f69c-451e-a922-49d9a8c47e83" name="People.AddRow()" type="Action">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to be modified" expr="&quot;People&quot;" />
+    </inputs>
+    <onsuccess>97186f89-f900-4610-b76d-7a5628626e22</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="97186f89-f900-4610-b76d-7a5628626e22" name="Row++" type="Calculation">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>d0425a1d-19fd-40d7-869e-c7624feef9c8</onsuccess>
+    <calculation expression="[Row] + 1" stage="Row" />
+  </stage>
+  <stage stageid="f94b80ab-4654-4c2d-9d82-b49074d0d765" name="Row" type="Data">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="53c939a6-5421-4c78-98c7-65bdbcc38647" name="Rows &gt;= Size?" type="Decision">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Row] &gt;= [Size]" />
+    <ontrue>315c8ed5-cb63-417b-b3e4-ad41356424bd</ontrue>
+    <onfalse>36cc4004-c263-4987-8f38-0da102006d52</onfalse>
+  </stage>
+  <stage stageid="315c8ed5-cb63-417b-b3e4-ad41356424bd" name="Add To Queue" type="Action">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>150</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[People]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="&quot;Fresh; New Item; Isn't This Fun?&quot;" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="Item IDs" />
+    </outputs>
+    <onsuccess>c8d18ddc-14aa-4ef6-a1e5-961253c071ed</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="0cf699bf-e099-47b9-acd2-9e3bc1e50a4b" name="Item IDs" type="Collection">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>390</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="d0425a1d-19fd-40d7-869e-c7624feef9c8" name="Set Data" type="MultipleCalculation">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>53c939a6-5421-4c78-98c7-65bdbcc38647</onsuccess>
+    <steps>
+      <calculation expression="[Row]" stage="People.ID" />
+      <calculation expression="&quot;Fore&quot; &amp; [Row]" stage="People.Forename" />
+      <calculation expression="&quot;Sur&quot; &amp; [Row]" stage="People.Surname" />
+      <calculation expression="Round(Log([Row], 1.11),0)" stage="People.Age" />
+    </steps>
+  </stage>
+  <stage stageid="36cc4004-c263-4987-8f38-0da102006d52" name="anchor4" type="Anchor">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-75</displayx>
+    <displayy>105</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>9eb783d6-bf0d-4b89-9828-96092ce44cd5</onsuccess>
+  </stage>
+  <stage stageid="9eb783d6-bf0d-4b89-9828-96092ce44cd5" name="anchor5" type="Anchor">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-75</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>fb71855d-f69c-451e-a922-49d9a8c47e83</onsuccess>
+  </stage>
+  <stage stageid="c8d18ddc-14aa-4ef6-a1e5-961253c071ed" name="ItemIDs.Count()" type="Action">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>195</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Item IDs&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>0ef6b2f4-5bbb-4081-bccd-110d8825556c</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="d12fc6fd-26f2-43c3-ba4c-dd91740c38bc" name="Count" type="Data">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>180</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0ef6b2f4-5bbb-4081-bccd-110d8825556c" name="ItemIDs.Count() = People.Count()?" type="Decision">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>240</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Count] = [Row]" />
+    <ontrue>6835295b-2ab0-4ed9-bddc-557bd99663af</ontrue>
+    <onfalse>6a5aa2f5-a58c-42f6-9fa4-33b25fb5059a</onfalse>
+  </stage>
+  <stage stageid="6a5aa2f5-a58c-42f6-9fa4-33b25fb5059a" name="FAIL" type="Exception">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>240</displayy>
+    <displaywidth>30</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="BadRowCount" detail="&quot;ItemIDs Count (&quot; &amp; [Count] &amp; &quot;) doesn't match row count (&quot; &amp; [Row] &amp; &quot;)&quot;" />
+  </stage>
+  <stage stageid="738a8461-81e6-4616-a48a-b58dc8aa791b" name="Delete Queue" type="Action">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>330</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete" expr="[Queue Name]" />
+    </inputs>
+    <onsuccess>d92a69e1-076c-45bb-84ad-42493ea0709c</onsuccess>
+    <resource object="Queue Utils" action="Delete Queue" />
+  </stage>
+  <stage stageid="d92a69e1-076c-45bb-84ad-42493ea0709c" name="End1" type="End">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>375</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="2aa5ce0b-12fb-47a3-8c08-9b151426dd0d" name="anchor2" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>795</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>c5e67d9b-1494-4557-8a51-06c5ce28d2f2</onsuccess>
+  </stage>
+  <stage stageid="46a78470-6f02-485f-b162-32d9c4e0984b" name="Test Large Load" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>900</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Size" narrative="The number of rows in the collection to be added to the queue" expr="5000" />
+      <input type="text" name="Queue Name" narrative="The name of the queue to create" expr="&quot;Large Load Queue&quot;" />
+    </inputs>
+    <onsuccess>886bd5f1-94b9-451f-a7a2-ee7da0ade371</onsuccess>
+    <processid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</processid>
+  </stage>
+  <stage stageid="6835295b-2ab0-4ed9-bddc-557bd99663af" name="Clear Queue" type="Action">
+    <subsheetid>a832b9c3-78fa-41a9-b9cb-0358a8e593e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>285</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should all be cleared" expr="[Queue Name]" />
+      <input type="text" name="Exception Message" narrative="The message which should be used as the exception for the unworked items" expr="&quot;Just... Just go.&quot;" />
+      <input type="flag" name="Delete Items" narrative="True to delete the items after they have been marked with an exception" expr="True" />
+    </inputs>
+    <onsuccess>738a8461-81e6-4616-a48a-b58dc8aa791b</onsuccess>
+    <resource object="Queue Utils" action="Clear Queue" />
+  </stage>
+  <stage stageid="bc494b32-a4fd-45d2-9939-35b73e23f0d7" name="Queue 1 Name" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-435</displayx>
+    <displayy>60</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">queueload Q1</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f447003c-3c06-4bf6-a2a3-d95d53a69aa0" name="Queue 2 Name" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-435</displayx>
+    <displayy>90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">queueload Q2</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="61b76f8d-f61e-419d-acce-9d871462dba8" name="Create Queue 1" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>-345</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to be created" expr="[Queue 1 Name]" />
+      <input type="text" name="Key Field" narrative="The key column to use in the collection which makes up a queue item" expr="&quot;Account Number&quot;" />
+      <input type="number" name="Max Attempts" narrative="The maximum number of retry attempts for the queue. Default: 5" expr="5" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" narrative="Whether the create call was successful or not" stage="" />
+      <output type="text" name="Subprocess Output" narrative="The output from the automatec &quot;create queue&quot; process" stage="" />
+    </outputs>
+    <onsuccess>3be72d19-0f9c-4171-8860-90b0275a12d1</onsuccess>
+    <resource object="Queue Utils" action="Create Queue" />
+  </stage>
+  <stage stageid="3be72d19-0f9c-4171-8860-90b0275a12d1" name="Create Queue 2" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>-300</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to be created" expr="[Queue 2 Name]" />
+      <input type="text" name="Key Field" narrative="The key column to use in the collection which makes up a queue item" expr="&quot;Account Number&quot;" />
+      <input type="number" name="Max Attempts" narrative="The maximum number of retry attempts for the queue. Default: 5" expr="5" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" narrative="Whether the create call was successful or not" stage="" />
+      <output type="text" name="Subprocess Output" narrative="The output from the automatec &quot;create queue&quot; process" stage="" />
+    </outputs>
+    <onsuccess>ab612870-2ff0-4e16-9c8d-58a918eb4619</onsuccess>
+    <resource object="Queue Utils" action="Create Queue" />
+  </stage>
+  <stage stageid="b5132756-d006-4ad7-8fd4-ad5bace086c3" name="Delete Queue 1" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>840</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete" expr="[Queue 1 Name]" />
+    </inputs>
+    <onsuccess>f8e7adfd-eb01-4361-b07b-c888c9783095</onsuccess>
+    <resource object="Queue Utils" action="Delete Queue" />
+  </stage>
+  <stage stageid="f8e7adfd-eb01-4361-b07b-c888c9783095" name="Delete Queue 2" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>840</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete" expr="[Queue 2 Name]" />
+    </inputs>
+    <onsuccess>46a78470-6f02-485f-b162-32d9c4e0984b</onsuccess>
+    <resource object="Queue Utils" action="Delete Queue" />
+  </stage>
+  <stage stageid="f296caee-476f-46cd-9be7-4198607d4049" name="Clear Queue 1" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>840</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should all be cleared" expr="[Queue 1 Name]" />
+      <input type="text" name="Exception Message" narrative="The message which should be used as the exception for the unworked items" expr="" />
+      <input type="flag" name="Delete Items" narrative="True to delete the items after they have been marked with an exception" expr="True" />
+    </inputs>
+    <onsuccess>7bf1469f-d4d5-4506-bbb0-d84e2fb7718e</onsuccess>
+    <resource object="Queue Utils" action="Clear Queue" />
+  </stage>
+  <stage stageid="7bf1469f-d4d5-4506-bbb0-d84e2fb7718e" name="Clear Queue 2" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>840</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should all be cleared" expr="[Queue 2 Name]" />
+      <input type="text" name="Exception Message" narrative="The message which should be used as the exception for the unworked items" expr="" />
+      <input type="flag" name="Delete Items" narrative="True to delete the items after they have been marked with an exception" expr="True" />
+    </inputs>
+    <onsuccess>b5132756-d006-4ad7-8fd4-ad5bace086c3</onsuccess>
+    <resource object="Queue Utils" action="Clear Queue" />
+  </stage>
+  <stage stageid="c5e67d9b-1494-4557-8a51-06c5ce28d2f2" name="anchor2" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>795</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>f296caee-476f-46cd-9be7-4198607d4049</onsuccess>
+  </stage>
+  <stage stageid="4b7e7698-7045-45ac-aa88-48d0ef950e2e" name="Check Data Collection Contains" type="SubSheetInfo">
+    <subsheetid>e6c08c54-2a92-4692-a97c-c68f62cd9e7e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="b3821383-6258-4255-b00b-de0e42b9ad0c" name="Start" type="Start">
+    <subsheetid>e6c08c54-2a92-4692-a97c-c68f62cd9e7e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Data" narrative="The data collection to check" stage="Data" />
+      <input type="text" name="Account Number" narrative="The account number to look for in the collection" stage="Account Number" />
+    </inputs>
+    <onsuccess>27b06f72-7e45-47e3-b257-60e6a7538e88</onsuccess>
+  </stage>
+  <stage stageid="ee5a06a3-f57c-4df5-b931-87b25326ec38" name="End" type="End">
+    <subsheetid>e6c08c54-2a92-4692-a97c-c68f62cd9e7e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="flag" name="Found" narrative="Found?" stage="Found" />
+    </outputs>
+  </stage>
+  <stage stageid="d8715a9f-d05a-4825-9a6d-4a023710684a" name="Data" type="Collection">
+    <subsheetid>e6c08c54-2a92-4692-a97c-c68f62cd9e7e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Account Number" type="text" />
+      <field name="Name" type="text" />
+      <field name="Balance" type="number" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="d6497d17-c1d4-41b3-aa67-0c7b2eb3305e" name="Account Number" type="Data">
+    <subsheetid>e6c08c54-2a92-4692-a97c-c68f62cd9e7e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>45</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="27b06f72-7e45-47e3-b257-60e6a7538e88" name="For Each Datum" type="LoopStart">
+    <subsheetid>e6c08c54-2a92-4692-a97c-c68f62cd9e7e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>8960d045-5b6b-47a0-ac07-ed92195490a7</onsuccess>
+    <groupid>237832e8-4655-43b8-98b7-c2975152611a</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Data</loopdata>
+  </stage>
+  <stage stageid="d35417de-2ca0-4d2a-85d2-f0d35359c0b0" name="Next Datum" type="LoopEnd">
+    <subsheetid>e6c08c54-2a92-4692-a97c-c68f62cd9e7e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>9f80f331-573a-4aa6-a26c-0fdb93530c28</onsuccess>
+    <groupid>237832e8-4655-43b8-98b7-c2975152611a</groupid>
+  </stage>
+  <stage stageid="8960d045-5b6b-47a0-ac07-ed92195490a7" name="Account Number Matches?" type="Decision">
+    <subsheetid>e6c08c54-2a92-4692-a97c-c68f62cd9e7e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Account Number] = [Data.Account Number]" />
+    <ontrue>669c82f1-4043-4cd0-a548-e9b27409c004</ontrue>
+    <onfalse>d35417de-2ca0-4d2a-85d2-f0d35359c0b0</onfalse>
+  </stage>
+  <stage stageid="669c82f1-4043-4cd0-a548-e9b27409c004" name="FOUND!" type="Calculation">
+    <subsheetid>e6c08c54-2a92-4692-a97c-c68f62cd9e7e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>ee5a06a3-f57c-4df5-b931-87b25326ec38</onsuccess>
+    <calculation expression="True" stage="Found" />
+  </stage>
+  <stage stageid="932634f8-c984-4bd9-8784-a5a9b8a6a76d" name="Found" type="Data">
+    <subsheetid>e6c08c54-2a92-4692-a97c-c68f62cd9e7e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9f80f331-573a-4aa6-a26c-0fdb93530c28" name="NOT FOUND!" type="Calculation">
+    <subsheetid>e6c08c54-2a92-4692-a97c-c68f62cd9e7e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>ee5a06a3-f57c-4df5-b931-87b25326ec38</onsuccess>
+    <calculation expression="False" stage="Found" />
+  </stage>
+  <stage stageid="f538e6d3-757b-4c7b-bbe3-6aab677c1721" name="Contained?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Found In Collection]" />
+    <ontrue>445238d4-ddd2-425e-8df3-6f0c5bdab842</ontrue>
+    <onfalse>7d08894b-1597-4653-85c3-bbd46e8233f2</onfalse>
+  </stage>
+  <stage stageid="e1c7de0d-eaeb-497d-99f9-cbf5dffccf34" name="Found In Collection" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-435</displayx>
+    <displayy>135</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7d08894b-1597-4653-85c3-bbd46e8233f2" name="Exception 1b" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Item not found in collection (1)&quot;" />
+  </stage>
+  <stage stageid="29891d67-7094-4850-b7a9-26528c66c0d0" name="Contained?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>330</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Found In Collection]" />
+    <ontrue>5258bef3-6392-4fed-9ccd-0a509f2c1190</ontrue>
+    <onfalse>f0ae1ade-ec19-4a3d-8f68-4181a8c23ba9</onfalse>
+  </stage>
+  <stage stageid="f0ae1ade-ec19-4a3d-8f68-4181a8c23ba9" name="Exception 4b" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>330</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Item not found in collection (4)&quot;" />
+  </stage>
+  <stage stageid="8cf95d44-7fec-4c40-8953-b4ef044dc817" name="Contained?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Found In Collection]" />
+    <ontrue>cee05f58-bb22-4777-a32e-6100db3cd62c</ontrue>
+    <onfalse>1310a52f-fb3d-40e3-a530-1a0b49735b0b</onfalse>
+  </stage>
+  <stage stageid="1310a52f-fb3d-40e3-a530-1a0b49735b0b" name="Exception 5b" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Item not found in collection (5)&quot;" />
+  </stage>
+  <stage stageid="ac2a2b60-fab9-4b32-9968-bc27ccd5bcb2" name="Item IDs" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-435</displayx>
+    <displayy>180</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="37def2b4-ca88-46b1-98c8-9baf3cbeaab8" name="Contained?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Found In Collection]" />
+    <ontrue>3a6da103-351c-4003-838c-c5e5e9448178</ontrue>
+    <onfalse>c71f995d-bcc8-40bd-a504-75bc9a30968e</onfalse>
+  </stage>
+  <stage stageid="c71f995d-bcc8-40bd-a504-75bc9a30968e" name="Exception 7b" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Item not found in collection (7)&quot;" />
+  </stage>
+  <stage stageid="e2d4d35f-843b-4e6e-bf3d-7b21e1266dd4" name="New Item ID" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-330</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3a5a9c64-27ec-4959-af44-36a546212918" name="Get Next / Lock Item" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>390</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue 1 Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="[Item Data.Account Number]" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Item Data" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>0b13079a-02ac-481d-b3b6-ade5c459ef66</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="0b13079a-02ac-481d-b3b6-ade5c459ef66" name="Mark Exception (With Retry)" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>435</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;This is not a fish&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="True" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="New Item ID" />
+    </outputs>
+    <onsuccess>b82cc227-9a6a-44c6-ad8d-2c8bb5d7caa4</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="f056a4df-22da-44d8-a9df-aad35219104e" name="Is In Pending?" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>525</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to check" expr="[Queue 1 Name]" />
+      <input type="text" name="Key" narrative="The key to check." expr="[Item Data.Account Number]" />
+      <input type="flag" name="Include Pending" narrative="Check any items in the queue which are currently awaiting being worked. This will include any deferred items which have a deferral date in the past." expr="True" />
+      <input type="flag" name="Include Deferred" narrative="Check any items in the queue which are currently deferred to a later date." expr="False" />
+      <input type="flag" name="Include Completed" narrative="Check any items in the queue which are completed" expr="False" />
+      <input type="flag" name="Include Terminated" narrative="Check any items in the queue which have been fully terminated" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Result" narrative="True if an item with the given key is in the queue, False otherwise." stage="Exists" />
+      <output type="collection" name="Item IDs" narrative="The Item IDs which represent the work items found with the given key" stage="Item IDs" />
+    </outputs>
+    <onsuccess>ae0fbc91-62ce-4a85-84ac-8699b1e5de49</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Is Item In Queue" />
+  </stage>
+  <stage stageid="a8c3a740-59ec-416f-b6b1-95c8f5ba54ca" name="Check Terminated" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>705</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to check" expr="[Queue 1 Name]" />
+      <input type="text" name="Key" narrative="The key to check." expr="[Item Data.Account Number]" />
+      <input type="flag" name="Include Pending" narrative="Check any items in the queue which are currently awaiting being worked. This will include any deferred items which have a deferral date in the past." expr="False" />
+      <input type="flag" name="Include Deferred" narrative="Check any items in the queue which are currently deferred to a later date." expr="False" />
+      <input type="flag" name="Include Completed" narrative="Check any items in the queue which are completed" expr="False" />
+      <input type="flag" name="Include Terminated" narrative="Check any items in the queue which have been fully terminated" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Result" narrative="True if an item with the given key is in the queue, False otherwise." stage="Exists" />
+      <output type="collection" name="Item IDs" narrative="The Item IDs which represent the work items found with the given key" stage="Item IDs" />
+    </outputs>
+    <onsuccess>d528db32-9007-47bf-9bb8-fa05b7551a1a</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Is Item In Queue" />
+  </stage>
+  <stage stageid="b82cc227-9a6a-44c6-ad8d-2c8bb5d7caa4" name="Retried?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>480</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[New Item ID] &lt;&gt; &quot;&quot;" />
+    <ontrue>f056a4df-22da-44d8-a9df-aad35219104e</ontrue>
+    <onfalse>ca5259f3-cf1a-4391-88c5-7e11be5547e6</onfalse>
+  </stage>
+  <stage stageid="ae0fbc91-62ce-4a85-84ac-8699b1e5de49" name="Check 9" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>570</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Exists]=True" />
+    <ontrue>af365bb7-b80c-4298-bc42-fe7ff56916a5</ontrue>
+    <onfalse>c0b3dd2f-2109-4c17-bebf-03bbcf7774cf</onfalse>
+  </stage>
+  <stage stageid="a9d1b54d-df4d-4c4a-8b47-65bbe37da224" name="Queue 1 IDs" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-435</displayx>
+    <displayy>210</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="b4570b6a-bf86-4575-9376-2ca4fd30b279" name="Check ID Collection Contains" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>285</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Item IDs" narrative="The ID collection to check" expr="[Queue 1 IDs]" />
+      <input type="text" name="Item ID" narrative="The ID to look for in the collection" expr="[Item IDs.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Found" narrative="Found?" stage="Found In Collection" />
+    </outputs>
+    <onsuccess>29891d67-7094-4850-b7a9-26528c66c0d0</onsuccess>
+    <processid>79ae9325-450e-43f3-881f-68452aee3f12</processid>
+  </stage>
+  <stage stageid="ca5259f3-cf1a-4391-88c5-7e11be5547e6" name="EPIC FAIL" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>480</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Item didn't retry. EPIC FAIL&quot;" />
+  </stage>
+  <stage stageid="8a8471b2-b81c-4227-809c-36a82657fd6f" name="Contained?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>660</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Found In Collection]" />
+    <ontrue>a8c3a740-59ec-416f-b6b1-95c8f5ba54ca</ontrue>
+    <onfalse>e23e3caf-e1ab-4caf-89e2-758293c30d90</onfalse>
+  </stage>
+  <stage stageid="e23e3caf-e1ab-4caf-89e2-758293c30d90" name="Exception 9b" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>660</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Item not found in collection (9)&quot;" />
+  </stage>
+  <stage stageid="c0b3dd2f-2109-4c17-bebf-03bbcf7774cf" name="Exception 9" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>570</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Item that should have existed did not (9)&quot;" />
+  </stage>
+  <stage stageid="d528db32-9007-47bf-9bb8-fa05b7551a1a" name="Check 10" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>750</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Exists]=False" />
+    <ontrue>2aa5ce0b-12fb-47a3-8c08-9b151426dd0d</ontrue>
+    <onfalse>7c852cd1-1eed-4a8d-a5cc-02c59e9d1948</onfalse>
+  </stage>
+  <stage stageid="7c852cd1-1eed-4a8d-a5cc-02c59e9d1948" name="Exception 10" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>750</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Item that should not have existed did (10)&quot;" />
+  </stage>
+  <stage stageid="76f1b397-1b83-4b0d-a8ae-d57998054fa5" name="Note2" type="Note">
+    <narrative>IsItemInQueue(Terminated:=True) should only find items which have been finally terminated, not those which were marked with an exception and have a pending retry. See bug 6368</narrative>
+    <displayx>-60</displayx>
+    <displayy>585</displayy>
+    <displaywidth>240</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>a8c3a740-59ec-416f-b6b1-95c8f5ba54ca</onsuccess>
+  </stage>
+  <stage stageid="b63cd521-087a-459f-998d-501ef13dd022" name="Check ID Collection Contains" type="SubSheetInfo">
+    <subsheetid>79ae9325-450e-43f3-881f-68452aee3f12</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="8d10f67f-43ce-4a02-aa09-be64e110525f" name="End" type="End">
+    <subsheetid>79ae9325-450e-43f3-881f-68452aee3f12</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="flag" name="Found" narrative="Found?" stage="Found" />
+    </outputs>
+  </stage>
+  <stage stageid="f5364b51-21c2-4db9-91ab-034b1cca1ce9" name="For Each ID" type="LoopStart">
+    <subsheetid>79ae9325-450e-43f3-881f-68452aee3f12</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>023f47b9-8e76-419d-a695-ffb590b2f308</onsuccess>
+    <groupid>628a8b3b-c530-4375-90fb-9f405c35637d</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Item IDs</loopdata>
+  </stage>
+  <stage stageid="1b8f6e58-c729-40a7-92c5-e5bc95549f91" name="Next ID" type="LoopEnd">
+    <subsheetid>79ae9325-450e-43f3-881f-68452aee3f12</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>dbc902b7-430c-4b91-97a9-bc7e5b6ae23d</onsuccess>
+    <groupid>628a8b3b-c530-4375-90fb-9f405c35637d</groupid>
+  </stage>
+  <stage stageid="023f47b9-8e76-419d-a695-ffb590b2f308" name="Account Number Matches?" type="Decision">
+    <subsheetid>79ae9325-450e-43f3-881f-68452aee3f12</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item IDs.Item ID] = [Item ID]" />
+    <ontrue>6c91e967-bbe0-48f6-9175-2ad3529bcd7a</ontrue>
+    <onfalse>1b8f6e58-c729-40a7-92c5-e5bc95549f91</onfalse>
+  </stage>
+  <stage stageid="6c91e967-bbe0-48f6-9175-2ad3529bcd7a" name="FOUND!" type="Calculation">
+    <subsheetid>79ae9325-450e-43f3-881f-68452aee3f12</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>8d10f67f-43ce-4a02-aa09-be64e110525f</onsuccess>
+    <calculation expression="True" stage="Found" />
+  </stage>
+  <stage stageid="dbc902b7-430c-4b91-97a9-bc7e5b6ae23d" name="NOT FOUND!" type="Calculation">
+    <subsheetid>79ae9325-450e-43f3-881f-68452aee3f12</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>8d10f67f-43ce-4a02-aa09-be64e110525f</onsuccess>
+    <calculation expression="False" stage="Found" />
+  </stage>
+  <stage stageid="47a55843-6fcd-46dc-8fdc-d7238e1c2805" name="Item IDs" type="Collection">
+    <subsheetid>79ae9325-450e-43f3-881f-68452aee3f12</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="188b029b-a40f-42e2-8505-b64a9b50e1fc" name="Start" type="Start">
+    <subsheetid>79ae9325-450e-43f3-881f-68452aee3f12</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Item IDs" narrative="The ID collection to check" stage="Item IDs" />
+      <input type="text" name="Item ID" narrative="The ID to look for in the collection" stage="Item ID" />
+    </inputs>
+    <onsuccess>f5364b51-21c2-4db9-91ab-034b1cca1ce9</onsuccess>
+  </stage>
+  <stage stageid="85d9c123-0002-4a65-aa1b-8817bc58728d" name="Item ID" type="Data">
+    <subsheetid>79ae9325-450e-43f3-881f-68452aee3f12</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>0</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8dc3f60c-b439-4b10-8100-635f9f5f2f3e" name="Found" type="Data">
+    <subsheetid>79ae9325-450e-43f3-881f-68452aee3f12</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="902a440e-f959-4c56-a73a-7c928a2aaf46" name="Check ID Collection Contains" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Item IDs" narrative="The ID collection to check" expr="[Queue 1 IDs]" />
+      <input type="text" name="Item ID" narrative="The ID to look for in the collection" expr="[Item IDs.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Found" narrative="Found?" stage="Found In Collection" />
+    </outputs>
+    <onsuccess>8cf95d44-7fec-4c40-8953-b4ef044dc817</onsuccess>
+    <processid>79ae9325-450e-43f3-881f-68452aee3f12</processid>
+  </stage>
+  <stage stageid="f47f3f38-e322-4957-bb33-586d5fa32a77" name="Check ID Collection Contains" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Item IDs" narrative="The ID collection to check" expr="[Queue 1 IDs]" />
+      <input type="text" name="Item ID" narrative="The ID to look for in the collection" expr="[Item IDs.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Found" narrative="Found?" stage="Found In Collection" />
+    </outputs>
+    <onsuccess>37def2b4-ca88-46b1-98c8-9baf3cbeaab8</onsuccess>
+    <processid>79ae9325-450e-43f3-881f-68452aee3f12</processid>
+  </stage>
+  <stage stageid="243f964e-467e-411e-a208-bcec2d06ff03" name="Check ID Collection Contains" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Item IDs" narrative="The ID collection to check" expr="[Queue 1 IDs]" />
+      <input type="text" name="Item ID" narrative="The ID to look for in the collection" expr="[Item IDs.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Found" narrative="Found?" stage="Found In Collection" />
+    </outputs>
+    <onsuccess>f538e6d3-757b-4c7b-bbe3-6aab677c1721</onsuccess>
+    <processid>79ae9325-450e-43f3-881f-68452aee3f12</processid>
+  </stage>
+  <stage stageid="af365bb7-b80c-4298-bc42-fe7ff56916a5" name="Check ID Collection Contains" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>615</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Item IDs" narrative="The ID collection to check" expr="[Queue 1 IDs]" />
+      <input type="text" name="Item ID" narrative="The ID to look for in the collection" expr="[Item IDs.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Found" narrative="Found?" stage="Found In Collection" />
+    </outputs>
+    <onsuccess>8a8471b2-b81c-4227-809c-36a82657fd6f</onsuccess>
+    <processid>79ae9325-450e-43f3-881f-68452aee3f12</processid>
+  </stage>
+</process>

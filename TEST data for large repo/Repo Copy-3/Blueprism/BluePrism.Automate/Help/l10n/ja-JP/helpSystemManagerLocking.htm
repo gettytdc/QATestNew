@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>環境ロックメンテナンス</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+		h3, h4 { clear:left !important; }
+	</style>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">システムマネージャー</h1>
+		<h2>環境ロックメンテナンス</h2>
+	</div>
+	<div class="captioned-image overview-screenshot nozoom">
+		<a href="Graphics/locking-sysman.png" title="環境ロックメンテナンス - クリックして大きい画像を表示"><img src="Graphics/locking-sysman.png" alt="環境ロックメンテナンス - クリックして大きい画像を表示"/></a>
+		<p>環境ロックメンテナンス</p>
+	</div>
+	
+	<h3 id="overview">概要</h3>
+	<p><a href="helpEnvironmentLocking.htm">環境ロック</a>は、Blue Prismセッションが特定のリソースへのアクセスを「ロック」する方法を提供します。これにより、ロックを解放してアクセスできるようになるまで他のセッションを待機させることができます。</p>
+	
+	<p>セッションが正常に終了したとき、または例外が原因でセッションが終了したとき、実行中に獲得したロックは、まだ解放されていなければ解放されます。</p>
+	
+	<p>ただし、セッションが終了したときにリソースPCがデータベースとの通信を失った場合、またはロックが開いているときにデバッグセッションがアプリケーションをクラッシュさせた場合は、ロックが「孤立」することがあります。つまり、リソースPCが保護しているリソースはロックされたままになりますが、システムは自動的にそれを解除しようとしません。
+	</p>
+	
+	<p>システムマネージャーの［ワークフロー］セクションの環境ロックメンテナンスパネルでは、ロックの現在のステータスを表示したり、ロックを強制的に解除したり、最終的に削除したりできます。</p>
+	
+	<h3>ロックテーブル</h3>
+	<p>この表はロックの現在の状態を示しています。
+ ロックが現在セッションによって保持されている場合、それを保持しているプロセスと、それが保持されているリソースが、ロックが取得された時刻とともに表示されます。
+	<br/>
+ いずれの場合も、ロックが獲得または解除されたときの最後のコメントも表示されます。
+	</p>
+	
+	<div class="captioned-image screenshot" style="width:100px">
+		<img src="Graphics/locking-filter-status.png" alt="ステータスをフィルタリングする"/>
+	</div>
+	<h4 id="filters">テーブルをフィルタリングする</h4>
+	<p>テーブルはリストの上にあるフィルターを使ってフィルタリングできます。</p>
+	</p>
+	<dl class="bulleted">
+		<dt>ステータス</dt>
+		<dd>南京錠アイコンを選択すると、ロック中のもののみが表示されます。ロックされていないものには省略記号が表示されます。</dd>
+		<dt>名前、リソース、プロセス、最後のコメント</dt>
+		<dd>名前、プロセスなどの値を入力して、指定した値を含むフィールドを持つロックのみを表示できます。
+ 大文字と小文字が区別されません。たとえば、「Process」フィルターで「process 1」を検索すると、「process 1」、「Process 1」、または「以前は "PROCESS 1" だったプロセス」で現在保持されているロックが返されます。
+		</dd>
+		<dt>ロック時間</dt>
+		<dd>必要な時間の範囲を入力します - ここには以下のような様々な形式の時間を細かく入力できます。
+			<div class="captioned-image screenshot">
+				<img src="Graphics/locking-filter-locktime.png" alt="ロック時間をフィルタリングする"/>
+			</div>
+			<ul>
+				<li><code>今日</code></li>
+				<li><code>過去<i>n</i>日</code></li>
+				<li><code>昨日および今日</code></li>
+				<li><code>&lt; 24/05/2011</code> - 24日まで</li>
+				<li><code>&gt; 21/05/2011, &lt; 24/05/2011</code> - 21日以降、24日まで（つまり22日と23日）</li>
+				<li><code>24/05/2011</code> - 24日のみ</li>
+				<li><code>2011-05-24</code> - 24日のみ</li>
+			</ul>
+		</dd>
+	</dl>
+	
+	<div class="captioned-image screenshot">
+		<img src="Graphics/locking-release-contextmenu.png" alt="ロックを解除する"/>
+	</div>
+	<h3 id="maintaining">ロックを管理する</h3>
+	<p>システム管理者パネルを使用して、ロックを解除および削除したり、現在ロックを保持しているセッションのログを表示できます。</p>
+	
+	<p>これを行うには、ロックを選択して適切なボタンを押すか、右クリックしてコンテキストメニューから目的のオプションを選択します。</p>
+	
+	<h4 id="release" class="clearer">ロックを解除する</h4>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/locking-release-button.png" alt="ロックを解除する"/>
+	</div>
+	<p>ロックを保持していたセッションが終了した後もロックが保持されているなどの理由でロックが孤立した場合は、孤立したロックをリストから選択して［<code>ロックを解除</code>］ボタンをクリックするか、右クリックして［<code>ロックを解除</code>］メニューオプションを選択して強制的に解除できます。</p>
+	
+	<p>リスト内の複数のアイテムを選択して（たとえば、Controlキーを押しながら複数の行をクリック）、［<code>ロックを解除</code>］をクリックすると、複数のロックを同時に解除できます。</p>
+	
+	<p>現在保持されていないいくつかのロックが選択された場合、それらはスキップされ、現在保持されているロックのみが解除されます。</p>
+	
+	<h4 id="delete" class="clearer">ロックを削除する</h4>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/locking-delete-contextmenu.png" alt="ロックを削除する"/>
+	</div>
+	<p>現在解除されているロックを削除するには、それらを選択して［<code>ロックを削除</code>］ボタンをクリックするか、右クリックして［<code>ロックを削除</code>］メニューアイテムを選択します。</p>
+	
+	<p>ロックの解除と同じように、リスト内の複数のアイテムを選択して（たとえば、Controlキーを押しながら複数の行をクリック）、［<code>ロックを削除</code>］をクリックすると、複数のロックを同時に削除できます。</p>
+	
+	<p>保持されているロックが選択されている場合、またはロックが表示されていたときから削除ボタンが押される前にロックが取得されている場合、それらは削除されません。</p>
+	
+	
+	<h4 id="viewlogs" class="clearer">ログを表示する</h4>
+	<div class="captioned-image screenshot">
+		<img src="Graphics/locking-viewlog-contextmenu.png" alt="ログを表示する"/>
+	</div>
+	<p>現在ロックを保持しているセッションのログは、それらを選択して［<code>ログを表示</code>］ボタンをクリックするか、右クリックして［<code>ログを表示</code>］メニューアイテムを選択することで表示できます。</p>
+	
+	<p>これらの操作を行うと、選択したセッションごとに別々のウィンドウが開き、その中にログが表示されます。</p>
+	
+	<p>解除されているロックが選択されている場合、または選択中にそのロックが解除されている場合、それらのセッションは使用できなくなり、ログは開かれません。</p>
+	
+
+</body>
+</html>

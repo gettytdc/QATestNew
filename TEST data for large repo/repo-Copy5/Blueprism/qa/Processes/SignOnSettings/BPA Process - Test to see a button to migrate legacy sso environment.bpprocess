@@ -1,0 +1,296 @@
+﻿<process name="Test to see a button to migrate legacy sso environment" version="1.0" bpversion="6.10.0.29217" narrative="" byrefcollection="true" preferredid="c9350503-bed2-4c41-aa67-27898f9ce8f9">
+  <view>
+    <camerax>0</camerax>
+    <cameray>24</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="7361e2bc-5f41-4f67-8755-44269dbc543f" type="Normal" published="False">
+    <name>Migrate button</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>300</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="5dbd1203-1aa2-4bfa-a0de-30fe3775ed55" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="561dd9d5-28a8-4a0d-8d52-6bd06fd6db62" name="Start" type="Start">
+    <display x="15" y="-105" />
+    <onsuccess>e6e088fc-ffb9-4c27-81c8-40146b19fade</onsuccess>
+  </stage>
+  <stage stageid="12c77286-d582-4397-8f4a-c51bb10a0578" name="End" type="End">
+    <display x="15" y="315" />
+  </stage>
+  <stage stageid="97620238-ab25-4399-8225-dff953d72b65" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="3fbc4774-0d5b-45f4-a588-46da3b0235a1" name="Setup" type="SubSheetInfo">
+    <subsheetid>5dbd1203-1aa2-4bfa-a0de-30fe3775ed55</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="c591df02-b840-41de-9a48-112955762985" name="Start" type="Start">
+    <subsheetid>5dbd1203-1aa2-4bfa-a0de-30fe3775ed55</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>ce4f8697-94d7-4bc0-ab2a-1416d438dd85</onsuccess>
+  </stage>
+  <stage stageid="62f00f6a-c8ae-46b7-a808-d8a1fd737599" name="End" type="End">
+    <subsheetid>5dbd1203-1aa2-4bfa-a0de-30fe3775ed55</subsheetid>
+    <display x="15" y="225" />
+  </stage>
+  <stage stageid="ce4f8697-94d7-4bc0-ab2a-1416d438dd85" name="Launch BP" type="Action">
+    <subsheetid>5dbd1203-1aa2-4bfa-a0de-30fe3775ed55</subsheetid>
+    <display x="15" y="-60" w="120" h="30" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>06095348-9f19-4f90-9d56-9c4525a6e9ab</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="06095348-9f19-4f90-9d56-9c4525a6e9ab" name="Attach System" type="Action">
+    <subsheetid>5dbd1203-1aa2-4bfa-a0de-30fe3775ed55</subsheetid>
+    <display x="15" y="-15" w="120" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>9ceec2d7-689a-41e3-93d8-a41da7a6f5a5</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="9ceec2d7-689a-41e3-93d8-a41da7a6f5a5" name="Sign In" type="Action">
+    <subsheetid>5dbd1203-1aa2-4bfa-a0de-30fe3775ed55</subsheetid>
+    <display x="15" y="30" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="" />
+      <input type="password" name="Password" expr="" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+      <input type="flag" name="Sign in Active Directorry" friendlyname="Sign in Active Directorry" narrative="Do you want sign in using Active Directory" expr="" />
+      <input type="flag" name="Sign in" friendlyname="Sign in" narrative="Do you want sign in using legacy sso environment" expr="&quot;True&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="Error message received while Login" stage="" />
+    </outputs>
+    <onsuccess>8627081c-d628-435e-8811-372f99873794</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="8627081c-d628-435e-8811-372f99873794" name="Go to Tab" type="Action">
+    <subsheetid>5dbd1203-1aa2-4bfa-a0de-30fe3775ed55</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>5d5ad6db-2043-4752-911a-903bae4da68b</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="106b7d78-3501-4afc-a2da-4cefb08819b7" name="Click Item From System Tree" type="Action">
+    <subsheetid>5dbd1203-1aa2-4bfa-a0de-30fe3775ed55</subsheetid>
+    <loginhibit onsuccess="true" />
+    <loginhibitparameters />
+    <display x="15" y="165" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Sign-on Settings&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>62f00f6a-c8ae-46b7-a808-d8a1fd737599</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="5d5ad6db-2043-4752-911a-903bae4da68b" name="Blue Prism - System (Parent)::Attach to Pid" type="Action">
+    <subsheetid>5dbd1203-1aa2-4bfa-a0de-30fe3775ed55</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="120" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>106b7d78-3501-4afc-a2da-4cefb08819b7</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="4e5ab8ea-ae87-444d-aee0-518e98b6fa3d" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="60" w="150" h="30" />
+    <onsuccess>2cba97c5-adb1-4a46-92e4-b072815acb56</onsuccess>
+    <processid>5dbd1203-1aa2-4bfa-a0de-30fe3775ed55</processid>
+  </stage>
+  <stage stageid="e6e088fc-ffb9-4c27-81c8-40146b19fade" name="Note1" type="Note">
+    <narrative>GIVEN that Blue Prism is configurated to work with legacy SSO Environment</narrative>
+    <display x="15" y="-15" w="180" h="60" />
+    <onsuccess>4e5ab8ea-ae87-444d-aee0-518e98b6fa3d</onsuccess>
+  </stage>
+  <stage stageid="f5453cfc-eb0d-4aad-bcd1-868b10792291" name="Migrate button" type="SubSheetInfo">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="d675a53b-23b7-45d5-8144-929d5c1c3a2d" name="Start" type="Start">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>6668c7f5-e122-46c0-b398-2411987e333d</onsuccess>
+  </stage>
+  <stage stageid="fe8519f9-010c-4b7f-855e-4ec9849a6cd6" name="End" type="End">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <display x="15" y="345" />
+  </stage>
+  <stage stageid="ecd7cbcf-1762-400f-b6f1-b86f0313fc04" name="Global Variables" type="Block">
+    <subsheetid>5dbd1203-1aa2-4bfa-a0de-30fe3775ed55</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="-15" w="135" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="723f73fb-9129-45f0-a478-cbebf59b2cd7" name="pid" type="Data">
+    <subsheetid>5dbd1203-1aa2-4bfa-a0de-30fe3775ed55</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="15" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="897c7260-8816-4299-b776-abd7d01cba52" name="Migrate button" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" w="120" h="30" />
+    <onsuccess>457c72b9-7d1c-4c3b-82c1-0807c8187439</onsuccess>
+    <processid>7361e2bc-5f41-4f67-8755-44269dbc543f</processid>
+  </stage>
+  <stage stageid="2cba97c5-adb1-4a46-92e4-b072815acb56" name="Note2" type="Note">
+    <narrative>AND have a n AD SSO database type
+AND have all 3 of the security- Sign -on Settings,users and user-roles Permissions
+THEN Should see a button to begin Migration Process.</narrative>
+    <display x="15" y="135" w="210" h="60" />
+    <onsuccess>897c7260-8816-4299-b776-abd7d01cba52</onsuccess>
+  </stage>
+  <stage stageid="457c72b9-7d1c-4c3b-82c1-0807c8187439" name="Terminate" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" w="150" h="30" />
+    <onsuccess>12c77286-d582-4397-8f4a-c51bb10a0578</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="6668c7f5-e122-46c0-b398-2411987e333d" name="Press Convert (Migrate Legacy SSO)" type="Action">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="120" h="30" />
+    <onsuccess>bfd2240c-b9ec-4a94-828e-6024036074c9</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Sign - On Settings - Press Convert (Migrate Legacy SSO)" />
+  </stage>
+  <stage stageid="b615e01c-7ac8-49d4-a0db-5122f5eb8b28" name="Enter Confirmation Number" type="Action">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="240" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Confrimation Number" friendlyname="Confrimation Number" narrative="Enter the confirmation number" expr="[Confirmation number]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Read Confiration number" friendlyname="Read Confiration number" narrative="Get the confirmation value from the screen" stage="Confirmation number" />
+    </outputs>
+    <onsuccess>68f91fbe-829e-4b81-8f86-2b60e8b645f6</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Sign - On Settings - Enter Confirmation Number( Migrate Legacy SSO)" />
+  </stage>
+  <stage stageid="68f91fbe-829e-4b81-8f86-2b60e8b645f6" name="Migrate legacy SSo Conversion success" type="Action">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="300" w="120" h="30" />
+    <onsuccess>fe8519f9-010c-4b7f-855e-4ec9849a6cd6</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Sign -On Settings -Migrate legacy SSo Conversion success" />
+  </stage>
+  <stage stageid="1fa53c68-a97a-4dd0-9fed-ee99232d65fc" name="Confirmation number" type="Data">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="0" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6dc4cec0-6a63-44f1-98d8-e5a32fd5449f" name="Input and output Variable " type="Block">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="bfd2240c-b9ec-4a94-828e-6024036074c9" name="Running Session Confirmation (Migrate Legacy SSO)" type="Action">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="0" w="120" h="30" />
+    <onsuccess>c2a02a2a-ce32-417e-adab-e16d9b3b3591</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Sign - On Settings - Running Session Confirmation (Migrate Legacy SSO)" />
+  </stage>
+  <stage stageid="c2a02a2a-ce32-417e-adab-e16d9b3b3591" name="Enter username " type="Action">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="Enter the username" expr="[Username]" />
+    </inputs>
+    <onsuccess>d8026dd7-771a-4bca-9b52-074b4c23d90a</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Sign -On Settings -Migrate legacy SSo Conversion enter username " />
+  </stage>
+  <stage stageid="d8026dd7-771a-4bca-9b52-074b4c23d90a" name="Enter password" type="Action">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="90" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Password" friendlyname="Password" narrative="Enter the Password" expr="[Password]" />
+    </inputs>
+    <onsuccess>f2b6271a-b80a-4f5e-af8f-236a1a1b363c</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Sign -On Settings -Migrate legacy SSo Conversion enter password" />
+  </stage>
+  <stage stageid="f2b6271a-b80a-4f5e-af8f-236a1a1b363c" name="Enter confirm password" type="Action">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Confirm Password" friendlyname="Confirm Password" narrative="Enter the Confirm Password" expr="[Confirm Password]" />
+    </inputs>
+    <onsuccess>84fa7a83-dc4a-499c-b203-f3c737cdbc5b</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Sign -On Settings -Migrate legacy SSo Conversion enter confirm password" />
+  </stage>
+  <stage stageid="4a28652d-f471-441c-b637-09a817c38a75" name="Username" type="Data">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="105" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">admin</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="65060191-6400-4071-9525-22b51cd0ab9a" name="Password" type="Data">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="150" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">admin</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="68b93acd-ad18-4f05-818e-b4142eea91df" name="Confirm Password" type="Data">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="195" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">admin</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="84fa7a83-dc4a-499c-b203-f3c737cdbc5b" name="Press Next" type="Action">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" w="120" h="30" />
+    <onsuccess>b615e01c-7ac8-49d4-a0db-5122f5eb8b28</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Sign -On Settings -Migrate legacy SSo Conversion Press Next" />
+  </stage>
+  <stage stageid="f343a143-b264-4c33-a9ee-7b6e2ef376c9" name="Input Variables" type="Block">
+    <subsheetid>7361e2bc-5f41-4f67-8755-44269dbc543f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="60" w="150" h="180" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+</process>

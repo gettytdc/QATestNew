@@ -1,0 +1,970 @@
+﻿<process name="Queue Reader" version="1.0" narrative="Simple queue reader" preferredid="662ebe08-668e-4a4d-a0f1-03e98468206b">
+  <view>
+    <camerax>0</camerax>
+    <cameray>0</cameray>
+    <zoom>1</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="3657c7a9-b842-46c7-9a11-3183bb6ccdac" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-345</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>3da20a3c-a63e-40e3-8e80-b21693697105</onsuccess>
+  </stage>
+  <stage stageid="ddd659b6-1a06-43ee-8bf4-86845cf93de1" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>885</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="b91f7e82-bb8a-4008-9c44-36e927958410" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="9bb07da8-076a-48ed-bf3d-676181a07574" name="Get Next" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" expr="[Queue 1 Name]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" stage="Item ID" />
+      <output type="collection" name="Data" stage="Data" />
+      <output type="text" name="Status" stage="Status" />
+      <output type="number" name="Attempts" stage="Attempts" />
+    </outputs>
+    <onsuccess>79c116a5-c58e-4733-94a5-6e6dcb4c5bec</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="36d8f1bc-7bcd-4329-b74c-c54674ac7d73" name="Item ID" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-255</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="db9a7c31-da7c-4ff4-9662-375185257d4d" name="Data" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="eec6d4ce-6a68-4310-b968-2913fa686b96" name="Status" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-255</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="81fb45f2-2582-44bf-b084-a1780dda321a" name="Attempts" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="79c116a5-c58e-4733-94a5-6e6dcb4c5bec" name="Finished?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID] = &quot;&quot;" />
+    <ontrue>822579ba-ab06-4448-a81b-cb449d3161ec</ontrue>
+    <onfalse>c4b4cea8-c892-4035-82bd-4c9cf495cc90</onfalse>
+  </stage>
+  <stage stageid="80bf169b-da33-4664-85e1-c2e8ab4fe998" name="Add to report" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>a3fc60f5-0be2-4058-b973-a3657422b86b</onsuccess>
+    <calculation expression="[Report] &amp; [Data.Account Number] &amp; &quot; &quot; &amp; [Data.Name] &amp; &quot;/  &quot;" stage="Report" />
+  </stage>
+  <stage stageid="6746bf36-ef5b-4582-80b9-eaa31d9def3d" name="Report" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-255</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>210</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c4b4cea8-c892-4035-82bd-4c9cf495cc90" name="Loop Start1" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>80bf169b-da33-4664-85e1-c2e8ab4fe998</onsuccess>
+    <groupid>38de649b-10c9-464a-997f-72025dea2e87</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Data</loopdata>
+  </stage>
+  <stage stageid="85d16ecc-5b5c-4f71-a031-9c6e1e0dfc00" name="Loop End1" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>75bfadd6-44c8-44d1-b50c-1b30f78cf178</onsuccess>
+    <groupid>38de649b-10c9-464a-997f-72025dea2e87</groupid>
+  </stage>
+  <stage stageid="7212b12c-355c-4b85-a8dc-40abdca405b8" name="anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>150</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>edca6563-36f3-40d6-be96-c7cd04d5a986</onsuccess>
+  </stage>
+  <stage stageid="6e5e29c5-ea47-4a23-9b7e-334ce6ac0dae" name="anchor2" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>9bb07da8-076a-48ed-bf3d-676181a07574</onsuccess>
+  </stage>
+  <stage stageid="7edc6aa5-82f0-4934-80ae-7d51b1c41bea" name="Mark Completed" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" expr="[Item ID]" />
+    </inputs>
+    <onsuccess>1b0902b5-39b4-4bc1-ab47-4c08503b28ef</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="75bfadd6-44c8-44d1-b50c-1b30f78cf178" name="Wait 5 Seconds" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>7edc6aa5-82f0-4934-80ae-7d51b1c41bea</onsuccess>
+    <resource object="Queue Utils" action="Wait 5 Seconds" />
+  </stage>
+  <stage stageid="e5ef96a6-89de-412b-bc6d-5cb098f40331" name="Get Next (Queue 2)" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>600</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" expr="[Queue 2 Name]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" stage="Item ID" />
+      <output type="collection" name="Data" stage="Data" />
+      <output type="text" name="Status" stage="Status" />
+      <output type="number" name="Attempts" stage="Attempts" />
+    </outputs>
+    <onsuccess>2b307c37-6944-4a0b-b199-42e37f675565</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="2b307c37-6944-4a0b-b199-42e37f675565" name="Finished?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>660</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID] = &quot;&quot;" />
+    <ontrue>c8d77d1a-0a83-4ac7-a440-7f21b2a21600</ontrue>
+    <onfalse>baa0be0d-85b3-4732-ab94-bdd0f6375332</onfalse>
+  </stage>
+  <stage stageid="d019c03f-31c5-4a5a-a0c6-0e84596fa1ee" name="Add to balance" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>720</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>64d8a517-377b-4f9e-ac1d-b9a3b3057920</onsuccess>
+    <calculation expression="[Total Balance] + [Data.Balance]" stage="Total Balance" />
+  </stage>
+  <stage stageid="baa0be0d-85b3-4732-ab94-bdd0f6375332" name="Loop Start1" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>660</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>d019c03f-31c5-4a5a-a0c6-0e84596fa1ee</onsuccess>
+    <groupid>a2916c0f-01f3-4804-af97-71cd72d13c3b</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Data</loopdata>
+  </stage>
+  <stage stageid="64d8a517-377b-4f9e-ac1d-b9a3b3057920" name="Loop End1" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>780</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>b5e5de63-c0b2-4078-8f70-b4d557115a03</onsuccess>
+    <groupid>a2916c0f-01f3-4804-af97-71cd72d13c3b</groupid>
+  </stage>
+  <stage stageid="047e33ee-2817-4c9a-aaa0-b20358cee452" name="anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>885</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>3a3de022-b02d-4216-8352-8d64f47b1737</onsuccess>
+  </stage>
+  <stage stageid="3a3de022-b02d-4216-8352-8d64f47b1737" name="anchor2" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>600</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e5ef96a6-89de-412b-bc6d-5cb098f40331</onsuccess>
+  </stage>
+  <stage stageid="da0ced85-774c-4722-be2d-2c6aafdadabc" name="Mark Completed" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>885</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" expr="[Item ID]" />
+    </inputs>
+    <onsuccess>047e33ee-2817-4c9a-aaa0-b20358cee452</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="b5e5de63-c0b2-4078-8f70-b4d557115a03" name="Wait 5 Seconds" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>825</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>da0ced85-774c-4722-be2d-2c6aafdadabc</onsuccess>
+    <resource object="Queue Utils" action="Wait 5 Seconds" />
+  </stage>
+  <stage stageid="2c712ca0-e7df-43bc-92f5-d0a0725092dd" name="Total Balance" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>735</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c8d77d1a-0a83-4ac7-a440-7f21b2a21600" name="Check Balance" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>735</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Total Balance] = 60" />
+    <ontrue>712cf041-4d43-4112-bb12-b114476df134</ontrue>
+    <onfalse>1a45cf15-36e4-45ec-8560-8b3e67185772</onfalse>
+  </stage>
+  <stage stageid="1a45cf15-36e4-45ec-8560-8b3e67185772" name="Note1" type="Note">
+    <narrative>Total balance wrong</narrative>
+    <displayx>-285</displayx>
+    <displayy>735</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="a3fc60f5-0be2-4058-b973-a3657422b86b" name="Fail it?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="InStr([Data.Name],&quot;Smith&quot;) &lt;&gt; 0" />
+    <ontrue>a7fb4e99-4ad5-4666-a871-9b90ca886e68</ontrue>
+    <onfalse>85d16ecc-5b5c-4f71-a031-9c6e1e0dfc00</onfalse>
+  </stage>
+  <stage stageid="a7fb4e99-4ad5-4666-a871-9b90ca886e68" name="Mark Exception" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" expr="&quot;Name contained Smith&quot;" />
+    </inputs>
+    <onsuccess>79787c07-9a3e-4eda-baf0-8f25db67e37d</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="edca6563-36f3-40d6-be96-c7cd04d5a986" name="anchor3" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>45</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>6e5e29c5-ea47-4a23-9b7e-334ce6ac0dae</onsuccess>
+  </stage>
+  <stage stageid="f719d84b-c4c4-4eb7-8972-2dd60d44f0ef" name="Exception Cases" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>150</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="ItemID" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="2a5aeb19-8efe-4386-80a4-8ca421d5158b" name="Completed Cases" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>210</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="ItemID" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="79787c07-9a3e-4eda-baf0-8f25db67e37d" name="New Row" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" expr="&quot;Exception Cases&quot;" />
+    </inputs>
+    <onsuccess>0229d01b-46db-46b5-9008-abd65594807a</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="0229d01b-46db-46b5-9008-abd65594807a" name="Set ID" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>edca6563-36f3-40d6-be96-c7cd04d5a986</onsuccess>
+    <calculation expression="[Item ID]" stage="Exception Cases.ItemID" />
+  </stage>
+  <stage stageid="1b0902b5-39b4-4bc1-ab47-4c08503b28ef" name="New Row" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" expr="&quot;Completed Cases&quot;" />
+    </inputs>
+    <onsuccess>f8de0e03-70ef-4709-862d-22ce94a02bfe</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="f8de0e03-70ef-4709-862d-22ce94a02bfe" name="Set ID" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>7212b12c-355c-4b85-a8dc-40abdca405b8</onsuccess>
+    <calculation expression="[Item ID]" stage="Completed Cases.ItemID" />
+  </stage>
+  <stage stageid="f0eb34fe-3cd8-41e5-b3f9-9b8ae093ccd4" name="Note2" type="Note">
+    <narrative>Update our lists of cases completed or marked as exception</narrative>
+    <displayx>240</displayx>
+    <displayy>90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="822579ba-ab06-4448-a81b-cb449d3161ec" name="Inspect completed cases" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>240</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>883201cb-ff45-45c6-92d9-7e3a66aa4a2a</onsuccess>
+    <groupid>51fbfd2d-2cc3-4664-9fe3-ef8327c78e95</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Completed Cases</loopdata>
+  </stage>
+  <stage stageid="c5c7c179-4bfa-419b-8307-72e49a372797" name="Loop End2" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>330</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>ff3d582e-9268-452c-81fe-a9cea33d0efd</onsuccess>
+    <groupid>51fbfd2d-2cc3-4664-9fe3-ef8327c78e95</groupid>
+  </stage>
+  <stage stageid="883201cb-ff45-45c6-92d9-7e3a66aa4a2a" name="Get item data" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>285</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" expr="[Completed Cases.ItemID]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Data" stage="Data" />
+      <output type="text" name="Status" stage="" />
+      <output type="number" name="Attempts" stage="" />
+      <output type="datetime" name="Loaded DateTime" stage="" />
+      <output type="datetime" name="Exception DateTime" stage="" />
+      <output type="text" name="Exception Reason" stage="" />
+    </outputs>
+    <onsuccess>c5c7c179-4bfa-419b-8307-72e49a372797</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Item Data" />
+  </stage>
+  <stage stageid="ff3d582e-9268-452c-81fe-a9cea33d0efd" name="Inspect exceptioncases" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>375</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>863e0cc5-74f1-42e5-a847-95c9c568582e</onsuccess>
+    <groupid>21141749-5b66-49d4-bbc7-f47f2eb1cd86</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Exception Cases</loopdata>
+  </stage>
+  <stage stageid="ecefe2dc-b5a5-4e31-b2d5-acd480c10283" name="Loop End2" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>465</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>3af0d094-9e60-4b66-857a-4e6152ac1301</onsuccess>
+    <groupid>21141749-5b66-49d4-bbc7-f47f2eb1cd86</groupid>
+  </stage>
+  <stage stageid="863e0cc5-74f1-42e5-a847-95c9c568582e" name="Get item data" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>420</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" expr="[Exception Cases.ItemID]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Data" stage="Data" />
+      <output type="text" name="Status" stage="" />
+      <output type="number" name="Attempts" stage="" />
+      <output type="datetime" name="Loaded DateTime" stage="" />
+      <output type="datetime" name="Exception DateTime" stage="" />
+      <output type="text" name="Exception Reason" stage="" />
+    </outputs>
+    <onsuccess>ecefe2dc-b5a5-4e31-b2d5-acd480c10283</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Item Data" />
+  </stage>
+  <stage stageid="c330d0d0-7a9e-444c-b63b-2ea0fe3a0375" name="Note3" type="Note">
+    <narrative>Get item data from the cases we just completed, and marked as exception. This is testing that we can read the data - see bug #4325</narrative>
+    <displayx>-255</displayx>
+    <displayy>330</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>120</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="3af0d094-9e60-4b66-857a-4e6152ac1301" name="Get Completed Items" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>465</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" expr="[Queue 1 Name]" />
+      <input type="datetime" name="Start Date" expr="" />
+      <input type="date" name="End Date" expr="" />
+      <input type="number" name="Maximum Rows" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Completed Items" stage="Completed Items" />
+    </outputs>
+    <onsuccess>28f70e84-4206-4a28-a37b-c605aca3f33c</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Completed Items" />
+  </stage>
+  <stage stageid="bfd6b50b-285a-4d50-8573-4ace836b50c8" name="Completed Items" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>525</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="28f70e84-4206-4a28-a37b-c605aca3f33c" name="Loop Start2" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>465</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>9e956ab8-f824-4d6d-bd32-fe62687f0efd</onsuccess>
+    <groupid>4318d870-d399-4594-b948-6efe96334bbf</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Completed Items</loopdata>
+  </stage>
+  <stage stageid="af5a7417-5d8c-4d60-a022-acca830de0a7" name="Loop End3" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>465</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>7eda9d2e-83ac-4ffc-a1d5-2461197cd5fb</onsuccess>
+    <groupid>4318d870-d399-4594-b948-6efe96334bbf</groupid>
+  </stage>
+  <stage stageid="9e956ab8-f824-4d6d-bd32-fe62687f0efd" name="Get item data" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>465</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" expr="[Completed Items.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Data" stage="Data" />
+      <output type="text" name="Status" stage="" />
+      <output type="number" name="Attempts" stage="" />
+      <output type="datetime" name="Loaded DateTime" stage="" />
+      <output type="datetime" name="Exception DateTime" stage="" />
+      <output type="text" name="Exception Reason" stage="" />
+    </outputs>
+    <onsuccess>af5a7417-5d8c-4d60-a022-acca830de0a7</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Item Data" />
+  </stage>
+  <stage stageid="be50ff78-24a5-4f4e-aef0-a13ead46deeb" name="anchor4" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>555</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e5ef96a6-89de-412b-bc6d-5cb098f40331</onsuccess>
+  </stage>
+  <stage stageid="abebeeda-109d-4920-aeb3-ec6e8aeb6117" name="Rows1" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>510</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="95861b59-5c67-41a6-bfe2-662c1c347ad1" name="Rows2" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>180</displayx>
+    <displayy>510</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7eda9d2e-83ac-4ffc-a1d5-2461197cd5fb" name="Get Rows1" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>510</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" expr="&quot;Completed Cases&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" stage="Rows1" />
+    </outputs>
+    <onsuccess>a1dce97f-0e0c-442f-8af4-2ad927ba13ad</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="a1dce97f-0e0c-442f-8af4-2ad927ba13ad" name="Get Rows2" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>555</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" expr="&quot;Completed Items&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" stage="Rows2" />
+    </outputs>
+    <onsuccess>d37b3ac2-8858-4786-956e-dcbf580018ed</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="d37b3ac2-8858-4786-956e-dcbf580018ed" name="Check Rows" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>555</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Rows1] = [Rows2]" />
+    <ontrue>be50ff78-24a5-4f4e-aef0-a13ead46deeb</ontrue>
+    <onfalse>0efcd72a-e4d5-497f-a97c-9ef53b28d097</onfalse>
+  </stage>
+  <stage stageid="0efcd72a-e4d5-497f-a97c-9ef53b28d097" name="Exception1" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>600</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Test Failure" detail="&quot;Completed items row count was wrong&quot;" />
+  </stage>
+  <stage stageid="d70473a2-63f2-4f1d-adb0-19fb6a188214" name="Note4" type="Note">
+    <narrative>Check the output from the 'Get Completed Items' action against our manually created collection of completed items - they should be the same.</narrative>
+    <displayx>180</displayx>
+    <displayy>390</displayy>
+    <displaywidth>240</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="17f4c9a1-d423-4130-aa58-d4b1de087c65" name="Load Data" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Account Number" type="text" />
+      <field name="Name" type="text" />
+      <field name="Balance" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Account Number" type="text" value="41987664" />
+        <field name="Name" type="text" value="Mr Smith" />
+        <field name="Balance" type="number" value="54.12" />
+      </row>
+      <row>
+        <field name="Account Number" type="text" value="48498888" />
+        <field name="Name" type="text" value="Mr Jones" />
+        <field name="Balance" type="number" value="411.23" />
+      </row>
+      <row>
+        <field name="Account Number" type="text" value="5123'441" />
+        <field name="Name" type="text" value="Mrs Humperdink" />
+        <field name="Balance" type="number" value="-1203.22" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="ec648e67-5847-4719-86ae-0e36384ccc0e" name="Load data" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue 1 Name]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Load Data]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>ca522167-f791-4378-97fe-ab47f786e5e8</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="c1680474-5e19-440e-a2f3-50b84ac9a22a" name="Load Data 2" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Account Number" type="text" />
+      <field name="Name" type="text" />
+      <field name="Balance" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Account Number" type="text" value="45467565" />
+        <field name="Name" type="text" value="Mr Green" />
+        <field name="Balance" type="number" value="10.00" />
+      </row>
+      <row>
+        <field name="Account Number" type="text" value="54355555" />
+        <field name="Name" type="text" value="Mr Plum" />
+        <field name="Balance" type="number" value="20.00" />
+      </row>
+      <row>
+        <field name="Account Number" type="text" value="43356777" />
+        <field name="Name" type="text" value="Mrs White" />
+        <field name="Balance" type="number" value="30.00" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="ca522167-f791-4378-97fe-ab47f786e5e8" name="Load second queue" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue 2 Name]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Load Data 2]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>9bb07da8-076a-48ed-bf3d-676181a07574</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="3da20a3c-a63e-40e3-8e80-b21693697105" name="Create Queue 1" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-300</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to be created" expr="[Queue 1 Name]" />
+      <input type="text" name="Key Field" narrative="The key column to use in the collection which makes up a queue item" expr="&quot;Account Number&quot;" />
+      <input type="number" name="Max Attempts" narrative="The maximum number of retry attempts for the queue. Default: 5" expr="5" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" narrative="Whether the create call was successful or not" stage="" />
+      <output type="text" name="Subprocess Output" narrative="The output from the automatec &quot;create queue&quot; process" stage="" />
+    </outputs>
+    <onsuccess>f60abe02-72ad-4356-8365-fa8f569fd7fd</onsuccess>
+    <resource object="Queue Utils" action="Create Queue" />
+  </stage>
+  <stage stageid="f60abe02-72ad-4356-8365-fa8f569fd7fd" name="Create Queue 2" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to be created" expr="[Queue 2 Name]" />
+      <input type="text" name="Key Field" narrative="The key column to use in the collection which makes up a queue item" expr="&quot;Account Number&quot;" />
+      <input type="number" name="Max Attempts" narrative="The maximum number of retry attempts for the queue. Default: 5" expr="5" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" narrative="Whether the create call was successful or not" stage="" />
+      <output type="text" name="Subprocess Output" narrative="The output from the automatec &quot;create queue&quot; process" stage="" />
+    </outputs>
+    <onsuccess>ec648e67-5847-4719-86ae-0e36384ccc0e</onsuccess>
+    <resource object="Queue Utils" action="Create Queue" />
+  </stage>
+  <stage stageid="94e184f4-1712-4d4f-ad0c-af2f0109759b" name="Queue 1 Name" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">queuereader Q1</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a7dbd774-e891-4999-879b-12ea299c3d67" name="Queue 2 Name" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>60</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">queuereader Q2</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="712cf041-4d43-4112-bb12-b114476df134" name="Destroy Queue 1" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>795</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete" expr="[Queue 1 Name]" />
+    </inputs>
+    <onsuccess>2841473c-1929-47c3-86fb-92cec2697e94</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+  <stage stageid="2841473c-1929-47c3-86fb-92cec2697e94" name="Destroy Queue 2" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>840</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete" expr="[Queue 2 Name]" />
+    </inputs>
+    <onsuccess>ddd659b6-1a06-43ee-8bf4-86845cf93de1</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+</process>

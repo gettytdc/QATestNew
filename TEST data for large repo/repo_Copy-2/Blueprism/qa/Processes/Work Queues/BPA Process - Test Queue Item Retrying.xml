@@ -1,0 +1,2488 @@
+﻿<process name="Test Queue Item Retrying" version="1.0" bpversion="6.7.0.16999" narrative="Test to ensure that exception retrying of a work queue item works correctly and that the cloning of the item has succeeded where appropriate.&#xD;&#xA;Also that the max attempts on a queue still holds." byrefcollection="true" preferredid="04d3a472-0ad3-4f0a-823c-ca54a07e39ee">
+  <view>
+    <camerax>0</camerax>
+    <cameray>181</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="dd50b0cf-1562-49d1-969d-152a0827cd7b" type="Normal" published="False">
+    <name>Test "Bon Jovi"</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="fcb76375-d66a-40af-8ebe-7daaa3b147f0" type="Normal" published="False">
+    <name>Test "7800 Fahrenheit"</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="880aeef8-d936-4f5f-8a35-5fe16e36c987" type="Normal" published="False">
+    <name>Test "Slippery When Wet"</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="b19ab007-8782-4e24-85b3-9a724592472a" type="Normal" published="False">
+    <name>Test "New Jersey"</name>
+    <view>
+      <camerax>480</camerax>
+      <cameray>-90</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="a747c205-18a2-4bd5-a992-76189a1104e7" type="Normal" published="False">
+    <name>Test "Keep The Faith"</name>
+    <view>
+      <camerax>50</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="65cbd4e1-2fff-477a-812e-e9946e508c91" type="Normal" published="False">
+    <name>Test "These Days"</name>
+    <view>
+      <camerax>555</camerax>
+      <cameray>-120</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="ffa98bae-b68d-49ca-a286-cc0a8167df38" type="Normal" published="False">
+    <name>Test "Crush"</name>
+    <view>
+      <camerax>50</camerax>
+      <cameray>16</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a" type="Normal" published="False">
+    <name>Wait For Rand(m,n) Seconds</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="88ed69d6-1d29-454b-b2ee-7530a6b7b821" type="Normal" published="False">
+    <name>Find Exceptioned Item</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="01f46808-497c-492a-b5b7-a4a06dc4f9e2" name="Start" type="Start">
+    <display x="15" y="-105" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>90c881ff-25a2-49e2-a6bd-734c88764785</onsuccess>
+  </stage>
+  <stage stageid="e4f00850-5961-4bd3-aa3f-36295cdbe4c1" name="End" type="End">
+    <display x="15" y="420" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="ff46028a-7d53-4f1f-bf76-d05e75654dd1" name="Stage1" type="ProcessInfo">
+    <display x="-420" y="-120" w="240" h="90" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="90c881ff-25a2-49e2-a6bd-734c88764785" name="Create Test Queue" type="Action">
+    <display x="15" y="-60" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to be created" expr="[Queue Name]" />
+      <input type="text" name="Key Field" narrative="The key column to use in the collection which makes up a queue item" expr="[Key Field]" />
+      <input type="number" name="Max Attempts" narrative="The maximum number of retry attempts for the queue. Default: 5" expr="3" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" narrative="Whether the create call was successful or not" stage="Success" />
+      <output type="text" name="Subprocess Output" narrative="The output from the automatec &quot;create queue&quot; process" stage="" />
+    </outputs>
+    <onsuccess>c296af12-ff94-4efb-8512-c0e0b2c59927</onsuccess>
+    <resource object="Queue Utils" action="Create Queue" />
+  </stage>
+  <stage stageid="5228c5ae-68dd-4916-9e1b-f791389c2358" name="Success" type="Data">
+    <display x="-345" y="0" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b86aa5bc-01e2-481e-8f5b-d3b3a51faacb" name="Stunning Songs" type="Collection">
+    <narrative>Songs that stun</narrative>
+    <display x="-345" y="45" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Song" type="text" />
+      <field name="Album" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Song" type="text" value="Runaway" />
+        <field name="Album" type="text" value="Bon Jovi" />
+      </row>
+      <row>
+        <field name="Song" type="text" value="In And Out Of Love" />
+        <field name="Album" type="text" value="7800 Fahrenheit" />
+      </row>
+      <row>
+        <field name="Song" type="text" value="Livin' On A Prayer" />
+        <field name="Album" type="text" value="Slippery When Wet" />
+      </row>
+      <row>
+        <field name="Song" type="text" value="Bad Medicine" />
+        <field name="Album" type="text" value="New Jersey" />
+      </row>
+      <row>
+        <field name="Song" type="text" value="If I Was Your Mother" />
+        <field name="Album" type="text" value="Keep The Faith" />
+      </row>
+      <row>
+        <field name="Song" type="text" value="Hey God" />
+        <field name="Album" type="text" value="These Days" />
+      </row>
+      <row>
+        <field name="Song" type="text" value="Thank You For Loving Me" />
+        <field name="Album" type="text" value="Crush" />
+      </row>
+      <row>
+        <field name="Song" type="text" value="Everyday" />
+        <field name="Album" type="text" value="Bounce" />
+      </row>
+      <row>
+        <field name="Song" type="text" value="Last Man Standing" />
+        <field name="Album" type="text" value="Have A Nice Day" />
+      </row>
+      <row>
+        <field name="Song" type="text" value="(You Want To) Make A Memory" />
+        <field name="Album" type="text" value="Lost Highway" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="c296af12-ff94-4efb-8512-c0e0b2c59927" name="Put songs in the music queue" type="Action">
+    <narrative>The Data collection contains the items to be added to the queue. The collection may contain single or multiple rows, with each representing an item to be added.
+
+If there is a failure during the process, the queue will be unchanged - i.e. no rows will be loaded even if the error occurred on the last one.
+
+If Defer Until is specified, the items will not be available to be worked until then. Otherwise, they are available immediately.
+
+If the queue has a key field defined, an item added has key data longer than the maximum permitted 255 characters, an error will occur</narrative>
+    <display x="15" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Bongiovi&quot;" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Stunning Songs]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>13285e75-50b3-44c7-83a1-13356519ade4</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="941dc77a-8d03-4780-b91a-1fa1f763c0ce" name="Test &quot;Bon Jovi&quot;" type="SubSheetInfo">
+    <subsheetid>dd50b0cf-1562-49d1-969d-152a0827cd7b</subsheetid>
+    <narrative>Test Exception - no retry, default lock (none)</narrative>
+    <display x="-195" y="-105" w="240" h="90" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="43a852ff-2565-4f01-a9a2-1b903cfb8c5d" name="Start" type="Start">
+    <subsheetid>dd50b0cf-1562-49d1-969d-152a0827cd7b</subsheetid>
+    <display x="15" y="-135" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>b162e956-5461-44ad-840c-17850a7450e6</onsuccess>
+  </stage>
+  <stage stageid="83669e88-8f4d-494b-9237-1e3f02048bf4" name="End" type="End">
+    <subsheetid>dd50b0cf-1562-49d1-969d-152a0827cd7b</subsheetid>
+    <display x="15" y="135" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="08326f10-ea8d-4037-a13a-98c91ae0e7b7" name="Queue Name" type="Data">
+    <display x="-345" y="150" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Bongiovi</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="627cc94c-098a-4081-8a2b-26857790c378" name="Key Field" type="Data">
+    <display x="-345" y="195" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Song</initialvalue>
+    <exposure>Statistic</exposure>
+    <alwaysinit />
+  </stage>
+  <stage stageid="550a3037-79aa-45e6-a212-e4c76bb97f7a" name="Get Item &quot;Runaway&quot;" type="Action">
+    <subsheetid>dd50b0cf-1562-49d1-969d-152a0827cd7b</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="15" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;Runaway&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>6d4a5283-bcaf-4fb4-8c8b-a313830bb349</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="c30d43f1-8a3b-46de-893d-b26763f60c74" name="Note1" type="Note">
+    <narrative>Local Variables</narrative>
+    <display x="-345" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="161c274c-9622-4e00-8f51-677ae949a0b2" name="Note1" type="Note">
+    <narrative>Global Variables</narrative>
+    <display x="-345" y="105" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="412ef90d-74a0-4778-adc8-46852ec26fb8" name="Item ID" type="Data">
+    <display x="-345" y="240" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fad757f9-15e8-45cf-87b4-7064e60adc69" name="Attempts" type="Data">
+    <display x="-345" y="285" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f2afd4dd-150a-4aab-908a-ff01d3e0172e" name="Ban this sick filth" type="Action">
+    <subsheetid>dd50b0cf-1562-49d1-969d-152a0827cd7b</subsheetid>
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="15" y="45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;It's a dismal song&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="False" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>99a36b0b-6e37-4528-920c-f22e114f9a92</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="b162e956-5461-44ad-840c-17850a7450e6" name="Count &quot;songs&quot;" type="Action">
+    <subsheetid>dd50b0cf-1562-49d1-969d-152a0827cd7b</subsheetid>
+    <display x="15" y="-90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="Count" />
+    </outputs>
+    <onsuccess>550a3037-79aa-45e6-a212-e4c76bb97f7a</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="455f1336-cf88-478d-9e5e-2065d2c50c66" name="Count" type="Data">
+    <display x="-345" y="330" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fd1e2065-7ad2-4df2-80b3-c06514536903" name="Test &quot;7800 Fahrenheit&quot;" type="SubSheetInfo">
+    <subsheetid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</subsheetid>
+    <narrative>Test exception - no retry - with lock</narrative>
+    <display x="-195" y="-105" w="270" h="90" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="c67813c0-d73a-4f49-8e5c-4513235d85ac" name="Start" type="Start">
+    <subsheetid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</subsheetid>
+    <display x="15" y="-135" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>74e9bf61-3dae-4c4d-aece-59b4593b64a1</onsuccess>
+  </stage>
+  <stage stageid="831870ed-faae-4e5b-902e-fe726abf1c9f" name="End" type="End">
+    <subsheetid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</subsheetid>
+    <display x="195" y="90" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="970641b2-3e78-4b7a-9de0-f0a9a2087fba" name="Get Item &quot;In And Out Of Love&quot;" type="Action">
+    <subsheetid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="15" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;In And Out Of Love&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>0ec2acd7-e436-4b03-ac8e-f50144e98ad2</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="8ab7d716-7623-4cfb-a025-aa4282475c07" name="Ban this sick filth" type="Action">
+    <subsheetid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</subsheetid>
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="15" y="45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;It's a dismal song&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="False" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>354e3b7e-d16e-49c0-b19d-c3c85906570a</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="74e9bf61-3dae-4c4d-aece-59b4593b64a1" name="Count &quot;songs&quot;" type="Action">
+    <subsheetid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</subsheetid>
+    <display x="15" y="-90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="Count" />
+    </outputs>
+    <onsuccess>970641b2-3e78-4b7a-9de0-f0a9a2087fba</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="354e3b7e-d16e-49c0-b19d-c3c85906570a" name="Check that there's one less Bon Jovi song in the world" type="Action">
+    <subsheetid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</subsheetid>
+    <display x="15" y="90" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="[Count]-1" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="Count" />
+    </outputs>
+    <onsuccess>9085428a-5b4c-4151-869a-ed8251e63ccf</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="99a36b0b-6e37-4528-920c-f22e114f9a92" name="Check that there's one less Bon Jovi song in the world" type="Action">
+    <subsheetid>dd50b0cf-1562-49d1-969d-152a0827cd7b</subsheetid>
+    <display x="15" y="90" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="[Count]-1" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="Count" />
+    </outputs>
+    <onsuccess>83669e88-8f4d-494b-9237-1e3f02048bf4</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="df574a60-af22-479a-a426-0620ea630796" name="Test &quot;Slippery When Wet&quot;" type="SubSheetInfo">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <narrative>Exception Retry - no lock</narrative>
+    <display x="-255" y="-150" w="210" h="90" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="891e69e0-4d97-4f84-8756-1858ca6a7e38" name="Start" type="Start">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <display x="-75" y="-180" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>272582c4-e9a6-4208-b20b-8cbe70605860</onsuccess>
+  </stage>
+  <stage stageid="aa4afd54-8c3f-4445-9ddc-d4f8921444dc" name="End" type="End">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <display x="375" y="90" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="3b835f21-90e9-45a6-93cb-c6d19018d949" name="Get Item &quot;Livin' On A Prayer&quot;" type="Action">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="-75" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;Livin' On A Prayer&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>b56a83d5-289f-497e-bfca-8f2cdede1d96</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="066b7804-ec59-4bdf-b6b6-7aa401ae22d0" name="Ban this sick filth" type="Action">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="75" y="-90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;It's a dismal song&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="True" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>5ab99feb-4031-4e8b-a1d6-824c540614e7</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="272582c4-e9a6-4208-b20b-8cbe70605860" name="Count &quot;songs&quot;" type="Action">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <display x="-75" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="Count" />
+    </outputs>
+    <onsuccess>3b835f21-90e9-45a6-93cb-c6d19018d949</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="5ab99feb-4031-4e8b-a1d6-824c540614e7" name="Count - Oops, a live version" type="Action">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <display x="75" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="[Count]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="Count" />
+    </outputs>
+    <onsuccess>44822778-5fe9-4055-8e70-aba84c9f8ed5</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="44822778-5fe9-4055-8e70-aba84c9f8ed5" name="Get Item &quot;Livin' On A Prayer&quot;" type="Action">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="75" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;Livin' On A Prayer&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>cbfd6079-a8b3-4c6b-adcd-7cf7ec1a2de4</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="ef961909-376c-4714-b205-3ebf783cc9f7" name="Ban this sick filth" type="Action">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="225" y="-90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;It's a dismal song&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="True" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>2a00b6c9-d644-4a51-8800-35f52183c579</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="2a00b6c9-d644-4a51-8800-35f52183c579" name="Count - Oops, &quot;Prayer 94&quot;" type="Action">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <display x="225" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="[Count]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="Count" />
+    </outputs>
+    <onsuccess>0e5af917-0d6e-4825-a745-1a141c86fb8a</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="0e5af917-0d6e-4825-a745-1a141c86fb8a" name="Get Item &quot;Livin' On A Prayer&quot;" type="Action">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="225" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;Livin' On A Prayer&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>5c38bb0a-0c34-492e-8b72-274036d3b130</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="af91e624-e9c8-465b-a56f-ca685ff17ef4" name="Ban this sick filth" type="Action">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="375" y="-90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;It's a dismal song&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="True" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>109f5645-b50e-4e60-adcd-af983254a8b6</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="109f5645-b50e-4e60-adcd-af983254a8b6" name="Check that there's one less Bon Jovi song in the world" type="Action">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <display x="375" y="-30" w="90" h="60" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="[Count]-1" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="Count" />
+    </outputs>
+    <onsuccess>aa4afd54-8c3f-4445-9ddc-d4f8921444dc</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="b35d7019-df06-4a96-9004-fa6066acab2f" name="Note2" type="Note">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <narrative>Attempt 1</narrative>
+    <display x="75" y="-180" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>7c39270f-e5df-48a0-b278-bff448eae560</onsuccess>
+  </stage>
+  <stage stageid="b56a83d5-289f-497e-bfca-8f2cdede1d96" name="Attempts = 0?" type="Decision">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <display x="-75" y="45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Attempts] = 0" />
+    <ontrue>b35d7019-df06-4a96-9004-fa6066acab2f</ontrue>
+    <onfalse>3cb7c5b8-7250-4a60-8ef5-02b902e61bdf</onfalse>
+  </stage>
+  <stage stageid="cbfd6079-a8b3-4c6b-adcd-7cf7ec1a2de4" name="Attempts = 1?" type="Decision">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <display x="75" y="45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Attempts] = 1" />
+    <ontrue>71b14e2e-f6bd-4037-b981-8e9a4e371217</ontrue>
+    <onfalse>a9a4e108-3a74-4804-a053-e4a5ff7bd5df</onfalse>
+  </stage>
+  <stage stageid="5c38bb0a-0c34-492e-8b72-274036d3b130" name="Attempts = 2?" type="Decision">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <display x="225" y="45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Attempts] = 2" />
+    <ontrue>ac6a3207-8d24-4526-839c-45cc57793f86</ontrue>
+    <onfalse>cb0e7ae3-d7ca-4f92-97c2-c48c72a2bd8a</onfalse>
+  </stage>
+  <stage stageid="71b14e2e-f6bd-4037-b981-8e9a4e371217" name="Note2" type="Note">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <narrative>Attempt 2</narrative>
+    <display x="225" y="-180" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>f05957f6-2ff9-4fe7-b374-71da4c7f6d78</onsuccess>
+  </stage>
+  <stage stageid="ac6a3207-8d24-4526-839c-45cc57793f86" name="Note2" type="Note">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <narrative>Attempt 3</narrative>
+    <display x="375" y="-180" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>53a1434a-3f2c-4272-8cea-a756beaea0e1</onsuccess>
+  </stage>
+  <stage stageid="3cb7c5b8-7250-4a60-8ef5-02b902e61bdf" name="Bad Attempts Count" type="Exception">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <display x="-75" y="90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Should be 0 attempts : but found : &quot; &amp; [Attempts]" />
+  </stage>
+  <stage stageid="a9a4e108-3a74-4804-a053-e4a5ff7bd5df" name="Bad Attempts Count" type="Exception">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <display x="75" y="90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Should be 1 attempt : but found : &quot; &amp; [Attempts]" />
+  </stage>
+  <stage stageid="cb0e7ae3-d7ca-4f92-97c2-c48c72a2bd8a" name="Bad Attempts Count" type="Exception">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <display x="225" y="90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Should be 2 attempts : but found : &quot; &amp; [Attempts]" />
+  </stage>
+  <stage stageid="01a49fb6-20d4-4d89-947b-a6557220373e" name="Test &quot;New Jersey&quot;" type="SubSheetInfo">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <narrative>Exception Retry with lock
+Lay Your Hands On Me</narrative>
+    <display x="-195" y="-105" w="240" h="90" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="d20ad5bf-823a-41ea-9d80-9eca6a2f83e6" name="Start" type="Start">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="0" y="-135" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>a70941a3-89fc-4ee9-8345-7705a233c5b9</onsuccess>
+  </stage>
+  <stage stageid="d6c37833-3e0e-472d-9555-b05c807e8d84" name="End" type="End">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="480" y="90" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="5ba6a400-c2ca-4c61-890d-5fc0d525c1fe" name="Get Item &quot;Bad Medicine&quot;" type="Action">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="0" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;Bad Medicine&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>1969c0a0-d248-42ca-a792-55b20f572b92</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="4a4ee70d-a738-4751-9880-a4790ca55d20" name="Ban this sick filth" type="Action">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="150" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;It's a dismal song&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="True" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>460e8597-1fd6-4874-937f-a155951b150c</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="a70941a3-89fc-4ee9-8345-7705a233c5b9" name="Count &quot;songs&quot;" type="Action">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="0" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="Count" />
+    </outputs>
+    <onsuccess>5ba6a400-c2ca-4c61-890d-5fc0d525c1fe</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="460e8597-1fd6-4874-937f-a155951b150c" name="Still Locked - Should be one less" type="Action">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="150" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="[Count]-1" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="" />
+    </outputs>
+    <onsuccess>334ebb21-2b12-4cee-957e-dc19dc01f443</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="893c9d54-f6fd-416d-a0f4-ca7223b4de00" name="Ban this sick filth" type="Action">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="315" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;It's a dismal song&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="True" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>4e988fb1-58d8-47f2-9368-c511e2f55115</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="4e988fb1-58d8-47f2-9368-c511e2f55115" name="Still Still Locked - Still 1 less" type="Action">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="315" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="[Count]-1" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="" />
+    </outputs>
+    <onsuccess>58e5e42f-69ec-419a-80f7-175705a2c3a3</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="abe7baff-f454-48be-8723-639cd0e8c2e1" name="Ban this sick filth" type="Action">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="480" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;It's a dismal song&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="True" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>44d8971e-97a3-4ff0-9034-e7669f937adf</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="44d8971e-97a3-4ff0-9034-e7669f937adf" name="Check that there's one less Bon Jovi song in the world" type="Action">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="480" y="15" w="90" h="60" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="[Count]-1" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="Count" />
+    </outputs>
+    <onsuccess>d6c37833-3e0e-472d-9555-b05c807e8d84</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="c31aae89-0d5b-41d6-bcfb-5dfa59a4f53e" name="Note2" type="Note">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <narrative>Attempt 1</narrative>
+    <display x="150" y="-135" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e6ac36b3-9483-4a49-9b88-3a29219506f6</onsuccess>
+  </stage>
+  <stage stageid="1884b61c-c672-4f0f-8c4e-09924e96fd7e" name="Attempts = 0?" type="Decision">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="0" y="90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Attempts] = 0" />
+    <ontrue>ccc45aa1-310c-44c4-b60d-f192b225ec68</ontrue>
+    <onfalse>693dc40c-c336-49ed-ad47-13eb9a30f99a</onfalse>
+  </stage>
+  <stage stageid="398d487d-827e-413c-9285-b5e541c32b94" name="Note2" type="Note">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <narrative>Attempt 2</narrative>
+    <display x="315" y="-135" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>9862e0ba-d3ba-4893-aaf7-06c3ad70c1c4</onsuccess>
+  </stage>
+  <stage stageid="f6110636-d874-4fd4-a626-fd4a716d3e66" name="Note2" type="Note">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <narrative>Attempt 3</narrative>
+    <display x="480" y="-135" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>3c428355-9a84-4530-b155-0a65acf8bf73</onsuccess>
+  </stage>
+  <stage stageid="693dc40c-c336-49ed-ad47-13eb9a30f99a" name="Bad Attempts Count" type="Exception">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="-135" y="90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Should be 0 attempts : but found : &quot; &amp; [Attempts]" />
+  </stage>
+  <stage stageid="9f52f4e7-086c-41f0-9f77-3a1807cb9f54" name="Bad Medicine ID" type="Data">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="-270" y="-15" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1969c0a0-d248-42ca-a792-55b20f572b92" name="Got it?" type="Decision">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="0" y="45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID] &lt;&gt; &quot;&quot;" />
+    <ontrue>1884b61c-c672-4f0f-8c4e-09924e96fd7e</ontrue>
+    <onfalse>7e5bb453-2107-4fd2-b40d-a2a0bf197d0a</onfalse>
+  </stage>
+  <stage stageid="ccc45aa1-310c-44c4-b60d-f192b225ec68" name="anchor1" type="Anchor">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="60" y="90" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>ad2554f1-e563-44e0-9804-ef428f1c19f5</onsuccess>
+  </stage>
+  <stage stageid="ad2554f1-e563-44e0-9804-ef428f1c19f5" name="anchor2" type="Anchor">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="60" y="-135" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>c31aae89-0d5b-41d6-bcfb-5dfa59a4f53e</onsuccess>
+  </stage>
+  <stage stageid="ccd4b4c2-5e1b-4a03-a975-0b115708ad22" name="anchor5" type="Anchor">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="390" y="-135" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>f6110636-d874-4fd4-a626-fd4a716d3e66</onsuccess>
+  </stage>
+  <stage stageid="58e5e42f-69ec-419a-80f7-175705a2c3a3" name="anchor6" type="Anchor">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="390" y="0" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>ccd4b4c2-5e1b-4a03-a975-0b115708ad22</onsuccess>
+  </stage>
+  <stage stageid="7e5bb453-2107-4fd2-b40d-a2a0bf197d0a" name="No Bad Medicine" type="Exception">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="-135" y="45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Couldn't get Bad Medicine item&quot;" />
+  </stage>
+  <stage stageid="13285e75-50b3-44c7-83a1-13356519ade4" name="Test &quot;Bon Jovi&quot;" type="SubSheet">
+    <display x="15" y="45" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>4f7e1b40-36b8-4eb9-81dc-195ae8838cbd</onsuccess>
+    <processid>dd50b0cf-1562-49d1-969d-152a0827cd7b</processid>
+  </stage>
+  <stage stageid="4f7e1b40-36b8-4eb9-81dc-195ae8838cbd" name="Test &quot;7800 Fahrenheit&quot;" type="SubSheet">
+    <display x="15" y="90" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>75e83921-4dea-4daa-87e8-d88b5047fbf3</onsuccess>
+    <processid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</processid>
+  </stage>
+  <stage stageid="75e83921-4dea-4daa-87e8-d88b5047fbf3" name="Test &quot;Slippery When Wet&quot;" type="SubSheet">
+    <display x="15" y="135" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>9955dd6a-9b11-4818-8f52-343775a98267</onsuccess>
+    <processid>880aeef8-d936-4f5f-8a35-5fe16e36c987</processid>
+  </stage>
+  <stage stageid="9955dd6a-9b11-4818-8f52-343775a98267" name="Test &quot;New Jersey&quot;" type="SubSheet">
+    <display x="15" y="180" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>49c7abf4-73dd-4076-b742-664f2e28a678</onsuccess>
+    <processid>b19ab007-8782-4e24-85b3-9a724592472a</processid>
+  </stage>
+  <stage stageid="334ebb21-2b12-4cee-957e-dc19dc01f443" name="anchor2" type="Anchor">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="225" y="0" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>2d25a0f6-c433-457d-8b9d-9cce7c02afe5</onsuccess>
+  </stage>
+  <stage stageid="2d25a0f6-c433-457d-8b9d-9cce7c02afe5" name="anchor2" type="Anchor">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="225" y="-135" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>398d487d-827e-413c-9285-b5e541c32b94</onsuccess>
+  </stage>
+  <stage stageid="c65d9c39-58ca-4346-a4df-dc350002db7d" name="Note4" type="Note">
+    <narrative>no retry / default (ie. no) lock</narrative>
+    <display x="-165" y="45" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+    <onsuccess>13285e75-50b3-44c7-83a1-13356519ade4</onsuccess>
+  </stage>
+  <stage stageid="2241ef24-bb81-4349-8b87-c3b98c6ce543" name="Note4" type="Note">
+    <narrative>no retry / with lock</narrative>
+    <display x="-165" y="90" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+    <onsuccess>4f7e1b40-36b8-4eb9-81dc-195ae8838cbd</onsuccess>
+  </stage>
+  <stage stageid="fa5d2346-6b39-4e07-bfdd-b93599535426" name="Note4" type="Note">
+    <narrative>with retry / no lock</narrative>
+    <display x="-165" y="135" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+    <onsuccess>75e83921-4dea-4daa-87e8-d88b5047fbf3</onsuccess>
+  </stage>
+  <stage stageid="887d64bf-5d64-4a76-b73c-d5a60513810e" name="Note5" type="Note">
+    <subsheetid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</subsheetid>
+    <narrative>Make sure there's no lock on the item</narrative>
+    <display x="195" y="-135" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+    <onsuccess>133140ab-f568-448a-8308-831f3d5063ec</onsuccess>
+  </stage>
+  <stage stageid="52b6ad21-9501-4fb1-a9b1-f1a041f55da9" name="Check no lock" type="Block">
+    <subsheetid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</subsheetid>
+    <display x="120" y="-105" w="150" h="165" />
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="9085428a-5b4c-4151-869a-ed8251e63ccf" name="anchor3" type="Anchor">
+    <subsheetid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</subsheetid>
+    <display x="105" y="90" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+    <onsuccess>7cca2a9d-6318-4c16-a1d3-2afe934e0b21</onsuccess>
+  </stage>
+  <stage stageid="7cca2a9d-6318-4c16-a1d3-2afe934e0b21" name="anchor4" type="Anchor">
+    <subsheetid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</subsheetid>
+    <display x="105" y="-135" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+    <onsuccess>887d64bf-5d64-4a76-b73c-d5a60513810e</onsuccess>
+  </stage>
+  <stage stageid="133140ab-f568-448a-8308-831f3d5063ec" name="Mark as Complete" type="Action">
+    <subsheetid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</subsheetid>
+    <narrative>Marks the item as completed, by updating the Completed timestamp and setting Locked to null. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="195" y="-60" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+    </inputs>
+    <onsuccess>1f819106-9f28-4d9a-a661-7ee620f0d9a8</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="1f819106-9f28-4d9a-a661-7ee620f0d9a8" name="Shouldn't have lock" type="Exception">
+    <subsheetid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</subsheetid>
+    <display x="345" y="-60" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+    <exception type="Queue Test Failed" detail="&quot;Retained lock on &quot;&quot;In And Out Of Love&quot;&quot;, when exceptioning without retry&quot;" />
+  </stage>
+  <stage stageid="5dfe2c84-7e78-4ff9-ace2-70575021d048" name="Oh, I say" type="Recover">
+    <subsheetid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</subsheetid>
+    <display x="195" y="-15" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+    <onsuccess>84878746-ab0c-4209-b8e5-f22d3e8f9c59</onsuccess>
+  </stage>
+  <stage stageid="84878746-ab0c-4209-b8e5-f22d3e8f9c59" name="Carry on, matron" type="Resume">
+    <subsheetid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</subsheetid>
+    <display x="195" y="30" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+    <onsuccess>831870ed-faae-4e5b-902e-fe726abf1c9f</onsuccess>
+  </stage>
+  <stage stageid="b6dba610-e747-4c4d-8996-5f056edd8d3e" name="Note4" type="Note">
+    <narrative>with retry / with lock</narrative>
+    <display x="-165" y="180" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+    <onsuccess>9955dd6a-9b11-4818-8f52-343775a98267</onsuccess>
+  </stage>
+  <stage stageid="98f0b7c4-4f74-4c1c-b18b-6fd24103a805" name="Test &quot;Keep The Faith&quot;" type="SubSheetInfo">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <narrative>with retry / no lock; then no retry</narrative>
+    <display x="-225" y="-105" w="240" h="90" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+  </stage>
+  <stage stageid="ca7b90ea-921b-4535-bf2f-8bebe39c784e" name="Start" type="Start">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <display x="-15" y="-135" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+    <onsuccess>4a67d81f-eaeb-4b78-b0e9-95f619c5f0ab</onsuccess>
+  </stage>
+  <stage stageid="7052ec16-3782-4d25-b505-32b5e23ae647" name="End" type="End">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <display x="450" y="135" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+  </stage>
+  <stage stageid="1346a2a8-b183-4c75-a052-8483f46dd868" name="Get Item &quot;If I Was Your Mother&quot;" type="Action">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="-15" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;If I Was Your Mother&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>d952fbf7-c67e-47f7-a4fb-892aacc07161</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="dce5aec0-317b-47b9-828e-19a603caa7dc" name="Ban this sick filth" type="Action">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="120" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;It's a dismal song&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="True" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>e28efefd-650b-4c3c-8af8-4e6f9b2c77ef</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="4a67d81f-eaeb-4b78-b0e9-95f619c5f0ab" name="Count &quot;songs&quot;" type="Action">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <display x="-15" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="Count" />
+    </outputs>
+    <onsuccess>1346a2a8-b183-4c75-a052-8483f46dd868</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="e28efefd-650b-4c3c-8af8-4e6f9b2c77ef" name="Surely there can't be more? Oh, yes" type="Action">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <display x="120" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="[Count]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="Count" />
+    </outputs>
+    <onsuccess>44408fa9-7bbb-4500-86c2-06d978bbe7bd</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="44408fa9-7bbb-4500-86c2-06d978bbe7bd" name="Get Item &quot;If I Was Your Mother&quot;" type="Action">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="120" y="45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;If I Was Your Mother&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>8c06ddb8-42b7-42c7-8d60-518a658ebfd7</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="bc232c86-a847-4bd6-8a5a-0b26d04582df" name="Ban this sick filth" type="Action">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="285" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;It's a dismal song&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="False" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>63ec320c-2508-4fea-bc78-48e0e977dbb7</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="badcab4d-7347-43ba-85ac-a32bcb9144d9" name="Note2" type="Note">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <narrative>Attempt 1</narrative>
+    <display x="120" y="-135" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>a7e8dda5-ea64-4201-9194-cee3515d3280</onsuccess>
+  </stage>
+  <stage stageid="d952fbf7-c67e-47f7-a4fb-892aacc07161" name="Attempts = 0?" type="Decision">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <display x="-15" y="45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Attempts] = 0" />
+    <ontrue>badcab4d-7347-43ba-85ac-a32bcb9144d9</ontrue>
+    <onfalse>d620f09f-14c7-4aeb-854b-49ea0538ff64</onfalse>
+  </stage>
+  <stage stageid="8c06ddb8-42b7-42c7-8d60-518a658ebfd7" name="Attempts = 1?" type="Decision">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <display x="120" y="90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Attempts] = 1" />
+    <ontrue>024c7d95-66da-4df9-bf74-3872b81ef481</ontrue>
+    <onfalse>e88fc412-a9e5-47a9-908c-599c5716dccd</onfalse>
+  </stage>
+  <stage stageid="024c7d95-66da-4df9-bf74-3872b81ef481" name="Note2" type="Note">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <narrative>Attempt 2</narrative>
+    <display x="285" y="-135" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>add886cd-e573-4350-ba66-37ec629ea450</onsuccess>
+  </stage>
+  <stage stageid="d620f09f-14c7-4aeb-854b-49ea0538ff64" name="Bad Attempts Count" type="Exception">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <display x="-15" y="90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Should be 0 attempts : but found : &quot; &amp; [Attempts]" />
+  </stage>
+  <stage stageid="e88fc412-a9e5-47a9-908c-599c5716dccd" name="Bad Attempts Count" type="Exception">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <display x="120" y="135" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Should be 1 attempt : but found : &quot; &amp; [Attempts]" />
+  </stage>
+  <stage stageid="63ec320c-2508-4fea-bc78-48e0e977dbb7" name="Check that there's one less Bon Jovi song in the world" type="Action">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <display x="285" y="15" w="90" h="60" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="[Count]-1" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="Count" />
+    </outputs>
+    <onsuccess>e6e71e19-4223-469b-814c-c43f812e2173</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="cb09f4b9-95de-41b1-82e5-43dba67f7e38" name="Note6" type="Note">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <narrative>Attempt 3</narrative>
+    <display x="450" y="-135" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>442ab6f2-07c2-497e-8c8a-116aa41ae9e2</onsuccess>
+  </stage>
+  <stage stageid="e6e71e19-4223-469b-814c-c43f812e2173" name="anchor8" type="Anchor">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <display x="285" y="90" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>cb09f4b9-95de-41b1-82e5-43dba67f7e38</onsuccess>
+  </stage>
+  <stage stageid="442ab6f2-07c2-497e-8c8a-116aa41ae9e2" name="Get Item &quot;If I Was Your Mother&quot;" type="Action">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="450" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;If I Was Your Mother&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>884c19fc-9c1b-457e-a5cb-c377990b126b</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="884c19fc-9c1b-457e-a5cb-c377990b126b" name="Any more pending horrors?" type="Decision">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <display x="450" y="15" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID] &lt;&gt; &quot;&quot;" />
+    <ontrue>628170df-0ab7-41f6-9ff3-05c17a70b46c</ontrue>
+    <onfalse>a86d08c9-3394-4522-83bb-83eef590eede</onfalse>
+  </stage>
+  <stage stageid="628170df-0ab7-41f6-9ff3-05c17a70b46c" name="But it's terrible exception" type="Exception">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <display x="585" y="15" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Shouldn't be any more &quot;&quot;If I Was Your Mother&quot;&quot; items&quot;" />
+  </stage>
+  <stage stageid="a86d08c9-3394-4522-83bb-83eef590eede" name="Note7" type="Note">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <narrative>Thank heaven</narrative>
+    <display x="450" y="75" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>7052ec16-3782-4d25-b505-32b5e23ae647</onsuccess>
+  </stage>
+  <stage stageid="49c7abf4-73dd-4076-b742-664f2e28a678" name="Test &quot;Keep The Faith&quot;" type="SubSheet">
+    <display x="15" y="225" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>ddf87f72-8bc2-4803-bebb-d3a5d219e287</onsuccess>
+    <processid>a747c205-18a2-4bd5-a992-76189a1104e7</processid>
+  </stage>
+  <stage stageid="47049f6c-e17d-473e-b6d5-7eeae68f4bed" name="Note4" type="Note">
+    <narrative>with retry / no lock; then no retry</narrative>
+    <display x="-165" y="225" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+    <onsuccess>49c7abf4-73dd-4076-b742-664f2e28a678</onsuccess>
+  </stage>
+  <stage stageid="3ac1ff9c-e26c-4bbb-a2b2-4d7b3aeeb198" name="Wait For Rand(m,n) Seconds" type="SubSheetInfo">
+    <subsheetid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</subsheetid>
+    <narrative>Waits for a random number of seconds between 2 values. Obviously, this is approximate since there is a cost to actually running the process</narrative>
+    <display x="-195" y="-105" w="180" h="90" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="ad5b0c82-bee4-4573-b707-fc090ed9c2d2" name="Start" type="Start">
+    <subsheetid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</subsheetid>
+    <display x="-15" y="-135" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Seconds" narrative="The minimum number of seconds to wait" stage="min" />
+      <input type="number" name="Max Seconds" narrative="The maximum number of seconds to wait" stage="max" />
+    </inputs>
+    <onsuccess>5fd9d11e-6af1-4424-9423-8b745714cfe3</onsuccess>
+  </stage>
+  <stage stageid="8a1e8f8e-6054-4a27-aba8-17ecb423e49e" name="End" type="End">
+    <subsheetid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</subsheetid>
+    <display x="-15" y="-45" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="8270a0d3-5597-431b-91db-6700436b6ec8" name="min" type="Data">
+    <subsheetid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</subsheetid>
+    <display x="-225" y="-30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6ed1263d-2f95-4b26-b176-3abeea292a85" name="max" type="Data">
+    <subsheetid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</subsheetid>
+    <display x="-165" y="-30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5fd9d11e-6af1-4424-9423-8b745714cfe3" name="Wait Rand(m,n) Seconds" type="Action">
+    <subsheetid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</subsheetid>
+    <display x="-15" y="-90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Seconds" narrative="The minimum number of seconds to wait" expr="[min]" />
+      <input type="number" name="Max Seconds" narrative="The maximum number of seconds to wait" expr="[max]" />
+    </inputs>
+    <onsuccess>8a1e8f8e-6054-4a27-aba8-17ecb423e49e</onsuccess>
+    <resource object="Queue Utils" action="Wait Rand(m,n) Seconds" />
+  </stage>
+  <stage stageid="6d4a5283-bcaf-4fb4-8c8b-a313830bb349" name="Wait For Rand(m,n) Seconds" type="SubSheet">
+    <subsheetid>dd50b0cf-1562-49d1-969d-152a0827cd7b</subsheetid>
+    <display x="15" y="0" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Seconds" narrative="The minimum number of seconds to wait" expr="5" />
+      <input type="number" name="Max Seconds" narrative="The maximum number of seconds to wait" expr="10" />
+    </inputs>
+    <onsuccess>f2afd4dd-150a-4aab-908a-ff01d3e0172e</onsuccess>
+    <processid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</processid>
+  </stage>
+  <stage stageid="0ec2acd7-e436-4b03-ac8e-f50144e98ad2" name="Wait For Rand(m,n) Seconds" type="SubSheet">
+    <subsheetid>fcb76375-d66a-40af-8ebe-7daaa3b147f0</subsheetid>
+    <display x="15" y="0" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Seconds" narrative="The minimum number of seconds to wait" expr="5" />
+      <input type="number" name="Max Seconds" narrative="The maximum number of seconds to wait" expr="10" />
+    </inputs>
+    <onsuccess>8ab7d716-7623-4cfb-a025-aa4282475c07</onsuccess>
+    <processid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</processid>
+  </stage>
+  <stage stageid="7c39270f-e5df-48a0-b278-bff448eae560" name="Wait For Rand(m,n) Seconds" type="SubSheet">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <display x="75" y="-135" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Seconds" narrative="The minimum number of seconds to wait" expr="5" />
+      <input type="number" name="Max Seconds" narrative="The maximum number of seconds to wait" expr="10" />
+    </inputs>
+    <onsuccess>066b7804-ec59-4bdf-b6b6-7aa401ae22d0</onsuccess>
+    <processid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</processid>
+  </stage>
+  <stage stageid="f05957f6-2ff9-4fe7-b374-71da4c7f6d78" name="Wait For Rand(m,n) Seconds" type="SubSheet">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <display x="225" y="-135" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Seconds" narrative="The minimum number of seconds to wait" expr="5" />
+      <input type="number" name="Max Seconds" narrative="The maximum number of seconds to wait" expr="10" />
+    </inputs>
+    <onsuccess>ef961909-376c-4714-b205-3ebf783cc9f7</onsuccess>
+    <processid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</processid>
+  </stage>
+  <stage stageid="53a1434a-3f2c-4272-8cea-a756beaea0e1" name="Wait For Rand(m,n) Seconds" type="SubSheet">
+    <subsheetid>880aeef8-d936-4f5f-8a35-5fe16e36c987</subsheetid>
+    <display x="375" y="-135" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Seconds" narrative="The minimum number of seconds to wait" expr="5" />
+      <input type="number" name="Max Seconds" narrative="The maximum number of seconds to wait" expr="10" />
+    </inputs>
+    <onsuccess>af91e624-e9c8-465b-a56f-ca685ff17ef4</onsuccess>
+    <processid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</processid>
+  </stage>
+  <stage stageid="e6ac36b3-9483-4a49-9b88-3a29219506f6" name="Wait For Rand(m,n) Seconds" type="SubSheet">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="150" y="-90" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Seconds" narrative="The minimum number of seconds to wait" expr="5" />
+      <input type="number" name="Max Seconds" narrative="The maximum number of seconds to wait" expr="10" />
+    </inputs>
+    <onsuccess>4a4ee70d-a738-4751-9880-a4790ca55d20</onsuccess>
+    <processid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</processid>
+  </stage>
+  <stage stageid="9862e0ba-d3ba-4893-aaf7-06c3ad70c1c4" name="Wait For Rand(m,n) Seconds" type="SubSheet">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="315" y="-90" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Seconds" narrative="The minimum number of seconds to wait" expr="5" />
+      <input type="number" name="Max Seconds" narrative="The maximum number of seconds to wait" expr="10" />
+    </inputs>
+    <onsuccess>893c9d54-f6fd-416d-a0f4-ca7223b4de00</onsuccess>
+    <processid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</processid>
+  </stage>
+  <stage stageid="3c428355-9a84-4530-b155-0a65acf8bf73" name="Wait For Rand(m,n) Seconds" type="SubSheet">
+    <subsheetid>b19ab007-8782-4e24-85b3-9a724592472a</subsheetid>
+    <display x="480" y="-90" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Seconds" narrative="The minimum number of seconds to wait" expr="5" />
+      <input type="number" name="Max Seconds" narrative="The maximum number of seconds to wait" expr="10" />
+    </inputs>
+    <onsuccess>abe7baff-f454-48be-8723-639cd0e8c2e1</onsuccess>
+    <processid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</processid>
+  </stage>
+  <stage stageid="a7e8dda5-ea64-4201-9194-cee3515d3280" name="Wait For Rand(m,n) Seconds" type="SubSheet">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <display x="120" y="-90" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Seconds" narrative="The minimum number of seconds to wait" expr="5" />
+      <input type="number" name="Max Seconds" narrative="The maximum number of seconds to wait" expr="10" />
+    </inputs>
+    <onsuccess>dce5aec0-317b-47b9-828e-19a603caa7dc</onsuccess>
+    <processid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</processid>
+  </stage>
+  <stage stageid="add886cd-e573-4350-ba66-37ec629ea450" name="Wait For Rand(m,n) Seconds" type="SubSheet">
+    <subsheetid>a747c205-18a2-4bd5-a992-76189a1104e7</subsheetid>
+    <display x="285" y="-90" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Seconds" narrative="The minimum number of seconds to wait" expr="5" />
+      <input type="number" name="Max Seconds" narrative="The maximum number of seconds to wait" expr="10" />
+    </inputs>
+    <onsuccess>bc232c86-a847-4bd6-8a5a-0b26d04582df</onsuccess>
+    <processid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</processid>
+  </stage>
+  <stage stageid="e15ba790-01da-40b8-af87-2f76779c320a" name="Test &quot;These Days&quot;" type="SubSheetInfo">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <narrative>Tests that GetExceptions() doesn't return an item if its latest instance is :- locked, pending or completed, even if it has exceptions on earlier instances.</narrative>
+    <display x="-210" y="-105" w="210" h="90" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="249f5c55-ddd0-4fe6-9ed1-511bf368b0b9" name="End" type="End">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="705" y="-45" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="5bf97873-0bb4-4abb-b36c-856bb290ec0a" name="Start" type="Start">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="-60" y="-90" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+    <onsuccess>58ad66ef-d932-4756-8ece-aeaa2cbf36ca</onsuccess>
+  </stage>
+  <stage stageid="c951a431-6695-458d-a4ef-40d9ca1c1b18" name="Get Item &quot;Hey God&quot;" type="Action">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="-60" y="15" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;Hey God&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>bde18cb1-3352-4132-8fa5-513cf14345c3</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="f05f5188-4003-4d26-8046-44d656567390" name="Skip track" type="Action">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="105" y="-75" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;It's a dismal song&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="True" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>2c777f6f-ff38-4cdc-9b36-3db99cbf32dd</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="58ad66ef-d932-4756-8ece-aeaa2cbf36ca" name="Count &quot;songs&quot;" type="Action">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="-60" y="-30" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="Count" />
+    </outputs>
+    <onsuccess>c951a431-6695-458d-a4ef-40d9ca1c1b18</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="2c777f6f-ff38-4cdc-9b36-3db99cbf32dd" name="Surely there can't be more? Oh, yes" type="Action">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="105" y="-30" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="[Count]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="Count" />
+    </outputs>
+    <onsuccess>7eec8677-c119-4980-8691-27dc76e70ad7</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="7eec8677-c119-4980-8691-27dc76e70ad7" name="Get Item &quot;Hey God&quot;" type="Action">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="105" y="15" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;Hey God&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>9a905f49-7e65-40eb-a997-bd2cd2c26bd1</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="a2a321d7-42b7-4193-9dcd-a7faf21cc0cf" name="Fast Forward" type="Action">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="255" y="-75" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;It's a dismal song&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="True" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>c0685b06-05ea-4cf4-a4c7-eb744d42213b</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="4b59e4f3-a2f6-45e8-8333-4318a781d286" name="Note2" type="Note">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <narrative>Attempt 1</narrative>
+    <display x="105" y="-255" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>33ad6024-0e3f-4738-9ef2-f3933411f0cc</onsuccess>
+  </stage>
+  <stage stageid="bde18cb1-3352-4132-8fa5-513cf14345c3" name="Attempts = 0?" type="Decision">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="-60" y="60" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Attempts] = 0" />
+    <ontrue>4b59e4f3-a2f6-45e8-8333-4318a781d286</ontrue>
+    <onfalse>e85766bf-1c36-4c17-9b91-380e1c7f3c11</onfalse>
+  </stage>
+  <stage stageid="9a905f49-7e65-40eb-a997-bd2cd2c26bd1" name="Attempts = 1?" type="Decision">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="105" y="60" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Attempts] = 1" />
+    <ontrue>d0f2e3c6-e21a-4a00-8815-0c31d6f869f3</ontrue>
+    <onfalse>c5ddec9c-fea3-4a4d-a93c-f6fbab41bc31</onfalse>
+  </stage>
+  <stage stageid="d0f2e3c6-e21a-4a00-8815-0c31d6f869f3" name="Note2" type="Note">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <narrative>Attempt 2</narrative>
+    <display x="255" y="-255" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>d4b567fa-b496-4d1e-a1f0-38b9b4f275e2</onsuccess>
+  </stage>
+  <stage stageid="e85766bf-1c36-4c17-9b91-380e1c7f3c11" name="Bad Attempts Count" type="Exception">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="-60" y="105" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Should be 0 attempts : but found : &quot; &amp; [Attempts]" />
+  </stage>
+  <stage stageid="c5ddec9c-fea3-4a4d-a93c-f6fbab41bc31" name="Bad Attempts Count" type="Exception">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="105" y="105" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Should be 1 attempt : but found : &quot; &amp; [Attempts]" />
+  </stage>
+  <stage stageid="88114a0b-d9ae-431a-9ae0-a9efbfbe0821" name="Note6" type="Note">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <narrative>Attempt 2.5</narrative>
+    <display x="405" y="-255" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>5ef0aa35-d893-4a48-9e55-52be71d42a93</onsuccess>
+  </stage>
+  <stage stageid="c0685b06-05ea-4cf4-a4c7-eb744d42213b" name="anchor8" type="Anchor">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="255" y="75" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>88114a0b-d9ae-431a-9ae0-a9efbfbe0821</onsuccess>
+  </stage>
+  <stage stageid="a4565bc5-0fef-4cc5-8d3b-1b2a83d22de8" name="Is it still around?" type="Decision">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="555" y="60" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID] &lt;&gt; &quot;&quot;" />
+    <ontrue>828b996a-08a7-483c-b6bf-a2e7a8f182e6</ontrue>
+    <onfalse>e126c31f-f273-475f-9f1b-a933c121872d</onfalse>
+  </stage>
+  <stage stageid="828b996a-08a7-483c-b6bf-a2e7a8f182e6" name="But it really shouldn't be" type="Exception">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="555" y="105" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Shouldn't be any more &quot;&quot;Hey God&quot;&quot; items&quot;" />
+  </stage>
+  <stage stageid="742a6f06-4a42-4857-9425-030daddef051" name="Wait For Rand(m,n) Seconds" type="SubSheet">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="105" y="-120" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Seconds" narrative="The minimum number of seconds to wait" expr="5" />
+      <input type="number" name="Max Seconds" narrative="The maximum number of seconds to wait" expr="10" />
+    </inputs>
+    <onsuccess>f05f5188-4003-4d26-8046-44d656567390</onsuccess>
+    <processid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</processid>
+  </stage>
+  <stage stageid="b1fd24c5-fc53-478d-bc34-96226c1ce81e" name="Wait For Rand(m,n) Seconds" type="SubSheet">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="255" y="-120" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Seconds" narrative="The minimum number of seconds to wait" expr="5" />
+      <input type="number" name="Max Seconds" narrative="The maximum number of seconds to wait" expr="10" />
+    </inputs>
+    <onsuccess>a2a321d7-42b7-4193-9dcd-a7faf21cc0cf</onsuccess>
+    <processid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</processid>
+  </stage>
+  <stage stageid="8f5338d0-9dde-4753-b9fa-75cca0ed62f0" name="Find Exceptioned Item" type="SubSheetInfo">
+    <subsheetid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</subsheetid>
+    <narrative>Searches for the given Item ID in the current set of exceptioned items. Returns True if it finds it; False if it doesn't.</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="db35ad45-9ab2-4141-b9c2-b2c4dbc323cc" name="Start" type="Start">
+    <subsheetid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</subsheetid>
+    <display x="15" y="-135" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Required ID" narrative="The Item ID of the ID to find in the exceptions" stage="Required ID" />
+    </inputs>
+    <onsuccess>99377a11-7c52-4ed3-9507-16f5271dc9f8</onsuccess>
+  </stage>
+  <stage stageid="8215d033-365e-428b-8c7b-8c8ca1c89d6d" name="End" type="End">
+    <subsheetid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</subsheetid>
+    <display x="15" y="90" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="flag" name="Found" narrative="Flag to indicate if the given ID was found in the exceptioned items" stage="Found" />
+    </outputs>
+  </stage>
+  <stage stageid="bcd33d5c-7f57-492d-b174-5aaa39b8fe12" name="Required ID" type="Data">
+    <subsheetid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</subsheetid>
+    <display x="-195" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="010e2b01-f286-44e7-9ed1-4d31d568725a" name="Found" type="Data">
+    <subsheetid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</subsheetid>
+    <display x="-195" y="45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="99377a11-7c52-4ed3-9507-16f5271dc9f8" name="Get Exceptions" type="Action">
+    <subsheetid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</subsheetid>
+    <narrative>Gets the work items from the specified queue which have been marked with an exception on the latest attempt.</narrative>
+    <display x="15" y="-90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to retrieve the exception items from" expr="&quot;Bongiovi&quot;" />
+      <input type="datetime" name="Start Date" narrative="Optionally, the start threshold date. Any items returned will have been marked as an exception after this date. If no value is given, there will be no start threshold." expr="" />
+      <input type="datetime" name="End Date" narrative="Optionally, the end threshold date. Any items returned will have been marked as an exception before this date. If no value is given, there will be no end threshold." expr="" />
+      <input type="number" name="Maximum Rows" narrative="Optionally, the maximum number of rows to return. No value indicates that all rows should be returned" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Exception Items" narrative="The items which were marked with an exception within the given date range, up to the maximum count if one was given" stage="Exception Items" />
+    </outputs>
+    <onsuccess>666d153a-5795-4075-ba8e-7598a251afaa</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Exception Items" />
+  </stage>
+  <stage stageid="1e39515d-7ff0-4619-af66-b36f28a783c2" name="Exception Items" type="Collection">
+    <subsheetid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</subsheetid>
+    <display x="-195" y="90" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="666d153a-5795-4075-ba8e-7598a251afaa" name="For Each exception" type="LoopStart">
+    <subsheetid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</subsheetid>
+    <loginhibit />
+    <display x="15" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>617f3f64-d8ee-441a-a55e-6378a438b73a</onsuccess>
+    <groupid>11a81d65-b253-40ba-853f-1e4574901d1b</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Exception Items</loopdata>
+  </stage>
+  <stage stageid="604f2b30-d47f-4ece-b346-124b3627b4a1" name="Next exception" type="LoopEnd">
+    <subsheetid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</subsheetid>
+    <loginhibit />
+    <display x="15" y="45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>8215d033-365e-428b-8c7b-8c8ca1c89d6d</onsuccess>
+    <groupid>11a81d65-b253-40ba-853f-1e4574901d1b</groupid>
+  </stage>
+  <stage stageid="617f3f64-d8ee-441a-a55e-6378a438b73a" name="Is this it?" type="Decision">
+    <subsheetid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</subsheetid>
+    <loginhibit />
+    <display x="15" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Exception Items.Item ID] = [Required ID]" />
+    <ontrue>f91d13e5-db05-423b-beea-dbcec7fb2ad0</ontrue>
+    <onfalse>604f2b30-d47f-4ece-b346-124b3627b4a1</onfalse>
+  </stage>
+  <stage stageid="f91d13e5-db05-423b-beea-dbcec7fb2ad0" name="It's all true" type="Calculation">
+    <subsheetid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</subsheetid>
+    <loginhibit />
+    <display x="150" y="0" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>250a052d-150b-40fa-9b79-c983dada0e4a</onsuccess>
+    <calculation expression="True" stage="Found" />
+  </stage>
+  <stage stageid="250a052d-150b-40fa-9b79-c983dada0e4a" name="anchor13" type="Anchor">
+    <subsheetid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</subsheetid>
+    <display x="150" y="90" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>8215d033-365e-428b-8c7b-8c8ca1c89d6d</onsuccess>
+  </stage>
+  <stage stageid="33ad6024-0e3f-4738-9ef2-f3933411f0cc" name="Find It In Exceptions" type="SubSheet">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="105" y="-210" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Required ID" narrative="The Item ID of the ID to find in the exceptions" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Found" narrative="Flag to indicate if the given ID was found in the exceptioned items" stage="Found" />
+    </outputs>
+    <onsuccess>4e08b303-0ef7-45a7-997a-4e9f49b13953</onsuccess>
+    <processid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</processid>
+  </stage>
+  <stage stageid="ec557657-0b73-4aea-a3db-7c0237bcd97a" name="Found" type="Data">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="-210" y="-15" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4e08b303-0ef7-45a7-997a-4e9f49b13953" name="Was it there?" type="Decision">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="105" y="-165" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Found]" />
+    <ontrue>73e45763-589e-4181-b352-0e4e78d24d36</ontrue>
+    <onfalse>742a6f06-4a42-4857-9425-030daddef051</onfalse>
+  </stage>
+  <stage stageid="215acbda-fd11-43d9-83c3-16014569ffe3" name="What the hell is going on?" type="Exception">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="180" y="-330" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Apparently 'Hey God' is an exception, before it's even worked&quot;" />
+  </stage>
+  <stage stageid="d4b567fa-b496-4d1e-a1f0-38b9b4f275e2" name="Find It In Exceptions" type="SubSheet">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="255" y="-210" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Required ID" narrative="The Item ID of the ID to find in the exceptions" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Found" narrative="Flag to indicate if the given ID was found in the exceptioned items" stage="Found" />
+    </outputs>
+    <onsuccess>eb60cce4-9de2-4f80-b8f8-09a1590b0f77</onsuccess>
+    <processid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</processid>
+  </stage>
+  <stage stageid="eb60cce4-9de2-4f80-b8f8-09a1590b0f77" name="Was it there?" type="Decision">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="255" y="-165" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Found]" />
+    <ontrue>88e02abd-4b95-46e4-a0e4-9d97e0abeda9</ontrue>
+    <onfalse>b1fd24c5-fc53-478d-bc34-96226c1ce81e</onfalse>
+  </stage>
+  <stage stageid="2aa5cf38-438f-4475-9fe0-2c68accea026" name="Seems like all the good $#!t's gone" type="Exception">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="330" y="-330" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;GetExceptions() returned an item with a locked instance : &quot; &amp; [Item ID]" />
+  </stage>
+  <stage stageid="5ef0aa35-d893-4a48-9e55-52be71d42a93" name="Find It In Exceptions" type="SubSheet">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="405" y="-210" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Required ID" narrative="The Item ID of the ID to find in the exceptions" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Found" narrative="Flag to indicate if the given ID was found in the exceptioned items" stage="Found" />
+    </outputs>
+    <onsuccess>163597ec-da4d-4faa-9dca-07f1c866c78b</onsuccess>
+    <processid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</processid>
+  </stage>
+  <stage stageid="73e45763-589e-4181-b352-0e4e78d24d36" name="anchor14" type="Anchor">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="180" y="-165" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>215acbda-fd11-43d9-83c3-16014569ffe3</onsuccess>
+  </stage>
+  <stage stageid="88e02abd-4b95-46e4-a0e4-9d97e0abeda9" name="anchor14" type="Anchor">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="330" y="-165" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>2aa5cf38-438f-4475-9fe0-2c68accea026</onsuccess>
+  </stage>
+  <stage stageid="163597ec-da4d-4faa-9dca-07f1c866c78b" name="Was it there?" type="Decision">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="405" y="-165" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Found]" />
+    <ontrue>20803a60-2120-47e4-a15d-d9877423226d</ontrue>
+    <onfalse>bdbb48fe-5a9c-42bc-835d-bb8ac3db2e28</onfalse>
+  </stage>
+  <stage stageid="bf43ec87-e1a0-4a4e-860d-9a2668a9db2a" name="Keeps on getting harder hanging on" type="Exception">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="480" y="-330" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;GetExceptions() returned an item with a pending instance : &quot; &amp; [Item ID]" />
+  </stage>
+  <stage stageid="20803a60-2120-47e4-a15d-d9877423226d" name="anchor14" type="Anchor">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="480" y="-165" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>bf43ec87-e1a0-4a4e-860d-9a2668a9db2a</onsuccess>
+  </stage>
+  <stage stageid="88f73f9e-4842-4423-9fa5-8f44c8228ed5" name="Actually, I quite like this song" type="Action">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <narrative>Marks the item as completed, by updating the Completed timestamp and setting Locked to null. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="555" y="-75" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+    </inputs>
+    <onsuccess>1aa63b96-47bd-4b98-b3bb-d1355159b594</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="7d645bbc-7b9b-4ff8-8079-8b81e081c828" name="Note2" type="Note">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <narrative>Attempt 3</narrative>
+    <display x="555" y="-255" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>d91a0f6c-6dbd-4b7e-8653-a4c737147731</onsuccess>
+  </stage>
+  <stage stageid="a81b6726-e7d0-4a29-9f28-1aaf7aff51ab" name="Wait For Rand(m,n) Seconds" type="SubSheet">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="555" y="-120" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Seconds" narrative="The minimum number of seconds to wait" expr="5" />
+      <input type="number" name="Max Seconds" narrative="The maximum number of seconds to wait" expr="10" />
+    </inputs>
+    <onsuccess>88f73f9e-4842-4423-9fa5-8f44c8228ed5</onsuccess>
+    <processid>ff0b2d1c-4d5e-46d3-82b0-edc9df8f0c7a</processid>
+  </stage>
+  <stage stageid="d91a0f6c-6dbd-4b7e-8653-a4c737147731" name="Find It In Exceptions" type="SubSheet">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="555" y="-210" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Required ID" narrative="The Item ID of the ID to find in the exceptions" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Found" narrative="Flag to indicate if the given ID was found in the exceptioned items" stage="Found" />
+    </outputs>
+    <onsuccess>34498e7e-b13a-460b-ae74-c31cd718ec01</onsuccess>
+    <processid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</processid>
+  </stage>
+  <stage stageid="34498e7e-b13a-460b-ae74-c31cd718ec01" name="Was it there?" type="Decision">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="555" y="-165" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Found]" />
+    <ontrue>0912d109-991e-4a20-80e6-e1de45e247c6</ontrue>
+    <onfalse>a81b6726-e7d0-4a29-9f28-1aaf7aff51ab</onfalse>
+  </stage>
+  <stage stageid="bdbb48fe-5a9c-42bc-835d-bb8ac3db2e28" name="Surely there can't be more? Oh, yes" type="Action">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="405" y="-30" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue whose items should be counted" expr="[Queue Name]" />
+      <input type="number" name="Expected" narrative="The expected number of queue items currently unlocked and pending - a value of &quot;-1&quot; or leaving blank disables checking" expr="[Count]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The count of pending items in the work queue" stage="Count" />
+    </outputs>
+    <onsuccess>28a5bdc9-d782-43f4-bf21-04801de3de25</onsuccess>
+    <resource object="Queue Utils" action="Count Pending Items" />
+  </stage>
+  <stage stageid="28a5bdc9-d782-43f4-bf21-04801de3de25" name="Get Item &quot;Hey God&quot;" type="Action">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="405" y="15" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;Hey God&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>1d0285bc-2957-44c9-baa0-765e813fe290</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="1d0285bc-2957-44c9-baa0-765e813fe290" name="Attempts = 1?" type="Decision">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="405" y="60" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Attempts] = 2" />
+    <ontrue>7d645bbc-7b9b-4ff8-8079-8b81e081c828</ontrue>
+    <onfalse>4ec95c93-2cdb-432b-91da-40536d41731e</onfalse>
+  </stage>
+  <stage stageid="4ec95c93-2cdb-432b-91da-40536d41731e" name="Bad Attempts Count" type="Exception">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="405" y="105" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Should be 2 attempts : but found : &quot; &amp; [Attempts]" />
+  </stage>
+  <stage stageid="1aa63b96-47bd-4b98-b3bb-d1355159b594" name="Get Item &quot;Hey God&quot;" type="Action">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="555" y="15" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;Hey God&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>a4565bc5-0fef-4cc5-8d3b-1b2a83d22de8</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="e126c31f-f273-475f-9f1b-a933c121872d" name="Note6" type="Note">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <narrative>Attempt 3.5</narrative>
+    <display x="705" y="-255" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>6994e366-328e-47c9-8b60-5f7fa6a2b80b</onsuccess>
+  </stage>
+  <stage stageid="6994e366-328e-47c9-8b60-5f7fa6a2b80b" name="Find It In Exceptions" type="SubSheet">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="705" y="-210" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Required ID" narrative="The Item ID of the ID to find in the exceptions" expr="[Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Found" narrative="Flag to indicate if the given ID was found in the exceptioned items" stage="Found" />
+    </outputs>
+    <onsuccess>cd7c02bf-6033-47fd-af60-33c7b252e21c</onsuccess>
+    <processid>88ed69d6-1d29-454b-b2ee-7530a6b7b821</processid>
+  </stage>
+  <stage stageid="cd7c02bf-6033-47fd-af60-33c7b252e21c" name="Was it there?" type="Decision">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="705" y="-165" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Found]" />
+    <ontrue>fcf46fa6-7b23-4d59-8073-eb80e6588b44</ontrue>
+    <onfalse>249f5c55-ddd0-4fe6-9ed1-511bf368b0b9</onfalse>
+  </stage>
+  <stage stageid="ddf87f72-8bc2-4803-bebb-d3a5d219e287" name="Test &quot;These Days&quot;" type="SubSheet">
+    <display x="15" y="270" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>6ea7156f-eb9d-49ad-8cf1-b011a6de62f9</onsuccess>
+    <processid>65cbd4e1-2fff-477a-812e-e9946e508c91</processid>
+  </stage>
+  <stage stageid="9daa384f-fb46-46c9-9ff2-81a90007ed38" name="Note4" type="Note">
+    <narrative>Check GetExceptions() plays well with retry instances</narrative>
+    <display x="-165" y="270" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+    <onsuccess>ddf87f72-8bc2-4803-bebb-d3a5d219e287</onsuccess>
+  </stage>
+  <stage stageid="1538ce23-1d71-4434-8771-b921fcece879" name="There's nights you know I want to scream" type="Exception">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="630" y="-330" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;GetExceptions() returned an item with 2 exceptioned and one locked instance : &quot; &amp; [Item ID]" />
+  </stage>
+  <stage stageid="0912d109-991e-4a20-80e6-e1de45e247c6" name="anchor14" type="Anchor">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="630" y="-165" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>1538ce23-1d71-4434-8771-b921fcece879</onsuccess>
+  </stage>
+  <stage stageid="3203dda6-d2fa-4739-9cf4-bc85c0b6eefc" name="These days you're even harder to believe" type="Exception">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="780" y="-330" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;GetExceptions() returned an item with a completed instance : &quot; &amp; [Item ID]" />
+  </stage>
+  <stage stageid="fcf46fa6-7b23-4d59-8073-eb80e6588b44" name="anchor14" type="Anchor">
+    <subsheetid>65cbd4e1-2fff-477a-812e-e9946e508c91</subsheetid>
+    <display x="780" y="-165" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>3203dda6-d2fa-4739-9cf4-bc85c0b6eefc</onsuccess>
+  </stage>
+  <stage stageid="5115d61c-3383-495c-b018-a043ca86aade" name="Test &quot;Crush&quot;" type="SubSheetInfo">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="-330" y="-120" w="150" h="90" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="52e9fcd9-38f2-49f2-8494-9fd9f8066951" name="Start" type="Start">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="-165" y="-135" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>44705e26-b840-4c11-8888-da276067cb91</onsuccess>
+  </stage>
+  <stage stageid="6ea7156f-eb9d-49ad-8cf1-b011a6de62f9" name="Test &quot;Crush&quot;" type="SubSheet">
+    <display x="15" y="315" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>2e1ffd7e-1bf2-4d71-b052-94a729f3fd06</onsuccess>
+    <processid>ffa98bae-b68d-49ca-a286-cc0a8167df38</processid>
+  </stage>
+  <stage stageid="bab1ced2-ed16-431a-9ca3-af551f3508b7" name="Note4" type="Note">
+    <narrative>Check that tags are copied across retries</narrative>
+    <display x="-165" y="315" w="150" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="5E0000" />
+    <onsuccess>6ea7156f-eb9d-49ad-8cf1-b011a6de62f9</onsuccess>
+  </stage>
+  <stage stageid="44705e26-b840-4c11-8888-da276067cb91" name="Get Item &quot;Thank You For Loving Me&quot;" type="Action">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="-165" y="-90" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;Thank You For Loving Me&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>4582bd04-9f37-4dcd-85bd-0a531fbf9792</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="01d110da-8e11-483e-94e3-41390c7ea56b" name="Tag &quot;Never Heard&quot;" type="Action">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>Adds a tag to a work queue item</narrative>
+    <display x="-165" y="45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[Item ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;Never Heard&quot;" />
+    </inputs>
+    <onsuccess>007e8e1d-3ebe-4336-8fbd-976954f5abbe</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="007e8e1d-3ebe-4336-8fbd-976954f5abbe" name="Tag &quot;You Give Songs a Bad Name&quot;" type="Action">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>Adds a tag to a work queue item</narrative>
+    <display x="-165" y="90" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[Item ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;You Give Songs a Bad Name&quot;" />
+    </inputs>
+    <onsuccess>ce2c581d-182c-4861-b4d4-02ea8efd188a</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="ce2c581d-182c-4861-b4d4-02ea8efd188a" name="Tag &quot;Jury's Out&quot;" type="Action">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>Adds a tag to a work queue item</narrative>
+    <display x="-165" y="135" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[Item ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;Jury's Out&quot;" />
+    </inputs>
+    <onsuccess>910d3b37-2187-49d2-8f7f-d0f8a6332964</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="910d3b37-2187-49d2-8f7f-d0f8a6332964" name="Mark Exception" type="Action">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="-165" y="180" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;Not Heard It&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="True" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>754f5c26-8a10-4a7c-850f-31889214ba99</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="8e465a6f-109e-4c54-a262-c68cca03948f" name="Attempts = 0?" type="Decision">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="-165" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Attempts] = 0" />
+    <ontrue>01d110da-8e11-483e-94e3-41390c7ea56b</ontrue>
+    <onfalse>9f609c20-e73d-4f28-a64c-4ffdd9e77461</onfalse>
+  </stage>
+  <stage stageid="9f609c20-e73d-4f28-a64c-4ffdd9e77461" name="Bad Attempts Count" type="Exception">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="-300" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Should be 0 attempts : but found : &quot; &amp; [Attempts]" />
+  </stage>
+  <stage stageid="4582bd04-9f37-4dcd-85bd-0a531fbf9792" name="Got it?" type="Decision">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="-165" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID] &lt;&gt; &quot;&quot;" />
+    <ontrue>8e465a6f-109e-4c54-a262-c68cca03948f</ontrue>
+    <onfalse>3483be36-1d2c-4d05-baad-d38e9a87bf32</onfalse>
+  </stage>
+  <stage stageid="3483be36-1d2c-4d05-baad-d38e9a87bf32" name="No Thank You" type="Exception">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="-300" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;There's just no gratitude these days&quot;" />
+  </stage>
+  <stage stageid="92389859-c6e7-4534-8308-4c2e590aba34" name="anchor15" type="Anchor">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="-60" y="240" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>7259eaa8-379a-4ab8-90ef-359d167f3432</onsuccess>
+  </stage>
+  <stage stageid="7259eaa8-379a-4ab8-90ef-359d167f3432" name="anchor16" type="Anchor">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="-60" y="-135" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>39117d64-6485-4c43-9744-83ffdab9441f</onsuccess>
+  </stage>
+  <stage stageid="39117d64-6485-4c43-9744-83ffdab9441f" name="Note11" type="Note">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>Fire Up YouTube</narrative>
+    <display x="45" y="-135" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>53e815af-4f61-44fc-98a2-6a92e79ab796</onsuccess>
+  </stage>
+  <stage stageid="53e815af-4f61-44fc-98a2-6a92e79ab796" name="Get Item &quot;Thank You For Loving Me&quot;" type="Action">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="45" y="-90" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="&quot;Thank You For Loving Me&quot;" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>c8a4ab21-4abf-41e9-b37e-e40ff442b29e</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="f7439c5b-39e6-425d-b96b-883e9191e47f" name="Attempts = 1?" type="Decision">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="45" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Attempts] = 1" />
+    <ontrue>423937c1-c619-44c9-8bd8-af7ef6caae9c</ontrue>
+    <onfalse>4a186a8f-073d-4866-9414-18be3b778afb</onfalse>
+  </stage>
+  <stage stageid="4a186a8f-073d-4866-9414-18be3b778afb" name="Bad Attempts Count" type="Exception">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="180" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Should be 0 attempts : but found : &quot; &amp; [Attempts]" />
+  </stage>
+  <stage stageid="c8a4ab21-4abf-41e9-b37e-e40ff442b29e" name="Got it?" type="Decision">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="45" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID] &lt;&gt; &quot;&quot;" />
+    <ontrue>f7439c5b-39e6-425d-b96b-883e9191e47f</ontrue>
+    <onfalse>1f62719e-08c2-4a80-9f15-56d4a2e4e7f2</onfalse>
+  </stage>
+  <stage stageid="1f62719e-08c2-4a80-9f15-56d4a2e4e7f2" name="No Thank You" type="Exception">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="180" y="-45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;There's just no gratitude in retries these days&quot;" />
+  </stage>
+  <stage stageid="423937c1-c619-44c9-8bd8-af7ef6caae9c" name="Untag &quot;Never Heard&quot;" type="Action">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>Removes a tag from a work queue item</narrative>
+    <display x="45" y="45" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to remove the tag from" expr="[Item ID]" />
+      <input type="text" name="Tag" narrative="The tag to remove from the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;Never Heard&quot;" />
+    </inputs>
+    <onsuccess>1d7c8c32-3a4d-419e-b9c5-8dc834c8dc09</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Untag Item" />
+  </stage>
+  <stage stageid="1d7c8c32-3a4d-419e-b9c5-8dc834c8dc09" name="Untag &quot;Jury's Out&quot;" type="Action">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>Removes a tag from a work queue item</narrative>
+    <display x="45" y="90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to remove the tag from" expr="[Item ID]" />
+      <input type="text" name="Tag" narrative="The tag to remove from the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;Jury's Out&quot;" />
+    </inputs>
+    <onsuccess>628fe301-e9c9-4f99-9511-3fe3bc02b277</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Untag Item" />
+  </stage>
+  <stage stageid="628fe301-e9c9-4f99-9511-3fe3bc02b277" name="Tag &quot;Approach With Caution&quot;" type="Action">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>Adds a tag to a work queue item</narrative>
+    <display x="45" y="135" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[Item ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;Approach With Caution&quot;" />
+    </inputs>
+    <onsuccess>939181c4-05e3-42d3-bec6-6b8e5201d43e</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="939181c4-05e3-42d3-bec6-6b8e5201d43e" name="Mark Exception" type="Action">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="45" y="180" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;Heard It; I'll give it one more chance&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="True" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>dfb5e517-6841-4c26-b0c7-0038b5abf6c8</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="b2ebad9a-674a-43b1-81d6-30701f009ccf" name="anchor15" type="Anchor">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="255" y="240" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>a407440a-6bb2-473c-8f94-66f71a6432e7</onsuccess>
+  </stage>
+  <stage stageid="a407440a-6bb2-473c-8f94-66f71a6432e7" name="anchor16" type="Anchor">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="255" y="-135" w="10" h="10" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>c9bd0b0c-ae46-4105-8ad9-ebcfc7e8702c</onsuccess>
+  </stage>
+  <stage stageid="c9bd0b0c-ae46-4105-8ad9-ebcfc7e8702c" name="Get &quot;Never Heard&quot; Item" type="Action">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="345" y="-135" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="&quot;Never Heard&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>22d0e671-e6cd-4df0-a6b1-ee6e4e6ae2e6</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="22d0e671-e6cd-4df0-a6b1-ee6e4e6ae2e6" name="Got it?" type="Decision">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="345" y="-90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID] &lt;&gt; &quot;&quot;" />
+    <ontrue>e557b439-fff6-4be0-9af5-4888ffcc4068</ontrue>
+    <onfalse>ae018bdc-b0a3-4907-ac7f-58ebb32ddf48</onfalse>
+  </stage>
+  <stage stageid="e557b439-fff6-4be0-9af5-4888ffcc4068" name="Thank You, No." type="Exception">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="480" y="-90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;I've heard it now. I don't want to go through that again&quot;" />
+  </stage>
+  <stage stageid="ae018bdc-b0a3-4907-ac7f-58ebb32ddf48" name="Get &quot;Jury's Out&quot; Item" type="Action">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="345" y="-45" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="&quot;Jury's Out&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>812b1391-75c5-42ef-9926-4a2e31fb9f18</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="812b1391-75c5-42ef-9926-4a2e31fb9f18" name="Got it?" type="Decision">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="345" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID] &lt;&gt; &quot;&quot;" />
+    <ontrue>7dbae096-e71b-4579-97c5-55e75f2bd326</ontrue>
+    <onfalse>23df10af-5be6-41fc-a3e2-3a1fe38d30f8</onfalse>
+  </stage>
+  <stage stageid="7dbae096-e71b-4579-97c5-55e75f2bd326" name="Thank You, No." type="Exception">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="480" y="0" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;I've heard it now. I don't want to go through that again&quot;" />
+  </stage>
+  <stage stageid="23df10af-5be6-41fc-a3e2-3a1fe38d30f8" name="Get &quot;Caution&quot;/&quot;Bad Name&quot; item" type="Action">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="345" y="45" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="&quot;You Give Songs a Bad Name;Approach With Caution&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>92d2bb60-a0e7-46ca-b4d8-3757c7cb3ff1</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="92d2bb60-a0e7-46ca-b4d8-3757c7cb3ff1" name="Got it?" type="Decision">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="345" y="90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID] &lt;&gt; &quot;&quot;" />
+    <ontrue>f4bfb622-9153-45e7-befd-a025358cc8da</ontrue>
+    <onfalse>d9e1e8fc-e0d4-48d2-8ab0-180f4b782e6b</onfalse>
+  </stage>
+  <stage stageid="d9e1e8fc-e0d4-48d2-8ab0-180f4b782e6b" name="No Thank You" type="Exception">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="480" y="90" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;But we need to warn our children!&quot;" />
+  </stage>
+  <stage stageid="f4bfb622-9153-45e7-befd-a025358cc8da" name="Future Generations have been warned" type="Action">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="345" y="135" w="120" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;Heard It. Hate It. This is why I refuse to listen to Bon Jovi any more&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="False" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>fe76b3c8-e749-4922-a2a8-0b9a1165319e</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="fe76b3c8-e749-4922-a2a8-0b9a1165319e" name="End" type="End">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <display x="345" y="210" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="754f5c26-8a10-4a7c-850f-31889214ba99" name="Note12" type="Note">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>Should have 3 Tags:
+* Never Heard
+* You Give Songs a Bad Name
+* Jury's Out</narrative>
+    <display x="-165" y="240" w="150" h="60" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>92389859-c6e7-4534-8308-4c2e590aba34</onsuccess>
+  </stage>
+  <stage stageid="dfb5e517-6841-4c26-b0c7-0038b5abf6c8" name="Note12" type="Note">
+    <subsheetid>ffa98bae-b68d-49ca-a286-cc0a8167df38</subsheetid>
+    <narrative>Should have 2 tags:
+* You Give Songs a Bad Name
+* Approach With Caution</narrative>
+    <display x="45" y="240" w="150" h="60" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>b2ebad9a-674a-43b1-81d6-30701f009ccf</onsuccess>
+  </stage>
+  <stage stageid="2e1ffd7e-1bf2-4d71-b052-94a729f3fd06" name="Burn Them All" type="Action">
+    <display x="15" y="375" w="90" h="30" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete" expr="[Queue Name]" />
+    </inputs>
+    <onsuccess>e4f00850-5961-4bd3-aa3f-36295cdbe4c1</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+  <stage stageid="f60bcef0-a339-4613-8be3-0c948d695435" name="Cleanup Block" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-30" w="240" h="375" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ec6de49a-43d3-41e5-ac8f-40a9378d2367" name="Recover1" type="Recover">
+    <loginhibit />
+    <display x="135" y="0" />
+    <onsuccess>29c2825a-4522-443e-8b42-2707ca7d9ed4</onsuccess>
+  </stage>
+  <stage stageid="1f53faee-a047-4eb6-a025-8aaf87ec2973" name="RETHROW" type="Exception">
+    <display x="225" y="45" />
+    <exception localized="yes" type="" detail="" usecurrent="yes" />
+  </stage>
+  <stage stageid="29c2825a-4522-443e-8b42-2707ca7d9ed4" name="Burn Them All" type="Action">
+    <display x="135" y="45" />
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete" expr="[Queue Name]" />
+    </inputs>
+    <onsuccess>1f53faee-a047-4eb6-a025-8aaf87ec2973</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+</process>

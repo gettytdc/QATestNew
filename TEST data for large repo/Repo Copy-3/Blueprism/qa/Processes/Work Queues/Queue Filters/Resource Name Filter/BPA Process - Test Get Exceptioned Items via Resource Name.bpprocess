@@ -1,0 +1,506 @@
+﻿<process name="Test Get Exceptioned Items via Resource Name" version="1.0" bpversion="6.10.0.28935" narrative="" byrefcollection="true" preferredid="e070f030-b9fc-4f28-abbb-a8a363b1d71a" published="true">
+  <view>
+    <camerax>0</camerax>
+    <cameray>-43</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="f7b92566-1576-4df4-89ab-213f898c3034" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>104</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="f6c64e71-fa3a-4582-8c18-faa6f61a4aef" type="Normal" published="False">
+    <name>Get Exceptioned Items - Resource Name</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>84</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="631481d5-5386-49a3-9b57-23458a1dc9b0" type="Normal" published="False">
+    <name>Cleanup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-5</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="ae643eb1-5749-4863-a113-7fdd69d0f39c" name="Start" type="Start">
+    <display x="-45" y="-285" />
+    <onsuccess>443827a7-e63d-4531-867b-96be933b37dc</onsuccess>
+  </stage>
+  <stage stageid="a8b61aba-8bf7-4d64-bccc-4dc27f5a71d4" name="End" type="End">
+    <display x="-45" y="105" />
+  </stage>
+  <stage stageid="08b6f9dd-e810-4ca5-b4af-8b562c0124e5" name="Stage1" type="ProcessInfo">
+    <display x="-300" y="-165" w="150" h="90" />
+  </stage>
+  <stage stageid="cdecfef3-c83b-4eb4-9153-a5aab244af2d" name="Queue Name" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-300" y="-75" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Queue (US-6531)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="782fbc77-3d22-4781-a397-52f5ecef1425" name="Setup" type="SubSheetInfo">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <display x="-120" y="-120" w="150" h="90" />
+  </stage>
+  <stage stageid="30812369-93f9-4b49-a21c-3829eafd521e" name="Start" type="Start">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <display x="15" y="-150" />
+    <onsuccess>f9332c4f-3331-4538-be18-a15631c2454b</onsuccess>
+  </stage>
+  <stage stageid="60f2a544-79e1-4694-8d45-6eab79b6d3da" name="End" type="End">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <display x="15" y="345" />
+  </stage>
+  <stage stageid="f9332c4f-3331-4538-be18-a15631c2454b" name="Create Queue" type="Action">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to be created" expr="[Queue Name]" />
+      <input type="text" name="Key Field" friendlyname="Key Field" narrative="The key column to use in the collection which makes up a queue item" expr="" />
+      <input type="number" name="Max Attempts" friendlyname="Max Attempts" narrative="The maximum number of retry attempts for the queue. Default: 5" expr="" />
+    </inputs>
+    <onsuccess>7ea3b710-71e2-4462-a86c-5491588cf4f8</onsuccess>
+    <resource object="Queue Utils" action="Create Queue" />
+  </stage>
+  <stage stageid="12338afa-47e1-40fc-90ab-859c65a88c60" name="Start Resource (6531)" type="Action">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="SSO" friendlyname="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="False" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="&quot;admin&quot;" />
+      <input type="password" name="Password" friendlyname="Password" narrative="The password to use for the resource. Only used if Username is given" expr="&quot;admin&quot;" />
+      <input type="number" name="Port" friendlyname="Port" narrative="The port number on which the resource PC should listen" expr="6531" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" friendlyname="Process ID" narrative="The PID of the newly created process" stage="" />
+    </outputs>
+    <onsuccess>faf2a0c6-4a2e-4b77-8269-7caedb392b9f</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+  <stage stageid="d8e11a47-f05a-43f7-ae75-9df9de5d5874" name="Run Session" type="Action">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="The username that you want to authenticate against." expr="&quot;admin&quot;" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the username." expr="&quot;admin&quot;" />
+      <input type="flag" name="Requires Login" friendlyname="Requires Login" narrative="Flag indicating if the login info should be given too" expr="True" />
+      <input type="text" name="Arguments" friendlyname="Arguments" narrative="The arguments to pass to automatec, not including the authentication info" expr="&quot;/run &quot;&quot;Make Queue Exceptions (US-6531)&quot;&quot; /resource &quot;&amp;Replace(GetResourceName(), &quot;_debug&quot;, &quot;&quot;)&amp;&quot;:6531&quot;" />
+      <input type="flag" name="Negative Test" friendlyname="Negative Test" narrative="Set if expecting an error executing command" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Output" friendlyname="Output" narrative="The output from the command" stage="" />
+    </outputs>
+    <onsuccess>fa16aa93-d23c-4993-bfad-1651ba79c9bd</onsuccess>
+    <resource object="Blue Prism - Commands" action="Call automateC" />
+  </stage>
+  <stage stageid="be43631d-5b43-4546-87c1-aed558181618" name="Get Exceptioned Items - Resource Name" type="SubSheetInfo">
+    <subsheetid>f6c64e71-fa3a-4582-8c18-faa6f61a4aef</subsheetid>
+    <display x="-120" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="d344c597-9a3f-4c0e-b25c-6c0527d6b341" name="Start" type="Start">
+    <subsheetid>f6c64e71-fa3a-4582-8c18-faa6f61a4aef</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>b48e8893-8129-4bde-8930-c1bd6440df15</onsuccess>
+  </stage>
+  <stage stageid="68c0dd3b-dedf-479e-b76e-7bcb8a7ed6d7" name="End" type="End">
+    <subsheetid>f6c64e71-fa3a-4582-8c18-faa6f61a4aef</subsheetid>
+    <display x="15" y="255" />
+  </stage>
+  <stage stageid="4f4cd490-217f-4d2a-9297-d2c7295e5fb3" name="Publish Process" type="Action">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="username" expr="&quot;admin&quot;" />
+      <input type="text" name="Password" friendlyname="Password" narrative="password" expr="&quot;admin&quot;" />
+      <input type="text" name="Command" friendlyname="Command" narrative="command" expr="&quot;/publish &quot;&quot;Make Queue Exceptions (US-6531)&quot;&quot;&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="PID" friendlyname="PID" narrative="PID of the process" stage="" />
+    </outputs>
+    <onsuccess>7d6313d7-e20b-4aca-863a-d910e870ca38</onsuccess>
+    <resource object="Blue Prism - Commands" action="Send Command" />
+  </stage>
+  <stage stageid="7188bc25-d60b-4aa5-80eb-b0162a1e5b88" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-150" w="90" h="30" />
+    <onsuccess>2dca4306-d442-4c7d-9d0f-428dca10a821</onsuccess>
+    <processid>f7b92566-1576-4df4-89ab-213f898c3034</processid>
+  </stage>
+  <stage stageid="458863c1-3aa3-46b9-aa44-fa6ed8ec8e20" name="Get Exceptioned Items - Resource Name" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="0" w="90" h="30" />
+    <onsuccess>3ab1b85e-daeb-4c06-814e-49948d5cdd3e</onsuccess>
+    <processid>f6c64e71-fa3a-4582-8c18-faa6f61a4aef</processid>
+  </stage>
+  <stage stageid="b48e8893-8129-4bde-8930-c1bd6440df15" name="Get Exception Items" type="Action">
+    <subsheetid>f6c64e71-fa3a-4582-8c18-faa6f61a4aef</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Gets the work items from the specified queue which have been marked with an exception on the latest attempt.</narrative>
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to retrieve the exception items from" expr="[Queue Name]" />
+      <input type="datetime" name="Start Date" friendlyname="Start Date" narrative="Optionally, the start threshold date. Any items returned will have been marked as an exception after this date. If no value is given, there will be no start threshold." expr="" />
+      <input type="datetime" name="End Date" friendlyname="End Date" narrative="Optionally, the end threshold date. Any items returned will have been marked as an exception before this date. If no value is given, there will be no end threshold." expr="" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+      <input type="number" name="Maximum Rows" friendlyname="Maximum Rows" narrative="Optionally, the maximum number of rows to return. No value indicates that all rows should be returned" expr="" />
+      <input type="text" name="Resource Name" friendlyname="Resource Name" narrative="Optionally, the name of the resource that worked the exceptioned items" expr="Replace(GetResourceName(), &quot;_debug&quot;, &quot;&quot;)&amp;&quot;:6531&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Exception Items" friendlyname="Exception Items" narrative="The items which were marked with an exception within the given date range, up to the maximum count if one was given" stage="Exception Items (6531)" />
+    </outputs>
+    <onsuccess>8ecf70c5-3061-49de-af35-9a96d40e625f</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Exception Items" />
+  </stage>
+  <stage stageid="980c918f-51f0-434d-9ce3-af4704ad397e" name="Exception Items (6531)" type="Collection">
+    <subsheetid>f6c64e71-fa3a-4582-8c18-faa6f61a4aef</subsheetid>
+    <display x="-120" y="15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="8ecf70c5-3061-49de-af35-9a96d40e625f" name="Count Exception Rows" type="Action">
+    <subsheetid>f6c64e71-fa3a-4582-8c18-faa6f61a4aef</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Exception Items (6531)&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>d2ec6514-76b0-4b67-86c2-174376ca5116</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="a95e4d1a-d4ce-4015-b375-c451a199f7a4" name="Count" type="Data">
+    <subsheetid>f6c64e71-fa3a-4582-8c18-faa6f61a4aef</subsheetid>
+    <display x="-120" y="45" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d2ec6514-76b0-4b67-86c2-174376ca5116" name="Correct Amount of Items Returned?" type="Decision">
+    <subsheetid>f6c64e71-fa3a-4582-8c18-faa6f61a4aef</subsheetid>
+    <display x="15" y="30" w="90" h="30" />
+    <decision expression="[Count]=2" />
+    <ontrue>935302d9-c96e-4d0c-8569-cf2b8ec30985</ontrue>
+    <onfalse>3a1e5556-37cd-4fd6-8725-550c55f023f2</onfalse>
+  </stage>
+  <stage stageid="3a1e5556-37cd-4fd6-8725-550c55f023f2" name="FAIL" type="Exception">
+    <subsheetid>f6c64e71-fa3a-4582-8c18-faa6f61a4aef</subsheetid>
+    <display x="105" y="30" />
+    <exception localized="yes" type="Missing Element" detail="&quot;Exception item count mismatch&quot;" />
+  </stage>
+  <stage stageid="faf2a0c6-4a2e-4b77-8269-7caedb392b9f" name="Start Resource (6532)" type="Action">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="SSO" friendlyname="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="False" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="&quot;admin&quot;" />
+      <input type="password" name="Password" friendlyname="Password" narrative="The password to use for the resource. Only used if Username is given" expr="&quot;admin&quot;" />
+      <input type="number" name="Port" friendlyname="Port" narrative="The port number on which the resource PC should listen" expr="6532" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" friendlyname="Process ID" narrative="The PID of the newly created process" stage="" />
+    </outputs>
+    <onsuccess>4f4cd490-217f-4d2a-9297-d2c7295e5fb3</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+  <stage stageid="2d9589f6-5e10-4f83-8284-e4356995c789" name="Get Exception Items" type="Action">
+    <subsheetid>f6c64e71-fa3a-4582-8c18-faa6f61a4aef</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Gets the work items from the specified queue which have been marked with an exception on the latest attempt.</narrative>
+    <display x="15" y="120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to retrieve the exception items from" expr="[Queue Name]" />
+      <input type="datetime" name="Start Date" friendlyname="Start Date" narrative="Optionally, the start threshold date. Any items returned will have been marked as an exception after this date. If no value is given, there will be no start threshold." expr="" />
+      <input type="datetime" name="End Date" friendlyname="End Date" narrative="Optionally, the end threshold date. Any items returned will have been marked as an exception before this date. If no value is given, there will be no end threshold." expr="" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+      <input type="number" name="Maximum Rows" friendlyname="Maximum Rows" narrative="Optionally, the maximum number of rows to return. No value indicates that all rows should be returned" expr="" />
+      <input type="text" name="Resource Name" friendlyname="Resource Name" narrative="Optionally, the name of the resource that worked the exceptioned items" expr="Replace(GetResourceName(), &quot;_debug&quot;, &quot;&quot;)&amp;&quot;:6532&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Exception Items" friendlyname="Exception Items" narrative="The items which were marked with an exception within the given date range, up to the maximum count if one was given" stage="Exception Items (6532)" />
+    </outputs>
+    <onsuccess>974a941e-c4cc-483c-8b16-3becf38b23ae</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Exception Items" />
+  </stage>
+  <stage stageid="974a941e-c4cc-483c-8b16-3becf38b23ae" name="Count Exception Rows" type="Action">
+    <subsheetid>f6c64e71-fa3a-4582-8c18-faa6f61a4aef</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Exception Items (6532)&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="Count" />
+    </outputs>
+    <onsuccess>de0b7149-4cf7-4f57-8986-71c89ac1e28b</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="de0b7149-4cf7-4f57-8986-71c89ac1e28b" name="Correct Amount of Items Returned?" type="Decision">
+    <subsheetid>f6c64e71-fa3a-4582-8c18-faa6f61a4aef</subsheetid>
+    <display x="15" y="210" w="90" h="30" />
+    <decision expression="[Count]=0" />
+    <ontrue>68c0dd3b-dedf-479e-b76e-7bcb8a7ed6d7</ontrue>
+    <onfalse>8950a46d-8c37-4aa4-a9c9-eb273802f473</onfalse>
+  </stage>
+  <stage stageid="8950a46d-8c37-4aa4-a9c9-eb273802f473" name="FAIL" type="Exception">
+    <subsheetid>f6c64e71-fa3a-4582-8c18-faa6f61a4aef</subsheetid>
+    <display x="105" y="210" />
+    <exception localized="yes" type="Missing Element" detail="&quot;NonException item count mismatch&quot;" />
+  </stage>
+  <stage stageid="a8dd6308-068a-4f75-b76a-eaee6747d2ff" name="Exception Items (6532)" type="Collection">
+    <subsheetid>f6c64e71-fa3a-4582-8c18-faa6f61a4aef</subsheetid>
+    <display x="-120" y="75" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="935302d9-c96e-4d0c-8569-cf2b8ec30985" name="Clear Count" type="Calculation">
+    <subsheetid>f6c64e71-fa3a-4582-8c18-faa6f61a4aef</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="90" h="30" />
+    <onsuccess>2d9589f6-5e10-4f83-8284-e4356995c789</onsuccess>
+    <calculation expression="0" stage="Count" />
+  </stage>
+  <stage stageid="22f77769-50ae-4145-9336-dca48b0d2abd" name="Publish Process (2)" type="Action">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="username" expr="&quot;admin&quot;" />
+      <input type="text" name="Password" friendlyname="Password" narrative="password" expr="&quot;admin&quot;" />
+      <input type="text" name="Command" friendlyname="Command" narrative="command" expr="&quot;/publish &quot;&quot;Make Queue Completed (US-6531)&quot;&quot;&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="PID" friendlyname="PID" narrative="PID of the process" stage="" />
+    </outputs>
+    <onsuccess>908fca54-fc28-45bc-b18f-3365cac02efa</onsuccess>
+    <resource object="Blue Prism - Commands" action="Send Command" />
+  </stage>
+  <stage stageid="fa16aa93-d23c-4993-bfad-1651ba79c9bd" name="Run Session (2)" type="Action">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="300" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="The username that you want to authenticate against." expr="&quot;admin&quot;" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the username." expr="&quot;admin&quot;" />
+      <input type="flag" name="Requires Login" friendlyname="Requires Login" narrative="Flag indicating if the login info should be given too" expr="True" />
+      <input type="text" name="Arguments" friendlyname="Arguments" narrative="The arguments to pass to automatec, not including the authentication info" expr="&quot;/run &quot;&quot;Make Queue Completed (US-6531)&quot;&quot; /resource &quot;&amp;Replace(GetResourceName(), &quot;_debug&quot;, &quot;&quot;)&amp;&quot;:6531&quot;" />
+      <input type="flag" name="Negative Test" friendlyname="Negative Test" narrative="Set if expecting an error executing command" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Output" friendlyname="Output" narrative="The output from the command" stage="" />
+    </outputs>
+    <onsuccess>60f2a544-79e1-4694-8d45-6eab79b6d3da</onsuccess>
+    <resource object="Blue Prism - Commands" action="Call automateC" />
+  </stage>
+  <stage stageid="443827a7-e63d-4531-867b-96be933b37dc" name="Note1" type="Note">
+    <narrative>GIVEN I have two resources running with two different processes
+AND one process with exceptions and another process without exceptions</narrative>
+    <display x="-45" y="-225" w="300" h="60" />
+    <onsuccess>7188bc25-d60b-4aa5-80eb-b0162a1e5b88</onsuccess>
+  </stage>
+  <stage stageid="2dca4306-d442-4c7d-9d0f-428dca10a821" name="Note1" type="Note">
+    <narrative>WHEN "Get Exceptioned Items" is filtered by "Resource Name"
+THEN the exceptions list will be filtered according to the resource name that has been entered with expections
+AND no results for resource without expections</narrative>
+    <display x="-45" y="-90" w="300" h="60" />
+    <onsuccess>458863c1-3aa3-46b9-aa44-fa6ed8ec8e20</onsuccess>
+  </stage>
+  <stage stageid="1ca1c0e9-df7c-4b7c-a902-ca18a7680f7e" name="Global Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-375" y="-105" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b300e31a-58c4-48fd-ae47-a00667e5a716" name="Cleanup" type="SubSheetInfo">
+    <subsheetid>631481d5-5386-49a3-9b57-23458a1dc9b0</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="76da4d3f-6d2e-4854-8061-62d9a8e709f4" name="Start" type="Start">
+    <subsheetid>631481d5-5386-49a3-9b57-23458a1dc9b0</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>029ca52e-bf34-4b8e-9d8c-8a5f0eff8946</onsuccess>
+  </stage>
+  <stage stageid="89991cc8-76fd-4588-83f7-adaa20a04571" name="End" type="End">
+    <subsheetid>631481d5-5386-49a3-9b57-23458a1dc9b0</subsheetid>
+    <display x="15" y="165" />
+  </stage>
+  <stage stageid="029ca52e-bf34-4b8e-9d8c-8a5f0eff8946" name="Destroy Queue" type="Action">
+    <subsheetid>631481d5-5386-49a3-9b57-23458a1dc9b0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to delete" expr="[Queue Name]" />
+    </inputs>
+    <onsuccess>e4853db7-8ef6-4649-b4c7-f47006898553</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+  <stage stageid="e4853db7-8ef6-4649-b4c7-f47006898553" name="Stop Resource (6531)" type="Action">
+    <subsheetid>631481d5-5386-49a3-9b57-23458a1dc9b0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" friendlyname="Port" narrative="The port number whose resource should be stopped" expr="6531" />
+    </inputs>
+    <onsuccess>c5185df4-b590-4c78-b2c3-4870a863a0ef</onsuccess>
+    <resource object="Resource Manager" action="Stop Resource" />
+  </stage>
+  <stage stageid="ae47720b-f9c2-45d0-972f-4ab0bb726a41" name="UnPublish Process" type="Action">
+    <subsheetid>631481d5-5386-49a3-9b57-23458a1dc9b0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="username" expr="&quot;admin&quot;" />
+      <input type="text" name="Password" friendlyname="Password" narrative="password" expr="&quot;admin&quot;" />
+      <input type="text" name="Command" friendlyname="Command" narrative="command" expr="&quot;/unpublish &quot;&quot;Make Queue Exceptions (US-6531)&quot;&quot;&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="PID" friendlyname="PID" narrative="PID of the process" stage="" />
+    </outputs>
+    <onsuccess>d4d7cbe6-7a4c-4b14-ac1d-e07ad3dcc8b9</onsuccess>
+    <resource object="Blue Prism - Commands" action="Send Command" />
+  </stage>
+  <stage stageid="c5185df4-b590-4c78-b2c3-4870a863a0ef" name="Stop Resource (6532)" type="Action">
+    <subsheetid>631481d5-5386-49a3-9b57-23458a1dc9b0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" friendlyname="Port" narrative="The port number whose resource should be stopped" expr="6532" />
+    </inputs>
+    <onsuccess>ae47720b-f9c2-45d0-972f-4ab0bb726a41</onsuccess>
+    <resource object="Resource Manager" action="Stop Resource" />
+  </stage>
+  <stage stageid="d4d7cbe6-7a4c-4b14-ac1d-e07ad3dcc8b9" name="UnPublish Process (2)" type="Action">
+    <subsheetid>631481d5-5386-49a3-9b57-23458a1dc9b0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="username" expr="&quot;admin&quot;" />
+      <input type="text" name="Password" friendlyname="Password" narrative="password" expr="&quot;admin&quot;" />
+      <input type="text" name="Command" friendlyname="Command" narrative="command" expr="&quot;/unpublish &quot;&quot;Make Queue Completed (US-6531)&quot;&quot;&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="PID" friendlyname="PID" narrative="PID of the process" stage="" />
+    </outputs>
+    <onsuccess>89991cc8-76fd-4588-83f7-adaa20a04571</onsuccess>
+    <resource object="Blue Prism - Commands" action="Send Command" />
+  </stage>
+  <stage stageid="3ab1b85e-daeb-4c06-814e-49948d5cdd3e" name="Cleanup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="60" w="90" h="30" />
+    <onsuccess>a8b61aba-8bf7-4d64-bccc-4dc27f5a71d4</onsuccess>
+    <processid>631481d5-5386-49a3-9b57-23458a1dc9b0</processid>
+  </stage>
+  <stage stageid="9e86ce36-46c8-456a-91cf-7e134471ed4c" name="Cleanup Block" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-30" w="300" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="550b21ce-a4eb-42a9-b739-230e213a1bf8" name="Cleanup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="120" y="60" w="90" h="30" />
+    <onsuccess>8dc56b54-98f4-422c-8219-cf3d21868586</onsuccess>
+    <processid>631481d5-5386-49a3-9b57-23458a1dc9b0</processid>
+  </stage>
+  <stage stageid="469f0607-e1ec-445b-b111-f6472e1f9fd2" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="120" y="0" w="90" h="30" />
+    <onsuccess>550b21ce-a4eb-42a9-b739-230e213a1bf8</onsuccess>
+  </stage>
+  <stage stageid="8dc56b54-98f4-422c-8219-cf3d21868586" name="RETHROW" type="Exception">
+    <display x="120" y="105" />
+    <exception localized="yes" type="" detail="" usecurrent="yes" />
+  </stage>
+  <stage stageid="7d6313d7-e20b-4aca-863a-d910e870ca38" name="PAUSE" type="Action">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="10" />
+    </inputs>
+    <onsuccess>22f77769-50ae-4145-9336-dca48b0d2abd</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="908fca54-fc28-45bc-b18f-3365cac02efa" name="PAUSE" type="Action">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="210" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="10" />
+    </inputs>
+    <onsuccess>d8e11a47-f05a-43f7-ae75-9df9de5d5874</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="768ac510-c84b-4dc4-acbc-7a02320e447e" name="Start Resource (6531) (SSO)" type="Action">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="SSO" friendlyname="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="True" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="" />
+      <input type="password" name="Password" friendlyname="Password" narrative="The password to use for the resource. Only used if Username is given" expr="" />
+      <input type="number" name="Port" friendlyname="Port" narrative="The port number on which the resource PC should listen" expr="6531" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" friendlyname="Process ID" narrative="The PID of the newly created process" stage="" />
+    </outputs>
+    <onsuccess>0349a3e3-a171-4442-a845-cf31c4197bce</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+  <stage stageid="0349a3e3-a171-4442-a845-cf31c4197bce" name="Start Resource (6532) (SSO)" type="Action">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="30" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="SSO" friendlyname="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="True" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="" />
+      <input type="password" name="Password" friendlyname="Password" narrative="The password to use for the resource. Only used if Username is given" expr="" />
+      <input type="number" name="Port" friendlyname="Port" narrative="The port number on which the resource PC should listen" expr="6532" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" friendlyname="Process ID" narrative="The PID of the newly created process" stage="" />
+    </outputs>
+    <onsuccess>3e9ea40a-4e10-49cc-9976-67e615867ea5</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+  <stage stageid="7ea3b710-71e2-4462-a86c-5491588cf4f8" name="SSO?" type="Decision">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <display x="15" y="-60" w="90" h="30" />
+    <decision expression="SingleSignon()" />
+    <ontrue>87fb9b27-79bc-45ea-937e-16b4e418ec25</ontrue>
+    <onfalse>12338afa-47e1-40fc-90ab-859c65a88c60</onfalse>
+  </stage>
+  <stage stageid="87fb9b27-79bc-45ea-937e-16b4e418ec25" name="Anchor1" type="Anchor">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="-60" w="10" h="10" />
+    <onsuccess>768ac510-c84b-4dc4-acbc-7a02320e447e</onsuccess>
+  </stage>
+  <stage stageid="3e9ea40a-4e10-49cc-9976-67e615867ea5" name="Anchor2" type="Anchor">
+    <subsheetid>f7b92566-1576-4df4-89ab-213f898c3034</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="120" y="75" w="10" h="10" />
+    <onsuccess>4f4cd490-217f-4d2a-9297-d2c7295e5fb3</onsuccess>
+  </stage>
+</process>

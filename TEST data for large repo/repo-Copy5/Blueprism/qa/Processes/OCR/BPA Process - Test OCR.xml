@@ -1,0 +1,286 @@
+﻿<process name="Test OCR" version="1.0" bpversion="6.3.0.2923" narrative="This test reads data using OCR from a surface automation spy, both multi, single characters and changing values. The test then validates that expected data has been correctly read." preferredid="88166d79-9127-4f71-89fc-9b8bc282a4d5">
+  <view>
+    <camerax>128.800049</camerax>
+    <cameray>727</cameray>
+    <zoom version="2">0.9375</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="42c88972-b3a1-4dc4-bf3c-6e27fb985dff" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>60552fc0-e868-4796-9c42-988253e49642</onsuccess>
+  </stage>
+  <stage stageid="6b0f7029-8364-4b50-b301-ff9ad7f3edc3" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>870</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="3d977488-2cd5-4314-aab7-da1bd88d3bdd" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="60552fc0-e868-4796-9c42-988253e49642" name="Launch Test Application" type="Action">
+    <narrative>Launch the "Automated Test Form in VS2005" test application</narrative>
+    <displayx>15</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>65a69f6a-059c-40b0-9cdd-7c932f73f2f6</onsuccess>
+    <resource object="OCR Test Application" action="Launch" />
+  </stage>
+  <stage stageid="65a69f6a-059c-40b0-9cdd-7c932f73f2f6" name="Read Multiple Character Region - No Page Segmentation" type="Action">
+    <narrative>Reading region containing multiple characters using no page segmentation settings</narrative>
+    <displayx>15</displayx>
+    <displayy>45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Page Segmentation Mode" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Value Read" stage="Multi Char Value" />
+    </outputs>
+    <onsuccess>ee2952c7-0a1a-4188-a7e0-94b6d9dbce47</onsuccess>
+    <resource object="OCR Test Application" action="Read OCR - Multi Character" />
+  </stage>
+  <stage stageid="ee2952c7-0a1a-4188-a7e0-94b6d9dbce47" name="Check Value" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Multi Char Value]=&quot;Button Not Pressed&quot;" />
+    <ontrue>945b4533-27c3-485e-a359-c03dd8efd7a3</ontrue>
+    <onfalse>b07a5be9-76ff-4a87-a0b1-af657ad35e14</onfalse>
+  </stage>
+  <stage stageid="7c2ed396-bb20-4687-9382-e936fe6e220d" name="Multi Char Value" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>225</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b07a5be9-76ff-4a87-a0b1-af657ad35e14" name="Fail" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="&quot;Multi Character Value with no page segmentation was not correctly read&quot;" />
+  </stage>
+  <stage stageid="945b4533-27c3-485e-a359-c03dd8efd7a3" name="Read Multiple Character Region - With Page Segmentation" type="Action">
+    <narrative>Reading region containing multiple characters using auto page segmentation settings</narrative>
+    <displayx>15</displayx>
+    <displayy>210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Page Segmentation Mode" expr="&quot;auto&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Value Read" stage="Multi Char Value" />
+    </outputs>
+    <onsuccess>ad7f9d9c-dc3d-4a53-a080-1b99aafc2cf8</onsuccess>
+    <resource object="OCR Test Application" action="Read OCR - Multi Character" />
+  </stage>
+  <stage stageid="ad7f9d9c-dc3d-4a53-a080-1b99aafc2cf8" name="Check Value" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>300</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Multi Char Value]=&quot;Button Not Pressed&quot;" />
+    <ontrue>7001d7c1-a73e-4013-8540-ea6a73636aaf</ontrue>
+    <onfalse>d2ffdff2-fe88-4e52-aca4-5a8834bf7f9c</onfalse>
+  </stage>
+  <stage stageid="d2ffdff2-fe88-4e52-aca4-5a8834bf7f9c" name="Fail" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>300</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="&quot;Multi Character Value with page segmentation was not correctly read&quot;" />
+  </stage>
+  <stage stageid="7001d7c1-a73e-4013-8540-ea6a73636aaf" name="Click to change field data" type="Action">
+    <narrative>CLlck 'Press Me Button' to update the data in the associated field</narrative>
+    <displayx>15</displayx>
+    <displayy>375</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>cf1faed9-5952-44b6-943d-9ea757969f36</onsuccess>
+    <resource object="OCR Test Application" action="Click Press Me Button" />
+  </stage>
+  <stage stageid="cf1faed9-5952-44b6-943d-9ea757969f36" name="Read Updated Multiple Character Region - With Page Segmentation" type="Action">
+    <narrative>Reading the same region that has now updated in terms of data containing multiple characters using auto page segmentation settings</narrative>
+    <displayx>15</displayx>
+    <displayy>465</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Page Segmentation Mode" expr="&quot;auto&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Value Read" stage="Multi Char Value" />
+    </outputs>
+    <onsuccess>588d1528-91ae-4930-b70f-3a0757a0bc21</onsuccess>
+    <resource object="OCR Test Application" action="Read OCR - Multi Character" />
+  </stage>
+  <stage stageid="588d1528-91ae-4930-b70f-3a0757a0bc21" name="Check Value" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>555</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Multi Char Value]=&quot;Button pressed&quot;" />
+    <ontrue>b2ce6646-bfec-4b9e-8e9d-dab93347ef5a</ontrue>
+    <onfalse>3faa7aa8-a51a-4d3b-a164-6389f9b1f49c</onfalse>
+  </stage>
+  <stage stageid="3faa7aa8-a51a-4d3b-a164-6389f9b1f49c" name="Fail" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>555</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="&quot;Updated Multi Character Value with page segmentation was not correctly read&quot;" />
+  </stage>
+  <stage stageid="b2ce6646-bfec-4b9e-8e9d-dab93347ef5a" name="Read Single Character Region" type="Action">
+    <narrative>Reading a region which contains a single character</narrative>
+    <displayx>15</displayx>
+    <displayy>630</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Page Segmenrtation Mode" expr="&quot;character&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Value Read" stage="Single Char Value" />
+    </outputs>
+    <onsuccess>cb8bfb18-b617-49ec-9a9c-ef8502252b9b</onsuccess>
+    <resource object="OCR Test Application" action="Read OCR - SIngle Character" />
+  </stage>
+  <stage stageid="cb8bfb18-b617-49ec-9a9c-ef8502252b9b" name="Check Value" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>720</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Single Char Value]=&quot;1&quot;" />
+    <ontrue>13cbbfd5-dedd-4c1c-b266-c753657751a3</ontrue>
+    <onfalse>5c340992-3f7b-4589-955f-893f25ed71d0</onfalse>
+  </stage>
+  <stage stageid="5c340992-3f7b-4589-955f-893f25ed71d0" name="Fail" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>720</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="&quot;Single character value was not correctly read.&quot;" />
+  </stage>
+  <stage stageid="0a6fc6b1-44e2-4de2-a519-942423e59512" name="Single Char Value" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>225</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="13cbbfd5-dedd-4c1c-b266-c753657751a3" name="Close Application" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>795</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>6b0f7029-8364-4b50-b301-ff9ad7f3edc3</onsuccess>
+    <resource object="OCR Test Application" action="Close" />
+  </stage>
+  <stage stageid="60a72234-6083-4326-b3e8-a963b5c3b4f5" name="Fail Recovery" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-90</displayx>
+    <displayy>0</displayy>
+    <displaywidth>420</displaywidth>
+    <displayheight>750</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b172e4d8-5397-48a4-b123-630eb2d82359" name="Recover1" type="Recover">
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>645</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>785e2785-3ef6-4160-a7f9-e52541db9251</onsuccess>
+  </stage>
+  <stage stageid="785e2785-3ef6-4160-a7f9-e52541db9251" name="Close Application" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>645</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>ccdec995-8276-40c2-accc-41a2c4bd54b7</onsuccess>
+    <resource object="OCR Test Application" action="Close" />
+  </stage>
+  <stage stageid="ccdec995-8276-40c2-accc-41a2c4bd54b7" name="Rethrow exception after closing app" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>735</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="" detail="ExceptionDetail()" />
+  </stage>
+</process>

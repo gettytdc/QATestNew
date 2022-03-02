@@ -1,0 +1,529 @@
+﻿<process name="Treeview Rename Tiles Groups Subgroups" version="1.0" bpversion="6.10.0.27320" narrative="Automated process to ensure that the treeview updates as expected when a tile group or subgroup is renamed." byrefcollection="true" preferredid="f0860f7e-b5b8-4001-8c4e-5976f6699a4a" published="true">
+  <view>
+    <camerax>30</camerax>
+    <cameray>-24</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="5e7205b3-c009-4b82-b8b7-162c02d221d7" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="c1e5eea6-7023-46a5-8c7f-1fba98e3ded9" type="Normal" published="False">
+    <name>Rename Tiles Group</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>90</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="74ef15fa-3a6a-40d6-8860-58879c6dcc0a" type="Normal" published="False">
+    <name>Rename Tiles Subgroup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>165</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="c3f534f3-b231-485a-8172-8e771272247d" name="Stage1" type="ProcessInfo">
+    <display x="-225" y="-105" w="180" h="90" />
+  </stage>
+  <stage stageid="9bc5011d-5fa5-4c02-983f-ad3f48f744f5" name="Start" type="Start">
+    <display x="45" y="-135" />
+    <onsuccess>01070ee0-f0b3-47bd-add8-6ebbd41edf27</onsuccess>
+  </stage>
+  <stage stageid="c9e5e704-5e10-4f64-9678-a1a8ad8734fd" name="End" type="End">
+    <display x="45" y="360" />
+  </stage>
+  <stage stageid="01070ee0-f0b3-47bd-add8-6ebbd41edf27" name="Note1" type="Note">
+    <narrative>GIVEN I am a BP user and have signed in</narrative>
+    <display x="45" y="-90" w="300" h="30" />
+    <onsuccess>da97017f-33d6-47eb-8f17-ad97f8f47f1d</onsuccess>
+  </stage>
+  <stage stageid="3353974e-7ca0-4766-8472-d3d882a1048c" name="Note3" type="Note">
+    <narrative>WHEN I use Rename Group option for a group
+THEN the group is succesfully renamed and the new name is showing in the treeview</narrative>
+    <display x="45" y="30" w="300" h="60" />
+    <onsuccess>65785aa1-dba7-4be5-841d-35d86f778920</onsuccess>
+  </stage>
+  <stage stageid="be01b882-846e-403f-9e1d-8aacf6272e89" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="240" y="75" />
+    <onsuccess>a1f4120d-2559-4c5f-acdb-cb4b69842431</onsuccess>
+  </stage>
+  <stage stageid="a1f4120d-2559-4c5f-acdb-cb4b69842431" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="240" y="120" w="90" h="30" />
+    <onsuccess>e595992f-05f0-4a3f-9349-9c935dfff3b7</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="e595992f-05f0-4a3f-9349-9c935dfff3b7" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="240" y="165" />
+    <onsuccess>61f896b5-f7bf-4c22-9730-6c5255299020</onsuccess>
+  </stage>
+  <stage stageid="da97017f-33d6-47eb-8f17-ad97f8f47f1d" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="-45" w="300" h="30" />
+    <onsuccess>3353974e-7ca0-4766-8472-d3d882a1048c</onsuccess>
+    <processid>5e7205b3-c009-4b82-b8b7-162c02d221d7</processid>
+  </stage>
+  <stage stageid="6d46d8ec-5eff-4f96-9a2f-c0c37ec15a01" name="Failed?" type="Decision">
+    <display x="45" y="315" w="90" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>e77d4c89-7d5c-45e2-a7da-fca5d7494318</ontrue>
+    <onfalse>c9e5e704-5e10-4f64-9678-a1a8ad8734fd</onfalse>
+  </stage>
+  <stage stageid="e77d4c89-7d5c-45e2-a7da-fca5d7494318" name="Re-Throw" type="Exception">
+    <display x="150" y="315" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="61f896b5-f7bf-4c22-9730-6c5255299020" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="240" y="270" w="10" h="10" />
+    <onsuccess>9f84c67c-fc7c-4283-986f-282c83433fc1</onsuccess>
+  </stage>
+  <stage stageid="b574bc5e-196f-4949-803d-cfc4586ff641" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-15" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5d648996-1440-405d-8ca9-bf045dfdc39c" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1b188cf5-4101-4484-8b3d-655ecb315d94" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="76f6aa6a-0e23-49ae-ba3f-df43067e4ddc" name="pid" type="Data">
+    <display x="-210" y="90" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e09a6306-0fba-4c7a-9a38-3cea5977dcf9" name="Global Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="60" w="150" h="180" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="47cb0931-b43d-4f91-9a23-94bef9e4df88" name="Setup" type="SubSheetInfo">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="9c02ae22-4581-489f-9491-8b835e4604ed" name="Start" type="Start">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-60" y="-135" />
+    <onsuccess>707a6425-0b70-474d-a8ef-b7d0da86bb27</onsuccess>
+  </stage>
+  <stage stageid="6ac44d64-b413-4c29-9697-7b888b6e8df4" name="End" type="End">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <display x="-60" y="45" />
+  </stage>
+  <stage stageid="707a6425-0b70-474d-a8ef-b7d0da86bb27" name="Launch" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-90" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>e483b55f-303e-43f0-a597-817ad582e9be</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="ad7204cf-b3c5-4b27-8bed-7ae7f1141450" name="Sign In" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Locale" friendlyname="Locale" narrative="Blue Prism Locale setting" stage="" />
+    </outputs>
+    <onsuccess>6ac44d64-b413-4c29-9697-7b888b6e8df4</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="e483b55f-303e-43f0-a597-817ad582e9be" name="Attach (Analytics)" type="Action">
+    <subsheetid>5e7205b3-c009-4b82-b8b7-162c02d221d7</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>ad7204cf-b3c5-4b27-8bed-7ae7f1141450</onsuccess>
+    <resource object="Blue Prism - Analytics (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="98c6285d-0b03-402c-a458-bce1a4dc8730" name="Rename Tiles Group" type="SubSheetInfo">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="65785aa1-dba7-4be5-841d-35d86f778920" name="Rename Tiles Group" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="90" w="300" h="30" />
+    <onsuccess>72f81a7b-8d44-4da1-beb1-2572a6d06893</onsuccess>
+    <processid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</processid>
+  </stage>
+  <stage stageid="72f81a7b-8d44-4da1-beb1-2572a6d06893" name="Note3" type="Note">
+    <narrative>WHEN I use Rename Group option for a subgroup
+THEN the subgroup is succesfully renamed and the new name is showing in the treeview</narrative>
+    <display x="45" y="150" w="300" h="60" />
+    <onsuccess>11061300-0b58-4b2f-98bc-c971feb86fe4</onsuccess>
+  </stage>
+  <stage stageid="11061300-0b58-4b2f-98bc-c971feb86fe4" name="Rename Tiles Subgroup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="45" y="210" w="300" h="30" />
+    <onsuccess>9f84c67c-fc7c-4283-986f-282c83433fc1</onsuccess>
+    <processid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</processid>
+  </stage>
+  <stage stageid="199c1406-160f-41af-b524-73540abcbac9" name="Scenarios" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-120" y="-15" w="405" h="255" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b52ee30f-5fca-4227-8809-6378965b4efb" name="Start" type="Start">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>be476b9f-5c51-47d0-9dbc-974309244eb2</onsuccess>
+  </stage>
+  <stage stageid="dcd7023d-3a7f-409d-8759-676a4aa4f544" name="Local variables" type="Block">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="71f9a474-e622-41ef-8d1f-f36d2ff6a6de" name="End" type="End">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="390" />
+  </stage>
+  <stage stageid="a349c831-3c08-4dff-bb32-808f2e7a5bfa" name="Get Group Tree Items" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tiles Group name" friendlyname="Tiles Group name" expr="&quot;Tiles&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Group Tree Items" friendlyname="Group Tree Items" stage="Group Tree Items" />
+    </outputs>
+    <onsuccess>a9e02e29-3350-4491-9236-5d8e6cbc9e3f</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="8ba0fe1a-b992-4dcd-b768-f97b08a22e1b" name="Group Renamed?" type="Decision">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-45" y="240" w="120" h="30" />
+    <decision expression="[Group Tree Items.Node Text]=[Tiles Group Renamed]" />
+    <ontrue>9e5c7d37-25c8-4493-a3dc-367fdb1b3942</ontrue>
+    <onfalse>9b4ed18f-5dba-4e51-aea1-6fddceb9f360</onfalse>
+  </stage>
+  <stage stageid="02d1468c-98f0-487c-9af2-06f6425d3115" name="Exception" type="Exception">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="30" y="285" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;The subgroup is missing&quot;" />
+  </stage>
+  <stage stageid="e619bbaa-40ee-473a-8518-435a3fd41afb" name="Go To Home" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="345" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>71f9a474-e622-41ef-8d1f-f36d2ff6a6de</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="66ed970d-2f4e-4db5-a785-97cb052ebc52" name="Ensure subgroup available" type="Block">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="120" w="180" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3eaf182c-3066-460c-9ba3-ebe052b40122" name="Tiles Subgroup" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="180" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">S4 TFM36</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="3aeb032c-241e-4a65-9c04-5289abde7b81" name="Rename Tiles Subgroup" type="SubSheetInfo">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="cf9a650c-8fe4-4356-8a20-d0239819e5df" name="Tiles Subgroup Renamed" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="210" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">S4 TFM36-Renamed</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="10fed782-599d-40af-ada8-bf0013e3a35d" name="Tiles Group" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">G4 TFM36</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="6cf9777d-adc2-41bf-8a48-cc0956185ce2" name="Tiles Group Renamed" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="150" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">G4 TFM36-Renamed</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="18d4b53a-328c-4ce3-9269-840be48be3fa" name="Select Group" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tile Name" friendlyname="Tile Name" narrative="Name of the Tile to right click on" expr="[Tiles Group]" />
+    </inputs>
+    <onsuccess>d3fe4078-228f-4ba3-b280-56959b295ebc</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Right Click on Tile" />
+  </stage>
+  <stage stageid="d3fe4078-228f-4ba3-b280-56959b295ebc" name="Select 'Rename group' option from submenu" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Menu Option" friendlyname="Menu Option" narrative="Option from Dashboard's Right Click Menu. Case Sensitive." expr="&quot;Rename Group&quot;" />
+    </inputs>
+    <onsuccess>f4e4ce45-625c-4e30-af5f-8047aa31d9f2</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Select Option from Tile's Right Click Menu" />
+  </stage>
+  <stage stageid="f4e4ce45-625c-4e30-af5f-8047aa31d9f2" name="Rename the Group" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Group Name" friendlyname="Group Name" expr="[Tiles Group Renamed]" />
+    </inputs>
+    <onsuccess>a349c831-3c08-4dff-bb32-808f2e7a5bfa</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Rename Group" />
+  </stage>
+  <stage stageid="be476b9f-5c51-47d0-9dbc-974309244eb2" name="Browse to Analytics" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Analytics&quot;" />
+    </inputs>
+    <onsuccess>c54233ce-322a-4486-a8a7-e10109c83610</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="c54233ce-322a-4486-a8a7-e10109c83610" name="Click Tile Library SubPage" type="Action">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="90" h="30" />
+    <onsuccess>18d4b53a-328c-4ce3-9269-840be48be3fa</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Click Tile Library SubPage" />
+  </stage>
+  <stage stageid="09af14da-b011-4472-b131-a0dc430791ff" name="Group Tree Items" type="Collection">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a9e02e29-3350-4491-9236-5d8e6cbc9e3f" name="Is Subgroup in tree?" type="LoopStart">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="195" w="90" h="30" />
+    <onsuccess>8ba0fe1a-b992-4dcd-b768-f97b08a22e1b</onsuccess>
+    <groupid>d718a29b-3d8d-4b97-a19e-e1fdf58fac64</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Group Tree Items</loopdata>
+  </stage>
+  <stage stageid="9b4ed18f-5dba-4e51-aea1-6fddceb9f360" name="Is Subgroup in tree?" type="LoopEnd">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="285" w="90" h="30" />
+    <onsuccess>02d1468c-98f0-487c-9af2-06f6425d3115</onsuccess>
+    <groupid>d718a29b-3d8d-4b97-a19e-e1fdf58fac64</groupid>
+  </stage>
+  <stage stageid="9e5c7d37-25c8-4493-a3dc-367fdb1b3942" name="Anchor3" type="Anchor">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="60" y="240" w="10" h="10" />
+    <onsuccess>9bdad19e-48bc-46b8-9142-28b1e65bf6fb</onsuccess>
+  </stage>
+  <stage stageid="9bdad19e-48bc-46b8-9142-28b1e65bf6fb" name="Anchor5" type="Anchor">
+    <subsheetid>c1e5eea6-7023-46a5-8c7f-1fba98e3ded9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="60" y="345" w="10" h="10" />
+    <onsuccess>e619bbaa-40ee-473a-8518-435a3fd41afb</onsuccess>
+  </stage>
+  <stage stageid="7a3bccbc-c18e-49ff-b231-2b32e8c98212" name="Local variables" type="Block">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3ae33bdd-fc62-481a-ac17-21e660859751" name="Group Tree Items" type="Collection">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="54563214-1089-4e8a-832e-f78959c4ba5c" name="Start" type="Start">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-45" y="-135" />
+    <onsuccess>bd7b5810-def1-4df3-80f8-571b2612f4ee</onsuccess>
+  </stage>
+  <stage stageid="a464f1ec-94d4-4154-8105-92b196f0486f" name="End" type="End">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-45" y="435" />
+  </stage>
+  <stage stageid="cd6cbc64-bef0-43cc-bfec-78b5e108bf96" name="Get Group Tree Items" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="195" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tiles Group name" friendlyname="Tiles Group name" expr="[Tiles Group Renamed]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Group Tree Items" friendlyname="Group Tree Items" stage="Group Tree Items" />
+    </outputs>
+    <onsuccess>401c3bde-c5ae-4d78-b63a-71ec33864c41</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Read Child Tree Items" />
+  </stage>
+  <stage stageid="2d27c398-0841-4f92-a729-6e75322bbffd" name="Subgroup Renamed?" type="Decision">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="-45" y="285" w="120" h="30" />
+    <decision expression="[Group Tree Items.Node Text]=[Tiles Subgroup Renamed]" />
+    <ontrue>59347e20-0b8d-4837-8449-04bb1d784383</ontrue>
+    <onfalse>20d4e300-1fde-4446-8e9f-84760d816bd9</onfalse>
+  </stage>
+  <stage stageid="ec4b9a53-e741-4fc0-8c6e-16658a0e951e" name="Exception" type="Exception">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <display x="30" y="330" w="30" h="30" />
+    <exception localized="yes" type="Failed Test" detail="&quot;The subgroup is missing&quot;" />
+  </stage>
+  <stage stageid="699b251a-cb18-4138-b200-897834c46940" name="Go To Home" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="390" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>a464f1ec-94d4-4154-8105-92b196f0486f</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="735ce8e2-18a3-4605-a716-7f3025677929" name="Ensure subgroup deleted" type="Block">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="165" w="180" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b3443380-1c77-431b-a215-8de2859dc56e" name="Select Subgroup" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tile Name" friendlyname="Tile Name" narrative="Name of the Tile to right click on" expr="[Tiles Subgroup]" />
+    </inputs>
+    <onsuccess>311b9268-59be-49a9-9503-d1b66d939584</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Right Click on Tile" />
+  </stage>
+  <stage stageid="311b9268-59be-49a9-9503-d1b66d939584" name="Select 'Rename group' option from submenu" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Menu Option" friendlyname="Menu Option" narrative="Option from Dashboard's Right Click Menu. Case Sensitive." expr="&quot;Rename Group&quot;" />
+    </inputs>
+    <onsuccess>3667e8f5-99be-4a64-88f8-53a76634abf8</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Select Option from Tile's Right Click Menu" />
+  </stage>
+  <stage stageid="bd7b5810-def1-4df3-80f8-571b2612f4ee" name="Browse to Analytics" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Analytics&quot;" />
+    </inputs>
+    <onsuccess>c0c1ba3d-272b-432c-9f18-eed75d7098f5</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="c0c1ba3d-272b-432c-9f18-eed75d7098f5" name="Click Tile Library SubPage" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-45" w="90" h="30" />
+    <onsuccess>bc400196-7dba-499b-93db-28f0c79bcff4</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Click Tile Library SubPage" />
+  </stage>
+  <stage stageid="401c3bde-c5ae-4d78-b63a-71ec33864c41" name="Is Subgroup in tree?" type="LoopStart">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="240" w="90" h="30" />
+    <onsuccess>2d27c398-0841-4f92-a729-6e75322bbffd</onsuccess>
+    <groupid>8c92c8bf-c20c-4c2d-a3d7-4615a61b3e07</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Group Tree Items</loopdata>
+  </stage>
+  <stage stageid="20d4e300-1fde-4446-8e9f-84760d816bd9" name="Is Subgroup in tree?" type="LoopEnd">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="330" w="90" h="30" />
+    <onsuccess>ec4b9a53-e741-4fc0-8c6e-16658a0e951e</onsuccess>
+    <groupid>8c92c8bf-c20c-4c2d-a3d7-4615a61b3e07</groupid>
+  </stage>
+  <stage stageid="59347e20-0b8d-4837-8449-04bb1d784383" name="Anchor3" type="Anchor">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="60" y="285" w="10" h="10" />
+    <onsuccess>dfc43c28-bc60-49af-b388-65e8d6359c65</onsuccess>
+  </stage>
+  <stage stageid="dfc43c28-bc60-49af-b388-65e8d6359c65" name="Anchor5" type="Anchor">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="60" y="390" w="10" h="10" />
+    <onsuccess>699b251a-cb18-4138-b200-897834c46940</onsuccess>
+  </stage>
+  <stage stageid="bc400196-7dba-499b-93db-28f0c79bcff4" name="Expand Group" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="[Tiles Group Renamed]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Expanded?" friendlyname="Expanded?" narrative="Whether the tree is expanded or not" stage="" />
+    </outputs>
+    <onsuccess>b3443380-1c77-431b-a215-8de2859dc56e</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Expand Tiles Group" />
+  </stage>
+  <stage stageid="9f84c67c-fc7c-4283-986f-282c83433fc1" name="Terminate" type="Action">
+    <display x="45" y="270" w="90" h="30" />
+    <onsuccess>6d46d8ec-5eff-4f96-9a2f-c0c37ec15a01</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="3667e8f5-99be-4a64-88f8-53a76634abf8" name="Rename the Subgroup" type="Action">
+    <subsheetid>74ef15fa-3a6a-40d6-8860-58879c6dcc0a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="135" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Group Name" friendlyname="Group Name" expr="[Tiles Subgroup Renamed]" />
+    </inputs>
+    <onsuccess>cd6cbc64-bef0-43cc-bfec-78b5e108bf96</onsuccess>
+    <resource object="Blue Prism - Analytics" action="Rename Group" />
+  </stage>
+</process>

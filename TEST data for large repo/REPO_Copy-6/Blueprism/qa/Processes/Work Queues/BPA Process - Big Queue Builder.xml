@@ -1,0 +1,1225 @@
+﻿<process name="Big Queue Builder" version="1.0" narrative="Process to build a queue with a lot of queue items.&#xD;&#xA;It can be set to exception / complete / defer a number of these items randomly, according the weights given." preferredid="9901c394-eb80-4720-a21f-549ff94c79b0">
+  <view>
+    <camerax>0</camerax>
+    <cameray>0</cameray>
+    <zoom>1</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="44eefa81-d729-401c-b886-f499b5ae565b" name="Start" type="Start">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-390</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="SkippedWeight" narrative="Proportionally how many items should be skipped" stage="SkippedWeight" />
+      <input type="number" name="CompletedWeight" narrative="Proportionally how many items should be completed" stage="CompletedWeight" />
+      <input type="number" name="ExceptionedWeight" narrative="Proportionally how many items should be exceptioned" stage="ExceptionedWeight" />
+      <input type="number" name="DeferredWeight" narrative="Proportionally how many items should be deferred" stage="DeferredWeight" />
+      <input type="number" name="Start Number" narrative="What number should this large queue start from" stage="Start Number" />
+      <input type="number" name="End Number" narrative="What number should this large queue stop at" stage="End Number" />
+      <input type="flag" name="Add Items" narrative="Flag to indicate if items should be added or just worked" stage="Add Items" />
+      <input type="flag" name="Process Items" narrative="Flag to indicate whether the big queue should be processed according to the given weights" stage="Process Items" />
+      <input type="flag" name="Process Items From This Session Only" narrative="Flag to indicate that, when processing items, only those added in this session should be worked" stage="Process Only Items From This Session" />
+      <input type="flag" name="Tag Items" narrative="Flag to indicate whether the queue's items should be randomly tagged or not" stage="Tag Items" />
+      <input type="text" name="Queue Name" narrative="The name of the queue to create - defaults to 'Big Queue'" stage="Queue Name" />
+    </inputs>
+    <onsuccess>d25ebf9c-89bf-47ad-8c15-e661380cdd6b</onsuccess>
+  </stage>
+  <stage stageid="c2a4878b-5798-4708-bcd6-5e8b5fe0b1a0" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-405</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>240</displaywidth>
+    <displayheight>120</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="d25ebf9c-89bf-47ad-8c15-e661380cdd6b" name="Create &quot;Big Queue&quot;" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-330</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to be created" expr="[Queue Name]" />
+      <input type="text" name="Key Field" narrative="The key column to use in the collection which makes up a queue item" expr="&quot;Key&quot;" />
+      <input type="number" name="Max Attempts" narrative="The maximum number of retry attempts for the queue. Default: 5" expr="" />
+    </inputs>
+    <onsuccess>c72482d1-8240-4801-94e5-5964a80e6718</onsuccess>
+    <resource object="Queue Utils" action="Create Queue" />
+  </stage>
+  <stage stageid="45e89e13-550f-4d5b-bb19-bb9d783fd96e" name="Big Collection" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-405</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="83cc7d21-a466-4305-97d4-78f65c9bec79" name="Create &quot;Big Collection&quot;" type="Action">
+    <loginhibit />
+    <loginhibitparameters />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Start Index" narrative="The index that the collection should be built from" expr="[Start Number]" />
+      <input type="number" name="End Index" narrative="The last index that should be added to the collection" expr="[End Number]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Output" narrative="The collection which has been built" stage="Big Collection" />
+    </outputs>
+    <onsuccess>e6350076-4d39-4c10-8326-b75d5a8eca44</onsuccess>
+    <resource object="Queue Utils" action="Build Large Collection" />
+  </stage>
+  <stage stageid="d40f992f-de76-4176-b0bf-8dfb6886b777" name="Let the twain meet" type="Action">
+    <loginhibit />
+    <loginhibitparameters />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Big Collection]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="[Session Tag]" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="Item IDs" />
+    </outputs>
+    <onsuccess>3a2d1b2e-d4ee-4da7-919c-d6241710ac8f</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="86233bda-996c-4c27-a12f-736b27612cb5" name="SkippedWeight" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-255</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>25</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="18d10168-d8ab-47f5-9372-8d8a4a6ef367" name="CompletedWeight" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>25</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7dc84401-413b-4ac0-812b-dc24d7b34fb4" name="ExceptionedWeight" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>25</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="df1db97b-6813-431a-b769-b537ef36f865" name="DeferredWeight" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>25</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f2fa282c-254e-47ce-81f2-e6762a9d91ed" name="Total Weight" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7f281dba-81e5-44e7-8f2a-5836480dfe17" name="Total Weight" type="Calculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>a14efe9f-9099-4455-930a-77babd802020</onsuccess>
+    <calculation expression="[CompletedWeight]+[DeferredWeight]+[ExceptionedWeight]+[SkippedWeight]" stage="Total Weight" />
+  </stage>
+  <stage stageid="2a54c992-b0b7-4fd9-9168-afab153e68f7" name="Pick an option" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>210</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Value" expr="1" />
+      <input type="number" name="Max Value" expr="[Total Weight]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Output" stage="Rand" />
+    </outputs>
+    <onsuccess>2c163aa6-8551-4013-9146-f969b6aa2299</onsuccess>
+    <resource object="Queue Utils" action="Get Random Number" />
+  </stage>
+  <stage stageid="2c163aa6-8551-4013-9146-f969b6aa2299" name="Deferred?" type="Decision">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Rand] &lt;= [DeferredWeight]" />
+    <ontrue>4cbbc154-b11d-4087-8bfe-9b544ebec3f7</ontrue>
+    <onfalse>ca37e412-9564-4a58-ab6c-44e1d6d1f941</onfalse>
+  </stage>
+  <stage stageid="bc5c955b-2a29-4372-8151-7a4dda1ad36a" name="Rand" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-405</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7d424d62-88a9-409e-b025-b83b8fbff31a" name="Completed?" type="Decision">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>345</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Rand] &lt;= [CompletedWeight]" />
+    <ontrue>afdb640a-ad24-43f7-96ee-ce7ed8f4b23b</ontrue>
+    <onfalse>cee39d25-668f-4d65-9066-9cf96ba38336</onfalse>
+  </stage>
+  <stage stageid="3f574cc4-e84c-4b96-8a2f-6de9b5b1126f" name="Exceptioned?" type="Decision">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>435</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Rand] &lt;= [ExceptionedWeight]" />
+    <ontrue>2a87b787-cd85-4cb7-89e8-dbebc42a5b17</ontrue>
+    <onfalse>7d74b835-1a77-427b-ae89-56a757017dc1</onfalse>
+  </stage>
+  <stage stageid="7d74b835-1a77-427b-ae89-56a757017dc1" name="Note1" type="Note">
+    <loginhibit />
+    <narrative>Ergo Skipped</narrative>
+    <displayx>60</displayx>
+    <displayy>480</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>a08f3dba-9cf0-41c4-aec7-7d362f3ca431</onsuccess>
+  </stage>
+  <stage stageid="43bc00d0-b0e6-462f-87fb-44801cb4a755" name="Skipped Items" type="Collection">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-405</displayx>
+    <displayy>105</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="a14efe9f-9099-4455-930a-77babd802020" name="Get Next Item" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>60</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;. Wildcards can be used in the form of '*' or '?' for 'any chars' and 'any single char' respectively" expr="[Session Tag]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>df81d412-0b9e-4310-bfeb-2f366330b931</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="c0d7ae6f-d531-4e43-b3e6-41458860ae56" name="Item ID" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-405</displayx>
+    <displayy>60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4cbbc154-b11d-4087-8bfe-9b544ebec3f7" name="Defer 1 day" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>255</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to defer" expr="[Item ID]" />
+      <input type="datetime" name="Until" narrative="When to resume processing the case" expr="AddDays(Now(),1)" />
+    </inputs>
+    <onsuccess>e5e226cc-e49c-4aa1-a884-d840ebb0497e</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Defer" />
+  </stage>
+  <stage stageid="afdb640a-ad24-43f7-96ee-ce7ed8f4b23b" name="Complete" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>345</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+    </inputs>
+    <onsuccess>3c06fd69-d2ee-430e-bafb-f3863055e641</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="2a87b787-cd85-4cb7-89e8-dbebc42a5b17" name="Mark Exception" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>435</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;Because so...&quot;" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="False" />
+    </inputs>
+    <onsuccess>0069eada-3809-402d-8884-5e83be07edd7</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="a08f3dba-9cf0-41c4-aec7-7d362f3ca431" name="Add Row to Skipped Items" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>480</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to be modified" expr="&quot;Skipped Items&quot;" />
+    </inputs>
+    <onsuccess>67d2333e-1c05-40fe-b36a-5ab8baa7b421</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="67d2333e-1c05-40fe-b36a-5ab8baa7b421" name="Set ItemID to skip" type="Calculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>480</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>0069eada-3809-402d-8884-5e83be07edd7</onsuccess>
+    <calculation expression="[Item ID]" stage="Skipped Items.Item ID" />
+  </stage>
+  <stage stageid="0069eada-3809-402d-8884-5e83be07edd7" name="anchor2" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>435</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>3c06fd69-d2ee-430e-bafb-f3863055e641</onsuccess>
+  </stage>
+  <stage stageid="3c06fd69-d2ee-430e-bafb-f3863055e641" name="anchor3" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>345</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e5e226cc-e49c-4aa1-a884-d840ebb0497e</onsuccess>
+  </stage>
+  <stage stageid="e5e226cc-e49c-4aa1-a884-d840ebb0497e" name="anchor4" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>255</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>64c2383e-26a8-4895-b356-9f1bf73736a7</onsuccess>
+  </stage>
+  <stage stageid="df81d412-0b9e-4310-bfeb-2f366330b931" name="Anybody There?" type="Decision">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID]&lt;&gt;&quot;&quot;" />
+    <ontrue>ff4bd886-a52b-405b-ab50-7537e41d31f6</ontrue>
+    <onfalse>e007854d-b788-459a-b2d7-ed4e26341269</onfalse>
+  </stage>
+  <stage stageid="e007854d-b788-459a-b2d7-ed4e26341269" name="For Each Skipped Item" type="LoopStart">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>165</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>46092dba-5ab9-4aab-b0dd-e8e6bed37491</onsuccess>
+    <groupid>54e1c879-19a8-4951-9dfc-503cb40d8ece</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Skipped Items</loopdata>
+  </stage>
+  <stage stageid="14ace7ae-1d45-431a-8017-5c4a868ae3f4" name="End For" type="LoopEnd">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>255</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>4bfe66e2-76e1-403e-9476-939df6052259</onsuccess>
+    <groupid>54e1c879-19a8-4951-9dfc-503cb40d8ece</groupid>
+  </stage>
+  <stage stageid="46092dba-5ab9-4aab-b0dd-e8e6bed37491" name="Unlock" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>210</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Skipped Items.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="" />
+    </outputs>
+    <onsuccess>14ace7ae-1d45-431a-8017-5c4a868ae3f4</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="9eea955f-2016-41d9-9716-e1093acc84d2" name="End" type="End">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>840</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="ca37e412-9564-4a58-ab6c-44e1d6d1f941" name="Remove DeferredWeight" type="Calculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>300</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>7d424d62-88a9-409e-b025-b83b8fbff31a</onsuccess>
+    <calculation expression="[Rand]-[DeferredWeight]" stage="Rand" />
+  </stage>
+  <stage stageid="cee39d25-668f-4d65-9066-9cf96ba38336" name="Remove CompletedWeight" type="Calculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>390</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>3f574cc4-e84c-4b96-8a2f-6de9b5b1126f</onsuccess>
+    <calculation expression="[Rand]-[CompletedWeight]" stage="Rand" />
+  </stage>
+  <stage stageid="d4c46e3e-d957-4bb2-9495-35098072f5d7" name="Start Number" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>-255</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>1</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c42d6601-94c0-40fb-8fea-d815f709492a" name="End Number" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>20000</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6738c139-6a6c-4049-b618-8e9f0e917206" name="Process Items" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3a2d1b2e-d4ee-4da7-919c-d6241710ac8f" name="Process Items?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Process Items]" />
+    <ontrue>7f281dba-81e5-44e7-8f2a-5836480dfe17</ontrue>
+    <onfalse>cd90bfe0-5946-45a1-a4fd-d9ee9bab3735</onfalse>
+  </stage>
+  <stage stageid="cd90bfe0-5946-45a1-a4fd-d9ee9bab3735" name="anchor4" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>2fbd9294-d5ab-4907-8890-b60e08977a7b</onsuccess>
+  </stage>
+  <stage stageid="2fbd9294-d5ab-4907-8890-b60e08977a7b" name="anchor4" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>315</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>4bfe66e2-76e1-403e-9476-939df6052259</onsuccess>
+  </stage>
+  <stage stageid="288b0785-41b6-444a-bad6-43ac9710e8de" name="Queue Name" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>-300</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Big Queue</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="83e73f9f-a151-4940-bead-efa6e0b7ba01" name="Rand()" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>645</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Min Value" expr="0" />
+      <input type="number" name="Max Value" expr="100" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Output" stage="Rand" />
+    </outputs>
+    <onsuccess>0b8f526f-99e1-4451-8296-7b1d81f9ea86</onsuccess>
+    <resource object="Queue Utils" action="Get Random Number" />
+  </stage>
+  <stage stageid="0b8f526f-99e1-4451-8296-7b1d81f9ea86" name="Apply Tag?" type="Decision">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>690</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Rand] &lt; [Tags.Percentage]" />
+    <ontrue>9f84f2f9-be7b-42b4-8d1a-3e6325c7e321</ontrue>
+    <onfalse>a91f0ff7-b6ca-446f-aa1c-422089de566d</onfalse>
+  </stage>
+  <stage stageid="15a80476-204a-4da5-be44-c4b0b89897d5" name="Tags" type="Collection">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-405</displayx>
+    <displayy>195</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Tag Name" type="text" description="The name of the tag to apply" />
+      <field name="Percentage" type="number" description="The percentage chance of the tag being applied" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Tag Name" type="text" value="Tag 1" />
+        <field name="Percentage" type="number" value="33" />
+      </row>
+      <row>
+        <field name="Tag Name" type="text" value="Tag 2" />
+        <field name="Percentage" type="number" value="30" />
+      </row>
+      <row>
+        <field name="Tag Name" type="text" value="Tag 3" />
+        <field name="Percentage" type="number" value="25" />
+      </row>
+      <row>
+        <field name="Tag Name" type="text" value="Tag 4" />
+        <field name="Percentage" type="number" value="40" />
+      </row>
+      <row>
+        <field name="Tag Name" type="text" value="Tag 5" />
+        <field name="Percentage" type="number" value="35" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="429d600b-ebb9-46dd-a399-f639160e9ea1" name="For Each Tag" type="LoopStart">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>600</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="008000" />
+    <onsuccess>83e73f9f-a151-4940-bead-efa6e0b7ba01</onsuccess>
+    <groupid>5fbdf592-6907-4051-9792-343b2b60e657</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Tags</loopdata>
+  </stage>
+  <stage stageid="a91f0ff7-b6ca-446f-aa1c-422089de566d" name="Next Tag" type="LoopEnd">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>735</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="008000" />
+    <onsuccess>c858f269-31f9-48ac-916d-da8dca134f25</onsuccess>
+    <groupid>5fbdf592-6907-4051-9792-343b2b60e657</groupid>
+  </stage>
+  <stage stageid="9f84f2f9-be7b-42b4-8d1a-3e6325c7e321" name="Tag Item" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>690</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[Item IDs.Item ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="[Tags.Tag Name]" />
+    </inputs>
+    <onsuccess>27a84261-6fdf-4cbf-a523-8650759ecefd</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="27a84261-6fdf-4cbf-a523-8650759ecefd" name="anchor4" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>735</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>a91f0ff7-b6ca-446f-aa1c-422089de566d</onsuccess>
+  </stage>
+  <stage stageid="6aba81b4-9541-4f51-99ad-b5937eb34fab" name="Work Item (or not)" type="Block">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>465</displaywidth>
+    <displayheight>420</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="47de9b91-d8c7-406c-b82c-8ea5f17a3c85" name="Tag Items" type="Block">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-255</displayx>
+    <displayy>345</displayy>
+    <displaywidth>210</displaywidth>
+    <displayheight>465</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="9c25ce6d-8581-4f29-9939-c6e72a7ee6ea" name="Work Item Count" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-405</displayx>
+    <displayy>270</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ff4bd886-a52b-405b-ab50-7537e41d31f6" name="Item Count ++" type="Calculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>0c92be86-d62f-412d-b9ba-a80aac36e655</onsuccess>
+    <calculation expression="[Work Item Count] + 1" stage="Work Item Count" />
+  </stage>
+  <stage stageid="a7f175ba-2c88-405a-89d1-825d433901be" name="Status" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-405</displayx>
+    <displayy>300</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Building Queue</initialvalue>
+    <exposure>Session</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0c92be86-d62f-412d-b9ba-a80aac36e655" name="Update Item Status" type="Calculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>2a54c992-b0b7-4fd9-9168-afab153e68f7</onsuccess>
+    <calculation expression="&quot;Working Item: &quot; &amp; [Work Item Count] &amp; &quot;/&quot; &amp; [Total Item Count]" stage="Status" />
+  </stage>
+  <stage stageid="be5825de-caa8-44d5-bcb7-fcaed826b127" name="Total Item Count" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-405</displayx>
+    <displayy>240</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e6350076-4d39-4c10-8326-b75d5a8eca44" name="Count Rows" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Big Collection&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Total Item Count" />
+    </outputs>
+    <onsuccess>d40f992f-de76-4176-b0bf-8dfb6886b777</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="3f99fc6d-04e5-41e7-b25d-5d35c9d2a3e3" name="Tag Items" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4bfe66e2-76e1-403e-9476-939df6052259" name="Tag Items?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>315</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Tag Items]" />
+    <ontrue>71fee742-6862-421a-8147-7678ff0d2f8e</ontrue>
+    <onfalse>c0a85d6c-f406-407c-b430-ac521b66146f</onfalse>
+  </stage>
+  <stage stageid="c0a85d6c-f406-407c-b430-ac521b66146f" name="anchor4" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>315</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>7b039d1c-4ccf-4a55-bcb2-253b4eadbce5</onsuccess>
+  </stage>
+  <stage stageid="633ef51e-df10-4cb9-9b20-d74ec082dea5" name="anchor4" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>840</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>9eea955f-2016-41d9-9716-e1093acc84d2</onsuccess>
+  </stage>
+  <stage stageid="c0be9189-314d-4585-adc5-6938563f672c" name="Item IDs" type="Collection">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-405</displayx>
+    <displayy>345</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" description="The Item ID of the work queue item" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="e9d33fc0-80fa-4b8a-8ae9-107cb7e6e0e6" name="For Each Item ID" type="LoopStart">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>420</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="0000FF" />
+    <onsuccess>4070158c-7196-4eb5-9ee9-40b51b53f807</onsuccess>
+    <groupid>26ff9119-d6a6-4c67-bbda-8f8285ac1ca3</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Item IDs</loopdata>
+  </stage>
+  <stage stageid="c858f269-31f9-48ac-916d-da8dca134f25" name="Next Item ID" type="LoopEnd">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>780</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="0000FF" />
+    <onsuccess>9eea955f-2016-41d9-9716-e1093acc84d2</onsuccess>
+    <groupid>26ff9119-d6a6-4c67-bbda-8f8285ac1ca3</groupid>
+  </stage>
+  <stage stageid="3ea1d949-eaed-473d-bb11-2e142256db42" name="Item Count ++" type="Calculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>510</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>111a007e-4f44-4a5e-8dc0-fe4e06333a44</onsuccess>
+    <calculation expression="[Work Item Count] + 1" stage="Work Item Count" />
+  </stage>
+  <stage stageid="111a007e-4f44-4a5e-8dc0-fe4e06333a44" name="Update Item Status" type="Calculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>555</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>429d600b-ebb9-46dd-a399-f639160e9ea1</onsuccess>
+    <calculation expression="&quot;Tagging Item: &quot; &amp; [Work Item Count] &amp; &quot;/&quot; &amp; [Total Item Count]" stage="Status" />
+  </stage>
+  <stage stageid="71fee742-6862-421a-8147-7678ff0d2f8e" name="Item Count := 0" type="Calculation">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>375</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e9d33fc0-80fa-4b8a-8ae9-107cb7e6e0e6</onsuccess>
+    <calculation expression="[Work Item Count] + 1" stage="Work Item Count" />
+  </stage>
+  <stage stageid="94ae595e-2288-4f96-9c0e-5d4d20349d1d" name="Queue may already exist" type="Block">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-255</displayx>
+    <displayy>-360</displayy>
+    <displaywidth>225</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="9e2bb751-2263-4ac6-9fa4-0499bb1a07e0" name="Ignore..." type="Recover">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>-330</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>60cce576-77e0-4290-8a17-8cd04ca70b62</onsuccess>
+  </stage>
+  <stage stageid="60cce576-77e0-4290-8a17-8cd04ca70b62" name="Resume" type="Resume">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>-270</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>c72482d1-8240-4801-94e5-5964a80e6718</onsuccess>
+  </stage>
+  <stage stageid="0d799541-03e4-4c8f-8dda-65e01338db40" name="Stop Process" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-405</displayx>
+    <displayy>390</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="64c2383e-26a8-4895-b356-9f1bf73736a7" name="Stop?" type="Decision">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Stop Process]" />
+    <ontrue>7163a01d-443f-4c20-9416-9c431fee22a9</ontrue>
+    <onfalse>a14efe9f-9099-4455-930a-77babd802020</onfalse>
+  </stage>
+  <stage stageid="7163a01d-443f-4c20-9416-9c431fee22a9" name="anchor1" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>480</displayx>
+    <displayy>60</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>7e050f62-b61f-4761-a3ab-f161749df959</onsuccess>
+  </stage>
+  <stage stageid="7e050f62-b61f-4761-a3ab-f161749df959" name="anchor5" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>480</displayx>
+    <displayy>840</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>633ef51e-df10-4cb9-9b20-d74ec082dea5</onsuccess>
+  </stage>
+  <stage stageid="4070158c-7196-4eb5-9ee9-40b51b53f807" name="Stop?" type="Decision">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>465</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Stop Process]" />
+    <ontrue>7b039d1c-4ccf-4a55-bcb2-253b4eadbce5</ontrue>
+    <onfalse>3ea1d949-eaed-473d-bb11-2e142256db42</onfalse>
+  </stage>
+  <stage stageid="7b039d1c-4ccf-4a55-bcb2-253b4eadbce5" name="anchor1" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>465</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>633ef51e-df10-4cb9-9b20-d74ec082dea5</onsuccess>
+  </stage>
+  <stage stageid="5a105575-537d-4728-9bfb-947705adfe33" name="Add Items" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="42962531-350b-4be2-b624-75e054ebb466" name="Add Items?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Add Items]" />
+    <ontrue>83cc7d21-a466-4305-97d4-78f65c9bec79</ontrue>
+    <onfalse>6ed67a17-6be0-438a-b9b0-3d547536456a</onfalse>
+  </stage>
+  <stage stageid="6ed67a17-6be0-438a-b9b0-3d547536456a" name="Get Pending Items" type="Action">
+    <loginhibit />
+    <loginhibitparameters />
+    <narrative>
+    </narrative>
+    <displayx>45</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue for which the pending items are required" expr="[Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;. Wildcards can be used in the form of '*' or '?' for 'any chars' and 'any single char' respectively" expr="" />
+      <input type="number" name="Maximum" narrative="Optionally, the maximum number of items to return. Default is to return all items" expr="[End Number] - [Start Number]" />
+      <input type="number" name="Skip" narrative="Optionally, the number of items to skip before returning. Default is zero, ie. return all items from the head of the queue" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Pending Items" narrative="The currently pending items in the queue, referenced by ID. The single column is 'Item ID' : text. The elements in the collection will be in the order in which they will be loaded by the 'Get Next Item' action." stage="Item IDs" />
+    </outputs>
+    <onsuccess>ae98d591-8734-4cf0-b5b2-8d11cdc1b125</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Pending Items" />
+  </stage>
+  <stage stageid="3a1d788e-fc18-4a35-87d3-50726ed3feea" name="anchor4" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>45</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>3a2d1b2e-d4ee-4da7-919c-d6241710ac8f</onsuccess>
+  </stage>
+  <stage stageid="ae98d591-8734-4cf0-b5b2-8d11cdc1b125" name="Count Rows" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>45</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection whose rows are to be counted" expr="&quot;Item IDs&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" narrative="The number of rows counted in the collection" stage="Total Item Count" />
+    </outputs>
+    <onsuccess>3a1d788e-fc18-4a35-87d3-50726ed3feea</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="c2bdf13f-1712-4e7d-b634-45ac57c750db" name="Process Only Items From This Session" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="55d1c8da-c2d2-4795-9f68-801c107245eb" name="Session Tag" type="Data">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-405</displayx>
+    <displayy>150</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="370c5d51-ed08-4b80-a541-81497ab76f11" name="Create Session Tag" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>45</displayx>
+    <displayy>-270</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>4f5c8b3e-0cae-47fc-b1b4-eb56ab7edb89</onsuccess>
+    <calculation expression="Left(GetSessionId(),8)" stage="Session Tag" />
+  </stage>
+  <stage stageid="c72482d1-8240-4801-94e5-5964a80e6718" name="Process Items From This Session?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-270</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Add Items] and [Process Items] and [Process Only Items From This Session]" />
+    <ontrue>370c5d51-ed08-4b80-a541-81497ab76f11</ontrue>
+    <onfalse>cf20f27f-0f4d-4cbb-9820-a7a472c6452b</onfalse>
+  </stage>
+  <stage stageid="4f5c8b3e-0cae-47fc-b1b4-eb56ab7edb89" name="anchor4" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>45</displayx>
+    <displayy>-240</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>cf20f27f-0f4d-4cbb-9820-a7a472c6452b</onsuccess>
+  </stage>
+  <stage stageid="cf20f27f-0f4d-4cbb-9820-a7a472c6452b" name="anchor4" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-240</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>42962531-350b-4be2-b624-75e054ebb466</onsuccess>
+  </stage>
+</process>

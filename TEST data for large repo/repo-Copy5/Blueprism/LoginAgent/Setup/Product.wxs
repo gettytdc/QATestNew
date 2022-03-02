@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="Login Agent" Language="1033" Version="!(bind.FileVersion.LoginAgentService)"
+           Manufacturer="Blue Prism Limited" UpgradeCode="8EF4DC09-C858-4EE8-9534-449B118CE714">
+    <!-- x86 / x64 differences -->
+    <?include variables.wxi ?>
+    <Package InstallerVersion="301" Compressed="yes" InstallScope="perMachine" />
+
+    <!-- Branding - sets the banner at the top. -->
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.SolutionDir)..\BluePrism.Automate\Graphics\Images\Banner.bmp" />
+    <!-- Define what folder the default install directory should be.  -->
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+
+    <Property Id="BPINSTALLDIR" Value="NOTINSTALLED"></Property>
+    <Property Id="BPINSTALLDIR_WIN64" Value="NOTINSTALLED">
+      <!-- Scan the known registry value at this location for the BP Installation Directory (64bit) -->
+      <RegistrySearch Id="BluePrismReg64" Root="HKLM" Key="SOFTWARE\Blue Prism Limited\Automate" Name="InstallDir" Type="directory" Win64="yes" />
+    </Property>
+    <Property Id="BPINSTALLDIR_WIN32" Value="NOTINSTALLED">
+      <!-- Scan the known registry value at this location for the BP Installation Directory (32bit) -->
+      <RegistrySearch Id="BluePrismReg32" Root="HKLM" Key="SOFTWARE\Blue Prism Limited\Automate" Name="InstallDir" Type="directory" Win64="no" />
+    </Property>
+    <SetProperty Action="SetInstallDir0" Id="BPINSTALLDIR" After="AppSearch" Value="[BPINSTALLDIR_WIN64]"><![CDATA[BPINSTALLDIR_WIN64 <> "NOTINSTALLED"]]></SetProperty>
+    <SetProperty Action="SetInstallDir1" Id="BPINSTALLDIR" After="AppSearch" Value="[BPINSTALLDIR_WIN32]"><![CDATA[BPINSTALLDIR_WIN32 <> "NOTINSTALLED"]]></SetProperty>
+    
+    <!-- Custom UI - look in UI.wxs -->
+    <UIRef Id="LoginAgent_UI" />
+
+    <!-- Sets the icon and other metadata in Properties and Features -->
+    <Icon Id="blueprism.ico" SourceFile="$(var.SolutionDir)..\BluePrism.Automate\icon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="blueprism.ico" />
+    <Property Id="ARPHELPLINK" Value="https://www.blueprism.com" />
+
+    <Property Id="INSTALLFOLDER" Secure="yes"/>
+    <Property Id="ConfigFileLocation" Value="CONFIGDIR"/>
+
+    <!--Custom Actions and properties required to read/delete the SAS Service config file to/from the specified location-->
+    <Property Id="ENABLESASPROXY" Secure="yes" />
+    <Property Id="ATTEMPTOVERRIDESASGPO" Secure="yes" />
+    <Property Id="ATTEMPTOVERRIDELEGALMSGGPO" Secure="yes" />
+
+    <Property Id="CFGENABLESASPROXY" Secure="yes"/>
+    <Property Id="CFGATTEMPTOVERRIDESASGPO" Secure="yes"/>
+    <Property Id="CFGATTEMPTOVERRIDELEGALMSGGPO" Secure="yes"/>
+
+    <Binary Id="Wix_CustomActions.CA.dll" SourceFile="$(var.SolutionDir)Wix_CustomActions\bin\$(var.Configuration)\Wix_CustomActions.CA.dll"/>
+
+    <!-- The actions which write the SAS settings to the config file -->
+    <CustomAction Id="AssignConfigLocation" Property="WriteSasServiceConfig"
+                  Value="ConfigFileLocation=[CONFIGDIR]SASService.config;EnableSAS=[ENABLESASPROXY];OverrideSAS=[ATTEMPTOVERRIDESASGPO];OverrideLegalMsg=[ATTEMPTOVERRIDELEGALMSGGPO]"/>
+
+    <CustomAction Id="WriteSasServiceConfig" Return="check" Execute="deferred" BinaryKey="Wix_CustomActions.CA.dll"
+                  DllEntry="SASService_WriteConfig" Impersonate="no"/>
+
+    <!-- The actions which remove the SAS config file on uninstall-->
+    <CustomAction Id="AssignConfigLocationForRemoval" Property="RemoveSASConfigFile"
+                  Value="ConfigFileLocation=[CONFIGDIR]SASService.config"/>
+
+    <CustomAction Id="RemoveSASConfigFile" Return="check" Execute="deferred" BinaryKey="Wix_CustomActions.CA.dll"
+                  DllEntry="RemoveSASConfigFile" Impersonate="no"/>
+
+    <!-- The actions which read the SAS settings from the config file-->
+    <CustomAction Id="AssignConfigLocationForReading" Property="ConfigFileLocation"
+                  Value="[CONFIGDIR]SASService.config" />
+
+    <CustomAction Id="TryReadValuesFromConfigFile" Return="check"
+                  BinaryKey="Wix_CustomActions.CA.dll"
+                  DllEntry="TryReadSASConfigFile" Impersonate="no"/>
+
+    <!-- These custom actions are used to update the value of the 3 parameters written back to the SAS config.
+        If the values are not specified by the user and a config exists already we want to retain the values 
+        specified there so that only explicitly stated values are changed -->
+    <CustomAction Id="UpdateValue_EnableSASProxy_SilentInstall" Property="ENABLESASPROXY"
+                  Value="[CFGENABLESASPROXY]" />
+    <CustomAction Id="UpdateValue_OverrideSASGPO_SilentInstall" Property="ATTEMPTOVERRIDESASGPO"
+                  Value="[CFGATTEMPTOVERRIDESASGPO]" />
+    <CustomAction Id="UpdateValue_OverrideLegalMsgGPO_SilentInstall" Property="ATTEMPTOVERRIDELEGALMSGGPO"
+                  Value="[CFGATTEMPTOVERRIDELEGALMSGGPO]" />
+
+    <InstallExecuteSequence>
+      <MigrateFeatureStates />
+
+      <!-- We only do this action if it is a silent install i.e.UILevel=2 (if this is a UI install, 
+     this has already been carried out during the InstallUISequence so ignore it here) -->
+      <Custom Action ="AssignConfigLocationForReading" Before ="TryReadValuesFromConfigFile">
+        <![CDATA[(!SasService=3 OR &SasService<>2) AND UILevel=2]]>
+      </Custom>
+      <Custom Action ="TryReadValuesFromConfigFile" After="MigrateFeatureStates">
+        <![CDATA[(!SasService=3 OR &SasService<>2) AND UILevel=2]]>
+      </Custom>
+
+      <!-- Only write to the SAS config if the SAS Service has not been deselected 
+           (i.e. we are installing or modifying it) -->
+      <Custom Action ="AssignConfigLocation" After="InstallInitialize">
+        <![CDATA[&SasService=3 OR (&SasService <> 2 AND !SasService=3)]]>
+      </Custom>
+      <Custom Action ="WriteSasServiceConfig" Before="InstallFinalize">
+        <![CDATA[&SasService=3 OR (&SasService <> 2 AND !SasService=3)]]>
+      </Custom>
+
+      <!-- Only do these actions if the SAS service has been selected for removal-->
+      <Custom Action ="AssignConfigLocationForRemoval" Before="RemoveSASConfigFile">
+        <![CDATA[(&SasService = 2)]]>
+      </Custom>
+      <Custom Action ="RemoveSASConfigFile" After="InstallFiles">
+        <![CDATA[(&SasService = 2)]]>
+      </Custom>
+
+      <!-- do these only on silent install, where sas has been chosen to install and no value has been set by the user
+           (the user types true or false on command line so it will be one of these if specified at all by the user)-->
+      <Custom Action ="UpdateValue_EnableSASProxy_SilentInstall" Before="InstallValidate">
+        <![CDATA[(&SasService<>2) AND UILevel=2 AND ENABLESASPROXY=""]]>
+      </Custom>
+      <Custom Action ="UpdateValue_OverrideSASGPO_SilentInstall" Before="InstallValidate" >
+        <![CDATA[(&SasService<>2) AND UILevel=2 AND ATTEMPTOVERRIDESASGPO=""]]>
+      </Custom>
+      <Custom Action ="UpdateValue_OverrideLegalMsgGPO_SilentInstall" Before="InstallValidate">
+        <![CDATA[(&SasService<>2) AND UILevel=2 AND ATTEMPTOVERRIDELEGALMSGGPO=""]]>
+      </Custom>
+
+    </InstallExecuteSequence>
+
+    <!-- Refuse to install if the appropriate version of .NET isn't installed. WiX can only detect up to 4.6.2 as there is not 
+    currently a WIX_IS_NETFRAMEWORK_47_OR_LATER_INSTALLED property. However, we can check the NETFRAMEWORK45 property which 
+    is set to the Release number of .NET 4.5+ that is installed. The minimum release of .NET 4.7 is 460798 which was the
+    Windows 10 Creators Update version. See https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed -->
+    <PropertyRef Id="NETFRAMEWORK45" />
+    <Condition Message="This product requires Microsoft .NET Framework 4.7. Please install and then re-launch the installer to continue.">
+      <![CDATA[Installed OR (NETFRAMEWORK45 >= "#460798")]]>
+    </Condition>
+
+    <!-- Launch condition - Can't install 32 bit login agent on 64 bit windows. -->
+    <?if $(var.Platform)=x86 ?>
+    <Condition Message="This installer can only be used on 32 bit editions of Windows">
+      <![CDATA[Installed OR Not VersionNT64]]>
+    </Condition>
+    <?endif?>
+
+    <!-- Prohibit downgrading -->
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."
+                  AllowSameVersionUpgrades="yes" Schedule="afterInstallExecute"/>
+    <!-- Embed the cabinet files into the MSI, rather than shipping discrete files -->
+    <MediaTemplate EmbedCab="yes" />
+
+    <Feature Id="LoginAgent" Title="Login Agent" Level="1" Absent="disallow" AllowAdvertise="no" Display="expand"
+             Description="A service that runs a Runtime Resource when the device is not logged in which can be used to securely log the device onto the network.">
+      <!-- See Components.wxs for the definitions for these components and groups. -->
+      <ComponentGroupRef Id="BluePrismCredentialProvider" />
+      <ComponentGroupRef Id="LoginAgentService" />
+      <ComponentGroupRef Id="Utilities" />
+      <ComponentRef Id="LoginAgentServiceConfig" />
+      <ComponentRef Id="LoginAgentServiceConfigNoConnection" />
+      <ComponentRef Id="CopyCredentialProvToSystemDir" />
+
+      <Feature Id="SasService" Title="SAS Service" Level="1000" Absent="allow" AllowAdvertise="no" Display="expand"
+               Description ="Provides a mechanism to programmatically send Ctrl+Alt+Del to the local device and temporarily override local security policies.">
+        <ComponentGroupRef Id="BluePrismSasService" />
+        <Condition Level="1">
+          <![CDATA[!SasService=3]]>
+        </Condition>
+      </Feature>
+    </Feature>
+
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="WindowsFolder" />
+      <!-- This variable is set in variables.wxi - it switches between ProgramFilesFolder and ProgramFiles64Folder depending what we're buidling -->
+      <Directory Id="$(var.PlatformProgramFilesFolder)">
+        <!-- C:\Program Files\Blue Prism Limited, or C:\Program Files (x86)\Blue Prism Limited -->
+        <Directory Id="ManufacturerFolder" Name="!(bind.Property.Manufacturer)">
+          <!-- The main install directory, "Blue Prism Login Agent" -->
+          <Directory Id="INSTALLFOLDER" Name="Blue Prism !(bind.Property.ProductName)" />
+        </Directory>
+      </Directory>
+      <Directory Id="CommonAppDataFolder">
+        <Directory Id="ConfigManufacturerFolder" Name="!(bind.Property.Manufacturer)">
+          <Directory Id="CONFIGDIR" Name="Automate V3" />
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+</Wix>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug' And '$(UnitTestsEnabled)' != 'False'">
+        <DefineConstants Condition="$(DefineConstants.Length) > 0">$(DefineConstants),UNITTESTS</DefineConstants>
+        <DefineConstants Condition="$(DefineConstants.Length) == 0">UNITTESTS</DefineConstants>
+    </PropertyGroup>
+
+    <Target Name="Obfuscate" Condition="'$(ObfuscationEnabled)' == 'True'">
+        <Message Text="Obfuscating $(TargetPath)" Importance="high" />
+        <MakeDir Directories="$(SolutionDir)\..\obfuscated\mappings\loginagent" Condition="exists('$(SolutionDir)\..\BluePrism.Build\blueprism.babel')"/> 
+        <MakeDir Directories="$(SolutionDir)\obfuscated\mappings\" Condition="exists('$(SolutionDir)\BluePrism.Build\blueprism.babel')"/> 
+        <MSBuild Projects="$(SolutionDir)\BluePrism.Build\blueprism.babel" Targets="$(MSBuildProjectName.Replace('.', ''))" Properties="File=$(TargetPath)" Condition="exists('$(SolutionDir)\BluePrism.Build\blueprism.babel')" />
+        <MSBuild Projects="$(SolutionDir)\..\BluePrism.Build\blueprism.babel" Targets="$(MSBuildProjectName.Replace('.', ''))" Properties="File=$(TargetPath)" Condition="exists('$(SolutionDir)\..\BluePrism.Build\blueprism.babel')" />
+    </Target>
+
+    <Target Name="SignOutput" Condition=" '$(SigningEnabled)' == 'True' And '$(SigningCertificateHash)' != '' ">
+        <Message Text="Signing $(TargetPath) with certificate '$(SigningCertificateHash)' using $(SignToolFullPath)" Importance="high" />
+        <!-- The built-in TargetPath property normally contains a single path to the primary output file for the build. 
+        When building Setup.wixproj with multiple cultures, it contains separate output files for each culture.
+        Using TargetPath to define a SignOutputFilePaths item allows us to transform a collection of file paths
+        into the format required for the command -->    
+        <ItemGroup>
+            <SignOutputFilePaths Include="$(TargetPath)" />
+        </ItemGroup>
+        <Message Text="Signing output file(s) @(SignOutputFilePaths->'&quot;%(FullPath)&quot;', ', ') with certificate '$(SigningCertificateHash)' using $(SignToolFullPath)" Importance="high" />        
+        <Exec Command="&quot;$(SignToolFullPath)&quot; sign /sha1 $(SigningCertificateHash) /fd sha256 /d &quot;Blue Prism $(ProjectName)&quot; /t http://timestamp.digicert.com /v @(SignOutputFilePaths->'&quot;%(FullPath)&quot;', ' ')" />
+    </Target>
+</Project>

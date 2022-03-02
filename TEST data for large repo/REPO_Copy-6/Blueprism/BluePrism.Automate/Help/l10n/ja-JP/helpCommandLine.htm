@@ -1,0 +1,777 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Blue Prismコマンドラインオプション</title>
+    <script type="text/javascript" src="script/imagezoom.js"></script>
+</head>
+
+<body class="slick">
+    <div class="header">
+        <h1 class="pagetitle">Blue Prism</h1>
+        <h2>コマンドラインオプション</h2>
+    </div>
+
+    <p>Blue Prismには、コマンドラインスイッチを受け入れる2つのユーティリティがあります。</p>
+    <ul>
+        <li class="bold">Automate.exe
+            <p class="indented">グラフィカルなBlue Prismアプリケーション。このアプリケーションからのメッセージやフィードバックはすべて視覚的に行われます。リターンコード0は成功を示します。0以外のリターンコードはエラーを示します。
+            </p>
+        </li>
+        <li class="bold">AutomateC.exe
+            <p class="indented">メッセージとフィードバックを（標準出力経由で）コマンドラインに返すコマンドラインユーティリティ。リターンコード0は成功を示します。0以外のリターンコードはエラーを示します。
+            </p>
+        </li>
+    </ul>
+
+    <p>ヒント：</p>
+    <ul>
+        <li>
+ 「/help」スイッチを使用すると、AutomateCの動的ヘルプを利用できます。Automate.exeで「help」スイッチを指定すると、このドキュメントがグラフィカルウィンドウで表示されます。
+        </li>
+        <li>一部のスイッチでは、追加のパラメーターが必要です（以下では&lt;parameter&gt;として示します）。これらのパラメーターはスイッチの後に入力する必要があります。
+        </li>
+        <li>スイッチとパラメーターはスペースで区切ります。パラメーターの値にスペースやその他の特殊文字が含まれている場合は、値を「引用符」で囲む必要があります。このため、実際の値に引用符を含めることはできません。引用符を含めないように注意してください。
+        </li>
+        <li>
+ XMLを渡す場合は、xml文字列を引用符で囲む必要があります。引用符は標準入力でパラメーターのXML文字列の開始/終了を区切るために使用されるため、xml属性は単一引用符で区切ることをお勧めします。また、パラメーターxml内の引用符ごとに2つの引用符を入力することで、存在する引用符を<span class="emphasis">エスケープ</span>することもできます。
+        </li>
+    </ul>
+
+
+    <h3>使用例</h3>
+
+    <p>Blue Prismを「admin」ユーザー専用のリソースPCとして実行します。</p>
+    <pre><i>automate /resourcepc /user admin mypwd</i></pre>
+    <p>または、<a href="helpSingleSignon.htm">シングルサインオンユーザー</a>用として実行します。</p>
+    <pre><i>automate /resourcepc /sso</i></pre>
+
+    <p>Blue PrismをパブリックリソースPCとして実行します。</p>
+    <pre><i>automate /resourcepc /public</i></pre>
+
+    <p>ローカルPCでプロセスを実行します。</p>
+    <pre><i>AutomateC /run &quot;My Scheduled Process&quot; /user admin mypwd</i></pre>
+    <p>または、<a href="helpSingleSignon.htm">シングルサインオンユーザー</a>用として実行します。</p>
+    <pre><i>AutomateC /run &quot;My Scheduled Process&quot; /sso</i></pre>
+
+    <p>開始パラメーターを指定してリモートPCでプロセスを実行します。</p>
+    <pre><i>AutomateC /run "Excel Test" /resource YourPCHostName /user admin mypwd /startp "&lt;inputs&gt;
+        &lt;input name='Comment' type='text' value='Hello World' /&gt;&lt;/inputs&gt;"</i></pre>
+
+    <p>メインのBlue Prismアプリケーションを起動せずに、バックグラウンドのプロセスアラートモニタリングを開始します。</p>
+    <pre><i>automate /alerts /user admin mypwd</i></pre>
+    <p>または、<a href="helpSingleSignon.htm">シングルサインオンユーザー</a>用として実行します。</p>
+    <pre><i>automate /alerts /sso</i></pre>
+
+
+
+
+
+    <h3>Automate.exe - 使用可能なスイッチ</h3>
+
+    <h5 class="bold">/help</h5>
+    <p>
+ Blue Prism htmlヘルプブラウザーでこのドキュメントを開きます。
+    </p>
+
+    <h5 class="bold">/resourcepc<a name="ResourcePC" id="ResourcePC"></a></h5>
+    <p>
+ Blue Prismを<a href="helpRunModes.htm#ResourcePCMode">リソースPCモード</a>で起動します。
+ <a href="#Public">/public</a>スイッチを追加すると、すべてのBlue PrismユーザーがリソースPCを利用できるようになります。追加しない場合は、/userオプションまたは<a href="#SSO">/sso</a>オプションで指定されたユーザーのみが利用できます。
+    </p>
+    <p>
+ このオプションを<a href="#Resource">/resource</a>スイッチと混同しないでください。
+    </p>
+
+
+    <h5 class="bold">/public<a name="Public" id="Public"></a></h5>
+    <p>
+ <a href="#ResourcePC">/resourcepc</a>スイッチとの組み合わせでのみ使用されます。<a href="helpRunModes.htm">実行モードのヘルプ</a>で説明されているように、リソースPCを公開します。
+    </p>
+
+    <h5 class="bold">/sslcert<a name="sslcert" id="sslcert"></a></h5>
+    <p>
+ <a href="#ResourcePC">/resourcepc</a>スイッチとの組み合わせでのみ使用され、所定の捺印が押された証明書を使用してリソースPCへの接続でトランスポートセキュリティ（SSL/TLS）を有効にします。この証明書は、ユーザーまたはマシンの証明書ストアにインストールされている必要があります。
+    </p>
+        <p>
+ トランスポートセキュリティを有効にすると、コントロールルームおよびスケジューラーからの接続とリソースにルーティングされる公開Webサービスの両方に影響します。証明書のCNは、リソースへの接続に使用されるアドレスと一致する必要があります。また、接続するクライアントは、証明書の発行元のCAを信頼する必要があります。
+    </p>
+
+    <h5 class="bold">/wslocationprefix<a name="wslocationprefix" id="wslocationprefix"></a></h5>
+    <p>
+ （詳細設定）<a href="#ResourcePC">/resourcepc</a>スイッチとの組み合わせでのみ使用され、このデバイスでホストされるパブリッシュされたWebサービスと関連リソース（WSDLなど）の表示されるアドレス指定可能な場所をオーバーライドします。指定した値には、フルパスアドレス（例：「https://blueprismws.myorg.com:8181」）が含まれている必要があります。Blue Prismは、/ws/と関連するパスをローカルで利用可能なリソースに自動的に追加します。
+    </p>
+    <p>
+ 指定したプレフィックスがこのデバイスにルーティングする有効なアドレスになるように、適切なネットワークルーティングを手動で適用することが重要です。
+    </p>
+
+    <h5 class="bold">/nohttp<a name="nohttp" id="nohttp"></a></h5>
+    <p>
+ （詳細設定）<a href="#ResourcePC">/resourcepc</a>スイッチとの組み合わせでのみ使用され、リスニングポートで受信したHTTP通信を無視するようランタイムリソースに指示します。
+ このオプションは、Webサービスを公開するためのリソースが不要で、<a href="helpHTTPInterface.htm">HTTPインターフェイス</a>でリソースをコントロールする必要がない場合にのみ使用してください。
+    </p>
+
+    <h5 class="bold">/dbwait<a name="dbwait" id="dbwait"></a></h5>
+    <p>
+ 起動時に、指定された秒数の間、データベースが使用可能になるのを待機し、指定された秒数が経過すると接続を断念します。この間、接続は周期的に再試行されます。
+ これは、小規模なインストールで起動時にリソースPCを同じマシン上のデータベース「サーバー」と一緒に実行している場合に役立つことがあります。このような場合、リソースPCの起動時にデータベースがすぐに接続を受け入れる準備ができないことがあります。たとえば、<i>/dbwait 120</i>を使用すると、2分間再試行してから接続を断念します。
+    </p>
+
+    <h5 class="bold">/invisible<a name="Invisible" id="Invisible"></a></h5>
+    <p>
+ <a href="#ResourcePC">/resourcepc</a>スイッチとの組み合わせでのみ使用されます。リソースPC情報フォームはデフォルトで非表示になります。通知領域のコンテキストメニューを使用して再度表示できます（<img style="display:inline" src="graphics/resourcepc.ico" alt="リソースPC通知アイコン"/>アイコンをご覧ください）。
+    </p>
+
+    <h5 class="bold">/local<a name="Local" id="Local"></a></h5>
+    <p>
+ <a href="#ResourcePC">/resourcepc</a>スイッチとの組み合わせでのみ使用されます。リソースPCは、ローカルマシンからのみコントロールできます。リモートリソースは、リソースPCの存在を認識しません。
+    </p>
+
+    <h5 class="bold">/port<a name="Port" id="Port"></a></h5>
+    <p>
+ <a href="#ResourcePC">/resourcepc</a>スイッチとの組み合わせでのみ使用されます。Blue Prismがそれ自体をリソースPCとして使用できるようにするポートを指定します。この方法で、同じマシンから複数のリソースPCを実行できます。
+    </p>
+    <p>
+ このオプションは、特定のまれな状況で役立つ場合があります。以下は、その例です。
+    </p>
+    <ul>
+        <li class="bold">デフォルトポートをオーバーライドする
+            <p class="indented">
+ デフォルトポートの8181がすでにネットワーク上の別のサービスに使用されている場合は、別のポートを使用できます。特別な理由がない限り、必ずネットワーク上のすべてのリソースPCに同じポートを使用します。
+            </p>
+        </li>
+        <li class="bold">ターミナルサービスを使用する
+            <p class="indented">
+ <a href="http://en.wikipedia.org/wiki/Terminal_Services">ターミナルサービス</a>ホストを操作するとき、Blue Prismは各リソースPC上で一度に1つのセッションしか実行できません。これは、Microsoftターミナルサービスの実装の技術的な制限によるものです。複数のリソースPCをそれぞれ異なるポートで実行することで、通常どおり1台のマシンで複数のセッションを実行できます。
+            </p>
+        </li>
+    </ul>
+
+    <h5 class="bold">/resource &lt;name&gt;<a name="Resource" id="Resource"></a></h5>
+    <p>
+ プロセスアラートの対象となるリソースPCを決定します。指定されていない場合は、ローカルPCが使用されます。
+    </p>
+    <p>
+ このオプションを<a href="#ResourcePC">/resourcepc</a>スイッチと混同しないでください。
+    </p>
+
+
+    <h5 class="bold">/user &lt;name&gt; &lt;pwd&gt;<a name="User" id="User"></a></h5>
+    <p>
+ 必要に応じてBlue Prismのログイン認証情報を提供するために使用されます。データベースが<a href="helpSingleSignon.htm">シングルサインオン</a>用に構成されている場合は、代わりに<a href="#SSO">/sso</a>スイッチを使用してください。
+    </p>
+
+    <h5 class="bold">/sso<a name="SSO" id="SSO"></a></h5>
+    <p>
+ <a href="helpSingleSignon.htm">シングルサインオン</a>（SSO）構成で現在のユーザーの認証情報に基づいてコマンドを認証するようBlue Prismに指示します。
+ データベースがシングルサインオン用に構成されていない場合は、代わりに<a href="#User">/user</a>スイッチを使用してください。
+    </p>
+    <p>たとえば、<a href="#Run">/run</a>スイッチを使用する場合は、次のように指定する代わりに、</p>
+    <pre><i>Automate.exe /run Process1 /user admin pwd</i></pre>
+    <p>次のように指定します。</p>
+    <pre><i>Automate.exe /run Process1 /sso</i></pre>
+
+    <h5 class="bold">/useropts<a name="Useropts" id="Useropts"></a></h5>
+    <p>
+ 現在ログインしているオペレーティングシステムユーザーに、すべてのBlue Prism構成オプションを適用できるようにします。デフォルトでは、構成はすべてのユーザーに適用されます。
+    </p>
+
+
+    <h5 class="bold">/setdbserver &lt;databaseservername&gt; /setdbname &lt;databasename&gt; /setdbusername &lt;username&gt; /setdbpassword &lt;password&gt;</h5>
+    <p>
+ これらのパラメーターを組み合わせて使用すると、指定されたデータベース名と同じ名前の新しいデータベース接続を作成したり（/dbconnameも参照してください）、その接続を更新したりできます（存在する場合）。推奨されるSQL Server認証では、4つのパラメーターすべてを指定する必要があります。Windows認証の場合は、ユーザー名とパスワードを省略する必要があります。接続も現在の接続に設定されます。この後、Blue Prismは終了します。
+    </p>
+
+    <h5 class="bold">/ag &lt;host&gt; &lt;port&gt;</h5>
+    <p>
+ /setdbserverと組み合わせて使用すると、直接データベース接続ではなく、可用性グループ接続を指定できます。この場合、「databaseservername」は可用性グループリスナーの名前になります。
+    </p>
+
+    <h5 class="bold">/agport &lt;host&gt; &lt;port&gt;</h5>
+    <p>
+ /agと組み合わせて使用すると、可用性グループリスナーのポートを指定できます。指定しない場合は、デフォルトの1433が使用されます。
+    </p>
+
+    <h5 class="bold">/multisubnetfailover &lt;host&gt; &lt;port&gt;</h5>
+    <p>
+ /agと組み合わせて使用すると、マルチサブネットフェイルオーバーを有効にするように指定できます。
+    </p>
+
+    <h5 class="bold">/setbpserver &lt;host&gt; &lt;port&gt;</h5>
+    <p>
+ 指定されたホストと同じ名前の新しいBlue Prismサーバー接続を作成します  （/dbconname、/connectionmode、/bpserversecureも参照してください）。接続も現在の接続に設定されます。
+ この後、Blue Prismは終了します。
+    </p>
+
+    <h5 class="bold">/dbconname &lt;name&gt;<a name="DBConName" id="DBConName"></a></h5>
+    <p>
+ /setdbserverまたは/setbpserverオプションと組み合わせて使用すると、デフォルトの接続名を使用する代わりに特定の接続名を指定できます。
+
+ これらのパラメーターのいずれも指定せずに使用された場合は、このセッションについてのみ、現在のデータベース接続ではなく、実際に使用するデータベース接続の名前を指定します （
+ つまり、現在の接続は変更されません）。
+    </p>
+
+    <h5 class="bold">/connectionmode &lt;connectionmode&gt;<a name="ConnectionMode" id="ConnectionMode"></a></h5>
+    <p>
+ /setbpserverオプションと組み合わせて使用すると、クライアントとBlue Prismサーバーの間の接続に使用される接続モードを選択できます。このオプションは、Blue Prismサーバー構成で構成した<a href="helpBPServer.htm#connection-mode">対応する値</a>と一致する必要があります。
+    </p>
+    <p>デフォルト値は0です。利用可能な接続モードは以下のとおりです。</p>
+    <ul>
+        <li><i>0</i> - WCF：メッセージの暗号化付きSOAP＆Windows認証</li>
+        <li><i>1</i> - WCF：転送の暗号化付きSOAP＆Windows認証</li>
+        <li><i>2</i> - WCF：転送の暗号化付きSOAP</li>
+        <li><i>3</i> - .NET Remoting：セキュア</li>
+        <li><i>4</i> - .NET Remoting：非セキュア</li>
+        <li><i>5</i> - WCF：セキュアでない</li>
+    </ul>
+
+    <h5 class="bold">/bpserversecure False</h5>
+    <p>
+ /setbpserverオプションと組み合わせて使用すると、Blue Prismサーバー接続のセキュリティを無効できます。接続を保護するための代替手段を用意していない限り、これは決して使用しないでください。注：/bpserversecureオプションは推奨されていないため、代わりに/connectionmodeオプションを使用してください。
+    </p>
+
+    <h5 class="bold">/alerts<a name="Alerts" id="Alerts"></a></h5>
+    <p>
+ バックグラウンドのプロセスアラートモニタリングを開始します。適切なユーザーの<a href="#User">プロセスアラート構成</a>が使用されるように、<a href="#SSO">/User</a>または<a href="frmAlertConfig.htm">/sso</a>のいずれかのスイッチと組み合わせて使用する必要があります。
+    </p>
+
+    <h5 class="bold">/p:&lt;mode&gt;</h5>
+    <p>
+ Blue Prismアプリケーションの優先度を指定されたモードに設定します。通常は、Blue PrismがリソースPCとして機能している場合に、Blue Prism Windowsプロセスの優先度をコントロールするために使用されます。これは、Blue PrismにPC上の他のプロセスよりも高い優先度を割り当てる必要がある（そうしないとそれらのプロセスによってCPUが占有され、Blue Prismが効率的に動作できなくなるおそれがある）場合に役立ちます。有効なモードは以下のとおりです。
+    </p>
+    <ul>
+        <li><i>below</i> - 通常の優先度より下</li>
+        <li><i>above</i> - 通常の優先度より上</li>
+        <li><i>high</i> - 高い優先度</li>
+        <li><i>realtime</i> - 可能な最も高い優先度</li>
+    </ul>
+
+
+
+    <h5 class="bold">/run &lt;processname&gt;<a name="Run" id="Run"></a></h5>
+    <p>
+ コマンドラインからプロセスを実行するために使用されます。processnameパラメーターにスペースが含まれる場合は、引用符で囲む必要があります。指定したプロセスが実行されるようにするには、そのプロセスをパブリッシュする必要があります（<a href="#Publish">/publish</a>を参照）。入力パラメーターは、<a href="#Startp">/startp</a>パラメーターを使用して指定できます。
+    </p>
+    <p>
+ プロセスを実行するにはユーザー認証情報が必要です。<a href="#User">/user</a>および<a href="#SSO">/sso</a>を参照してください。
+    </p>
+
+    <h5 class="bold">/startp &lt;paramsxml&gt;<a name="Startp" id="Startp"></a></h5>
+    <p>
+ セッションに開始パラメーターを指定するため、<a href="#Run">/run</a>パラメーターと組み合わせて使用されます。
+    </p>
+    <p>
+ paramsxmlパラメーターには、有効なBlue Prismパラメーターxmlを引用符（""）で囲んで含める必要があります。
+ 引用符は標準入力でパラメーターのXML文字列の開始/終了を区切るために使用されるため、xml属性は単一引用符（''）で区切ることをお勧めします。次に例を示します。
+    </p>
+    <pre><i>AutomateC /run "Excel Test" /resource YourPCHostName /user admin mypwd /startp "&lt;inputs&gt;
+        &lt;input name='Comment' type='text' value='Hello World' /&gt;&lt;/inputs&gt;"</i>
+    </pre>
+    <p>
+ また、パラメーターxml内の引用符ごとに2つの引用符を入力することで、存在する引用符を<span class="emphasis">エスケープ</span>することもできます。次に例を示します。
+    </p>
+    <pre><i>AutomateC /run "Excel Test" /resource YourPCHostName /user admin mypwd /startp "&lt;inputs&gt;
+        &lt;input name=""Comment"" type=""text"" value=""Hello World"" /&gt;&lt;/inputs&gt;"</i>
+    </pre>
+    <p><a href="helpSingleSignon.htm">シングルサインオン</a>ユーザーは、上の例の<a href="#SSO">/user</a>スイッチの代わりに<a href="#User">/sso</a>スイッチを使用する必要があります。次に例を示します。</p>
+    <pre><i>AutomateC /run "Excel Test" /resource YourPCHostName /sso /startp "&lt;inputs&gt;
+        &lt;input name=""Comment"" type=""text"" value=""Hello World"" /&gt;&lt;/inputs&gt;"</i>
+    </pre>
+
+
+    <h5 class="bold">/showdbconfig<a name="ShowDBConfig" id="ShowDBConfig"></a></h5>
+    <p>
+ データベース構成フォームを表示します。ユーザーがこのフォームを終了（［OK］または［キャンセル］ボタンを使用）すると、アプリケーションは終了します。
+    </p>
+
+
+    <h3>AutomateC.exe - 使用可能なスイッチ</h3>
+
+
+    <h5 class="bold">/help<a name="Help" id="Help"></a></h5>
+    <p>
+ クイックヘルプのヒントをコマンドラインの標準出力に出力します。
+    </p>
+
+
+    <h5 class="bold">/createdb &lt;dbpassword&gt;<a name="Createdb" id="Createdb"></a></h5>
+    <p>
+ 構成済みのデータベース接続を使用してデータベースを作成します（Automate.exeの<a href="#Setdbserver">/setdbserver</a>を参照）。必要なパスワードは、構成済みデータベース接続の一部として提供されているものです。
+    </p>
+    <p>
+ これは、<a href="#Replacedb">/replacedb</a>スイッチとは異なり、同じ名前の既存のデータベースをすべてドロップします。一方、/replacementbスイッチは、データベース自体をドロップせずに、データベース内の既存のテーブルをドロップします。
+    </p>
+
+    <h5 class="bold">/replacedb &lt;dbpassword&gt;<a name="Replacedb" id="Replacedb"></a></h5>
+    <p>
+ 構成済みのデータベース接続を使用してデータベースを作成します（Automate.exeの<a href="#Setdbserver">/setdbserver</a>を参照）。必要なパスワードは、構成済みデータベース接続の一部として提供されているものです。
+    </p>
+    <p>
+ これは、<a href="#Createdb">/createdb</a>スイッチとは異なり、同じ名前のデータベースがすでに存在する場合は、そのデータベース内の既存のテーブルのみをドロップします。一方、/createdbコマンドは、データベース全体をドロップして再作成します。
+    </p>
+
+    <h5 class="bold">/setadadmingroup &lt;groupname&gt;<a name="setadadmingroup" id="setadadmingroup"></a></h5>
+    <p>
+ データベース作成時のBlue Prism管理者のActive Directoryグループを決定します。<a href="helpSingleSignon.htm">シングルサインオン</a>を使用する場合にのみ関連します。<a href="#setaddomain">/setaddomain</a>および<a href="#Createdb">/createdb</a>または<a href="#Replacedb">/replacementb</a>のいずれかと組み合わせて使用する必要があります。
+    </p>
+
+    <h5 class="bold">/setaddomain &lt;name&gt;<a name="setaddomain" id="setaddomain"></a></h5>
+    <p>
+ データベース作成時のBlue Prism管理者のドメイン名を決定します。<a href="helpSingleSignon.htm">シングルサインオン</a>を使用する場合にのみ関連します。<a href="#setadadmingroup">/setadadmingroup</a>および<a href="#Createdb">/createdb</a>または<a href="#Replacedb">/replacementb</a>のいずれかと組み合わせて使用する必要があります。
+    </p>
+
+
+    <h5 class="bold">/upgradedb &lt;dbpassword&gt;<a name="Upgradedb" id="Upgradedb"></a></h5>
+    <p>
+ 必要に応じて既存のデータベースをアップグレードします。必要なパスワードは、構成済みデータベース接続の一部として提供されているものです。
+    </p>
+    
+    <h5 class="bold">/getdbscript &gt; [filename].sql</h5>
+    <p>
+ 新しいデータベースを作成するためにDBAに渡すことができるSQLスクリプトを作成します。例：
+    </p>
+    <pre><i>AutomateC.exe /getdbscript &gt; createdb.sql</i></pre>
+    <p>
+ これはcreatedb.sqlスクリプトを出力します。
+    </p>
+
+    <h5 class="bold">/serverconfig &lt;name&gt; &lt;connection&gt; &lt;port&gt;<a name="ServerConfig" id="ServerConfig"></a></h5>
+    <p>指定された名前で識別されるBPサーバー構成を作成または更新し、データベース接続名とリスニングポートを指定された値に構成します。</p>
+    <p>オプションの<a href="#ConnectionMode">/connectionmode</a>スイッチを使用して接続モードを設定できます。</p>
+    <p>BPサーバー構成に暗号化方式が構成されていない場合は、新しい暗号化方式レコードが作成されます。デフォルトでは、この方式は「<code>デフォルトの暗号化方式</code>」という名前になり、AES 256（AESCryptoService）とランダムに生成されたキーを使用するように構成されます。または、<a href="#EncryptionScheme">/encryptionscheme</a>スイッチを使用して、使用する設定を定義します。</p>
+    
+    <h5 class="bold">/encryptionscheme &lt;name&gt; &lt;encryptionmethod&gt;<a name="EncryptionScheme" id="EncryptionScheme"></a></h5>
+    <p><a href="#ServerConfig">/serverconfig</a>スイッチと組み合わせて使用され、暗号化スキームの作成時に使用される構成を定義するために使用できるオプションのスイッチです。</p>
+    <p>&lt;name&gt;には、暗号化方式の名前を指定します。</p>
+    <p>&lt;encryptionmethod&gt;（オプション）には、使用する暗号化アルゴリズムを指定します。</p>
+        <ul>
+        <li><i>1</i> = Triple DE（192ビット）</li>
+        <li><i>2</i> = AES-256 RijndaelManaged（256ビット）</li>
+        <li><i>3</i> = AES-256 AesCryptoService（256ビット） - デフォルト</li>
+        </ul>
+    </p>
+    <p>トリプルDES（192ビット）は後方互換性を確保するために用意されています。新しい暗号化方式は、この方法を使用しないように構成することを強くお勧めします。</p>
+  <h5 class="bold">/refreshdependencies {force}<a name="RefreshDependencies" id="RefreshDependencies"></a></h5>
+    <p>
+ オブジェクト/プロセス依存関係リポジトリがBlue Prismのアップグレードによって期限切れとマークされた場合に、そのオブジェクト/プロセス依存関係リポジトリを更新するよう要求します。「force」キーワードが指定されている場合、リポジトリはその現在の状態に関係なく更新されます。
+    </p>
+	
+	  <h5 class="bold">/license &lt;licensefile&gt;<a name="license" id="license"></a></h5>
+    <p>指定されたファイルのライセンスキーをBlue Prismデータベースに追加します。<a href="#User">/user</a>または<a href="#SSO">/sso</a>スイッチのいずれかを使用してユーザー認証情報を提供する必要があります。</p>
+    <p>ライセンスは、クライアントアプリケーションの<a href="frmSystemManager.htm">システムマネージャー</a>を使用して管理することもできます。</p>
+
+    <h5 class="bold">/removelicense &lt;licensefile&gt;<a name="removelicense" id="removelicense"></a></h5>
+    <p>指定されたファイルのライセンスキーをBlue Prismデータベースから削除します。<a href="#User">/user</a>または<a href="#SSO">/sso</a>スイッチのいずれかを使用してユーザー認証情報を提供する必要があります。</p>
+    <p>ライセンスは、クライアントアプリケーションの<a href="frmSystemManager.htm">システムマネージャー</a>を使用して管理することもできます。</p>
+    
+    <h5 class="bold">/regobject &lt;clsid&gt;<a name="Regobject" id="Regobject"></a></h5>
+    <p>
+ <a href="helpBusinessObjects.htm#COM">COMビジネスオブジェクト</a>をローカルマシンで使用できるように登録します。これは、<a href="frmSystemManager.htm">System Manager</a>の「外部ビジネスオブジェクト」領域にアクセスするのと同じです。
+    </p>
+    <p>
+ clsidパラメーターはCOMクラスIDを参照します。
+    </p>
+
+    <h5 class="bold">/regwebservice &lt;servicename&gt; &lt;WSDLURL&gt;<a name="Regwebservice" id="Regwebservice"></a></h5>
+    <p>
+ <a href="helpBusinessObjects.htm#Web">Webサービス</a>をBlue Prismプロセスで使用できるように登録します。これは、<a href="frmSystemManager.htm">システムマネージャー</a>の「Webサービス領域」にあるウィザードを使用してWebサービスを登録するのと同じです。
+    </p>
+    <ul>
+        <li><a href="#User">/user</a>または<a href="#SSO">/sso</a>スイッチのいずれかを使用してユーザー認証情報を提供する必要があります。
+        </li>
+        <li>オプションで<a href="#Objectname">/objectname</a>スイッチと組み合わせて使用することもできます。</li>
+        <li>オプションで<a href="#Timeout">/timeout</a>スイッチを指定できます。</li>
+        <li>WSDLドキュメントを取得するために認証情報が必要な場合は、<a href="#Wsauth">/wsauth</a>スイッチを使用できます。</li>
+    </ul>
+    <p>
+ &lt;servicename&gt;識別子は、WebサービスのWSDLドキュメントに表示されるサービスの名前と一致する必要があります（WSDLドキュメントの詳細については、<a href="helpWebservices.htm">Webサービス用語集</a>を参照してください）。1つのWSDLドキュメントで複数の異なるWebサービスを記述できるため、これは必須です。指定する名前は、<a href="#Objectname">/objectname</a>スイッチで指定する名前とは異なります。このスイッチでは、WebサービスがBlue Prismプロセス内で内部的に認識される名前を指定します。
+    </p>
+    <p>&lt;WSDLURL&gt;パラメーターには、対象となるWebサービスのWSDLドキュメントの場所（URL）を指定する必要があります。これはhttpまたはhttpsのいずれか適切なほうを使用して取得されます。
+    </p>
+
+    <h5 class="bold">/unregwebservice &lt;servicename&gt; <a name="Unregwebservice" id="Unregwebservice"></a></h5>
+    <p>
+ <a href="helpBusinessObjects.htm#Web">Webサービス</a>を登録解除します。これは、<a href="frmSystemManager.htm">システムマネージャー</a>の「Webサービス」領域にあるウィザードを使用してWebサービスを削除するのと同じです。
+    </p>
+    <ul>
+        <li><a href="#User">/user</a>または<a href="#SSO">/sso</a>スイッチのいずれかを使用してユーザー認証情報を提供する必要があります。
+        </li>
+    </ul>
+    <p>
+ &lt;servicename&gt;識別子は、WebサービスがBlue Prismプロセス内で内部的に認識されている名前と一致する必要があります。
+    </p>
+
+    <h5 class="bold">/objectname &lt;objectname&gt;<a name="Objectname" id="Objectname"></a></h5>
+    <p>
+ <a href="#Regwebservice">/regwebservice</a>スイッチと組み合わせて使用され、登録後にWebサービスに付与されるビジネスオブジェクト名を指定します。
+    </p>
+
+    <h5 class="bold">/wsauth &lt;username&gt; &lt;password&gt;<a name="Wsauth" id="Wsauth"></a></h5>
+    <p>
+ <a href="#Regwebservice">/regwebservice</a>スイッチと組み合わせて使用され、WSDLドキュメントをダウンロードするときにhttpリクエストで使用されるユーザー認証情報を指定します。このスイッチは、WSDLがホスティングサーバーによってパスワードで保護されている場合にのみ使用する必要があります。
+    </p>
+
+    <h5 class="bold">/timeout &lt;milliseconds&gt;<a name="Timeout" id="Timeout"></a></h5>
+    <p>
+ <a href="#Regwebservice">/regwebservice</a>スイッチと組み合わせて使用され、Webサービスに関連付けられるタイムアウト値をミリ秒単位で指定します。
+ これは、Webサービスからのレスポンスを待っているときに実行時に適用されるタイムアウトになります。この値は、後で<a href="frmSystemManager.htm">システムマネージャー</a>にアクセスしてWebサービスを編集することで変更できます。
+    </p>
+    <p>
+ このスイッチは、オプションで<a href="#Regwebservice">/regwebservice</a>コマンドと組み合わせて使用できます。使用しない場合は、デフォルト値の10,000ミリ秒が適用されます。
+    </p>
+
+    <h5 class="bold">/report &lt;filespec&gt;<a name="Report" id="Report"></a></h5>
+    <p>
+ 指定されたファイルにシステムレポートを書き出します。
+ システムレポートは、システムの現在の状態（セッションとログエントリの数、キューアイテムの数、プロセスの検証状態など）に関する広範な概要です。
+    </p>
+
+    <h5 class="bold">/elementusage &lt;filespec&gt;<a name="elementusage" id="elementusage"></a></h5>
+    <p>
+ 指定されたファイルに要素の使用状況レポートをCSV形式で書き出します。レポートするビジネスオブジェクトを指定するには、<a href="#Process">/process</a>オプションを使用します。レポートには、アプリケーションモデルの各要素が使用されているページとステージの詳細が含まれます。
+    </p>
+
+    <h5 class="bold" id="import">/import &lt;filespec&gt;</h5>
+    <p>
+ デフォルトでファイル内のID（IDが存在する場合。存在しない場合は、新しいIDが生成されます）を使用してBlue Prismプロセス（または<a href="helpBusinessObjects.htm#VBO">ビジュアルビジネスオブジェクト</a>）をデータベースにインポートします。この動作をオーバーライドするには、<a href="#forceid">/forceid</a>を参照してください。
+        <br/>
+ filespecパラメーターは、インポートされるxmlファイルの場所を参照します。
+    </p>
+    <p>
+ デフォルトでは、インポートされるプロセス/オブジェクトが選択した環境にすでに存在する場合、この操作は失敗します。これを回避するには、<a href="#overwrite">/overwrite</a>を参照してください。
+    </p>
+
+    <h5 id="forceid" class="bold">/forceid {new|&lt;guid&gt;}</h5>
+    <p>
+ インポート対象のファイルで定義されているIDを使用する代わりに、指定したIDをプロセスに使用するように強制するには、<a href="#import">/import</a>と組み合わせて使用します。
+    </p>
+    <p>
+ 「new」キーワードを使用すると、インポートされるオブジェクト用の新しいIDが生成されます、このキーワードを使用しない場合は、有効なGUIDを指定する必要があります。
+    </p>
+
+    <h5 id="overwrite" class="bold">/overwrite</h5>
+    <p>
+ デフォルトでは、インポートされるプロセス/オブジェクトがすでにデータベースに存在する場合、<a href="#import">/import</a>は失敗します。
+        <br/>
+ <a href="#overwrite">/overwrite</a>オプションを使用すると、新しいバージョンのプロセス/オブジェクトがインポートされ、既存のプロセス/オブジェクトがオーバーライドされます。
+    </p>
+    <p>
+        <strong>注意：</strong>インポートされるプロセス/オブジェクトと名前が同じで、IDが異なる別のプロセス/オブジェクトが存在する場合、インポート操作は失敗します。/overwriteは、同じIDを持つプロセス/オブジェクトが見つかった場合にのみ機能します。
+        <br/>
+ このケースに対処するには、製品に含まれている<a href="relman-import-release.html">インポートウィザード</a>を使用できます。
+    </p>
+
+    <h5 class="bold" id="importrelease">/importrelease &lt;filespec&gt;</h5>
+    <p>
+ Blue Prismリリースファイル（.bprelease）またはBlue Prism Skillファイル（.bpskill）をデータベースにインポートします。このアクションは、非対話的で、可能な場合には競合が自動的に処理されることを除き、Blue Prismクライアント（<a href="relman-import-release.html">［リリース］タブ</a>を参照）を使用して対話的にインポートを実行するのと機能的に同じです。通常、デフォルトでは、インポートされるアイテムがすでに存在するデータベース内の場所が<b>上書き</b>されます。ただし、競合が発生すると、リリースの非対話的インポートが妨げられます。次の表は、競合の処理をまとめたものです。
+    </p>
+    <table cellspacing="0" cellpadding="0" border="1">
+      <tr>
+        <th align="left">競合</th>
+        <th align="left">結果</th>
+      </tr>
+      <tr>
+        <td>データベースに同じID/名前とタイプのアイテムがすでに存在する</td>
+        <td>アイテムが上書きされる</td>
+      </tr>
+      <tr>
+        <td>インポート後にプロセスをパブリッシュまたは廃止する必要がある</td>
+        <td>プロセスがパブリッシュ/廃止される</td>
+      </tr>
+      <tr>
+        <td>次に、インポートの失敗につながる競合の例を示します。
+          <ul>
+            <li>ユーザーがタイルデータソースをインポートするための適切なデータベース権限を持っていない</li>
+            <li>デフォルトの暗号化スキームが構成されていないため、認証情報をインポートできない</li>
+            <li>リリース内のオブジェクトがデータベース内の既存のプロセスと同じ名前（またはID）を持つ</li>
+            <li>リリース内のプロセスがデータベース内の既存のオブジェクトと同じ名前（またはID）を持つ</li>
+          </ul>
+        </td>
+        <td>リリースはインポートされない</td>
+      </tr>
+    </table>
+    <p><i>注意：新しい認証情報を対話的にインポートする場合、ユーザーはユーザー名とパスワードの入力を求められます（この情報はエクスポートファイルに書き込まれないため）。非対話的にインポートする場合、認証情報は空白のユーザー名/パスワードでインポートされるため、Blue Prismクライアントを使用し手動で更新する必要があります。</i></p>
+    <p>
+ filespecパラメーターは、インポートされる<code>.bprelease</code>ファイルの場所を参照します。
+    </p>
+
+    <h5 class="bold">/export &lt;processname&gt;<a name="Export" id="Export"></a></h5>
+    <p>
+ Blue Prismプロセス（または<a href="helpBusinessObjects.htm#VBO">ビジュアルビジネスオブジェクト</a>）をデータベースからローカルファイルシステムにエクスポートします。
+    </p>
+
+    <h5 class="bold">/archive<a name="Archive" id="Archive"></a></h5>
+    <p>
+ セッションログをファイルにアーカイブします。詳細については、「<a href="helpArchiving.htm">アーカイブ</a>」を参照してください。オプションを指定しない場合、すべてのセッションログがアーカイブされます。アーカイブされるログの範囲を制限するには、<a href="#Age">/age</a>オプションか、<a href="#From">/from</a>オプションと<a href="#To">/to</a>オプションの組み合わせを使用します。<a href="#Process">/process</a>を使用して、アーカイブを特定のプロセスのログに制限することもできます。
+    </p>
+    <p>
+ セッションログをエクスポートせずに削除するには、<a href="#Delete">/delete</a>オプションを追加します。
+    </p>
+
+
+    <h5 class="bold">/restorearchive<a name="RestoreArchive" id="RestoreArchive"></a></h5>
+    <p>
+ セッションログをファイルからデータベースに復元します。詳細については、「<a href="helpArchiving.htm">アーカイブ</a>」を参照してください。オプションを指定しない場合、すべてのセッションログが復元されます。アーカイブされるログの範囲を制限するには、<a href="#Age">/age</a>オプションか、<a href="#From">/from</a>オプションと<a href="#To">/to</a>オプションの組み合わせを使用します。
+    </p>
+
+    <h5 class="bold">/setarchivepath &lt;path&gt;<a name="SetArchivePath" id="SetArchivePath"></a></h5>
+    <p>
+ アーカイブパスを設定します。これは、<a href="#Archive">/archive</a>および<a href="#RestoreArchive">/restorearchive</a>コマンドとシステムマネージャーインターフェイスで使用されるパスです。
+    </p>
+
+    <h5 class="bold">/from &lt;yyyyMMdd&gt;<a name="From" id="From"></a></h5>
+    <p>
+ <a href="#Archive">/archive</a>および<a href="#RestoreArchive">/restorearchive</a>と組み合わせて使用され、日付範囲の開始日（基準となる日付を含む）を設定します。
+    </p>
+
+    <h5 class="bold">/to &lt;yyyyMMdd&gt;<a name="To" id="To"></a></h5>
+    <p>
+ <a href="#Archive">/archive</a>および<a href="#RestoreArchive">/restorearchive</a>と組み合わせて使用され、日付範囲の終了日（基準となる日付を含まない）を設定します。
+    </p>
+
+    <h5 class="bold">/age &lt;value&gt;<a name="Age" id="Age"></a></h5>
+    <p>
+ <a href="#queueclearworked">/queueclearworked</a>と組み合わせて使用され、指定された期間より古い作業済みアイテムをすべて削除します（これには、これ以前に例外としてマークされたアイテムを含みます）。
+        <br/>
+ <a href="#Archive">/archive</a>および<a href="#RestoreArchive">/restorearchive</a>と組み合わせて使用され、日付範囲に基づく選択を省略し、特定の期間よりも古いセッションを選択します。値は、数値の後に「y」（年）、「m」（月）、「w」（週）、または「d」（日）のいずれかを指定したものです。たとえば、「6m」は、6か月より古いログをアーカイブするように指定します。
+    </p>
+
+    <h5 class="bold">/process &lt;name&gt;<a name="Process" id="Process"></a></h5>
+    <p>
+ <a href="#Archive">/archive</a>と組み合わせて使用され、アーカイブの対象を、指定されたプロセスを実行したセッションに制限します。<a href="#elementusage">/elementusage</a>と組み合わせて使用され、レポートを生成するプロセスを選択します。
+    </p>
+
+    <h5 class="bold">/delete<a name="Delete" id="Delete"></a></h5>
+    <p>
+ <a href="#Archive">/archive</a>と組み合わせて使用され、最初にログをエクスポートせずにログを削除します。
+    </p>
+
+    <h5 class="bold">/publish &lt;processname&gt;<a name="Publish" id="Publish"></a></h5>
+    <p>
+ 指定されたBlue Prismプロセスをパブリッシュします。プロセスの名前にスペースが含まれる場合は、名前を引用符で囲む必要があります。
+    </p>
+
+    <h5 class="bold">/unpublish &lt;processname&gt;<a name="Unpublish" id="Unpublish"></a></h5>
+    <p>
+ 指定されたBlue Prismプロセスのパブリッシュを解除します。プロセスの名前にスペースが含まれる場合は、名前を引用符で囲む必要があります。
+    </p>
+
+    <h5 class="bold">/publishws &lt;name&gt; [/forcedoclitencoding] [/useGlobalNamespace]<a name="Publishws" id="Publishws"></a></h5>
+    <p>
+ 指定されたBlue PrismオブジェクトまたはプロセスをWebサービスとして公開し、外部アプリケーションで使用できるようにします。オブジェクト名またはプロセス名にスペースが含まれる場合は、名前を引用符で囲む必要があります。
+    </p>
+    <p>
+ オプションの<code>/forcedoclitencoding</code>が存在する場合、WebサービスはWS-Iに準拠するため、常にDocument/Literal形式のSOAPメッセージを返します。
+    </p>
+    <p>
+ <code>/forcedoclitencoding</code>パラメーターが存在しない場合は、グローバル名前空間を使用するよう強制できます。
+    </p>
+
+    <h5 class="bold">/unpublishws &lt;name&gt;<a name="Unpublishws" id="Unpublishws"></a></h5>
+    <p>
+ 以前にWebサービスとして公開されていたBlue Prismオブジェクトまたはプロセスを隠します。
+ オブジェクト名またはプロセス名にスペースが含まれる場合は、名前を引用符で囲む必要があります。
+    </p>
+
+    <h5 class="bold">/status &lt;sessionid&gt;<a name="Status" id="Status"></a></h5>
+    <p>
+ 実行中のセッションのステータスを取得します。SessionIDは、xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxの形式の固有IDです。<a href="#User">/user</a>または<a href="#SSO">/sso</a>スイッチのいずれかを使用してユーザー認証情報を提供する必要があります。
+    </p>
+
+    <h5 class="bold">/getlog &lt;sessionid&gt;<a name="Getlog" id="Getlog"></a></h5>
+    <p>
+ 指定されたセッションのログを取得します。SessionIDは、xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxの形式の固有IDです。<a href="#User">/user</a>または<a href="#SSO">/sso</a>スイッチのいずれかを使用してユーザー認証情報を提供する必要があります。
+    </p>
+    <p>
+ ログは1行ずつ標準出力に書き込まれます。2<sup>32</sup> -1行のデータ制限がありますが、これは数百ギガバイトのデータに相当するため、実用上は影響ありません。
+    </p>
+
+    <h5 class="bold">/dbconname、/user、/sso、/resource、/port、/startp</h5>
+    <p>
+ AutomateC.exeでのこれらのコマンドの使用法は、Automate.exeでの使用法に正確に対応しています。それぞれ（<a href="#DBConName">/dbconname</a>、<a href="#User">/user</a>、<a href="#SSO">/sso</a>、<a href="#Resource">/resource</a>、<a href="#Port">/port</a>、<a href="#Startp">/startp</a>）の詳細については、上を参照してください。
+    </p>
+
+    <h5 id="resourcestatus">/リソースステータス &lt;リソース名&gt; &lt;制限数&gt; &lt;制限タイプ&gt;</h5>
+    <p>与えられたリソース名のセッションを報告してください。結果は指定期間に制限することができます。
+ 全リソースを一覧表示するにはリソース名に<code>［全て］</code>を指定してください。</p>
+    <p>また、制限数やタイプ（m=分、h=時間、d=日、mm=月）を記載して返却結果を制限することもできます。たとえば<code>/resourcestatus ABC:8181 1 d</code>と記載すると、前日以降の指定した名称のリソースの全セッションが返却されます。</p>
+	<p><a href="#User">/user</a>スイッチで取得したユーザー資格情報が必要です。</p>
+	   
+	<h5 id="requeststop">/requeststop &lt;sessionid|sessionnumber&gt;</h5>
+    <p>指定されたセッションに「停止リクエスト」を送信し、実行中のプロセスが決定ステージで<code>IsStopRequested()</code>関数を使用して確認できるフラグを設定します。</p>
+    <p>セッションID（GUID）またはセッション番号（番号）のいずれかを入力して、停止リクエストのフラグを付けるセッションを指定する必要があります。</p>
+	<p>これは、<a href="#User">セッション管理へのフルアクセス</a>許可を持つ認証済みユーザー（<a href="#SSO">/user</a>または<code>/sso</code>スイッチで指定されたユーザー）のみが実行できます。</p>
+
+    <h5 class="bold" id="createqueue">
+ /createqueue &lt;keyfield&gt; &gt;running&lt; &lt;maxattempts&gt;
+    </h5>
+    <p> システムマネージャーで手動によりキューを作成するときに必要になる<a href="helpQueues.htm">ワークキュー</a>を、<a href="sysman-queues.html">keyfield、running、maxattempts</a>の各値を使用して作成します。</p>
+    <p><a href="#queuename">/queuename</a>と組み合わせて使用する必要があります。<a href="#User">/user</a>または<a href="#SSO">/sso</a>スイッチのいずれかを使用してユーザー認証情報を提供する必要があります。</p>
+
+    <h5 class="bold" id="setencrypt">
+ /setencrypt &lt;encryption-scheme-name&gt;
+    </h5>
+    <p>指定されたキューで使用される暗号化方式を設定します。暗号化を正しく機能させるには、指定された方式をこの環境内に構成する必要があります。<a href="helpBPServer.htm">Blue Prismサーバー</a>の構成で設定されるデフォルトの方式名は、<code>デフォルトの暗号化方式</code>と呼ばれます。</p>
+    <p>キューの暗号化キーを無効にするには、/<a href="#resetencrypt">/resetencrypt</a>スイッチを参照してください。</p>
+    <p><a href="#queuename">/queuename</a>と組み合わせて使用する必要があります。<a href="#User">/user</a>または<a href="#SSO">/sso</a>スイッチのいずれかを使用してユーザー認証情報を提供する必要があります。</p>
+
+    <h5 class="bold" id="resetencrypt">/resetencrypt</h5>
+    <p>指定されたキューの暗号化方式をリセットして、そのキューが暗号化されないようにします。</p>
+    <p><a href="#queuename">/queuename</a>と組み合わせて使用する必要があります。<a href="#User">/user</a>または<a href="#SSO">/sso</a>スイッチのいずれかを使用してユーザー認証情報を提供する必要があります。</p>
+
+  <h5 class="bold" id="reencryptdata">/reencryptdata [/batchsize &lt;size&gt;] [/maxbatches &lt;max&gt;]</h5>
+  <p>このオプションは、現在選択されている方式に従って暗号化されていない認証情報、リソース画面キャプチャ、またはキュー項目データを再暗号化します。<a href="helpencryption.htm">暗号化方式</a>を削除する前に古いキーを無効にする場合などに使用できます。パラメーター/batchsizeは更新されたレコードをデータベースにコミットする頻度（デフォルトは1000）をコントロールし、/maxbatchesは処理するバッチの数（デフォルトは1）をコントロールします。</p>
+    <p><a href="#User">/user</a>または<a href="#SSO">/sso</a>スイッチのいずれかを使用してユーザー認証情報を提供する必要があります。また、「<code>セキュリティ - 暗号化方式を管理</code>」許可へのアクセスが必要です。</p>
+
+	<h5 class="bold" id="exportqueue">/exportqueue &lt;filespec&gt;</h5>
+    <p>
+ <a href="helpQueues.htm">ワークキュー</a>からデータをエクスポートし、そのデータを&lt;filespec&gt;で指定された場所に保存します。
+ <a href="#User">/user</a>または<a href="#SSO">/sso</a>スイッチのいずれかを使用してユーザー認証情報を提供する必要があります。
+ <a href="#queuename">/queuename</a>と組み合わせて使用する必要があります。<a href="#QueueFilter">/queuefilter</a>と<a href="#clearexported">/clearexported</a>の一方または両方を組み合わせて使用できます。
+								
+		<br/>/exportqueueでは、/userまたは/ssoスイッチのいずれかを使用してユーザーの認証情報を提供する必要があります。また、次のいずれかの許可へのアクセスが必要です。<code>キュー管理へのフルアクセス</code>、<code>キュー管理への読み取り専用アクセス </code></p>
+    <h5 class="bold" id="queueclearworked">/queueclearworked /queuename &lt;name&gt; [/age &lt;age&gt;]</h5>
+    <p>
+ <a href="helpQueues.htm">ワークキュー</a>から作業済みケース（完了済みまたは例外としてマークされたケース）をクリアします。
+ <a href="#User">/user</a>または<a href="#SSO">/sso</a>スイッチのいずれかを使用してユーザー認証情報を提供する必要があります。
+ <a href="#queuename">/queuename</a>と組み合わせて使用する必要があります。<br/>
+ <a href="#Age">/age</a>スイッチを使用すると、指定された期間よりも古い作業済みアイテムのみがキューから削除されます。このスイッチを使用しない場合は、すべての作業済みアイテムが指定されたキューから削除されます。
+    </p>
+    <p>代わりに、<a href="#exportqueue">/exportqueue</a>コマンドと<a href="#ClearExported">/clearexported</a>を組み合わせて使用することもできます。この組み合わせを使用すると、プロセスで削除されたアイテムのレコードを生成できます（このコマンドでは、このようなレコードは作成されません）。</p>
+
+    <h5 class="bold" id="queuename">/queuename &lt;queuename&gt;</h5>
+    <p>
+ <a href="#exportqueue">/exportqueue</a>や<a href="#createqueue">/createqueue</a>などのキュー関連のコマンドと組み合わせて使用する場合にキューの名前を指定します。
+    </p>
+
+    <h5 class="bold" id="filtername">/queuefilter</h5>
+    <p>
+ <a href="#exportqueue">/exportqueue</a>を使用してキューをエクスポートするときに使用するフィルターの名前を指定します。これは、コントロールルームの「キュー管理」領域で作成されたフィルターの名前です。
+    </p>
+
+    <h5 class="bold" id="clearexported">/clearexported</h5>
+    <p>
+ <a href="#exportqueue">/exportqueue</a>と組み合わせて使用した場合、エクスポートされた作業済みアイテムおよび参照済みアイテムをキューから削除します。<br/>
+ /userまたは/ssoスイッチのいずれかを使用してユーザー認証情報を提供する必要があります。また、「<code>キュー管理へのフルアクセス</code>」許可へのアクセスが必要です。
+    </p>
+     <h5 class="bold" id="createcredential">/createcredential &lt;name&gt; &lt;username&gt; &lt;password&gt; [/description &lt;string&gt;] [/expirydate &lt;date&gt;] [/invalid &lt;flag&gt;] [/credentialtype &lt;string&gt;]</h5>
+    <p>
+ 指定された名前、パスワード、ユーザー名を使用して新しい認証情報を作成します。<br />
+ ユーザー名とパスワードが不要な場合は、どちらも""で表すことができます。<br />
+ 何も指定されていない場合、一般的な認証情報タイプが作成されます。<br/>
+ /userまたは/ssoスイッチのいずれかを使用してユーザー認証情報を提供する必要があります。また、「セキュリティ - 認証情報を管理」許可へのアクセスが必要です。<br />
+ 作成された認証情報は、デフォルトですべてのユーザーの役割、リソース、プロセスに広範に使用できます。
+    </p>
+
+    <h5 class="bold" id="updatecredential">/updatecredential &lt;name&gt; [/username &lt;username&gt;] [/password &lt;password&gt;] [/description &lt;string&gt;] [/expirydate &lt;date&gt;] [/invalid &lt;flag&gt;][/credentialtype &lt;string&gt;]</h5>
+    <p>
+ 指定された名前を使用して見つかった既存の認証情報を更新します。<br />
+ /userまたは/ssoスイッチのいずれかを使用してユーザー認証情報を提供する必要があります。また、「セキュリティ - 認証情報を管理」許可へのアクセスが必要です。
+    </p>
+
+    <h5 class="bold" id="password">/password &lt;password&gt;</h5>
+    <p>
+ /updatecredentialと一緒に使用して、認証情報のパスワードを更新します。
+    </p>
+
+    <h5 class="bold" id="username">/username &lt;username&gt;</h5>
+    <p>
+ /updatecredentialと一緒に使用して、認証情報に保持されているユーザー名を更新します。
+    </p>
+
+    <h5 class="bold" id="description">/description &lt;text&gt;</h5>
+    <p>
+ /updatecredentialまたは/createcredentialと一緒に使用して、認証情報に説明として保持されるテキストを設定します。
+    </p>
+
+    <h5 class="bold" id="expirydate">/expirydate &lt;date&gt;</h5>
+    <p>
+ /updatecredentialまたは/createcredentialと一緒に使用して、認証情報の有効期限が切れる日付を設定します。<br />
+ 日付はyyyyMMddの形式である必要があります。
+    </p>
+
+    <h5 class="bold" id="invalid">/invalid &lt;flag&gt;</h5>
+    <p>
+ /updatecredentialまたは/createcredentialと一緒に使用して、認証情報を無効とマークするかどうかを指定します。
+    </p>
+
+<h5 class="bold" id="invalid">/credentialtype &lt;string&gt;</h5>
+    <p>
+ /updatecredentialまたは/createcredentialと一緒に使用して、認証情報のタイプを指定します。サポートされている値である必要があります。
+    </p>
+
+    <h5 class="bold" id="setcredentialproperty">/setcredentialproperty &lt;credname&gt; &lt;propertyname&gt; &lt;propertyvalue&gt;</h5>
+    <p>
+ 新しい認証情報プロパティを作成するか、すでに存在する場合は更新します。<br />
+ /userまたは/ssoスイッチのいずれかを使用してユーザー認証情報を提供する必要があります。また、「セキュリティ - 認証情報を管理」許可へのアクセスが必要です。
+    </p>
+
+    <h4>スケジューラーオプション</h4>
+    <p>automatecコマンドラインプログラムを使用すると、スケジュールを開始および削除したり、レポートやタイムテーブルを表示したりできます。<br />
+ スケジュールアクションを実行するには、有効なログイン詳細を入力する必要があります。</p>
+
+    <h5 class="bold" id="schedule">/schedule &lt;name|...&gt;</h5>
+    <p><a href="#startschedule">/startschedule</a>、<a href="#deleteschedule">/deleteschedule</a>、<a href="#viewschedtimetable">/viewschedtimetable</a>、<a href="#viewschedreport">/viewschedreport</a>の各アクションと組み合わせて使用するスケジュールの名前を指定します。<br/>
+ /scheduleスイッチの後続のパラメーターは、別のスイッチ（「/」文字で始まるパラメーター）またはコマンドの最後に到達するまで、スケジュール名として扱われます。<br/>
+ スケジュールが指定されていない場合、このコマンドは、通常はすべてのスケジュールに対して実行されているものとして扱われます。
+    </p>
+
+    <h5 class="bold" id="startschedule">/startschedule [/schedule &lt;name|...&gt;]</h5>
+    <p>
+ 指定されたスケジュールを現在の時間に開始します。
+ スケジューラーが実行されている場合は、30秒以内にスケジュールを実行する必要があります。
+    </p>
+
+    <h5 class="bold" id="deleteschedule">/deleteschedule [/schedule &lt;name|...&gt;]</h5>
+    <p>
+ 指定されたスケジュールとそれに関連するスケジュールログを削除します。
+    </p>
+
+    <h5 class="bold" id="format">/format {txt|csv}</h5>
+    <p>スケジュールレポートまたはタイムテーブルの出力形式を、「txt」（判読可能）または「csv」（コンマ区切り変数）のいずれかで指定します。形式が明示的に指定されていない場合、デフォルトは「txt」です。
+    </p>
+
+    <h5 class="bold" id="viewschedtimetable">
+ /viewschedtimetable {&lt;name&gt; | &lt;no-of-days&gt; &lt;date&gt;} [/schedule &lt;name&gt;|...] [/format {txt|csv}]
+    </h5>
+    <p>指定されたタイムテーブルを出力します。<br/>
+ Blue Prismクライアントで<a href="helpTimetablesUI.htm">作成および構成</a>された名前付きのタイムテーブルを指定できます。<br/>
+ または、タイムテーブルの実行を開始する日付、表示する日数、含めるスケジュールを指定して、アドホックタイムテーブルを指定することもできます。
+    </p>
+
+    <h5 class="bold" id="viewschedreport">
+ /viewschedreport {&lt;name&gt; | &lt;no-of-days&gt; &lt;date&gt;} [/schedule &lt;name&gt;|...] [/format {txt|csv}]
+    </h5>
+    <p>指定されたレポートを出力します。<br/>
+ Blue Prismクライアントで<a href="helpReportsUI.htm">作成および構成</a>された名前付きレポートを指定できます。<br/>
+ または、レポートに含める最新の日付、表示する過去の日数、含めるスケジュールを指定して、アドホックレポートを指定することもできます。
+    </p>
+    
+    <h4>リソースプールオプション</h4>
+    <p>
+ automateCコマンドラインプログラムを使用すると、リソースプールを作成および削除したり、既存のプールにリソースを追加および削除したりできます。<br />
+ リソースプールアクションを実行するには、有効なログイン詳細を入力する必要があります。
+    </p>
+    <h5 class="bold" id="poolcreate">/poolcreate /pool &lt;name&gt;</h5>
+    <p>
+ 指定された名前でリソースプールを作成します。
+    </p>
+    <h5 class="bold" id="pooldelete">/pooldelete /pool &lt;name&gt;</h5>
+    <p>
+ 指定されたリソースプールを削除します。
+    </p>
+    <h5 class="bold" id="pooladd">/pooladd /pool &lt;name&gt; [/resource &lt;name&gt;]</h5>
+    <p>
+ 指定されたプールにリソースを追加します。<br/>
+ リソース名が指定されていない場合は、ローカルリソースがプールに追加されます。
+    </p>
+    <h5 class="bold" id="poolremove">/poolremove [/resource &lt;name&gt;]</h5>
+    <p>
+ リソースが存在するプールからそのリソースを削除します。<br />
+ リソース名が指定されていない場合は、ローカルリソースがそのプールから削除されます。
+    </p>
+</body>
+</html>

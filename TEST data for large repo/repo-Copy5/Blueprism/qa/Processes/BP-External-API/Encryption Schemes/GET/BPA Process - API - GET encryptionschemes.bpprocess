@@ -1,0 +1,1202 @@
+﻿<process name="API - GET encryptionschemes" version="1.0" bpversion="7.0.0.39397" narrative="" byrefcollection="true" preferredid="32f5bf6f-b412-429d-bd15-3179ff6be03a" published="true">
+  <view>
+    <camerax>57</camerax>
+    <cameray>285</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="3d3201bf-0cf2-4737-9959-f6f062d4f77a" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>465</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="efa9c119-74b3-4b82-b09e-f387e5fdb1d0" type="Normal" published="False">
+    <name>Check Encryption Scheme</name>
+    <view>
+      <camerax>283</camerax>
+      <cameray>240</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="366594e4-439d-4abf-a300-de19270a0ae9" type="Normal" published="False">
+    <name>Add to Cleanup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-3</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="2e9aaa13-db52-4060-8596-39c30274efbf" type="Normal" published="False">
+    <name>Cleanup</name>
+    <view>
+      <camerax>645</camerax>
+      <cameray>84</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="30565578-dc36-413c-a044-f8f1ff611836" name="Start" type="Start">
+    <display x="60" y="-345" />
+    <onsuccess>761da975-0485-4ab6-880a-32a5a5f85cd7</onsuccess>
+  </stage>
+  <stage stageid="4092daea-9958-43ad-8f16-409f7dd738d3" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-315" w="150" h="90" />
+  </stage>
+  <stage stageid="e62501cb-0cc9-4fb5-9ec1-954c6d964bbb" name="End1" type="End">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="570" />
+  </stage>
+  <stage stageid="ebf55df1-944b-4cd8-a1f6-03a899526a2e" name="Cleanup Block" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="-105" w="465" h="555" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="5a138af1-eec2-4ff2-96e0-024fd5719cfa" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-255" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d7d8fe93-db23-4dc8-b87c-cfd02504a7f5" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-225" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4c38b119-ac10-4318-a862-a5c58d6bc86b" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-195" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5f282bdb-0fc9-4bff-ae08-a6ba9630f383" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="300" y="375" w="90" h="30" />
+    <onsuccess>c895f115-6541-423a-afb8-f901f75edd15</onsuccess>
+  </stage>
+  <stage stageid="16b658ca-581e-44f5-b71f-99c2f0126c09" name="Get Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="300" y="330" w="90" h="30" />
+    <onsuccess>5f282bdb-0fc9-4bff-ae08-a6ba9630f383</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="44f212aa-8c53-4b18-a0e2-0ba20f6431bb" name="Failed?" type="Decision">
+    <display x="60" y="525" w="150" h="30" />
+    <decision expression="[Failed?]" />
+    <ontrue>c389f47b-829f-4bd1-8b5f-c7b4874fcf49</ontrue>
+    <onfalse>e62501cb-0cc9-4fb5-9ec1-954c6d964bbb</onfalse>
+  </stage>
+  <stage stageid="c389f47b-829f-4bd1-8b5f-c7b4874fcf49" name="RETHROW" type="Exception">
+    <display x="180" y="525" />
+    <exception localized="yes" type="Test Fail" detail="[Exception]" />
+  </stage>
+  <stage stageid="c895f115-6541-423a-afb8-f901f75edd15" name="Anchor31" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="300" y="480" w="10" h="10" />
+    <onsuccess>348765bb-0326-47b4-8a46-5476f4123d42</onsuccess>
+  </stage>
+  <stage stageid="10943683-d47a-45f2-916e-d2c36059dae3" name="Setup" type="SubSheetInfo">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="-135" y="-210" w="150" h="90" />
+  </stage>
+  <stage stageid="47610f03-7133-40e0-b8f9-b164a3dc2f6c" name="End" type="End">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="15" y="570" />
+  </stage>
+  <stage stageid="c9e9feaa-9d3d-4aa1-89ef-1a61d20b95a6" name="Add to Cleanup" type="SubSheetInfo">
+    <subsheetid>366594e4-439d-4abf-a300-de19270a0ae9</subsheetid>
+    <display x="-120" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="219c8e86-b3ac-42f0-a63c-9dd550b462e6" name="Start" type="Start">
+    <subsheetid>366594e4-439d-4abf-a300-de19270a0ae9</subsheetid>
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="Item Name" narrative="The name of the item you want to clean up." stage="Item Name" />
+    </inputs>
+    <onsuccess>ca477e31-23ca-49f2-9f59-df404d09d481</onsuccess>
+  </stage>
+  <stage stageid="2845e873-363d-44c6-b954-03fc07ad1fb1" name="End" type="End">
+    <subsheetid>366594e4-439d-4abf-a300-de19270a0ae9</subsheetid>
+    <display x="15" y="30" />
+  </stage>
+  <stage stageid="7e921a70-4c2d-446e-8647-5b8f31c38712" name="Item Name" type="Data">
+    <subsheetid>366594e4-439d-4abf-a300-de19270a0ae9</subsheetid>
+    <display x="-120" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="92e8072a-e696-4e00-87c2-70b47e0863b9" name="Input Variables" type="Block">
+    <subsheetid>366594e4-439d-4abf-a300-de19270a0ae9</subsheetid>
+    <display x="-195" y="-15" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ca477e31-23ca-49f2-9f59-df404d09d481" name="Add Row" type="Action">
+    <subsheetid>366594e4-439d-4abf-a300-de19270a0ae9</subsheetid>
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to act upon" expr="&quot;CleanUp Collection&quot;" />
+    </inputs>
+    <onsuccess>0fd7ce5d-c9af-4b46-b241-1844d4aab4a0</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="6625c977-a4c7-41ae-94fd-2f43a798568d" name="CleanUp Collection" type="Collection">
+    <subsheetid>366594e4-439d-4abf-a300-de19270a0ae9</subsheetid>
+    <display x="-120" y="90" w="120" h="30" />
+    <datatype>collection</datatype>
+    <collectioninfo>
+      <field name="Item Name" type="text" description="The name of the item that needs cleaning up." />
+    </collectioninfo>
+    <noalwaysinit />
+  </stage>
+  <stage stageid="766c2779-06c9-40d0-b1d4-f668dce8d785" name="Local Variables" type="Block">
+    <subsheetid>366594e4-439d-4abf-a300-de19270a0ae9</subsheetid>
+    <display x="-195" y="60" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0fd7ce5d-c9af-4b46-b241-1844d4aab4a0" name="Add To Row" type="Calculation">
+    <subsheetid>366594e4-439d-4abf-a300-de19270a0ae9</subsheetid>
+    <display x="15" y="-15" w="90" h="30" />
+    <onsuccess>2845e873-363d-44c6-b954-03fc07ad1fb1</onsuccess>
+    <calculation expression="[Item Name]" stage="CleanUp Collection.Item Name" />
+  </stage>
+  <stage stageid="48c28f92-8f70-4b4b-8b9d-ce66afcdc2aa" name="Cleanup" type="SubSheetInfo">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="150" y="-120" w="150" h="90" />
+  </stage>
+  <stage stageid="5bcc91ca-c6f1-4eab-8e37-8bdd9940a659" name="Start" type="Start">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="285" y="-150" />
+    <onsuccess>168d30de-aeea-45f7-a1f6-ff0a301349bf</onsuccess>
+  </stage>
+  <stage stageid="d29b2dea-9ba9-433b-8e69-52a398f50a76" name="To Clean" type="LoopStart">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="285" y="-60" w="90" h="30" />
+    <onsuccess>5c4558d0-11a2-4d68-86a5-39d98f264a04</onsuccess>
+    <groupid>daadc4c8-563a-4ca1-a884-bd8418a4662a</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Reversed CleanUp</loopdata>
+  </stage>
+  <stage stageid="072ae298-7b00-4c61-a77d-355a8b450f84" name="To Clean" type="LoopEnd">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="285" y="210" w="90" h="30" />
+    <onsuccess>650fc1ca-c9f5-415b-ad82-5b4f88e7a26c</onsuccess>
+    <groupid>daadc4c8-563a-4ca1-a884-bd8418a4662a</groupid>
+  </stage>
+  <stage stageid="5c4558d0-11a2-4d68-86a5-39d98f264a04" name="Which Clean Up" type="ChoiceStart">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="285" y="-15" w="90" h="30" />
+    <groupid>c1d3377d-d88d-4662-b885-9afb1b0f7d39</groupid>
+    <choices>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Blue Prism&quot;">
+        <name>Blue Prism</name>
+        <distance>45</distance>
+        <ontrue>5ec93bb5-fd83-4aa7-ac28-3410e8937355</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Encryption Scheme 1&quot;">
+        <name>Encryption Scheme 1</name>
+        <distance>75</distance>
+        <ontrue>70ff99e4-bd8c-4bb6-ad4e-c9629412f59a</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Encryption Scheme 2&quot;">
+        <name>Encryption Scheme 2</name>
+        <distance>105</distance>
+        <ontrue>feff8848-ad5b-4ab9-a0b3-77b7f405269e</ontrue>
+      </choice>
+      <choice expression="[Reversed CleanUp.Item Name]=&quot;Encryption Scheme 3&quot;">
+        <name>Encryption Scheme 3</name>
+        <distance>135</distance>
+        <ontrue>539aed1a-0e92-4466-bb5b-5ab2dbab5a64</ontrue>
+      </choice>
+    </choices>
+  </stage>
+  <stage stageid="5b0717fd-a7ab-4950-b3f6-28fb99adeb04" name="Otherwise" type="ChoiceEnd">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="285" y="165" w="90" h="30" />
+    <onsuccess>87ee1b9b-9116-43e1-92d8-37c73da92748</onsuccess>
+    <groupid>c1d3377d-d88d-4662-b885-9afb1b0f7d39</groupid>
+  </stage>
+  <stage stageid="87ee1b9b-9116-43e1-92d8-37c73da92748" name="FAIL" type="Exception">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="360" y="165" w="30" h="30" />
+    <exception type="" detail="&quot;You have entered a clean up item the choice doesn't recognise.&quot;" />
+  </stage>
+  <stage stageid="168d30de-aeea-45f7-a1f6-ff0a301349bf" name="Reverse Collection" type="Action">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="285" y="-105" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="Collection" narrative="The collection to be reversed." expr="[CleanUp Collection]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Reversed Collection" narrative="The reversed collection." stage="Reversed CleanUp" />
+    </outputs>
+    <onsuccess>d29b2dea-9ba9-433b-8e69-52a398f50a76</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Reverse Collection" />
+  </stage>
+  <stage stageid="0b6f2bf9-b963-4657-a038-7e0e7aa5f79b" name="Reversed CleanUp" type="Collection">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="150" y="-30" w="150" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0f20054e-d9f6-4447-9335-9be5b9d7a728" name="Local Variables" type="Block">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="75" y="-60" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c413968b-a83e-48b3-a341-0bd8963e2e1b" name="Anchor5" type="Anchor">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="810" y="210" w="10" h="10" />
+    <onsuccess>072ae298-7b00-4c61-a77d-355a8b450f84</onsuccess>
+  </stage>
+  <stage stageid="07a1d693-00cc-4354-8cdb-402049f9b25f" name="Anchor4" type="Anchor">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="810" y="60" w="10" h="10" />
+    <onsuccess>410e30b0-6d62-451a-a82b-832f369c3fdd</onsuccess>
+  </stage>
+  <stage stageid="410e30b0-6d62-451a-a82b-832f369c3fdd" name="Anchor4" type="Anchor">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="810" y="90" w="10" h="10" />
+    <onsuccess>1ca5528d-5523-4577-a0d7-779f5d8321a4</onsuccess>
+  </stage>
+  <stage stageid="1db18029-466a-4909-866b-ea37c62892ef" name="Browse to System" type="Action">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="540" y="120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>ffff15fc-9740-4592-9595-d11c99bb4684</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="ffff15fc-9740-4592-9595-d11c99bb4684" name="Browse to Encryption Schemes" type="Action">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="645" y="120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Encryption Schemes&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>645c1baa-6589-4c50-a6aa-e7e31e588c07</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="645c1baa-6589-4c50-a6aa-e7e31e588c07" name="Delete Encryption Schemes" type="Action">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="750" y="120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Scheme Name" friendlyname="Scheme Name" narrative="This is the name of the encryption scheme you wish to delete. " expr="[Expected Name (4)]" />
+    </inputs>
+    <onsuccess>1ca5528d-5523-4577-a0d7-779f5d8321a4</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Encryption Schemes - Delete Encryption Scheme" />
+  </stage>
+  <stage stageid="1ca5528d-5523-4577-a0d7-779f5d8321a4" name="Anchor6" type="Anchor">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="810" y="120" w="10" h="10" />
+    <onsuccess>c413968b-a83e-48b3-a341-0bd8963e2e1b</onsuccess>
+  </stage>
+  <stage stageid="8de188b5-c047-45d0-920b-2f75ef3b09b7" name="Terminate" type="Action">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="645" y="30" w="90" h="30" />
+    <onsuccess>c46bd8fe-c50f-4e68-bdd3-b1b16d359e3a</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="5ec93bb5-fd83-4aa7-ac28-3410e8937355" name="Close all child windows" type="Action">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="540" y="30" w="90" h="30" />
+    <onsuccess>8de188b5-c047-45d0-920b-2f75ef3b09b7</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="c46bd8fe-c50f-4e68-bdd3-b1b16d359e3a" name="Anchor9" type="Anchor">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="810" y="30" w="10" h="10" />
+    <onsuccess>07a1d693-00cc-4354-8cdb-402049f9b25f</onsuccess>
+  </stage>
+  <stage stageid="650fc1ca-c9f5-415b-ad82-5b4f88e7a26c" name="End1" type="End">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="285" y="255" />
+  </stage>
+  <stage stageid="539aed1a-0e92-4466-bb5b-5ab2dbab5a64" name="Close all child windows" type="Action">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="435" y="120" w="90" h="30" />
+    <onsuccess>1db18029-466a-4909-866b-ea37c62892ef</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="ae891d7f-b458-4ecc-866a-e27ea55d8cc7" name="Recover2" type="Recover">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <loginhibit />
+    <display x="195" y="210" />
+    <onsuccess>cbdff83d-f3e3-477a-ab79-32ba366f623c</onsuccess>
+  </stage>
+  <stage stageid="cbdff83d-f3e3-477a-ab79-32ba366f623c" name="Resume2" type="Resume">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <loginhibit />
+    <display x="195" y="255" />
+    <onsuccess>650fc1ca-c9f5-415b-ad82-5b4f88e7a26c</onsuccess>
+  </stage>
+  <stage stageid="151cfcde-32f2-4d8d-ba48-78330caceba4" name="Check Encryption Scheme" type="SubSheetInfo">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <display x="15" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="446aaf01-d4a2-451a-b291-034109a04d69" name="Browse to Encryption Schemes" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Encryption Schemes&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>d6ca154b-392a-4297-bc3e-0c496bf2272c</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="d6ca154b-392a-4297-bc3e-0c496bf2272c" name="Create Encryption Scheme" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="225" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Scheme Name" friendlyname="Scheme Name" narrative="The name in which you want to call your encrpytion scheme." expr="[Expected Name (2)]" />
+      <input type="flag" name="Available?" friendlyname="Available?" narrative="This will tick a box that allows the encryption scheme to become available." expr="True" />
+      <input type="flag" name="Database?" friendlyname="Database?" narrative="Mark as true if you want to store the scheme on the database. Please note that this will default to true." expr="True" />
+      <input type="text" name="Method" friendlyname="Method" narrative="The encryption method used with the scheme." expr="&quot;AES-256 AesCryptoService (256 bit)&quot;" />
+    </inputs>
+    <onsuccess>1c024b61-34d4-4195-996e-5900383f2da2</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Encryption Schemes - Create Encryption Scheme" />
+  </stage>
+  <stage stageid="da8770ea-a654-47e1-9886-da3739f7221f" name="Create Encryption Scheme 1" type="Block">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="195" w="150" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="1c024b61-34d4-4195-996e-5900383f2da2" name="Add to Cleanup (Encryption Scheme)" type="SubSheet">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="270" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;Encryption Scheme 1&quot;" />
+    </inputs>
+    <onsuccess>2cc4d4b4-8ced-41be-9f1a-2207c4a4d22a</onsuccess>
+    <processid>366594e4-439d-4abf-a300-de19270a0ae9</processid>
+  </stage>
+  <stage stageid="2cc4d4b4-8ced-41be-9f1a-2207c4a4d22a" name="Create Encryption Scheme" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="345" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Scheme Name" friendlyname="Scheme Name" narrative="The name in which you want to call your encrpytion scheme." expr="[Expected Name (3)]" />
+      <input type="flag" name="Available?" friendlyname="Available?" narrative="This will tick a box that allows the encryption scheme to become available." expr="False" />
+      <input type="flag" name="Database?" friendlyname="Database?" narrative="Mark as true if you want to store the scheme on the database. Please note that this will default to true." expr="True" />
+      <input type="text" name="Method" friendlyname="Method" narrative="The encryption method used with the scheme." expr="&quot;AES-256 RijndaelManaged (256 bit)&quot;" />
+    </inputs>
+    <onsuccess>b463a99e-8b65-45d9-974b-07b1b79f2f0b</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Encryption Schemes - Create Encryption Scheme" />
+  </stage>
+  <stage stageid="48fa075c-d783-4f02-bcd8-e133db7e2b10" name="Create Encryption Scheme 2" type="Block">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="315" w="150" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="b463a99e-8b65-45d9-974b-07b1b79f2f0b" name="Add to Cleanup (Encryption Scheme)" type="SubSheet">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="390" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;Encryption Scheme 2&quot;" />
+    </inputs>
+    <onsuccess>c7e00bc8-b6d9-45c4-9adf-28f5e6d71d75</onsuccess>
+    <processid>366594e4-439d-4abf-a300-de19270a0ae9</processid>
+  </stage>
+  <stage stageid="662ec065-be13-4aad-9f74-9ab4e668f3be" name="Expected Name" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Default Encryption Scheme</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="c5ffc169-7b31-401b-b646-5c28407352d7" name="Expected Algorithm" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">None</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="e66a634a-0c4d-478b-a58e-ea3b44c1bcb8" name="Expected Location" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="75" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Server</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="66bd2e40-c8d8-4e9e-9d49-18de4a62efbb" name="Expected IsAvailable" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="105" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="b3a17911-086e-4151-b109-c7f165de174e" name="Expected Name (2)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Encryption Scheme 2 (BP-1434)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="02da5861-3f8e-4078-b86d-4da83511b28b" name="Expected Algorithm (2)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">AES256</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="adf61b9b-6e12-47ba-b831-8f21139fbb32" name="Expected Location (2)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="75" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Database</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="4ed65142-c5c3-48bc-b0d9-4fdc0624e5e2" name="Expected IsAvailable (2)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="105" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="b38595c9-91e2-48fc-8cab-4c91fac03e21" name="Server Encryption Scheme" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-435" y="-15" w="150" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="5d4236db-ae60-4cf9-aef8-8fd0d304be60" name="DB Encryption Scheme" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-15" w="150" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="91a6974d-2d31-4022-a010-a748475ff4b1" name="Expected Name (3)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="180" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Encryption Scheme 3 (BP-1434)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="1b0dfc84-e16e-4215-84fd-90c751b9906a" name="Expected Algorithm (3)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="210" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Rijndael256</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="a0278f06-df5e-470d-93da-f6ff2da6d34b" name="Expected Location (3)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="240" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Database</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="c532eac0-2e31-48cb-a458-57e3b4b7eb28" name="Expected IsAvailable (3)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-360" y="270" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="4875bb14-16ef-4308-bf01-c5c9a6e21444" name="DB Encryption Scheme" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-435" y="150" w="150" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="800af594-9550-435d-a1ed-169efad0c224" name="Expected Name (4)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="180" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Encryption Scheme 4 (BP-1434)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="e239204a-f67e-491d-ba8f-f0e92d6075e8" name="Expected Algorithm (4)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="210" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">TripleDES</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="61057867-3fe9-4a3a-babc-7ba9015b7676" name="Expected Location (4)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="240" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Database</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="21290d7d-cb77-42c9-9512-001683e296ce" name="Expected IsAvailable (4)" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="270" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="1da056c1-b166-4d9a-8b36-370ceadd795f" name="DB Encryption Scheme" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="150" w="150" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="761da975-0485-4ab6-880a-32a5a5f85cd7" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="-300" w="300" h="30" />
+    <onsuccess>e6d5a6bb-45d4-41a5-a2f5-8e5a12f3b2fd</onsuccess>
+    <processid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</processid>
+  </stage>
+  <stage stageid="e6d5a6bb-45d4-41a5-a2f5-8e5a12f3b2fd" name="Note1" type="Note">
+    <narrative>GIVEN I push a GET encryption schemes request to the Blue Prism API</narrative>
+    <display x="60" y="-255" w="300" h="30" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>e7a2d504-d284-4280-b65d-c6d2f528a92a</onsuccess>
+  </stage>
+  <stage stageid="1caec1aa-c3e6-4ad3-ae64-6c9b25fb9ba0" name="Note1" type="Note">
+    <narrative>WHEN The response is received
+THEN it contains the appropriate HTTP Status Code</narrative>
+    <display x="60" y="15" w="300" h="30" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>a724ed9a-f640-48e0-9536-641b8173ef61</onsuccess>
+  </stage>
+  <stage stageid="055a92cc-8e50-4a5d-b689-9c66e09ee643" name="Note2" type="Note">
+    <narrative>AND the property values that I expect to receive for scheme 1 are correctly returned</narrative>
+    <display x="60" y="105" w="300" h="30" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>78a40a3a-0050-4b48-b5aa-7c9bd5166ecd</onsuccess>
+  </stage>
+  <stage stageid="a724ed9a-f640-48e0-9536-641b8173ef61" name="Response Code as Expected?" type="Decision">
+    <display x="60" y="60" w="300" h="30" />
+    <decision expression="[HTTP Status Code]=&quot;200&quot;" />
+    <ontrue>055a92cc-8e50-4a5d-b689-9c66e09ee643</ontrue>
+    <onfalse>e95b8b28-0b23-4f7e-a3c2-2e95babde415</onfalse>
+  </stage>
+  <stage stageid="e95b8b28-0b23-4f7e-a3c2-2e95babde415" name="Incorrect HTTP Status Code Response" type="Exception">
+    <display x="255" y="60" />
+    <exception localized="yes" type="Response Code Error" detail="&quot;It was expected that HTTP status code 200 would be returned. Actual returned HTTP status code was: &quot;&amp;[HTTP Status Code]" />
+  </stage>
+  <stage stageid="dfcdbae6-58b5-4c76-98c7-d594970d2a7e" name="Note2" type="Note">
+    <narrative>AND the property values that I expect to receive for scheme 2 are correctly returned</narrative>
+    <display x="60" y="195" w="300" h="30" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>4ab78afb-fbba-468f-92fe-05f21beef05a</onsuccess>
+  </stage>
+  <stage stageid="5c03b2f7-e216-40c8-8a7b-302d9cdbf19e" name="Note2" type="Note">
+    <narrative>AND the property values that I expect to receive for scheme 3 are correctly returned</narrative>
+    <display x="60" y="285" w="300" h="30" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>1f46e4c2-7d18-4423-ae02-0115ca6a2b7e</onsuccess>
+  </stage>
+  <stage stageid="eaf98fd5-3ba6-4b31-af1d-3259ba76f6c7" name="Note2" type="Note">
+    <narrative>AND the property values that I expect to receive for scheme 4 are correctly returned</narrative>
+    <display x="60" y="375" w="300" h="30" />
+    <font family="Segoe UI" size="10" style="Regular" color="339966" />
+    <onsuccess>9a5ff838-a16b-412a-8104-0a461335b5b7</onsuccess>
+  </stage>
+  <stage stageid="78a40a3a-0050-4b48-b5aa-7c9bd5166ecd" name="Check Encryption Scheme" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="150" w="300" h="30" />
+    <inputs>
+      <input type="text" name="Name" friendlyname="Name" expr="[Expected Name]" />
+      <input type="text" name="Algorithm" friendlyname="Algorithm" expr="[Expected Algorithm]" />
+      <input type="text" name="Key Location" friendlyname="Key Location" expr="[Expected Location]" />
+      <input type="flag" name="Is Available" friendlyname="Is Available" expr="[Expected IsAvailable]" />
+    </inputs>
+    <onsuccess>dfcdbae6-58b5-4c76-98c7-d594970d2a7e</onsuccess>
+    <processid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</processid>
+  </stage>
+  <stage stageid="4ab78afb-fbba-468f-92fe-05f21beef05a" name="Check Encryption Scheme" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="240" w="300" h="30" />
+    <inputs>
+      <input type="text" name="Name" friendlyname="Name" expr="[Expected Name (2)]" />
+      <input type="text" name="Algorithm" friendlyname="Algorithm" expr="[Expected Algorithm (2)]" />
+      <input type="text" name="Key Location" friendlyname="Key Location" expr="[Expected Location (2)]" />
+      <input type="flag" name="Is Available" friendlyname="Is Available" expr="[Expected IsAvailable (2)]" />
+    </inputs>
+    <onsuccess>5c03b2f7-e216-40c8-8a7b-302d9cdbf19e</onsuccess>
+    <processid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</processid>
+  </stage>
+  <stage stageid="1f46e4c2-7d18-4423-ae02-0115ca6a2b7e" name="Check Encryption Scheme" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="330" w="300" h="30" />
+    <inputs>
+      <input type="text" name="Name" friendlyname="Name" expr="[Expected Name (3)]" />
+      <input type="text" name="Algorithm" friendlyname="Algorithm" expr="[Expected Algorithm (3)]" />
+      <input type="text" name="Key Location" friendlyname="Key Location" expr="[Expected Location (3)]" />
+      <input type="flag" name="Is Available" friendlyname="Is Available" expr="[Expected IsAvailable (3)]" />
+    </inputs>
+    <onsuccess>eaf98fd5-3ba6-4b31-af1d-3259ba76f6c7</onsuccess>
+    <processid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</processid>
+  </stage>
+  <stage stageid="9a5ff838-a16b-412a-8104-0a461335b5b7" name="Check Encryption Scheme" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="420" w="300" h="30" />
+    <inputs>
+      <input type="text" name="Name" friendlyname="Name" expr="[Expected Name (4)]" />
+      <input type="text" name="Algorithm" friendlyname="Algorithm" expr="[Expected Algorithm (4)]" />
+      <input type="text" name="Key Location" friendlyname="Key Location" expr="[Expected Location (4)]" />
+      <input type="flag" name="Is Available" friendlyname="Is Available" expr="[Expected IsAvailable (4)]" />
+    </inputs>
+    <onsuccess>348765bb-0326-47b4-8a46-5476f4123d42</onsuccess>
+    <processid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</processid>
+  </stage>
+  <stage stageid="2a0bce4e-6a88-41d1-9950-194a1833386f" name="Name" type="Data">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <display x="15" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ad066167-98c6-44ad-94e1-cc10f8fc2424" name="Algorithm" type="Data">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <display x="15" y="45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="13ca2a70-edbb-4a6a-9cad-97b2e59e5f94" name="Key Location" type="Data">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <display x="15" y="75" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b137cd15-f253-4300-80db-2b740b333be0" name="Is Available" type="Data">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <display x="15" y="105" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="da6a2182-a47f-452c-87b1-8052df776ddf" name="Input Variables" type="Block">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-15" w="150" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="fb1c54ee-ec5a-4042-a907-2cc10b42590c" name="Convert Response to Collection" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="-30" w="300" h="30" />
+    <inputs>
+      <input type="text" name="json" friendlyname="json" expr="[Response Content]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Result" friendlyname="Result" stage="Result Collection" />
+    </outputs>
+    <onsuccess>1caec1aa-c3e6-4ad3-ae64-6c9b25fb9ba0</onsuccess>
+    <resource object="Utility - JSON" action="JSON to Collection" />
+  </stage>
+  <stage stageid="1f0e2b55-344e-4607-9128-a9134259a661" name="Response Content" type="Data">
+    <display x="-195" y="-90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0665bddd-21c5-4680-b565-cf4bdbcb7add" name="HTTP Status Code" type="Data">
+    <display x="-195" y="-120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="102cb6ba-9e17-4bed-9990-814570f5aff6" name="Result Collection" type="Collection">
+    <display x="-195" y="-60" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="JSON:Array" type="collection">
+        <field name="name" type="text" />
+        <field name="keyLocation" type="text" />
+        <field name="isAvailable" type="flag" />
+        <field name="algorithm" type="text" />
+      </field>
+    </collectioninfo>
+  </stage>
+  <stage stageid="3b38b17a-4fa6-468a-988e-f3ee1e702f59" name="API Response Data" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-150" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e7a2d504-d284-4280-b65d-c6d2f528a92a" name="Get Encryption Schemes" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="-180" w="300" h="30" />
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>7233027e-d5dc-45dc-aa6c-340ca6efa812</onsuccess>
+    <resource object="Blue Prism - API - Encryption Schemes" action="GET Encryption Schemes" />
+  </stage>
+  <stage stageid="596da320-5d3e-442d-8be5-ee0495b35ec1" name="Browse to System" type="Action">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="540" y="90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>05253ea7-1799-4f08-aed6-22fb956ce153</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="05253ea7-1799-4f08-aed6-22fb956ce153" name="Browse to Encryption Schemes" type="Action">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="645" y="90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Encryption Schemes&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>21dfc117-bd6e-4df8-8944-19c3713667a4</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="21dfc117-bd6e-4df8-8944-19c3713667a4" name="Delete Encryption Schemes" type="Action">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="750" y="90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Scheme Name" friendlyname="Scheme Name" narrative="This is the name of the encryption scheme you wish to delete. " expr="[Expected Name (3)]" />
+    </inputs>
+    <onsuccess>410e30b0-6d62-451a-a82b-832f369c3fdd</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Encryption Schemes - Delete Encryption Scheme" />
+  </stage>
+  <stage stageid="feff8848-ad5b-4ab9-a0b3-77b7f405269e" name="Close all child windows" type="Action">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="435" y="90" w="90" h="30" />
+    <onsuccess>596da320-5d3e-442d-8be5-ee0495b35ec1</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="c9e58ead-cc70-4115-80e7-9db481878190" name="Browse to System" type="Action">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="540" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>c8952648-cdb2-42fc-8db3-d16c61f7cd30</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="c8952648-cdb2-42fc-8db3-d16c61f7cd30" name="Browse to Encryption Schemes" type="Action">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="645" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Encryption Schemes&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>11d12383-3027-412b-b29d-975ae8838934</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="11d12383-3027-412b-b29d-975ae8838934" name="Delete Encryption Schemes" type="Action">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="750" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Scheme Name" friendlyname="Scheme Name" narrative="This is the name of the encryption scheme you wish to delete. " expr="[Expected Name (2)]" />
+    </inputs>
+    <onsuccess>07a1d693-00cc-4354-8cdb-402049f9b25f</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Encryption Schemes - Delete Encryption Scheme" />
+  </stage>
+  <stage stageid="70ff99e4-bd8c-4bb6-ad4e-c9629412f59a" name="Close all child windows" type="Action">
+    <subsheetid>2e9aaa13-db52-4060-8596-39c30274efbf</subsheetid>
+    <display x="435" y="60" w="90" h="30" />
+    <onsuccess>c9e58ead-cc70-4115-80e7-9db481878190</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="348765bb-0326-47b4-8a46-5476f4123d42" name="Cleanup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="480" w="300" h="30" />
+    <onsuccess>44f212aa-8c53-4b18-a0e2-0ba20f6431bb</onsuccess>
+    <processid>2e9aaa13-db52-4060-8596-39c30274efbf</processid>
+  </stage>
+  <stage stageid="c7e00bc8-b6d9-45c4-9adf-28f5e6d71d75" name="Create Encryption Scheme" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="465" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Scheme Name" friendlyname="Scheme Name" narrative="The name in which you want to call your encrpytion scheme." expr="[Expected Name (4)]" />
+      <input type="flag" name="Available?" friendlyname="Available?" narrative="This will tick a box that allows the encryption scheme to become available." expr="True" />
+      <input type="flag" name="Database?" friendlyname="Database?" narrative="Mark as true if you want to store the scheme on the database. Please note that this will default to true." expr="True" />
+      <input type="text" name="Method" friendlyname="Method" narrative="The encryption method used with the scheme." expr="&quot;Triple DES (192 bit) (Retired)&quot;" />
+    </inputs>
+    <onsuccess>4583caa6-9b1b-44d8-8d41-8569681413c6</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Encryption Schemes - Create Encryption Scheme" />
+  </stage>
+  <stage stageid="416f3820-ffb0-42e1-be74-f255841f0ffb" name="Create Encryption Scheme 3" type="Block">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="435" w="150" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4583caa6-9b1b-44d8-8d41-8569681413c6" name="Add to Cleanup (Encryption Scheme)" type="SubSheet">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="510" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;Encryption Scheme 3&quot;" />
+    </inputs>
+    <onsuccess>47610f03-7133-40e0-b8f9-b164a3dc2f6c</onsuccess>
+    <processid>366594e4-439d-4abf-a300-de19270a0ae9</processid>
+  </stage>
+  <stage stageid="cb99f6a8-fa17-4b59-a91b-859847c48cb5" name="Start" type="Start">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <display x="165" y="-105" />
+    <inputs>
+      <input type="text" name="Name" stage="Name" />
+      <input type="text" name="Algorithm" stage="Algorithm" />
+      <input type="text" name="Key Location" stage="Key Location" />
+      <input type="flag" name="Is Available" stage="Is Available" />
+    </inputs>
+    <onsuccess>6ee90974-b6e7-49bc-971a-2b2a075ff663</onsuccess>
+  </stage>
+  <stage stageid="e873569f-f876-41cd-aa2e-49b01856070a" name="End" type="End">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <display x="165" y="375" />
+  </stage>
+  <stage stageid="6ee90974-b6e7-49bc-971a-2b2a075ff663" name="Request Result" type="LoopStart">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="165" y="-60" w="120" h="30" />
+    <onsuccess>51bda246-54af-4a6b-b6cc-3f9272172f4e</onsuccess>
+    <groupid>3deb3ab4-25da-4996-b205-0d8a2b7b6be2</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection</loopdata>
+  </stage>
+  <stage stageid="c93ca470-12c7-4fc5-8273-c85e71b88473" name="Request Result" type="LoopEnd">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="165" y="330" w="120" h="30" />
+    <onsuccess>adfcad57-d5de-4294-9e5f-305d354fc415</onsuccess>
+    <groupid>3deb3ab4-25da-4996-b205-0d8a2b7b6be2</groupid>
+  </stage>
+  <stage stageid="51bda246-54af-4a6b-b6cc-3f9272172f4e" name="Encryption Scheme Data" type="LoopStart">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="165" y="-15" w="120" h="30" />
+    <onsuccess>5ddfe3d5-b43c-4979-b07f-6bab749da441</onsuccess>
+    <groupid>9fd0529b-ed89-4124-9cd7-a846b4bb6e72</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Result Collection.JSON:Array</loopdata>
+  </stage>
+  <stage stageid="7253f22d-21c7-419e-8979-bdcbe4e2d90d" name="Encryption Scheme Data" type="LoopEnd">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="165" y="285" w="120" h="30" />
+    <onsuccess>c93ca470-12c7-4fc5-8273-c85e71b88473</onsuccess>
+    <groupid>9fd0529b-ed89-4124-9cd7-a846b4bb6e72</groupid>
+  </stage>
+  <stage stageid="5ddfe3d5-b43c-4979-b07f-6bab749da441" name="Check my encryption scheme name is returned" type="Decision">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <display x="165" y="30" w="120" h="30" />
+    <decision expression="[Result Collection.JSON:Array.name]=[Name]" />
+    <ontrue>ba6085c7-3ead-46d4-b021-69fea129e8fa</ontrue>
+    <onfalse>c996fe3d-7211-4a9d-99da-91bf4467cbaa</onfalse>
+  </stage>
+  <stage stageid="adfcad57-d5de-4294-9e5f-305d354fc415" name="Encryption SchemeNot Found" type="Exception">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <display x="270" y="330" />
+    <exception localized="yes" type="Encryption Scheme Exception" detail="&quot;The Expected Encryption Scheme, &quot;&amp;[Name]&amp;&quot; was not returned.&quot;" />
+  </stage>
+  <stage stageid="ba6085c7-3ead-46d4-b021-69fea129e8fa" name="Check Algorithm Field" type="Decision">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <display x="165" y="75" w="120" h="30" />
+    <decision expression="[Result Collection.JSON:Array.algorithm]=[Algorithm]" />
+    <ontrue>33579de8-3fec-4121-872e-2d2ffc43a9d9</ontrue>
+    <onfalse>530b3689-fbc7-46d0-9980-aa1b2f89f0fb</onfalse>
+  </stage>
+  <stage stageid="530b3689-fbc7-46d0-9980-aa1b2f89f0fb" name="Build Failure Message" type="Calculation">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="75" />
+    <onsuccess>d4339b0f-ea58-477c-92e9-3480a0e57764</onsuccess>
+    <calculation expression="[Scenario Failed]&amp;&quot;-- Algorithm was not as expected. We Expected &quot;&amp;[Algorithm]&amp;&quot; and actual value was &quot;&amp;[Result Collection.JSON:Array.algorithm]&amp;&quot;.&quot;&amp;NewLine()" stage="Scenario Failed" />
+  </stage>
+  <stage stageid="47832f01-ec95-4dcc-a40a-95b476bafd0c" name="Key Location" type="Decision">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <display x="165" y="135" w="120" h="30" />
+    <decision expression="[Key Location]=[Result Collection.JSON:Array.keyLocation]" />
+    <ontrue>588cce38-947b-45a3-bfc2-90628709c5f9</ontrue>
+    <onfalse>6243613c-f643-4c0b-8701-490e6f2bafe4</onfalse>
+  </stage>
+  <stage stageid="8468b4b7-c88e-4dfe-a50d-fdd30bf0022e" name="Is Available" type="Decision">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <display x="165" y="195" w="120" h="30" />
+    <decision expression="[Is Available]=[Result Collection.JSON:Array.isAvailable]" />
+    <ontrue>ebf746a0-7032-44a9-8a1e-7de568d4578c</ontrue>
+    <onfalse>6fefd97f-b3e5-4191-8575-4439061e487f</onfalse>
+  </stage>
+  <stage stageid="5fbae066-42a6-49f8-86b8-77bc4be08199" name="Failure - Unexpected Value(s) Returned" type="Exception">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <display x="270" y="240" />
+    <exception localized="yes" type="Unexpected Response Values" detail="[Scenario Failed]" />
+  </stage>
+  <stage stageid="ebf746a0-7032-44a9-8a1e-7de568d4578c" name="Any Failure Check" type="Decision">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <display x="165" y="240" w="120" h="30" />
+    <decision expression="[Scenario Failed]&lt;&gt;&quot;&quot;" />
+    <ontrue>5fbae066-42a6-49f8-86b8-77bc4be08199</ontrue>
+    <onfalse>b67fca12-465b-4156-8f87-7decf6dee98d</onfalse>
+  </stage>
+  <stage stageid="c996fe3d-7211-4a9d-99da-91bf4467cbaa" name="Anchor30" type="Anchor">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="315" y="30" w="10" h="10" />
+    <onsuccess>cfa2ce2a-8b6f-46e5-a2dc-95fa554b9cab</onsuccess>
+  </stage>
+  <stage stageid="6243613c-f643-4c0b-8701-490e6f2bafe4" name="Build Failure Message" type="Calculation">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="135" />
+    <onsuccess>1a6a478b-34b2-459a-96d4-2bffe2ebca50</onsuccess>
+    <calculation expression="[Scenario Failed]&amp;&quot;-- Key location was not as expected. We Expected &quot;&amp;[Key Location]&amp;&quot; and actual value was &quot;&amp;[Result Collection.JSON:Array.keyLocation]&amp;&quot;.&quot;&amp;NewLine()" stage="Scenario Failed" />
+  </stage>
+  <stage stageid="6fefd97f-b3e5-4191-8575-4439061e487f" name="Build Failure Message" type="Calculation">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="195" />
+    <onsuccess>5fbae066-42a6-49f8-86b8-77bc4be08199</onsuccess>
+    <calculation expression="[Scenario Failed]&amp;&quot;-- Is Available was not as expected. We Expected &quot;&amp;[Is Available]&amp;&quot; and actual value was &quot;&amp;[Result Collection.JSON:Array.isAvailable]&amp;&quot;.&quot;&amp;NewLine()" stage="Scenario Failed" />
+  </stage>
+  <stage stageid="588cce38-947b-45a3-bfc2-90628709c5f9" name="Anchor7" type="Anchor">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="165" y="165" w="10" h="10" />
+    <onsuccess>8468b4b7-c88e-4dfe-a50d-fdd30bf0022e</onsuccess>
+  </stage>
+  <stage stageid="33579de8-3fec-4121-872e-2d2ffc43a9d9" name="Anchor9" type="Anchor">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="165" y="105" w="10" h="10" />
+    <onsuccess>47832f01-ec95-4dcc-a40a-95b476bafd0c</onsuccess>
+  </stage>
+  <stage stageid="d4339b0f-ea58-477c-92e9-3480a0e57764" name="Anchor10" type="Anchor">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="105" w="10" h="10" />
+    <onsuccess>33579de8-3fec-4121-872e-2d2ffc43a9d9</onsuccess>
+  </stage>
+  <stage stageid="1a6a478b-34b2-459a-96d4-2bffe2ebca50" name="Anchor12" type="Anchor">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="270" y="165" w="10" h="10" />
+    <onsuccess>588cce38-947b-45a3-bfc2-90628709c5f9</onsuccess>
+  </stage>
+  <stage stageid="cfa2ce2a-8b6f-46e5-a2dc-95fa554b9cab" name="Anchor19" type="Anchor">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="315" y="285" w="10" h="10" />
+    <onsuccess>7253f22d-21c7-419e-8979-bdcbe4e2d90d</onsuccess>
+  </stage>
+  <stage stageid="b67fca12-465b-4156-8f87-7decf6dee98d" name="Anchor20" type="Anchor">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="90" y="240" w="10" h="10" />
+    <onsuccess>097b35f0-e01f-4ba1-853f-da471b819a91</onsuccess>
+  </stage>
+  <stage stageid="097b35f0-e01f-4ba1-853f-da471b819a91" name="Anchor21" type="Anchor">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="90" y="375" w="10" h="10" />
+    <onsuccess>e873569f-f876-41cd-aa2e-49b01856070a</onsuccess>
+  </stage>
+  <stage stageid="82141db6-3e1a-4546-b8ae-30cc1bdd641e" name="Scenario Failed" type="Data">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="180" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9760f0d8-c39f-4943-8fe2-8fa226c7bc0b" name="Local Variable" type="Block">
+    <subsheetid>efa9c119-74b3-4b82-b09e-f387e5fdb1d0</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="150" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="bbcc12d2-91af-43f9-bba4-1f7f4cb9823f" name="pid" type="Data">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="-135" y="-120" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9e05b340-1832-4fcf-8a4a-27549567c446" name="Local Variable" type="Block">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-210" y="-150" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="1db3331e-6d3a-4413-870b-ba28554111a3" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="300" y="285" w="90" h="30" />
+    <onsuccess>16b658ca-581e-44f5-b71f-99c2f0126c09</onsuccess>
+  </stage>
+  <stage stageid="29c43c71-1780-4244-b0e7-422e28417e39" name="Recover1" type="Recover">
+    <loginhibit />
+    <display x="300" y="-195" w="90" h="30" />
+    <onsuccess>219f2a7c-a563-4a99-befc-daa822bc7204</onsuccess>
+  </stage>
+  <stage stageid="219f2a7c-a563-4a99-befc-daa822bc7204" name="Resume1" type="Resume">
+    <loginhibit />
+    <display x="300" y="-150" w="90" h="30" />
+    <onsuccess>612e66eb-105c-48b9-a1d3-d1c95cc91996</onsuccess>
+  </stage>
+  <stage stageid="612e66eb-105c-48b9-a1d3-d1c95cc91996" name="Get Encryption Schemes" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="300" y="-75" w="90" h="30" />
+    <outputs>
+      <output type="text" name="Response Content" friendlyname="Response Content" stage="Response Content" />
+      <output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="HTTP Status Code" />
+      <output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" />
+    </outputs>
+    <onsuccess>7233027e-d5dc-45dc-aa6c-340ca6efa812</onsuccess>
+    <resource object="Blue Prism - API - Encryption Schemes" action="GET Encryption Schemes" />
+  </stage>
+  <stage stageid="7233027e-d5dc-45dc-aa6c-340ca6efa812" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="60" y="-75" w="10" h="10" />
+    <onsuccess>fb1c54ee-ec5a-4042-a907-2cc10b42590c</onsuccess>
+  </stage>
+  <stage stageid="0059a6bc-fcb1-4ef8-a2dc-10e0341255c6" name="Cleanup Block GET Encryption Schemes" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-105" y="-225" w="465" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="1b426471-2111-40d2-8c33-76dd436cdb49" name="Start" type="Start">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="15" y="-300" />
+    <onsuccess>48e71dd2-06f6-47d0-af83-3e95992f0005</onsuccess>
+  </stage>
+  <stage stageid="48e71dd2-06f6-47d0-af83-3e95992f0005" name="Launch" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="15" y="-255" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>f4664d74-64da-48c8-90f9-9e0e4876d3ee</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="a5a49178-826b-4ee2-9e1f-de41a607b7c0" name="Attach to System" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="15" y="-165" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>d9ff13e0-73f3-4a57-9514-11d127397bbb</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="d9ff13e0-73f3-4a57-9514-11d127397bbb" name="Sign In Auth Server" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-120" w="90" h="30" />
+    <onsuccess>013739ec-6c9e-4b8a-8ad4-ba835d6fcb3d</onsuccess>
+    <resource object="Blue Prism" action="Sign in using Auth Server" />
+  </stage>
+  <stage stageid="013739ec-6c9e-4b8a-8ad4-ba835d6fcb3d" name="IMS Server:Attach" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-75" w="90" h="30" />
+    <onsuccess>585f4a06-aa13-42ac-a0e5-a4e2de3c1ca9</onsuccess>
+    <resource object="IMS Server" action="Attach" />
+  </stage>
+  <stage stageid="585f4a06-aa13-42ac-a0e5-a4e2de3c1ca9" name="IMS Server:Login" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-30" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="&quot;admin&quot;" />
+      <input type="text" name="Password" friendlyname="Password" expr="&quot;Qq1234!!&quot;" />
+    </inputs>
+    <onsuccess>563fed4a-1741-4fa9-b7fc-0b8cece096a7</onsuccess>
+    <resource object="IMS Server" action="Login" />
+  </stage>
+  <stage stageid="5139226b-28db-44f9-90d2-6c1619f00e47" name="Browse to System" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <display x="15" y="120" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>446aaf01-d4a2-451a-b291-034109a04d69</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="f4664d74-64da-48c8-90f9-9e0e4876d3ee" name="Add to Cleanup" type="SubSheet">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-210" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="The name of the item you want to clean up." expr="&quot;Blue Prism&quot;" />
+    </inputs>
+    <onsuccess>a5a49178-826b-4ee2-9e1f-de41a607b7c0</onsuccess>
+    <processid>366594e4-439d-4abf-a300-de19270a0ae9</processid>
+  </stage>
+  <stage stageid="563fed4a-1741-4fa9-b7fc-0b8cece096a7" name="Setup Credential" type="Action">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="Requires Login" friendlyname="Requires Login" narrative="Flag indicating if the login info should be given too" expr="True" />
+      <input type="text" name="Arguments" friendlyname="Arguments" narrative="The arguments to pass to automatec, not including the authentication info" expr="&quot;/createcredential &quot;&quot;BPE-API-Credential&quot;&quot; ServiceAccount E3NbGuz9G/nSpQWdz6DMROZhtIDHtUhev13wsCV72fY=  /credentialtype OAuth2ClientCredentials&quot;" />
+      <input type="text" name="Username" friendlyname="Username" narrative="The username that you want to authenticate against." expr="" />
+      <input type="text" name="Password" friendlyname="Password" narrative="The password for the username." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Output" friendlyname="Output" narrative="The output from the command" stage="" />
+    </outputs>
+    <onsuccess>c622eb2b-48e8-418d-9329-255ef131e78c</onsuccess>
+    <resource object="Call AutomateC" action="Call AutomateC" />
+  </stage>
+  <stage stageid="2f52796e-baa2-40dc-8509-d4d77908920c" name="Credential already exists?" type="Recover">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit />
+    <display x="120" y="30" w="90" h="30" />
+    <onsuccess>acf2ee3a-0515-46c0-b9a5-56d6d5b2216a</onsuccess>
+  </stage>
+  <stage stageid="acf2ee3a-0515-46c0-b9a5-56d6d5b2216a" name="Resume1" type="Resume">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit />
+    <display x="120" y="90" w="90" h="30" />
+    <onsuccess>c622eb2b-48e8-418d-9329-255ef131e78c</onsuccess>
+  </stage>
+  <stage stageid="c622eb2b-48e8-418d-9329-255ef131e78c" name="Anchor14" type="Anchor">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="90" w="10" h="10" />
+    <onsuccess>5139226b-28db-44f9-90d2-6c1619f00e47</onsuccess>
+  </stage>
+  <stage stageid="f8bfdc8b-6bbd-44c1-8d90-d99250ba5d83" name="Create credential" type="Block">
+    <subsheetid>3d3201bf-0cf2-4737-9959-f6f062d4f77a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="0" w="225" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+</process>

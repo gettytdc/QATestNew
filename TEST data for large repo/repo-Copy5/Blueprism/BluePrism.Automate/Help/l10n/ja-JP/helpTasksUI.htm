@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<title>Blue Prismスケジューラーの構成 - タスク</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+	#process-params { clear:left; }
+	</style>
+</head>
+
+<body class="task-ui">
+	<div class="header">
+		<h1 class="pagetitle">スケジューラー構成</h1>
+		<h2>タスク</h2>
+	</div>
+	<div class="captioned-image overview-screenshot nozoom">
+		<a href="Graphics/schedule-task-config.png" title="タスク構成 - クリックして大きい画像を表示"><img alt="タスク構成 - クリックして大きい画像を表示" src="Graphics/schedule-task-config.png"/></a>
+		<p>タスク構成</p>
+	</div>
+	<h3>概要</h3>
+	<p>スケジュールマネージャーツリーでタスクを選択すると、その詳細がBlue Prismクライアントの右側のペインに表示されます。</p>
+	<p>ここから、リソース上でいくつかの異なるプロセスを実行し、実行時にそれらのプロセスの結果に応じて制御を渡す後続のタスクを指定するようにタスクを構成できます。</p>
+	<div class="clearer"></div>
+	
+	<h3 id="create-task">タスクを作成する</h3>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-new.png" alt="タスクを作成する"/>
+	</div>
+	<p>タスクを作成するには、スケジュールマネージャーツリーの適切なスケジュール要素を右クリックして［新しいタスク］を選択します。</p>
+	<p>デフォルト値が入力された新しいタスクが作成され、スケジュールマネージャーツリーで自動的に選択されます。</p>
+	<p>スケジュールが最初に作成されたときに、同時に初期タスクも作成されます。</p>
+	<div class="clearer"></div>
+	
+	<h3 id="configure-task">タスクを構成する</h3>
+	<h4 id="initial-task">タスクの実行順序を設定する</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-next.png" alt="タスクを構成する"/>
+	</div>
+	<p>スケジュールがアクティブになったときに最初に実行するタスクを指定する方法については、「<a href="helpSchedulesUI.htm#initial-task">スケジュールの初期タスクを設定する</a>」を参照してください。</p>
+	<p>このタスクが正常に完了した後に実行されるタスクは、「完了日」ドロップダウンから適切なタスクを選択することによって指定できます。「停止」の値は、このタスクが完了した後にスケジュールを完了する必要があることを示します。</p>
+	<p>このタスクが終了した後に実行されるタスクは、「例外」ドロップダウンから適切なタスクを選択することによって指定できます。「中止」の値は、これが終了した後にスケジュールを終了する必要があることを示します。</p>
+
+	<h4 id="task-sessions">セッション失敗の検出</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-failfast.png" alt="タスクをすぐに失敗させる"/>
+	</div>
+	<p>デフォルトでは、タスクは「すぐに失敗」するように設定されています。いずれかのセッションが例外のために開始または終了に失敗した場合、タスクをただちに終了します。この設定は、［<code>エラーですぐに失敗</code>］チェックボックスをオフにすることで無効にできます。</p>
+	<p>タスクの失敗の検出は、「すぐに失敗」が有効になっている場合と無効になっている場合とでは動作が異なります。</p>
+	<ul class="image-inlined">
+	<li>タスクがすぐに失敗するように設定されている場合、タスクはいずれかのセッションでエラーが発生したときに終了します。たとえば、リソースに接続できなかったり、セッションを作成するのにビジーすぎたりした場合、またはセッションが例外を発生させて異常終了した場合に終了します。</li>
+	<li>タスクがすぐに失敗するように設定されて<em>いない</em>場合、そのセッションの<em>すべて</em>でエラーが発生した場合にのみタスクが終了します。そしてそのタスクは、最後に実行中のセッションが失敗したことが検出されたときにのみ終了します。</li>
+	</ul>
+	
+	<h4 id="task-sessions">スケジュールされたセッションを管理する</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-dragging.png" alt="セッションを作成する"/>
+	</div>
+	<p>タスクが実行されると、その中に定義されているすべてのセッションが同時に実行されます。</p>
+	
+	<p>タスク内のセッションに制限はありません。たとえば、複数のプロセスを同じリソースで実行するように指定できます。そのようなプロセスが排他的である場合、リソースが最初のプロセス以外の何かを実行するには余りにもビジーであるという事実のためにタスクは終了します。</p>	
+	
+	<h5 id="create-session">セッションを作成する</h5>
+	<p>スケジュールされたセッションは、パブリッシュされたプロセスがリソースにドラッグされたとき、またはその逆のときに作成されます。</p>
+	<p>作成されたセッションは、［スケジュールされたセッション］リストに表示されます。</p>
+	
+	<div class="captioned-image screenshot">
+		<img src="Graphics/schedule-startparams.png" alt="開始パラメーターを設定する"/>
+	</div>
+	<h5 id="process-params">プロセスパラメーターを設定する</h5>
+	<p>セッションのプロセスで開始パラメーターが必要な場合、コンテキストメニューで適切なセッションを右クリックし、［開始パラメーター］を選択することで構成できます。</p>
+	<p>開始パラメーターの構成の詳細については、<a href="frmStartParams.htm">開始パラメーターのヘルプトピック</a>を参照してください。</p>
+	
+	<h5 id="Post Completion Delay">完了後の遅延</h5>
+	<p>スケジュール内の次のタスクの開始を許可する前に、スケジュールされたタスクの終わりに0から1500秒の遅延を追加します。</p>
+	
+	<h5 id="delete-session">セッションを削除する</h5>
+	<p>セッションを右クリックして［削除］を選択すると、セッションがタスクから削除されます。</p>
+	
+	
+	<h3 id="save-task">タスクを保存する</h3>
+	<p>タスクを直接保存することはできません。タスクを変更すると、その親スケジュールが暗黙的に変更されるため、タスクを保存するにはそのスケジュールを保存する必要があります。</p>
+	<p>スケジュールの保存の詳細については、「<a href="helpSchedulesUI.htm#save-schedule">スケジュールを保存する</a>」のヘルプトピックを参照してください。</p>
+	
+	<h3 id="copy-paste-task">タスクをコピーして貼り付ける</h3>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-copy.png" alt="タスクをコピーする"/>
+	</div>
+	<p>タスクは、その親スケジュール（タスクの複製）、または別のスケジュールにコピーして貼り付けることができます。</p>
+	<p>この実装方法により、コピーと貼り付けはBlue Prismアプリケーションの単一インスタンス内でのみ実行できます。つまり、実行中のアプリケーションからコピーして別のアプリケーションに貼り付けることはできません。</p>
+	<p>タスクを右クリックして［コピー］を選択すると、タスクがコピーされます。</p>
+	<div class="captioned-image screenshot" style="width:100px">
+		<img src="Graphics/schedule-task-paste.png" alt="タスクを貼り付ける"/>
+	</div>
+	<p>コピーしたら、スケジュールマネージャーツリーで目的のスケジュールを右クリックして［貼り付け］を選択すると、スケジュールに貼り付けることができます。</p>
+	<p>この操作ではシステムのクリップボードを使用しないため、他の切り取り/コピー操作による影響を受けません。これは、コピーしたタスクが現在実行中のスケジュールマネージャーの外部に存在しないことも意味します。</p>
+	<div class="clearer"></div>
+	
+	<h3 id="delete-task">タスクを削除する</h3>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-delete.png" alt="タスクを削除する"/>
+	</div>
+	<p>スケジュールマネージャーツリーでタスクを右クリックして［削除］を選択すると、タスクを削除できます。</p>
+	<p>別のタスク（「完了日」または「例外」ドロップダウンの次のタスクとして）またはスケジュール（「初期タスク」として）によるタスクへの参照は、タスクが削除されるとデフォルトにリセットされます。</p>
+	
+	<h3 id="see-also">関連トピック</h3>
+	<ul class="relatedtopics">
+		<li><a href="helpSchedulerUI.htm">Blue Prismスケジューラー</a></li>
+		<li><a href="helpSchedulesUI.htm">スケジュールを設定する</a></li>
+	</ul>
+
+</body>
+</html>

@@ -1,0 +1,415 @@
+﻿<process name="Launch JP IE" version="1.0" bpversion="6.9.0.26061" narrative="l" byrefcollection="true" preferredid="c30161bb-f053-441b-9d04-5e7b7076e65a">
+  <view>
+    <camerax>138</camerax>
+    <cameray>-18</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="3feaa2dc-1f02-4ad2-ad7e-d336c88040bc" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>105</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="b2820a95-57a7-4f08-8d94-39a3df199aab" type="Normal" published="False">
+    <name>Application Modeller - Launch JP Language Website</name>
+    <view>
+      <camerax>-282</camerax>
+      <cameray>41</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="3d478e6a-39bb-4ab9-a549-55d1d515627a" type="Normal" published="False">
+    <name>Check JP WebPage Status</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="d7f94cf1-d006-48f4-b5a0-1858c1eac0f3" name="Start" type="Start">
+    <display x="105" y="-210" />
+    <onsuccess>5ab07b6c-3c7f-4d75-8e0e-da8763af04f7</onsuccess>
+  </stage>
+  <stage stageid="f0e59f04-c0c0-464c-9432-c06ecc4d46a6" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-105" w="180" h="90" />
+  </stage>
+  <stage stageid="2aa66572-1c9f-4059-9d5e-a89e791c54f0" name="Setup" type="SubSheetInfo">
+    <subsheetid>3feaa2dc-1f02-4ad2-ad7e-d336c88040bc</subsheetid>
+    <display x="-300" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="ede7562a-6aec-4e89-93b1-3c60506df1de" name="Start" type="Start">
+    <subsheetid>3feaa2dc-1f02-4ad2-ad7e-d336c88040bc</subsheetid>
+    <display x="-90" y="-135" />
+    <onsuccess>a8281571-6bb9-4c2f-9b4d-885c8594065b</onsuccess>
+  </stage>
+  <stage stageid="81bc14a2-576c-4bf8-8403-0390a1276b93" name="End" type="End">
+    <subsheetid>3feaa2dc-1f02-4ad2-ad7e-d336c88040bc</subsheetid>
+    <display x="-90" y="165" />
+  </stage>
+  <stage stageid="a8281571-6bb9-4c2f-9b4d-885c8594065b" name="Launch Blue Prism" type="Action">
+    <subsheetid>3feaa2dc-1f02-4ad2-ad7e-d336c88040bc</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-75" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>7c78341a-3992-48be-8810-c363e27664ad</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="7c78341a-3992-48be-8810-c363e27664ad" name="Attach System" type="Action">
+    <subsheetid>3feaa2dc-1f02-4ad2-ad7e-d336c88040bc</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>10960d32-705a-4fb7-960c-78453fe049b8</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="10960d32-705a-4fb7-960c-78453fe049b8" name="Sign In" type="Action">
+    <subsheetid>3feaa2dc-1f02-4ad2-ad7e-d336c88040bc</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="Error message received while Login" stage="" />
+    </outputs>
+    <onsuccess>2fa6c79d-4256-49b4-b6c4-2d017d6f6fd5</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="2fa6c79d-4256-49b4-b6c4-2d017d6f6fd5" name="Go To Studio" type="Action">
+    <subsheetid>3feaa2dc-1f02-4ad2-ad7e-d336c88040bc</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-90" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>81bc14a2-576c-4bf8-8403-0390a1276b93</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="f2310405-c6a7-4012-8dbc-453dd426c218" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="105" y="-90" w="330" h="30" />
+    <onsuccess>b8cf05d4-b6d0-4812-b023-2c313e02b53b</onsuccess>
+    <processid>3feaa2dc-1f02-4ad2-ad7e-d336c88040bc</processid>
+  </stage>
+  <stage stageid="094001dc-7ae6-4d92-8a4d-0ccea679fe8a" name="Application Modeller - Launch JP Language Website" type="SubSheetInfo">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <display x="-240" y="-105" w="300" h="90" />
+  </stage>
+  <stage stageid="e91fbbd3-34f0-4fed-b003-399a115b6d3c" name="Start" type="Start">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <display x="135" y="-180" />
+    <onsuccess>1faa66b2-8114-407b-9fee-3037056fb853</onsuccess>
+  </stage>
+  <stage stageid="213cebd3-db3e-4f18-baea-c2f443104e46" name="End" type="End">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <display x="135" y="525" />
+  </stage>
+  <stage stageid="463cca18-e575-41e8-9af4-38a89f6e4555" name="Open Application Modeller" type="Action">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="135" y="225" w="180" h="30" />
+    <inputs>
+      <input type="text" name="Process / Object Name" friendlyname="Process / Object Name" narrative="Name of the Process or Object" expr="[Object Name]" />
+    </inputs>
+    <onsuccess>a936df31-b215-4a82-85c5-15a85b0f37a3</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Open Application Modeller" />
+  </stage>
+  <stage stageid="a97b07d1-ca02-4b86-abf3-f5fbdc0fcd4a" name="App Name - Click Launch" type="Action">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="135" y="405" w="180" h="30" />
+    <onsuccess>5b55b341-9334-4fe9-b4e5-4cf9ebca360a</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Press Launch" />
+  </stage>
+  <stage stageid="8a86182f-a24f-4144-928b-eea92065acbb" name="Open Object" type="Action">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="135" y="105" w="180" h="30" />
+    <inputs>
+      <input type="text" name="Object Name" friendlyname="Object Name" narrative="The name of the object you wish to open." expr="[Object Name]" />
+      <input type="text" name="Folder to Select" friendlyname="Folder to Select" narrative="Name of folder the object you wish to select is contained within" expr="&quot;Default&quot;" />
+      <input type="number" name="MatchIndex" friendlyname="MatchIndex" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Access Warning" friendlyname="Access Warning" stage="" />
+    </outputs>
+    <onsuccess>1925963e-d6f1-48f7-b18c-9ccedd0164ec</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Object" />
+  </stage>
+  <stage stageid="0b7856ca-b38c-4bac-a771-5f112aa3ecd9" name="pid" type="Data">
+    <display x="-195" y="15" w="180" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="dce3ed84-cd20-4494-8112-5268fa20d97e" name="Input Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="-15" w="180" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f75817de-0a34-4880-865a-c3ad105cbcfb" name="Application Modeller - Launch JP Language Website" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="105" y="135" w="120" h="60" />
+    <onsuccess>4cc8256a-e016-4f2f-9b32-002c49255782</onsuccess>
+    <processid>b2820a95-57a7-4f08-8d94-39a3df199aab</processid>
+  </stage>
+  <stage stageid="24546e8e-1dd0-4797-8f02-65f05537515d" name="Check JP WebPage Status" type="SubSheetInfo">
+    <subsheetid>3d478e6a-39bb-4ab9-a549-55d1d515627a</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="e0a90431-3ce5-4d7c-8fd1-5cd37e77a5f4" name="Start" type="Start">
+    <subsheetid>3d478e6a-39bb-4ab9-a549-55d1d515627a</subsheetid>
+    <display x="15" y="-135" />
+    <onsuccess>6617d8a4-3e97-4021-b8b8-b8be2de31817</onsuccess>
+  </stage>
+  <stage stageid="9d46ccfc-ed0a-423f-9ae7-293c6dbcd4c8" name="End" type="End">
+    <subsheetid>3d478e6a-39bb-4ab9-a549-55d1d515627a</subsheetid>
+    <display x="15" y="0" />
+  </stage>
+  <stage stageid="6617d8a4-3e97-4021-b8b8-b8be2de31817" name="Attach To IE Browser" type="Action">
+    <subsheetid>3d478e6a-39bb-4ab9-a549-55d1d515627a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-90" w="90" h="30" />
+    <onsuccess>c5ae94f4-0c05-46a2-b0e1-f9974d2d7bfa</onsuccess>
+    <resource object="Open IE Yahoo JP Language Web" action="Attach To IE Browser" />
+  </stage>
+  <stage stageid="c5ae94f4-0c05-46a2-b0e1-f9974d2d7bfa" name="Get WebPage Status" type="Action">
+    <subsheetid>3d478e6a-39bb-4ab9-a549-55d1d515627a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="90" h="30" />
+    <onsuccess>9d46ccfc-ed0a-423f-9ae7-293c6dbcd4c8</onsuccess>
+    <resource object="Open IE Yahoo JP Language Web" action="Get WebPage Status" />
+  </stage>
+  <stage stageid="1925963e-d6f1-48f7-b18c-9ccedd0164ec" name="Pause 10" type="Action">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="135" y="165" w="180" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="10" />
+    </inputs>
+    <onsuccess>463cca18-e575-41e8-9af4-38a89f6e4555</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="4cc8256a-e016-4f2f-9b32-002c49255782" name="Check JP WebPage Status" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="105" y="195" w="120" h="60" />
+    <onsuccess>a43d7c35-7239-4142-b099-dd0c206db388</onsuccess>
+    <processid>3d478e6a-39bb-4ab9-a549-55d1d515627a</processid>
+  </stage>
+  <stage stageid="a43d7c35-7239-4142-b099-dd0c206db388" name="Exit Web Page" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="105" y="255" w="120" h="60" />
+    <onsuccess>2b0b7300-3f20-4c10-a191-2ca8c11cd7ef</onsuccess>
+    <resource object="Open IE Yahoo JP Language Web" action="Exit Web Page" />
+  </stage>
+  <stage stageid="5b55b341-9334-4fe9-b4e5-4cf9ebca360a" name="Close Object" type="Action">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="135" y="465" w="180" h="30" />
+    <onsuccess>213cebd3-db3e-4f18-baea-c2f443104e46</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="5ab07b6c-3c7f-4d75-8e0e-da8763af04f7" name="Note1" type="Note">
+    <narrative>GIVEN I have an business object which is configured with the file path that contains Japanese characters in Application Modeller 
+
+AND browser path set to Internet Explorer</narrative>
+    <display x="105" y="-150" w="330" h="60" />
+    <onsuccess>f2310405-c6a7-4012-8dbc-453dd426c218</onsuccess>
+  </stage>
+  <stage stageid="b8cf05d4-b6d0-4812-b023-2c313e02b53b" name="Note3" type="Note">
+    <narrative>
+WHEN a file path containing html file name or path contains Japanese characters.
+
+AND an attempt to launch the webpage from Application Modeller is made
+
+THEN the website is successfully launched
+
+
+</narrative>
+    <display x="105" y="-15" w="330" h="90" />
+    <onsuccess>f75817de-0a34-4880-865a-c3ad105cbcfb</onsuccess>
+  </stage>
+  <stage stageid="659a5295-6f55-4586-b840-78a1894c6d25" name="Recover" type="Recover">
+    <loginhibit />
+    <display x="225" y="105" />
+    <onsuccess>f1f815b9-d020-4900-96f7-9f8e72efad24</onsuccess>
+  </stage>
+  <stage stageid="f1f815b9-d020-4900-96f7-9f8e72efad24" name="Exception" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="225" y="165" w="90" h="30" />
+    <onsuccess>bab57425-cc6c-48f5-9267-23b310c2d477</onsuccess>
+    <steps>
+      <calculation expression="True" stage="Failed?" />
+      <calculation expression="ExceptionDetail()" stage="Exception" />
+    </steps>
+  </stage>
+  <stage stageid="bab57425-cc6c-48f5-9267-23b310c2d477" name="Resume" type="Resume">
+    <loginhibit />
+    <display x="225" y="210" />
+    <onsuccess>28d616c0-0542-471b-a970-4133cb67a85f</onsuccess>
+  </stage>
+  <stage stageid="aa0ca41c-aac7-4dac-a0c3-57034e2aecdb" name="WebSite launch from Application Modeller and Exit Website" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="45" w="330" h="255" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="718a62b4-69c4-4d87-8af3-f09576c78f31" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="105" w="180" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="269c3900-6fbc-4edf-b191-e786755f48cd" name="Exception" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="135" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1a3bdb19-9590-4912-a3a0-998172345c39" name="Local Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-285" y="75" w="180" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="28d616c0-0542-471b-a970-4133cb67a85f" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="225" y="360" w="10" h="10" />
+    <onsuccess>2b0b7300-3f20-4c10-a191-2ca8c11cd7ef</onsuccess>
+  </stage>
+  <stage stageid="6bf825cd-fc73-4b93-a651-035fa7415808" name="End" type="End">
+    <display x="105" y="510" />
+  </stage>
+  <stage stageid="eae710ec-0904-4cb8-949e-3a2fa4bb8a75" name="Failed?" type="Decision">
+    <display x="105" y="435" w="90" h="60" />
+    <decision expression="[Failed?]" />
+    <ontrue>9dc81077-0c7d-43c3-9be2-8ff157bcc4e0</ontrue>
+    <onfalse>6bf825cd-fc73-4b93-a651-035fa7415808</onfalse>
+  </stage>
+  <stage stageid="9dc81077-0c7d-43c3-9be2-8ff157bcc4e0" name="Re-Throw" type="Exception">
+    <display x="225" y="435" />
+    <exception localized="yes" type="RETHROW" detail="[Exception]" />
+  </stage>
+  <stage stageid="2b0b7300-3f20-4c10-a191-2ca8c11cd7ef" name="Exit Application" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="105" y="360" w="120" h="60" />
+    <onsuccess>eae710ec-0904-4cb8-949e-3a2fa4bb8a75</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="631261cc-2eb4-4a54-8277-c61d93b5ab12" name="Object File Path" type="Data">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-225" y="165" w="240" h="60" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">\Processes\IE\BG5957-LaunchJPIE\BPA Object - Open IE Yahoo JP Language Web.bpobject</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8f3a4f25-6061-440f-8c34-9ebd8577451b" name="Input" type="Block">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-390" y="-45" w="300" h="330" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4651bbc1-5d61-4e4c-8206-7efa9c6fc90d" name="QA Root" type="Data">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-225" y="15" w="240" h="60" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a936df31-b215-4a82-85c5-15a85b0f37a3" name="Enter URL of start page and any CMD Line Parameters" type="Action">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="135" y="285" w="180" h="30" />
+    <inputs>
+      <input type="text" name="CMD line File Path" friendlyname="CMD line File Path" narrative="Enter URL of start page and any CMD Line Parameters" expr="[QA Root] &amp; [File Path]" />
+    </inputs>
+    <onsuccess>feab3cd4-1ef9-4b21-9028-d73dfafd9a69</onsuccess>
+    <resource object="Blue Prism - Studio - Application Modeller" action="Application Modeller - Enter URL of start page and any CMD Line Parameters" />
+  </stage>
+  <stage stageid="feab3cd4-1ef9-4b21-9028-d73dfafd9a69" name="Pause 10" type="Action">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="135" y="345" w="180" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="10" />
+    </inputs>
+    <onsuccess>a97b07d1-ca02-4b86-abf3-f5fbdc0fcd4a</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+  <stage stageid="1faa66b2-8114-407b-9fee-3037056fb853" name="Import Object" type="Action">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="135" y="-135" w="180" h="30" />
+    <inputs>
+      <input type="text" name="File path &amp; Name" friendlyname="File path &amp; Name" narrative="The full file path and name where you wish to get the file from. eg. 'C:\BluePrism\BPRelease'" expr="[QA Root] &amp; [Object File Path]" />
+    </inputs>
+    <onsuccess>abcc07c0-5de7-45fc-ac90-b68ca20b1db9</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Import Process / Object" />
+  </stage>
+  <stage stageid="a244c290-e0ba-42ef-9c28-6aea514f40c6" name="File Path" type="Data">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-225" y="90" w="240" h="60" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">\Processes\Bg-5957-websitefile\新型コロナ特措法成立 - Yahoo!ニュース.html</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ad08abd7-7619-47ab-b381-d3854d21c71d" name="Object Name" type="Data">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-240" y="240" w="270" h="60" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Open IE Yahoo JP Language Web</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="abcc07c0-5de7-45fc-ac90-b68ca20b1db9" name="Navigate to Home Page &amp; Refresh" type="Action">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="135" y="-75" w="180" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>91a2e701-3797-47c8-9caf-81e470a0e5b1</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="1e486dfe-eb87-4915-909f-054eedf0919a" name="Return to Studio &amp; Refresh" type="Action">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="135" y="45" w="180" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>8a86182f-a24f-4144-928b-eea92065acbb</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="91a2e701-3797-47c8-9caf-81e470a0e5b1" name="Pause 10" type="Action">
+    <subsheetid>b2820a95-57a7-4f08-8d94-39a3df199aab</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="135" y="-15" w="180" h="30" />
+    <inputs>
+      <input type="number" name="Duration (Seconds)" friendlyname="Duration (Seconds)" expr="10" />
+    </inputs>
+    <onsuccess>1e486dfe-eb87-4915-909f-054eedf0919a</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Pause" />
+  </stage>
+</process>

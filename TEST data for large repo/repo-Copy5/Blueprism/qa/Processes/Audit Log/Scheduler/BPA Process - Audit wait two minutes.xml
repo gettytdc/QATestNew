@@ -1,0 +1,204 @@
+﻿<process name="Audit wait two minutes" version="1.0" bpversion="6.3.0.4392" narrative="a process that ends after two minutes." byrefcollection="true" preferredid="9522a83c-d7cd-450c-be61-cc2072e004e0">
+  <view>
+    <camerax>0</camerax>
+    <cameray>0</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="fc08ebb9-5400-4480-99ad-6947aaf4d96a" type="Normal" published="False">
+    <name>Wait N Seconds</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="c3850a1b-1c0f-4af7-9513-58c34dbd3e18" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>f3aaab9c-9227-4041-8d30-c5751af1695a</onsuccess>
+  </stage>
+  <stage stageid="c3a9a20b-953b-4873-8e93-84dd07b1e697" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="7dacae51-b231-4f27-b387-8ab0e31764d0" name="Wait N Seconds" type="SubSheetInfo">
+    <subsheetid>fc08ebb9-5400-4480-99ad-6947aaf4d96a</subsheetid>
+    <narrative>Waits N number of seconds.</narrative>
+    <displayx>-150</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="51cf18d9-cf2f-4a01-8e12-c1ea10aa642d" name="Start" type="Start">
+    <subsheetid>fc08ebb9-5400-4480-99ad-6947aaf4d96a</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Seconds to Wait" narrative="Number of Seconds toWait." stage="Seconds to Wait" />
+    </inputs>
+    <onsuccess>f2bf9a5a-479c-4ba9-9399-22f894ee7f04</onsuccess>
+  </stage>
+  <stage stageid="8f6737db-9ab7-48a3-8e52-94128e865ca0" name="End" type="End">
+    <subsheetid>fc08ebb9-5400-4480-99ad-6947aaf4d96a</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="f2bf9a5a-479c-4ba9-9399-22f894ee7f04" name="Get Now" type="Calculation">
+    <subsheetid>fc08ebb9-5400-4480-99ad-6947aaf4d96a</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>5a229f75-77c8-4934-8382-bc2f48838b80</onsuccess>
+    <calculation expression="Now()" stage="Current Time" />
+  </stage>
+  <stage stageid="3a977b6e-1cf0-4902-95d0-4cc8a9045d4b" name="Current Time" type="Data">
+    <subsheetid>fc08ebb9-5400-4480-99ad-6947aaf4d96a</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-150</displayx>
+    <displayy>105</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>datetime</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="389a7155-aded-4ee0-b011-49c678652bd8" name="Time Passed?" type="Decision">
+    <subsheetid>fc08ebb9-5400-4480-99ad-6947aaf4d96a</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="Now () &gt; [Current Time] + MakeTimeSpan(0, 0, 0, [Seconds to Wait])" />
+    <ontrue>8f6737db-9ab7-48a3-8e52-94128e865ca0</ontrue>
+    <onfalse>ba1ed988-d5e0-429a-b6d2-cb0e464a1883</onfalse>
+  </stage>
+  <stage stageid="5a229f75-77c8-4934-8382-bc2f48838b80" name="Anchor6" type="Anchor">
+    <subsheetid>fc08ebb9-5400-4480-99ad-6947aaf4d96a</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>15</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>389a7155-aded-4ee0-b011-49c678652bd8</onsuccess>
+  </stage>
+  <stage stageid="ba1ed988-d5e0-429a-b6d2-cb0e464a1883" name="Anchor7" type="Anchor">
+    <subsheetid>fc08ebb9-5400-4480-99ad-6947aaf4d96a</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>60</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>94ff9224-2d9b-4583-bf06-7fa4deb75b02</onsuccess>
+  </stage>
+  <stage stageid="94ff9224-2d9b-4583-bf06-7fa4deb75b02" name="Anchor8" type="Anchor">
+    <subsheetid>fc08ebb9-5400-4480-99ad-6947aaf4d96a</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>15</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>5a229f75-77c8-4934-8382-bc2f48838b80</onsuccess>
+  </stage>
+  <stage stageid="3fa2126e-0ac6-414f-b5fd-a234e58a2563" name="Local Variables" type="Block">
+    <subsheetid>fc08ebb9-5400-4480-99ad-6947aaf4d96a</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="67643f57-2131-4dcc-be96-765ebb4ce091" name="Seconds to Wait" type="Data">
+    <subsheetid>fc08ebb9-5400-4480-99ad-6947aaf4d96a</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-150</displayx>
+    <displayy>30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>20</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e7a245e3-af96-4228-a7bc-cb9abdc1d038" name="Input Variables" type="Block">
+    <subsheetid>fc08ebb9-5400-4480-99ad-6947aaf4d96a</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>0</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f3aaab9c-9227-4041-8d30-c5751af1695a" name="Wait120 Seconds" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Seconds to Wait" narrative="Number of Seconds toWait." expr="120" />
+    </inputs>
+    <onsuccess>8ac85de6-0085-4bf5-a1bc-f801f6cf7854</onsuccess>
+    <processid>fc08ebb9-5400-4480-99ad-6947aaf4d96a</processid>
+  </stage>
+  <stage stageid="8ac85de6-0085-4bf5-a1bc-f801f6cf7854" name="End1" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+</process>

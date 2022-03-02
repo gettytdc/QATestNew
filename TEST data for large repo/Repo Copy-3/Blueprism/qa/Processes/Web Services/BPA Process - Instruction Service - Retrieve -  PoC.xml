@@ -1,0 +1,1095 @@
+<process name="Instruction Service - Retrieve -  PoC" version="1.0" narrative="Process to test the Retrieve action on the Instruction service." preferredid="96a1770c-c97e-4ed8-802c-b0058ca64ca1">
+  <view>
+    <camerax>0</camerax>
+    <cameray>0</cameray>
+    <zoom>1</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="32643f79-6ef3-437b-a8b4-85bde03f15e6" type="Normal" published="False">
+    <name>Test Retrieve</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>315</cameray>
+      <zoom>1</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="659b5be9-05b5-49b7-8be9-fc2f2a549611" type="Normal" published="False">
+    <name>Handle Business Exception</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>62</cameray>
+      <zoom>1</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="1a04642f-3e60-4706-bec6-e71475b3564b" type="Normal" published="False">
+    <name>Test System Exception</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>117</cameray>
+      <zoom>1</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="6a919c46-22db-406f-947a-c721da078212" type="Normal" published="False">
+    <name>Test Business Exception</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom>1</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="1b20c10f-6088-49d8-9bcd-b02ba4214a34" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="flag" name="Use debug SSL certificate" stage="Use debug SSL certificate" />
+    </inputs>
+    <onsuccess>a90b2418-9d6e-4a79-a064-25e10dd749c2</onsuccess>
+  </stage>
+  <stage stageid="e002cf2a-f362-4642-9688-9e71d8c307d0" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>225</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="d66b5f9b-574f-4560-b7f6-030eca6d3e5a" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-240</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="611a1c65-e80a-4d27-baa8-403baac8d8ba" name="Setup Debug Hook" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>fb34e22c-1558-47c5-b005-a76910dd6c14</onsuccess>
+    <resource object="Instruction service - Retrieve - Utilitys" action="Setup Hook" />
+  </stage>
+  <stage stageid="a90b2418-9d6e-4a79-a064-25e10dd749c2" name="Use debug SSL certificate?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Use debug SSL certificate]" />
+    <ontrue>611a1c65-e80a-4d27-baa8-403baac8d8ba</ontrue>
+    <onfalse>b55e6ff9-4fca-4d5b-aa93-373e74a55964</onfalse>
+  </stage>
+  <stage stageid="fb34e22c-1558-47c5-b005-a76910dd6c14" name="anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>b55e6ff9-4fca-4d5b-aa93-373e74a55964</onsuccess>
+  </stage>
+  <stage stageid="b55e6ff9-4fca-4d5b-aa93-373e74a55964" name="anchor2" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>4ea87d64-8f14-4ad9-853a-f692265f0cff</onsuccess>
+  </stage>
+  <stage stageid="3f68f181-db43-439a-a792-319dedcf812d" name="Use debug SSL certificate" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2257eb32-0ae1-4c3a-8e96-760737c38cd2" name="Test Retrieve" type="SubSheetInfo">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="0981d2f9-d4d3-4f2f-96b9-a84e75ff53ba" name="Start" type="Start">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>8fdd52ac-d699-4322-bbc0-3c155c03528b</onsuccess>
+  </stage>
+  <stage stageid="a2d469e9-693e-497f-af77-9b948a1d1db3" name="End" type="End">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>450</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="4ea87d64-8f14-4ad9-853a-f692265f0cff" name="Test Retrieve" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>ef2a78ca-0556-45d1-b045-6362bd6ec714</onsuccess>
+    <processid>32643f79-6ef3-437b-a8b4-85bde03f15e6</processid>
+  </stage>
+  <stage stageid="87be25a2-fbaf-4307-b216-73568954263f" name="Call Retrieve on Instruction Service" type="Action">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="context" expr="[InputContext]" />
+      <input type="collection" name="instructionReferenceNumber" expr="[Instruction Reference Numbers]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="context" stage="OutputContext" />
+      <output type="flag" name="success" stage="Success" />
+      <output type="collection" name="errors" stage="Errors" />
+      <output type="collection" name="warnings" stage="Warnings" />
+      <output type="collection" name="instruction" stage="Instructions" />
+    </outputs>
+    <onsuccess>b0216c1e-bfa7-4ee8-8997-2bd50f1e56da</onsuccess>
+    <resource object="InstructionService_1" action="Retrieve" />
+  </stage>
+  <stage stageid="a39ca3c5-b690-47b7-9e37-73e18405485b" name="InputContext" type="Collection">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <singlerow />
+      <field name="callerReference" type="text" />
+      <field name="transactionId" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <singlerow />
+      <row>
+        <field name="callerReference" type="text" value="BluePrism" />
+        <field name="transactionId" type="text" value="" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="d1688657-f1dd-489e-b2b5-38ad5cb3e4ba" name="Instruction Reference Numbers" type="Collection">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="instructionReferenceNumber" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="instructionReferenceNumber" type="text" value="" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="5b123bfa-48d8-4b47-b75f-666c592e7a73" name="OutputContext" type="Collection">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fcfd7826-57ca-457f-8a1b-e365d2b2aabe" name="Success" type="Data">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-75</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5caff4b2-1bc2-46ca-be22-6a6063da978e" name="Errors" type="Collection">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c2e5d523-49e9-4b67-a7a7-627757be212c" name="Warnings" type="Collection">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="62a8af68-32c0-45b4-b253-268aae0de576" name="Instructions" type="Collection">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="instruction" type="collection" />
+      <field name="instructionStatusHistory" type="collection" />
+      <field name="bookingDate" type="datetime" />
+      <field name="externalReference" type="text" />
+      <field name="channel" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="b0216c1e-bfa7-4ee8-8997-2bd50f1e56da" name="Success?" type="Decision">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Success]" />
+    <ontrue>a13f5e6d-0fab-4b5f-954a-702a17cd4ef2</ontrue>
+    <onfalse>401f2e98-1f3a-4772-b38d-4efb76005609</onfalse>
+  </stage>
+  <stage stageid="e1baa12b-1a3c-481f-8401-eb1baa970bfa" name="Handle Business Exception" type="SubSheetInfo">
+    <subsheetid>659b5be9-05b5-49b7-8be9-fc2f2a549611</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="7bb43546-2f7b-4e6c-afcf-1979cefbc211" name="Start" type="Start">
+    <subsheetid>659b5be9-05b5-49b7-8be9-fc2f2a549611</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Errors" stage="Errors" />
+      <input type="collection" name="Warnings" stage="Warnings" />
+    </inputs>
+    <onsuccess>76120e93-df0b-44c3-a76e-c22db4a915eb</onsuccess>
+  </stage>
+  <stage stageid="3fa1df02-b85e-44f5-8a38-f9bd15680ba2" name="End" type="End">
+    <subsheetid>659b5be9-05b5-49b7-8be9-fc2f2a549611</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="401f2e98-1f3a-4772-b38d-4efb76005609" name="Handle Business Exception" type="SubSheet">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Errors" expr="[Errors]" />
+      <input type="collection" name="Warnings" expr="[Warnings]" />
+    </inputs>
+    <onsuccess>54a30fe4-7ad0-4350-9133-f53e0e0ef85c</onsuccess>
+    <processid>659b5be9-05b5-49b7-8be9-fc2f2a549611</processid>
+  </stage>
+  <stage stageid="a9bf1554-2beb-40fe-91c4-03286f899952" name="Errors" type="Collection">
+    <subsheetid>659b5be9-05b5-49b7-8be9-fc2f2a549611</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="error" type="collection" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="240273e8-18c3-49c2-bf7d-21460d69a8cf" name="Warnings" type="Collection">
+    <subsheetid>659b5be9-05b5-49b7-8be9-fc2f2a549611</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ca6b0c7b-fda9-4a6f-8796-87a65ddbf270" name="Test System Exception" type="SubSheetInfo">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="1dfc8435-1be1-4d09-b7ad-51791faa6912" name="Start" type="Start">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>60a02b55-26dd-44ef-94cd-fd017c14e435</onsuccess>
+  </stage>
+  <stage stageid="ef2a78ca-0556-45d1-b045-6362bd6ec714" name="Test System Exception" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>386a7813-59ec-40c0-93be-86b20b6d17e5</onsuccess>
+    <processid>1a04642f-3e60-4706-bec6-e71475b3564b</processid>
+  </stage>
+  <stage stageid="8fdd52ac-d699-4322-bbc0-3c155c03528b" name="Generate TransactionID" type="Action">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="text" name="guid" stage="InputContext.transactionId" />
+    </outputs>
+    <onsuccess>bf319a85-7954-4cbe-ad70-8af881212446</onsuccess>
+    <resource object="Instruction service - Retrieve - Utilitys" action="Generate TransactionID" />
+  </stage>
+  <stage stageid="6606cf7b-9e41-43ce-9848-fffcf0cf4827" name="End" type="End">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>330</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="62a4e218-03eb-444e-afed-84fd59b2916c" name="Call Retrieve on Instruction Service" type="Action">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="context" expr="[InputContext]" />
+      <input type="collection" name="instructionReferenceNumber" expr="[Instruction Reference Numbers]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="context" stage="OutputContext" />
+      <output type="flag" name="success" stage="Success" />
+      <output type="collection" name="errors" stage="Errors" />
+      <output type="collection" name="warnings" stage="Warnings" />
+      <output type="collection" name="instruction" stage="Instructions" />
+    </outputs>
+    <onsuccess>89450a55-2eb1-49f2-b4db-5df6c124e8d2</onsuccess>
+    <resource object="InstructionService_1" action="Retrieve" />
+  </stage>
+  <stage stageid="867f2ac1-14b0-4e8c-9fb8-0d78b22275bd" name="InputContext" type="Collection">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <singlerow />
+      <field name="callerReference" type="text" />
+      <field name="transactionId" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <singlerow />
+      <row>
+        <field name="callerReference" type="text" value="BluePrism" />
+        <field name="transactionId" type="text" value="" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="24c9ec88-5324-42f8-90b9-f0b003ced4da" name="Instruction Reference Numbers" type="Collection">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="instructionReferenceNumber" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="instructionReferenceNumber" type="text" value="1230604110" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="10b81535-14e7-495a-83ca-8b3c390849b8" name="Block1" type="Block">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-75</displayx>
+    <displayy>15</displayy>
+    <displaywidth>375</displaywidth>
+    <displayheight>255</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="48fcbdef-32ff-4863-bc32-11e6477df81e" name="Recover1" type="Recover">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>50a71623-a526-405c-a6c4-6af628b82dbb</onsuccess>
+  </stage>
+  <stage stageid="587c2a23-6e1a-405b-8f65-212c82f1fd14" name="Resume1" type="Resume">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>240</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>89450a55-2eb1-49f2-b4db-5df6c124e8d2</onsuccess>
+  </stage>
+  <stage stageid="60a02b55-26dd-44ef-94cd-fd017c14e435" name="Set invalid transactionID" type="Calculation">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="FF0000" />
+    <onsuccess>65d3b850-321c-48d1-b62e-22409ef213ad</onsuccess>
+    <calculation expression="0" stage="InputContext.transactionId" />
+  </stage>
+  <stage stageid="8d13ad9f-2429-4265-90ae-5059dbdd44fd" name="Can Recover?" type="Decision">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>150</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="ExceptionType()=&quot;Internal&quot; AND ExceptionDetail() &lt;&gt; &quot;&quot; AND True" />
+    <ontrue>9095cf4c-edd6-4b2a-bb57-c8c696a5df25</ontrue>
+    <onfalse>a0ff6a78-746e-4b66-92e8-e3f4a830b8d3</onfalse>
+  </stage>
+  <stage stageid="a0ff6a78-746e-4b66-92e8-e3f4a830b8d3" name="System Exception" type="Exception">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="&quot;System exception returned from retrieve - &quot; &amp; ExceptionDetail()" />
+  </stage>
+  <stage stageid="9095cf4c-edd6-4b2a-bb57-c8c696a5df25" name="Note1" type="Note">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>Do Recovery</narrative>
+    <displayx>240</displayx>
+    <displayy>195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>587c2a23-6e1a-405b-8f65-212c82f1fd14</onsuccess>
+  </stage>
+  <stage stageid="89450a55-2eb1-49f2-b4db-5df6c124e8d2" name="anchor3" type="Anchor">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>240</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>6606cf7b-9e41-43ce-9848-fffcf0cf4827</onsuccess>
+  </stage>
+  <stage stageid="803e8d85-55a9-4c09-b01f-4a52f12ce211" name="Test Business Exception" type="SubSheetInfo">
+    <subsheetid>6a919c46-22db-406f-947a-c721da078212</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="aaba158b-a05b-4872-ac31-20ced9c9caa3" name="Start" type="Start">
+    <subsheetid>6a919c46-22db-406f-947a-c721da078212</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>5580779c-1248-4a1b-a876-86f286e411a7</onsuccess>
+  </stage>
+  <stage stageid="386a7813-59ec-40c0-93be-86b20b6d17e5" name="Test Business Exception" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>150</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e002cf2a-f362-4642-9688-9e71d8c307d0</onsuccess>
+    <processid>6a919c46-22db-406f-947a-c721da078212</processid>
+  </stage>
+  <stage stageid="54a30fe4-7ad0-4350-9133-f53e0e0ef85c" name="anchor4" type="Anchor">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>450</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>a2d469e9-693e-497f-af77-9b948a1d1db3</onsuccess>
+  </stage>
+  <stage stageid="e44d8d47-5f23-4d4f-8536-d4d83db79863" name="End" type="End">
+    <subsheetid>6a919c46-22db-406f-947a-c721da078212</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="e960a2b8-3b87-4029-bccf-8fffd3b5fcdd" name="Call Retrieve on Instruction Service" type="Action">
+    <subsheetid>6a919c46-22db-406f-947a-c721da078212</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="context" expr="[InputContext]" />
+      <input type="collection" name="instructionReferenceNumber" expr="[Instruction Reference Numbers]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="context" stage="" />
+      <output type="flag" name="success" stage="Success" />
+      <output type="collection" name="errors" stage="Errors" />
+      <output type="collection" name="warnings" stage="Warnings" />
+      <output type="collection" name="instruction" stage="" />
+    </outputs>
+    <onsuccess>994ace26-8d38-497e-a4c4-3f3317b9a699</onsuccess>
+    <resource object="InstructionService_1" action="Retrieve" />
+  </stage>
+  <stage stageid="13639ca3-9a35-4429-be57-8a09faeaa7d7" name="InputContext" type="Collection">
+    <subsheetid>6a919c46-22db-406f-947a-c721da078212</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <singlerow />
+      <field name="callerReference" type="text" />
+      <field name="transactionId" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <singlerow />
+      <row>
+        <field name="callerReference" type="text" value="BluePrism" />
+        <field name="transactionId" type="text" value="" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="c0dc2781-c0c2-462c-be48-c4a1a23bd362" name="Instruction Reference Numbers" type="Collection">
+    <subsheetid>6a919c46-22db-406f-947a-c721da078212</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="instructionReferenceNumber" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="instructionReferenceNumber" type="text" value="1230604110" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="464832d1-55e3-4e19-811f-c4a6eba69f4d" name="Success" type="Data">
+    <subsheetid>6a919c46-22db-406f-947a-c721da078212</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-75</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="994ace26-8d38-497e-a4c4-3f3317b9a699" name="Success?" type="Decision">
+    <subsheetid>6a919c46-22db-406f-947a-c721da078212</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Success]" />
+    <ontrue>e44d8d47-5f23-4d4f-8536-d4d83db79863</ontrue>
+    <onfalse>bfba4f62-7b2d-4732-adab-0ce938c58238</onfalse>
+  </stage>
+  <stage stageid="bfba4f62-7b2d-4732-adab-0ce938c58238" name="Handle Business Exception" type="SubSheet">
+    <subsheetid>6a919c46-22db-406f-947a-c721da078212</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Errors" expr="[Errors]" />
+      <input type="collection" name="Warnings" expr="[Warnings]" />
+    </inputs>
+    <onsuccess>89982807-44d1-4527-831e-f8b46f969bcb</onsuccess>
+    <processid>659b5be9-05b5-49b7-8be9-fc2f2a549611</processid>
+  </stage>
+  <stage stageid="5580779c-1248-4a1b-a876-86f286e411a7" name="Generate TransactionID" type="Action">
+    <subsheetid>6a919c46-22db-406f-947a-c721da078212</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="text" name="guid" stage="InputContext.transactionId" />
+    </outputs>
+    <onsuccess>83b7ffb5-1331-4280-a75d-7efc41f74919</onsuccess>
+    <resource object="Instruction service - Retrieve - Utilitys" action="Generate TransactionID" />
+  </stage>
+  <stage stageid="89982807-44d1-4527-831e-f8b46f969bcb" name="anchor4" type="Anchor">
+    <subsheetid>6a919c46-22db-406f-947a-c721da078212</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>195</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e44d8d47-5f23-4d4f-8536-d4d83db79863</onsuccess>
+  </stage>
+  <stage stageid="83b7ffb5-1331-4280-a75d-7efc41f74919" name="Set Invalid Instruction Reference Number" type="Calculation">
+    <subsheetid>6a919c46-22db-406f-947a-c721da078212</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="FF0000" />
+    <onsuccess>e960a2b8-3b87-4029-bccf-8fffd3b5fcdd</onsuccess>
+    <calculation expression="&quot;abcdef&quot;" stage="Instruction Reference Numbers.instructionReferenceNumber" />
+  </stage>
+  <stage stageid="bf319a85-7954-4cbe-ad70-8af881212446" name="Set Instruction Reference Number" type="Calculation">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>87be25a2-fbaf-4307-b216-73568954263f</onsuccess>
+    <calculation expression="&quot;1230604110&quot;" stage="Instruction Reference Numbers.instructionReferenceNumber" />
+  </stage>
+  <stage stageid="a13f5e6d-0fab-4b5f-954a-702a17cd4ef2" name="Loop Over Instructions" type="LoopStart">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>187ff335-0d6f-4425-ad95-05acd455af0b</onsuccess>
+    <groupid>36bada27-de8d-42d8-83fd-3daf47320aa5</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Instructions</loopdata>
+  </stage>
+  <stage stageid="0795bbde-6bd6-473d-94b2-373e3fb9f6af" name="Next" type="LoopEnd">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>360</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>a2d469e9-693e-497f-af77-9b948a1d1db3</onsuccess>
+    <groupid>36bada27-de8d-42d8-83fd-3daf47320aa5</groupid>
+  </stage>
+  <stage stageid="65d3b850-321c-48d1-b62e-22409ef213ad" name="Set Instruction Reference Number" type="Calculation">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>62a4e218-03eb-444e-afed-84fd59b2916c</onsuccess>
+    <calculation expression="&quot;1230604110&quot;" stage="Instruction Reference Numbers.instructionReferenceNumber" />
+  </stage>
+  <stage stageid="4f89d37c-7ec0-4144-b18d-f71fc34416f0" name="Errors" type="Collection">
+    <subsheetid>6a919c46-22db-406f-947a-c721da078212</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c3ffd31c-a7e3-4835-b519-b409adff4ec8" name="Warnings" type="Collection">
+    <subsheetid>6a919c46-22db-406f-947a-c721da078212</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="76120e93-df0b-44c3-a76e-c22db4a915eb" name="Loop Over Errors" type="LoopStart">
+    <subsheetid>659b5be9-05b5-49b7-8be9-fc2f2a549611</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>6859bcbf-2cc0-4d04-b918-88b81615e1c4</onsuccess>
+    <groupid>1c8f1ca0-8fc8-40c6-a5f1-d16746d7252e</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Errors</loopdata>
+  </stage>
+  <stage stageid="24dbd3b3-f3d9-4c6d-9927-fb73396cc2eb" name="Next" type="LoopEnd">
+    <subsheetid>659b5be9-05b5-49b7-8be9-fc2f2a549611</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>1fce656c-5308-4e66-97f6-d96a776a5d9b</onsuccess>
+    <groupid>1c8f1ca0-8fc8-40c6-a5f1-d16746d7252e</groupid>
+  </stage>
+  <stage stageid="187ff335-0d6f-4425-ad95-05acd455af0b" name="Loop Over Instruction" type="LoopStart">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e2bf7419-623f-471f-bd8f-e426a03d4093</onsuccess>
+    <groupid>0395d5dc-ef4e-4c64-8469-bc4f477e4d17</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Instructions.instruction</loopdata>
+  </stage>
+  <stage stageid="eb45dede-2925-405f-9b1e-510e6a932994" name="Next Instruction" type="LoopEnd">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>315</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>0795bbde-6bd6-473d-94b2-373e3fb9f6af</onsuccess>
+    <groupid>0395d5dc-ef4e-4c64-8469-bc4f477e4d17</groupid>
+  </stage>
+  <stage stageid="5081d4f3-e884-47ab-a323-1b2df04e2ba6" name="Instruction Reference Number" type="Data">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>255</displayx>
+    <displayy>255</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e2bf7419-623f-471f-bd8f-e426a03d4093" name="Read Data" type="MultipleCalculation">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>255</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>eb45dede-2925-405f-9b1e-510e6a932994</onsuccess>
+    <steps>
+      <calculation expression="[Instructions.instruction.instructionReferenceNumber]" stage="Instruction Reference Number" />
+      <calculation expression="[Instructions.instruction.createdDate]" stage="Instruction Created Date" />
+      <calculation expression="[Instructions.instruction.instructionDetails.instructionType]" stage="InstructionDetails Instruction Type" />
+    </steps>
+  </stage>
+  <stage stageid="401b1b56-903b-4908-a06f-94c238fe3483" name="Instruction Created Date" type="Data">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>285</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>date</datatype>
+    <initialvalue>2011/02/17</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="bd058cee-3141-4a7b-9dfe-b7d5b5ddeb52" name="InstructionDetails Instruction Type" type="Data">
+    <subsheetid>32643f79-6ef3-437b-a8b4-85bde03f15e6</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>315</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6859bcbf-2cc0-4d04-b918-88b81615e1c4" name="Read Error Details" type="Calculation">
+    <subsheetid>659b5be9-05b5-49b7-8be9-fc2f2a549611</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>75</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>24dbd3b3-f3d9-4c6d-9927-fb73396cc2eb</onsuccess>
+    <calculation expression="[Error Details] &amp; &quot; : &quot; &amp; [Errors.error.description]" stage="Error Details" />
+  </stage>
+  <stage stageid="1a0c920d-4503-43a1-9a0e-fa08c2c8b591" name="Error Details" type="Data">
+    <subsheetid>659b5be9-05b5-49b7-8be9-fc2f2a549611</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>210</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Error</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2de1f08d-8930-41d6-ac5b-c8523c81011b" name="Business Exception" type="Exception">
+    <subsheetid>659b5be9-05b5-49b7-8be9-fc2f2a549611</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Business Exception" detail="&quot;Business Exception thrown by Instruction service - &quot; &amp; [Error Details]" />
+  </stage>
+  <stage stageid="1fce656c-5308-4e66-97f6-d96a776a5d9b" name="Recover?" type="Decision">
+    <subsheetid>659b5be9-05b5-49b7-8be9-fc2f2a549611</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="True" />
+    <ontrue>f3a2b310-df06-4aae-9f50-1eeb1533bb0b</ontrue>
+    <onfalse>2de1f08d-8930-41d6-ac5b-c8523c81011b</onfalse>
+  </stage>
+  <stage stageid="f3a2b310-df06-4aae-9f50-1eeb1533bb0b" name="Note2" type="Note">
+    <subsheetid>659b5be9-05b5-49b7-8be9-fc2f2a549611</subsheetid>
+    <narrative>Do Recovery</narrative>
+    <displayx>0</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>3fa1df02-b85e-44f5-8a38-f9bd15680ba2</onsuccess>
+  </stage>
+  <stage stageid="50a71623-a526-405c-a6c4-6af628b82dbb" name="Get Exception Message" type="Calculation">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>8d13ad9f-2429-4265-90ae-5059dbdd44fd</onsuccess>
+    <calculation expression="ExceptionDetail()" stage="Exception Message" />
+  </stage>
+  <stage stageid="33772fa7-a166-4819-bf76-97ba4d373fd0" name="Exception Message" type="Data">
+    <subsheetid>1a04642f-3e60-4706-bec6-e71475b3564b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>390</displayx>
+    <displayy>45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+</process>

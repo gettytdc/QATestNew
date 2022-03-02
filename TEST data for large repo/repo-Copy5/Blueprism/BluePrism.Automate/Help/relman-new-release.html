@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>New Release Wizard</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+		dl.import-rules dd>ul>li { margin-bottom: 1em; }
+		dl.import-rules dd>ul { padding-left: 1em; }
+	</style>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">Blue Prism Release Manager</h1>
+		<h2>New Release Wizard</h2>
+	</div>
+
+	<div class="captioned-image overview-screenshot nozoom"
+		style="width:240px">
+		<a href="Graphics/relman-newrelease-wizard.png" 
+			title="New Release Wizard - Click for a larger image"><img 
+			alt="New Release Wizard - Click for a larger image"
+			src="Graphics/relman-newrelease-wizard.png"/></a>
+		<p>New Release Wizard</p>
+	</div>
+
+	<h3 id="overview">Overview</h3>
+	
+	<p>The New Release wizard is used to create a release - an output
+	file containing all the components defined in a package in their
+	current configured state.</p>
+	
+	<p>When successfully executed, the wizard will generate a file which
+	can be imported into another Blue Prism environment, transferring
+	all the components and their states to the target.</p>
+	
+	<p>It can be initiated from the main menu in the client - found
+	by selecting <code>File | Export | New Release</code>, or by
+	pressing the shortcut keys <code>Ctrl-R</code>. It can also be
+	started by clicking on the <code>New Release</code> task within
+	<a href="relman-ui.html">Release Manager</a> or pressing the
+	<code>New Release</code> button in the relevant <a
+	href="relman-ui.html#package-details">Package Details</a> panel.</p>
+	
+	<h3 id="stages">Stages</h3>
+	<p>The stages involved in creating a release are the following:-</p>
+	<dl class="listplease">
+		<dt><a href="#package">Package</a></dt>
+		<dd><p>Choose the package that you want to create a release from -
+		either an existing package or an adhoc package just for this
+		release.</p>
+		<p><strong>Note: </strong> This stage is not shown if you are
+		creating a release from a selected package in Release Manager.
+		</p></dd>
+		
+		<dt><a href="#contents">Package Contents</a></dt>
+		<dd>Decide the contents of the adhoc package from which the
+		release should be drawn. Only shown if an adhoc package was
+		chosen in the <a href="#package-stage">Package Stage</a>.
+		</dd>
+		
+		<dt><a href="#name">Name</a></dt>
+		<dd>Set the name of the release</dd>
+		
+		<dt><a href="#notes">Release Notes</a></dt>
+		<dd>Set the release notes for the release</dd>
+		
+		<dt><a href="#file">Output File</a></dt>
+		<dd>Set the output file destination for the generated release
+		</dd>
+		
+	</dl>
+	
+	<div class="captioned-image screenshot" style="width:100px">
+		<img src="Graphics/relman-newrelease-package.png"
+			alt="Package Stage"/>
+	</div>
+	<h4 id="package">Package</h4>
+	<p>The package from which the release should be created is chosen
+	in this stage.</p>
+	<p>A pre-existing package can be selected, or an adhoc package can
+	be created on the fly from which the release is created.</p>
+	<p>Note that the release contents is loaded from the database, not
+	from what is currently open in the client - if the component in
+	question hasn't yet been saved, then the release may not contain the
+	latest version.</p>
+	<p>This stage is omitted if a package is selected in <a
+	href="#relman-ui.html">Release Manager</a> and the wizard is
+	initiated from there.</p>
+
+	<div class="captioned-image screenshot" style="width:100px">
+		<img src="Graphics/relman-newrelease-contents.png"
+			alt="Name Stage"/>
+	</div>
+	<h4 id="contents">Adhoc Package Contents</h4>
+	<p>The contents of the adhoc package whence to build the release is
+	configured here.</p>
+	<p>This stage is omitted if the wizard is not set to build a release
+	from an adhoc release, either because the wizard was launched from a
+	chosen package in <a href="relman-ui.html">Release Manager</a> or
+	because a predefined package was selected in the <a href="#package">
+	Package</a> stage.</p>
+
+
+	<div class="captioned-image screenshot" style="width:100px">
+		<img src="Graphics/relman-newrelease-name.png"
+			alt="Name Stage"/>
+	</div>
+	<h4 id="name">Name</h4>
+	<p>The name of the release is entered here. The name must be unique
+	among releases within the same package.</p>
+	<p>The release name is mandatory - ie. it must be at least one
+	character, and can contain up to a maximum of 255 characters.</p>
+
+	<hr class="clearer light"/>
+	<div class="captioned-image screenshot" style="width:100px">
+		<img src="Graphics/relman-newrelease-notes.png"
+			alt="Release Notes Stage"/>
+	</div>
+	<h4 id="notes">Release Notes</h4>
+	<p>Each release can contain a set of notes with release-specific
+	instructions or documentary paragraphs. Such notes are entered on
+	this stage.</p>
+	<p>The notes are not mandatory and there is no practical limit to
+	the amount of text which can be entered.</p>
+	<p>The release notes are displayed on the <a
+	href="relman-ui.html#release-details">Release Details</a> panel when
+	the release is selected.</p>
+
+	<hr class="clearer light"/>
+	<div class="captioned-image screenshot" style="width:100px">
+		<img src="Graphics/relman-newrelease-file.png"
+			alt="Output File Stage"/>
+	</div>
+	<h4 id="file">Output File</h4>
+	<p>The file into which the release should be saved can be set
+	here. A warning is issued if the chosen filename already exists.</p>
+	<p>The output file stage will be prepopulated with a filename based
+	on the chosen <a href="#name">release name</a>, saved in the last
+	directory specified in a release manager wizard.</p>
+	
+	<hr class="clearer light"/>
+	<div class="captioned-image screenshot" style="width:100px">
+		<img src="Graphics/relman-newrelease-working.png"
+			alt="Export Release Stage"/>
+	</div>
+	<h4 id="package">Export Release</h4>
+	<p>After choosing the file and pressing <code>Next &gt;</code>, the
+	wizard will load all the components of the package and export them
+	to the selected output file.</p>
+	<p>If any errors occur while exporting, they will be displayed and
+	the user is given the option to return and alter any of the previous
+	stages (eg. choosing a different output file path or a different
+	name).</p>
+
+</body>
+</html>

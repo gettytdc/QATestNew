@@ -1,0 +1,615 @@
+﻿<process name="Connection Pool" version="1.0" bpversion="6.3.0.5754" narrative="Trying to find things in system for raising pool" byrefcollection="true" preferredid="80572ced-c02e-4ab7-b2e8-023b4d9446e2">
+  <view>
+    <camerax>283</camerax>
+    <cameray>255</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="b3b9326b-2697-4749-96df-07d19ba7a1ac" type="Normal" published="False">
+    <name>Clean Up</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="3ca60603-fcd4-43d9-b61e-24278773721d" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>f680a520-899a-4981-bfd4-bf0336c1cf44</onsuccess>
+  </stage>
+  <stage stageid="a72a196e-3c0a-4cb0-ae9e-9b7e4be522e0" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>675</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="527f3ae8-ba1b-4359-9fc0-3fb20bfff0e0" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="2a3fff7e-1c27-4417-8073-d1e16a60c10f" name="Launch Blue Prism" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>04234315-915e-4b76-af35-df2858f0f039</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="04234315-915e-4b76-af35-df2858f0f039" name="Attach Studio" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>939c76e9-74f0-41fb-a75f-63480a47d682</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="a6ffb0c2-c035-4c91-917d-09554cdfb707" name="Login" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" expr="&quot;admin&quot;" />
+      <input type="password" name="Password" expr="&quot;admin&quot;" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>c10fb626-a19f-4cec-b14c-bcdb7fa72f7e</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="c10fb626-a19f-4cec-b14c-bcdb7fa72f7e" name="Go To System Tab" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>c6024db5-9e8e-4d26-8e48-f894e26a105a</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="fcc51cbb-cd7a-46a0-a175-dc4c66d55207" name="pid" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c6024db5-9e8e-4d26-8e48-f894e26a105a" name="Select Pools Node" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>225</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="[Tree Name]" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="[Node]" />
+      <input type="flag" name="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>d7cb915a-aa74-4ad6-a5af-6e34f89720be</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="5ed263eb-bfdd-4a96-8daf-730b78505e2e" name="Tree Name" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Resources</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8b053ec8-b9d1-4cf3-af79-32e0405e0624" name="Node" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-135</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Pools</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d7cb915a-aa74-4ad6-a5af-6e34f89720be" name="Verify Pool Exists" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>270</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Pool Name" narrative="Name of the Pool to validate." expr="[Pool Name]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Pool Exists?" narrative="False by default. True if pool exists." stage="" />
+    </outputs>
+    <onsuccess>24719f91-1b3d-4c65-92c4-1e5d0ab62ea1</onsuccess>
+    <resource object="Blue Prism - System - Resources" action="Pool - Pool Exists?" />
+  </stage>
+  <stage stageid="7047709d-4238-4184-bdef-1d4ae173c91f" name="Pool Name" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">pool2</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5f2f72f2-4515-4f3d-8461-5fc2f28ad746" name="Create Resource Group" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>405</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name you want to give the group you are making." expr="[Resource Group Name]" />
+      <input type="text" name="Target Folder" narrative="Folder Name the new group will be created within (default is Resource)" expr="" />
+    </inputs>
+    <onsuccess>836d1bc1-2c56-4454-84ca-2615924aa35b</onsuccess>
+    <resource object="Blue Prism - System - Resources" action="Create Resource Group" />
+  </stage>
+  <stage stageid="087ca482-10d5-49fe-9570-7ee52f16a7c5" name="Resource Group Name" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>285</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Pool Test Group</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5e29fd2d-7552-43b3-938a-abb9436efa13" name="Select Resource Management Node" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>360</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Resources&quot;" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Management&quot;" />
+      <input type="flag" name="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="False" />
+      <input type="flag" name="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="False" />
+      <input type="flag" name="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="False" />
+    </inputs>
+    <onsuccess>5f2f72f2-4515-4f3d-8461-5fc2f28ad746</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="24719f91-1b3d-4c65-92c4-1e5d0ab62ea1" name="Collapse Tree" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>315</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>5e29fd2d-7552-43b3-938a-abb9436efa13</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Collapse All System Trees" />
+  </stage>
+  <stage stageid="95fd1e47-2875-42b4-9e17-97a852a09845" name="Select Pools Node" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-1050</displayx>
+    <displayy>-1035</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="[Tree Name]" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="[Node]" />
+      <input type="flag" name="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="f680a520-899a-4981-bfd4-bf0336c1cf44" name="Create Pool (Cmd)" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Pool Name" narrative="Name of the pool to create" expr="[Pool Name]" />
+      <input type="collection" name="Port Numbers" narrative="The Port numbers of the local resources to add to the pool" expr="" />
+    </inputs>
+    <onsuccess>2a3fff7e-1c27-4417-8073-d1e16a60c10f</onsuccess>
+    <resource object="Blue Prism - System - Resources" action="Create Resource Pool (cmd)" />
+  </stage>
+  <stage stageid="836d1bc1-2c56-4454-84ca-2615924aa35b" name="Moving pool to group" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>450</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Resource Name" expr="[Pool Name]" />
+      <input type="text" name="Target Group Name" expr="[Resource Group Name]" />
+    </inputs>
+    <onsuccess>825b7d95-62b5-4a32-bb97-53758743f342</onsuccess>
+    <resource object="Blue Prism - System - Resources" action="Drag Resource into Group" />
+  </stage>
+  <stage stageid="485feb27-cc45-4142-9d58-c5c3988c3839" name="Resume1" type="Resume">
+    <narrative>
+    </narrative>
+    <displayx>405</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>413929d4-5dcc-41b6-8ecd-274b33b05c54</onsuccess>
+  </stage>
+  <stage stageid="e4aa2334-0257-4189-a3db-c0ad259c82cc" name="Recover1" type="Recover">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>d72cda47-5da0-4d81-8f01-f67a1f0ad537</onsuccess>
+  </stage>
+  <stage stageid="f24d6a0e-4e89-4acd-8adc-200ed049e00c" name="System Exception" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>405</displayx>
+    <displayy>270</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="[exception]" />
+  </stage>
+  <stage stageid="871d07bf-3d67-4aaf-a812-fb5687908cb9" name="Block1" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-30</displayx>
+    <displayy>90</displayy>
+    <displaywidth>270</displaywidth>
+    <displayheight>375</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="825b7d95-62b5-4a32-bb97-53758743f342" name="Go to control tab" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>510</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>decd2ba6-552f-4110-9c24-fdce61550e32</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="fe9b577d-c680-44f6-a960-698a002c7af5" name="Clean Up" type="SubSheetInfo">
+    <subsheetid>b3b9326b-2697-4749-96df-07d19ba7a1ac</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="a9ae5390-11be-495c-a94d-62c9a9ff2318" name="Start" type="Start">
+    <subsheetid>b3b9326b-2697-4749-96df-07d19ba7a1ac</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>040964a1-b8b2-474b-92eb-be79d0d08ca8</onsuccess>
+  </stage>
+  <stage stageid="a0d532e3-a581-4d30-9389-980d57da59e2" name="End" type="End">
+    <subsheetid>b3b9326b-2697-4749-96df-07d19ba7a1ac</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="040964a1-b8b2-474b-92eb-be79d0d08ca8" name="Go back to system tab" type="Action">
+    <subsheetid>b3b9326b-2697-4749-96df-07d19ba7a1ac</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>e838c8a0-39fe-4bd8-b465-560d8e09531b</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="e838c8a0-39fe-4bd8-b465-560d8e09531b" name="Delete pool created" type="Action">
+    <subsheetid>b3b9326b-2697-4749-96df-07d19ba7a1ac</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Pool Name" narrative="The name of the resource pool to delete" expr="[Pool Name]" />
+    </inputs>
+    <onsuccess>583f5fd6-2402-4c84-8d02-cfd773ec583a</onsuccess>
+    <resource object="Blue Prism - System - Resources" action="Delete Resource Pool (cmd)" />
+  </stage>
+  <stage stageid="583f5fd6-2402-4c84-8d02-cfd773ec583a" name="Sign out of blueprism" type="Action">
+    <subsheetid>b3b9326b-2697-4749-96df-07d19ba7a1ac</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>8d521b9a-e026-4648-8aa6-9dadb5978c91</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="8d521b9a-e026-4648-8aa6-9dadb5978c91" name="Exit Application" type="Action">
+    <subsheetid>b3b9326b-2697-4749-96df-07d19ba7a1ac</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>a0d532e3-a581-4d30-9389-980d57da59e2</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="2d8e6a33-cebd-449a-99cb-3c6d8f742522" name="Clean Up" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>630</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>a72a196e-3c0a-4cb0-ae9e-9b7e4be522e0</onsuccess>
+    <processid>b3b9326b-2697-4749-96df-07d19ba7a1ac</processid>
+  </stage>
+  <stage stageid="d72cda47-5da0-4d81-8f01-f67a1f0ad537" name="Calc1" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>300</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>485feb27-cc45-4142-9d58-c5c3988c3839</onsuccess>
+    <calculation expression="ExceptionDetail()" stage="exception" />
+  </stage>
+  <stage stageid="fd74a85b-b6cc-488f-bfc1-8c6c9e50cd44" name="exception" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="413929d4-5dcc-41b6-8ecd-274b33b05c54" name="Clean Up" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>405</displayx>
+    <displayy>195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>f24d6a0e-4e89-4acd-8adc-200ed049e00c</onsuccess>
+    <processid>b3b9326b-2697-4749-96df-07d19ba7a1ac</processid>
+  </stage>
+  <stage stageid="3f8af3c9-a148-4a0c-884e-31d2bb045403" name="Pool Name" type="Data">
+    <subsheetid>b3b9326b-2697-4749-96df-07d19ba7a1ac</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-300</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">pool2</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="decd2ba6-552f-4110-9c24-fdce61550e32" name="Available resources" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>570</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="collection" name="Availabe Resources" stage="Availabe Resources" />
+    </outputs>
+    <onsuccess>6a6e3a18-9f31-4b33-a355-94035ed369b4</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Get Names of Visible resources" />
+  </stage>
+  <stage stageid="458a09ad-a7ed-4078-9176-76f677acda9b" name="Availabe Resources" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>450</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="939c76e9-74f0-41fb-a75f-63480a47d682" name="Control room" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>a6ffb0c2-c035-4c91-917d-09554cdfb707</onsuccess>
+    <resource object="Blue Prism - Control Room (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="6a6e3a18-9f31-4b33-a355-94035ed369b4" name="Loop Start1" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>525</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>74b0298d-85e7-4c10-aa82-41117c9b5af1</onsuccess>
+    <groupid>97b7a42f-685a-464c-8992-e89c8dee16ab</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Availabe Resources</loopdata>
+  </stage>
+  <stage stageid="ea696352-014f-4a45-9741-d128a2f208bd" name="Loop End1" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>660</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9f409a16-6ea9-4b31-ade1-5e0116c830f1</onsuccess>
+    <groupid>97b7a42f-685a-464c-8992-e89c8dee16ab</groupid>
+  </stage>
+  <stage stageid="74b0298d-85e7-4c10-aa82-41117c9b5af1" name="Decision1" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>585</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Availabe Resources.Name]=&quot;pool2&quot;" />
+    <ontrue>19f29afe-a8ad-4995-9371-d2241bb70d3c</ontrue>
+    <onfalse>ea696352-014f-4a45-9741-d128a2f208bd</onfalse>
+  </stage>
+  <stage stageid="19f29afe-a8ad-4995-9371-d2241bb70d3c" name="Calc2" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>585</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>ea696352-014f-4a45-9741-d128a2f208bd</onsuccess>
+    <calculation expression="[pool found]+1" stage="pool found" />
+  </stage>
+  <stage stageid="f9ec0014-9e0d-4386-9e23-3355d988147e" name="pool found" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-345</displayx>
+    <displayy>645</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9f409a16-6ea9-4b31-ade1-5e0116c830f1" name="Decision2" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>705</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[pool found]=1" />
+    <ontrue>2d8e6a33-cebd-449a-99cb-3c6d8f742522</ontrue>
+    <onfalse>e69dc963-0784-490f-9186-de46fed2243c</onfalse>
+  </stage>
+  <stage stageid="e69dc963-0784-490f-9186-de46fed2243c" name="System Exception" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>840</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="&quot;Pool Not found&quot;" />
+  </stage>
+</process>

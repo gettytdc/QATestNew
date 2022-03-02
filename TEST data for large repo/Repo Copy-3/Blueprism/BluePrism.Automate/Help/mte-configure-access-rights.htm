@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+	
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-gb" xml:lang="en-gb" data-mc-search-type="Stem" data-mc-help-system-file-name="Blue Prism Help.xml" data-mc-path-to-help-system="../../" data-mc-conditions="Default.Not for translation" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="">
+    <head>
+        <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+		<meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<title>Configure access rights</title>
+        <link href="./TableStyles/bp_footer_tablestyle.css" rel="stylesheet" />
+        <link href="./TableStyles/bp-table-column-header.css" rel="stylesheet" />
+        <link href="./TableStyles/bp-table-row-header.css" rel="stylesheet" />
+    </head>
+	
+	
+    <body>
+		<div class="header">
+            <h1 class="pagetitle">Multi-Team Environments</h1>
+        </div>
+	
+		<h2>Configure access rights</h2>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"></span>
+            </div>
+        </div>
+        <p>System Administrators can configure access rights for all Processes, Objects, and Resources in an environment. This ability can be delegated to other users by applying the <i>Manage Access Rights</i> permission to their role for specific groups.</p>
+        <p class="note">Changes to access rights are applied at login so it is recommended that users are logged out when permissions are updated.</p>
+        <p>When configuring Multi-Team Environments, it is important to first define the maximum capabilities for each role using the Security role permissions.</p>
+        <p>Click <b>System</b> &gt; <b>Security</b> &gt; <b>User Roles</b> and select a role to configure its permissions.</p>
+        <p>Once the maximum capabilities are set for each role, configure access rights for particular Process, Object, and Resource groups to limit access based on the requirements of the user:</p>
+        <ul>
+            <li class="bullet_1" value="1">To configure access rights for Processes and Objects, click <b>Studio</b>, right-click on a Process group or Object group and select <b>Access Rights</b>.</li>
+            <li class="bullet_1" value="2">To configure  access rights for Resources, click <b>System</b> &gt; <b>Resources</b> &gt; <b>Management</b>, right-click on a Resource group and select <b>Access Rights</b>.</li>
+        </ul>
+        <p>The Manage Access Rights dialog lists all user roles that have Security permissions to access that particular area of the product. Select a user role to configure the permissions for the users assigned that role - listed at the bottom of the dialog.</p>
+        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="./Graphics/mte/access-rights-object-help.png"><img class="MCPopupThumbnail img imglargeimage100pc" data-mc-width="592" data-mc-height="756" src="./Graphics/mte/access-rights-object-help_thumb_0_128.png" tabindex="" /></a>
+        </p>
+        <p class="note">The built-in roles, System Administrators and Runtime Resources, are able to access all restricted and unrestricted items secured under Multi-Team Environments. Users with these roles have access to all items regardless of their assigned permissions. As a result, these roles are not presented as an option in the Manage Access Rights dialogue.</p>
+        <p>
+            <p>A group can be in one of the following three states:</p>
+            <ul>
+                <li class="bullet_1" value="1"><b>Unrestricted</b> - As access rights have not been specifically determined for the group they are determined by the permissions set in the roles assigned to the user. This is the default setting for all new and pre-existing groups. Unrestricted groups are identified by an icon overlay <img src="./Graphics/mte/unrestricted-overlay.png" />.</li>
+                <li class="bullet_1" value="2"><b>Restricted</b> - Access rights have been configured for the group, refining the user role permissions for all items in the group, including any child groups and their contents. The access rights defined for restricted groups are impacted by subsequent changes to role permissions - remove a permission for a role and it is removed for that role on all groups. </li>
+                <li class="bullet_1" value="3"><b>Inherited</b> - The item is already in a restricted group and its access rights are set by a parent group - when permissions are set for a group, they are automatically applied to all child groups. This could be the direct parent, or any higher-level folder as access rights are taken from the highest level restricted parent group. The name of the group from which the access rights are inherited from is shown alongside the <i>Inherited</i> radio button. </li>
+            </ul>
+            <p>To prevent users with a single role being able to see Processes, Objects, or Resources, remove all permissions on the group for that role. The items within that group will not be visible for that user anywhere in Blue Prism and will cause processing to fail if they try to run those items or ones that reference them. </p>
+            <p>For an example of this scenario, see <a href="examples.htm#Dedicate">Dedicated Process access.</a></p>
+            <h2>Show all unrestricted groups</h2>
+            <p>
+                <p>If an unrestricted Object or Process group contains only restricted child groups (i.e. does not directly contain any Objects, Processes, or any unrestricted groups), users that do not have permissions to view any of the child groups will not see the unrestricted parent folder within the hierarchy. This streamlines the user's view by omitting the groups that they are unlikely to need to access to from the navigation tree.</p>
+                <p>The display can be toggled to show unrestricted parent groups by selecting <b>Show all unrestricted groups</b> from the context menu in Studio. Once selected, unrestricted parent groups are visible but any restricted child groups remain hidden. This is a global option that applies to all groups in Studio.</p>
+                <p>In the example below, the unrestricted <i>Sales</i> group contains three restricted groups that can be viewed only by the users responsible for the Processes in their geographical location. When a user who is not part of the Sales team and therefore does not have the required permissions on the restricted groups logs in, the <i>Sales</i> group is not visible. When that user selects <b>Show all unrestricted groups</b> the <i>Sales</i> group displays but does not show the restricted child groups.</p>
+                <table style="margin-left: 0;margin-right: auto;mc-table-style: url('./TableStyles/bp-table-row-header.css');" class="TableStyle-bp-table-row-header" cellspacing="0">
+                    <col style="width: 25%;" class="TableStyle-bp-table-row-header-Column-Column1" />
+                    <col style="width: 25%;" class="TableStyle-bp-table-row-header-Column-Column1" />
+                    <col style="width: 25%;" class="TableStyle-bp-table-row-header-Column-Column1" />
+                    <col style="width: 25%;" class="TableStyle-bp-table-row-header-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-bp-table-row-header-Head-Header1">
+                            <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1" style="text-align: center;">
+                                <p>Group Structure</p>
+                            </th>
+                            <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1" style="text-align: center;">
+                                <p>Restricted user's view</p>
+                            </th>
+                            <th class="TableStyle-bp-table-row-header-HeadE-Column1-Header1" style="text-align: center;">
+                                <p>Unrestricted groups option</p>
+                            </th>
+                            <th class="TableStyle-bp-table-row-header-HeadD-Column1-Header1" style="text-align: center;">
+                                <p> Updated view</p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-bp-table-row-header-Body-Body1">
+                            <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1">
+                                <p style="text-align: center;"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="./Graphics/mte/show-unrestricted-1.png"><img class="MCPopupThumbnail img imglargeimage100pc" data-mc-width="182" data-mc-height="172" src="./Graphics/mte/show-unrestricted-1_thumb_0_128.png" style="margin-left: 0px;margin-top: 5px;margin-bottom: 5px;" tabindex="" /></a>
+                                </p>
+                            </td>
+                            <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1">
+                                <p style="text-align: center;"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="./Graphics/mte/show-unrestricted-2.png"><img class="MCPopupThumbnail img imglargeimage100pc" data-mc-width="182" data-mc-height="172" src="./Graphics/mte/show-unrestricted-2_thumb_0_128.png" style="margin-top: 5px;margin-bottom: 5px;" tabindex="" /></a>
+                                </p>
+                            </td>
+                            <td class="TableStyle-bp-table-row-header-BodyB-Column1-Body1">
+                                <p style="text-align: center;"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="./Graphics/mte/show-unrestricted-3.png"><img class="MCPopupThumbnail img imglargeimage100pc" data-mc-width="308" data-mc-height="274" src="./Graphics/mte/show-unrestricted-3_thumb_0_128.png" style="margin-top: 5px;margin-bottom: 5px;" tabindex="" /></a>
+                                </p>
+                            </td>
+                            <td class="TableStyle-bp-table-row-header-BodyA-Column1-Body1">
+                                <p style="text-align: center;"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="./Graphics/mte/show-unrestricted-4.png"><img class="MCPopupThumbnail img imglargeimage100pc" data-mc-width="182" data-mc-height="172" src="./Graphics/mte/show-unrestricted-4_thumb_0_128.png" style="margin-top: 5px;margin-bottom: 5px;" tabindex="" /></a>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </p>
+        </p>
+        <p>&#160;</p>
+    </body>
+</html>

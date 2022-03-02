@@ -1,0 +1,382 @@
+﻿<process name="Open multiple properties windows" version="1.0" bpversion="6.8.0.22504" narrative="A test that opens multiple property windows simultaneously then interacts with the canvas" byrefcollection="true" preferredid="8e162aaa-f98c-4bbc-b961-f9acbbeaa2d2">
+  <view>
+    <camerax>0</camerax>
+    <cameray>42</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="30a03bc7-a373-4ef3-813d-84cc2916f0ae" type="Normal" published="False">
+    <name>Cleanup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-44</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="c9fc1050-261b-441c-ab4e-6e379d7fd8f6" type="Normal" published="False">
+    <name>Open Multiple Properties</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>186</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="81720e9a-82c0-4b03-816c-cd2280b59037" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>104</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="f6a4397f-321d-4baf-9e38-775afe965c83" name="Start" type="Start">
+    <display x="15" y="-135" />
+    <onsuccess>0c38f67f-6cb6-4dc0-a269-02b83053386a</onsuccess>
+  </stage>
+  <stage stageid="dd80828a-e583-4755-90d8-30c8b36f59e3" name="End" type="End">
+    <display x="15" y="225" />
+  </stage>
+  <stage stageid="abe3aebb-b06f-4502-b8c1-3eaf2f4a90c6" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="7a69e2dc-84e4-4bf5-af86-b20755ea0c4f" name="Setup" type="SubSheetInfo">
+    <subsheetid>81720e9a-82c0-4b03-816c-cd2280b59037</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="62584f9e-c5ae-4c12-ab72-8ff85525ea99" name="End" type="End">
+    <subsheetid>81720e9a-82c0-4b03-816c-cd2280b59037</subsheetid>
+    <display x="15" y="405" />
+  </stage>
+  <stage stageid="10e11c21-0c0a-4c83-bbb0-097a051d9cf9" name="Start" type="Start">
+    <subsheetid>81720e9a-82c0-4b03-816c-cd2280b59037</subsheetid>
+    <display x="15" y="-135" />
+    <onsuccess>d0194f64-74de-4fca-a43d-3eab8eb48c5d</onsuccess>
+  </stage>
+  <stage stageid="d0194f64-74de-4fca-a43d-3eab8eb48c5d" name="Launch BluePrism and Get PID" type="Action">
+    <subsheetid>81720e9a-82c0-4b03-816c-cd2280b59037</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-75" w="120" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>97d654c6-e182-49f2-b330-0eb9ff6af1a9</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="840dd948-24bf-4c79-92f1-a5d13513d8c6" name="Sign In to Blue Prism" type="Action">
+    <subsheetid>81720e9a-82c0-4b03-816c-cd2280b59037</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+      <input type="flag" name="Sign in Active Directorry" friendlyname="Sign in Active Directorry" narrative="Do you want sign in using Active Directory" expr="" />
+      <input type="flag" name="Sign in" friendlyname="Sign in" narrative="Do you want sign in using legacy sso environment" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="Error message received while Login" stage="Error Message" />
+    </outputs>
+    <onsuccess>6c8dcc9e-5034-4216-9851-37dd0d0f1aac</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="6c8dcc9e-5034-4216-9851-37dd0d0f1aac" name="Navigate to Studio" type="Action">
+    <subsheetid>81720e9a-82c0-4b03-816c-cd2280b59037</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="105" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>dddde662-b899-4a3b-afb0-3f7bb5648ca7</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="97d654c6-e182-49f2-b330-0eb9ff6af1a9" name="Attach to Pid for Studio" type="Action">
+    <subsheetid>81720e9a-82c0-4b03-816c-cd2280b59037</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="120" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>840dd948-24bf-4c79-92f1-a5d13513d8c6</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="4ca32a7a-d7e4-4329-8cf1-ecfd05adcfbe" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="180" h="30" />
+    <onsuccess>d25864b3-dca2-4441-b10c-20f53c2d5272</onsuccess>
+    <processid>81720e9a-82c0-4b03-816c-cd2280b59037</processid>
+  </stage>
+  <stage stageid="dddde662-b899-4a3b-afb0-3f7bb5648ca7" name="Create Process" type="Action">
+    <subsheetid>81720e9a-82c0-4b03-816c-cd2280b59037</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" friendlyname="Process Name" expr="[Process Name]" />
+      <input type="text" name="Process Description" friendlyname="Process Description" expr="[Process Description]" />
+      <input type="text" name="Group To Select" friendlyname="Group To Select" expr="" />
+    </inputs>
+    <onsuccess>6b536f1b-c7bd-4db6-8e75-d2f1e27bfc74</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Create Process" />
+  </stage>
+  <stage stageid="ed39149c-cfed-452a-81b3-1404efbc2e25" name="Open Multiple Properties" type="SubSheetInfo">
+    <subsheetid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="48ffd70b-dd62-4579-8eac-07a49d55d7e7" name="Start" type="Start">
+    <subsheetid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</subsheetid>
+    <display x="15" y="-135" />
+    <onsuccess>2a8e8044-194a-4b66-8f28-8438330e6e09</onsuccess>
+  </stage>
+  <stage stageid="480412d0-c833-4a55-a68d-1822c0cf637c" name="End" type="End">
+    <subsheetid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</subsheetid>
+    <display x="15" y="405" />
+  </stage>
+  <stage stageid="0c38f67f-6cb6-4dc0-a269-02b83053386a" name="Note1" type="Note">
+    <narrative>Login to Blue Prism THEN create a process AND open it</narrative>
+    <display x="15" y="-75" w="180" h="30" />
+    <onsuccess>4ca32a7a-d7e4-4329-8cf1-ecfd05adcfbe</onsuccess>
+  </stage>
+  <stage stageid="2a8e8044-194a-4b66-8f28-8438330e6e09" name="Get Start Bounds" type="Action">
+    <subsheetid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</subsheetid>
+    <loginhibit />
+    <display x="15" y="-75" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Page Name" narrative="Name of the page in which the element resides." expr="&quot;Main Page&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Bounds" narrative="Bounds of the Start stage on screen." stage="Start Bounds" />
+    </outputs>
+    <onsuccess>f4e211c5-9cca-454a-b5d2-607cd50bf3a4</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Get Start Stage Bounds" />
+  </stage>
+  <stage stageid="0f463081-f687-4782-915f-eda7ee30b139" name="Add Stage" type="Action">
+    <subsheetid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</subsheetid>
+    <loginhibit />
+    <display x="15" y="105" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Stage Type" narrative="Type of Stage to add." expr="[Stage Type]" />
+      <input type="number" name="X Coordinate" narrative="Coordinates of X axis. Positive values are to the right, and negative values are to the left. Default to 0." expr="[Start Bounds.Right]+([Start Bounds.Width]/3)" />
+      <input type="number" name="Y Coordinate" narrative="Coordinates of Y axis. Positive values are further down, and negative values are further up. Default to 0." expr="[Y]" />
+      <input type="text" name="New Page Name" friendlyname="New Page Name" narrative="If you are creating a page stage this is the name you want to set." expr="" />
+    </inputs>
+    <onsuccess>50c3add0-dc1f-4125-b6ce-c7b976ce140e</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Add Stage to Development Area" />
+  </stage>
+  <stage stageid="50c3add0-dc1f-4125-b6ce-c7b976ce140e" name="Open Properties" type="Action">
+    <subsheetid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</subsheetid>
+    <loginhibit />
+    <display x="15" y="165" w="120" h="30" />
+    <onsuccess>b25c45dd-969b-4217-b1ba-e11998970b86</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Open Properties For Selected Stage" />
+  </stage>
+  <stage stageid="f4e211c5-9cca-454a-b5d2-607cd50bf3a4" name="Find Y" type="Calculation">
+    <subsheetid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="120" h="30" />
+    <onsuccess>5b688496-329c-45e9-8797-0e014c7121c3</onsuccess>
+    <calculation expression="([Start Bounds.Bottom]-([Start Bounds.Height]/2))+28" stage="Y" />
+  </stage>
+  <stage stageid="8f7b1700-0035-469b-a44c-3fbfa0a126ba" name="Start Bounds" type="Collection">
+    <subsheetid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</subsheetid>
+    <display x="-195" y="75" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Top" type="number" />
+      <field name="Bottom" type="number" />
+      <field name="Right" type="number" />
+      <field name="Left" type="number" />
+      <field name="Height" type="number" />
+      <field name="Width" type="number" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="cafdaef9-b8a2-47bf-bcf6-2d1d22b52d30" name="Y" type="Data">
+    <subsheetid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="36873f80-07ad-4c7a-8564-620435d5e3ed" name="Local Variables" type="Block">
+    <subsheetid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="22f18aee-966e-402f-93d1-f04a275fe2f8" name="Add Stage" type="Action">
+    <subsheetid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</subsheetid>
+    <loginhibit />
+    <display x="15" y="285" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Stage Type" narrative="Type of Stage to add." expr="[Stage Type]" />
+      <input type="number" name="X Coordinate" narrative="Coordinates of X axis. Positive values are to the right, and negative values are to the left. Default to 0." expr="[Start Bounds.Right]+([Start Bounds.Width]/2)" />
+      <input type="number" name="Y Coordinate" narrative="Coordinates of Y axis. Positive values are further down, and negative values are further up. Default to 0." expr="[Y]" />
+      <input type="text" name="New Page Name" friendlyname="New Page Name" narrative="If you are creating a page stage this is the name you want to set." expr="" />
+    </inputs>
+    <onsuccess>bae6c237-7118-4938-b353-b7b22280b288</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Add Stage to Development Area" />
+  </stage>
+  <stage stageid="bae6c237-7118-4938-b353-b7b22280b288" name="Open Properties" type="Action">
+    <subsheetid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</subsheetid>
+    <loginhibit />
+    <display x="15" y="345" w="120" h="30" />
+    <onsuccess>480412d0-c833-4a55-a68d-1822c0cf637c</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Open Properties For Selected Stage" />
+  </stage>
+  <stage stageid="d25864b3-dca2-4441-b10c-20f53c2d5272" name="Note1" type="Note">
+    <narrative>Create multiple Action Stage AND open the properties window for both simultaneously</narrative>
+    <display x="15" y="45" w="180" h="30" />
+    <onsuccess>880b9a59-0987-4b5f-9781-d9c644d297ce</onsuccess>
+  </stage>
+  <stage stageid="880b9a59-0987-4b5f-9781-d9c644d297ce" name="Open Multiple Properties" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="105" w="180" h="30" />
+    <onsuccess>ce7400a8-cdd3-4a41-ad5e-847adcf7e5a0</onsuccess>
+    <processid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</processid>
+  </stage>
+  <stage stageid="42f6372d-42e4-46c2-93f5-2f6268ca6ac4" name="Cleanup" type="SubSheetInfo">
+    <subsheetid>30a03bc7-a373-4ef3-813d-84cc2916f0ae</subsheetid>
+    <display x="-195" y="-120" w="150" h="90" />
+  </stage>
+  <stage stageid="ce7400a8-cdd3-4a41-ad5e-847adcf7e5a0" name="Cleanup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="180" h="30" />
+    <onsuccess>dd80828a-e583-4755-90d8-30c8b36f59e3</onsuccess>
+    <processid>30a03bc7-a373-4ef3-813d-84cc2916f0ae</processid>
+  </stage>
+  <stage stageid="ccd39757-3390-4280-bbb1-576446f352d2" name="Local Variables" type="Block">
+    <subsheetid>81720e9a-82c0-4b03-816c-cd2280b59037</subsheetid>
+    <display x="-270" y="-30" w="150" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="7416731a-a3d8-4737-9cf5-6440c0fec738" name="Error Message" type="Data">
+    <subsheetid>81720e9a-82c0-4b03-816c-cd2280b59037</subsheetid>
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="12794131-ec8d-4417-b1cd-bda4764d2ef1" name="Process Description" type="Data">
+    <subsheetid>81720e9a-82c0-4b03-816c-cd2280b59037</subsheetid>
+    <display x="-195" y="75" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">A test process for testing multiple properties</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="10f0ef1b-bf8b-44e2-a6de-6b7471c19411" name="Process Name" type="Data">
+    <display x="-195" y="0" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Multiple Properties Test</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="2e460aaf-9fc4-450c-9a21-9a2dd5e5d57d" name="Global Variables" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="47a053ee-d3b5-4659-b310-4c1447ecf76d" name="Open Process" type="Action">
+    <subsheetid>81720e9a-82c0-4b03-816c-cd2280b59037</subsheetid>
+    <loginhibit />
+    <display x="15" y="345" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" expr="&quot;Multiple Properties Test&quot;" />
+      <input type="text" name="Folder to Select" expr="&quot;Default&quot;" />
+      <input type="number" name="MatchIndex" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Access Warning" narrative="Access warning when opening member" stage="" />
+    </outputs>
+    <onsuccess>62584f9e-c5ae-4c12-ab72-8ff85525ea99</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Process" />
+  </stage>
+  <stage stageid="44a9f6bc-1dd8-412d-b46e-f43e1e6cb401" name="Stage Type" type="Data">
+    <subsheetid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Action</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6b536f1b-c7bd-4db6-8e75-d2f1e27bfc74" name="Navigate to Control" type="Action">
+    <subsheetid>81720e9a-82c0-4b03-816c-cd2280b59037</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="225" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>291f755e-4be5-49a3-8456-242dbe71e5e5</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="291f755e-4be5-49a3-8456-242dbe71e5e5" name="Navigate to Studio" type="Action">
+    <subsheetid>81720e9a-82c0-4b03-816c-cd2280b59037</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="285" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>47a053ee-d3b5-4659-b310-4c1447ecf76d</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="5aeb130d-9484-4f30-925e-45ce40ed50ac" name="Note2" type="Note">
+    <subsheetid>81720e9a-82c0-4b03-816c-cd2280b59037</subsheetid>
+    <narrative>Have to navigate to Control then back to Studio in order for the Open Process Object to work correctly.</narrative>
+    <display x="195" y="240" w="210" h="90" />
+  </stage>
+  <stage stageid="61e31053-825d-4541-b025-e487a5a0cf9a" name="Start" type="Start">
+    <subsheetid>30a03bc7-a373-4ef3-813d-84cc2916f0ae</subsheetid>
+    <display x="15" y="-150" />
+    <onsuccess>b15ea8c9-5c1a-45b9-88ec-0e615a3454e2</onsuccess>
+  </stage>
+  <stage stageid="20fd7c73-3e8f-452a-844f-6cc1db641f88" name="End" type="End">
+    <subsheetid>30a03bc7-a373-4ef3-813d-84cc2916f0ae</subsheetid>
+    <display x="15" y="-30" />
+  </stage>
+  <stage stageid="5b688496-329c-45e9-8797-0e014c7121c3" name="Find X" type="Calculation">
+    <subsheetid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="120" h="30" />
+    <onsuccess>0f463081-f687-4782-915f-eda7ee30b139</onsuccess>
+    <calculation expression="([Start Bounds.Left]+([Start Bounds.Width]/2))" stage="X" />
+  </stage>
+  <stage stageid="1a460d81-ad3e-497a-b35d-a42776bb72ae" name="X" type="Data">
+    <subsheetid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</subsheetid>
+    <display x="-195" y="30" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b25c45dd-969b-4217-b1ba-e11998970b86" name="Action1" type="Action">
+    <subsheetid>c9fc1050-261b-441c-ab4e-6e379d7fd8f6</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="225" w="120" h="30" />
+    <onsuccess>22f18aee-966e-402f-93d1-f04a275fe2f8</onsuccess>
+    <resource object="" action="" />
+  </stage>
+  <stage stageid="b15ea8c9-5c1a-45b9-88ec-0e615a3454e2" name="Kill Process By PID" type="Action">
+    <subsheetid>30a03bc7-a373-4ef3-813d-84cc2916f0ae</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-90" w="120" h="30" />
+    <inputs>
+      <input type="number" name="ID" friendlyname="ID" narrative="The ID of the process to kill" expr="[pid]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" friendlyname="Error Message" narrative="Error Message if fails." stage="" />
+      <output type="flag" name="Success" friendlyname="Success" narrative="True if Successful, False by default." stage="" />
+    </outputs>
+    <onsuccess>20fd7c73-3e8f-452a-844f-6cc1db641f88</onsuccess>
+    <resource object="Kill Process By ID" action="Kill Process By PID" />
+  </stage>
+  <stage stageid="1d86f9d7-1c9d-4755-8c4d-12a3e3920efc" name="pid" type="Data">
+    <display x="-195" y="45" w="150" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+</process>

@@ -1,0 +1,565 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="AutomateHelp.css" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>计算和决策</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="pagetitle">帮助</h1>
+    </div>
+
+    <h3>计算和决策</h3>
+
+    <p>计算和决策非常类似，所以它们的编辑方式几乎相同。这两者均基于表达式，但存在两个关键区别。首先，计算是一个可能会得出任意值的表达式，但决策是一个结果必须为 TRUE 或 FALSE 的表达式。第二，计算的结果会存储在数据项中，但决策的结果不会被存储，而是仅用于决定流程的执行方向。</p>
+
+    <p>表达式可通过多种方式来创建。您可以直接在表达式编辑器中输入表达式，也可以通过拖放函数列表或数据项列表中的项目来构建表达式。函数列表会显示 Blue Prism 中可供使用的所有函数。当您将某个函数拖放到表达式编辑器中时，系统会在屏幕上自动输入相应的默认函数文本。同样地，您可以拖放数据项列表中的数据项，其名称将自动输入到表达式编辑器中。</p>
+
+    <p>您也可以在屏幕中央的函数构建器区域中编写函数。从函数列表中选择某个函数后，函数本身及其用法说明和所有参数会随即显示在函数构建器中。您可以直接在出现的字段中进行输入，或从数据项列表中拖放相应的数据项，以便为参数指定具体的值。函数构建完成后，可以使用“粘贴”按钮将函数转移到表达式编辑器中。</p>
+
+    <p>计算必须指定要用来存储求值结果的数据项。“结果存储位置”字段可以通过在数据项名称中输入相应内容或通过拖放右侧列表中的数据项来进行填充。</p>
+
+    <p>表达式编写完成后，应该检查其是否存在任何错误，而这项检查可通过选择“流程验证”按钮来进行。随后，Blue Prism 将会检查表达式，并突出显示可能存在错误的位置。</p>
+
+    <p>完成检查后，还可以通过选择“测试表达式”按钮来为表达式求值。如果在表达式中使用了任何数据项，系统将会显示一个新的<a href="frmExpressionTest.htm">表达式测试向导</a>，好让您为各个数据项指定临时值，从而获得表达式的求值结果。如果没有在表达式中使用任何数据项，求职结果将会以弹出式消息的形式来显示。如果您只想测试表达式中的某个部分，则可通过拖动鼠标以突出显示相应内容来选择这个部分。当表达式测试向导出现时，它只会使用表达式中已被选中的那个部分。</p>
+
+    <h3>表达式</h3>
+
+    <p>表达式由数据项、运算符、函数和常量构建而成。</p>
+
+    <h3>数据项</h3>
+
+    <p>数据项会通过名称来加以引用，而且必须用方括号括起来，例如 <i>[帐户编号]</i>。</p>
+
+    <h3>运算符</h3>
+
+    <p>运算符会通过它们各自的字符来加以引用，例如 <em>1 + 2</em>。</p>
+
+    <h3>函数</h3>
+
+    <p>函数会以“函数名称(参数 1,参数 2)”<i></i>的形式出现，例如 Mid(&quot;Hello&quot;, 1, 2)。<em></em></p>
+
+    <p>大部分函数的语法都一目了然。下面将会详细介绍几个较为复杂的函数。</p>
+
+    <ul>
+        <li>
+            <p><u><i>DateDiff (interval,date1,date2)</i></u></p>
+            <div class="indented">
+                <p><b>要确定两个日期、时间或日期时间之间的差值，建议将这两者相减</b></p>
+                <p>例如，<em>MakeDate(26,5,1999) - MakeDate(29,5,1968)</em> 将会返回时间间隔 11319.00:00:00</p>
+                <p>如果需要按照非固定时间间隔（会因一年中的具体时间而异）来确定差值，DateDiff 函数可提供一些有用的间隔。这些间隔已列在下方 DateAdd 函数部分的表格中。如果 <i>date2</i> &gt; <i>date1</i>，返回的数字将为正数。</p>
+                <p>如果使用的是间隔“一年中的一周”，则返回的值表示的是 <i>date1</i> 所在的一周中的第一天与 <i>date2</i> 所在的一周中的第一天之间相隔的周数。</p>
+                <p>如果使用的是间隔 2“工作日”，则返回的值表示的是两个日期之间相隔的完整日历周数（例如，如果 <i>date1</i> 是星期一，则会计算直到（包含）<i>date2</i> 为止一共有多少个星期一）</p>
+                <p>例如，如果 <i>date1</i> 是 2/3/2017 星期四，<i>date2</i> 是紧随其后的那个星期二，也就是 7/3/2017，那么使用间隔“一年中的一周”的 <i>DateDiff(1, date1, date2)</i> 将会返回 1，因为对应两个日历周的第一天之间相隔一周。</p>
+                <p>但是，使用间隔“工作日”的 <i>DateDiff(2, date1, date2)</i> 将会返回 0，因为 <i>date1</i> 与 <i>date2</i> 之间的星期二个数为 0。</p>
+                <h5 class="bold">参数</h5>
+                <p>三个参数的具体含义如下所示：</p>
+                <dl class="indented">
+                    <dt>Interval</dt><dd>用于指定所需的返回值单位的代码。这些值会在 DateAdd 函数部分进行详细介绍。</dd>
+                    <dt>date1</dt><dd>要比较的两个日期中的第一个日期。</dd>
+                    <dt>date2</dt><dd>要比较的两个日期中的第二个日期。</dd>
+                </dl>
+                <h5 class="bold">示例</h5>
+                <ul>
+                    <li>要计算 29/5/1968 与 26/5/1999 之间相隔的周数，请使用 DateDiff(1, MakeDate(29,5,1968), MakeDate(26,5,1999))。这个函数将正确地返回 1617。</li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <p><u><i>DateAdd(interval, number,date)</i></u></p>
+            <div class="indented">
+                <p><b>要在某个日期、时间或日期时间的基础上增加一段时间，建议直接加上具体的时间间隔</b></p>
+                <p>例如，<em>MakeDate(26,5,1999) + MakeTimeSpan(3, 0, 0, 0)</em> 将得到 29/05/1999。</p>
+                <p>对于时间，<em>MakeTime(12,30,0) + MakeTimeSpan(0, 1, 5, 3)</em> 将得到 13:35:03。</p>
+                <p>如果需要加上一个非固定的时间间隔（会因一年中的具体时间而异），DateAdd 函数可提供一些有用的间隔。各个间隔类型会以下方所列的编号来表示。</p>
+                <br />
+                <table cellspacing="0" cellpadding="0" border="1">
+                    <tr>
+                        <td align="center"><b>Interval</b></td>
+                        <td align="center"><b>DateAdd</b></td>
+                        <td align="center"><b>DateDiff</b></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>年</td>
+                        <td>年</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>周</td>
+                        <td>一年中的一周<em>（日历周）</em></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><em>（不适用）</em></td>
+                        <td>工作日<em>（7 天一周）</em></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><em>（不适用）</em></td>
+                        <td>第二</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>季度</td>
+                        <td>季度</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>月</td>
+                        <td>月</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><em>（不适用）</em></td>
+                        <td>分钟</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td><em>（不适用）</em></td>
+                        <td>小时</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td><em>（不适用）</em></td>
+                        <td>一年中的一天</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td><em>（不适用）</em></td>
+                        <td>天</td>
+                    </tr>
+                </table>
+                <br />
+                <p>如上所示，某些间隔不适用于 DateAdd 函数，但是这些间隔仍被选用了，这样便可为 DateAdd 函数和 DateDiff 函数使用相同的编号集。</p>
+                <p>例如，使用间隔编号 5 为某个日期加上几个月。所以，要为 26/5/1999 加上 2 个月，请使用 <em>DateAdd(5, 2, MakeDate(26,5,1999))</em>。这个函数将正确地返回 26/7/1999。</p>
+                <p>同样地，通过为间隔数量使用负值可以减去相应的间隔时间。例如，<em>DateAdd(5, -2, MakeDate(26,5,1999))</em> 会返回 26/3/1999。</p>
+                <p>DateAdd 函数不会返回无效日期。例如，如果使用 DateAdd(5,1,MakeDate(31,1,2005)) 为 2005 年 1 月 31 日加上 1 个月，这个函数将会返回 28/2/2005（而非返回 31/02/2005—一个并不存在的日期）。</p>
+            </div>
+        </li>
+        <li>
+            <p><u><i>FormatDate (Date, DateFormat);</i></u></p>
+            <div class="indented">
+                <p>这个函数用于将日期的格式转变为所需的形式，或从完整的日期中提取一小部分信息（如一周中的一天）。</p>
+
+                <h5 class="bold">参数</h5>
+                <p>两个参数的具体含义如下所示：</p>
+                <dl class="indented">
+                    <dt>Date</dt>
+                    <dd>要转变为文本值格式的日期值</dd>
+                    <dt>Format</dt>
+                    <dd>格式字符串，可指定所需的输出形式。可以为这个参数输入一个表示标准日期格式的单个字母，也可以输入一个表示自定义日期格式的字符串。</dd>
+                </dl>
+                <h5 class="bold">示例</h5>
+                <ul>
+                    <li>FormatDate(&quot;02-11-2016&quot;, &quot;D&quot;) 将返回“02 November 2016”</li>
+                    <li>FormatDate(&quot;02 Nov 2016&quot;,&quot;d&quot;) 将返回“2/11/2016”</li>
+                    <li>FormatDate(&quot;02-11-2016&quot;, &quot;M&quot;) 将返回2 November”</li>
+                    <li>FormatDate(&quot;02-11-2016&quot;, &quot;dddd&quot;) 将返回“Wednesday”</li>
+                    <li>FormatDate(&quot;02/11/2016&quot;, &quot;yyyy-MM-dd&quot;) 将返回“2016-11-02”</li>
+                    <li>FormatDate(&quot;02/11/2016&quot;, &quot;MMM dd, yyyy&quot;) 将返回“Nov 02, 2016”</li>
+                </ul>
+                <h5 class="bold">格式字符串</h5>
+                <ul>
+                    <li>有关标准日期和时间格式字符串的完整列表，请参阅 <a href="https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx">https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/standard-date-and-time-format-strings</a>。</li>
+                    <li>有关如何创建自定义日期和时间格式字符串的进一步信息，请参阅 <a href="https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx">https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/custom-date-and-time-format-strings</a>。</li>
+               </ul>
+            </div>
+        </li>
+        <li>
+            <p><u><i>FormatDateTime (Date, DateFormat);</i></u></p>
+            <div class="indented">
+                <p>这个函数用于将日期时间的格式转变为所需的形式，或从完整的日期时间中提取一小部分信息（如一周中的一天）。</p>
+
+                <h5 class="bold">参数</h5>
+                <p>两个参数的具体含义如下所示：</p>
+                <dl class="indented">
+                    <dt>Date</dt>
+                    <dd>要转变为文本值格式的日期时间值</dd>
+                    <dt>Format</dt>
+                    <dd>格式字符串，可指定所需的输出形式。可以为这个参数输入一个表示标准日期时间格式的单个字母，也可以输入一个表示自定义日期时间格式的字符串。</dd>
+                </dl>
+                <h5 class="bold">示例</h5>
+                <ul>
+                    <li>FormatDate(&quot;02-11-2016 09:23:43&quot;, &quot;t&quot;) 将返回“09:23”</li>
+                    <li>FormatDate(&quot;02 Nov 2016 09:23:43&quot;,&quot;F&quot;) 将返回“02 November 2016 09:23:43”</li>
+                    <li>FormatDate(&quot;02-11-2016 21:23:43&quot;, &quot;h:m tt&quot;) 将返回“9:23 PM”</li>
+                    <li>FormatDate(&quot;02-11-2016 21:23:43&quot;, &quot;dd/MM/yy HH:m:s&quot;) 将返回“02/11/16 21:23:43”</li>
+                </ul>
+                <h5 class="bold">格式字符串</h5>
+                <ul>
+                    <li>有关标准日期和时间格式字符串的完整列表，请参阅 <a href="https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx">https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/standard-date-and-time-format-strings</a>。</li>
+                    <li>有关如何创建自定义日期和时间格式字符串的进一步信息，请参阅 <a href="https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx">https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/custom-date-and-time-format-strings</a>。</li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <p><u><i>MakeDate (Day, Month, Year);</i></u></p>
+			<div class="indented">
+				<p>MakeDate() 用于根据数字创建日期。</p>
+				
+				<h5 class="bold">参数</h5>
+				<p>三个参数的具体含义如下所示：</p>
+				<dl class="indented">
+					<dt>Day</dt><dd>要使用的一个月中的某一天。这个值对于所选月份而言必须有效；如果月份为 2（即 2 月份），则 30 不是一个有效的值</dd>
+					<dt>Month</dt><dd>所需的月份，从 1 开始索引（即 4 对应 4 月份）。不得超过 12。</dd>
+					<dt>Year</dt><dd>所需的年份，如 2001。</dd>
+				</dl>
+
+				<h5 class="bold">以两位数表示的年份</h5>
+				<p>为了兼容旧流程，MakeDate 函数将接受以两位数表示的年份，并采用 <i>2029 规则</i>对其进行解释。但是，强烈建议您不要使用这个功能。请始终使用完整的年份（指明所属的世纪）。如果年份获取自采用两位数格式的其他系统，请确定<i>这个系统</i>所遵循的约定，并在读取数据后立即应用这个约定。</p>
+
+				<h5 class="bold">示例</h5>
+				<ul>
+					<li>MakeDate(21,6,2005) 将返回日期 21st June 2005</li>
+					<li>MakeDate(21,6,1995) 将返回日期 21st June 1995</li>
+					<li>MakeDate(5,12,29) 将返回日期 5th December 2029</li>
+					<li>MakeDate(5,12,30) 将返回日期 5th December 1930</li>
+				</ul>
+			
+				<h5 class="bold">提示</h5>
+				<p>MakeDate 函数是指定新日期的首选方式；请不要使用“02/03/2007”这样的字符串，它会因当前的区域设置而导致值存在歧义（例如，美国人对于这个日期的解读可能会不同于英国人）。</p>
+            </div>
+        </li>
+
+        <li>
+            <p><u><i>Mid (string, startpoint, maxcharacters);</i></u></p>
+			<div class="indented">
+				<p>Mid() 用于将较长的字符串（即字母序列）缩短为其所包含的较短字符串（即子字符串）。例如，Mid() 可用于将字符串“Customer Name:John Smith”缩短为子字符串“John Smith”。</p>
+				
+				<h5 class="bold">参数</h5>
+				<p>三个参数的具体含义如下所示：</p>
+				<dl class="indented">
+					<dt>string</dt><dd>要从中提取子字符串的较长字符串。</dd>
+					<dt>startpoint</dt><dd>所需的第一个字母，从 1 开始索引。</dd>
+					<dt>maxcharacters</dt><dd>所需字符的最大个数。这个函数返回的值将包含相应数量的字符，除非较长的字符串先行结束（在这种情况下，此值将变为理论上的最大字符个数）。</dd>
+				</dl>
+				
+				<h5 class="bold">提示</h5>
+				<p>如果用户指定的最大长度超过所提供的字符串的长度，Blue Prism 会将这个长度缩短为所提供的字符串的长度。因此，为免对太多的字符进行计数，常会简便地为最后一个参数写入一个较大的数字：Mid(&quot;Customer Name:John Smith&quot;, 16, 100)。可以使用 Mid(&quot;Customer Name:John Smith&quot;,16,4) 获取字符串“John”。注意： 这里的参数会向上取整，所以 Mid(&quot;abcdefg&quot;, 1.2, 1.8) 的求值结果将为“ab”。</p>
+				
+				<h5 class="bold">示例</h5>
+				<ul>
+					<li>Mid(&quot;Customer Name:John Smith&quot;, 16, 25)—返回“John Smith”</li>
+				</ul>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Left (string, maxcharacters);</i></u></p>
+			<div class="indented">
+				<p>Left() 用于返回一个较长的字母字符串的前几个字母。</p>
+				
+				<h5 class="bold">参数</h5>
+				<p>两个参数的具体含义如下所示：</p>
+				<dl class="indented">
+					<dt>string</dt><dd>要从中提取子字符串的较长字符串。</dd>
+					<dt>maxcharacters</dt><dd>所需字符的最大个数。这个函数返回的值将包含相应数量的字符，除非较长的字符串先行结束（在这种情况下，此值将变为理论上的最大字符个数）。</dd>
+				</dl>
+				
+				<h5 class="bold">提示</h5>
+				<p>如果 maxcharacters 的值超过（或等于）字符串中的字符个数，这个函数将在未作修改的情况下直接返回这个字符串。如果需要，可以为 maxcharacters 指定值 0（返回空字符串），但不能指定负数。</p>
+				
+				<h5 class="bold">示例</h5>
+				<ul>
+					<li>Left(&quot;Blue Prism empowers business users to achieve more in less time&quot;, 10) 会返回“Blue Prism”</li>
+				</ul>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Right (string, maxcharacters);</i></u></p>
+			<div class="indented">
+				<p>Right() 的行为与 Left() 完全一致，但前者会返回字符串结尾处的字母（按照指定的长度），而不是开头的字母。</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Len (string);</i></u></p>
+			<div class="indented">
+				<p>Len() 会返回字符串中的字符个数。例如，Len(&quot;Blue Prism&quot;) 会返回数字 10。</p>
+            </div>
+        </li>
+
+        <li>
+            <p><u><i>Instr (string, substring);</i></u></p>
+            <div class="indented">
+				<p>Instr() 会测试较短的字符串 <i>substring</i> 是否包含在较长的字符串 <i>string</i> 中。如果包含，则 Instr() 会返回从左侧开始算起会在第几个字符找到第一个 <i>substring</i>。</p>
+				
+				<h5 class="bold">参数</h5>
+				<p>两个参数的具体含义如下所示：</p>
+				<dl class="indented">
+					<dt>string</dt><dd>要从中提取子字符串的较长字符串。</dd>
+					<dt>substring</dt><dd>较短的字符串，此函数会检测较长的字符串中是否包含这个较短的字符串。</dd>
+				</dl>
+				
+				<h5 class="bold">示例</h5>
+				<ul class="indented">
+					<li>Instr(&quot;Calculations are much faster with Blue Prism than with an abacus&quot;, &quot;are&quot;) 将返回 14，因为单词“are”第一次出现在第 14 个字符。</li>
+				</ul>
+				
+				<h5 class="bold">提示</h5>
+				<p>如果在 <i>string</i> 中没有找到 <i>substring</i>，则 Instr() 将返回 0。所以说，Instr() 是一种非常有用的方式，可以测试较长的字符串中是否包含某个较短的字符串：例如，<i>Instr(&quot;Apples&quot;, &quot;Bananas&quot;) &gt; 0</i> 将返回 FALSE。</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>AddDays (date, numDays);</i></u></p>
+			<div class="indented">
+				<p>这个函数将为所选日期加上一定的天数。</p>
+				
+				<h5 class="bold">参数</h5>
+				<p>两个参数的具体含义如下所示：</p>
+				<dl class="indented">
+					<dt>date</dt><dd>应该要添加天数的日期。</dd>
+					<dt>numDays</dt><dd>要增加的天数。</dd>
+				</dl>
+									
+				<h5 class="bold">示例</h5>
+				<ul class="indented">
+					<li>AddDays(&quot;01/01/2006&quot;, 10) 将返回日期“11/01/2006”。</li>
+				</ul>
+				
+				<h5 class="bold">提示</h5>
+				<p>与函数 DateAdd() 相同，这个函数只会返回有效的日期。例如，在闰年，为 2 月 28 日加上一天后，得到的结果将会是 2 月 29 日；在所有其他年份，得到的结果则是 3 月 1 日。</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>AddMonths (date, numMonths);</i></u></p>
+			<div class="indented">
+				<p>这个函数将为所选日期加上一定的月数。</p>
+				
+				<h5 class="bold">参数</h5>
+				<p>两个参数的具体含义如下所示：</p>
+				<dl class="indented">
+					<dt>date</dt><dd>应该要添加月数的日期。</dd>
+					<dt>numMonths</dt><dd>要增加的月数。</dd>
+				</dl>
+				
+				<h5 class="bold">示例</h5>
+				<ul class="indented">
+					<li>AddMonths(&quot;01/01/2006&quot;, 10) 将返回日期“01/11/2006”。</li>
+				</ul>
+				
+				<h5 class="bold">提示</h5>
+				<p>与函数 DateAdd() 相同，这个函数只会返回有效的日期。例如，如果使用 AddMonths(&quot;31/01/2005&quot;,1) 为 2005 年 1 月 31 日加上 1 个月，这个函数将会返回“28/2/2005”（而非返回“31/02/2005”- 一个并不存在的日期）。</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Now ();</i></u></p>
+			<div class="indented">
+            
+				<p>这个函数将以<a href="helpDatatypes.htm">日期时间数据项</a>的形式返回当前的日期和时间。</p>
+			
+				<h5 class="bold">提示</h5>
+				<p>如果您只想知道今天的日期，最好改用 Today() 函数。</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Today ();</i></u></p>
+			<div class="indented">
+				<p>这个函数将以<a href="helpDatatypes.htm">日期数据项</a>的形式返回当前的日期。</p>
+				
+				<h5 class="bold">提示</h5>
+				<p>如果您想要知道当前的时间以及当天的日期，则改用 Now() 函数可能会更好些。</p>
+            </div>
+        </li>
+
+        <li>
+            <p><u><i>DecPad (number, numplaces);</i></u></p>
+			<div class="indented">
+				<p>这个函数将以文本格式呈现某个数字。通常，在处理货币时以及在 1 等数字更常以“1.00”的形式显示时，这个函数非常有用。</p>
+            
+				<h5 class="bold">参数</h5>
+				<p>两个参数的具体含义如下所示：</p>
+				<dl class="indented">
+					<dt>number</dt><dd>要以文本格式呈现的数字。</dd>
+					<dt>numPlaces</dt><dd>所需的最大小数位数。</dd>
+				</dl>
+				
+				<h5 class="bold">示例</h5>
+				<ul class="indented">
+					<li>DecPad(1.296,2) 将返回文本“1.30”。</li>
+					<li>DecPad(1.1111,2) 将返回文本“1.11”</li>
+				</ul>
+				
+				<h5 class="bold">提示</h5>
+				<p>如果以自然表示法呈现时小数位数过多，这个函数将相应地删除一定的小数位数，并将数字四舍五入为相应的精度。</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>RndDn (number, numplaces);</i></u></p>
+			<div class="indented">
+				<p>这个函数会将数字向下舍入为所需的小数位数。所返回值的数据类型为数字。</p>
+				
+				<h5 class="bold">参数</h5>
+				<p>两个参数的具体含义如下所示：</p>
+				<dl class="indented">
+					<dt>number</dt><dd>要舍入的数字。</dd>
+					<dt>numPlaces</dt><dd>所需的最大小数位数。</dd>
+				</dl>
+				
+				<h5 class="bold">示例</h5>
+				<ul class="indented">
+					<li>RndDn(9.19996,3) 将返回数字 9.199</li>
+					<li>RndDn(9.1345,2) 将返回数字 9.13</li>
+					<li>RndDn(3.14159,10) 将返回 3.14159（数字没有任何变化）</li>
+				</ul>
+				
+				<h5 class="bold">提示</h5>
+				<p>如果数字已达到所需的精度级别，数字将保持不变，尤其是它的格式也不会发生有所改变（和使用函数 DecPad 时一样）。另请参阅函数 Round 和 RndUp。</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>RndUp (number, numplaces);</i></u></p>
+			<div class="indented">
+				<p>这个函数会将数字向下舍入为所需的小数位数；它的行为与 RndDn() 函数类似。</p>
+				
+				<h5 class="bold">参数</h5>
+				<p>两个参数的具体含义如下所示：</p>
+				<dl class="indented">
+					<dt>number</dt><dd>要舍入的数字。</dd>
+					<dt>numPlaces</dt><dd>所需的最大小数位数。</dd>
+				</dl>
+				
+				<h5 class="bold">示例</h5>
+				<ul class="indented">
+					<li>RndDn(9.19996,3) 将返回数字 9.200</li>
+					<li>RndDn(9.1345,2) 将返回数字 9.14</li>
+					<li>RndDn(3.14159,10) 将返回 3.14159（数字没有任何变化）</li>
+				</ul>
+				
+				<h5 class="bold">提示</h5>
+				<p>如果数字已达到所需的精度级别，数字将保持不变，尤其是它的格式也不会发生有所改变（和使用函数 DecPad 时一样）。另请参阅函数 Round 和 RndDn。</p>
+            </div>
+        </li>
+
+        <li>
+            <p><u><i>Round (number, numplaces);</i></u></p>
+			<div class="indented">
+				<p>这个函数会将数字舍入为最为相近且拥有所需小数位数的数字。</p>
+				
+				<h5 class="bold">参数</h5>
+				<p>两个参数的具体含义如下所示：</p>
+				<dl class="indented">
+					<dt>number</dt><dd>要舍入的数字。</dd>
+					<dt>numPlaces</dt><dd>所需的最大小数位数。</dd>
+				</dl>
+				
+				<h5 class="bold">示例</h5>
+				<ul class="indented">
+					<li>Round(9.1345,2) 将返回数字 9.13</li>
+					<li>Round(9.19996,3) 将返回数字 9.200</li>
+					<li>Round(3.14159,10) 将返回 3.14159（数字没有任何变化）</li>
+				</ul>
+				
+				<h5 class="bold">提示</h5>
+				<p>如果数字已达到所需的精度级别，数字将保持不变，尤其是它的格式也不会发生有所改变（和使用函数 DecPad 时一样）。另请参阅函数 RndUp 和 RndDn。</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Sqrt (number);</i></u></p>
+			<div class="indented">
+				<p>这个函数将返回所提供数字的平方根。数字的平方根是一个唯一正数，将这个正数乘以自身后会得到最开始的数字。</p>
+            </div>
+            
+            <h5 class="bold">示例</h5>
+			<ul class="indented">
+				<li>Sqrt(100) 会返回数字 10</li>
+				<li>Sqrt(2) 会返回 1.4142135623731</li>
+			</ul>	
+        </li>
+		
+		<li>
+            <p><u><i>Log (number, base);</i></u></p>
+			<div class="indented">
+				<p>针对指定的底数值，计算数字的对数。如果值 v 和底数 b，则会计算以 b 为底 v 的对数—写作 Log(v, b)—即回答问题：“满足 b<sup>x</sup> = v 的值 x 时什么？”。</p>
+
+            </div>
+            
+            <h5 class="bold">示例</h5>
+			<ul class="indented">
+				<li>Log(1000, 10) = 3，因为 10<sup>3</sup> = 1000。</li>
+				<li>Log(1/4, 2) = -2，因为 2<sup>-2</sup> = 1/4</li>
+			</ul>	
+        </li>
+
+        <li>
+            <p><u><i>Chr (keycode);</i></u></p>
+			<div class="indented">
+				<p>这个函数将返回所提供的 <a href="helpASCII.htm">ASCII 代码</a>所代表的字符。</p>
+				
+				<h5 class="bold">示例</h5>
+				<ul class="indented">
+					<li>Chr(65) 会返回文本“A”</li>
+				</ul>
+				
+				<h5 class="bold">提示</h5>
+				<p>有关 ASCII 代码的完整介绍，请参考外部资源。Blue Prism <a href="helpASCII.htm">ASCII 页面</a>中有提供相关的快速指南。</p>
+			</div>
+        </li>
+
+        <li>
+            <p><u><i>Upper (string);</i></u></p>
+			<div class="indented">
+				<p>这个函数将返回所提供文本的大写形式。所提供文本中已经是大写形式的所有字母都不会发生变化，那些不是大写形式的字母则会做出相应改变。</p>
+				
+				<h5 class="bold">示例</h5>
+				<ul class="indented">
+					<li>Upper(&quot;software&quot;) 将返回文本“SOFTWARE”</li>
+					<li>Upper(&quot;aBcDeFg&quot;) 将返回文本“ABCDEFG”</li>
+				</ul>
+				
+				<h5 class="bold">提示</h5>
+				<p>另请参阅 Lower() 函数。</p>
+            </div>
+        </li>
+
+        <li>
+            <p><u><i>Lower (string);</i></u></p>
+			<div class="indented">
+				<p>这个函数将返回所提供文本的小写形式。所提供文本中已经是小写形式的所有字母都不会发生变化，那些不是小写形式的字母则会做出相应改变。</p>
+				
+				<h5 class="bold">示例</h5>
+				<ul class="indented">
+					<li>Lower(&quot;SOFTWARE&quot;) 将返回文本“software”</li>
+					<li>Lower(&quot;aBcDeFg&quot;) 将返回文本“abcdefg”</li>
+				</ul>
+				
+				<h5 class="bold">提示</h5>
+				<p>另请参阅 Upper() 函数。</p>
+            </div>
+        </li>
+    </ul>
+
+    <h3>常量</h3>
+
+    <p>文本和密码会通过括在双引号中的文本来提供，例如 <i>&quot;This is my text&quot;。</i></p>
+
+    <p>数字则会通过输入普通数字的方式来提供，例如 <em>5</em> 或 <em>1.2</em></p>
+
+    <p>标志会以单词 <em>True</em> 或 <em>False</em> 来表示</p>
+
+    <p>日期会以格式为 <em>dd/mm/yyyy</em> 的文本表达式的形式来提供，例如“12/03/2004”</p>
+
+    <h3>强制转换</h3>
+
+    <p>如果将某一数据类型的实体置于需要另一数据类型的表达式中，就会发生强制转换。</p>
+
+    <p>例如，为文本函数提供了一个数字。</p>
+
+    <p>Len(100)</p>
+
+    <p>这个数字 100 会自动强制转换为文本“100”，然后 Length 函数将会返回“3”，因为文本“100”包含 3 个字符。</p>
+</body>
+</html>

@@ -1,0 +1,433 @@
+﻿<process name="BP-SystemArchiving-DefaultDateFilter" version="1.0" bpversion="6.7.0.15985" narrative="BP-System - Archiving - DefaultDateFilter validation" byrefcollection="true" preferredid="0e7424aa-acfb-46a0-9ce0-542bef4ffec5">
+  <view>
+    <camerax>-9</camerax>
+    <cameray>116</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions>
+    <condition narrative="If logs are not available for last 7 days, just change the system local time to previous dates, create some process and sessions logs for more than past 10 days." />
+  </preconditions>
+  <endpoint narrative="" />
+  <subsheet subsheetid="52f5abbc-348f-40f6-bc97-d900ed21c35a" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>138</camerax>
+      <cameray>-54</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="f36771e8-efc9-4a38-bc1f-b970181cff34" type="Normal" published="False">
+    <name>Verify default Start and End date</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-36</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="f0be935c-4240-450d-8174-15b6fbb4403b" type="Normal" published="False">
+    <name>Verify Manually entered dates aren't saved</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>98</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="5726dc53-877a-4c35-a15e-21fd2ea8f6ab" name="Stage1" type="ProcessInfo">
+    <display x="-330" y="-135" w="330" h="150" />
+  </stage>
+  <stage stageid="aa990edc-2fc7-47cc-99b9-e1d5ca5f66aa" name="Start" type="Start">
+    <display x="15" y="-195" />
+    <onsuccess>b00b9c5e-a20f-4b73-84a2-1a59024a5632</onsuccess>
+  </stage>
+  <stage stageid="f873fab3-3b14-46f1-aade-2eddb5814f3e" name="Setup" type="SubSheet">
+    <display x="15" y="-45" w="90" h="30" />
+    <onsuccess>f77bb683-d463-4c5b-acf6-73870e4b79cf</onsuccess>
+    <processid>52f5abbc-348f-40f6-bc97-d900ed21c35a</processid>
+  </stage>
+  <stage stageid="c36c129e-7643-439c-894e-869e9847a38b" name="Setup" type="SubSheetInfo">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <narrative>Launch Blueprism application, login, go to system tab, select archiving item from system tree</narrative>
+    <display x="-165" y="-195" w="150" h="90" />
+  </stage>
+  <stage stageid="b231a50a-94c1-4830-a70d-f8de609e586d" name="Start" type="Start">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <display x="75" y="-225" />
+    <onsuccess>c3d467ac-75e2-4605-8c52-f266d4a79491</onsuccess>
+  </stage>
+  <stage stageid="0438dfe2-e581-40b2-9881-fc14b826bf27" name="End" type="End">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <display x="75" y="120" />
+  </stage>
+  <stage stageid="b00b9c5e-a20f-4b73-84a2-1a59024a5632" name="Note1" type="Note">
+    <narrative>GIVEN I have the session logs and processes</narrative>
+    <display x="15" y="-120" w="180" h="90" />
+    <onsuccess>f873fab3-3b14-46f1-aade-2eddb5814f3e</onsuccess>
+  </stage>
+  <stage stageid="f77bb683-d463-4c5b-acf6-73870e4b79cf" name="Note1" type="Note">
+    <narrative>WHEN I open System -&gt; Archiving-&gt; Archiving is currently in Manual mode
+
+THEN the Date range filter should default to the last 7 days</narrative>
+    <display x="15" y="30" w="180" h="90" />
+    <onsuccess>3dcda91b-3e8a-4060-b04c-47a816dc8976</onsuccess>
+  </stage>
+  <stage stageid="c3d467ac-75e2-4605-8c52-f266d4a79491" name="Blue Prism::Launch and Get PID" type="Action">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="75" y="-165" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>e7a6c0d5-2b57-4c3f-bc94-9cde14507987</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="c86c0135-4877-413d-940c-21f04f9ba69c" name="Blue Prism::Sign In" type="Action">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="75" y="-60" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Locale" friendlyname="Locale" narrative="Blue Prism Locale setting" stage="" />
+    </outputs>
+    <onsuccess>cc415437-549b-4f4a-af84-4250fa84c9f7</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="cc415437-549b-4f4a-af84-4250fa84c9f7" name="Go To System Tab" type="Action">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="75" y="-15" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>4fb8a199-83a2-485e-95c3-358b6004c06c</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="e7a6c0d5-2b57-4c3f-bc94-9cde14507987" name="Blue Prism - System (Parent)::Attach to Pid" type="Action">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="75" y="-120" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>c86c0135-4877-413d-940c-21f04f9ba69c</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="4fb8a199-83a2-485e-95c3-358b6004c06c" name="Blue Prism - System - Basic Actions::Click Item From System Tree" type="Action">
+    <subsheetid>52f5abbc-348f-40f6-bc97-d900ed21c35a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="75" y="45" w="60" h="60" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;System&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Archiving&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>0438dfe2-e581-40b2-9881-fc14b826bf27</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="ecfadf75-b6b5-41b4-98ed-287a59acc60f" name="End1" type="End">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="540" />
+  </stage>
+  <stage stageid="89b717b7-fba0-4d7e-b75c-d4733968eeaf" name="Verify default Start and End date" type="SubSheetInfo">
+    <subsheetid>f36771e8-efc9-4a38-bc1f-b970181cff34</subsheetid>
+    <narrative>This page is to verify the start and end of date filter's default date is set as  End Date: today date &amp; Start Date: today-6days</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="f3899f84-1da7-4d91-a791-9d930ce4ee8b" name="Start" type="Start">
+    <subsheetid>f36771e8-efc9-4a38-bc1f-b970181cff34</subsheetid>
+    <display x="15" y="-150" />
+    <onsuccess>4304e860-dc24-4b8a-afaa-45e8ecf02feb</onsuccess>
+  </stage>
+  <stage stageid="f8066bc2-3c23-489c-8d52-c02d3f8f5658" name="End" type="End">
+    <subsheetid>f36771e8-efc9-4a38-bc1f-b970181cff34</subsheetid>
+    <display x="15" y="150" />
+  </stage>
+  <stage stageid="3dcda91b-3e8a-4060-b04c-47a816dc8976" name="Verify default Start and End date" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="120" w="90" h="30" />
+    <onsuccess>7ffeb157-689f-4b3f-b2a3-9a4ef32dd5b4</onsuccess>
+    <processid>f36771e8-efc9-4a38-bc1f-b970181cff34</processid>
+  </stage>
+  <stage stageid="1ce405e1-de3b-4309-a442-46b9a85f7f9d" name="Start Date" type="Data">
+    <subsheetid>f36771e8-efc9-4a38-bc1f-b970181cff34</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>date</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a056609a-6860-4584-b66c-ee7718a2e5b3" name="End Date" type="Data">
+    <subsheetid>f36771e8-efc9-4a38-bc1f-b970181cff34</subsheetid>
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>date</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9b3207c8-041d-4c45-b599-fb644985f563" name="Local Variables" type="Block">
+    <subsheetid>f36771e8-efc9-4a38-bc1f-b970181cff34</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="062dafd6-a994-4f82-8833-7545b19bfcff" name="Start Date &amp; End Date filter is qual to last 7 days?" type="Decision">
+    <subsheetid>f36771e8-efc9-4a38-bc1f-b970181cff34</subsheetid>
+    <display x="15" y="60" w="120" h="90" />
+    <decision expression="[End Date]=Today()&#xA;AND&#xA;[Start Date]=DateAdd(9, -7, Today())" />
+    <ontrue>f8066bc2-3c23-489c-8d52-c02d3f8f5658</ontrue>
+    <onfalse>7b0bfb99-9037-4859-858e-919d34bfa193</onfalse>
+  </stage>
+  <stage stageid="7b0bfb99-9037-4859-858e-919d34bfa193" name="FAIL" type="Exception">
+    <subsheetid>f36771e8-efc9-4a38-bc1f-b970181cff34</subsheetid>
+    <display x="150" y="60" />
+    <exception localized="yes" type="Exception" detail="&quot;Default date is not valid range&quot;" />
+  </stage>
+  <stage stageid="4304e860-dc24-4b8a-afaa-45e8ecf02feb" name="Blue Prism - System - System::Get Archiving Start and End Date" type="Action">
+    <subsheetid>f36771e8-efc9-4a38-bc1f-b970181cff34</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="60" />
+    <outputs>
+      <output type="date" name="Start Date" friendlyname="Start Date" narrative="Default values for manual Archiving Start date" stage="Start Date" />
+      <output type="date" name="End Date" friendlyname="End Date" narrative="Default values for manual Archiving End date" stage="End Date" />
+    </outputs>
+    <onsuccess>062dafd6-a994-4f82-8833-7545b19bfcff</onsuccess>
+    <resource object="Blue Prism - System - System" action="Get Archiving Start and End Date" />
+  </stage>
+  <stage stageid="758bf581-1736-449c-b531-c0f91cade61f" name="Verify Manually entered dates aren't saved" type="SubSheetInfo">
+    <subsheetid>f0be935c-4240-450d-8174-15b6fbb4403b</subsheetid>
+    <narrative>This page is to validate default start and end date is valid after manul date entry and navigation from other tabs </narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="a1d45653-5831-447b-a701-750f562372bb" name="Start" type="Start">
+    <subsheetid>f0be935c-4240-450d-8174-15b6fbb4403b</subsheetid>
+    <display x="15" y="-135" />
+    <onsuccess>f3935c40-68e4-4536-b792-6f074a2ee74d</onsuccess>
+  </stage>
+  <stage stageid="fdaec0a5-a366-4892-bfab-87c616f15a68" name="End" type="End">
+    <subsheetid>f0be935c-4240-450d-8174-15b6fbb4403b</subsheetid>
+    <display x="15" y="330" />
+  </stage>
+  <stage stageid="41d38555-2e94-48c0-ad8f-58c2b429514e" name="Verify Manually entered dates aren't saved" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="390" w="90" h="30" />
+    <onsuccess>d36fb44c-b3a6-475f-9112-27a3d5ceba60</onsuccess>
+    <processid>f0be935c-4240-450d-8174-15b6fbb4403b</processid>
+  </stage>
+  <stage stageid="f3935c40-68e4-4536-b792-6f074a2ee74d" name="Blue Prism - System - System::Set Archiving Start and End Date" type="Action">
+    <subsheetid>f0be935c-4240-450d-8174-15b6fbb4403b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-75" w="90" h="60" />
+    <inputs>
+      <input type="date" name="Start Date" friendlyname="Start Date" expr="&quot;3/21/2019&quot;" />
+      <input type="date" name="End Date" friendlyname="End Date" expr="&quot;4/21/2019&quot;" />
+    </inputs>
+    <onsuccess>ed6adb4b-5de8-48ec-b3ff-8b855deaab6d</onsuccess>
+    <resource object="Blue Prism - System - System" action="Set Archiving Start and End Date" />
+  </stage>
+  <stage stageid="9567a583-568e-48d5-b799-9b29bcc0d653" name="Go To System Tab" type="Action">
+    <subsheetid>f0be935c-4240-450d-8174-15b6fbb4403b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>3761b33c-ccf9-4f1b-921b-9a35ab509866</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="3761b33c-ccf9-4f1b-921b-9a35ab509866" name="Blue Prism - System - Basic Actions::Click Item From System Tree" type="Action">
+    <subsheetid>f0be935c-4240-450d-8174-15b6fbb4403b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="90" w="60" h="60" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;System&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Archiving&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>ffb454f7-404b-4bb2-b6d7-4100e2971c61</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="ed6adb4b-5de8-48ec-b3ff-8b855deaab6d" name="Go To Home Tab" type="Action">
+    <subsheetid>f0be935c-4240-450d-8174-15b6fbb4403b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>9567a583-568e-48d5-b799-9b29bcc0d653</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="ffb454f7-404b-4bb2-b6d7-4100e2971c61" name="Blue Prism - System - System::Get Archiving Start and End Date" type="Action">
+    <subsheetid>f0be935c-4240-450d-8174-15b6fbb4403b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" w="90" h="60" />
+    <outputs>
+      <output type="date" name="Start Date" friendlyname="Start Date" narrative="Default values for manual Archiving Start date" stage="Start Date" />
+      <output type="date" name="End Date" friendlyname="End Date" narrative="Default values for manual Archiving End date" stage="End Date" />
+    </outputs>
+    <onsuccess>7d5581be-c667-43b7-90b2-47c0d6cd9a9b</onsuccess>
+    <resource object="Blue Prism - System - System" action="Get Archiving Start and End Date" />
+  </stage>
+  <stage stageid="0d2191c5-826b-4672-bb07-fae4087b472d" name="Start Date" type="Data">
+    <subsheetid>f0be935c-4240-450d-8174-15b6fbb4403b</subsheetid>
+    <display x="-195" y="75" w="120" h="30" />
+    <datatype>date</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1d8bfee6-4f27-4652-ba85-2a2f549491f3" name="End Date" type="Data">
+    <subsheetid>f0be935c-4240-450d-8174-15b6fbb4403b</subsheetid>
+    <display x="-195" y="105" w="120" h="30" />
+    <datatype>date</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="913657e3-cb82-4622-b571-8627edf0b6a4" name="Local Variables" type="Block">
+    <subsheetid>f0be935c-4240-450d-8174-15b6fbb4403b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="7d5581be-c667-43b7-90b2-47c0d6cd9a9b" name="Start Date &amp; End Date filter is qual to last 7 days?" type="Decision">
+    <subsheetid>f0be935c-4240-450d-8174-15b6fbb4403b</subsheetid>
+    <display x="15" y="255" w="120" h="90" />
+    <decision expression="[End Date]=Today()&#xA;AND&#xA;[Start Date]=DateAdd(9, -7, Today())" />
+    <ontrue>fdaec0a5-a366-4892-bfab-87c616f15a68</ontrue>
+    <onfalse>3f5eaaf3-e47c-40c7-b69d-59e080f6c1fc</onfalse>
+  </stage>
+  <stage stageid="3f5eaaf3-e47c-40c7-b69d-59e080f6c1fc" name="FAIL" type="Exception">
+    <subsheetid>f0be935c-4240-450d-8174-15b6fbb4403b</subsheetid>
+    <display x="150" y="255" />
+    <exception localized="yes" type="Exception" detail="&quot;- Defult date is not valid range while returned from manual entry as well&quot;" />
+  </stage>
+  <stage stageid="36b2df0f-16c9-49be-a9c8-7e2284d40716" name="Recover1" type="Recover">
+    <loginhibit />
+    <display x="105" y="120" />
+    <onsuccess>46964521-cb31-4113-b51e-348bbf625105</onsuccess>
+  </stage>
+  <stage stageid="092236b2-e348-41de-b392-d5f45866cda5" name="Resume1" type="Resume">
+    <loginhibit />
+    <display x="270" y="120" />
+    <onsuccess>4f82ae2a-3b2a-4548-8b61-119b00f56834</onsuccess>
+  </stage>
+  <stage stageid="b5f5aa0d-3998-4bc0-8b1a-cb4ecc3b60ba" name="Error" type="Data">
+    <display x="-330" y="-15" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="250e6798-e2f5-47a2-8865-ebf192e4ad62" name="Scenario 1 Cleanup" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="90" w="195" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="46964521-cb31-4113-b51e-348bbf625105" name="Capture Error" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="195" y="120" />
+    <onsuccess>092236b2-e348-41de-b392-d5f45866cda5</onsuccess>
+    <steps>
+      <calculation expression="[Error]&amp;&quot;, &quot;&amp;ExceptionDetail()" stage="Error" />
+      <calculation expression="True" stage="Failed?" />
+    </steps>
+  </stage>
+  <stage stageid="abcf3ead-b831-4e92-8996-fce66ffa1095" name="Failed?" type="Data">
+    <display x="-330" y="15" w="150" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4f82ae2a-3b2a-4548-8b61-119b00f56834" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="270" y="345" w="10" h="10" />
+    <onsuccess>87f65f48-2d5c-49f3-8780-0e112bf52a34</onsuccess>
+  </stage>
+  <stage stageid="87f65f48-2d5c-49f3-8780-0e112bf52a34" name="Anchor2" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="345" w="10" h="10" />
+    <onsuccess>41d38555-2e94-48c0-ad8f-58c2b429514e</onsuccess>
+  </stage>
+  <stage stageid="45701804-b121-4185-98ca-3142654b184b" name="Recover1" type="Recover">
+    <loginhibit />
+    <display x="105" y="390" />
+    <onsuccess>bbb11c27-bf5c-49df-8802-8ef0daa1bfa8</onsuccess>
+  </stage>
+  <stage stageid="80314249-e62f-4218-bfe7-5497043f25b5" name="Resume1" type="Resume">
+    <loginhibit />
+    <display x="270" y="390" />
+    <onsuccess>ce55c46a-68be-495e-94e2-6db0922c49bd</onsuccess>
+  </stage>
+  <stage stageid="1fc5037d-a38f-45cd-833a-f75d0b806d15" name="Scenario 2 Cleanup" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="360" w="195" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="bbb11c27-bf5c-49df-8802-8ef0daa1bfa8" name="Capture Error" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="195" y="390" />
+    <onsuccess>80314249-e62f-4218-bfe7-5497043f25b5</onsuccess>
+    <steps>
+      <calculation expression="[Error]&amp;&quot;, &quot;&amp;ExceptionDetail()" stage="Error" />
+      <calculation expression="True" stage="Failed?" />
+    </steps>
+  </stage>
+  <stage stageid="ce55c46a-68be-495e-94e2-6db0922c49bd" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="270" y="450" w="10" h="10" />
+    <onsuccess>d36fb44c-b3a6-475f-9112-27a3d5ceba60</onsuccess>
+  </stage>
+  <stage stageid="924b019f-ecee-4a88-a03d-25b0b9bf9849" name="Failed?" type="Decision">
+    <display x="15" y="495" />
+    <decision expression="[Failed?]" />
+    <ontrue>b7d0d3a4-fad5-4f1d-8cbc-94356651a15c</ontrue>
+    <onfalse>ecfadf75-b6b5-41b4-98ed-287a59acc60f</onfalse>
+  </stage>
+  <stage stageid="b7d0d3a4-fad5-4f1d-8cbc-94356651a15c" name="FAIL" type="Exception">
+    <display x="90" y="495" />
+    <exception localized="yes" type="RETHROW" detail="[Error]" />
+  </stage>
+  <stage stageid="7ffeb157-689f-4b3f-b2a3-9a4ef32dd5b4" name="Note1" type="Note">
+    <narrative>WHEN I entered start and end date manually in System -&gt; Archiving-&gt; Archiving is currently in Manual mode
+
+AND I navigate to Home tab and returned to  System -&gt; Archiving-&gt; Archiving is currently in Manual mode
+
+THEN the Date range filter should default to the last 7 days</narrative>
+    <display x="15" y="225" w="180" h="120" />
+    <onsuccess>87f65f48-2d5c-49f3-8780-0e112bf52a34</onsuccess>
+  </stage>
+  <stage stageid="bb7234cd-1a26-4e3e-b163-4b78f1edcf08" name="Local Variable" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-420" y="-45" w="195" h="135" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a69dbf0b-3b93-4552-ad70-73b82d989c7b" name="pid" type="Data">
+    <display x="-345" y="150" w="90" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7668dd44-61d9-4579-bea5-a10ec7381ea2" name="Global Variable" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-420" y="120" w="195" h="45" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d36fb44c-b3a6-475f-9112-27a3d5ceba60" name="Blue Prism::Exit Application" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="450" />
+    <onsuccess>924b019f-ecee-4a88-a03d-25b0b9bf9849</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+</process>

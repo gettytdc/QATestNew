@@ -1,0 +1,1518 @@
+﻿<process name="Test Queue Item Tagging" version="1.0" bpversion="5.0.999.999" narrative="Work queue item tagging tests" preferredid="47c0d7c0-184d-4a38-815c-4fe49ea8e15e">
+  <view>
+    <camerax>1448</camerax>
+    <cameray>126</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="6545fcb9-21ff-40b4-ab94-8cfa8ad6fd28" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>7764b41e-b69a-420f-b9e1-825fd27d2b68</onsuccess>
+  </stage>
+  <stage stageid="e4f036c0-755a-41ad-80aa-62c37b7ef840" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>270</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="aca5f95e-adcb-4768-b518-86fe6c8bfc66" name="Introduce Depps" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Depp Test Queue&quot;" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Depps]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="&quot;Johnny Depp Characters; Films&quot;" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="Item IDs" />
+    </outputs>
+    <onsuccess>26043e58-29b4-462d-bf76-5820e7a72b6a</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="a3793046-5134-49a6-ab2d-ad88dedd5bd4" name="Depps" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>270</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Surname" type="text" />
+      <field name="Forename" type="text" />
+      <field name="Director" type="text" />
+      <field name="Genre" type="text" />
+      <field name="Era" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Surname" type="text" value="Scissorhands" />
+        <field name="Forename" type="text" value="Edward" />
+        <field name="Director" type="text" value="Tim Burton" />
+        <field name="Genre" type="text" value="Weird" />
+        <field name="Era" type="text" value="90's" />
+      </row>
+      <row>
+        <field name="Surname" type="text" value="Todd" />
+        <field name="Forename" type="text" value="Sweeney" />
+        <field name="Director" type="text" value="Tim Burton" />
+        <field name="Genre" type="text" value="Musical" />
+        <field name="Era" type="text" value="00's" />
+      </row>
+      <row>
+        <field name="Surname" type="text" value="Demarco" />
+        <field name="Forename" type="text" value="Juan" />
+        <field name="Director" type="text" value="Jeremy Leven" />
+        <field name="Genre" type="text" value="Book Adaptation" />
+        <field name="Era" type="text" value="90's" />
+      </row>
+      <row>
+        <field name="Surname" type="text" value="Wood" />
+        <field name="Forename" type="text" value="Ed" />
+        <field name="Director" type="text" value="Tim Burton" />
+        <field name="Genre" type="text" value="Biopic" />
+        <field name="Era" type="text" value="90's" />
+      </row>
+      <row>
+        <field name="Surname" type="text" value="Grape" />
+        <field name="Forename" type="text" value="Gilbert" />
+        <field name="Director" type="text" value="Lasse Halstrom" />
+        <field name="Genre" type="text" value="Book Adaptation" />
+        <field name="Era" type="text" value="90's" />
+      </row>
+      <row>
+        <field name="Surname" type="text" value="Brasco" />
+        <field name="Forename" type="text" value="Donnie" />
+        <field name="Director" type="text" value="Mike Newell" />
+        <field name="Genre" type="text" value="Book Adaptation" />
+        <field name="Era" type="text" value="90's" />
+      </row>
+      <row>
+        <field name="Surname" type="text" value="Baby" />
+        <field name="Forename" type="text" value="Cry" />
+        <field name="Director" type="text" value="John Waters" />
+        <field name="Genre" type="text" value="Comedy" />
+        <field name="Era" type="text" value="80's" />
+      </row>
+      <row>
+        <field name="Surname" type="text" value="Noodlemantra" />
+        <field name="Forename" type="text" value="Oprah" />
+        <field name="Director" type="text" value="Rachel Talalay" />
+        <field name="Genre" type="text" value="Horror" />
+        <field name="Era" type="text" value="90's" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="641807b8-f4cc-4b9d-89ed-a8dac413b096" name="Get Next Item" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Depp Test Queue&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Current Item" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>848eb888-134a-4a90-95bb-99fe37446620</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="34910e72-6b4a-4ec6-8ff2-dc040a2f2509" name="ID" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5d64aa07-ec0e-4d7c-a3a8-82bb1f8b0df4" name="Current Item" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>30</displayy>
+    <displaywidth>270</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="848eb888-134a-4a90-95bb-99fe37446620" name="Something to process?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[ID]&lt;&gt;&quot;&quot;" />
+    <ontrue>bc57a0cd-2978-4174-a8d0-b2f9f5eb82a8</ontrue>
+    <onfalse>fd6f9fc4-8df0-4fbd-8ac6-ef5ca2687a1e</onfalse>
+  </stage>
+  <stage stageid="b1853a6c-b2e3-4516-8035-50ade51e6a24" name="Add Director Tag" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;Directed by &quot; &amp; [Director]" />
+    </inputs>
+    <onsuccess>15842199-a8e1-4c9c-8a1e-59544d765e4f</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="cf13911d-d15c-401c-b59f-92c4ed6e6a1a" name="Director" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9eb855d1-8390-4137-a2c6-f6056ab1d2a0" name="Genre" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="917e4a27-a3b8-4947-90d0-cbcbb5bd1f94" name="Era" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-375</displayx>
+    <displayy>120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="bc57a0cd-2978-4174-a8d0-b2f9f5eb82a8" name="Cast Collection Columns" type="MultipleCalculation">
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>b1853a6c-b2e3-4516-8035-50ade51e6a24</onsuccess>
+    <steps>
+      <calculation expression="[Current Item.Director]" stage="Director" />
+      <calculation expression="[Current Item.Genre]" stage="Genre" />
+      <calculation expression="[Current Item.Era]" stage="Era" />
+    </steps>
+  </stage>
+  <stage stageid="15842199-a8e1-4c9c-8a1e-59544d765e4f" name="Add Genre Tag" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="[Genre]" />
+    </inputs>
+    <onsuccess>6d174d6f-e164-42ed-b3e9-b715a14f8ee6</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="6d174d6f-e164-42ed-b3e9-b715a14f8ee6" name="Add Era Tag" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>150</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="[Era]" />
+    </inputs>
+    <onsuccess>7f7a868b-9150-4a39-b90a-b1cbfff4b0c5</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="7764b41e-b69a-420f-b9e1-825fd27d2b68" name="Create (If Not Exists) Depp Queue" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" expr="&quot;Depp Test Queue&quot;" />
+      <input type="text" name="Key Field" expr="&quot;Surname&quot;" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" stage="" />
+    </outputs>
+    <onsuccess>aca5f95e-adcb-4768-b518-86fe6c8bfc66</onsuccess>
+    <resource object="Queue Utils" action="Create Queue" />
+  </stage>
+  <stage stageid="d86e56a9-562e-45d3-a800-2d0226ab71c1" name="Get Next Item" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>1650</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Depp Test Queue&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Current Item" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>a57fc4c6-c4bc-46e8-9375-c4ceb9d65f2d</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="a57fc4c6-c4bc-46e8-9375-c4ceb9d65f2d" name="Something to process?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>1650</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[ID]&lt;&gt;&quot;&quot;" />
+    <ontrue>e336c27d-118b-4cf0-87ca-517fd62838cc</ontrue>
+    <onfalse>cec9ad00-545d-41a6-a2d8-64bba2428518</onfalse>
+  </stage>
+  <stage stageid="7f27c2e4-730b-4171-af48-865dcf8437d5" name="Remove Director Tag" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>1650</displayx>
+    <displayy>30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to remove the tag from" expr="[ID]" />
+      <input type="text" name="Tag" narrative="The tag to remove from the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;Directed by &quot; &amp; [Director]" />
+    </inputs>
+    <onsuccess>ecadd279-ab38-4b93-801a-ebc22ceafbc8</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Untag Item" />
+  </stage>
+  <stage stageid="e336c27d-118b-4cf0-87ca-517fd62838cc" name="Cast Collection Columns" type="MultipleCalculation">
+    <narrative>
+    </narrative>
+    <displayx>1650</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>7f27c2e4-730b-4171-af48-865dcf8437d5</onsuccess>
+    <steps>
+      <calculation expression="[Current Item.Director]" stage="Director" />
+      <calculation expression="[Current Item.Genre]" stage="Genre" />
+      <calculation expression="[Current Item.Era]" stage="Era" />
+    </steps>
+  </stage>
+  <stage stageid="ecadd279-ab38-4b93-801a-ebc22ceafbc8" name="Remove Genre Tag" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>1650</displayx>
+    <displayy>75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to remove the tag from" expr="[ID]" />
+      <input type="text" name="Tag" narrative="The tag to remove from the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="[Genre]" />
+    </inputs>
+    <onsuccess>41db4a15-978b-40de-b2a3-f7844e545ad0</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Untag Item" />
+  </stage>
+  <stage stageid="41db4a15-978b-40de-b2a3-f7844e545ad0" name="Remove Era Tag" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>1650</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to remove the tag from" expr="[ID]" />
+      <input type="text" name="Tag" narrative="The tag to remove from the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="[Era]" />
+    </inputs>
+    <onsuccess>b2f9eabc-5a0f-49ba-affa-1d3b6c5cac5a</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Untag Item" />
+  </stage>
+  <stage stageid="b2f9eabc-5a0f-49ba-affa-1d3b6c5cac5a" name="Remove Nonsense Tag" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>1650</displayx>
+    <displayy>165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to remove the tag from" expr="[ID]" />
+      <input type="text" name="Tag" narrative="The tag to remove from the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;Flux Capacitor&quot;" />
+    </inputs>
+    <onsuccess>0ae3a77d-7d04-4f2e-9266-c28d10f4bbcf</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Untag Item" />
+  </stage>
+  <stage stageid="04fa11b2-42ea-490a-b191-32e2b46b9521" name="End1" type="End">
+    <narrative>
+    </narrative>
+    <displayx>1800</displayx>
+    <displayy>285</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="95c6177c-8b84-4d3b-9158-81781b9efa2d" name="Delete it" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>1800</displayx>
+    <displayy>75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to delete. An error will be raised if this item does not exist, or is locked." expr="[Worked Items.Item ID]" />
+    </inputs>
+    <onsuccess>b086a847-5669-4d58-923e-ebc95227eb03</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Delete Item" />
+  </stage>
+  <stage stageid="cd6529fc-f407-4892-a49b-554ace8f165c" name="anchor4" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>300</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>641807b8-f4cc-4b9d-89ed-a8dac413b096</onsuccess>
+  </stage>
+  <stage stageid="0ae3a77d-7d04-4f2e-9266-c28d10f4bbcf" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>1575</displayx>
+    <displayy>165</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>27a95e95-6684-441c-b381-be069c80c3d4</onsuccess>
+  </stage>
+  <stage stageid="27a95e95-6684-441c-b381-be069c80c3d4" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>1575</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>d86e56a9-562e-45d3-a800-2d0226ab71c1</onsuccess>
+  </stage>
+  <stage stageid="cec9ad00-545d-41a6-a2d8-64bba2428518" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>1800</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>fdecfa30-ac55-4bb5-aa17-ba8afd657075</onsuccess>
+  </stage>
+  <stage stageid="9e20fe12-2e16-417c-8079-1dd332c55ebd" name="Worked Items" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>180</displayy>
+    <displaywidth>270</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" />
+      <field name="Director" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="7f7a868b-9150-4a39-b90a-b1cbfff4b0c5" name="Add Worked Item Row" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>195</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to be modified" expr="&quot;Worked Items&quot;" />
+    </inputs>
+    <onsuccess>dff69d30-47da-4b45-a26b-576ada24611b</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="dff69d30-47da-4b45-a26b-576ada24611b" name="Worked Items[Current] = ID" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>240</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>3b5de50a-134f-4b81-9824-e5377bec3b54</onsuccess>
+    <calculation expression="[ID]" stage="Worked Items.Item ID" />
+  </stage>
+  <stage stageid="c98d8d8f-8162-4400-943d-f9ccab0477c2" name="For each worked item" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>615</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="008000" />
+    <onsuccess>cc56243c-5002-44ec-82a2-ddc553006edd</onsuccess>
+    <groupid>3ec98400-c707-4826-b670-a2a4c32a32c3</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Worked Items</loopdata>
+  </stage>
+  <stage stageid="ea428812-e20f-4ee2-9ecd-8b0c8bc68248" name="End For" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>615</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="008000" />
+    <onsuccess>69363f66-909c-46f4-b2fa-7ddd7bdb48e1</onsuccess>
+    <groupid>3ec98400-c707-4826-b670-a2a4c32a32c3</groupid>
+  </stage>
+  <stage stageid="cc56243c-5002-44ec-82a2-ddc553006edd" name="Unlock it" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>615</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Worked Items.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="" />
+    </outputs>
+    <onsuccess>ea428812-e20f-4ee2-9ecd-8b0c8bc68248</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="fdecfa30-ac55-4bb5-aa17-ba8afd657075" name="For each worked item" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>1800</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="0000FF" />
+    <onsuccess>59f696cf-6c90-4946-8751-89b407cf5f3f</onsuccess>
+    <groupid>2e1c205c-71fc-4208-a71c-1b978089f858</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Worked Items</loopdata>
+  </stage>
+  <stage stageid="b086a847-5669-4d58-923e-ebc95227eb03" name="End For" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>1800</displayx>
+    <displayy>120</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="0000FF" />
+    <onsuccess>faac2728-0c74-4adc-acfe-4723f1f2a942</onsuccess>
+    <groupid>2e1c205c-71fc-4208-a71c-1b978089f858</groupid>
+  </stage>
+  <stage stageid="59f696cf-6c90-4946-8751-89b407cf5f3f" name="Unlock it" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>1800</displayx>
+    <displayy>30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Worked Items.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="" />
+    </outputs>
+    <onsuccess>95c6177c-8b84-4d3b-9158-81781b9efa2d</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="69363f66-909c-46f4-b2fa-7ddd7bdb48e1" name="Get Next Tim Burton Item" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>615</displayx>
+    <displayy>30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Depp Test Queue&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot; - ie. all tags separated by semi-colons, and with an optional '+' or '-' prefix indicating that only items respectively with or without the tag are considered." expr="&quot;Directed by Tim Burton&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Current Item" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>ceac11ba-d76b-4396-a07d-2dc6120dc7fb</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="ceac11ba-d76b-4396-a07d-2dc6120dc7fb" name="Something to process?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>615</displayx>
+    <displayy>75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[ID]&lt;&gt;&quot;&quot;" />
+    <ontrue>68f34e43-4e78-4281-8e0d-bf5871a334cf</ontrue>
+    <onfalse>535eed65-3c32-447a-bb37-398c9acdfc76</onfalse>
+  </stage>
+  <stage stageid="e6a4311d-65ce-4b31-89c0-a4354bb0b9ac" name="Tim Burton Expected Count" type="Data">
+    <narrative>Number of Tim Burton films in Depps</narrative>
+    <displayx>-435</displayx>
+    <displayy>225</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>3</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="37c0d6d4-7301-4124-8959-53672396e938" name="Tim Burton Actual Count" type="Data">
+    <narrative>Number of Tim Burton films in Depps</narrative>
+    <displayx>-435</displayx>
+    <displayy>270</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="68f34e43-4e78-4281-8e0d-bf5871a334cf" name="Tim Burton ++" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>615</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>5f836f9f-000d-4358-a0ad-c222641f7194</onsuccess>
+    <calculation expression="[Tim Burton Actual Count]+1" stage="Tim Burton Actual Count" />
+  </stage>
+  <stage stageid="5f836f9f-000d-4358-a0ad-c222641f7194" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>540</displayx>
+    <displayy>120</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>513fa353-0332-4612-ba7b-11f67adc9dd1</onsuccess>
+  </stage>
+  <stage stageid="513fa353-0332-4612-ba7b-11f67adc9dd1" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>540</displayx>
+    <displayy>30</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>69363f66-909c-46f4-b2fa-7ddd7bdb48e1</onsuccess>
+  </stage>
+  <stage stageid="7091afd8-1a73-4dab-b306-712e88475bfb" name="Note1" type="Note">
+    <narrative>Create the queue and add the Depps to it</narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Italic" color="008000" />
+  </stage>
+  <stage stageid="fd6f9fc4-8df0-4fbd-8ac6-ef5ca2687a1e" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>495</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>23cf20cb-6f80-4afe-9ece-a7fd4fe9674b</onsuccess>
+  </stage>
+  <stage stageid="23cf20cb-6f80-4afe-9ece-a7fd4fe9674b" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>495</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>c98d8d8f-8162-4400-943d-f9ccab0477c2</onsuccess>
+  </stage>
+  <stage stageid="6a5e13c2-5014-46e1-b45b-1de96fe5acbf" name="Note2" type="Note">
+    <narrative>Add the tags</narrative>
+    <displayx>300</displayx>
+    <displayy>285</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Italic" color="008000" />
+    <onsuccess>cd6529fc-f407-4892-a49b-554ace8f165c</onsuccess>
+  </stage>
+  <stage stageid="dfe86e32-a34a-4107-8c92-8d99ca023f9a" name="Note3" type="Note">
+    <narrative>Unlock all so we can go through and get them again</narrative>
+    <displayx>615</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Italic" color="008000" />
+  </stage>
+  <stage stageid="ccc04c2c-41af-4e64-b39b-6905c6ffa3ef" name="Note4" type="Note">
+    <narrative>Filter on Tim Burton - check correct count returned</narrative>
+    <displayx>720</displayx>
+    <displayy>30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Italic" color="008000" />
+  </stage>
+  <stage stageid="85a75da8-fe35-4728-b57a-acb7c9fd6af7" name="Note5" type="Note">
+    <narrative>Remove tags</narrative>
+    <displayx>1515</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Italic" color="008000" />
+    <onsuccess>27a95e95-6684-441c-b381-be069c80c3d4</onsuccess>
+  </stage>
+  <stage stageid="7afe47f2-d246-4d72-b535-c20b56f90d1b" name="Note6" type="Note">
+    <narrative>Unlock and delete all items</narrative>
+    <displayx>1920</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Italic" color="008000" />
+  </stage>
+  <stage stageid="332e3748-ec3a-4333-8a89-9c53e33fdcf4" name="For each worked item" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>615</displayx>
+    <displayy>165</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="FF6600" />
+    <onsuccess>e0298006-38a1-4231-92b6-f6c7cd1d083f</onsuccess>
+    <groupid>5c47139a-a2ce-4a46-8d08-b5ba0630b771</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Worked Items</loopdata>
+  </stage>
+  <stage stageid="61a97745-1342-4d82-9efa-8105271520dd" name="End For" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>615</displayx>
+    <displayy>360</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="FF6600" />
+    <onsuccess>59267a78-d20d-47b1-b62d-8a3cf1024842</onsuccess>
+    <groupid>5c47139a-a2ce-4a46-8d08-b5ba0630b771</groupid>
+  </stage>
+  <stage stageid="ddbb951f-d950-4545-b24c-12af6d878c6c" name="Unlock it" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>615</displayx>
+    <displayy>300</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Worked Items.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="" />
+    </outputs>
+    <onsuccess>eac1a21a-8da7-42c9-bd6a-6ca35cc14138</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="e0298006-38a1-4231-92b6-f6c7cd1d083f" name="Is it washed out colours with lots of black?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>615</displayx>
+    <displayy>210</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Worked Items.Director] = &quot;Tim Burton&quot;" />
+    <ontrue>c244c5d6-09be-4f26-b9a2-f288a04f459c</ontrue>
+    <onfalse>9c73b2eb-5747-4483-af58-4ec9068eceb2</onfalse>
+  </stage>
+  <stage stageid="c244c5d6-09be-4f26-b9a2-f288a04f459c" name="Note7" type="Note">
+    <narrative>That's Tim, all right</narrative>
+    <displayx>615</displayx>
+    <displayy>255</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>ddbb951f-d950-4545-b24c-12af6d878c6c</onsuccess>
+  </stage>
+  <stage stageid="9c73b2eb-5747-4483-af58-4ec9068eceb2" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>210</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>705bdf15-88b4-418e-afcf-897fee8ee70f</onsuccess>
+  </stage>
+  <stage stageid="86763319-09c6-4a23-ad3f-c6a51915ff4b" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>165</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>332e3748-ec3a-4333-8a89-9c53e33fdcf4</onsuccess>
+  </stage>
+  <stage stageid="535eed65-3c32-447a-bb37-398c9acdfc76" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>75</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>86763319-09c6-4a23-ad3f-c6a51915ff4b</onsuccess>
+  </stage>
+  <stage stageid="8bae2e34-aebb-425f-8381-c3d1f30ff943" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>765</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>b3a1cf32-7b56-46a9-b701-df134a633b56</onsuccess>
+  </stage>
+  <stage stageid="59267a78-d20d-47b1-b62d-8a3cf1024842" name="Correct Count?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>765</displayx>
+    <displayy>360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Tim Burton Expected Count]=[Tim Burton Actual Count]" />
+    <ontrue>8bae2e34-aebb-425f-8381-c3d1f30ff943</ontrue>
+    <onfalse>0a74e657-79c3-41a8-86ec-0d1702ab0869</onfalse>
+  </stage>
+  <stage stageid="0a74e657-79c3-41a8-86ec-0d1702ab0869" name="Bad Tim Burton Count" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>885</displayx>
+    <displayy>360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Expected &quot; &amp; [Tim Burton Expected Count] &amp; &quot; Tim Burton films when getting next item, filtered on tag. Actually found: &quot; &amp; [Tim Burton Actual Count]" />
+  </stage>
+  <stage stageid="3b5de50a-134f-4b81-9824-e5377bec3b54" name="Worked Items[Current] = Director" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>285</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>6a5e13c2-5014-46e1-b45b-1de96fe5acbf</onsuccess>
+    <calculation expression="[Director]" stage="Worked Items.Director" />
+  </stage>
+  <stage stageid="705bdf15-88b4-418e-afcf-897fee8ee70f" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>705</displayx>
+    <displayy>330</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>eac1a21a-8da7-42c9-bd6a-6ca35cc14138</onsuccess>
+  </stage>
+  <stage stageid="eac1a21a-8da7-42c9-bd6a-6ca35cc14138" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>615</displayx>
+    <displayy>330</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>61a97745-1342-4d82-9efa-8105271520dd</onsuccess>
+  </stage>
+  <stage stageid="6e3538bf-e8fc-4102-bf57-cc14e3c2a863" name="Item IDs" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-435</displayx>
+    <displayy>315</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="26043e58-29b4-462d-bf76-5820e7a72b6a" name="Loop to third returned Item ID" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="800080" />
+    <onsuccess>31b68cb5-b136-4117-9a1a-33cc1fb22fff</onsuccess>
+    <groupid>d5a5fbbf-e08d-440b-aa96-a7d7b66635ad</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Item IDs</loopdata>
+  </stage>
+  <stage stageid="ae06de9e-967b-435e-8719-4e839da4cca7" name="End Loop" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="800080" />
+    <onsuccess>cc598108-d0dd-436b-9a1f-fa2faadc0c05</onsuccess>
+    <groupid>d5a5fbbf-e08d-440b-aa96-a7d7b66635ad</groupid>
+  </stage>
+  <stage stageid="1331edce-ead3-4895-b3f9-d8f28eb5c3a4" name="loopcount" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-435</displayx>
+    <displayy>360</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="31b68cb5-b136-4117-9a1a-33cc1fb22fff" name="loopcount ++" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>2f7a5169-de4a-4b3a-b4e7-47bda9fdab40</onsuccess>
+    <calculation expression="[loopcount] + 1" stage="loopcount" />
+  </stage>
+  <stage stageid="2f7a5169-de4a-4b3a-b4e7-47bda9fdab40" name="Looped to 3?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[loopcount] = 3" />
+    <ontrue>7e6bfde8-f25c-4bed-95fc-f621bd2f0aaf</ontrue>
+    <onfalse>ae06de9e-967b-435e-8719-4e839da4cca7</onfalse>
+  </stage>
+  <stage stageid="7e6bfde8-f25c-4bed-95fc-f621bd2f0aaf" name="Add &quot;afterthought&quot; tag" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to add the tag to" expr="[Item IDs.Item ID]" />
+      <input type="text" name="Tag" narrative="The tag to add to the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;afterthought&quot;" />
+    </inputs>
+    <onsuccess>0f3b9d31-4e0a-452d-a2a7-2a0424c5e4c4</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Tag Item" />
+  </stage>
+  <stage stageid="63da233b-8be5-4e3f-beed-41dcbf01e6fc" name="Note2" type="Note">
+    <narrative>Check returned Item ID coll is valid &amp; add tag without lock works</narrative>
+    <displayx>-180</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Italic" color="008000" />
+  </stage>
+  <stage stageid="cc598108-d0dd-436b-9a1f-fa2faadc0c05" name="Bad Item ID Count" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Bad returned Item ID count when adding to queue - should be at least 3 - found: &quot; &amp; [loopcount]" />
+  </stage>
+  <stage stageid="0f3b9d31-4e0a-452d-a2a7-2a0424c5e4c4" name="Get Next Item (with afterthought)" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Depp Test Queue&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="&quot;afterthought&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Current Item" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>a8a7f097-acf3-420b-b90a-22eea205a967</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="a8a7f097-acf3-420b-b90a-22eea205a967" name="Afterthought?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[ID] &lt;&gt; &quot;&quot;" />
+    <ontrue>e98d82ae-c5de-4c14-a7db-19b6451c5281</ontrue>
+    <onfalse>6caa3c5b-3444-4859-bcc7-1e178e9a6231</onfalse>
+  </stage>
+  <stage stageid="e98d82ae-c5de-4c14-a7db-19b6451c5281" name="Detag it" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the queue item to remove the tag from" expr="[ID]" />
+      <input type="text" name="Tag" narrative="The tag to remove from the item. Note that this cannot start with a '+' (plus) or '-' (minus) character, and cannot contain ';' (semi-colon) characters" expr="&quot;afterthought&quot;" />
+    </inputs>
+    <onsuccess>070d610a-8899-4e96-a2bd-e0fd1dd3ebfa</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Untag Item" />
+  </stage>
+  <stage stageid="070d610a-8899-4e96-a2bd-e0fd1dd3ebfa" name="Unlock it" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="" />
+    </outputs>
+    <onsuccess>60b279bc-08e5-495a-841f-c2b4b80f14cd</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="60b279bc-08e5-495a-841f-c2b4b80f14cd" name="Get Next Item (with afterthought)" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>210</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Depp Test Queue&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. The tag should be in the format : .&quot;+wanted tag; -unwanted tag ; other wanted tag&quot;." expr="&quot;afterthought&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Current Item" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>64ae869a-12ee-4588-bd8b-2cd175838db0</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="64ae869a-12ee-4588-bd8b-2cd175838db0" name="Afterthought?" type="Decision">
+    <narrative>Check against the ID on which we inserted it - there may be leftover items from previous aborted tests</narrative>
+    <displayx>-60</displayx>
+    <displayy>255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[ID] = [Item IDs.Item ID]" />
+    <ontrue>b88fec1e-3292-4c87-83fd-459a5fc8c87c</ontrue>
+    <onfalse>07617f0b-e6f5-4e7f-8df2-b04c93c8ce16</onfalse>
+  </stage>
+  <stage stageid="6caa3c5b-3444-4859-bcc7-1e178e9a6231" name="No Afterthought Item" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>75</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Item &quot; &amp; [Item IDs.Item ID] &amp; &quot; tagged with 'afterthought', but Get Next didn't find  it&quot;" />
+  </stage>
+  <stage stageid="b88fec1e-3292-4c87-83fd-459a5fc8c87c" name="D'oh! Afterthought Item" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>195</displayx>
+    <displayy>255</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Item &quot; &amp; [Item IDs.Item ID] &amp; &quot; had 'afterthought' untagged, but Get Next still finds it&quot;" />
+  </stage>
+  <stage stageid="dbdae4eb-9c40-4b12-a210-956100f487b9" name="Note2" type="Note">
+    <narrative>Basic checks to see that tag item and untag item work on individual level</narrative>
+    <displayx>60</displayx>
+    <displayy>150</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Italic" color="008000" />
+  </stage>
+  <stage stageid="07617f0b-e6f5-4e7f-8df2-b04c93c8ce16" name="anchor4" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>285</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>6a5e13c2-5014-46e1-b45b-1de96fe5acbf</onsuccess>
+  </stage>
+  <stage stageid="5aaea62e-6f74-4902-9fed-35b0e1a3f00a" name="Note5" type="Note">
+    <narrative>Should no-op</narrative>
+    <displayx>1665</displayx>
+    <displayy>210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Italic" color="008000" />
+    <onsuccess>b2f9eabc-5a0f-49ba-affa-1d3b6c5cac5a</onsuccess>
+  </stage>
+  <stage stageid="faac2728-0c74-4adc-acfe-4723f1f2a942" name="Leave No Witnesses" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>1800</displayx>
+    <displayy>240</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to delete" expr="&quot;Depp Test Queue&quot;" />
+    </inputs>
+    <onsuccess>04fa11b2-42ea-490a-b191-32e2b46b9521</onsuccess>
+    <resource object="Queue Utils" action="Destroy Queue" />
+  </stage>
+  <stage stageid="b3a1cf32-7b56-46a9-b701-df134a633b56" name="Note8" type="Note">
+    <narrative>Some wildcard tests
+(after bug 9555)</narrative>
+    <displayx>885</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Italic" color="339966" />
+    <onsuccess>6cddbc22-1687-4c98-bf19-5b3da4c1e2fe</onsuccess>
+    <breakpoint type="0">
+      <condition>
+      </condition>
+    </breakpoint>
+  </stage>
+  <stage stageid="6cddbc22-1687-4c98-bf19-5b3da4c1e2fe" name="Get Next Item (Tag Filter = *)" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>885</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Depp Test Queue&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="&quot;*&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Current Item" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>55f5360c-679e-40d9-b671-4856e6aecfc9</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="55f5360c-679e-40d9-b671-4856e6aecfc9" name="Something to process?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>885</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[ID]&lt;&gt;&quot;&quot;" />
+    <ontrue>2b0fe5c7-2571-4632-a0cb-4414378b8d13</ontrue>
+    <onfalse>e8698820-24f1-444f-9e7e-55979d5ba10c</onfalse>
+  </stage>
+  <stage stageid="e8698820-24f1-444f-9e7e-55979d5ba10c" name="Bad Wildcard Tag Match" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>990</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Expected item when getting next with tag filter of '*' - got nothing&quot;" />
+  </stage>
+  <stage stageid="2b0fe5c7-2571-4632-a0cb-4414378b8d13" name="Unlock it" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>885</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="" />
+    </outputs>
+    <onsuccess>31b9bee4-6eb7-4e48-b9bb-e838ba112eeb</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="3230d677-3d62-48e1-ab76-9f899bc8e12d" name="Get Next Item (Tag Filter = Directed By J*)" type="Action">
+    <narrative>"J*" matches Jeremy Leven and John Waters</narrative>
+    <displayx>1305</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Depp Test Queue&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="&quot;Directed by J*&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Current Item" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>2a385d45-75f1-4261-91ce-7ad8a2ddee72</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="2a385d45-75f1-4261-91ce-7ad8a2ddee72" name="Something to process?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>1305</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[ID]&lt;&gt;&quot;&quot;" />
+    <ontrue>3140c744-7579-46fb-a669-c4e2933cc33a</ontrue>
+    <onfalse>3ca29081-258a-482e-a2e0-36143052c0ff</onfalse>
+  </stage>
+  <stage stageid="fc87f316-83b1-4df8-ae6d-94fe167eb082" name="Wrong Count of J* Directors Found" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>1410</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Expected 2 items with tag filter of 'Directed by J*' - found: &quot; &amp; [Wildcard Item Count]" />
+  </stage>
+  <stage stageid="faa30f11-4a1b-4c19-91c0-6411926a3846" name="Something beginning with J?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>1305</displayx>
+    <displayy>75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="StartsWith([Wildcard Items.Director], &quot;J&quot;)" />
+    <ontrue>27369017-170e-4d34-9c2d-8a5e7fdb0d60</ontrue>
+    <onfalse>1eff9e33-d031-47b8-a965-c51730c257e9</onfalse>
+  </stage>
+  <stage stageid="1eff9e33-d031-47b8-a965-c51730c257e9" name="Non-J* Director returned" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>1410</displayx>
+    <displayy>75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Expected a director beginning with J with GetNext(Tag:Directed by J*) - found: &quot; &amp; [Wildcard Items.Director]" />
+  </stage>
+  <stage stageid="3140c744-7579-46fb-a669-c4e2933cc33a" name="Add Wildcard Item" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>1410</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Wildcard Items&quot;" />
+    </inputs>
+    <onsuccess>f2af57fc-cffe-4478-b786-5a5a0db722b9</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="c57f432b-8b3d-4727-a9b0-62c4b7b9cb13" name="Wildcard Items" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>1185</displayx>
+    <displayy>0</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Item ID" type="text" />
+      <field name="Director" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="f2af57fc-cffe-4478-b786-5a5a0db722b9" name="Add To Wildcard Items" type="MultipleCalculation">
+    <narrative>
+    </narrative>
+    <displayx>1410</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>3230d677-3d62-48e1-ab76-9f899bc8e12d</onsuccess>
+    <steps>
+      <calculation expression="[ID]" stage="Wildcard Items.Item ID" />
+      <calculation expression="[Current Item.Director]" stage="Wildcard Items.Director" />
+      <calculation expression="[Wildcard Item Count] + 1" stage="Wildcard Item Count" />
+    </steps>
+  </stage>
+  <stage stageid="03522ddc-e981-4945-b6ff-73fa110ae38f" name="Wildcard Item Count" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>1185</displayx>
+    <displayy>45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3ca29081-258a-482e-a2e0-36143052c0ff" name="Two items already added?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>1305</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Wildcard Item Count] = 2" />
+    <ontrue>c4bb1d23-9f67-4f89-bc68-ab6676d89977</ontrue>
+    <onfalse>fc87f316-83b1-4df8-ae6d-94fe167eb082</onfalse>
+  </stage>
+  <stage stageid="c4bb1d23-9f67-4f89-bc68-ab6676d89977" name="For Each Wildcard Item" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>1305</displayx>
+    <displayy>30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="0000FF" />
+    <onsuccess>faa30f11-4a1b-4c19-91c0-6411926a3846</onsuccess>
+    <groupid>ecaa9d64-181a-421a-b4bc-b536a264c156</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Wildcard Items</loopdata>
+  </stage>
+  <stage stageid="2c933a13-55c9-436c-9859-44b8b5d7098e" name="Next Wildcard Item" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>1305</displayx>
+    <displayy>165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Bold" color="0000FF" />
+    <onsuccess>a0aae881-4b79-4ace-a246-00ed0d531f9d</onsuccess>
+    <groupid>ecaa9d64-181a-421a-b4bc-b536a264c156</groupid>
+  </stage>
+  <stage stageid="c8b6a7db-7e6d-4c4c-9453-6fbe713a8588" name="Note8" type="Note">
+    <narrative>There should be 2 items with directors starting with a J (Jeremy Leven and John Waters)</narrative>
+    <displayx>1185</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Tahoma" size="10" style="Italic" color="339966" />
+  </stage>
+  <stage stageid="27369017-170e-4d34-9c2d-8a5e7fdb0d60" name="Unlock it" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>1305</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work queue item which should be unlocked" expr="[Wildcard Items.Item ID]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Unlocked" narrative="Whether the item was unlocked as a result of this action or not. If the item had finished being worked elsewhere before this action had run, this will be 'False'" stage="" />
+    </outputs>
+    <onsuccess>2c933a13-55c9-436c-9859-44b8b5d7098e</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Unlock Item" />
+  </stage>
+  <stage stageid="a0aae881-4b79-4ace-a246-00ed0d531f9d" name="Anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>1515</displayx>
+    <displayy>165</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="0000FF" />
+    <onsuccess>85a75da8-fe35-4728-b57a-acb7c9fd6af7</onsuccess>
+  </stage>
+  <stage stageid="31b9bee4-6eb7-4e48-b9bb-e838ba112eeb" name="Get Next Item (Tag Filter = Z*)" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>885</displayx>
+    <displayy>75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Depp Test Queue&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="&quot;Z*&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Current Item" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>4ad33f0a-e763-485d-afee-d8d3b15134e6</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="4ad33f0a-e763-485d-afee-d8d3b15134e6" name="Something to process?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>885</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[ID]&lt;&gt;&quot;&quot;" />
+    <ontrue>35081eac-298a-4b13-a90f-39f44e349ef2</ontrue>
+    <onfalse>994c42df-3750-40c7-9098-86575ec8b096</onfalse>
+  </stage>
+  <stage stageid="35081eac-298a-4b13-a90f-39f44e349ef2" name="Bad Wildcard Tag Match" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>990</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="Queue Test Failed" detail="&quot;Expected nothing when getting next with tag filter of 'Directed by Z*' - got &quot; &amp; [ID] &amp; &quot; - (&quot; &amp; [Current Item.Forename] &amp; &quot; &quot; &amp; [Current Item.Surname] &amp; &quot;, directed by &quot; &amp; [Current Item.Director] &amp; &quot;)&quot;" />
+  </stage>
+  <stage stageid="994c42df-3750-40c7-9098-86575ec8b096" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>885</displayx>
+    <displayy>165</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>2110b0b1-d70f-474d-8d66-2bc4c5a70f4b</onsuccess>
+  </stage>
+  <stage stageid="2110b0b1-d70f-474d-8d66-2bc4c5a70f4b" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>1110</displayx>
+    <displayy>165</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>f0062c47-0ccc-4345-ba6f-d6258d3926ea</onsuccess>
+  </stage>
+  <stage stageid="f0062c47-0ccc-4345-ba6f-d6258d3926ea" name="anchor5" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>1110</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>3230d677-3d62-48e1-ab76-9f899bc8e12d</onsuccess>
+  </stage>
+</process>

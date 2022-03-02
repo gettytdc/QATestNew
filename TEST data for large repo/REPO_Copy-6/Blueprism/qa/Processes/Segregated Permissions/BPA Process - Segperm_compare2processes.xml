@@ -1,0 +1,531 @@
+﻿<process name="Segperm_compare2processes" version="1.0" bpversion="6.7.0.16843" narrative="This will validate that an admin user can compare 2 processess, and a user without the required rights cannot" byrefcollection="true" preferredid="8e1ab45e-0d14-41a0-bf94-a8dc845f84b6">
+  <view>
+    <camerax>0</camerax>
+    <cameray>0</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="8e0777c0-8aee-43ac-80d8-4b1174aa835e" type="Normal" published="False">
+    <name>Admin user (test)</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-45</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="a6936b45-4e40-44bf-b27d-4ed9a10bcad7" type="Normal" published="False">
+    <name>create bespoke test user</name>
+    <view>
+      <camerax>90</camerax>
+      <cameray>45</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="92437d59-839b-43b9-93e9-48e7b1ec6b4e" type="Normal" published="False">
+    <name>Test User (test)</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="b99422c4-830b-4a10-8e57-a8a551bbc893" type="Normal" published="False">
+    <name>Clean up</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="17079289-6535-402d-811d-ad1109058a9e" name="Start" type="Start">
+    <display x="15" y="-105" />
+    <onsuccess>2f551b4b-c29d-4af9-bfb8-1920cfe154b0</onsuccess>
+  </stage>
+  <stage stageid="7c479962-100c-4866-abca-e4eaec9304e6" name="End" type="End">
+    <display x="15" y="165" />
+  </stage>
+  <stage stageid="af64a960-219f-48c1-99d0-483d8fabb2c2" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="4eefce9c-bfe9-4d02-8517-3972baee1bc2" name="Admin user (test)" type="SubSheetInfo">
+    <subsheetid>8e0777c0-8aee-43ac-80d8-4b1174aa835e</subsheetid>
+    <narrative>Admin user attempts to compate 2 processes (should be successful)</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="70ee5a20-f706-41ab-9f73-93670a10e4a0" name="Start" type="Start">
+    <subsheetid>8e0777c0-8aee-43ac-80d8-4b1174aa835e</subsheetid>
+    <display x="-60" y="-240" />
+    <onsuccess>9e0f26ec-3562-44f7-90c1-839110825927</onsuccess>
+  </stage>
+  <stage stageid="1dc13fad-daea-49a7-a484-084dd8d0f954" name="Launch BP" type="Action">
+    <subsheetid>8e0777c0-8aee-43ac-80d8-4b1174aa835e</subsheetid>
+    <display x="-60" y="-150" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>e416ad2c-0fd0-47ac-a5bb-b546fc70ed7d</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="e416ad2c-0fd0-47ac-a5bb-b546fc70ed7d" name="Sign in as Admin" type="Action">
+    <subsheetid>8e0777c0-8aee-43ac-80d8-4b1174aa835e</subsheetid>
+    <display x="-60" y="-105" />
+    <inputs>
+      <input type="text" name="Username" expr="&quot;Admin&quot;" />
+      <input type="password" name="Password" expr="&quot;admin&quot;" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>13feafeb-55a3-4044-9a8b-ed2c4e5ee63c</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="13feafeb-55a3-4044-9a8b-ed2c4e5ee63c" name="go to Studio tab" type="Action">
+    <subsheetid>8e0777c0-8aee-43ac-80d8-4b1174aa835e</subsheetid>
+    <display x="-60" y="-60" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>9e402965-6e1c-4e67-a781-2dc5279bb8dc</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="86ebe4f3-4c91-4582-9a2e-1808f35929b8" name="perform compare to function" type="Action">
+    <subsheetid>8e0777c0-8aee-43ac-80d8-4b1174aa835e</subsheetid>
+    <display x="-60" y="30" />
+    <inputs>
+      <input type="text" name="Process Name" narrative="The name of the process you want to delete." expr="[Process name]" />
+      <input type="text" name="Group to Expand" narrative="Group containing the process" expr="[Process Group]" />
+      <input type="text" name="File to compare to" narrative="the full path to the file we shall compare to the process" expr="[File to compare process with]" />
+      <input type="flag" name="Negative test" narrative="If running a negative scenario and expecting an error set to True" expr="False" />
+    </inputs>
+    <onsuccess>3e62cb6b-0c8a-4bc6-9faa-4d858fae4013</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Compare to - Process" />
+  </stage>
+  <stage stageid="f2ffbbc9-292b-4cba-b3df-70c8b6685cc4" name="Process Group" type="Data">
+    <subsheetid>8e0777c0-8aee-43ac-80d8-4b1174aa835e</subsheetid>
+    <display x="-225" y="-30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Default</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="abc3abb0-51b3-463c-b67d-73a589347fee" name="Process name" type="Data">
+    <subsheetid>8e0777c0-8aee-43ac-80d8-4b1174aa835e</subsheetid>
+    <display x="-225" y="15" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">compare1</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="58dc1c8f-fb99-489e-a882-7b8a10b273ee" name="File to compare process with" type="Data">
+    <subsheetid>8e0777c0-8aee-43ac-80d8-4b1174aa835e</subsheetid>
+    <display x="-225" y="60" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">\Processes\Segregated Permissions\BPA Process - compare2.xml</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e501d8e9-6868-435b-9d5a-516c8aa7ca0f" name="End1" type="End">
+    <subsheetid>8e0777c0-8aee-43ac-80d8-4b1174aa835e</subsheetid>
+    <display x="-60" y="165" />
+  </stage>
+  <stage stageid="09cb90d7-9512-4877-903b-4b4c04734807" name="pid" type="Data">
+    <subsheetid>8e0777c0-8aee-43ac-80d8-4b1174aa835e</subsheetid>
+    <display x="15" y="-150" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9e402965-6e1c-4e67-a781-2dc5279bb8dc" name="Attach to Studio parent object" type="Action">
+    <subsheetid>8e0777c0-8aee-43ac-80d8-4b1174aa835e</subsheetid>
+    <display x="-60" y="-15" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>86ebe4f3-4c91-4582-9a2e-1808f35929b8</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="4eb7ee4a-e0a4-4aac-9643-e04a6e290f69" name="Test User (test)" type="SubSheetInfo">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <narrative>Bespoke user attempts to compate 2 processes (should be un successful) as this is a negative test</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="2feee7b9-9ab9-4b4f-88c0-f293b65546f5" name="Start" type="Start">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <display x="75" y="-225" />
+    <onsuccess>49e285d2-a702-4f34-b51a-fcdf78bbde7a</onsuccess>
+  </stage>
+  <stage stageid="7dbb2a2c-0d98-4055-8823-7b6d8b288938" name="End" type="End">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <display x="75" y="180" />
+  </stage>
+  <stage stageid="832526cf-6a59-4e49-9a3b-23128c79db6e" name="create bespoke test user" type="SubSheetInfo">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="71d34a1d-6d54-4f83-a9cf-16a88e5c9129" name="Start" type="Start">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="90" y="-315" />
+    <onsuccess>1b133165-e893-4cd1-bb79-65f8efa3e8c7</onsuccess>
+  </stage>
+  <stage stageid="2d4cfcf3-a80c-498e-85ea-6abd35396298" name="End" type="End">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="255" y="-90" />
+  </stage>
+  <stage stageid="6da44dd6-380d-41d9-980d-e77d5278d509" name="Test User" type="Data">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="-225" y="-15" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">us1808</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="09673f59-6fec-4a49-9753-a208de201437" name="Test User Password" type="Data">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="-165" y="-15" />
+    <datatype>password</datatype>
+    <initialvalueenc>53,16,7,68</initialvalueenc>
+    <alwaysinit />
+  </stage>
+  <stage stageid="66b63a4e-86fe-4e7a-a96f-17bd078f4a86" name="Test user role" type="Data">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="-225" y="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">"TestUS1808"</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="ef7e8291-3c32-4a24-94ea-8c8007d29898" name="Inputs" type="Block">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="-270" y="-45" w="150" h="150" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0ded12f2-df49-443c-9570-0a269d0fe429" name="Process Group" type="Data">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <display x="-240" y="-30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Default</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9ec886f6-a41d-4cd8-a38b-243fae962966" name="Process name" type="Data">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <display x="-240" y="15" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">compare1</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="de9e4ee0-07b4-40bc-aa43-324e8397f404" name="File to compare process with" type="Data">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <display x="-240" y="60" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">\Processes\Segregated Permissions\BPA Process - compare2.xml</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="38a911cd-af7a-447a-95d8-0a1c59aae1fc" name="Launch BP" type="Action">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <display x="75" y="-135" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>822a0ba3-eb05-4e75-8f89-84ac14ba5835</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="822a0ba3-eb05-4e75-8f89-84ac14ba5835" name="Sign in as Test User" type="Action">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <display x="75" y="-90" />
+    <inputs>
+      <input type="text" name="Username" expr="[Test User]" />
+      <input type="password" name="Password" expr="[Test User Password (password)]" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>987c2d36-6cd8-4e48-b6fa-a4fc21357a65</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="987c2d36-6cd8-4e48-b6fa-a4fc21357a65" name="go to Studio tab" type="Action">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <display x="75" y="-45" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>0ec15022-1e6b-4f37-8574-b0242516628e</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="06a6d4cf-429f-42c4-8c0b-2b408a56df16" name="perform compare to function" type="Action">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <display x="75" y="45" />
+    <inputs>
+      <input type="text" name="Process Name" narrative="The name of the process you want to delete." expr="[Process name]" />
+      <input type="text" name="Group to Expand" narrative="Group containing the process" expr="[Process Group]" />
+      <input type="text" name="File to compare to" narrative="the full path to the file we shall compare to the process" expr="[File to compare process with]" />
+      <input type="flag" name="Negative test" narrative="If running a negative scenario and expecting an error set to True" expr="[negative test?]" />
+    </inputs>
+    <onsuccess>ebe84497-f9cd-4271-bd20-dd49e98eb96e</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Compare to - Process" />
+  </stage>
+  <stage stageid="7d7f73cb-b575-48a6-a5de-00d451fe2d5d" name="pid" type="Data">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <display x="150" y="-135" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0ec15022-1e6b-4f37-8574-b0242516628e" name="Attach to Studio parent object" type="Action">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <display x="75" y="0" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>06a6d4cf-429f-42c4-8c0b-2b408a56df16</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="a200a8ab-f191-475f-b7e7-667feb85e966" name="Test User Password (password)" type="Data">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <display x="-165" y="-30" />
+    <datatype>password</datatype>
+    <initialvalueenc>53,16,7,68</initialvalueenc>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="dfda9d77-710a-437c-8088-179bd6fdf69d" name="negative test?" type="Data">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <display x="-165" y="15" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2f551b4b-c29d-4af9-bfb8-1920cfe154b0" name="create bespoke test user" type="SubSheet">
+    <display x="15" y="-60" />
+    <onsuccess>0a02f8c6-9edc-4588-9d07-d0143ba8d091</onsuccess>
+    <processid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</processid>
+  </stage>
+  <stage stageid="0a02f8c6-9edc-4588-9d07-d0143ba8d091" name="Admin user (test)" type="SubSheet">
+    <display x="15" y="-15" />
+    <onsuccess>abbe47e7-18cc-4e66-9739-42cff0dfd08d</onsuccess>
+    <processid>8e0777c0-8aee-43ac-80d8-4b1174aa835e</processid>
+  </stage>
+  <stage stageid="abbe47e7-18cc-4e66-9739-42cff0dfd08d" name="Test User (test)" type="SubSheet">
+    <display x="15" y="30" />
+    <onsuccess>8ae3221e-291e-4271-92dc-46b574bbbf81</onsuccess>
+    <processid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</processid>
+  </stage>
+  <stage stageid="f46945ce-4e7b-4134-8c55-082cbbae1c13" name="Clean up" type="SubSheetInfo">
+    <subsheetid>b99422c4-830b-4a10-8e57-a8a551bbc893</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="7542fa4f-3e7c-428f-8bfd-3fef52316fd4" name="Start" type="Start">
+    <subsheetid>b99422c4-830b-4a10-8e57-a8a551bbc893</subsheetid>
+    <display x="-30" y="-180" />
+    <onsuccess>0bbe806f-96a2-42bb-a40c-f53459657621</onsuccess>
+  </stage>
+  <stage stageid="74604f46-9511-45ae-ac53-c0fad1919a2c" name="End" type="End">
+    <subsheetid>b99422c4-830b-4a10-8e57-a8a551bbc893</subsheetid>
+    <display x="-30" y="180" />
+  </stage>
+  <stage stageid="0bbe806f-96a2-42bb-a40c-f53459657621" name="Delete User" type="Action">
+    <subsheetid>b99422c4-830b-4a10-8e57-a8a551bbc893</subsheetid>
+    <display x="-30" y="-135" />
+    <inputs>
+      <input type="text" name="User" narrative="The name of the user you want to delete." expr="[Test User]" />
+    </inputs>
+    <onsuccess>d10e4fb7-cc3b-4bcb-af7c-264387ec597e</onsuccess>
+    <resource object="Blue Prism SQL Queries" action="Delete User" />
+  </stage>
+  <stage stageid="d10e4fb7-cc3b-4bcb-af7c-264387ec597e" name="Delete User Role" type="Action">
+    <subsheetid>b99422c4-830b-4a10-8e57-a8a551bbc893</subsheetid>
+    <display x="-30" y="-90" />
+    <inputs>
+      <input type="text" name="Role" narrative="The name of the role you want to delete." expr="[Test user role]" />
+    </inputs>
+    <onsuccess>74604f46-9511-45ae-ac53-c0fad1919a2c</onsuccess>
+    <resource object="Blue Prism SQL Queries" action="Delete User Role" />
+  </stage>
+  <stage stageid="8ae3221e-291e-4271-92dc-46b574bbbf81" name="Clean up" type="SubSheet">
+    <display x="15" y="75" />
+    <onsuccess>7c479962-100c-4866-abca-e4eaec9304e6</onsuccess>
+    <processid>b99422c4-830b-4a10-8e57-a8a551bbc893</processid>
+  </stage>
+  <stage stageid="3e62cb6b-0c8a-4bc6-9faa-4d858fae4013" name="Sign out of blue prism" type="Action">
+    <subsheetid>8e0777c0-8aee-43ac-80d8-4b1174aa835e</subsheetid>
+    <display x="-60" y="75" />
+    <onsuccess>61c6c3d6-d936-42b0-a3e9-95b3466b1e28</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="61c6c3d6-d936-42b0-a3e9-95b3466b1e28" name="exit blue prism" type="Action">
+    <subsheetid>8e0777c0-8aee-43ac-80d8-4b1174aa835e</subsheetid>
+    <display x="-60" y="120" />
+    <onsuccess>e501d8e9-6868-435b-9d5a-516c8aa7ca0f</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="ebe84497-f9cd-4271-bd20-dd49e98eb96e" name="Sign out of blue prism" type="Action">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <display x="75" y="90" />
+    <onsuccess>ce7b7b4d-87cc-4f38-8232-707ee38b8e8a</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="ce7b7b4d-87cc-4f38-8232-707ee38b8e8a" name="exit blue prism" type="Action">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <display x="75" y="135" />
+    <onsuccess>7dbb2a2c-0d98-4055-8823-7b6d8b288938</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="7774aa97-8cbf-43ce-9df7-8057b027d343" name="Coll1" type="Collection">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="-225" y="75" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Role" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Role" type="text" value="&quot;TestUS1808&quot;" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="1b133165-e893-4cd1-bb79-65f8efa3e8c7" name="Launch BP" type="Action">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="90" y="-270" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>1ea5b54a-7ad4-4ad7-8e44-65540753d748</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="1ea5b54a-7ad4-4ad7-8e44-65540753d748" name="Sign in as Admin" type="Action">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="90" y="-225" />
+    <inputs>
+      <input type="text" name="Username" expr="&quot;Admin&quot;" />
+      <input type="password" name="Password" expr="&quot;admin&quot;" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>e718ee16-6754-472b-be16-ef5b3de383f5</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="6636e664-b5d0-441c-a7fb-f141ab0891e2" name="go to System tab" type="Action">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="90" y="-135" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>b76b929d-31ac-4f83-a843-484350ad1d04</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="3478e74a-6480-4ff8-bd5d-66b81c3c3caa" name="pid" type="Data">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="165" y="-270" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e718ee16-6754-472b-be16-ef5b3de383f5" name="Attach to System parent object" type="Action">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="90" y="-180" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>6636e664-b5d0-441c-a7fb-f141ab0891e2</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="4e08951f-4b38-478a-9d1e-870832a79fbd" name="exit blue prism" type="Action">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="255" y="-30" />
+    <onsuccess>2d4cfcf3-a80c-498e-85ea-6abd35396298</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="b76b929d-31ac-4f83-a843-484350ad1d04" name="Click user roles from System tree" type="Action">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="90" y="-90" />
+    <inputs>
+      <input type="text" name="Tree Name" friendlyname="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" friendlyname="Item Name" narrative="Name of the item to be clicked on." expr="&quot;User Roles&quot;" />
+      <input type="text" name="Sub Item Name" friendlyname="Sub Item Name" narrative="Name of the sub item to be clicked on." expr="" />
+      <input type="flag" name="Select Item Method?" friendlyname="Select Item Method?" narrative="True by Default. Selects the node from system tab using Select Item approach. If the node is not available (Greyed out) an exception will be thrown. Use this method if you are certain the node is available for selection." expr="True" />
+      <input type="flag" name="Retry MouseClick?" friendlyname="Retry MouseClick?" narrative="Default to True. Retries Global Mouse Click up to 3 times." expr="" />
+      <input type="flag" name="Clean Up?" friendlyname="Clean Up?" narrative="False by Default. Set True if clean up is required at the beginning of the Action." expr="" />
+    </inputs>
+    <onsuccess>c3a8f4e5-d276-4441-a666-4b8884bd41a6</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="c3a8f4e5-d276-4441-a666-4b8884bd41a6" name="Create test role" type="Action">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="90" y="-45" />
+    <inputs>
+      <input type="text" name="New Role Name" friendlyname="New Role Name" narrative="Name of the new Role" expr="[Test user role]" />
+    </inputs>
+    <onsuccess>5eeecd71-6fb3-46a3-bc92-ad35e22fe3d7</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Roles - Create Role" />
+  </stage>
+  <stage stageid="5eeecd71-6fb3-46a3-bc92-ad35e22fe3d7" name="Press Apply" type="Action">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="90" y="0" />
+    <onsuccess>32d23673-3595-423d-b30b-c662d97feae7</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Roles - Press Apply Button" />
+  </stage>
+  <stage stageid="32d23673-3595-423d-b30b-c662d97feae7" name="select test user role" type="Action">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="90" y="45" />
+    <inputs>
+      <input type="text" name="Role Name" friendlyname="Role Name" narrative="Name of the Role to be clicked" expr="[Test user role]" />
+    </inputs>
+    <onsuccess>d8e3631c-99b0-4be5-9e8a-217884f3e993</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Roles - Select Role" />
+  </stage>
+  <stage stageid="d8e3631c-99b0-4be5-9e8a-217884f3e993" name="Select delete process permission" type="Action">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="90" y="90" />
+    <inputs>
+      <input type="text" name="Parent Node Name" friendlyname="Parent Node Name" narrative="Name of the Parent Node which child belongs to." expr="&quot;Process Studio&quot;" />
+      <input type="text" name="Child Node Name" friendlyname="Child Node Name" narrative="Name of the child node to Check or Uncheck." expr="&quot;Delete Process&quot;" />
+      <input type="flag" name="Check?" friendlyname="Check?" narrative="True if Item needs to be Checked, False if Item needs to be unchecked." expr="True" />
+    </inputs>
+    <onsuccess>fb4122f6-ced5-4057-9920-02839c4ec978</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Roles - Check/Uncheck Child Node" />
+  </stage>
+  <stage stageid="fb4122f6-ced5-4057-9920-02839c4ec978" name="Press Apply" type="Action">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="255" y="90" />
+    <onsuccess>bebf6f3e-81f9-4ace-9c0c-63849c3b2f2a</onsuccess>
+    <resource object="Blue Prism - System - Security" action="User Roles - Press Apply Button" />
+  </stage>
+  <stage stageid="bebf6f3e-81f9-4ace-9c0c-63849c3b2f2a" name="Create Test User" type="Action">
+    <subsheetid>a6936b45-4e40-44bf-b27d-4ed9a10bcad7</subsheetid>
+    <display x="255" y="30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" narrative="The username of the user you wish to create." expr="[Test User]" />
+      <input type="password" name="Password" friendlyname="Password" narrative="The password in which you want to assign to the user." expr="[Test User Password]" />
+      <input type="date" name="User Expiry Date" friendlyname="User Expiry Date" narrative="The date in which the user account will expire." expr="" />
+      <input type="date" name="Password Expiry Date" friendlyname="Password Expiry Date" narrative="The date in which the password will expire. " expr="" />
+      <input type="collection" name="Roles" friendlyname="Roles" narrative="The roles you wish to give to your user." expr="[Coll1]" />
+      <input type="text" name="Password Duration" friendlyname="Password Duration" narrative="The duration, in weeks you wish the password to last before expiring." expr="" />
+    </inputs>
+    <onsuccess>4e08951f-4b38-478a-9d1e-870832a79fbd</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Create New Username" />
+  </stage>
+  <stage stageid="19a3b8e2-adfc-4201-a908-4cdb942246ee" name="QA Root" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-30" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <alwaysinit />
+  </stage>
+  <stage stageid="9e0f26ec-3562-44f7-90c1-839110825927" name="Make File Path" type="Calculation">
+    <subsheetid>8e0777c0-8aee-43ac-80d8-4b1174aa835e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="-195" />
+    <onsuccess>1dc13fad-daea-49a7-a484-084dd8d0f954</onsuccess>
+    <calculation expression="[QA Root]&amp;[File to compare process with]" stage="File to compare process with" />
+  </stage>
+  <stage stageid="49e285d2-a702-4f34-b51a-fcdf78bbde7a" name="Make File Path" type="Calculation">
+    <subsheetid>92437d59-839b-43b9-93e9-48e7b1ec6b4e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="75" y="-180" />
+    <onsuccess>38a911cd-af7a-447a-95d8-0a1c59aae1fc</onsuccess>
+    <calculation expression="[QA Root]&amp;[File to compare process with]" stage="File to compare process with" />
+  </stage>
+</process>

@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<title>Blue Prism 调度程序配置—任务</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+	<style type="text/css">
+	#process-params { clear:left; }
+	</style>
+</head>
+
+<body class="task-ui">
+	<div class="header">
+		<h1 class="pagetitle">调度程序配置</h1>
+		<h2>任务</h2>
+	</div>
+	<div class="captioned-image overview-screenshot nozoom">
+		<a href="Graphics/schedule-task-config.png" title="任务配置—点击查看大图"><img alt="任务配置—点击查看大图" src="Graphics/schedule-task-config.png"/></a>
+		<p>任务配置</p>
+	</div>
+	<h3>概述</h3>
+	<p>在计划管理器树中选择一个任务后，其详细信息将显示在 Blue Prism 客户端的右侧窗格中。</p>
+	<p>可以从此处将任务配置为在资源上运行许多不同的流程，并根据执行这些流程的结果指定后续任务以传递控制权。</p>
+	<div class="clearer"></div>
+	
+	<h3 id="create-task">创建任务</h3>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-new.png" alt="创建任务"/>
+	</div>
+	<p>通过右键点击计划管理器树中的相应计划元素并选择“新建任务”来创建任务。</p>
+	<p>新任务将被创建（填充以默认值），并在计划管理器树中被自动选中。</p>
+	<p>首次创建计划时，将同时创建初始任务。</p>
+	<div class="clearer"></div>
+	
+	<h3 id="configure-task">配置任务</h3>
+	<h4 id="initial-task">设置任务执行顺序</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-next.png" alt="配置任务"/>
+	</div>
+	<p>请参阅<a href="helpSchedulesUI.htm#initial-task">设置计划的初始任务</a>，以指定在激活计划时应首先执行的任务。</p>
+	<p>要在成功完成此任务后执行的任务可以通过从“完成时”下拉列表中选择适当的任务来指定。值“停止”表示该计划应在此任务完成后完成。</p>
+	<p>要在此任务终止后执行的任务可以通过从“异常时”下拉列表中选择适当的任务来指定。值“中止”表示该计划应在此任务终止后终止。</p>
+
+	<h4 id="task-sessions">会话失败检测</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-failfast.png" alt="快速失败任务"/>
+	</div>
+	<p>默认情况下，任务配置为“快速失败”，即，如果任何会话由于异常而无法启动或终止，则立即终止任务。此默认设置可以通过取消勾选“发生任何错误都会迅速失败”<code></code>复选框来覆盖。</p>
+	<p>请注意，失败快速启用时检测任务失败的方式与不启用时检测任务失败的方式不同。</p>
+	<ul class="image-inlined">
+	<li>如果任务设置为快速失败，则任何会话中发生任何错误时都会终止任务—例如，如果无法联系某个资源或太忙而无法创建会话，或者会话引发异常且非正常终止。</li>
+	<li>如果任务设置为<em>不</em>快速失败，则任务仅在<em>所有</em>会话都发生错误时终止—任务终止仅发生在检测到最后一个正在运行的会话失败时。</li>
+	</ul>
+	
+	<h4 id="task-sessions">维护计划的会话</h4>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-dragging.png" alt="创建会话"/>
+	</div>
+	<p>执行某个任务时，其中定义的所有会话将同时运行。</p>
+	
+	<p>任务内的会话没有限制。例如，可以指定在同一资源上运行多个流程。如果此类流程是独占流程，则由于资源太忙而无法运行除第一个流程之外的任何事务时，任务将终止。</p>	
+	
+	<h5 id="create-session">创建会话</h5>
+	<p>将已发布的流程拖动到资源上时会创建已安排的会话，反之亦然。</p>
+	<p>会话创建之后，将会在“计划的会话”列表中列出。</p>
+	
+	<div class="captioned-image screenshot">
+		<img src="Graphics/schedule-startparams.png" alt="设置启动参数"/>
+	</div>
+	<h5 id="process-params">设置流程参数</h5>
+	<p>如果会话中的流程需要启动参数，则可通过右键点击相应的会话，然后从上下文菜单中选择“启动参数”来进行配置。</p>
+	<p>请参阅<a href="frmStartParams.htm">启动参数帮助主题</a>，了解有关配置启动参数的详细信息。</p>
+	
+	<h5 id="Post Completion Delay">完成后延迟</h5>
+	<p>在计划的任务结尾处增加 0 至 1500 秒之间的延迟，之后才允许开始计划中的下一个任务。</p>
+	
+	<h5 id="delete-session">删除会话</h5>
+	<p>右键点击会话并选择“删除”按钮会将会话从任务中移除。</p>
+	
+	
+	<h3 id="save-task">保存任务</h3>
+	<p>任务不能直接保存—对任务的更改会隐式导致其父计划更改，因此，如果要保存任务，必须保存其计划。</p>
+	<p>请参阅<a href="helpSchedulesUI.htm#save-schedule">保存计划</a>帮助主题，了解有关保存计划的进一步帮助。</p>
+	
+	<h3 id="copy-paste-task">复制并粘贴任务</h3>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-copy.png" alt="复制任务"/>
+	</div>
+	<p>任务可以复制并粘贴到其父计划（克隆任务），也可粘贴到完全不同的计划。</p>
+	<p>在这种实现方式中，复制和粘贴只能在 Blue Prism 应用程序的单个实例中执行—即，它无法从一个正在运行的应用程序复制并粘贴到另一个应用程序中。</p>
+	<p>复制任务的方法是右键点击它并选择“复制”</p>
+	<div class="captioned-image screenshot" style="width:100px">
+		<img src="Graphics/schedule-task-paste.png" alt="粘贴任务"/>
+	</div>
+	<p>复制后，可以通过右键点击计划管理器树中的目标计划并选择“粘贴”来将其粘贴到计划中。</p>
+	<p>请注意，此操作不使用系统剪贴板，因此不会受到其他剪切/复制操作的影响。这也意味着复制的任务不会存在于当前正在执行的计划管理器之外。</p>
+	<div class="clearer"></div>
+	
+	<h3 id="delete-task">删除任务</h3>
+	<div class="captioned-image section-screenshot">
+		<img src="Graphics/schedule-task-delete.png" alt="删除任务"/>
+	</div>
+	<p>可以通过在计划管理器树中右键点击任务并选择“删除”来删除任务。</p>
+	<p>请注意，在任务被删除时，任何其他任务（作为“完成时”或“异常时”下拉列表中的下一个任务）或者计划（作为其“初始任务”）对任务的引用都将被重置为默认值。</p>
+	
+	<h3 id="see-also">相关主题</h3>
+	<ul class="relatedtopics">
+		<li><a href="helpSchedulerUI.htm">Blue Prism 调度程序</a></li>
+		<li><a href="helpSchedulesUI.htm">配置调度程序</a></li>
+	</ul>
+
+</body>
+</html>

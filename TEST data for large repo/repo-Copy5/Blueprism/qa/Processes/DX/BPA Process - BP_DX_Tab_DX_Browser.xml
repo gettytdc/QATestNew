@@ -1,0 +1,249 @@
+﻿<process name="BP_DX_Tab_DX_Browser" version="1.0" bpversion="6.7.0.15985" narrative="BP_DX_Tab_DX_Browser" byrefcollection="true" preferredid="0f116a16-68ad-43ea-b135-598858a6661b">
+  <view>
+    <camerax>0</camerax>
+    <cameray>69</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="90447053-f563-493e-85c9-8812893311a8" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>105</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="f0744312-2a70-4b23-8205-73902d7aafb8" type="Normal" published="False">
+    <name>Check DX Page Details</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="75f20ec6-9b50-4328-9e1d-10b19be148ca" type="Normal" published="False">
+    <name>Exit DX Page</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="c2190403-ac1e-4b74-a1cc-177763396dad" name="Start" type="Start">
+    <display x="15" y="-180" />
+    <onsuccess>fec9d7b6-2d26-4b8c-9ae6-ff7fa9df9f5b</onsuccess>
+  </stage>
+  <stage stageid="7357cd5f-5e2d-438b-b52a-767cc0dc2a2c" name="End" type="End">
+    <display x="15" y="420" />
+  </stage>
+  <stage stageid="bae91a53-87e9-42dc-9568-a22baff27d69" name="Stage1" type="ProcessInfo">
+    <display x="-315" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="194da331-5e2a-4011-a0df-70732b3eecd0" name="Setup" type="SubSheetInfo">
+    <subsheetid>90447053-f563-493e-85c9-8812893311a8</subsheetid>
+    <narrative>Launch Blueprism application, login, go to system tab, select archiving item from system tree</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="c5af98ff-f582-442e-9bd3-ee51b85e9dbf" name="Start" type="Start">
+    <subsheetid>90447053-f563-493e-85c9-8812893311a8</subsheetid>
+    <display x="15" y="-165" />
+    <onsuccess>51373bd8-1a56-47b7-a7a3-35053d94848b</onsuccess>
+  </stage>
+  <stage stageid="2127a94f-2418-4f72-ae94-a57e83d0f187" name="End" type="End">
+    <subsheetid>90447053-f563-493e-85c9-8812893311a8</subsheetid>
+    <display x="15" y="90" />
+  </stage>
+  <stage stageid="51373bd8-1a56-47b7-a7a3-35053d94848b" name="Blue Prism::Launch and Get PID" type="Action">
+    <subsheetid>90447053-f563-493e-85c9-8812893311a8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-75" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>a5be6902-64d2-4de0-9ce9-7fb94b2b8d1c</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="a5be6902-64d2-4de0-9ce9-7fb94b2b8d1c" name="Blue Prism::Sign In" type="Action">
+    <subsheetid>90447053-f563-493e-85c9-8812893311a8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-30" />
+    <inputs>
+      <input type="text" name="Username" friendlyname="Username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" expr="" />
+      <input type="password" name="New Password" friendlyname="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+      <input type="flag" name="Expect Password Reset" friendlyname="Expect Password Reset" expr="" />
+      <input type="flag" name="Expected License Wizard" friendlyname="Expected License Wizard" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Locale" friendlyname="Locale" narrative="Blue Prism Locale setting" stage="" />
+    </outputs>
+    <onsuccess>72135ca1-ad98-44c2-831f-97914d2b6d73</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="72135ca1-ad98-44c2-831f-97914d2b6d73" name="Blue Prism - Basic Actions::Go to Tab" type="Action">
+    <subsheetid>90447053-f563-493e-85c9-8812893311a8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" />
+    <inputs>
+      <input type="text" name="Tab Name" friendlyname="Tab Name" narrative="Name of Tab to Click" expr="&quot;Digital Exchange&quot;" />
+    </inputs>
+    <onsuccess>2127a94f-2418-4f72-ae94-a57e83d0f187</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="b375cb57-e76b-4ae7-b592-cb2f4f38e5c0" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" />
+    <onsuccess>3bfb2354-8525-4312-94ec-c30a7d10cbce</onsuccess>
+    <processid>90447053-f563-493e-85c9-8812893311a8</processid>
+  </stage>
+  <stage stageid="49688b85-6504-4404-a53c-c6c579838d59" name="Check DX Page Details" type="SubSheetInfo">
+    <subsheetid>f0744312-2a70-4b23-8205-73902d7aafb8</subsheetid>
+    <narrative>Verify DX page has been launched in IE browser from the Digital Exchange tab in the BluePrism Applicaiton.</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="1adef08d-29d8-4562-b1ce-3aa35752fa0b" name="Start" type="Start">
+    <subsheetid>f0744312-2a70-4b23-8205-73902d7aafb8</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>ad06982b-b6e4-4954-841e-8912a98e5fac</onsuccess>
+  </stage>
+  <stage stageid="a92e188e-9d9a-410c-acfd-252c03f06ba4" name="End" type="End">
+    <subsheetid>f0744312-2a70-4b23-8205-73902d7aafb8</subsheetid>
+    <display x="15" y="105" />
+  </stage>
+  <stage stageid="3f7683f0-e7bc-4ae0-813f-e728e898704e" name="Exit DX Page" type="SubSheetInfo">
+    <subsheetid>75f20ec6-9b50-4328-9e1d-10b19be148ca</subsheetid>
+    <narrative>Exit DX page that has been launched in IE browser</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="eb1c930b-d857-49b4-a122-0c0205bf6fc2" name="Start" type="Start">
+    <subsheetid>75f20ec6-9b50-4328-9e1d-10b19be148ca</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>ba503455-4ea8-480e-af52-25bf30bb5cb1</onsuccess>
+  </stage>
+  <stage stageid="2d540df4-cf6f-42f2-81cc-ec3827bc879b" name="End" type="End">
+    <subsheetid>75f20ec6-9b50-4328-9e1d-10b19be148ca</subsheetid>
+    <display x="15" y="60" />
+  </stage>
+  <stage stageid="9fc8d8ff-8b08-4784-8242-ea0f186f818b" name="Blue Prism - Digital Exchange Web::Get DX URL _Verify Webpage Opened" type="Action">
+    <subsheetid>f0744312-2a70-4b23-8205-73902d7aafb8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" />
+    <onsuccess>a92e188e-9d9a-410c-acfd-252c03f06ba4</onsuccess>
+    <resource object="Blue Prism - Digital Exchange Web" action="Get DX Webpage Status" />
+  </stage>
+  <stage stageid="ba503455-4ea8-480e-af52-25bf30bb5cb1" name="Blue Prism - Digital Exchange Web::EXit DX Page" type="Action">
+    <subsheetid>75f20ec6-9b50-4328-9e1d-10b19be148ca</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-30" />
+    <onsuccess>2d540df4-cf6f-42f2-81cc-ec3827bc879b</onsuccess>
+    <resource object="Blue Prism - Digital Exchange Web" action="EXit DX Page" />
+  </stage>
+  <stage stageid="272136c8-b4a6-4701-ac65-e1630edfdd23" name="Check DX Page Details" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="165" />
+    <onsuccess>2430428c-f1fb-4dc3-8e60-bfd800d936c7</onsuccess>
+    <processid>f0744312-2a70-4b23-8205-73902d7aafb8</processid>
+  </stage>
+  <stage stageid="2430428c-f1fb-4dc3-8e60-bfd800d936c7" name="Exit DX Page" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="225" />
+    <onsuccess>15ccdc6b-b370-4268-817a-cdd7482ceef4</onsuccess>
+    <processid>75f20ec6-9b50-4328-9e1d-10b19be148ca</processid>
+  </stage>
+  <stage stageid="ad06982b-b6e4-4954-841e-8912a98e5fac" name="Blue Prism - Digital Exchange Web::Attach to DX Browser" type="Action">
+    <subsheetid>f0744312-2a70-4b23-8205-73902d7aafb8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" />
+    <onsuccess>9fc8d8ff-8b08-4784-8242-ea0f186f818b</onsuccess>
+    <resource object="Blue Prism - Digital Exchange Web" action="Attach to DX Browser" />
+  </stage>
+  <stage stageid="fec9d7b6-2d26-4b8c-9ae6-ff7fa9df9f5b" name="Note1" type="Note">
+    <narrative>GIVEN I have a DX tab in the BluePrism Applicaiton that will launch in the user's default browser</narrative>
+    <display x="15" y="-90" w="180" h="90" />
+    <onsuccess>b375cb57-e76b-4ae7-b592-cb2f4f38e5c0</onsuccess>
+  </stage>
+  <stage stageid="3bfb2354-8525-4312-94ec-c30a7d10cbce" name="Note1" type="Note">
+    <narrative>WHEN I click on Digital Exchange tab in the BluePrism Application
+
+THEN  DX page will be launched in IE browser ( made as default browser as automation)</narrative>
+    <display x="15" y="60" w="180" h="90" />
+    <onsuccess>272136c8-b4a6-4701-ac65-e1630edfdd23</onsuccess>
+  </stage>
+  <stage stageid="63ca3392-4578-41a1-bac1-e0e33ddd51f8" name="Recover1" type="Recover">
+    <loginhibit />
+    <display x="90" y="195" />
+    <onsuccess>f0e28b00-6490-4668-b63f-c75af411af24</onsuccess>
+  </stage>
+  <stage stageid="fdd17d36-a6b8-4059-ad43-8814400a239a" name="Resume1" type="Resume">
+    <loginhibit />
+    <display x="315" y="195" />
+    <onsuccess>b8249ce9-71e0-41ed-a082-ad974b506953</onsuccess>
+  </stage>
+  <stage stageid="6eb9cbd5-1274-4ebf-9b72-f4945bd56db4" name="Scenario1" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-60" y="135" w="195" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f0e28b00-6490-4668-b63f-c75af411af24" name="Capture  Error" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="195" y="195" />
+    <onsuccess>fdd17d36-a6b8-4059-ad43-8814400a239a</onsuccess>
+    <steps>
+      <calculation expression="[Error] &amp;&quot; , &quot;&amp;ExceptionDetail()" stage="Error" />
+      <calculation expression="True" stage="Failed?" />
+    </steps>
+  </stage>
+  <stage stageid="dad92bc9-ef5f-453c-ae46-59d977cd22de" name="Error" type="Data">
+    <display x="-330" y="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="24be29b9-6505-48a9-8dc2-de8274f52ef5" name="Failed?" type="Data">
+    <loginhibit onsuccess="true" />
+    <display x="-330" y="90" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b8249ce9-71e0-41ed-a082-ad974b506953" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="315" y="300" w="10" h="10" />
+    <onsuccess>15ccdc6b-b370-4268-817a-cdd7482ceef4</onsuccess>
+  </stage>
+  <stage stageid="3fab2773-f6c6-417d-bcc2-1905e0f08f87" name="Test Failed?" type="Decision">
+    <display x="15" y="360" />
+    <decision expression="[Failed?]" />
+    <ontrue>e2e65939-d9dd-4ded-b271-acfff236cefb</ontrue>
+    <onfalse>7357cd5f-5e2d-438b-b52a-767cc0dc2a2c</onfalse>
+  </stage>
+  <stage stageid="e2e65939-d9dd-4ded-b271-acfff236cefb" name="FAIL" type="Exception">
+    <display x="135" y="360" />
+    <exception localized="yes" type="RETHROW" detail="[Error]" />
+  </stage>
+  <stage stageid="5b05d684-8d93-4728-9351-508464dd1cb9" name="Local Variable" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-390" y="0" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="15ccdc6b-b370-4268-817a-cdd7482ceef4" name="Blue Prism - Digital Exchange Web::Exit BluePrism App" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="300" />
+    <onsuccess>3fab2773-f6c6-417d-bcc2-1905e0f08f87</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="6880f9df-8672-4538-b586-80bc6647a71b" name="pid" type="Data">
+    <display x="-315" y="195" w="90" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="957dc0c3-5ef9-4c2a-ae3d-952a1d892531" name="Global Variable" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-390" y="165" w="150" h="45" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+</process>

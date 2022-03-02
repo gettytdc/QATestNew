@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+	
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-gb" xml:lang="en-gb" data-mc-search-type="Stem" data-mc-help-system-file-name="Blue Prism Help.xml" data-mc-path-to-help-system="../../" data-mc-conditions="Default.Not for translation" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="">
+    <head>
+        <link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+		<meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<title>ワークキューのスナップショット</title>
+        <link href="./TableStyles/bp_footer_tablestyle.css" rel="stylesheet"/>
+        <link href="./TableStyles/bp-table-column-header.css" rel="stylesheet"/>
+        <link href="./TableStyles/bp-table-row-header.css" rel="stylesheet"/>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1 class="pagetitle">ワークキューのスナップショット</h1>
+        </div>
+		
+	<h2>はじめに</h2>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"></span>
+            </div>
+        </div>
+	<p>ワークキュー分析により、Blue Prismは指定した間隔でワークキューデータのスナップショットを定期的に取得し、現在のデータの値を以前のスナップショットのデータと比較して、傾向を比較し追跡できるようになります。</p>
+	<p>たとえば、現在の平均ケース期間を通常の月曜日の朝と比較した結果を知りたいことがあります。
+ あるいは、月曜日朝のキューにあるケース数が過去7日間でどのように上昇または下降したのかを追跡したい場合もあります。ワークキューを分析することで、この情報を簡単に計算、取得できるようになります。</p>
+
+        <h2 class="pagebreak">前提条件</h2>
+	<p>ワークキューの統計を集め、傾向データを計算するには次のことが必要になります。</p>
+        <ul>
+            <li class="bullet_1" value="1">少なくても1つのBlue Prismアプリケーションサーバーが環境内に展開され、稼働していること。</li>
+	    <li class="bullet_1" value="1"><i>［システム］ > ［レポーティング］</i>画面で選択する［<b>使用率と生産性の統計を収集</b>］オプション。</li>
+	</ul>
+
+	<h2 class="pagebreak">構成</h2>
+	<p>［ワークキュースナップショット］画面は、追加でMIレポーティングを実行する際にワークキューの統計の収集を構成できる主要インターフェイスです。</p>
+	<p>現在の構成を表示、またはスナップショットコントロールの追加、編集、削除にアクセスするには、<b>［システム］ > ［レポーティング］ > ［ワークキューのスナップショット］</b>の順に選択します。</p>
+	<img alt="ワークキュースナップショット構成" src="Graphics/QueueSnapshotConfigurations.png"/>
+
+	<h3>ワークキュースナップショット構成</h3>
+	<p>スナップショットの構成は［ワークキュースナップショット］画面から作成します。</p>
+	<ol>
+	    <li>［<b>構成を追加</b>］をクリックします。
+		<p>［<i>ワークキュースナップショット構成</i>］画面が表示されます。</p>
+		<img alt="ワークキュースナップショット構成" src="Graphics/QueueSnapshotConfiguration.png"/>
+	    </li>
+	    <li>次のフィールドを入力します。
+		<ul>
+		    <li><b>名前</b> - スナップショット構成名のことで、一意で最大255文字である必要があります。</li>
+		    <li><b>構成の有効化</b> - Blue Prismデータベースでスナップショットデータを作成する際にスナップショット構成を使用するかどうかを決めます。</li>
+		    <li><b>スナップショットを取得する頻度</b> - ワークキュースナップショットが作成される間隔です。スナップショット間の間隔は最短で15分間、最長で24時間です。</li>
+		    <li><b>タイムゾーン</b> - ワークキューがレポーティングの目的で稼働していると見なされるタイムゾーン。スナップショットデータの取得では、午前0時以降にキューに入ったアイテムの数が計算され、レポーティング用に追加の統計が算出されます。</b>
+		    <li>指定された期間中のみデータを収集</b> - 選択したタイムゾーンを基準にして、スナップショットをその日の特定の時間帯にのみ取得するかどうかを決定します。このオプションを有効にすると、ユーザーは次を指定できます。
+			<ul><li><b>収集開始時間</b> - その日のスナップショットを最初に撮影する時間。</li>
+			<li><b>収集終了時間</b> - スナップショットの撮影が停止する時間。</li></ul>
+		    <li><b>指定された曜日にのみデータを収集</b> - スナップショットを週の特定の曜日にのみ撮影するかどうかを決定します。このオプションを有効にすると、ユーザーは月曜日から日曜日までで曜日の任意の組み合わせを選択できます。</li>
+		</ul>
+	    </li>
+	    <li>この構成のスナップショットを取得するのに必要なキューを選択します。ワークキューとその他のスナップショット構成にある既存の関連付けは、ワークキューの名前と一緒に表示されます。ワークキューは一度に1つのスナップショット構成にのみ関連付けることができます。すでにスナップショット構成にリンクされているワークキューを追加すると、既存の関連付けを置き換えます。
+	    </li>
+	    <li>［<b>OK</b>］をクリックして構成を保存します。
+	    </li>
+	</ol>
+
+	<h3>ワークキュースナップショット構成を編集する</h3>
+	<p>スナップショット構成を編集するには、［ワークキュースナップショット］画面で必要な行をハイライトし、［<b>構成を編集</b>］をクリックします。</p>
+	<p>次のようにスナップショット構成に変更を加えると、すでに計算されている傾向データに影響を及ぼします。</p>
+	<ul>
+	    <li>スナップショット構成（スナップショット構成名以外）に変更を加えると、関連付けられているすべてのキューに対して算出された既存の傾向データが削除されます。</li>
+	    <li>別のスナップショット構成に以前関連付けられたキューを追加すると、そのキューに対して算出された既存の傾向データが削除されます。</li>
+	    <li>スナップショット構成のキューを削除すると、そのキューに対して算出された既存の傾向データも削除されます。</li>
+	</ul>
+
+	<h3>ワークキュースナップショット構成</h3>
+	<p>スナップショット構成を削除するには、構成を編集して、関連付けられているすべてのワークキューを最初に削除してください。関連付けられているすべてのキューが削除されたら、［ワークキュースナップショット］画面で必要な行をハイライトし、［<b>構成を削除</b>］をクリックします。</p>
+
+	<h2>ワークキュースナップショットデータを比較する</h2>
+	<p>スナップショットは、<code>BPDS_QueueSnapshotComparison</code>データソースからその内容を取得するダッシュボードタイルを使って比較できます。</p>
+	<p>スナップショットを比較するためにダッシュボードタイルを構成する方法の詳細については、「<a href="DataSources\QueueSnapshotComparison.htm">キュースナップショットの比較</a>」を参照してください。</p>
+
+	<h2>ワークキュースナップショットデータを作成、削除する</h2>
+	<p>ワークキューが有効になっているスナップショット構成に関連付けられたら、ワークキュースナップショットがBlue Prismアプリケーションサーバーにより自動的に作成されます。</p>
+	<p>ワークキュースナップショットデータは、28日後にシステムテーブルから自動的に削除されます。この操作を実行するのにユーザーによるアクションは必要ありません。</p>
+
+    </body>
+</html>

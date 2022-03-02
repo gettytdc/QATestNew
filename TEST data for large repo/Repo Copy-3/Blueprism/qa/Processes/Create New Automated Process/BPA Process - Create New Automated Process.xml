@@ -1,0 +1,1060 @@
+﻿<process name="Create New Automated Process" version="1.0" bpversion="6.3.0.5030" narrative="Creating new process using Blue Prism" byrefcollection="true" preferredid="8368b844-ac88-431e-9efe-52f6881d45c8">
+  <view>
+    <camerax>15</camerax>
+    <cameray>-618</cameray>
+    <zoom version="2">0.9375</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="110d2310-836d-4693-b67b-061efe83ec56" type="Normal" published="False">
+    <name>Global Variables</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-42</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="cd69c7b8-9f79-43a8-8935-0c14af2a185e" type="Normal" published="False">
+    <name>Wait N Seconds</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="22f3fe17-e176-4b0d-8830-1d6ec4195ea0" type="Normal" published="False">
+    <name>Link Stages</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>105</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="28a0c348-1536-48ea-a48f-9c4b2c32e1d2" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-870</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>2feb5758-60ed-485a-9b92-d4934d49bd44</onsuccess>
+  </stage>
+  <stage stageid="c1ed97a7-b8c8-4037-8a2d-5efe5d812816" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>720</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="871f0451-6649-4583-b4fc-c9eba32a8c26" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-840</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="2feb5758-60ed-485a-9b92-d4934d49bd44" name="Launch Blue Prism" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-810</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="parent PID" />
+    </outputs>
+    <onsuccess>c923e64d-2d8d-4985-ad72-345fc0ccf04d</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="0455bb68-a671-4f24-99b1-7a41fb1d9aff" name="Sign Into Blue Prism" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-690</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" expr="[Blue Prism User]" />
+      <input type="password" name="Password" expr="[Blue Prism Pass]" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>d28c5cec-d195-4b08-b6a7-b11a4d662afc</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="d28c5cec-d195-4b08-b6a7-b11a4d662afc" name="Go to Studio" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-630</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>1aa14fdc-0807-453c-9edc-ad749b6fb89e</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="134050d0-efb7-4192-ad0b-35c2f00c76e4" name="Open Process" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-450</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Process Name" expr="&quot;Automated Create Process&quot;" />
+      <input type="text" name="Folder to Select" expr="" />
+      <input type="number" name="MatchIndex" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Access Warning" narrative="Access warning when opening member" stage="" />
+    </outputs>
+    <onsuccess>d6f1f928-94ca-47d5-bbff-3f7f4411106a</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Open Process" />
+  </stage>
+  <stage stageid="804b0061-564b-4c6e-8908-85ef5581baaf" name="Local Variables" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-255</displayx>
+    <displayy>-780</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>270</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="06785238-b718-4410-be15-32576048fa20" name="Blue Prism User" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-750</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">admin</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="782ccddf-978d-428c-9748-40e0e8e163d5" name="Blue Prism Pass" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-720</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>password</datatype>
+    <initialvalueenc>32,17,25,89,3</initialvalueenc>
+    <alwaysinit />
+  </stage>
+  <stage stageid="d6f1f928-94ca-47d5-bbff-3f7f4411106a" name="Get Start Bounds" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-390</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Page Name" narrative="Name of the page in which the element resides." expr="&quot;Main Page&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Bounds" narrative="Bounds of the Start stage on screen." stage="Start Bounds" />
+    </outputs>
+    <onsuccess>1ec5d4f5-f579-4b4d-9f49-3b2827d6d55a</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Get Start Stage Bounds" />
+  </stage>
+  <stage stageid="f1572e72-3df2-4309-a576-7d5a628e2b01" name="parent PID" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-690</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1ec5d4f5-f579-4b4d-9f49-3b2827d6d55a" name="Add Calc Stage" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-330</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Stage Type" narrative="Type of Stage to add." expr="&quot;Calculation&quot;" />
+      <input type="number" name="X Coordinate" narrative="Coordinates of X axis. Positive values are to the right, and negative values are to the left. Default to 0." expr="[Start Bounds.Right]" />
+      <input type="number" name="Y Coordinate" narrative="Coordinates of Y axis. Positive values are further down, and negative values are further up. Default to 0." expr="[Start Bounds.Bottom] + 85" />
+    </inputs>
+    <onsuccess>82c10036-2bbb-4799-8588-cedeb13d70b0</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Add Stage to Development Area" />
+  </stage>
+  <stage stageid="82c10036-2bbb-4799-8588-cedeb13d70b0" name="Open Properties" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-270</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>45bb30c0-091f-4c99-a0a3-9b41d879f590</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Open Properties For Selected Stage" />
+  </stage>
+  <stage stageid="45bb30c0-091f-4c99-a0a3-9b41d879f590" name="Set Properties" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Calculation Name" narrative="Name of the calculation stage." expr="&quot;Calc Test&quot;" />
+      <input type="text" name="Expression" narrative="Expression." expr="&quot;&quot;&quot;Concated String and Number &quot;&quot; &amp; &quot; &amp; 9" />
+      <input type="text" name="Result Data Item Name" narrative="Name of the Data Item in which the result will be saved into." expr="&quot;Result&quot;" />
+      <input type="flag" name="Create Result Data Item?" narrative="Default to False. Set True to generate the Data Item in which the result will be saved into." expr="True" />
+    </inputs>
+    <onsuccess>0c9f50dd-427f-4d0c-b439-5a2cadf6a86e</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Set Calculation Properties" />
+  </stage>
+  <stage stageid="0c9f50dd-427f-4d0c-b439-5a2cadf6a86e" name="Get End Bounds" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Page Name" narrative="Name of the page in which the element resides." expr="&quot;Main Page&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Bounds" narrative="Bounds of the End stage on screen." stage="End Bounds" />
+    </outputs>
+    <onsuccess>f5a65b65-b7b2-4bae-8fcb-bdcf0df4c0f5</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Get End Stage Bounds" />
+  </stage>
+  <stage stageid="10c75cbd-93f5-4a99-9e3b-7487f66dfb1b" name="Run Build" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>240</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Time to Wait" narrative="How long to wait (in seconds) before raising an exception due to run not being completed. Default to 30." expr="30" />
+    </inputs>
+    <onsuccess>706fc524-c686-4a7b-b5f5-b32f83235774</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Run Process/Object" />
+  </stage>
+  <stage stageid="706fc524-c686-4a7b-b5f5-b32f83235774" name="Open Properties" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>300</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>05e18dec-226d-44a0-b6af-4870018081a7</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Open Properties For Selected Stage" />
+  </stage>
+  <stage stageid="05e18dec-226d-44a0-b6af-4870018081a7" name="Get Data Item Values" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="text" name="Current Value" narrative="Current Value in Data Item" stage="Current Value" />
+      <output type="text" name="Initial Value" narrative="Initial Value in Data Item" stage="Initial Value" />
+    </outputs>
+    <onsuccess>05b95fd9-07c4-4dbb-9094-b86e4cba339e</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Get Data Item Initial and Current Value" />
+  </stage>
+  <stage stageid="c9390ad5-8434-40b7-aed9-53ae534e4025" name="Current Value" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-660</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3de374bb-0652-4c2b-9a45-b8f1760394e8" name="Initial Value" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-630</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8f6537ba-d6e3-4216-9b0d-0e234a3ef5f7" name="Current Matching?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>480</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="Trim([Current Value]) = &quot;Concated String and Number 9&quot;" />
+    <ontrue>850e1457-a2aa-4298-9dcb-f0a4f16e9f7c</ontrue>
+    <onfalse>024aeb42-4acd-4737-8ba7-26e1eb78deef</onfalse>
+  </stage>
+  <stage stageid="024aeb42-4acd-4737-8ba7-26e1eb78deef" name="Current Mismatch" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>480</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="&quot;Data Item's Current Value mismatch.&quot;" />
+  </stage>
+  <stage stageid="05b95fd9-07c4-4dbb-9094-b86e4cba339e" name="Initial Matching?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>420</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="Trim([Initial Value]) = &quot;&quot;" />
+    <ontrue>8f6537ba-d6e3-4216-9b0d-0e234a3ef5f7</ontrue>
+    <onfalse>615df8a1-1219-4e8a-8d0a-fe465039bbde</onfalse>
+  </stage>
+  <stage stageid="615df8a1-1219-4e8a-8d0a-fe465039bbde" name="Initial Mismatch" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>420</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="&quot;Data Item's Initial Value mismatch.&quot;" />
+  </stage>
+  <stage stageid="850e1457-a2aa-4298-9dcb-f0a4f16e9f7c" name="Close Process" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>540</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>3f625693-d3f8-4cc2-9f5c-13f69f03665d</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Close All Child Windows" />
+  </stage>
+  <stage stageid="3f625693-d3f8-4cc2-9f5c-13f69f03665d" name="Sign Out" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>600</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>336bdbd0-1054-4b45-a5e4-879c908830d6</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="336bdbd0-1054-4b45-a5e4-879c908830d6" name="Exit Application" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>660</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>c1ed97a7-b8c8-4037-8a2d-5efe5d812816</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="f5a65b65-b7b2-4bae-8fcb-bdcf0df4c0f5" name="Get Result Bounds" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Page Name" narrative="Name of the page in which the element resides." expr="&quot;Main Page&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Bounds" narrative="Bounds of the Result stage on screen." stage="Result Bounds" />
+    </outputs>
+    <onsuccess>9b97c0d0-fe44-4d89-bb41-dadd0e93b1f3</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Get Result Stage Bounds " />
+  </stage>
+  <stage stageid="bf9f4f52-a425-4841-8f8b-779b104d4521" name="Link Stages" type="SubSheetInfo">
+    <subsheetid>22f3fe17-e176-4b0d-8830-1d6ec4195ea0</subsheetid>
+    <narrative>Links stages.</narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="5c764143-52a6-4934-afac-596f976140e7" name="Start" type="Start">
+    <subsheetid>22f3fe17-e176-4b0d-8830-1d6ec4195ea0</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>a88c6026-99cb-4022-8029-b3828f874a80</onsuccess>
+  </stage>
+  <stage stageid="85336fd1-45e1-40d7-b931-c8ab83e1fadd" name="End" type="End">
+    <subsheetid>22f3fe17-e176-4b0d-8830-1d6ec4195ea0</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>285</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="a88c6026-99cb-4022-8029-b3828f874a80" name="Select Link Stage" type="Action">
+    <subsheetid>22f3fe17-e176-4b0d-8830-1d6ec4195ea0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Stage Type" narrative="Type of Stage to add." expr="&quot;Link&quot;" />
+    </inputs>
+    <onsuccess>87bc14ae-789f-4264-abbb-8c93bfcd6d89</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Click Stage Type" />
+  </stage>
+  <stage stageid="87bc14ae-789f-4264-abbb-8c93bfcd6d89" name="Link Start to Calc" type="Action">
+    <subsheetid>22f3fe17-e176-4b0d-8830-1d6ec4195ea0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Source X" narrative="X coordinate of source stage. Default to 0. Equivalent to 'Right' attribute in Bounds collection." expr="[Start Bounds.Right]" />
+      <input type="number" name="Source Y" narrative="Y coordinate of source stage. Default to 10. Equivalent to 'Top' attribute in Bounds collection." expr="[Start Bounds.Top]" />
+      <input type="number" name="Target X" narrative="X coordinate of target stage. Default to 0. Equivalent to 'Right' attribute in Bounds collection." expr="[Start Bounds.Right]" />
+      <input type="number" name="Target Y" narrative="Y coordinate of target stage. Default to 10. Equivalent to 'Top' attribute in Bounds collection." expr="[Start Bounds.Bottom] + 85" />
+      <input type="text" name="Page Name" narrative="Name of the page in which stages are linked to one another. Default to Main Page." expr="&quot;Main Page&quot;" />
+    </inputs>
+    <onsuccess>29d60172-edf8-4181-b87b-ed5d901de5de</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Link Stage to Stage" />
+  </stage>
+  <stage stageid="88d4ceac-34f9-4db5-a94a-c47de1ed24c5" name="Link to End" type="Action">
+    <subsheetid>22f3fe17-e176-4b0d-8830-1d6ec4195ea0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>225</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Source X" narrative="X coordinate of source stage. Default to 0. Equivalent to 'Right' attribute in Bounds collection." expr="[Start Bounds.Right]" />
+      <input type="number" name="Source Y" narrative="Y coordinate of source stage. Default to 10. Equivalent to 'Top' attribute in Bounds collection." expr="[Start Bounds.Top] + 85" />
+      <input type="number" name="Target X" narrative="X coordinate of target stage. Default to 0. Equivalent to 'Right' attribute in Bounds collection." expr="[End Bounds.Right]" />
+      <input type="number" name="Target Y" narrative="Y coordinate of target stage. Default to 10. Equivalent to 'Top' attribute in Bounds collection." expr="[End Bounds.Top]" />
+      <input type="text" name="Page Name" narrative="Name of the page in which stages are linked to one another. Default to Main Page." expr="&quot;Main Page&quot;" />
+    </inputs>
+    <onsuccess>85336fd1-45e1-40d7-b931-c8ab83e1fadd</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Link Stage to Stage" />
+  </stage>
+  <stage stageid="9e341735-0d11-487e-bbc6-9166ce0895d9" name="Select Link Stage" type="Action">
+    <subsheetid>22f3fe17-e176-4b0d-8830-1d6ec4195ea0</subsheetid>
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>165</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Stage Type" narrative="Type of Stage to add." expr="&quot;Link&quot;" />
+    </inputs>
+    <onsuccess>88d4ceac-34f9-4db5-a94a-c47de1ed24c5</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Stage Manipulation - Click Stage Type" />
+  </stage>
+  <stage stageid="29d60172-edf8-4181-b87b-ed5d901de5de" name="Note1" type="Note">
+    <subsheetid>22f3fe17-e176-4b0d-8830-1d6ec4195ea0</subsheetid>
+    <narrative>Cool off - Click Link again.</narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9e341735-0d11-487e-bbc6-9166ce0895d9</onsuccess>
+  </stage>
+  <stage stageid="9b97c0d0-fe44-4d89-bb41-dadd0e93b1f3" name="Link Stages" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>355df449-db89-483e-8a9b-0185aa69beaf</onsuccess>
+    <processid>22f3fe17-e176-4b0d-8830-1d6ec4195ea0</processid>
+  </stage>
+  <stage stageid="355df449-db89-483e-8a9b-0185aa69beaf" name="Note2" type="Note">
+    <narrative>Retry 3 Times.</narrative>
+    <displayx>15</displayx>
+    <displayy>60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e50e13b6-f57c-45d2-8e4f-69948fe28813</onsuccess>
+  </stage>
+  <stage stageid="b2b880f1-85ef-4d0e-8352-c2cc99bd04a6" name="Link Again?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Linking Count] &lt;= 3" />
+    <ontrue>b5ac7141-c160-44d4-aab6-d567a2420e46</ontrue>
+    <onfalse>10c75cbd-93f5-4a99-9e3b-7487f66dfb1b</onfalse>
+  </stage>
+  <stage stageid="19701684-1459-42ac-8446-524d670771a4" name="Linking Count" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-600</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e50e13b6-f57c-45d2-8e4f-69948fe28813" name="Linking Count++" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>b2b880f1-85ef-4d0e-8352-c2cc99bd04a6</onsuccess>
+    <calculation expression="[Linking Count] + 1" stage="Linking Count" />
+  </stage>
+  <stage stageid="b5ac7141-c160-44d4-aab6-d567a2420e46" name="Anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>180</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9baf5504-7874-47e5-bfa7-718f0011b120</onsuccess>
+  </stage>
+  <stage stageid="9baf5504-7874-47e5-bfa7-718f0011b120" name="Anchor2" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9b97c0d0-fe44-4d89-bb41-dadd0e93b1f3</onsuccess>
+  </stage>
+  <stage stageid="a6c0f95f-377e-4b72-aaa3-65481417712a" name="Global Variables" type="SubSheetInfo">
+    <subsheetid>110d2310-836d-4693-b67b-061efe83ec56</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="bda2e093-6b9f-4cb5-88bd-3de518d02726" name="Start" type="Start">
+    <subsheetid>110d2310-836d-4693-b67b-061efe83ec56</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9a13210c-8a13-4fd7-afb8-43e7f707a04a</onsuccess>
+  </stage>
+  <stage stageid="9a13210c-8a13-4fd7-afb8-43e7f707a04a" name="End" type="End">
+    <subsheetid>110d2310-836d-4693-b67b-061efe83ec56</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="6c860ee3-ca82-45c4-ab78-feefa0635c3b" name="Start Bounds" type="Collection">
+    <subsheetid>110d2310-836d-4693-b67b-061efe83ec56</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Top" type="number" />
+      <field name="Bottom" type="number" />
+      <field name="Right" type="number" />
+      <field name="Left" type="number" />
+      <field name="Height" type="number" />
+      <field name="Width" type="number" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="9ecca608-4b9f-4361-8694-f0c33d702998" name="End Bounds" type="Collection">
+    <subsheetid>110d2310-836d-4693-b67b-061efe83ec56</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>15</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Top" type="number" />
+      <field name="Bottom" type="number" />
+      <field name="Right" type="number" />
+      <field name="Left" type="number" />
+      <field name="Height" type="number" />
+      <field name="Width" type="number" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="cb9dacc8-ad77-4317-9b9b-ff329873b306" name="Result Bounds" type="Collection">
+    <subsheetid>110d2310-836d-4693-b67b-061efe83ec56</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>45</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Top" type="number" />
+      <field name="Bottom" type="number" />
+      <field name="Right" type="number" />
+      <field name="Left" type="number" />
+      <field name="Height" type="number" />
+      <field name="Width" type="number" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="b353f3ca-9e54-458e-811f-e75d415c9242" name="Global Variables" type="Block">
+    <subsheetid>110d2310-836d-4693-b67b-061efe83ec56</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-270</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>120</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c92da66a-ffd9-46cf-ab25-f206cbb3cc03" name="Catch" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>210</displayy>
+    <displaywidth>240</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="1f2ce933-9e8d-4c48-be33-a81fea37b1a9" name="Recover" type="Recover">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>240</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>53954ff1-eedc-464f-bb33-2e78c5332961</onsuccess>
+  </stage>
+  <stage stageid="c27439de-447a-46e6-ab24-d050c7f488f6" name="Link Error?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="InStr(ExceptionDetail(), &quot;Failed to find&quot;) &gt; 0" />
+    <ontrue>efff6b41-c090-4349-97c5-cfe72ff9137a</ontrue>
+    <onfalse>1ce95b50-8db1-4fa3-99a4-a0a5bd3eeafd</onfalse>
+  </stage>
+  <stage stageid="efff6b41-c090-4349-97c5-cfe72ff9137a" name="Resume" type="Resume">
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>360</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>f69be4c1-b29a-4d67-ad6c-c55f290bf33b</onsuccess>
+  </stage>
+  <stage stageid="274b8cee-ba24-4405-9dde-5d002aef436a" name="Retry Again?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>240</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Retry Count] &lt;= 3" />
+    <ontrue>c69022c5-ff31-4ffc-8221-01c2c835d86d</ontrue>
+    <onfalse>e511bc64-999d-47a1-a1b1-205fd4f3d3cf</onfalse>
+  </stage>
+  <stage stageid="f69be4c1-b29a-4d67-ad6c-c55f290bf33b" name="Retry++" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>300</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>274b8cee-ba24-4405-9dde-5d002aef436a</onsuccess>
+    <calculation expression="[Retry Count] + 1" stage="Retry Count" />
+  </stage>
+  <stage stageid="6dc34f73-9f33-4f0b-b6a5-256b86e8c529" name="Wait 15 Seconds" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Seconds to Wait" narrative="Number of Seconds toWait." expr="15" />
+    </inputs>
+    <onsuccess>f0f6367b-ae6d-42c7-b6d2-12a6a6c2a4da</onsuccess>
+    <processid>cd69c7b8-9f79-43a8-8935-0c14af2a185e</processid>
+  </stage>
+  <stage stageid="c69022c5-ff31-4ffc-8221-01c2c835d86d" name="Press Reset" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>6dc34f73-9f33-4f0b-b6a5-256b86e8c529</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Press Reset Button" />
+  </stage>
+  <stage stageid="e511bc64-999d-47a1-a1b1-205fd4f3d3cf" name="Bubble Up" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>-345</displayx>
+    <displayy>240</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="[Exception Message]" />
+  </stage>
+  <stage stageid="53954ff1-eedc-464f-bb33-2e78c5332961" name="Get Exception" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>300</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>c27439de-447a-46e6-ab24-d050c7f488f6</onsuccess>
+    <calculation expression="ExceptionDetail()" stage="Exception Message" />
+  </stage>
+  <stage stageid="033ba045-33ee-489b-9ff9-ab9ce9cda595" name="Exception Message" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-570</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="52d4b7f6-8ed6-4d32-af52-9f3d61f63bc1" name="Retry Count" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-180</displayx>
+    <displayy>-540</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6211aef7-61d2-4b45-9645-a581e72371a0" name="Wait N Seconds" type="SubSheetInfo">
+    <subsheetid>cd69c7b8-9f79-43a8-8935-0c14af2a185e</subsheetid>
+    <narrative>Waits N number of seconds.</narrative>
+    <displayx>-150</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="3726e249-980a-48c8-ac1d-e0f2628743ab" name="Start" type="Start">
+    <subsheetid>cd69c7b8-9f79-43a8-8935-0c14af2a185e</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Seconds to Wait" narrative="Number of Seconds toWait." stage="Seconds to Wait" />
+    </inputs>
+    <onsuccess>f7828edd-5548-4744-bec2-29f3cde05781</onsuccess>
+  </stage>
+  <stage stageid="9c177c45-1bdf-46c9-bef8-4e11cd585d9e" name="End" type="End">
+    <subsheetid>cd69c7b8-9f79-43a8-8935-0c14af2a185e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="f7828edd-5548-4744-bec2-29f3cde05781" name="Get Now" type="Calculation">
+    <subsheetid>cd69c7b8-9f79-43a8-8935-0c14af2a185e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>75bb6382-3ac6-4ee1-aacc-d2fa861e18da</onsuccess>
+    <calculation expression="Now()" stage="Current Time" />
+  </stage>
+  <stage stageid="a5452609-ff9f-4054-ae0b-b624b9923103" name="Current Time" type="Data">
+    <subsheetid>cd69c7b8-9f79-43a8-8935-0c14af2a185e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-150</displayx>
+    <displayy>105</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>datetime</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0af822ff-b29f-4c9e-811e-0beafbd349cd" name="Time Passed?" type="Decision">
+    <subsheetid>cd69c7b8-9f79-43a8-8935-0c14af2a185e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>60</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="Now () &gt; [Current Time] + MakeTimeSpan(0, 0, 0, [Seconds to Wait])" />
+    <ontrue>9c177c45-1bdf-46c9-bef8-4e11cd585d9e</ontrue>
+    <onfalse>88fae514-a167-460e-892e-94458db1fcbf</onfalse>
+  </stage>
+  <stage stageid="75bb6382-3ac6-4ee1-aacc-d2fa861e18da" name="Anchor6" type="Anchor">
+    <subsheetid>cd69c7b8-9f79-43a8-8935-0c14af2a185e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>15</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>0af822ff-b29f-4c9e-811e-0beafbd349cd</onsuccess>
+  </stage>
+  <stage stageid="88fae514-a167-460e-892e-94458db1fcbf" name="Anchor7" type="Anchor">
+    <subsheetid>cd69c7b8-9f79-43a8-8935-0c14af2a185e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>60</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>af01ed97-cbfb-4851-bd3a-8fb586b57278</onsuccess>
+  </stage>
+  <stage stageid="af01ed97-cbfb-4851-bd3a-8fb586b57278" name="Anchor8" type="Anchor">
+    <subsheetid>cd69c7b8-9f79-43a8-8935-0c14af2a185e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>15</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>75bb6382-3ac6-4ee1-aacc-d2fa861e18da</onsuccess>
+  </stage>
+  <stage stageid="be4479f8-7165-4447-8743-d4632a0c3e0d" name="Local Variables" type="Block">
+    <subsheetid>cd69c7b8-9f79-43a8-8935-0c14af2a185e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>75</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="cdc9689d-e2c2-4c32-b7d0-fc2a7af5a90a" name="Seconds to Wait" type="Data">
+    <subsheetid>cd69c7b8-9f79-43a8-8935-0c14af2a185e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-150</displayx>
+    <displayy>30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>20</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8096733f-b368-4e19-9849-c769aae2e0e0" name="Input Variables" type="Block">
+    <subsheetid>cd69c7b8-9f79-43a8-8935-0c14af2a185e</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>0</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f0f6367b-ae6d-42c7-b6d2-12a6a6c2a4da" name="Anchor3" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9b97c0d0-fe44-4d89-bb41-dadd0e93b1f3</onsuccess>
+  </stage>
+  <stage stageid="1ce95b50-8db1-4fa3-99a4-a0a5bd3eeafd" name="Bubble Up" type="Exception">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>420</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception type="System Exception" detail="[Exception Message]" />
+  </stage>
+  <stage stageid="c923e64d-2d8d-4985-ad72-345fc0ccf04d" name="Attach Studio" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-750</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[parent PID]" />
+    </inputs>
+    <onsuccess>0455bb68-a671-4f24-99b1-7a41fb1d9aff</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="1aa14fdc-0807-453c-9edc-ad749b6fb89e" name="Go To Home" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-570</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Home&quot;" />
+    </inputs>
+    <onsuccess>b1dff113-dc2c-40f3-89cd-9bc8ec0ba44e</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="b1dff113-dc2c-40f3-89cd-9bc8ec0ba44e" name="Go To Studio" type="Action">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-510</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Studio&quot;" />
+    </inputs>
+    <onsuccess>134050d0-efb7-4192-ad0b-35c2f00c76e4</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+</process>

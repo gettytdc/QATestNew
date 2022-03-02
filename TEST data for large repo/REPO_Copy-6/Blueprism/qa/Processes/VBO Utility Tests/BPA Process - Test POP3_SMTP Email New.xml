@@ -1,0 +1,236 @@
+﻿<process name="Test POP3/SMTP Email New" version="1.0" narrative="." preferredid="37f5e7ca-feed-dead-beef-63c97264d018">
+  <view>
+    <camerax>0</camerax>
+    <cameray>184</cameray>
+    <zoom>1</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="5bb129f1-9d2f-42c8-a738-8e80430daf89" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>dd37ffff-2c77-46a9-99c4-75a6213ca1c2</onsuccess>
+  </stage>
+  <stage stageid="aeab257a-0437-45e4-b960-1952e74c27ea" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>450</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="4ab6f3c1-cf21-4b24-bb71-6cd3f1f1bebc" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="dd37ffff-2c77-46a9-99c4-75a6213ca1c2" name="Configure" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" expr="&quot;test@localhost.local&quot;" />
+      <input type="password" name="Password" expr="&quot;test.password&quot;" />
+      <input type="text" name="POP3 Server" expr="&quot;localhost&quot;" />
+      <input type="text" name="SMTP Server" expr="&quot;localhost&quot;" />
+      <input type="number" name="POP3 Port" expr="110" />
+      <input type="number" name="SMTP Port" expr="25" />
+      <input type="flag" name="POP3 UseSSL" expr="False" />
+      <input type="flag" name="SMTP UseSSL" expr="False" />
+    </inputs>
+    <onsuccess>0b64adc2-491d-4115-870f-e33ef49b28e2</onsuccess>
+    <resource object="Email - POP3/SMTP" action="Configure" />
+  </stage>
+  <stage stageid="0b64adc2-491d-4115-870f-e33ef49b28e2" name="Get Emails" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="collection" name="Emails" stage="Emails" />
+    </outputs>
+    <onsuccess>5b9be75a-1376-4e93-bc5a-fb20482e56f9</onsuccess>
+    <resource object="Email - POP3/SMTP" action="List Messages" />
+  </stage>
+  <stage stageid="95fd01c3-d459-4cff-b604-3738811afd09" name="Emails" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Subject" type="text" />
+      <field name="From Name" type="text" />
+      <field name="From Address" type="text" />
+      <field name="Date Sent" type="datetime" />
+      <field name="MessageID" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="e81cce32-b76e-42db-acd2-d418a81df17c" name="Get Message" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="MessageID" narrative="The ID of the message to retrieve." expr="[Emails.MessageID]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Body" stage="Body" />
+    </outputs>
+    <onsuccess>edafc134-f6a4-47e3-bda1-b09fc26bca19</onsuccess>
+    <resource object="Email - POP3/SMTP" action="Get Message" />
+  </stage>
+  <stage stageid="2d474102-b20a-4686-a80f-43c8b9933146" name="Body" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5b9be75a-1376-4e93-bc5a-fb20482e56f9" name="For Each Email" type="LoopStart">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>e81cce32-b76e-42db-acd2-d418a81df17c</onsuccess>
+    <groupid>86e21344-0055-43cc-b877-f5ae62fa4cf9</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Emails</loopdata>
+  </stage>
+  <stage stageid="edafc134-f6a4-47e3-bda1-b09fc26bca19" name="Next Email" type="LoopEnd">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>b6dd69bb-8f66-4345-b492-8e1a4426ec56</onsuccess>
+    <groupid>86e21344-0055-43cc-b877-f5ae62fa4cf9</groupid>
+  </stage>
+  <stage stageid="b6dd69bb-8f66-4345-b492-8e1a4426ec56" name="Send PlainText Email" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="From" narrative="The email address of the sender." expr="&quot;test@localhost.local&quot;" />
+      <input type="text" name="To" narrative="The email address of the recipient. To address multiple recipients use the format &quot;john.smith@example.com, henry.jones@example.com&quot; OR &quot;John Smith &lt;john.smith@example.com&gt;, Henry Jones &lt;henry.jones@example.com&gt;&quot;." expr="&quot;test@localhost.local&quot;" />
+      <input type="text" name="Subject" narrative="The subject of the email." expr="&quot;Test 4&quot;" />
+      <input type="text" name="Body" narrative="The body of the email." expr="&quot;Test 4 Body&quot;" />
+      <input type="collection" name="Attachments" narrative="A Collection containing a list of files to add to the email as attachments." expr="" />
+      <input type="flag" name="BodyIsHTML" narrative="Indicates if the body should be sent as HTML" expr="" />
+    </inputs>
+    <onsuccess>13125544-9339-477f-89e7-ea213b0ab1a1</onsuccess>
+    <resource object="Email - POP3/SMTP" action="Send Message" />
+  </stage>
+  <stage stageid="d0bd304a-c16d-48d8-b75a-0393edaa6ab0" name="AttachmentList" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Path" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Path" type="text" value="C:\Users\Giles\test\Giles.jpg" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="c84b1d40-5633-441e-bdcb-a30313e43157" name="Delete Messages" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>390</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="MessageIDs" expr="[Emails]" />
+    </inputs>
+    <onsuccess>aeab257a-0437-45e4-b960-1952e74c27ea</onsuccess>
+    <resource object="Email - POP3/SMTP" action="Delete Messages" />
+  </stage>
+  <stage stageid="1e92c9f3-b7e8-4a77-889b-c8e18aa45d66" name="Send Multi-Recipient HTML Email" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>330</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="From" narrative="The email address of the sender." expr="&quot;test@localhost.local&quot;" />
+      <input type="text" name="To" narrative="The email address of the recipient. To address multiple recipients use the format &quot;john.smith@example.com, henry.jones@example.com&quot; OR &quot;John Smith &lt;john.smith@example.com&gt;, Henry Jones &lt;henry.jones@example.com&gt;&quot;." expr="&quot;test@localhost.local, test@localhost.local&quot;" />
+      <input type="text" name="Subject" narrative="The subject of the email." expr="&quot;Test Multi-Recipient HTML Email&quot;" />
+      <input type="text" name="Body" narrative="The body of the email." expr="&quot;Test Multi-Recipient &lt;strong&gt;HTML&lt;/strong&gt; Body&lt;br /&gt;2nd Line of Text&quot;" />
+      <input type="collection" name="Attachments" narrative="A Collection containing a list of files to add to the email as attachments." expr="" />
+      <input type="flag" name="BodyIsHTML" narrative="Indicates if the body should be sent as HTML" expr="True" />
+    </inputs>
+    <onsuccess>c84b1d40-5633-441e-bdcb-a30313e43157</onsuccess>
+    <resource object="Email - POP3/SMTP" action="Send Message" />
+  </stage>
+  <stage stageid="13125544-9339-477f-89e7-ea213b0ab1a1" name="Send Multi-Recipient PlainText Email" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>270</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="From" narrative="The email address of the sender." expr="&quot;test@localhost.local&quot;" />
+      <input type="text" name="To" narrative="The email address of the recipient. To address multiple recipients use the format &quot;john.smith@example.com, henry.jones@example.com&quot; OR &quot;John Smith &lt;john.smith@example.com&gt;, Henry Jones &lt;henry.jones@example.com&gt;&quot;." expr="&quot;test@localhost.local, test@localhost.local&quot;" />
+      <input type="text" name="Subject" narrative="The subject of the email." expr="&quot;Test Multi-Recipient PlainText Email&quot;" />
+      <input type="text" name="Body" narrative="The body of the email." expr="&quot;Test Multi-Recipient PlainText Body&quot;" />
+      <input type="collection" name="Attachments" narrative="A Collection containing a list of files to add to the email as attachments." expr="" />
+      <input type="flag" name="BodyIsHTML" narrative="Indicates if the body should be sent as HTML" expr="" />
+    </inputs>
+    <onsuccess>1e92c9f3-b7e8-4a77-889b-c8e18aa45d66</onsuccess>
+    <resource object="Email - POP3/SMTP" action="Send Message" />
+  </stage>
+</process>

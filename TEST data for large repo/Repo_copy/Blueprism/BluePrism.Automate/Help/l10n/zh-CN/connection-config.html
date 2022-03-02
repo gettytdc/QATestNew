@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link type="text/css" href="AutomateHelp.css" rel="stylesheet"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<title>连接配置</title>
+	<script type="text/javascript" src="script/imagezoom.js"></script>
+</head>
+
+<body class="slick">
+	<div class="header">
+		<h1 class="pagetitle">Blue Prism 配置</h1>
+		<h2>连接配置</h2>
+	</div>
+
+	<div class="captioned-image overview-screenshot nozoom">
+		<a href="Graphics/connection-manager.png" title="连接管理器—点击查看大图"><img alt="连接管理器—点击查看大图" src="Graphics/connection-manager.png"/></a>
+		<p>连接配置</p>
+	</div>
+
+	<h3>概述</h3>
+	<p>可从登录页访问的“连接配置”窗体提供可将多个连接配置为 Blue Prism 数据库和服务器的界面。</p>
+
+	<p>软件可以使用 SQL Server 或 Windows 身份验证连接到 SQL Server 2005 及更高版本。或者，软件可以通过运行在可用网络中的服务器上的 Blue Prism 服务器进行连接。<p>
+
+	<p>默认情况下，按照每台计算机来配置连接，<i>即</i>连接列表可供当前计算机上的所有用户使用，并且任何用户做出的任何更改都将对下一个用户可见，以便在同一台计算机上使用 Blue Prism。
+ 通过使用 <a href="helpCommandLine.htm#Useropts">/useropts</a> 开关来启动 Blue Prism，可将默认的做法改变为按照每个用户来创建连接列表。</p>
+
+	<h3>配置现有连接</h3>
+	<p>可以通过在窗体左侧的列表中选择连接，然后在右侧显示的字段中编辑详细信息来配置连接。</p>
+
+	<h4>连接名称</h4>
+	<p>此名称用于在产品中的登录屏幕或 BP 服务器配置中描述连接，以指示 Blue Prism 应使用的连接。</p>
+
+	<h4>连接类型</h4>
+	<p>Blue Prism 中支持多种连接（和身份验证）类型：—<p>
+	<dl class="listplease">
+		<dt>SQL Server（SQL 身份验证）</dt>
+		<dd>直接连接到 SQL Server 实例，使用 SQL 登录凭据（即在数据库上设置的用户名和密码）进行身份验证。</dd>
+
+		<dt>SQL Server（Windows 身份验证）</dt>
+		<dd>直接连接到 SQL Server 实例，通过 Windows 用户帐户进行身份验证。</dd>
+
+		<dt>Blue Prism 服务器</dt>
+		<dd>连接到现有的 Blue Prism 服务器—服务器维护与数据库本身的连接。</dd>
+
+		<dt>可用性组（SQL 身份验证）</dt>
+		<dd>直接连接到 SQL Server 可用性组，使用 SQL 登录凭据（即在数据库上设置的用户名和密码）进行身份验证。</dd>
+
+		<dt>可用性组（Windows 身份验证）</dt>
+		<dd>直接连接到 SQL Server 可用性组，通过 Windows 用户帐户进行身份验证。</dd>
+	</dl>
+	<p>有关连接类型之间的差异的更详尽讨论，请参阅 <a href="helpBPServer.htm">Blue Prism 服务器</a>。</p>
+		
+	<h4>数据库服务器（仅限 SQL Server）</h4>
+	<p>Blue Prism 应该连接的数据库实例—<i>例如</i> <code>localhost\SQLExpress</code> 将连接到在本地计算机上运行的名为 <code>SQLExpress</code> 的实例。</p>
+
+	<h4>数据库名称（仅限 SQL Server）</h4>
+	<p>Blue Prism 将其数据存储到的指定实例上的数据库名称。</p>
+
+	<h4>用户 ID（仅限 SQL Server—SQL 身份验证）</h4>
+	<p>Blue Prism 应用于向 SQL Server 进行身份验证的 SQL 用户的 ID</p>
+
+	<h4>密码（仅限 SQL Server—SQL 身份验证）</h4>
+	<p>Blue Prism 应用于向 SQL Server 进行身份验证的密码。</p>
+
+	<h4>其他 SQL 连接参数（仅限非 BP 服务器）</h4>
+	<p>应该附加到为访问数据库而创建的查询字符串中的任何其他参数（用分号分隔），<i>例如</i> <code>Encrypt=true;TrustServerCertificate=true</code>。</p>
+
+
+<h4>多子网故障转移</h4>
+	<p>允许在连接上启用多子网故障转移。有关详细信息，请参阅 Microsoft 的文档。</p>
+	<h4>Blue Prism 服务器（仅限 BP 服务器）</h4>
+	<p>客户端应连接的 Blue Prism 服务器的网络地址。</p>
+    	
+	<h4>连接模式（仅限 BP 服务器）</h4>
+    <p>以下连接模式可用于 Blue Prism 客户端和 Blue Prism 服务器之间的连接。请注意，此设置必须与 Blue Prism 服务器配置中设置的<a href="helpBPServer.htm#connection-mode">相应值</a>匹配。
+    </p>
+    <dl class="listplease">
+        <dt>WCF：采用消息加密和 Windows 身份验证的 SOAP</dt>
+        <dd><ul>
+                <li>需要设备之间的信任关系：是</li>
+                <li>Blue Prism 身份验证模式：Blue Prism 本机/单点登录</li>
+                <li>需要服务器端证书：否</li>
+                <li>传输 SOAP over HTTP</li>
+            </ul>
+            <p> 仅加密消息内容。  SOAP 和 HTTP 标头保持未加密状态，可为复杂的路由、负载均衡器、代理等提供帮助。  客户端和服务器标识通过 Windows/Active Directory 进行验证。</p>
+        </dd>
+        <dt>WCF：采用传输加密和 Windows 身份验证的 SOAP</dt>
+        <dd>
+            <ul>
+                <li>需要设备之间的信任关系：是</li>
+                <li>Blue Prism 身份验证模式：Blue Prism 本机/单点登录</li>
+                <li>需要服务器端证书：是</li>
+                <li>传输 SOAP over HTTPS</li>
+            </ul>
+            <p>包含 SOAP 标头的传输使用基于证书的加密方式进行加密。客户端和服务器标识通过 Windows/Active Directory 进行验证。
+            </p>
+        </dd>
+        <dt>WCF：采用传输加密的 SOAP</dt>
+        <dd>
+            <ul>
+                <li>需要设备之间的信任关系：否</li>
+                <li>Blue Prism 身份验证模式：Blue Prism 原生</li>
+                <li>需要服务器端证书：是</li>
+                <li>传输 SOAP over HTTPS</li>
+            </ul>
+            <p>包含 SOAP 标头的传输使用基于证书的加密方式进行加密。使用证书验证服务器标识。
+            </p>
+        </dd>
+        <dt>.NET Remoting：具安全性</dt>
+        <dd>
+            <ul>
+                <li>需要设备之间的信任关系：是</li>
+                <li>Blue Prism 身份验证模式：Blue Prism 本机/单点登录</li>
+                <li>需要服务器端证书：是</li>
+                <li>传输 TcpChannel over SChannel</li>
+            </ul>
+            <p>
+ 为向后兼容性而提供。在客户端和服务器之间协商加密。客户端和服务器标识通过 Windows/Active Directory 进行验证。
+            </p>
+        </dd>
+        <dt>.NET Remoting：不安全</dt>
+        <dd>
+            <ul>
+                <li>需要设备之间的信任关系：否</li>
+                <li>Blue Prism 身份验证模式：Blue Prism 原生</li>
+                <li>需要服务器端证书：否</li>
+                <li>传输 TcpChannel</li>
+            </ul>
+            <p>不推荐—为向后兼容性而提供。
+ 连接安全性需要完全由第三方解决方案提供。
+            </p>
+        </dd>
+        <dt>WCF：不安全</dt>
+        <dd>
+            <ul>
+                <li>需要设备之间的信任关系：是</li>
+                <li>Blue Prism 身份验证模式：Blue Prism 本机/单点登录</li>
+                <li>需要服务器端证书：是</li>
+                <li>传输 SOAP over HTTP</li>
+            </ul>
+            <p>不推荐。连接安全性需要完全由第三方解决方案提供。
+            </p>
+        </dd>
+    </dl>
+    
+    <h4>服务器端口（仅限 BP 服务器）</h4>
+    <p>
+ 指定的 Blue Prism 服务器在其上侦听连接的端口。
+    </p>
+ 	
+    <h4>回调端口（仅带有 .NET Remoting 的 BP 服务器）</h4>
+    <p>
+ 当使用 .NET Remoting 连接模式连接到 Blue Prism 服务器时，客户端允许它向其“回调”。允许双向通信意味着某些服务器操作可以更及时地提供进度反馈。将此值保留为默认值（零）意味着在建立与服务器的连接时将分配任意回调端口。如果必须使用特定端口（例如，为了打开防火墙上的端口），则应在此处设置该端口。
+    </p>
+    <p>
+ 请注意，如果配置了特定端口，则此计算机上只有一个 Blue Prism 实例可以在任何时候使用此连接。由于指定的回调端口正在使用中，从当前计算机连接到服务器的任何进一步尝试都将失败。
+    </p>
+
+	<h4>测试连接</h4>
+	<p>点击“测试连接”<code></code>按钮，可以测试当前显示在右侧“当前连接”<code></code>详细信息窗格中的连接。</p>
+
+	<p>将尝试连接到已配置的 Blue Prism 数据库，并且系统将显示一个包含该尝试结果的消息框。</p>
+
+	<h3>创建新连接</h3>
+	<p>点击窗体左下角的“新连接”<code></code>按钮，即可创建新连接。<p>
+	<p>系统将使用空白详细信息创建任意命名的连接，并将该连接显示在详细信息窗格中。</p>
+
+	<h3>删除连接</h3>
+	<p>通过在选择窗格中选择连接并按“删除连接”<code></code>按钮，可以删除连接。</p>
+	<p><strong>注意：</strong>此操作没有确认提示。</p>
+
+	<h3>保存更改</h3>
+	<p>正确配置连接后，按“确定”<code></code>按钮即可保存该连接。</p>
+	<p>此操作将为此计算机上的所有用户保存连接配置（除非使用 <a href="helpCommandLine.htm#Useropts">/useropts</a> 命令行开关启动 Blue Prism），并将当前选定的连接设置为 Blue Prism 客户端中的当前连接。</p>
+
+	<h3>放弃更改</h3>
+	<p>如果有任何错误，可以通过按“取消”<code></code>按钮来放弃更改—此时窗体会关闭，而不保存任何更改。</p>
+	
+	<h3>Windows Vista/Windows 7 上的用户帐户控制</h3>
+	<p>请注意，在 Windows Vista 及更高版本上保存连接配置时，可能需要提高权限。有关更多信息，请参阅<a href="uac.html">用户帐户控制</a>帮助页面。</p>
+</body>
+</html>

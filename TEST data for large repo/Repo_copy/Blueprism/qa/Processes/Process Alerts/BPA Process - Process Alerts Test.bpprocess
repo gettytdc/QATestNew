@@ -1,0 +1,1759 @@
+﻿<process name="Process Alerts Test" version="1.0" bpversion="6.9.0.23941" narrative="Actions and activities around process alerts.&#xD;&#xA;&#xD;&#xA;Yodiz Link:&#xD;&#xA;https://app.yodiz.com/plan/pages/board.vz?cid=28776#/app/us-1693&#xD;&#xA;&#xD;&#xA;User Story: US-1693" byrefcollection="true" preferredid="9d255785-bd6b-480a-afbf-b7069e8a7805">
+  <view>
+    <camerax>7</camerax>
+    <cameray>-917</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="ae71e86e-7e87-4520-8e8e-823286523cf9" type="Normal" published="False">
+    <name>Global Variables</name>
+    <view>
+      <camerax>220</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="c0e00d4d-0489-4415-8f4d-f8b8cfeac306" type="Normal" published="False">
+    <name>Unpublish Processes</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>72</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="1ce9ea2f-e925-4adb-91c3-8f554c2872db" name="Start" type="Start">
+    <display x="15" y="-1185" w="90" h="30" />
+    <onsuccess>d4512fa9-b73f-4a79-883b-1ca684f4e777</onsuccess>
+  </stage>
+  <stage stageid="03c1aa60-eb9e-4468-863b-bae95d1c1519" name="End" type="End">
+    <display x="15" y="3480" w="90" h="30" />
+  </stage>
+  <stage stageid="85fc7456-1479-46e8-a28e-daced0fa750d" name="Stage1" type="ProcessInfo">
+    <display x="-120" y="-1140" w="150" h="120" />
+  </stage>
+  <stage stageid="abe536db-3ed3-4bd5-a020-b24a9e8d75b0" name="Sign Into Blue Prism" type="Action">
+    <display x="15" y="-645" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="[Blue Prism User]" />
+      <input type="password" name="Password" expr="[Blue Prism Pass]" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>5348eb8f-f151-4f41-9054-98a242810277</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="35a71963-6121-4d3e-96ff-ad6574040b59" name="Blue Prism User" type="Data">
+    <display x="-165" y="1425" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">admin</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d1972b81-1188-4f07-b606-6ab80d9822bd" name="Blue Prism Pass" type="Data">
+    <display x="-165" y="1455" w="120" h="30" />
+    <datatype>password</datatype>
+    <initialvalueenc>32,17,25,89,3</initialvalueenc>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0d0a0dc5-5b4e-4844-b4ee-98b01f68a827" name="Note1" type="Note">
+    <narrative>Selecting Process from Process Alert window.</narrative>
+    <display x="15" y="-240" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>2a711457-0886-4fcc-b11c-674510952fa5</onsuccess>
+  </stage>
+  <stage stageid="a5bcdc66-3de3-49b7-8092-5751e543d7f8" name="Click Users - 1" type="Action">
+    <display x="15" y="-375" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Users&quot;" />
+    </inputs>
+    <onsuccess>09c57e3e-84cb-4783-88fa-27a1aa16307c</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="e01458af-15f8-44bb-a487-318f68a700a0" name="Local Variables" type="Block">
+    <display x="-225" y="1410" w="150" h="540" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="09c57e3e-84cb-4783-88fa-27a1aa16307c" name="Load Alerts Window" type="Action">
+    <display x="15" y="-315" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" narrative="The name of the user to configure the process alert for." expr="[Blue Prism User]" />
+    </inputs>
+    <onsuccess>0d0a0dc5-5b4e-4844-b4ee-98b01f68a827</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Load Alerts Window For User" />
+  </stage>
+  <stage stageid="7588fbe3-f875-4764-9dd7-47074461d6ed" name="Publish Processes" type="Action">
+    <display x="15" y="-555" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the process to publish" expr="[Process.Name]" />
+    </inputs>
+    <onsuccess>a5b53fbf-626c-47ac-9baa-7be7ac3eea19</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Publish Process" />
+  </stage>
+  <stage stageid="5348eb8f-f151-4f41-9054-98a242810277" name="Process" type="LoopStart">
+    <display x="15" y="-600" w="90" h="30" />
+    <onsuccess>7588fbe3-f875-4764-9dd7-47074461d6ed</onsuccess>
+    <groupid>79eb1ca1-0cdc-444f-b229-fae6011e26b4</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Process</loopdata>
+  </stage>
+  <stage stageid="a5b53fbf-626c-47ac-9baa-7be7ac3eea19" name="Process" type="LoopEnd">
+    <display x="15" y="-510" w="90" h="30" />
+    <onsuccess>d214e4e1-cad9-4083-b012-4f47a54cd42d</onsuccess>
+    <groupid>79eb1ca1-0cdc-444f-b229-fae6011e26b4</groupid>
+  </stage>
+  <stage stageid="77a51e38-490e-4f14-aac6-c30394719946" name="Select Process" type="Action">
+    <display x="15" y="-105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" narrative="Name of the process to Select or Deselect." expr="[Process.Name]" />
+      <input type="flag" name="Check Process?" narrative="False by Default. Pass True if process needs to be checked." expr="True" />
+    </inputs>
+    <onsuccess>74c29e98-48d7-4346-b89d-2d4c07f507f2</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Select / Deselect Process" />
+  </stage>
+  <stage stageid="2a711457-0886-4fcc-b11c-674510952fa5" name="Process" type="LoopStart">
+    <display x="15" y="-165" w="90" h="30" />
+    <onsuccess>77a51e38-490e-4f14-aac6-c30394719946</onsuccess>
+    <groupid>14fcae55-e948-4fe1-8800-e1b4724a033d</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Process</loopdata>
+  </stage>
+  <stage stageid="74c29e98-48d7-4346-b89d-2d4c07f507f2" name="Process" type="LoopEnd">
+    <display x="15" y="-45" w="90" h="30" />
+    <onsuccess>a8f22268-88fb-4f03-a992-0b791519067f</onsuccess>
+    <groupid>14fcae55-e948-4fe1-8800-e1b4724a033d</groupid>
+  </stage>
+  <stage stageid="a8f22268-88fb-4f03-a992-0b791519067f" name="Set Notification Methods" type="Action">
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="Pop Up Alert" narrative="Flag value for Pop Up Alert. Default False. Set True to Check the option." expr="True" />
+      <input type="flag" name="Show History" narrative="Flag value for Show History. Default False. Set True to Check the option." expr="False" />
+      <input type="flag" name="Taskbar Icon" narrative="Flag value for Taskbar Icon. Default False. Set True to Check the option." expr="True" />
+      <input type="flag" name="Play Sound" narrative="Flag value for Play Sound. Default False. Set True to Check the option." expr="True" />
+    </inputs>
+    <onsuccess>dc8dcff1-832f-49c4-ac98-2e0db8776774</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Set Notification Methods Checkboxes" />
+  </stage>
+  <stage stageid="dc8dcff1-832f-49c4-ac98-2e0db8776774" name="Set Business Process" type="Action">
+    <display x="15" y="75" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="Pending" narrative="Flag value for Pending checkbox. Default False. Set True to Check the option." expr="True" />
+      <input type="flag" name="Running" narrative="Flag value for Running checkbox. Default False. Set True to Check the option." expr="True" />
+      <input type="flag" name="Stage" narrative="Flag value for Stage checkbox. Default False. Set True to Check the option." expr="True" />
+      <input type="flag" name="Complete" narrative="Flag value for Complete checkbox. Default False. Set True to Check the option." expr="True" />
+      <input type="flag" name="Stopped" narrative="Flag value for Stopped checkbox. Default False. Set True to Check the option." expr="True" />
+      <input type="flag" name="Failed" narrative="Flag value for Failed checkbox. Default False. Set True to Check the option." expr="True" />
+    </inputs>
+    <onsuccess>0eec87f4-d7a5-4cbd-b29d-3ff34e862e8e</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Set Business Process Checkboxes" />
+  </stage>
+  <stage stageid="0eec87f4-d7a5-4cbd-b29d-3ff34e862e8e" name="Click OK" type="Action">
+    <display x="15" y="135" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="OK" narrative="False by default. Set True to click button. OK button has the highest priority." expr="True" />
+      <input type="flag" name="Cancel" narrative="False by default. Set True to click button. Cancel button has the second highest priority." expr="False" />
+      <input type="flag" name="Apply" narrative="False by default. Set True to click button. Apply button has the lowest priority." expr="False" />
+    </inputs>
+    <onsuccess>f90e9780-86c4-4cd3-869c-dfbf471f138d</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Apply, OK, Cancel" />
+  </stage>
+  <stage stageid="b4889167-94e7-4ba0-8cb8-44123bccb614" name="Unpublish Processes" type="SubSheetInfo">
+    <subsheetid>c0e00d4d-0489-4415-8f4d-f8b8cfeac306</subsheetid>
+    <narrative>Unpublishes the processes that are already published.</narrative>
+    <display x="-180" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="1c4e27ff-7f07-48c1-85e3-ddb8ecf666ce" name="Start" type="Start">
+    <subsheetid>c0e00d4d-0489-4415-8f4d-f8b8cfeac306</subsheetid>
+    <preconditions>
+      <condition narrative="Processes are already published." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="Published processes will be unpublished." />
+    </postconditions>
+    <display x="15" y="-105" w="90" h="30" />
+    <onsuccess>78a5a151-3027-4214-8cce-ce778de1fec3</onsuccess>
+  </stage>
+  <stage stageid="02ba9a0d-fa6e-4eec-9bee-af6cac4655ae" name="End" type="End">
+    <subsheetid>c0e00d4d-0489-4415-8f4d-f8b8cfeac306</subsheetid>
+    <display x="15" y="135" w="90" h="30" />
+  </stage>
+  <stage stageid="582ae013-3f5f-456f-a2e2-0ff4179be1c2" name="Unpublish Processes" type="Action">
+    <subsheetid>c0e00d4d-0489-4415-8f4d-f8b8cfeac306</subsheetid>
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Name" narrative="The name of the process to publish" expr="[Process.Name]" />
+    </inputs>
+    <onsuccess>f0c14760-b87d-4b61-9d60-d584b772ce10</onsuccess>
+    <resource object="Blue Prism - Studio - Process / Object" action="Unpublish Process" />
+  </stage>
+  <stage stageid="78a5a151-3027-4214-8cce-ce778de1fec3" name="Process" type="LoopStart">
+    <subsheetid>c0e00d4d-0489-4415-8f4d-f8b8cfeac306</subsheetid>
+    <display x="15" y="-45" w="90" h="30" />
+    <onsuccess>582ae013-3f5f-456f-a2e2-0ff4179be1c2</onsuccess>
+    <groupid>d453d169-d45c-46fa-bc97-e0adc6945859</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Process</loopdata>
+  </stage>
+  <stage stageid="f0c14760-b87d-4b61-9d60-d584b772ce10" name="Process" type="LoopEnd">
+    <subsheetid>c0e00d4d-0489-4415-8f4d-f8b8cfeac306</subsheetid>
+    <display x="15" y="75" w="90" h="30" />
+    <onsuccess>02ba9a0d-fa6e-4eec-9bee-af6cac4655ae</onsuccess>
+    <groupid>d453d169-d45c-46fa-bc97-e0adc6945859</groupid>
+  </stage>
+  <stage stageid="74d78588-0327-4d9d-b287-105945935fd6" name="CMD Command" type="Data">
+    <display x="-165" y="1485" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">cd C:\Program Files\Blue Prism Limited\Blue Prism Automate</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b6749b6c-4430-4bf5-b737-bac8965933dd" name="Global Variables" type="SubSheetInfo">
+    <subsheetid>ae71e86e-7e87-4520-8e8e-823286523cf9</subsheetid>
+    <narrative>Variables accessible across all pages will be placed here. Some are reset to default value if this page is visited.</narrative>
+    <display x="-165" y="-75" w="150" h="90" />
+  </stage>
+  <stage stageid="7da972c9-ac17-457b-a58d-107b2d99fc57" name="Start" type="Start">
+    <subsheetid>ae71e86e-7e87-4520-8e8e-823286523cf9</subsheetid>
+    <preconditions>
+      <condition narrative="None." />
+    </preconditions>
+    <postconditions>
+      <condition narrative="None." />
+    </postconditions>
+    <display x="15" y="-105" />
+    <onsuccess>8824318b-65b9-4984-8d3d-3042e4b0fad9</onsuccess>
+  </stage>
+  <stage stageid="8824318b-65b9-4984-8d3d-3042e4b0fad9" name="End" type="End">
+    <subsheetid>ae71e86e-7e87-4520-8e8e-823286523cf9</subsheetid>
+    <display x="15" y="0" />
+  </stage>
+  <stage stageid="f3637508-2978-4fcf-bff2-01ec16c8b334" name="Automate EXE" type="Data">
+    <subsheetid>ae71e86e-7e87-4520-8e8e-823286523cf9</subsheetid>
+    <display x="150" y="-90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <alwaysinit />
+  </stage>
+  <stage stageid="8bb06a4b-21ab-4922-bc46-ffdf0a94d1ad" name="Environment Variables" type="Block">
+    <subsheetid>ae71e86e-7e87-4520-8e8e-823286523cf9</subsheetid>
+    <display x="75" y="-120" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="024209a1-26e1-4bca-bf21-e7b31dc4dafd" name="Resource Port" type="Data">
+    <display x="-165" y="1515" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>9001</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="b2a4c9fc-adce-493a-b9a9-ea20a901ee57" name="Get Machine Name" type="Calculation">
+    <display x="15" y="-960" w="90" h="30" />
+    <onsuccess>11e7c9df-ab51-407a-97a7-ed8e336a6ce6</onsuccess>
+    <calculation expression="Replace(GetResourceName(), &quot;_debug&quot;, &quot;&quot;)" stage="Machine Name" />
+  </stage>
+  <stage stageid="6b3f7934-2a6a-4b5f-8f1f-28578d9c0be6" name="Machine Name" type="Data">
+    <display x="-165" y="1545" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="68c81ab7-393a-497c-8fe8-ef7011d806b1" name="Pending Session Position" type="Data">
+    <display x="-165" y="1605" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e3f7b1d0-be3c-458e-a5bc-1065cbd2a690" name="Unpublish Processes" type="SubSheet">
+    <display x="15" y="3285" w="90" h="60" />
+    <onsuccess>b8813dce-33ad-41bd-bc2a-8916b7b19a39</onsuccess>
+    <processid>c0e00d4d-0489-4415-8f4d-f8b8cfeac306</processid>
+  </stage>
+  <stage stageid="a45ba634-b07f-4c99-90e3-63756aa6ea8d" name="Start Pending Session" type="Action">
+    <display x="15" y="885" w="90" h="30" />
+    <onsuccess>7fab0aa0-deff-45d2-9922-96b6923eb831</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Start Session" />
+  </stage>
+  <stage stageid="2fefb7fa-1238-4f42-82ac-05c59cae4ceb" name="Process" type="LoopStart">
+    <display x="15" y="525" w="90" h="30" />
+    <onsuccess>0366dcbe-a19b-4014-923c-b64d5f2d1b35</onsuccess>
+    <groupid>1dedb396-d795-47b3-a6e3-2f713b730a8c</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Process</loopdata>
+  </stage>
+  <stage stageid="04ac5c8e-b8a7-4d51-93ab-d126a0b3dc5e" name="Process" type="LoopEnd">
+    <display x="15" y="1005" w="90" h="30" />
+    <onsuccess>d1fae24d-379d-43c3-a9c0-37676003fcb4</onsuccess>
+    <groupid>1dedb396-d795-47b3-a6e3-2f713b730a8c</groupid>
+  </stage>
+  <stage stageid="5b607102-9937-4faa-b398-4f662da8425a" name="Process" type="Collection">
+    <subsheetid>ae71e86e-7e87-4520-8e8e-823286523cf9</subsheetid>
+    <display x="150" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Name" type="text" description="Name of the Process" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Name" type="text" value="Process Complete" />
+      </row>
+      <row>
+        <field name="Name" type="text" value="Process Stop" />
+      </row>
+      <row>
+        <field name="Name" type="text" value="Process Alert" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="43eb759d-8ae4-4046-b8f2-0f03c7a17303" name="Global Variables" type="Block">
+    <subsheetid>ae71e86e-7e87-4520-8e8e-823286523cf9</subsheetid>
+    <display x="75" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="89604a6a-f2b9-4ab3-b57a-f9177fedc09b" name="Process ID" type="Data">
+    <display x="-165" y="1575" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0b614d77-6f7b-4eb9-b965-bde1472d58e3" name="Create Session" type="Action">
+    <display x="15" y="690" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" narrative="The name of the process of interest - if it is not found, the 'Ungrouped Processes' group will be opened and checked" expr="[Process.Name]" />
+      <input type="text" name="Resource Name" narrative="The name of the Resource PC on which to create the session" expr="[Machine Name] &amp; &quot;:&quot; &amp; [Resource Port]" />
+      <input type="text" name="Group to Expand" narrative="Default value is 'Default'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Position of Pending Session" narrative="The 1-based index of the newly created session in the Environment list in Control Room" stage="Pending Session Position" />
+    </outputs>
+    <onsuccess>08457304-a70c-496c-9565-e54162072b9a</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Create Session" />
+  </stage>
+  <stage stageid="97ee8245-93da-4c7d-a170-27c10b5be35a" name="Select Session" type="Action">
+    <display x="15" y="825" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Session Position" narrative="The 1-based index of the session of interest, in the Environment list" expr="[Pending Session Position]" />
+      <input type="text" name="Process Name" narrative="The expected process name of the session of interest. This will be double checked before starting the session at the specified position." expr="[Process.Name]" />
+      <input type="text" name="Resource Name" narrative="The expected resource name of the pending session of interset. This will be double checked before starting the session" expr="[Machine Name] &amp; &quot;:&quot; &amp; [Resource Port]" />
+      <input type="text" name="Session Status" narrative="The expected status of the session. This will be double checked." expr="&quot;Pending&quot;" />
+    </inputs>
+    <onsuccess>a45ba634-b07f-4c99-90e3-63756aa6ea8d</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Select Session" />
+  </stage>
+  <stage stageid="7fab0aa0-deff-45d2-9922-96b6923eb831" name="Stop Process?" type="Decision">
+    <display x="15" y="945" w="90" h="30" />
+    <decision expression="[Process.Name] = &quot;Process Stop&quot;" />
+    <ontrue>521a85e6-38c0-48f0-b048-d83bac5f028a</ontrue>
+    <onfalse>04ac5c8e-b8a7-4d51-93ab-d126a0b3dc5e</onfalse>
+  </stage>
+  <stage stageid="ef46fc16-3124-4634-a468-72826ec92c84" name="Stop Pending Session" type="Action">
+    <display x="-105" y="1005" w="90" h="30" />
+    <onsuccess>04ac5c8e-b8a7-4d51-93ab-d126a0b3dc5e</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Stop Selected Sessions" />
+  </stage>
+  <stage stageid="521a85e6-38c0-48f0-b048-d83bac5f028a" name="Select Session" type="Action">
+    <display x="-105" y="945" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Session Position" narrative="The 1-based index of the session of interest, in the Environment list" expr="[Pending Session Position]" />
+      <input type="text" name="Process Name" narrative="The expected process name of the session of interest. This will be double checked before starting the session at the specified position." expr="[Process.Name]" />
+      <input type="text" name="Resource Name" narrative="The expected resource name of the pending session of interset. This will be double checked before starting the session" expr="[Machine Name] &amp; &quot;:&quot; &amp; [Resource Port]" />
+      <input type="text" name="Session Status" narrative="The expected status of the session. This will be double checked." expr="&quot;Running&quot;" />
+    </inputs>
+    <onsuccess>ef46fc16-3124-4634-a468-72826ec92c84</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Select Session" />
+  </stage>
+  <stage stageid="5698bbcf-83eb-4845-8253-24086bb2d9d4" name="Click Users - 2" type="Action">
+    <display x="15" y="1125" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Users&quot;" />
+    </inputs>
+    <onsuccess>12dcc746-50fe-466b-8fdd-9e5a2689c0b6</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="12dcc746-50fe-466b-8fdd-9e5a2689c0b6" name="Load Alerts Window" type="Action">
+    <display x="15" y="1185" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" narrative="The name of the user to configure the process alert for." expr="[Blue Prism User]" />
+    </inputs>
+    <onsuccess>1dd1b60f-0d69-4b4b-afb4-419a6d4d5e61</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Load Alerts Window For User" />
+  </stage>
+  <stage stageid="1dd1b60f-0d69-4b4b-afb4-419a6d4d5e61" name="Click History Tab" type="Action">
+    <display x="15" y="1245" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of the tab in Alerts window that is required to be clicked." expr="&quot;History&quot;" />
+    </inputs>
+    <onsuccess>d384afc0-34ba-4b4f-a582-20b4f33e84b0</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Click Tab" />
+  </stage>
+  <stage stageid="d384afc0-34ba-4b4f-a582-20b4f33e84b0" name="Get History Table" type="Action">
+    <display x="15" y="1305" w="90" h="30" />
+    <outputs>
+      <output type="collection" name="History Table" narrative="The History Table in Collection type." stage="History Table" />
+    </outputs>
+    <onsuccess>f08a7119-d9bb-43bb-9fe7-96736945b789</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Get History as Collection" />
+  </stage>
+  <stage stageid="ddfb446e-8131-4fbc-81da-bd56b9ff7bab" name="History Table" type="Collection">
+    <display x="-165" y="1665" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="292ad23c-948d-41a4-94e5-ccaf31a9e3c8" name="Get Now()" type="Calculation">
+    <display x="15" y="-1095" w="90" h="30" />
+    <onsuccess>064f1288-d581-47ed-ab44-68793585a4fa</onsuccess>
+    <calculation expression="Now()" stage="Current Date Time" />
+  </stage>
+  <stage stageid="e2fe36ff-3155-46fb-8132-50d4e3b3aa3c" name="Current Date Time" type="Data">
+    <display x="-165" y="1635" w="120" h="30" />
+    <datatype>datetime</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f08a7119-d9bb-43bb-9fe7-96736945b789" name="Close Alerts Window" type="Action">
+    <display x="15" y="1365" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="OK" narrative="False by default. Set True to click button. OK button has the highest priority." expr="False" />
+      <input type="flag" name="Cancel" narrative="False by default. Set True to click button. Cancel button has the second highest priority." expr="True" />
+      <input type="flag" name="Apply" narrative="False by default. Set True to click button. Apply button has the lowest priority." expr="False" />
+    </inputs>
+    <onsuccess>e2e6d298-a763-4462-bd29-a04f7a056f66</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Apply, OK, Cancel" />
+  </stage>
+  <stage stageid="3ee168a1-47ae-4e26-9f70-fd8f37018f68" name="Expected Result" type="Collection">
+    <display x="-165" y="1695" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Date" type="datetime" />
+      <field name="Process" type="text" />
+      <field name="Message" type="text" />
+      <field name="Resource" type="text" />
+      <field name="Schedule" type="text" />
+      <field name="Task" type="text" />
+      <field name="Type" type="text" />
+      <field name="Method" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Completed" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="16" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Completed" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="16" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Completed" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="16" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="MyAlert= Executing My Custom Alert" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="1" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="MyAlert= Executing My Custom Alert" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="1" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="MyAlert= Executing My Custom Alert" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="1" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Stopped" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="8" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Stopped" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="8" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Stopped" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="8" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Completed" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="16" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Completed" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="16" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Completed" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="16" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="1" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="e2e6d298-a763-4462-bd29-a04f7a056f66" name="Expected Result" type="LoopStart">
+    <display x="15" y="1425" w="90" h="30" />
+    <onsuccess>a7645a64-1235-4547-8001-7cc532070e5f</onsuccess>
+    <groupid>8be24d5e-4050-4ec0-8fa0-3ca1ae8597fb</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>Expected Result</loopdata>
+  </stage>
+  <stage stageid="4afa6335-c697-405c-a9e0-d93902ab84af" name="Expected Result" type="LoopEnd">
+    <display x="15" y="1725" w="90" h="30" />
+    <onsuccess>b56edaa5-e768-4620-9b4c-b944b7c56bdd</onsuccess>
+    <groupid>8be24d5e-4050-4ec0-8fa0-3ca1ae8597fb</groupid>
+  </stage>
+  <stage stageid="250e7acf-74f0-4a4b-b770-c7b9e8d7f109" name="Found Record?" type="Decision">
+    <display x="15" y="1545" w="90" h="30" />
+    <decision expression="[Expected Result.Process] = [History Table.Process]&#xA;AND&#xA;[Expected Result.Message] = [History Table.Message]&#xA;AND&#xA;[Expected Result.Type] = [History Table.Type]&#xA;AND&#xA;[Expected Result.Method] = [History Table.Method]&#xA;AND&#xA;ToDateTime([History Table.Date]) &gt;= [Current Date Time]" />
+    <ontrue>c63e1460-6cdb-4549-8052-7a4d21c3a804</ontrue>
+    <onfalse>0eabb194-4329-4f3d-b4ea-86ce26295f76</onfalse>
+  </stage>
+  <stage stageid="a7645a64-1235-4547-8001-7cc532070e5f" name="History Table" type="LoopStart">
+    <display x="15" y="1485" w="90" h="30" />
+    <onsuccess>250e7acf-74f0-4a4b-b770-c7b9e8d7f109</onsuccess>
+    <groupid>5515347b-8231-4875-b6f8-49ed035ab67d</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>History Table</loopdata>
+  </stage>
+  <stage stageid="0eabb194-4329-4f3d-b4ea-86ce26295f76" name="History Table" type="LoopEnd">
+    <display x="15" y="1605" w="90" h="30" />
+    <onsuccess>44038ec4-6b2c-45b7-8e22-6d6f9f169ae3</onsuccess>
+    <groupid>5515347b-8231-4875-b6f8-49ed035ab67d</groupid>
+  </stage>
+  <stage stageid="44038ec4-6b2c-45b7-8e22-6d6f9f169ae3" name="Record Not Found" type="Exception">
+    <display x="15" y="1665" w="120" h="30" />
+    <font family="Segoe UI" size="12" style="Bold" color="FF0000" />
+    <breakpoint type="0">
+      <condition>
+      </condition>
+    </breakpoint>
+    <exception type="Business Exception" detail="&quot;Record Not Found in History Table&quot;" />
+  </stage>
+  <stage stageid="c63e1460-6cdb-4549-8052-7a4d21c3a804" name="Anchor3" type="Anchor">
+    <display x="90" y="1545" w="10" h="10" />
+    <onsuccess>35ab61d5-14ef-455a-befe-2054773489e8</onsuccess>
+  </stage>
+  <stage stageid="35ab61d5-14ef-455a-befe-2054773489e8" name="Anchor4" type="Anchor">
+    <display x="90" y="1725" w="10" h="10" />
+    <onsuccess>4afa6335-c697-405c-a9e0-d93902ab84af</onsuccess>
+  </stage>
+  <stage stageid="b8813dce-33ad-41bd-bc2a-8916b7b19a39" name="Stop Public Resource" type="Action">
+    <display x="15" y="3360" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" narrative="The port number whose resource should be stopped" expr="[Resource Port]" />
+    </inputs>
+    <onsuccess>99b45795-a77e-46d4-bc93-44d308ebb4ee</onsuccess>
+    <resource object="Resource Manager" action="Stop Resource" />
+  </stage>
+  <stage stageid="f90e9780-86c4-4cd3-869c-dfbf471f138d" name="Note1" type="Note">
+    <narrative>Sign Out and Sign Back In</narrative>
+    <display x="15" y="210" w="120" h="60" />
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <onsuccess>fc64ba4d-63d4-46c1-ab49-0e090e6dc48f</onsuccess>
+  </stage>
+  <stage stageid="136f594b-977c-421a-a0bc-5b85779c1392" name="Sign Into Blue Prism" type="Action">
+    <display x="15" y="345" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" expr="[Blue Prism User]" />
+      <input type="password" name="Password" expr="[Blue Prism Pass]" />
+      <input type="password" name="New Password" narrative="If this is your first login it will prompt you to change the password." expr="" />
+    </inputs>
+    <onsuccess>71c4f6cf-432d-4aac-9113-e844e198c010</onsuccess>
+    <resource object="Blue Prism" action="Sign In" />
+  </stage>
+  <stage stageid="fc64ba4d-63d4-46c1-ab49-0e090e6dc48f" name="Sign Out Blue Prism" type="Action">
+    <display x="15" y="285" w="90" h="30" />
+    <onsuccess>136f594b-977c-421a-a0bc-5b85779c1392</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="eb41df27-cf91-4e9d-9d29-f9d8f8cf8b13" name="Processes" type="Collection">
+    <display x="-165" y="1725" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Process Name" type="text" />
+      <field name="PID" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Process Name" type="text" value="Automate" />
+        <field name="PID" type="number" value="-1" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="78309569-6509-47eb-a893-f92b1de120b2" name="Start Alert Monitoring" type="Action">
+    <display x="15" y="-1005" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Path" narrative="Path" expr="[Automate EXE]" />
+      <input type="text" name="Username" narrative="username" expr="[Blue Prism User]" />
+      <input type="text" name="Password" narrative="password" expr="[Blue Prism Pass]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="PID" narrative="PID of the process" stage="PID" />
+    </outputs>
+    <onsuccess>b2a4c9fc-adce-493a-b9a9-ea20a901ee57</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Start Process Alert Monitoring" />
+  </stage>
+  <stage stageid="3233f90f-f811-4ae7-bf9d-4f262cdd3c6c" name="PID" type="Data">
+    <display x="-165" y="1755" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="99b45795-a77e-46d4-bc93-44d308ebb4ee" name="Sign Out Blue Prism" type="Action">
+    <display x="15" y="3420" w="90" h="30" />
+    <onsuccess>03c1aa60-eb9e-4468-863b-bae95d1c1519</onsuccess>
+    <resource object="Blue Prism" action="Sign Out" />
+  </stage>
+  <stage stageid="7606ce7d-a050-4f5e-a52f-f554465d885d" name="Error Message" type="Data">
+    <display x="-165" y="1785" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="40da46c4-ed97-489f-8153-e8a611be0d78" name="Success" type="Data">
+    <display x="-165" y="1815" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b56edaa5-e768-4620-9b4c-b944b7c56bdd" name="Stop Alert Monitoring" type="Action">
+    <display x="15" y="1785" w="90" h="30" />
+    <inputs>
+      <input type="number" name="ID" narrative="The ID of the process to kill" expr="[PID]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Error Message" narrative="Error Message if fails." stage="Error Message" />
+      <output type="flag" name="Success" narrative="True if Successful, False by default." stage="Success" />
+    </outputs>
+    <onsuccess>ab15b98c-9f33-4878-927d-6c6a6c757bff</onsuccess>
+    <resource object="Kill Process By ID" action="Kill Process By PID" />
+  </stage>
+  <stage stageid="ab15b98c-9f33-4878-927d-6c6a6c757bff" name="Success?" type="Decision">
+    <display x="15" y="1845" w="90" h="30" />
+    <decision expression="[Success]" />
+    <ontrue>96d0fc1c-4e84-4eed-8a9d-93791693a7aa</ontrue>
+    <onfalse>0ff285cd-4166-4bdc-b66c-32074dabee20</onfalse>
+  </stage>
+  <stage stageid="0ff285cd-4166-4bdc-b66c-32074dabee20" name="Closing Alerts Failed" type="Exception">
+    <display x="135" y="1845" w="90" h="30" />
+    <exception type="System Exception" detail="&quot;Failed to kill Process Alerts process based on PID. Recorded Exception: &quot; &amp; [Error Message]" />
+  </stage>
+  <stage stageid="d4cfff0a-2912-4af7-9375-838136a2bc4a" name="Start Pending Session" type="Action">
+    <display x="15" y="2610" w="90" h="30" />
+    <onsuccess>b8589320-78b5-43f0-956c-9993b77499ca</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Start Session" />
+  </stage>
+  <stage stageid="0ba30813-c230-4b67-bdef-a57f4e4e52ad" name="Create Session" type="Action">
+    <display x="15" y="2490" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" narrative="The name of the process of interest - if it is not found, the 'Ungrouped Processes' group will be opened and checked" expr="&quot;Process Complete&quot;" />
+      <input type="text" name="Resource Name" narrative="The name of the Resource PC on which to create the session" expr="[Machine Name] &amp; &quot;:&quot; &amp; [Resource Port]" />
+      <input type="text" name="Group to Expand" narrative="Default value is 'Default'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Position of Pending Session" narrative="The 1-based index of the newly created session in the Environment list in Control Room" stage="Pending Session Position" />
+    </outputs>
+    <onsuccess>5272b920-e029-4e22-8627-e1c592b4cdca</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Create Session" />
+  </stage>
+  <stage stageid="5272b920-e029-4e22-8627-e1c592b4cdca" name="Select Session" type="Action">
+    <display x="15" y="2550" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Session Position" narrative="The 1-based index of the session of interest, in the Environment list" expr="[Pending Session Position]" />
+      <input type="text" name="Process Name" narrative="The expected process name of the session of interest. This will be double checked before starting the session at the specified position." expr="&quot;Process Complete&quot;" />
+      <input type="text" name="Resource Name" narrative="The expected resource name of the pending session of interset. This will be double checked before starting the session" expr="[Machine Name] &amp; &quot;:&quot; &amp; [Resource Port]" />
+      <input type="text" name="Session Status" narrative="The expected status of the session. This will be double checked." expr="&quot;Pending&quot;" />
+    </inputs>
+    <onsuccess>d4cfff0a-2912-4af7-9375-838136a2bc4a</onsuccess>
+    <resource object="Blue Prism - Control - Session Management" action="Select Session" />
+  </stage>
+  <stage stageid="de088a6e-981a-428e-843c-9663ce23f1cc" name="Get Now()" type="Calculation">
+    <display x="15" y="2265" w="90" h="30" />
+    <onsuccess>a149bd10-30a6-4960-b428-4b618d4f93d2</onsuccess>
+    <calculation expression="Now()" stage="Current Date Time" />
+  </stage>
+  <stage stageid="a61c589b-c838-4506-9977-ad71b0b07ff0" name="Found Record?" type="Decision">
+    <display x="15" y="3090" w="90" h="30" />
+    <decision expression="ToDateTime([History Table.Date])  &lt; [Current Date Time]" />
+    <ontrue>1947c9a6-7aeb-4858-91c4-8cd401b6e028</ontrue>
+    <onfalse>addb1409-138d-4ec7-b7ff-f438a0eef947</onfalse>
+  </stage>
+  <stage stageid="535d6de2-4c62-4622-8572-18b0c8ee2226" name="History Table" type="LoopStart">
+    <display x="15" y="3030" w="90" h="30" />
+    <onsuccess>a61c589b-c838-4506-9977-ad71b0b07ff0</onsuccess>
+    <groupid>f3afa987-54e5-487e-bb8d-3c69e05d9521</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>History Table</loopdata>
+  </stage>
+  <stage stageid="53dddfa0-c9ac-480c-8231-502748a901fe" name="History Table" type="LoopEnd">
+    <display x="15" y="3210" w="90" h="30" />
+    <onsuccess>e3f7b1d0-be3c-458e-a5bc-1065cbd2a690</onsuccess>
+    <groupid>f3afa987-54e5-487e-bb8d-3c69e05d9521</groupid>
+  </stage>
+  <stage stageid="1947c9a6-7aeb-4858-91c4-8cd401b6e028" name="Anchor5" type="Anchor">
+    <display x="90" y="3090" w="10" h="10" />
+    <onsuccess>7a525309-5bc3-48c5-bb4f-6cd1e0e840af</onsuccess>
+  </stage>
+  <stage stageid="7a525309-5bc3-48c5-bb4f-6cd1e0e840af" name="Anchor6" type="Anchor">
+    <display x="90" y="3285" w="10" h="10" />
+    <onsuccess>e3f7b1d0-be3c-458e-a5bc-1065cbd2a690</onsuccess>
+  </stage>
+  <stage stageid="23a49897-843f-4282-8c25-597d475794b3" name="Click Users - 3" type="Action">
+    <display x="15" y="1965" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Users&quot;" />
+    </inputs>
+    <onsuccess>05b29b5b-9b7b-439a-9896-8f104450265a</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="05b29b5b-9b7b-439a-9896-8f104450265a" name="Load Alerts Window" type="Action">
+    <display x="15" y="2025" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" narrative="The name of the user to configure the process alert for." expr="[Blue Prism User]" />
+    </inputs>
+    <onsuccess>ce8e3a22-41ef-463f-bca6-f5da9b8e4d39</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Load Alerts Window For User" />
+  </stage>
+  <stage stageid="8ced1333-2c7d-4d48-ada5-1e4abe3336d1" name="Close Alerts Window - OK" type="Action">
+    <display x="15" y="2205" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="OK" narrative="False by default. Set True to click button. OK button has the highest priority." expr="True" />
+      <input type="flag" name="Cancel" narrative="False by default. Set True to click button. Cancel button has the second highest priority." expr="False" />
+      <input type="flag" name="Apply" narrative="False by default. Set True to click button. Apply button has the lowest priority." expr="False" />
+    </inputs>
+    <onsuccess>de088a6e-981a-428e-843c-9663ce23f1cc</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Apply, OK, Cancel" />
+  </stage>
+  <stage stageid="ce8e3a22-41ef-463f-bca6-f5da9b8e4d39" name="Click Processes Tab" type="Action">
+    <display x="15" y="2085" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of the tab in Alerts window that is required to be clicked." expr="&quot;Processes&quot;" />
+    </inputs>
+    <onsuccess>f78a93c9-9540-4508-b636-5cd2bac0fc1b</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Click Tab" />
+  </stage>
+  <stage stageid="f78a93c9-9540-4508-b636-5cd2bac0fc1b" name="Click Clear All" type="Action">
+    <display x="15" y="2145" w="90" h="30" />
+    <onsuccess>8ced1333-2c7d-4d48-ada5-1e4abe3336d1</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Click Clear All" />
+  </stage>
+  <stage stageid="b01e80ba-8ae5-48c6-ba12-35755778dda0" name="Click Users - 4" type="Action">
+    <display x="15" y="2730" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tree Name" narrative="Name of the tree to be extended." expr="&quot;Security&quot;" />
+      <input type="text" name="Item Name" narrative="Name of the item to be clicked on." expr="&quot;Users&quot;" />
+    </inputs>
+    <onsuccess>132795de-681f-417f-8a3f-edf6de2b3763</onsuccess>
+    <resource object="Blue Prism - System - Basic Actions" action="Click Item From System Tree" />
+  </stage>
+  <stage stageid="132795de-681f-417f-8a3f-edf6de2b3763" name="Load Alerts Window" type="Action">
+    <display x="15" y="2790" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Username" narrative="The name of the user to configure the process alert for." expr="[Blue Prism User]" />
+    </inputs>
+    <onsuccess>7fe2c5e5-b7ac-4b40-967d-2ab68921aa2c</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Load Alerts Window For User" />
+  </stage>
+  <stage stageid="7fe2c5e5-b7ac-4b40-967d-2ab68921aa2c" name="Click History Tab" type="Action">
+    <display x="15" y="2850" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of the tab in Alerts window that is required to be clicked." expr="&quot;History&quot;" />
+    </inputs>
+    <onsuccess>ad9949da-dcbb-4cd1-ab3b-a25cdc140ebf</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Click Tab" />
+  </stage>
+  <stage stageid="ad9949da-dcbb-4cd1-ab3b-a25cdc140ebf" name="Get History Table" type="Action">
+    <display x="15" y="2910" w="90" h="30" />
+    <outputs>
+      <output type="collection" name="History Table" narrative="The History Table in Collection type." stage="History Table" />
+    </outputs>
+    <onsuccess>8f99cb61-5c75-4ad8-b57c-71a889b47aad</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Get History as Collection" />
+  </stage>
+  <stage stageid="8f99cb61-5c75-4ad8-b57c-71a889b47aad" name="Close Alerts Window" type="Action">
+    <display x="15" y="2970" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="OK" narrative="False by default. Set True to click button. OK button has the highest priority." expr="False" />
+      <input type="flag" name="Cancel" narrative="False by default. Set True to click button. Cancel button has the second highest priority." expr="True" />
+      <input type="flag" name="Apply" narrative="False by default. Set True to click button. Apply button has the lowest priority." expr="False" />
+    </inputs>
+    <onsuccess>535d6de2-4c62-4622-8572-18b0c8ee2226</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Apply, OK, Cancel" />
+  </stage>
+  <stage stageid="addb1409-138d-4ec7-b7ff-f438a0eef947" name="Alert Still Enabled" type="Exception">
+    <display x="15" y="3150" w="90" h="30" />
+    <exception type="System Exception" detail="&quot;Alert is still enabled.&quot;" />
+  </stage>
+  <stage stageid="6a33830a-82b2-42cc-98dc-a4e2396f7cce" name="Catch" type="Block">
+    <display x="-45" y="660" w="240" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="8c56170f-90c5-4193-939d-857163202102" name="Recover1" type="Recover">
+    <display x="135" y="690" w="90" h="30" />
+    <onsuccess>fc537dd7-9b4d-4d65-bc1a-9f166b782e5e</onsuccess>
+  </stage>
+  <stage stageid="fc537dd7-9b4d-4d65-bc1a-9f166b782e5e" name="Not Activated?" type="Decision">
+    <display x="255" y="690" w="90" h="30" />
+    <decision expression="ExceptionDetail() = &quot;Blue Prism window is not activated&quot;" />
+    <ontrue>3ed581f4-3cd8-45ba-9f55-fe27b8f3dedf</ontrue>
+    <onfalse>aff56d04-79a5-430c-9adc-9edacf500d03</onfalse>
+  </stage>
+  <stage stageid="2fddec55-57fc-4c7f-aa6a-b4322adda486" name="RetryCount" type="Data">
+    <display x="-165" y="1845" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3ed581f4-3cd8-45ba-9f55-fe27b8f3dedf" name="RetryCount++" type="Calculation">
+    <display x="255" y="630" w="90" h="30" />
+    <onsuccess>63ef0116-6e55-45a7-92f6-f4e61e755b20</onsuccess>
+    <calculation expression="[RetryCount] + 1" stage="RetryCount" />
+  </stage>
+  <stage stageid="aff56d04-79a5-430c-9adc-9edacf500d03" name="Bubble Up" type="Exception">
+    <display x="375" y="690" w="90" h="30" />
+    <exception localized="yes" type="" detail="" usecurrent="yes" />
+  </stage>
+  <stage stageid="63ef0116-6e55-45a7-92f6-f4e61e755b20" name="Retry?" type="Decision">
+    <display x="255" y="570" w="90" h="30" />
+    <decision expression="[RetryCount] &lt;= 8" />
+    <ontrue>c1c67cfb-6850-449e-b779-280249bf5da5</ontrue>
+    <onfalse>b859531a-492a-40e2-a35e-4e1d4f28a484</onfalse>
+  </stage>
+  <stage stageid="c1c67cfb-6850-449e-b779-280249bf5da5" name="Resume1" type="Resume">
+    <display x="135" y="570" w="90" h="30" />
+    <onsuccess>0366dcbe-a19b-4014-923c-b64d5f2d1b35</onsuccess>
+  </stage>
+  <stage stageid="0366dcbe-a19b-4014-923c-b64d5f2d1b35" name="Anchor7" type="Anchor">
+    <display x="15" y="570" w="10" h="10" />
+    <onsuccess>0b614d77-6f7b-4eb9-b965-bde1472d58e3</onsuccess>
+  </stage>
+  <stage stageid="b859531a-492a-40e2-a35e-4e1d4f28a484" name="Anchor8" type="Anchor">
+    <display x="375" y="570" w="10" h="10" />
+    <onsuccess>aff56d04-79a5-430c-9adc-9edacf500d03</onsuccess>
+  </stage>
+  <stage stageid="08457304-a70c-496c-9565-e54162072b9a" name="Reset RetryCount" type="Calculation">
+    <display x="15" y="765" w="90" h="30" />
+    <onsuccess>97ee8245-93da-4c7d-a170-27c10b5be35a</onsuccess>
+    <calculation expression="0" stage="RetryCount" />
+  </stage>
+  <stage stageid="37385289-1e26-46c1-889c-8c3452c984a2" name="Catch" type="Block">
+    <display x="-45" y="2460" w="240" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="034c0657-94e7-40a8-bc72-db2564002313" name="Recover1" type="Recover">
+    <display x="135" y="2490" w="90" h="30" />
+    <onsuccess>6b9af603-35a3-4b54-81b6-281a58a02c15</onsuccess>
+  </stage>
+  <stage stageid="6b9af603-35a3-4b54-81b6-281a58a02c15" name="Not Activated?" type="Decision">
+    <display x="255" y="2490" w="90" h="30" />
+    <decision expression="ExceptionDetail() = &quot;Blue Prism window is not activated&quot;" />
+    <ontrue>04b429bf-78f2-435b-a065-c1f5d4ed247b</ontrue>
+    <onfalse>053b0ce9-9fad-4e0c-bf81-c90ec6cf9005</onfalse>
+  </stage>
+  <stage stageid="04b429bf-78f2-435b-a065-c1f5d4ed247b" name="RetryCount++" type="Calculation">
+    <display x="255" y="2430" w="90" h="30" />
+    <onsuccess>78385ce9-37bd-4bd1-889a-39a38da45c36</onsuccess>
+    <calculation expression="[RetryCount] + 1" stage="RetryCount" />
+  </stage>
+  <stage stageid="053b0ce9-9fad-4e0c-bf81-c90ec6cf9005" name="Bubble Up" type="Exception">
+    <display x="375" y="2490" w="90" h="30" />
+    <exception localized="yes" type="" detail="" usecurrent="yes" />
+  </stage>
+  <stage stageid="78385ce9-37bd-4bd1-889a-39a38da45c36" name="Retry?" type="Decision">
+    <display x="255" y="2370" w="90" h="30" />
+    <decision expression="[RetryCount] &lt;= 4" />
+    <ontrue>f4900256-d2f3-4d30-8e24-c8bc6a0f8b4a</ontrue>
+    <onfalse>d11db638-daaa-4da4-b05b-3e86b1c1388e</onfalse>
+  </stage>
+  <stage stageid="f4900256-d2f3-4d30-8e24-c8bc6a0f8b4a" name="Resume1" type="Resume">
+    <display x="135" y="2370" w="90" h="30" />
+    <onsuccess>10e667ba-4ff3-40ed-b705-2a7080217e6b</onsuccess>
+  </stage>
+  <stage stageid="10e667ba-4ff3-40ed-b705-2a7080217e6b" name="Anchor7" type="Anchor">
+    <display x="15" y="2370" w="10" h="10" />
+    <onsuccess>0ba30813-c230-4b67-bdef-a57f4e4e52ad</onsuccess>
+  </stage>
+  <stage stageid="d11db638-daaa-4da4-b05b-3e86b1c1388e" name="Anchor8" type="Anchor">
+    <display x="375" y="2370" w="10" h="10" />
+    <onsuccess>053b0ce9-9fad-4e0c-bf81-c90ec6cf9005</onsuccess>
+  </stage>
+  <stage stageid="71c4f6cf-432d-4aac-9113-e844e198c010" name="Hide Runtime Resource" type="Action">
+    <display x="15" y="405" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Process ID" expr="[Process ID]" />
+    </inputs>
+    <onsuccess>fd2a66a9-b52e-4148-9049-1df16dbf006e</onsuccess>
+    <resource object="Resource Manager" action="Hide Runtime Resource" />
+  </stage>
+  <stage stageid="b5145264-02e8-4542-a4a2-569b1a57f9ce" name="OLD Process" type="Collection">
+    <subsheetid>ae71e86e-7e87-4520-8e8e-823286523cf9</subsheetid>
+    <display x="150" y="45" w="120" h="30" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Name" type="text" description="Name of the Process" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Name" type="text" value="Process Complete" />
+      </row>
+      <row>
+        <field name="Name" type="text" value="1 Process Exception" />
+      </row>
+      <row>
+        <field name="Name" type="text" value="Process Stop" />
+      </row>
+      <row>
+        <field name="Name" type="text" value="Process Alert" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="a16377d9-13e3-4563-a82f-d4884ace8921" name="OLD Expected Result" type="Collection">
+    <display x="-165" y="1905" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Date" type="datetime" />
+      <field name="Process" type="text" />
+      <field name="Message" type="text" />
+      <field name="Resource" type="text" />
+      <field name="Schedule" type="text" />
+      <field name="Task" type="text" />
+      <field name="Type" type="text" />
+      <field name="Method" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Completed" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="16" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Completed" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="16" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Completed" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="16" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="MyAlert= Executing My Custom Alert" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="1" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="MyAlert= Executing My Custom Alert" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="1" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="MyAlert= Executing My Custom Alert" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="1" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Alert" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Stopped" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="8" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Stopped" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="8" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Stopped" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="8" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Stop" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="1 Process Exception" />
+        <field name="Message" type="text" value="Process Terminated" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="32" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="1 Process Exception" />
+        <field name="Message" type="text" value="Process Terminated" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="32" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="1 Process Exception" />
+        <field name="Message" type="text" value="Process Terminated" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="32" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="1 Process Exception" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="1 Process Exception" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="1 Process Exception" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="1 Process Exception" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="1 Process Exception" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="1 Process Exception" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Completed" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="16" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Completed" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="16" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Completed" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="16" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Running" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="4" />
+        <field name="Method" type="text" value="1" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="8" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="4" />
+      </row>
+      <row>
+        <field name="Date" type="datetime" value="" />
+        <field name="Process" type="text" value="Process Complete" />
+        <field name="Message" type="text" value="Process Pending" />
+        <field name="Resource" type="text" value="" />
+        <field name="Schedule" type="text" value="" />
+        <field name="Task" type="text" value="" />
+        <field name="Type" type="text" value="2" />
+        <field name="Method" type="text" value="1" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="fd2a66a9-b52e-4148-9049-1df16dbf006e" name="Open Control Tab" type="Action">
+    <display x="15" y="465" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>2fefb7fa-1238-4f42-82ac-05c59cae4ceb</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="a149bd10-30a6-4960-b428-4b618d4f93d2" name="Open Control Tab" type="Action">
+    <display x="15" y="2325" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;Control&quot;" />
+    </inputs>
+    <onsuccess>10e667ba-4ff3-40ed-b705-2a7080217e6b</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="d1fae24d-379d-43c3-a9c0-37676003fcb4" name="Open System Tab" type="Action">
+    <display x="15" y="1065" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>5698bbcf-83eb-4845-8253-24086bb2d9d4</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="96d0fc1c-4e84-4eed-8a9d-93791693a7aa" name="Open System Tab" type="Action">
+    <display x="15" y="1905" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>23a49897-843f-4282-8c25-597d475794b3</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="b8589320-78b5-43f0-956c-9993b77499ca" name="Open System Tab" type="Action">
+    <display x="15" y="2670" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>b01e80ba-8ae5-48c6-ba12-35755778dda0</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="d214e4e1-cad9-4083-b012-4f47a54cd42d" name="Open System Tab" type="Action">
+    <display x="15" y="-435" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Tab Name" narrative="Name of Tab to Click" expr="&quot;System&quot;" />
+    </inputs>
+    <onsuccess>a5bcdc66-3de3-49b7-8092-5751e543d7f8</onsuccess>
+    <resource object="Blue Prism - Basic Actions" action="Go to Tab" />
+  </stage>
+  <stage stageid="11e7c9df-ab51-407a-97a7-ed8e336a6ce6" name="Launch Blue Prism" type="Action">
+    <display x="15" y="-915" w="90" h="30" />
+    <outputs>
+      <output type="number" name="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>35c19640-90b5-4e9d-b448-f870821c0ac8</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="35c19640-90b5-4e9d-b448-f870821c0ac8" name="Attach Control" type="Action">
+    <display x="15" y="-870" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>36493b7d-03ff-484c-9848-dc2035bbd7f4</onsuccess>
+    <resource object="Blue Prism - Control Room (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="36493b7d-03ff-484c-9848-dc2035bbd7f4" name="Attach Studio" type="Action">
+    <display x="15" y="-825" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>c8e43fc0-857e-4ded-b70d-e76f57f9f627</onsuccess>
+    <resource object="Blue Prism - Studio (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="c8e43fc0-857e-4ded-b70d-e76f57f9f627" name="Attach System" type="Action">
+    <display x="15" y="-780" w="90" h="30" />
+    <inputs>
+      <input type="number" name="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>4b3dc3ed-9ec8-46bd-b303-33462e7a89a5</onsuccess>
+    <resource object="Blue Prism - System (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="8bdc8f80-50ba-44ee-99e0-d930d6702a82" name="pid" type="Data">
+    <display x="-165" y="1875" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4531d8d1-bbbc-4558-9c4b-912a7b5df4de" name="Start Public Resource" type="Action">
+    <display x="15" y="-690" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" narrative="The port number on which the resource PC should listen" expr="[Resource Port]" />
+      <input type="flag" name="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="" />
+      <input type="text" name="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="[Blue Prism User]" />
+      <input type="password" name="Password" narrative="The password to use for the resource. Only used if Username is given" expr="[Blue Prism Pass]" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" narrative="The PID of the newly created process" stage="Process ID" />
+    </outputs>
+    <onsuccess>abe536db-3ed3-4bd5-a020-b24a9e8d75b0</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+  <stage stageid="d4512fa9-b73f-4a79-883b-1ca684f4e777" name="SSO?" type="Decision">
+    <display x="15" y="-1140" w="90" h="30" />
+    <decision expression="SingleSignon()" />
+    <ontrue>54a90a47-9b1a-4a27-aacc-8c53cef97b1c</ontrue>
+    <onfalse>292ad23c-948d-41a4-94e5-ccaf31a9e3c8</onfalse>
+  </stage>
+  <stage stageid="54a90a47-9b1a-4a27-aacc-8c53cef97b1c" name="Set AD User" type="Calculation">
+    <loginhibit onsuccess="true" />
+    <display x="120" y="-1140" w="90" h="30" />
+    <onsuccess>3e55f925-cbb4-4f1d-b70a-c6b4cb353c2b</onsuccess>
+    <calculation expression="&quot;qauser103@orgdomain.local&quot;" stage="Blue Prism User" />
+  </stage>
+  <stage stageid="3e55f925-cbb4-4f1d-b70a-c6b4cb353c2b" name="Anchor9" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="120" y="-1095" w="10" h="10" />
+    <onsuccess>292ad23c-948d-41a4-94e5-ccaf31a9e3c8</onsuccess>
+  </stage>
+  <stage stageid="c6f498ed-4804-44cd-9924-2ef49082b8b0" name="Start Alert Monitoring (SSO)" type="Action">
+    <display x="120" y="-1005" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Path" narrative="Path" expr="[Automate EXE]" />
+      <input type="text" name="Username" narrative="username" expr="" />
+      <input type="password" name="Password" narrative="password" expr="" />
+      <input type="flag" name="SSO" friendlyname="SSO" narrative="SSO" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="number" name="PID" narrative="PID of the process" stage="PID" />
+    </outputs>
+    <onsuccess>b1d4e13c-16a6-49f9-898d-dcb9b846cb6b</onsuccess>
+    <resource object="Blue Prism - System - Security" action="Process Alerts - Start Process Alert Monitoring" />
+  </stage>
+  <stage stageid="b1d4e13c-16a6-49f9-898d-dcb9b846cb6b" name="Anchor9" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="120" y="-960" w="10" h="10" />
+    <onsuccess>b2a4c9fc-adce-493a-b9a9-ea20a901ee57</onsuccess>
+  </stage>
+  <stage stageid="638e53ef-3f2f-451f-9403-ec1b2092e477" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="120" y="-1050" w="10" h="10" />
+    <onsuccess>c6f498ed-4804-44cd-9924-2ef49082b8b0</onsuccess>
+  </stage>
+  <stage stageid="064f1288-d581-47ed-ab44-68793585a4fa" name="SSO?" type="Decision">
+    <display x="15" y="-1050" w="90" h="30" />
+    <decision expression="SingleSignon()" />
+    <ontrue>638e53ef-3f2f-451f-9403-ec1b2092e477</ontrue>
+    <onfalse>78309569-6509-47eb-a893-f92b1de120b2</onfalse>
+  </stage>
+  <stage stageid="9f5f57fc-f607-44d5-93e9-a6a5bf9c1120" name="Start Public Resource (SSO)" type="Action">
+    <display x="120" y="-690" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Port" narrative="The port number on which the resource PC should listen" expr="[Resource Port]" />
+      <input type="flag" name="SSO" narrative="True to login using Active Directory authentication. If this is False and Username is empty, a public resource PC is started" expr="True" />
+      <input type="text" name="Username" narrative="The username to use for the resource PC. Ignored if SSO is True. If this is empty and SSO is False, this will create a public resource" expr="" />
+      <input type="password" name="Password" narrative="The password to use for the resource. Only used if Username is given" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Process ID" narrative="The PID of the newly created process" stage="Process ID" />
+    </outputs>
+    <onsuccess>f89fc6dd-0b1c-4024-810d-e27e7777299f</onsuccess>
+    <resource object="Resource Manager" action="Start Resource" />
+  </stage>
+  <stage stageid="f89fc6dd-0b1c-4024-810d-e27e7777299f" name="Anchor9" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="120" y="-645" w="10" h="10" />
+    <onsuccess>abe536db-3ed3-4bd5-a020-b24a9e8d75b0</onsuccess>
+  </stage>
+  <stage stageid="c770dbf8-fc98-4e29-bf97-f66245401c33" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="120" y="-735" w="10" h="10" />
+    <onsuccess>9f5f57fc-f607-44d5-93e9-a6a5bf9c1120</onsuccess>
+  </stage>
+  <stage stageid="4b3dc3ed-9ec8-46bd-b303-33462e7a89a5" name="SSO?" type="Decision">
+    <display x="15" y="-735" w="90" h="30" />
+    <decision expression="SingleSignon()" />
+    <ontrue>c770dbf8-fc98-4e29-bf97-f66245401c33</ontrue>
+    <onfalse>4531d8d1-bbbc-4558-9c4b-912a7b5df4de</onfalse>
+  </stage>
+</process>

@@ -1,0 +1,447 @@
+﻿<process name="Test Active Directory" version="1.0" narrative="." preferredid="5edfc5a5-6607-4840-9cb4-44830a447c1f">
+  <view>
+    <camerax>0</camerax>
+    <cameray>-18</cameray>
+    <zoom>1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="7174fddc-1ee3-4366-9917-e520537b9510" type="Normal" published="False">
+    <name>Perform Test</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-170</cameray>
+      <zoom>1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="76e79816-b422-4392-99a5-5a4e83957ab4" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>cc592b63-12bc-448c-8d04-f2639f6113be</onsuccess>
+  </stage>
+  <stage stageid="bbf336f0-efc2-4279-8696-76e4fd5f6259" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="abefe639-fb54-494e-b28a-1465704f6ec4" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="f8e7388b-affb-4d23-ba7c-1577dbd3a3e4" name="Perform Test" type="SubSheetInfo">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="b7e55a3e-8d19-46d2-b44c-5f7ef4968f8c" name="Start" type="Start">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="FirstName" stage="FirstName" />
+      <input type="text" name="LastName" stage="LastName" />
+      <input type="text" name="UserPrincipalName" stage="UserPrincipalName" />
+      <input type="flag" name="UseUPN" stage="UseUPN" />
+      <input type="text" name="DomainDN" stage="DomainDN" />
+    </inputs>
+    <onsuccess>da9bf2a9-a482-49dc-9825-5017db891c6a</onsuccess>
+  </stage>
+  <stage stageid="3631c9b8-3255-4ce3-9b46-6e668b2bbd0b" name="End" type="End">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>255</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="cc592b63-12bc-448c-8d04-f2639f6113be" name="Perform Test" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="UserPrincipalName" expr="&quot;test1@qadomain101&quot;" />
+      <input type="flag" name="UseUPN" expr="True" />
+      <input type="text" name="DomainDN" expr="[DomainDn]" />
+      <input type="text" name="FirstName" expr="&quot;Test&quot;" />
+      <input type="text" name="LastName" expr="&quot;User1&quot;" />
+    </inputs>
+    <onsuccess>8af464cd-b95f-4e88-9dd9-e22d8959f5fc</onsuccess>
+    <processid>7174fddc-1ee3-4366-9917-e520537b9510</processid>
+  </stage>
+  <stage stageid="f930675c-cd78-4848-b1c7-b5e1c12f0348" name="User Exists" type="Action">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Displayname" narrative="The display name that will be matched against the Common Name attributes in the directory." expr="[DisplayName]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Exists" narrative="Indicates whether one or more items matching the criteria was found" stage="Exists" />
+    </outputs>
+    <onsuccess>94a8218c-0af1-44f0-873c-31ff394c62a6</onsuccess>
+    <resource object="System - Active Directory" action="User Exists (Displayname)" />
+  </stage>
+  <stage stageid="0754e295-8cad-45af-9a99-5d8b4a8b0330" name="Exists" type="Data">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ce3ac1ac-39fa-41e0-b694-a9ca478b0330" name="Check User" type="Action">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Displayname" narrative="The display name that will be matched against the Common Name attributes in the directory." expr="[DisplayName]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Exists" narrative="Indicates whether one or more items matching the criteria was found" stage="Exists" />
+    </outputs>
+    <onsuccess>3cd98e8d-0516-4f53-b15a-4e34b239c9d2</onsuccess>
+    <resource object="System - Active Directory" action="User Exists (Displayname)" />
+  </stage>
+  <stage stageid="832f02ef-7262-4e3b-9362-f357fe93dc43" name="Add to Group" type="Action">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="UserDn" narrative="The distinguished name (DN) of the User within the directory. (e.g. CN=Joe Bloggs,OU=Technicians,DC=mydomain,DC=local)" expr="&quot;CN=&quot; &amp; [DisplayName] &amp; &quot;,CN=Users,&quot; &amp; [DomainDN]" />
+      <input type="text" name="GroupDn" narrative="The distinguished name (DN) of the Group within the directory. (e.g. CN=PrivUsers,OU=SecGroups,DC=mydomain,DC=local)" expr="&quot;CN=Domain Guests,CN=Users,&quot; &amp; [DomainDN]" />
+    </inputs>
+    <onsuccess>3631c9b8-3255-4ce3-9b46-6e668b2bbd0b</onsuccess>
+    <resource object="System - Active Directory" action="Add User to Group" />
+  </stage>
+  <stage stageid="5f48fa96-203a-4fe8-b221-0ebcdd546e7b" name="Create User" type="Action">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" narrative="The user logon name. Populates the sAMAccountName attribute (e.g. JBloggs)" expr="[LastName]" />
+      <input type="password" name="Password" narrative="Password for the new account." expr="&quot;abcABC1234_X&quot;" />
+      <input type="text" name="Path" narrative="The distinguished name of the path where the new user will be located (e.g. the path of the parent container)." expr="&quot;CN=Users,&quot; &amp; [DomainDN]" />
+      <input type="text" name="First Name" narrative="The first name of the user. Populates the givenName attribute." expr="[FirstName]" />
+      <input type="text" name="Display Name" narrative="The display name for the user. Must be unique within the target path. Populates the common name (CN) attribute." expr="[DisplayName]" />
+      <input type="text" name="User Principal Name" narrative="The user principle name. Typically the email address of the new account. Populates the userPrincipalName attribute." expr="[UserPrincipalName]" />
+      <input type="text" name="Last Name" narrative="The last name of the user. Populates the sn attribute." expr="[LastName]" />
+    </inputs>
+    <onsuccess>8fa13ea2-3497-4d85-b438-89e86311f4d6</onsuccess>
+    <resource object="System - Active Directory" action="Create User" />
+  </stage>
+  <stage stageid="94a8218c-0af1-44f0-873c-31ff394c62a6" name="Exists?" type="Decision">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Exists]" />
+    <ontrue>c1f0f66a-14f1-48b5-bb31-ba86d8b5961a</ontrue>
+    <onfalse>5f48fa96-203a-4fe8-b221-0ebcdd546e7b</onfalse>
+  </stage>
+  <stage stageid="3cd98e8d-0516-4f53-b15a-4e34b239c9d2" name="Exists?" type="Decision">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <decision expression="[Exists]" />
+    <ontrue>832f02ef-7262-4e3b-9362-f357fe93dc43</ontrue>
+    <onfalse>b74212fc-37ab-419d-85c5-325a5fb2891d</onfalse>
+  </stage>
+  <stage stageid="c1f0f66a-14f1-48b5-bb31-ba86d8b5961a" name="Exception1" type="Exception">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="" detail="" />
+  </stage>
+  <stage stageid="b74212fc-37ab-419d-85c5-325a5fb2891d" name="Exception2" type="Exception">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <exception type="" detail="" />
+  </stage>
+  <stage stageid="5ac6ff54-a9c0-40e3-88fa-890b6e86098a" name="DisplayName" type="Data">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="bfaf543e-a483-43f1-a40d-9277b203344a" name="UserPrincipalName" type="Data">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a6d94440-ba54-4561-b977-fa2ebb27fc57" name="Use UPN?" type="Decision">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[UseUPN]" />
+    <ontrue>f930675c-cd78-4848-b1c7-b5e1c12f0348</ontrue>
+    <onfalse>4ab872fb-27dd-4eeb-9195-155d7e91936e</onfalse>
+  </stage>
+  <stage stageid="4ab872fb-27dd-4eeb-9195-155d7e91936e" name="UserPrincipalName Exists" type="Action">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" narrative="The username to be matched against the userPrincipalName attributes in the directory." expr="[UserPrincipalName]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Exists" narrative="Indicates whether one or more items matching the criteria was found" stage="Exists" />
+    </outputs>
+    <onsuccess>f8d0b4ed-5bbe-4591-bc37-f70faf64a164</onsuccess>
+    <resource object="System - Active Directory" action="User Exists (UserPrincipalName)" />
+  </stage>
+  <stage stageid="947a5c58-4221-4eb4-9167-85ca46382808" name="Anchor1" type="Anchor">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>165</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>3cd98e8d-0516-4f53-b15a-4e34b239c9d2</onsuccess>
+  </stage>
+  <stage stageid="f8d0b4ed-5bbe-4591-bc37-f70faf64a164" name="Anchor2" type="Anchor">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>94a8218c-0af1-44f0-873c-31ff394c62a6</onsuccess>
+  </stage>
+  <stage stageid="9b916c2c-8274-42bd-b91b-c3a2b6edcc58" name="UserPrincipalName Exists" type="Action">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" narrative="The username to be matched against the userPrincipalName attributes in the directory." expr="[UserPrincipalName]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Exists" narrative="Indicates whether one or more items matching the criteria was found" stage="Exists" />
+    </outputs>
+    <onsuccess>947a5c58-4221-4eb4-9167-85ca46382808</onsuccess>
+    <resource object="System - Active Directory" action="User Exists (UserPrincipalName)" />
+  </stage>
+  <stage stageid="9fb44a2d-bda5-48f4-a916-6ca86b1fa964" name="UseUPN" type="Data">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8fa13ea2-3497-4d85-b438-89e86311f4d6" name="Use UPN?" type="Decision">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[UseUPN]" />
+    <ontrue>ce3ac1ac-39fa-41e0-b694-a9ca478b0330</ontrue>
+    <onfalse>9b916c2c-8274-42bd-b91b-c3a2b6edcc58</onfalse>
+  </stage>
+  <stage stageid="8af464cd-b95f-4e88-9dd9-e22d8959f5fc" name="Perform Test" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>15</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="UserPrincipalName" expr="&quot;test2@qadomain101&quot;" />
+      <input type="flag" name="UseUPN" expr="False" />
+      <input type="text" name="DomainDN" expr="[DomainDn]" />
+      <input type="text" name="FirstName" expr="&quot;Test&quot;" />
+      <input type="text" name="LastName" expr="&quot;User2&quot;" />
+    </inputs>
+    <onsuccess>bbf336f0-efc2-4279-8696-76e4fd5f6259</onsuccess>
+    <processid>7174fddc-1ee3-4366-9917-e520537b9510</processid>
+  </stage>
+  <stage stageid="07e3cab1-8456-4f6e-af99-38178d3959b0" name="DomainDn" type="Data">
+    <narrative>The distinguished name of the domain
+(E.g. DC=qadomain101 OR DC=mydomain,DC=com</narrative>
+    <displayx>135</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">DC=qadomain101</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="65ed9eb3-3792-476b-8320-b15f36c68211" name="DomainDN" type="Data">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ddd29fda-addf-4e25-85c0-760030fa7a22" name="FirstName" type="Data">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="717bea5a-b55c-4736-b0e0-6934547b1f2a" name="LastName" type="Data">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>-165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="da9bf2a9-a482-49dc-9825-5017db891c6a" name="Set DisplayName" type="Calculation">
+    <subsheetid>7174fddc-1ee3-4366-9917-e520537b9510</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-45</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Tahoma" size="10" style="Regular" color="000000" />
+    <onsuccess>a6d94440-ba54-4561-b977-fa2ebb27fc57</onsuccess>
+    <calculation expression="[FirstName] &amp; &quot; &quot; &amp; [LastName]" stage="DisplayName" />
+  </stage>
+</process>

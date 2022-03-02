@@ -1,0 +1,397 @@
+﻿<process name="Amend Createbase Screen" version="1.0" bpversion="6.8.0.22441" narrative="" byrefcollection="true" preferredid="a2c5b6bc-5ae9-4aa5-993c-e95e78ebe89d">
+  <view>
+    <camerax>192</camerax>
+    <cameray>-48</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="969e8d94-0284-4d7d-b46b-e941c88b7211" type="Normal" published="False">
+    <name>Create Single auth Database</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="5d066dd1-b9d0-4007-848a-06379d595d46" type="Normal" published="False">
+    <name>Setup</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="7b26e395-aa57-43c0-be33-fd2e581c6725" type="Normal" published="False">
+    <name>Create New Connection for multi auth</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-74</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="620a788d-47d5-4968-b45e-9b3a0cd99d01" type="Normal" published="False">
+    <name>Create New Connection for single auth</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="f8a8b574-c1f4-4556-bc4a-71ef8d183c63" type="Normal" published="False">
+    <name>Create Multi Auth Database </name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="91447936-a3a6-473f-bcdd-6e97e6423b7c" name="Start" type="Start">
+    <display x="15" y="-135" />
+    <onsuccess>c2e7289e-ddb7-408d-8a55-9ad1ccb5654a</onsuccess>
+  </stage>
+  <stage stageid="10a55e9f-10d4-437d-a816-d77180b34d92" name="End" type="End">
+    <display x="15" y="435" />
+  </stage>
+  <stage stageid="9c429375-3983-4d6e-8ad8-dd17c6c8fa8b" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="fe5083d1-08e5-4343-ad05-1b19ea04d3b1" name="Setup" type="SubSheetInfo">
+    <subsheetid>5d066dd1-b9d0-4007-848a-06379d595d46</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="e886ee2c-cae3-46fd-97a3-e65daf837c33" name="Start" type="Start">
+    <subsheetid>5d066dd1-b9d0-4007-848a-06379d595d46</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>1fd824ea-9a71-466d-88ea-e5d293963700</onsuccess>
+  </stage>
+  <stage stageid="5b2778cb-9b3f-4098-ab69-288dae1dc978" name="End" type="End">
+    <subsheetid>5d066dd1-b9d0-4007-848a-06379d595d46</subsheetid>
+    <display x="15" y="90" />
+  </stage>
+  <stage stageid="1fd824ea-9a71-466d-88ea-e5d293963700" name="Blue Prism::Launch and Get PID" type="Action">
+    <subsheetid>5d066dd1-b9d0-4007-848a-06379d595d46</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="120" h="30" />
+    <outputs>
+      <output type="number" name="pid" friendlyname="pid" narrative="PID of the process" stage="pid" />
+    </outputs>
+    <onsuccess>fb2b7942-55d7-4bb2-846e-6789a4c661c4</onsuccess>
+    <resource object="Blue Prism" action="Launch and Get PID" />
+  </stage>
+  <stage stageid="f8f9ecbc-bef4-47c7-9411-25faa00a1fd0" name="pid" type="Data">
+    <subsheetid>5d066dd1-b9d0-4007-848a-06379d595d46</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fb2b7942-55d7-4bb2-846e-6789a4c661c4" name="Blue Prism - General (Parent)::Attach to Pid" type="Action">
+    <subsheetid>5d066dd1-b9d0-4007-848a-06379d595d46</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="120" h="30" />
+    <inputs>
+      <input type="number" name="pid" friendlyname="pid" narrative="PID to attach to" expr="[pid]" />
+    </inputs>
+    <onsuccess>5b2778cb-9b3f-4098-ab69-288dae1dc978</onsuccess>
+    <resource object="Blue Prism - General (Parent)" action="Attach to Pid" />
+  </stage>
+  <stage stageid="cae53894-5677-4f00-8216-60b7a833975e" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="120" h="30" />
+    <onsuccess>198b54a9-77c7-437a-bd66-8b3f66b11252</onsuccess>
+    <processid>5d066dd1-b9d0-4007-848a-06379d595d46</processid>
+  </stage>
+  <stage stageid="ad893f37-60e9-449f-aeb2-7c38b38ae1c9" name="Create New Connection for multi auth" type="SubSheetInfo">
+    <subsheetid>7b26e395-aa57-43c0-be33-fd2e581c6725</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="b0d7af9b-ba65-41d6-bd05-348c9ac15c60" name="Start" type="Start">
+    <subsheetid>7b26e395-aa57-43c0-be33-fd2e581c6725</subsheetid>
+    <display x="15" y="-120" />
+    <onsuccess>18d7ce0c-cf6c-4dfe-b048-d161ff56bd29</onsuccess>
+  </stage>
+  <stage stageid="44f52c03-3a80-473d-ad6a-536c349a2f7e" name="End" type="End">
+    <subsheetid>7b26e395-aa57-43c0-be33-fd2e581c6725</subsheetid>
+    <display x="15" y="90" />
+  </stage>
+  <stage stageid="7a726384-e1a0-4350-818a-05fe03a62d4f" name="Connection Name" type="Data">
+    <subsheetid>7b26e395-aa57-43c0-be33-fd2e581c6725</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Test (US-7836)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="88c83e2a-61ca-4dfe-b956-788deec9bb26" name="Database Name" type="Data">
+    <subsheetid>7b26e395-aa57-43c0-be33-fd2e581c6725</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Test (US-7836)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="0c940e8b-e885-49af-8a6f-c3f154caef55" name="Input Variables" type="Block">
+    <subsheetid>7b26e395-aa57-43c0-be33-fd2e581c6725</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0be81492-69b5-47c3-9e72-cbffeba86afc" name="Create New Connection for multi auth" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="180" w="120" h="30" />
+    <onsuccess>5de7f9a4-e948-4bbf-a6a2-d8c8c175b774</onsuccess>
+    <processid>7b26e395-aa57-43c0-be33-fd2e581c6725</processid>
+  </stage>
+  <stage stageid="18d7ce0c-cf6c-4dfe-b048-d161ff56bd29" name="Press Configure Connection" type="Action">
+    <subsheetid>7b26e395-aa57-43c0-be33-fd2e581c6725</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="120" h="30" />
+    <onsuccess>0b32484b-2c02-44ff-98f6-77d928b4f05f</onsuccess>
+    <resource object="Blue Prism - General - Configuration" action="Press Configure Connection" />
+  </stage>
+  <stage stageid="a1eff472-a048-4f65-80c5-c6228e3bb90c" name="Create Multi Auth Database " type="SubSheetInfo">
+    <subsheetid>f8a8b574-c1f4-4556-bc4a-71ef8d183c63</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="6cc44b01-c9fe-40eb-a74f-9d426d67a2c4" name="Start" type="Start">
+    <subsheetid>f8a8b574-c1f4-4556-bc4a-71ef8d183c63</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>bf429585-0ba2-44ac-a40d-6d750dbd9ddb</onsuccess>
+  </stage>
+  <stage stageid="0ee1e1ad-8a2c-41b6-98fc-52def540b009" name="End" type="End">
+    <subsheetid>f8a8b574-c1f4-4556-bc4a-71ef8d183c63</subsheetid>
+    <display x="15" y="15" />
+  </stage>
+  <stage stageid="bf429585-0ba2-44ac-a40d-6d750dbd9ddb" name="Create Database" type="Action">
+    <subsheetid>f8a8b574-c1f4-4556-bc4a-71ef8d183c63</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Connection Name" friendlyname="Connection Name" narrative="The name of the connection the database is located on." expr="[Connection Name]" />
+      <input type="text" name="Database Name" friendlyname="Database Name" narrative="The name you want to give the database." expr="[Database Name]" />
+    </inputs>
+    <onsuccess>0ee1e1ad-8a2c-41b6-98fc-52def540b009</onsuccess>
+    <resource object="Blue Prism - General - Configuration" action="Create Database" />
+  </stage>
+  <stage stageid="9260508b-5337-4c41-8202-2f2e314e1bf7" name="Create Multi Auth Database " type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="315" w="150" h="30" />
+    <onsuccess>5564da67-5441-4773-902a-6c6b08709ba1</onsuccess>
+    <processid>f8a8b574-c1f4-4556-bc4a-71ef8d183c63</processid>
+  </stage>
+  <stage stageid="6e851985-5e9a-4a66-9061-1498317de998" name="Create Single auth Database" type="SubSheetInfo">
+    <subsheetid>969e8d94-0284-4d7d-b46b-e941c88b7211</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="2b516bdd-5c9b-4242-8a13-2b85eb1648ab" name="Start" type="Start">
+    <subsheetid>969e8d94-0284-4d7d-b46b-e941c88b7211</subsheetid>
+    <display x="15" y="-90" />
+    <onsuccess>7ad774c3-66e7-4859-82cc-de317b8e6b5e</onsuccess>
+  </stage>
+  <stage stageid="5e916eae-e28f-415e-a4a7-6db0f9f2b572" name="End" type="End">
+    <subsheetid>969e8d94-0284-4d7d-b46b-e941c88b7211</subsheetid>
+    <display x="15" y="60" />
+  </stage>
+  <stage stageid="7ad774c3-66e7-4859-82cc-de317b8e6b5e" name="Create Database (SSO)" type="Action">
+    <subsheetid>969e8d94-0284-4d7d-b46b-e941c88b7211</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-30" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Connection Name" friendlyname="Connection Name" narrative="The name of the connection the database is located on." expr="[Connection Name for single auth]" />
+      <input type="text" name="Database Name" friendlyname="Database Name" narrative="The name you want to give the database." expr="[Database Name for single auth]" />
+      <input type="text" name="FQDN" friendlyname="FQDN" narrative="The FQDN of the domain you want to connect to." expr="[FQDN]" />
+      <input type="text" name="Short Name" friendlyname="Short Name" narrative="The domain short name." expr="[Short Name]" />
+      <input type="text" name="Security Group" friendlyname="Security Group" narrative="The name of the security group that your user is in." expr="[Security Group]" />
+    </inputs>
+    <onsuccess>5e916eae-e28f-415e-a4a7-6db0f9f2b572</onsuccess>
+    <resource object="Blue Prism - General - Configuration" action="Create Database (SSO)" />
+  </stage>
+  <stage stageid="7f7c1d82-36ea-4ff9-b919-84c6771f96e5" name="Note1" type="Note">
+    <narrative>GIVEN that an Administrator is on the Connection configuration screen to set up the Single- auth environment</narrative>
+    <display x="315" y="-30" w="240" h="60" />
+    <onsuccess>d2e94923-0ae1-41be-900d-4197b8a3dbc6</onsuccess>
+  </stage>
+  <stage stageid="de1966a6-881a-441d-9202-a5496a897ea3" name="Create New Connection for single auth" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="315" y="180" w="150" h="30" />
+    <onsuccess>d815498b-e6c0-4170-84a8-ba48635f698a</onsuccess>
+    <processid>620a788d-47d5-4968-b45e-9b3a0cd99d01</processid>
+  </stage>
+  <stage stageid="d2e94923-0ae1-41be-900d-4197b8a3dbc6" name="Setup" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="315" y="45" w="150" h="30" />
+    <onsuccess>275d7edd-5f23-4a0c-8659-5f835338b7ed</onsuccess>
+    <processid>5d066dd1-b9d0-4007-848a-06379d595d46</processid>
+  </stage>
+  <stage stageid="467d020a-69e9-4a78-a47c-29e057a2d882" name="Create Single auth Database" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="315" y="315" w="150" h="30" />
+    <onsuccess>7ffecccf-0811-483d-b6a0-99b3d54d1ffd</onsuccess>
+    <processid>969e8d94-0284-4d7d-b46b-e941c88b7211</processid>
+  </stage>
+  <stage stageid="7ffecccf-0811-483d-b6a0-99b3d54d1ffd" name="Anchor1" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="315" y="375" w="10" h="10" />
+    <onsuccess>5564da67-5441-4773-902a-6c6b08709ba1</onsuccess>
+  </stage>
+  <stage stageid="daa68f3b-fd73-441d-8017-504e8c91b520" name="Note2" type="Note">
+    <narrative>GIVEN that an Administrator is on the Connection configuration screen  to set up the Multi- auth environment</narrative>
+    <display x="15" y="-30" w="210" h="60" />
+    <onsuccess>cae53894-5677-4f00-8216-60b7a833975e</onsuccess>
+  </stage>
+  <stage stageid="198b54a9-77c7-437a-bd66-8b3f66b11252" name="Note3" type="Note">
+    <narrative>AND then create a New connection </narrative>
+    <display x="15" y="120" w="240" h="60" />
+    <onsuccess>0be81492-69b5-47c3-9e72-cbffeba86afc</onsuccess>
+  </stage>
+  <stage stageid="5de7f9a4-e948-4bbf-a6a2-d8c8c175b774" name="Note4" type="Note">
+    <narrative>THEN the create database screen dialogue should open
+AND the New datase is created to setup multi-authentication environment</narrative>
+    <display x="15" y="255" w="240" h="60" />
+    <onsuccess>9260508b-5337-4c41-8202-2f2e314e1bf7</onsuccess>
+  </stage>
+  <stage stageid="5564da67-5441-4773-902a-6c6b08709ba1" name="Blue Prism::Exit Application" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="375" w="210" h="30" />
+    <onsuccess>10a55e9f-10d4-437d-a816-d77180b34d92</onsuccess>
+    <resource object="Blue Prism" action="Exit Application" />
+  </stage>
+  <stage stageid="d815498b-e6c0-4170-84a8-ba48635f698a" name="Note5" type="Note">
+    <narrative>THEN the create database screen dialogue should open
+AND the New datase is created to setup single-authentication environment</narrative>
+    <display x="315" y="255" w="210" h="60" />
+    <onsuccess>467d020a-69e9-4a78-a47c-29e057a2d882</onsuccess>
+  </stage>
+  <stage stageid="275d7edd-5f23-4a0c-8659-5f835338b7ed" name="Note6" type="Note">
+    <narrative>AND then create a New connection </narrative>
+    <display x="315" y="120" w="210" h="60" />
+    <onsuccess>de1966a6-881a-441d-9202-a5496a897ea3</onsuccess>
+  </stage>
+  <stage stageid="ca44b1fe-f74a-4942-bb70-00db858e4444" name="Create New Connection for single auth" type="SubSheetInfo">
+    <subsheetid>620a788d-47d5-4968-b45e-9b3a0cd99d01</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="d4869df8-bb0b-412d-a8ff-af8ab8ede775" name="Start" type="Start">
+    <subsheetid>620a788d-47d5-4968-b45e-9b3a0cd99d01</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>bdebf9e1-145b-420b-8996-6b417c36d7b4</onsuccess>
+  </stage>
+  <stage stageid="e0b515dd-17f9-445a-a212-fb29af81d418" name="End" type="End">
+    <subsheetid>620a788d-47d5-4968-b45e-9b3a0cd99d01</subsheetid>
+    <display x="15" y="90" />
+  </stage>
+  <stage stageid="bdebf9e1-145b-420b-8996-6b417c36d7b4" name="Press Configure Connection" type="Action">
+    <subsheetid>620a788d-47d5-4968-b45e-9b3a0cd99d01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="120" h="30" />
+    <onsuccess>d06712c5-b24c-4df3-b4c0-57e3a4be4cc6</onsuccess>
+    <resource object="Blue Prism - General - Configuration" action="Press Configure Connection" />
+  </stage>
+  <stage stageid="509b92e0-477b-48f3-ac47-5067312e7db2" name="Connection Name for single auth" type="Data">
+    <subsheetid>620a788d-47d5-4968-b45e-9b3a0cd99d01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="0" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Test (US-7837)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="c96ec3a1-f699-41a1-8fcd-e5b151429bba" name="Database Name for single auth" type="Data">
+    <subsheetid>620a788d-47d5-4968-b45e-9b3a0cd99d01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="30" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Test (US-7837)</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="d9d32dbc-86c1-4b18-920b-603d8f1a08dc" name="Input Variable" type="Block">
+    <subsheetid>620a788d-47d5-4968-b45e-9b3a0cd99d01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-255" y="-30" w="135" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="bb96acd4-b7ce-439c-9306-ca94fcbcd4a3" name="FQDN" type="Data">
+    <subsheetid>969e8d94-0284-4d7d-b46b-e941c88b7211</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="0" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">orgdomain.local</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="cff9a2ef-67ec-47b1-bd3c-d7ec2bf28462" name="Short Name" type="Data">
+    <subsheetid>969e8d94-0284-4d7d-b46b-e941c88b7211</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="30" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">orgdomain.local</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="1f7e3b3b-56a5-4591-9db9-5064eb96d9e8" name="Security Group" type="Data">
+    <subsheetid>969e8d94-0284-4d7d-b46b-e941c88b7211</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-195" y="60" w="150" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Administrators</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="33dce3b9-1540-4fbe-b21f-33e7023ce11a" name="Input variables" type="Block">
+    <subsheetid>969e8d94-0284-4d7d-b46b-e941c88b7211</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-30" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d06712c5-b24c-4df3-b4c0-57e3a4be4cc6" name="Create  New Connection" type="Action">
+    <subsheetid>620a788d-47d5-4968-b45e-9b3a0cd99d01</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Connection Name" friendlyname="Connection Name" narrative="The name you want to call your connection." expr="[Connection Name for single auth]" />
+      <input type="text" name="Connection Type" friendlyname="Connection Type" narrative="A Combobox in which you select a connection type(SQL/Windows Auth)" expr="&quot;SQL Server (Windows Authentication)&quot;" />
+      <input type="text" name="Database Server" friendlyname="Database Server" narrative="Where you will store the database. This is usually &quot;localhost\SQLExpress)" expr="&quot;localhost\sqlexpress&quot;" />
+      <input type="text" name="Database Name" friendlyname="Database Name" narrative="The actual name of the database." expr="[Database Name for single auth]" />
+      <input type="text" name="User ID" friendlyname="User ID" narrative="If you select SQL Auth this is the user ID of SQL" expr="" />
+      <input type="text" name="Password" friendlyname="Password" narrative="If you select SQL Auth this is the password for the user," expr="" />
+      <input type="text" name="Blue Prism Server" friendlyname="Blue Prism Server" narrative="If you select a server connection this is where the server i located" expr="" />
+      <input type="text" name="Connection Mode" friendlyname="Connection Mode" narrative="If you selected a server connection this is the connection mode the server is using." expr="" />
+      <input type="text" name="Server Port" friendlyname="Server Port" narrative="If you selected a server connection this is the server port its using." expr="" />
+    </inputs>
+    <onsuccess>e0b515dd-17f9-445a-a212-fb29af81d418</onsuccess>
+    <resource object="Blue Prism - General - Configuration" action="Press New Connection" />
+  </stage>
+  <stage stageid="96a61c51-3853-4eb0-9ea4-7dbfb0df8f4a" name="Global Variable" type="Block">
+    <subsheetid>5d066dd1-b9d0-4007-848a-06379d595d46</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-270" y="-45" w="150" h="75" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0b32484b-2c02-44ff-98f6-77d928b4f05f" name="Create  New Connection" type="Action">
+    <subsheetid>7b26e395-aa57-43c0-be33-fd2e581c6725</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="120" h="30" />
+    <inputs>
+      <input type="text" name="Connection Name" friendlyname="Connection Name" narrative="The name you want to call your connection." expr="[Connection Name]" />
+      <input type="text" name="Connection Type" friendlyname="Connection Type" narrative="A Combobox in which you select a connection type(SQL/Windows Auth)" expr="&quot;SQL Server (Windows Authentication)&quot;" />
+      <input type="text" name="Database Server" friendlyname="Database Server" narrative="Where you will store the database. This is usually &quot;localhost\SQLExpress)" expr="&quot;localhost\sqlexpress&quot;" />
+      <input type="text" name="Database Name" friendlyname="Database Name" narrative="The actual name of the database." expr="[Database Name]" />
+      <input type="text" name="User ID" friendlyname="User ID" narrative="If you select SQL Auth this is the user ID of SQL" expr="" />
+      <input type="text" name="Password" friendlyname="Password" narrative="If you select SQL Auth this is the password for the user," expr="" />
+      <input type="text" name="Blue Prism Server" friendlyname="Blue Prism Server" narrative="If you select a server connection this is where the server i located" expr="" />
+      <input type="text" name="Connection Mode" friendlyname="Connection Mode" narrative="If you selected a server connection this is the connection mode the server is using." expr="" />
+      <input type="text" name="Server Port" friendlyname="Server Port" narrative="If you selected a server connection this is the server port its using." expr="" />
+    </inputs>
+    <onsuccess>44f52c03-3a80-473d-ad6a-536c349a2f7e</onsuccess>
+    <resource object="Blue Prism - General - Configuration" action="Press New Connection" />
+  </stage>
+  <stage stageid="c2e7289e-ddb7-408d-8a55-9ad1ccb5654a" name="Is SSO environment?" type="Decision">
+    <display x="15" y="-90" />
+    <decision expression="SingleSignon()" />
+    <ontrue>82847d8c-baef-4265-b71b-763c014a7071</ontrue>
+    <onfalse>daa68f3b-fd73-441d-8017-504e8c91b520</onfalse>
+  </stage>
+  <stage stageid="82847d8c-baef-4265-b71b-763c014a7071" name="Anchor2" type="Anchor">
+    <loginhibit onsuccess="true" />
+    <display x="315" y="-90" w="10" h="10" />
+    <onsuccess>7f7c1d82-36ea-4ff9-b919-84c6771f96e5</onsuccess>
+  </stage>
+</process>
